@@ -1,0 +1,2 @@
+7105869a2431fad1a51489a0dc0e4d1a6a3b4180ab6dae044781a61fda734fae  santana-visual-project/car/Santana_Refined.glb
+a04ecf05abe8680f7a3c6deeae34e83c4efbf8b70502c597dcd67496fe5aabf4  santana-visual-project/main.gd

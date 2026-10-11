@@ -1,0 +1,38 @@
+{
+  "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+  "low": true,
+  "note": "Actual graphical viewport. Software renderer. Capture fixture advances real rules then freezes state; not a live multiplayer screenshot.",
+  "records": [
+    {
+      "draw_calls": 105.0,
+      "kind": -1,
+      "mean_ms": 239.4514,
+      "p95_ms": 271.731,
+      "primitives": 1081841.0
+    },
+    {
+      "draw_calls": 121.0,
+      "kind": 3,
+      "mean_ms": 230.587733333333,
+      "p95_ms": 241.984,
+      "primitives": 1082909.0
+    },
+    {
+      "draw_calls": 118.0,
+      "kind": 4,
+      "mean_ms": 240.4411,
+      "p95_ms": 349.759,
+      "primitives": 1082315.0
+    },
+    {
+      "draw_calls": 123.0,
+      "kind": 5,
+      "mean_ms": 265.6274,
+      "p95_ms": 461.611,
+      "primitives": 1082483.0
+    }
+  ],
+  "renderer": "gl_compatibility",
+  "samples_per_case": 30,
+  "view": "coach inward glance; frozen rule checkpoint, animated props"
+}

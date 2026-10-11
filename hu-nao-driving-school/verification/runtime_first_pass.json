@@ -1,0 +1,49 @@
+{
+  "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+  "adapter_vendor": "Mesa",
+  "captured_at_system_time": "2026-10-10T17:03:42",
+  "display_server": "X11",
+  "engine": {
+    "build": "official",
+    "hash": "7d41c59c457bd5a245092b4e7eb2d833e3b3f8c3",
+    "hex": 263683,
+    "major": 4,
+    "minor": 6,
+    "patch": 3,
+    "status": "stable",
+    "string": "4.6.3-stable (official)",
+    "timestamp": 0
+  },
+  "note": "Actual graphical viewport captures. FPS is a single settled runtime sample per view on this cloud machine, not target-device performance.",
+  "renderer": "gl_compatibility",
+  "viewport_size": "(1600.0, 1000.0)",
+  "views": [
+    {
+      "draw_calls": 1463.0,
+      "fps_sample": 2.0,
+      "image": "res://previews/Santana_Exterior_Godot_Verified.png",
+      "rendered_objects": 1481.0,
+      "rendered_primitives": 1007905.0,
+      "save_error": 0,
+      "view": "Exterior"
+    },
+    {
+      "draw_calls": 874.0,
+      "fps_sample": 2.0,
+      "image": "res://previews/Santana_Tire_Godot_Verified.png",
+      "rendered_objects": 892.0,
+      "rendered_primitives": 1578238.0,
+      "save_error": 0,
+      "view": "Tire"
+    },
+    {
+      "draw_calls": 553.0,
+      "fps_sample": 2.0,
+      "image": "res://previews/Santana_Cockpit_Godot_Verified.png",
+      "rendered_objects": 571.0,
+      "rendered_primitives": 1955930.0,
+      "save_error": 0,
+      "view": "Cockpit"
+    }
+  ]
+}

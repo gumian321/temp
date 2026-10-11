@@ -1,0 +1,11 @@
+{
+  "received": 3348,
+  "received_bytes": 1015936,
+  "mean_bytes_per_second_both_directions": 21615.659574468085,
+  "dropped": 170,
+  "queue_peak": 18,
+  "one_way_ms": 100,
+  "jitter_ms": 40,
+  "loss_target": 0.05,
+  "seed": 20261011
+}

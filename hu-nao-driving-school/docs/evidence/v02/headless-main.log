@@ -1,0 +1,4 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+CAR_BATCH { "meshes_before": 141, "meshes_after": 22, "triangles_retained": 1087717 }
+SCHOOL_BATCH { "meshes_before": 700, "meshes_after": 26, "triangles_retained": 392064 }
