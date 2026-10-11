@@ -1,0 +1,11 @@
+{
+  "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+  "draw_calls": 103.0,
+  "frames": 30,
+  "low": true,
+  "mean_ms": 282.291,
+  "note": "Graphical frame timing, separate from headless rule/network tests. Software renderer is not GPU evidence.",
+  "p95_ms": 387.5,
+  "primitives": 1082511.0,
+  "renderer": "gl_compatibility"
+}

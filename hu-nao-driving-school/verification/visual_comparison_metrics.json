@@ -1,0 +1,68 @@
+{
+  "description": "Same camera view image verification. Near-white pixel proportion is a limited image metric, not an overall quality score. No pixel retouching applied.",
+  "views": [
+    {
+      "view": "Exterior",
+      "before_v2": {
+        "file": "verification/v2_before/Santana_Exterior_Godot_Verified.png",
+        "sha256": "078d7d05966da5395c6f313448306d16a59cab801870baece292cacccc4c0a01",
+        "size": [
+          1354,
+          846
+        ],
+        "near_white_pixels_all_channels_ge250_percent": 0.7684
+      },
+      "after_v3": {
+        "file": "previews/Santana_Exterior_Godot_Verified.png",
+        "sha256": "a005b302013dda7be585593c2ad6432b14c203c682aa8aa19a9c6c3a28b2a9a7",
+        "size": [
+          1354,
+          846
+        ],
+        "near_white_pixels_all_channels_ge250_percent": 0.0
+      }
+    },
+    {
+      "view": "Tire",
+      "before_v2": {
+        "file": "verification/v2_before/Santana_Tire_Godot_Verified.png",
+        "sha256": "c2c90a5bdb338762cdec05123d6e46e1822df95e7718980e9398a792603e4454",
+        "size": [
+          1354,
+          846
+        ],
+        "near_white_pixels_all_channels_ge250_percent": 0.0
+      },
+      "after_v3": {
+        "file": "previews/Santana_Tire_Godot_Verified.png",
+        "sha256": "4070f8ad13cdcc048835f14398f975b5f1557f646fc04a80618477cf834f929c",
+        "size": [
+          1354,
+          846
+        ],
+        "near_white_pixels_all_channels_ge250_percent": 0.0
+      }
+    },
+    {
+      "view": "Cockpit",
+      "before_v2": {
+        "file": "verification/v2_before/Santana_Cockpit_Godot_Verified.png",
+        "sha256": "3eb3baf1db276ceed726c7e26d7d777e1fdeaeba49479162d31273b549631d29",
+        "size": [
+          1354,
+          846
+        ],
+        "near_white_pixels_all_channels_ge250_percent": 0.0001
+      },
+      "after_v3": {
+        "file": "previews/Santana_Cockpit_Godot_Verified.png",
+        "sha256": "9be12af4801f65f527d9773863165084f2983ec4e38fb117ce97ea78b8481db7",
+        "size": [
+          1354,
+          846
+        ],
+        "near_white_pixels_all_channels_ge250_percent": 0.0
+      }
+    }
+  ]
+}

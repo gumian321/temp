@@ -1,0 +1,11 @@
+.godot/
+builds/
+*.tmp
+source/
+tests/results/
+
+__pycache__/
+*.pyc
+
+*.translation
+export_credentials.cfg
