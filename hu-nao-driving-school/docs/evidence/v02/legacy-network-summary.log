@@ -1,0 +1,4 @@
+NETWORK_TESTS_PASS
+lan: 2 processes, matching round state, both roles, motion, brake, counter, hit, repair, wins, restart, both disconnect paths, reconnect
+impaired: 2 processes, matching round state, both roles, motion, brake, counter, hit, repair, wins, restart, both disconnect paths, reconnect
+prediction: 2 processes, matching round state, both roles, motion, brake, counter, hit, repair, wins, restart, both disconnect paths, reconnect

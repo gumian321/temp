@@ -9,6 +9,8 @@ var toy: Node3D
 var plane: MeshInstance3D
 var view_mode := 0
 var low := false
+var glance := false
+var comedy: Node3D
 var font = preload("res://assets/fonts/chinese.otf")
 
 func _ready() -> void:
@@ -23,6 +25,8 @@ func _ready() -> void:
  _paint(imported)
  print("CAR_BATCH ", preload("res://game/batch.gd").merge(imported, true))
  _dress_car()
+ comedy=preload("res://game/comedy.gd").new()
+ car.add_child(comedy)
  school = load("res://environment/environment_scene.tscn").instantiate()
  school.position = Vector3(0, -.025, -27)
  add_child(school)
@@ -211,6 +215,7 @@ func update_view(s: Dictionary, role: String, dt: float) -> void:
   target_pos = car.to_global(local_pos)
   look = car.to_global(local_pos + Vector3(0, -.04, 5))
   camera.fov = 76
+  if glance: look=car.to_global(Vector3(0,.99,.45))
  else:
   target_pos = car.to_global(Vector3(0, 3.5, -7.5))
   look = car.to_global(Vector3(0, .8, 2))

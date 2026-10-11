@@ -1,0 +1,368 @@
+{
+  "disconnected": true,
+  "duplicates": 0,
+  "host": true,
+  "motion": true,
+  "queue_peak": 2,
+  "reconnected": true,
+  "reports": [
+    {
+      "anger": 0.0,
+      "backfires": 1,
+      "backlash": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "counters": 1,
+      "driver_repairs": 1,
+      "effects": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "epoch": 2,
+      "hits": 0,
+      "repairs": 0,
+      "resource": 87.6666666666659,
+      "test_case": 0,
+      "uses": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "winner": "coach",
+      "x": -0.430461168289185,
+      "z": 12.4816751480103
+    },
+    {
+      "anger": 24.0,
+      "backfires": 0,
+      "backlash": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "counters": 0,
+      "driver_repairs": 0,
+      "effects": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "epoch": 3,
+      "hits": 1,
+      "repairs": 1,
+      "resource": 92.6666666666659,
+      "test_case": 1,
+      "uses": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "winner": "coach",
+      "x": -0.430926859378815,
+      "z": 12.4884061813354
+    },
+    {
+      "anger": 0.0,
+      "backfires": 1,
+      "backlash": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "counters": 1,
+      "driver_repairs": 1,
+      "effects": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "epoch": 4,
+      "hits": 0,
+      "repairs": 0,
+      "resource": 87.6666666666659,
+      "test_case": 2,
+      "uses": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "winner": "coach",
+      "x": -0.430926859378815,
+      "z": 12.4884061813354
+    },
+    {
+      "anger": 28.0,
+      "backfires": 0,
+      "backlash": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "counters": 0,
+      "driver_repairs": 0,
+      "effects": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "epoch": 5,
+      "hits": 1,
+      "repairs": 1,
+      "resource": 92.6666666666659,
+      "test_case": 3,
+      "uses": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "winner": "coach",
+      "x": -0.430926859378815,
+      "z": 12.4884061813354
+    },
+    {
+      "anger": 0.0,
+      "backfires": 1,
+      "backlash": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "counters": 1,
+      "driver_repairs": 1,
+      "effects": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "epoch": 6,
+      "hits": 0,
+      "repairs": 0,
+      "resource": 87.6666666666659,
+      "test_case": 4,
+      "uses": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "winner": "coach",
+      "x": -0.430926859378815,
+      "z": 12.4884061813354
+    },
+    {
+      "anger": 25.0,
+      "backfires": 0,
+      "backlash": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "counters": 0,
+      "driver_repairs": 0,
+      "effects": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "epoch": 7,
+      "hits": 1,
+      "repairs": 1,
+      "resource": 92.6666666666659,
+      "test_case": 5,
+      "uses": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "winner": "coach",
+      "x": -0.430926859378815,
+      "z": 12.4884061813354
+    }
+  ],
+  "returned_clean": true,
+  "snapshot_count": 0,
+  "stages": [
+    {
+      "epoch": 2,
+      "kind": 3,
+      "phase": "windup",
+      "serial": 1,
+      "target": "coach"
+    },
+    {
+      "epoch": 2,
+      "kind": 3,
+      "phase": "counter",
+      "serial": 2,
+      "target": "driver"
+    },
+    {
+      "epoch": 2,
+      "kind": 3,
+      "phase": "repair",
+      "serial": 3,
+      "target": "driver"
+    },
+    {
+      "epoch": 3,
+      "kind": 3,
+      "phase": "windup",
+      "serial": 1,
+      "target": "coach"
+    },
+    {
+      "epoch": 3,
+      "kind": 3,
+      "phase": "hit",
+      "serial": 2,
+      "target": "coach"
+    },
+    {
+      "epoch": 3,
+      "kind": 3,
+      "phase": "repair",
+      "serial": 3,
+      "target": "coach"
+    },
+    {
+      "epoch": 4,
+      "kind": 4,
+      "phase": "windup",
+      "serial": 1,
+      "target": "coach"
+    },
+    {
+      "epoch": 4,
+      "kind": 4,
+      "phase": "counter",
+      "serial": 2,
+      "target": "driver"
+    },
+    {
+      "epoch": 4,
+      "kind": 4,
+      "phase": "repair",
+      "serial": 3,
+      "target": "driver"
+    },
+    {
+      "epoch": 5,
+      "kind": 4,
+      "phase": "windup",
+      "serial": 1,
+      "target": "coach"
+    },
+    {
+      "epoch": 5,
+      "kind": 4,
+      "phase": "hit",
+      "serial": 2,
+      "target": "coach"
+    },
+    {
+      "epoch": 5,
+      "kind": 4,
+      "phase": "repair",
+      "serial": 3,
+      "target": "coach"
+    },
+    {
+      "epoch": 6,
+      "kind": 5,
+      "phase": "windup",
+      "serial": 1,
+      "target": "coach"
+    },
+    {
+      "epoch": 6,
+      "kind": 5,
+      "phase": "counter",
+      "serial": 2,
+      "target": "driver"
+    },
+    {
+      "epoch": 6,
+      "kind": 5,
+      "phase": "repair",
+      "serial": 3,
+      "target": "driver"
+    },
+    {
+      "epoch": 7,
+      "kind": 5,
+      "phase": "windup",
+      "serial": 1,
+      "target": "coach"
+    },
+    {
+      "epoch": 7,
+      "kind": 5,
+      "phase": "hit",
+      "serial": 2,
+      "target": "coach"
+    },
+    {
+      "epoch": 7,
+      "kind": 5,
+      "phase": "repair",
+      "serial": 3,
+      "target": "coach"
+    }
+  ]
+}

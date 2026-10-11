@@ -44,6 +44,10 @@ var remote_ping := 0
 var remote_repair := false
 var sent_repair := false
 var input_count := 0
+var stage_events: Array = []
+var last_stage_sent := ""
+var last_stage_received := -1
+var stage_epoch := -1
 var rejected := {"raw": 0, "seq": 0, "epoch": 0, "type": 0}
 
 func _ready() -> void:
@@ -106,6 +110,10 @@ func leave(message: String = "已返回房间") -> void:
  snapshot_epoch = -1
  last_snapshot_tick = -1
  pending.clear()
+ stage_events.clear()
+ last_stage_sent = ""
+ last_stage_received = -1
+ stage_epoch = -1
  samples.clear()
  queue.clear()
  predicted.clear()
@@ -199,6 +207,8 @@ func _flush() -> void:
    "input": _input_packet.rpc_id(1, item.data[0], item.data[1], item.data[2], item.data[3])
    "snapshot":
     if guest != 0: _snapshot.rpc_id(guest, item.data[0], item.data[1], item.data[2])
+   "stage":
+    if guest != 0: _stage_notice.rpc_id(guest, item.data[0], item.data[1], item.data[2])
    "event": _command.rpc_id(1, item.data[0], item.data[1], item.data[2], item.data[3])
 
 @rpc("any_peer", "call_remote", "unreliable_ordered", 0)
@@ -233,10 +243,22 @@ func _command(number: int, epoch: int, command: String, value: int) -> void:
  last_event = number
  if epoch != rules.s.epoch or command.length() > 16: return
  var remote_role := "driver" if host_role == "coach" else "coach"
- if remote_role == "coach" and command == "repair_hold" and value in [0, 1]:
+ if command == "repair_hold" and value in [0, 1]:
   remote_repair = value == 1
   return
  if rules.event(remote_role, command, value): accepted_events += 1
+
+@rpc("authority", "call_remote", "reliable", 2)
+func _stage_notice(data: Dictionary, acknowledged: int, echo: int) -> void:
+ if int(data.epoch) < stage_epoch: return
+ if int(data.epoch) != stage_epoch:
+  stage_epoch = data.epoch
+  last_stage_received = -1
+ if int(data.act_serial) <= last_stage_received: return
+ last_stage_received = data.act_serial
+ stage_events.append({"epoch": data.epoch, "serial": data.act_serial, "kind": data.act_kind, "phase": data.act_phase, "target": data.act_target})
+ if stage_events.size() > 64: stage_events.pop_front()
+ _snapshot(data, acknowledged, echo)
 
 @rpc("authority", "call_remote", "unreliable_ordered", 1)
 func _snapshot(data: Dictionary, acknowledged: int, echo: int) -> void:
@@ -297,10 +319,14 @@ func _physics_process(_dt: float) -> void:
   var coach: Array = local_input if role == "coach" else remote_input
   rules.step(driver, coach)
   state = rules.s.duplicate(true)
+  var stage_key := "%s:%s" % [state.epoch, state.act_serial]
+  if guest != 0 and stage_key != last_stage_sent:
+   last_stage_sent = stage_key
+   _schedule("stage", [state.duplicate(true), ack, remote_ping], true)
   if guest != 0 and int(state.tick) % 2 == 0:
    _schedule("snapshot", [state.duplicate(true), ack, remote_ping])
  elif online:
-  if role == "coach" and bool(local_input[3]) != sent_repair:
+  if bool(local_input[3]) != sent_repair:
    sent_repair = bool(local_input[3])
    action("repair_hold", 1 if sent_repair else 0)
   if Time.get_ticks_msec() - last_receive > 8000:

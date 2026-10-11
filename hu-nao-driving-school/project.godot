@@ -38,3 +38,6 @@ common/physics_ticks_per_second=60
 
 [gui]
 theme/default_font="res://assets/fonts/chinese.otf"
+
+[audio]
+driver/enable_input=false

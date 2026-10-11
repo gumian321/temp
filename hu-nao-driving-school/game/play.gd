@@ -1,5 +1,8 @@
 extends Node3D
 const Net = preload("res://game/network.gd")
+const Rules = preload("res://game/rules.gd")
+var prank_bank := 1
+var bank_button: Button
 var net: Node
 var world: Node3D
 var room: PanelContainer
@@ -109,7 +112,7 @@ func _ui() -> void:
  title.add_theme_color_override("font_shadow_color", Color("192c2e"))
  title.add_theme_constant_override("shadow_offset_x", 2)
  title.add_theme_constant_override("shadow_offset_y", 2)
- var subtitle := _label(layer, "1985  /  双人局域网试驾", 16)
+ var subtitle := _label(layer, "v0.2  /  偷偷使坏 · 当场露馅", 16)
  subtitle.position = Vector2(32, 75)
  room = _panel(layer, Vector2(30, 120), Vector2(438, 500))
  var col := _column(room)
@@ -153,6 +156,7 @@ func _ui() -> void:
  light_toggle.text = "轻量：65% 3D 分辨率 / 无阴影"
  light_toggle.toggled.connect(func(on: bool): world.set_low(on))
  opts.add_child(light_toggle)
+ bank_button=_button(opts,"E  切换整蛊组",func():prank_bank=1-prank_bank)
  _button(opts, "V  座位 / 追车", func(): world.view_mode = 1 - world.view_mode)
  _button(opts, "Esc  返回房间", func(): net.leave())
  result = _panel(layer, Vector2(430, 238), Vector2(470, 225))
@@ -171,13 +175,17 @@ func _addresses() -> String:
 func _unhandled_key_input(event: InputEvent) -> void:
  if not event is InputEventKey or not event.pressed or event.echo: return
  if event.keycode == KEY_ESCAPE: net.leave(); return
+ if event.keycode == KEY_E: prank_bank=1-prank_bank
+ if event.keycode == KEY_Q: world.glance=not world.glance
  if event.keycode == KEY_V: world.view_mode = 1 - world.view_mode
  if event.keycode == KEY_TAB and net.demo:
   net.role = "coach" if net.role == "driver" else "driver"
   net.local_input = net.ZERO.duplicate()
  if net.state.phase != "playing": return
  if event.keycode in [KEY_1, KEY_2, KEY_3]:
-  net.action("prank" if net.role == "driver" else "counter", event.keycode - KEY_1)
+  var bank:=prank_bank
+  if net.role=="coach" and net.state.prank>=0:bank=int(net.state.prank)/3
+  net.action("prank" if net.role == "driver" else "counter", bank*3+event.keycode-KEY_1)
 
 func _physics_process(_dt: float) -> void:
  if net.state.phase != "playing": return
@@ -188,6 +196,7 @@ func _physics_process(_dt: float) -> void:
 
 func _process(dt: float) -> void:
  world.update_view(net.visual_state(), net.role, dt)
+ world.comedy.update_effects(net.state,dt)
  ui_elapsed += dt
  if ui_elapsed >= .1:
   ui_elapsed = 0
@@ -222,7 +231,7 @@ func _update_hud() -> void:
  anger.value = s.anger
  resource.value = s.resource
  if s.prank >= 0:
-  warning.text = ["汽水即将喷出 · 按 1 接住", "纸飞机起飞前 · 按 2 拦截", "后视镜要歪了 · 按 3 护镜"][s.prank] + "\n反制窗口 %.1f 秒" % s.windup
+  warning.text = Rules.CUES[s.prank] + "\n反制窗口 %.1f 秒" % s.windup
  elif s.repair > 0:
   warning.text = "修复中… %.0f%%" % (s.repair / 1.5 * 100)
  elif s.notice_left > 0:
@@ -232,9 +241,17 @@ func _update_hud() -> void:
  if s.effects[0] > 0: warning.text += "\n汽水弄脏衣服，R 清理"
  if s.effects[1] > 0: warning.text += "\n纸飞机卡住，R 清理"
  if s.effects[2] > 0: warning.text += "\n镜面歪斜，R 复位"
- instructions.text = ("学员：W/S 前进倒车 · A/D 转向 · 空格刹车  |  1 汽水 / 2 纸飞机 / 3 掰镜（各 20 灵感）" if net.role == "driver" else "教练：空格副刹（3秒，松开恢复） · 1 接汽水 / 2 拦飞机 / 3 护镜（前摇内按对应键） · 按住 R 1.5 秒修复")
- instructions.text += "\n" + ("单机演示，Tab 切换座位 · " if net.demo else "") + "V 切换视角 · 镜面为装饰环境色，非实时后视 · "
- instructions.text += "%.0f FPS / %.0f ms RTT" % [Engine.get_frames_per_second(), net.rtt_ms]
+ var group:="1 汽水 / 2 飞机 / 3 掰镜" if prank_bank==0 else "1 放屁甩锅 / 2 鼻涕纸 / 3 复读机"
+ if net.role=="driver":
+  instructions.text="学员：W/S、A/D 驾驶 · 空格刹车 | "+group+"（各20灵感） · E 切组"
+ else:
+  instructions.text="教练：见前兆按对应 1/2/3，自动匹配当前招式 · 空格副刹 · R 按住清理"
+ instructions.text+="\nQ 看道具 / 回正 · V 视角 · R 按住1.5秒清理自身 · "+("Tab 单机切角色 · " if net.demo else "")+"%.0f FPS / %.0f ms RTT" % [Engine.get_frames_per_second(),net.rtt_ms]
+ bank_button.text="E  "+("经典组" if prank_bank==0 else "偷偷使坏组")
+ for i in range(3,6):
+  if s.effects[i]>0 and net.role=="coach":warning.text+="\n"+Rules.NAMES[i]+"残留：按住 R"
+  if s.backlash[i]>0 and net.role=="driver":warning.text+="\n反噬到自己！按住 R 清理"
+ if net.role=="driver" and s.driver_repair>0:warning.text="装无辜擦拭… %.0f%%"%(s.driver_repair/1.5*100)
  if s.phase == "ended": result_label.text = "学员获胜！怒气爆表" if s.winner == "driver" else "教练获胜！顺利下课"
 
 func _audio() -> void:

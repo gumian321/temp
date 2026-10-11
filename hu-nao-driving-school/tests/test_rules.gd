@@ -13,27 +13,35 @@ func _init() -> void:
  check(not r.event("driver", "prank", 0), "room blocks pranks")
  r.start()
  check(not r.event("coach", "prank", 0), "roles enforced")
- check(not r.event("driver", "prank", 3), "bad type rejected")
- for kind in range(3):
+ check(not r.event("driver", "prank", 6), "bad type rejected")
+ for kind in range(6):
   r.reset(kind + 1); r.start()
   check(r.event("driver", "prank", kind), "prank available")
   check(r.s.resource == 20, "one resource debit")
   check(not r.event("driver", "prank", kind), "cooldown blocks repeat")
   check(r.s.anger == 0, "no damage before windup")
+  check(r.s.act_phase=="windup" and r.s.act_kind==kind,"authoritative windup stage")
   check(r.event("coach", "counter", kind), "matching counter succeeds")
-  for i in range(150): r.step(Z, Z)
+  if kind>=3:
+   check(r.s.backlash[kind]>0 and r.s.backfires==1,"new counter bounces onto student")
+   check(r.s.act_phase=="counter" and r.s.act_target=="driver","counter targets student")
+   check(r.s.resource==15,"backfire costs five extra inspiration")
+   for frame in range(91):r.step([0.0,0.0,false,true],Z)
+   check(r.s.backlash.all(func(v):return v==0) and r.s.driver_repairs==1,"student can clean own backlash")
+  for i in range(180): r.step(Z, Z)
   check(r.s.anger == 0 and r.s.counters == 1, "counter prevents hit")
   r.s.cooldown = 0
+  r.s.resource=40
   check(r.event("driver", "prank", kind), "second prank available")
-  for i in range(150): r.step(Z, Z)
+  for i in range(180): r.step(Z, Z)
   check(r.s.hits == 1 and r.s.anger == Rules.ANGER[kind], "windup resolves once")
   check(r.s.effects[kind] > 0, "effect persists")
   for i in range(91): r.step(Z, [0.0, 0.0, false, true])
-  check(r.s.effects == [0.0, 0.0, 0.0] and r.s.repairs == 1, "all effects repair")
+  check(r.s.effects.all(func(v):return v==0) and r.s.repairs == 1, "all effects repair")
   r.s.resource = 100; r.s.cooldown = 0
   var before: float = r.s.anger
   r.event("driver", "prank", kind)
-  for i in range(150): r.step(Z, Z)
+  for i in range(180): r.step(Z, Z)
   check(r.s.anger - before < Rules.ANGER[kind], "repeat payoff diminished")
  r.reset(8); r.start()
  for i in range(120): r.step([1.0, 0.0, false, false], Z)
@@ -61,6 +69,15 @@ func _init() -> void:
  check(r.s.winner == "driver" and r.s.anger == 100, "anger win clamps to 100")
  r.reset(11)
  check(r.s.phase == "room" and r.s.hits == 0 and r.s.effects[2] == 0, "reset clears round")
+ r.start()
+ r.event("driver","prank",3)
+ var old_z:float=r.s.z
+ for frame in range(60):r.step([1.0,.25,false,false],Z)
+ check(r.s.z!=old_z and r.s.speed>0,"comedy never locks driving")
+ r.s.cooldown=0
+ check(not r.event("driver","prank",4),"only one major windup even with cooldown reset")
+ r.reset(12)
+ check(r.s.act_phase=="idle" and r.s.backfires==0 and r.s.backlash.all(func(v):return v==0),"restart clears comedy and backlash")
  var a: Dictionary = r.s.duplicate(true)
  var b: Dictionary = r.s.duplicate(true)
  for i in range(240):
