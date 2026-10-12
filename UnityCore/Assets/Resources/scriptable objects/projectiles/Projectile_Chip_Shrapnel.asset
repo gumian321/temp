@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a38f87f721544f8c807e94bb9c3b465, type: 3}
+  m_Name: Projectile_Chip_Shrapnel
+  m_EditorClassIdentifier:
+  projectileSprite: {fileID: 21300000, guid: 0b5d4c74e7b97a44c92e7398fab363bf, type: 2}
+  projectilePrefab: 9
+  targetPiercingCount: 1
+  projectileLifeTime: 0.2
+  activatableChips:
+    activatedChipsList:
+  projectileDamage:
+    hullDamage: 0
+    shieldDamage: 0
+    shieldHitDamageReduction: 0
+  projectileSpeed: 15

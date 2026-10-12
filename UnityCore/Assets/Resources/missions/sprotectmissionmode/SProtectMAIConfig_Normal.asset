@@ -1,0 +1,166 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc9e488af57474b1b5113ffbe1b95b07, type: 3}
+  m_Name: SProtectMAIConfig_Normal
+  m_EditorClassIdentifier:
+  IsAISwarmSpawnerActive: 1
+  IsAIPatrolSpawnerActive: 0
+  IsAIWaveSpawnerActive: 1
+  IsAISwarmSpawnerPlayerTargeting: 1
+  IsAIPatrolSpawnerPlayerTargeting: 1
+  IsAIWaveSpawnerPlayerTargeting: 1
+  IsAIBossSpawnerPlayerTargeting: 0
+  AISwarmSpawnerBossPercent: 0.5
+  AIPatrolSpawnerBossPercent: 0.5
+  AIWaveSpawnerBossPercent: 0.5
+  AIWaveFaction: 1
+  AISwarmFaction: 1
+  AIBossWaveFaction: 1
+  bossSpawningRadius: 100
+  despawningRadius: 80
+  PatrolSpawningRadius: 75
+  MinPatrolUnits: 2
+  MaxPatrolUnits: 4
+  aIPatrolsList:
+  - AIPrefab: {fileID: 1709254077376921, guid: 70883ae0139a6a849ae3e7474b144646, type: 2}
+    entryHeatPercent: 0
+    exitHeatPercent: 0.2
+    probablity: 1
+  - AIPrefab: {fileID: 1709254077376921, guid: f8e6d7a7a9e175d40bbf0ce39835ed0f, type: 2}
+    entryHeatPercent: 0.2
+    exitHeatPercent: 0.4
+    probablity: 1
+  - AIPrefab: {fileID: 1709254077376921, guid: 184dce0954b04944b9ae703013683083, type: 2}
+    entryHeatPercent: 0.4
+    exitHeatPercent: 0.6
+    probablity: 1
+  - AIPrefab: {fileID: 1709254077376921, guid: 9ab175cc4b687904080aabeeea80533b, type: 2}
+    entryHeatPercent: 0.6
+    exitHeatPercent: 1
+    probablity: 1
+  HeatSpawnersList:
+  - SpawnObjectsList: fa000000
+    maxSpawnCount: 10
+    timeBetweenSpawns: 4
+    selectHeatPercent: 0
+  - SpawnObjectsList: 13010000
+    maxSpawnCount: 7
+    timeBetweenSpawns: 5
+    selectHeatPercent: 0.25
+  - SpawnObjectsList: fb000000040100000901000014010000
+    maxSpawnCount: 5
+    timeBetweenSpawns: 6
+    selectHeatPercent: 0.5
+  - SpawnObjectsList: 050100000a0100001401000015010000
+    maxSpawnCount: 4
+    timeBetweenSpawns: 8
+    selectHeatPercent: 0.75
+  swarmSpawningRadius: 40
+  SwarmingSpawningDelay: 2
+  MinSwarmingUnits: 2
+  MaxSwarmingUnits: 7
+  aISwarmingList:
+  - AIPrefab: 250
+    entryHeatPercent: 0
+    exitHeatPercent: 0.3
+    probablity: 20
+  - AIPrefab: 251
+    entryHeatPercent: 0.3
+    exitHeatPercent: 1
+    probablity: 15
+  - AIPrefab: 252
+    entryHeatPercent: 0.65
+    exitHeatPercent: 1
+    probablity: 10
+  - AIPrefab: 255
+    entryHeatPercent: 0.15
+    exitHeatPercent: 0.5
+    probablity: 5
+  - AIPrefab: 256
+    entryHeatPercent: 0.5
+    exitHeatPercent: 1
+    probablity: 5
+  - AIPrefab: 257
+    entryHeatPercent: 0.75
+    exitHeatPercent: 1
+    probablity: 2
+  - AIPrefab: 260
+    entryHeatPercent: 0.25
+    exitHeatPercent: 0.6
+    probablity: 3
+  - AIPrefab: 261
+    entryHeatPercent: 0.25
+    exitHeatPercent: 1
+    probablity: 2
+  - AIPrefab: 262
+    entryHeatPercent: 0.65
+    exitHeatPercent: 1
+    probablity: 2
+  - AIPrefab: 265
+    entryHeatPercent: 0.3
+    exitHeatPercent: 0.6
+    probablity: 3
+  - AIPrefab: 266
+    entryHeatPercent: 0.3
+    exitHeatPercent: 1
+    probablity: 2
+  - AIPrefab: 267
+    entryHeatPercent: 0.6
+    exitHeatPercent: 1
+    probablity: 3
+  - AIPrefab: 280
+    entryHeatPercent: 0.5
+    exitHeatPercent: 1
+    probablity: 2
+  - AIPrefab: 282
+    entryHeatPercent: 0.75
+    exitHeatPercent: 1
+    probablity: 1
+  - AIPrefab: 284
+    entryHeatPercent: 0.5
+    exitHeatPercent: 1
+    probablity: 1
+  waveSpawningRadius: 35
+  MinWaveTimer: 10
+  MaxWaveTimer: 60
+  MinWaveCount: 1
+  MaxWaveCount: 12
+  aIWaveSwarmList:
+  - AIPrefab: 275
+    entryHeatPercent: 0
+    exitHeatPercent: 0.35
+    probablity: 7
+  - AIPrefab: 276
+    entryHeatPercent: 0.25
+    exitHeatPercent: 0.5
+    probablity: 7
+  - AIPrefab: 277
+    entryHeatPercent: 0.45
+    exitHeatPercent: 1
+    probablity: 5
+  - AIPrefab: 278
+    entryHeatPercent: 0.65
+    exitHeatPercent: 1
+    probablity: 3
+  - AIPrefab: 270
+    entryHeatPercent: 0.2
+    exitHeatPercent: 1
+    probablity: 2
+  - AIPrefab: 271
+    entryHeatPercent: 0.6
+    exitHeatPercent: 1
+    probablity: 2
+  distanceBetweenNodes: 30
+  mapEventsList: 64000000640000006400000064000000670000006700000065000000650000006900000069000000
+  xOffset: 0
+  yOffset: 0
+  emptyFirstLayerMapNodes: 1

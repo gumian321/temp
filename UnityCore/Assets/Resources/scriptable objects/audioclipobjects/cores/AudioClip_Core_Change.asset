@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b5d5d0d094db16cfc9f55e21e55fe8, type: 3}
+  m_Name: AudioClip_Core_Change
+  m_EditorClassIdentifier:
+  audioClipEnum: 40
+  audioClipList:
+  - {fileID: 8300000, guid: 74021e139315707418385a3a5987b216, type: 3}
+  - {fileID: 8300000, guid: 4ce690164b7b54a4fbd4ae4e84fcaac4, type: 3}
+  - {fileID: 8300000, guid: 2bf4051eb5076d14ea0b078011828331, type: 3}
+  copiesPlayedAtOnce: 5
+  volume: 1
+  isLoopable: 0

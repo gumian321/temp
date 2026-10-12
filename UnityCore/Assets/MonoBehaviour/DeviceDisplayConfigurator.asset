@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94a38c2e94af68a49939d1e861a55cdf, type: 3}
+  m_Name: DeviceDisplayConfigurator
+  m_EditorClassIdentifier:
+  listDeviceSets:
+  - deviceRawPath: Keyboard:/Keyboard
+    deviceDisplaySettings: {fileID: 11400000, guid: ade455b11ff59544482de5f9732b79ca, type: 2}
+  - deviceRawPath: XInputControllerWindows:/XInputControllerWindows
+    deviceDisplaySettings: {fileID: 11400000, guid: 3c1e037a4fef3b64abacd45816f16d5c, type: 2}
+  - deviceRawPath: DualShock4GamepadHID:/DualShock4GamepadHID
+    deviceDisplaySettings: {fileID: 11400000, guid: bbb477b3c4f67d544b420f5e8bb20888, type: 2}
+  - deviceRawPath: Gamepad:/Gamepad
+    deviceDisplaySettings: {fileID: 11400000, guid: d832b3e9c2e3308449f058959d92128e, type: 2}

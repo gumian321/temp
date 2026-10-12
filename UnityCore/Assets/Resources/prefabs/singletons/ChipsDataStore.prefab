@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1709254077376921
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4730242686860875}
+  - component: {fileID: 114724804207875695}
+  m_Layer: 0
+  m_Name: ChipsDataStore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4730242686860875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709254077376921}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+--- !u!114 &114724804207875695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709254077376921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e07d317e61806dadeab33282620b96, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  MammothAreaPercentBoost:
+  - 0.25
+  - 0.5
+  MammothDamagePercentBoost:
+  - 0.25
+  - 0.5
+  MammothProjectileSizePercentBoost:
+  - 0.5
+  - 1
+  chainProjectileRCT: {fileID: 11400000, guid: 395777f4a85535049b836439ca5fb9b2, type: 2}
+  chainTargetJumpCount: 0200000003000000
+  chainTargetRange:
+  - 5
+  - 10
+  chainDamagePercent:
+  - 1
+  - 1
+  PiercingTargetCount: 0100000002000000
+  shrapnelProjectile: {fileID: 11400000, guid: a3eacf5ae29321a45bd16de1293fff8f, type: 2}
+  shrapnelProjectileCount: 0500000007000000
+  shrapnelDamagePercent:
+  - 0.25
+  - 0.5
+  ExplosionEffectArea:
+  - 0.5
+  - 1
+  ExplosionDamagePercent:
+  - 0.25
+  - 0.5

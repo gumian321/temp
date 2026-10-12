@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db02044a0d6f0cfcc39128ce09e4cba5, type: 3}
+  m_Name: HQ_Gun_Cannon
+  m_EditorClassIdentifier:
+  coreSortingOrder: 1
+  coreNameID: Part_Cannon
+  CoreHealth: 0
+  coreHeat: 0
+  coreRatePrize: 0
+  coreScraps: 0
+  isChipable: 0
+  isClockable: 1
+  coreTurret: {fileID: 11400000, guid: ac89e9a57c4b01147954e5b11974ef08, type: 2}
+  radarConfiguration: {fileID: 11400000, guid: 395777f4a85535049b836439ca5fb9b2, type: 2}
+  turretRange: 2
+  turretRateOfFire: 1.5
+  turretRotateSpeed: 300
+  turretErrorAngle: 0.1
+  coreProjectile: {fileID: 11400000, guid: 9948497b3843e484dac742bb6a8ab054, type: 2}

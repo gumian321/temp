@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25aa9efe09805c33fa638cac6e89d316, type: 3}
+  m_Name: Reward_Count_MoveCores_2
+  m_EditorClassIdentifier:
+  rewardOverrideCost: -1
+  rewardDesc: Reward_Move_Desc
+  rewardStats:
+    HullDamage: 0
+    ShieldDamage: 0
+    Range: 0
+    RateOfFire: 0
+    PartsCount: 0
+    DronesCount: 0
+    LevelUp: 0
+    LinkedReward: {fileID: 0}
+  rewardVideoClip: {fileID: 32900000, guid: 3228ed6e4ea633842b2e15a484497743, type: 3}
+  rarity: 1
+  rewardOverlaySprite: {fileID: 21300000, guid: bbdc849862ae732499b08926f09b2f33, type: 2}
+  rewardHeat: 0
+  rewardTextID: Reward_Move
+  rewardType: 20
+  rewardSprite: {fileID: 21300000, guid: 5646315c3e021294cbf58b4b709e578d, type: 2}
+  rewardCount: 2

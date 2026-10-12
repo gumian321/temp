@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1709254077376921
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4730242686860875}
+  - component: {fileID: 114724804207875695}
+  m_Layer: 0
+  m_Name: RatingDataStore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4730242686860875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709254077376921}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+--- !u!114 &114724804207875695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709254077376921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6c361f982a96e980134a6f7ceb211f5, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  MetaPointsModifer: 1
+  AIHealthToDestructionRate: 10
+  LetterRatingsList:
+  - title: SSS+
+    scoreValue: 250000
+    metaPoints: 250
+  - title: SS+
+    scoreValue: 175000
+    metaPoints: 200
+  - title: S+
+    scoreValue: 122500
+    metaPoints: 150
+  - title: S
+    scoreValue: 115000
+    metaPoints: 140
+  - title: A+
+    scoreValue: 107500
+    metaPoints: 130
+  - title: A
+    scoreValue: 100000
+    metaPoints: 120
+  - title: A-
+    scoreValue: 92500
+    metaPoints: 110
+  - title: B+
+    scoreValue: 85000
+    metaPoints: 100
+  - title: B
+    scoreValue: 77500
+    metaPoints: 90
+  - title: B-
+    scoreValue: 70000
+    metaPoints: 80
+  - title: C+
+    scoreValue: 62500
+    metaPoints: 70
+  - title: C
+    scoreValue: 55000
+    metaPoints: 60
+  - title: C-
+    scoreValue: 47500
+    metaPoints: 50
+  - title: D+
+    scoreValue: 35000
+    metaPoints: 40
+  - title: D
+    scoreValue: 25000
+    metaPoints: 35
+  - title: D-
+    scoreValue: 15000
+    metaPoints: 25
+  - title: F
+    scoreValue: 0
+    metaPoints: 5
+  RatingTypesList:
+  - title: Rating_Completed
+    ratingType: 9
+    ratingValue: 0
+  - title: Rating_Bonus
+    ratingType: 10
+    ratingValue: 0
+  - title: Rating_TimeSurvived
+    ratingType: 5
+    ratingValue: 0
+  - title: Rating_Destruction
+    ratingType: 1
+    ratingValue: 0
+  - title: Rating_BossDestroyed
+    ratingType: 3
+    ratingValue: 5000
+  - title: Rating_PartsBuilt
+    ratingType: 4
+    ratingValue: 0
+  - title: Rating_PacksOpened
+    ratingType: 6
+    ratingValue: 250

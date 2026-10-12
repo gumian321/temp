@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00da2cbd92985df24eb507a9da41a3a3, type: 3}
+  m_Name: Ship Reward Pack
+  m_EditorClassIdentifier:
+  packSprite: {fileID: 21300000, guid: 441be02a41d72744ba0b2aa0b6107aa4, type: 2}
+  packGameFreq: 2
+  packLevelUpFreq: 4
+  packRewardsList:
+  - {fileID: 11400000, guid: 5bb353c98f652134e8ef3f8bd510c461, type: 2}
+  - {fileID: 11400000, guid: 6c24e938bf29eb34195bc9f4d560512c, type: 2}
+  - {fileID: 11400000, guid: dc1d24b1fd75ee34a84bd7aac88186dd, type: 2}
+  - {fileID: 11400000, guid: 5f4c519d36fac6f42b00e6df23f35f6f, type: 2}
+  - {fileID: 11400000, guid: fb9f47b78ba74564aae3a13469d1ff56, type: 2}
+  - {fileID: 11400000, guid: 511a8231109afbf4ebd3328f6ad529e9, type: 2}
+  - {fileID: 11400000, guid: 7c86b3fcb49b0a746859edbc6b7d4818, type: 2}
+  - {fileID: 11400000, guid: ce8ae2d5c7660a3418fc529f5a228697, type: 2}
+  - {fileID: 11400000, guid: d9e61136d1d61954caaa1949ef825060, type: 2}
+  - {fileID: 11400000, guid: 7bf81b8e4ab4fe34eb75e5fedb034089, type: 2}

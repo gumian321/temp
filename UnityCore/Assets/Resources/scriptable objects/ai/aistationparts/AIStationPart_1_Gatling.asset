@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e0a9df584caaa2af33977cd86c847ed, type: 3}
+  m_Name: AIStationPart_1_Gatling
+  m_EditorClassIdentifier:
+  partProbabilty: 3
+  aIThreatLevel: 0
+  prefabType: 400
+  coresList:
+  - {fileID: 11400000, guid: ed33647ceac03a84e914fb56857a9d20, type: 2}
+  packRarityType: 1
+  rewardPacksList:
+  - {fileID: 11400000, guid: 5c81148189a72d541bba069698135e9a, type: 2}
+  - {fileID: 11400000, guid: a3b3244c7e607f14cad1345ae9b3ab1b, type: 2}

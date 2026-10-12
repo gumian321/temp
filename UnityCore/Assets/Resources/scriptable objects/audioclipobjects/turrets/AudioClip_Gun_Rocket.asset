@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b5d5d0d094db16cfc9f55e21e55fe8, type: 3}
+  m_Name: AudioClip_Gun_Rocket
+  m_EditorClassIdentifier:
+  audioClipEnum: 6
+  audioClipList:
+  - {fileID: 8300000, guid: 4fa606cb42ddb234a978928773e2fee3, type: 3}
+  copiesPlayedAtOnce: 4
+  volume: 0.75
+  isLoopable: 0

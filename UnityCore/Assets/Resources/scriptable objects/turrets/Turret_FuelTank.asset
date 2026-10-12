@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb31b43a374a93ca6ba1acfb4a89226f, type: 3}
+  m_Name: Turret_FuelTank
+  m_EditorClassIdentifier:
+  turretSprite: {fileID: 21300000, guid: c73d40d0709730c49bd324a0dd8b1d7c, type: 2}
+  turretObject: {fileID: 1709254077376921, guid: 0f900e4f96776b746857c837b496cec6, type: 2}

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41fc99404f956df42422ef2e6cc90435, type: 3}
+  m_Name: HQ_Core_Nuke
+  m_EditorClassIdentifier:
+  coreSortingOrder: 1
+  coreNameID: Part_Nuke
+  CoreHealth: 90
+  coreHeat: 3
+  coreRatePrize: 200
+  coreScraps: 2
+  isChipable: 1
+  isClockable: 1
+  coreTurret: {fileID: 11400000, guid: e70d96a232ac1c94182b9b568f91391f, type: 2}
+  radarConfiguration: {fileID: 11400000, guid: 7c38a51f93d71a74a8f1d7cb66308be2, type: 2}
+  turretRange: 3
+  turretRateOfFire: 0.3
+  turretRotateSpeed: 150
+  turretErrorAngle: 0.2
+  coreProjectile: {fileID: 11400000, guid: db4bb7efcdefca64f9e8ec9456d6185f, type: 2}
+  barrageInterval: 0
+  barrageProjectileCount: 1

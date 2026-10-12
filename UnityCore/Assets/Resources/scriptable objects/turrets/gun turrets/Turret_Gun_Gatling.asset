@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad64672cfe89c0c853c4d5033905409, type: 3}
+  m_Name: Turret_Gun_Gatling
+  m_EditorClassIdentifier:
+  turretSprite: {fileID: 21300000, guid: 6f876f0c12c32e846b8e5e56dfa02941, type: 2}
+  turretObject: {fileID: 1709254077376921, guid: a8b51de0141bfbc43a56fd7059579c4a, type: 2}
+  turretsBarrels: {fileID: 1709254077376921, guid: 480052f3a57a14c4d95d4ab22a90247a, type: 2}
+  fireAudioClipType: 1

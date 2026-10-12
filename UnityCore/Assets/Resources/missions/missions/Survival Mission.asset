@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a126a07129058d6ba20070d9e7a54c39, type: 3}
+  m_Name: Survival Mission
+  m_EditorClassIdentifier:
+  MissionLeaderBoardName: SUR
+  MissionNameTextID: Play_Survival
+  MissionDescTextID: Play_Survival_Desc
+  MissionArrowIcon: {fileID: 21300000, guid: 8e60c721d4f9d2e40a9904be5f6d1b6a, type: 2}
+  MissionArrowColor: {r: 0.7176471, g: 0.10980393, b: 0.10980393, a: 1}
+  MissionCost: 0
+  CanBeCompleted: 1
+  MissionsObjectiveList:
+  - missionDiffeculty: 0
+    objectiveSprite: {fileID: 21300000, guid: d7cecdb23a01a0e4583c1b87f27c0932, type: 2}
+    objectiveTime: 14
+    objectivePrefab: {fileID: 1709254077376921, guid: 9af1a21dacdf82341b8af3153359a74d, type: 2}
+    objectiveAIConfiguration: {fileID: 11400000, guid: 41210b4d7813c9e4f991cb937b59c487, type: 2}
+    objectiveACHID:
+  - missionDiffeculty: 1
+    objectiveSprite: {fileID: 21300000, guid: d4bd3a64c1f69cc47acdcefe4d73c634, type: 2}
+    objectiveTime: 12
+    objectivePrefab: {fileID: 1709254077376921, guid: 4767f7a441eb0c746acb04c4aefbdf34, type: 2}
+    objectiveAIConfiguration: {fileID: 11400000, guid: 16954599ed51d5b45bb3e76a4dfcaa6b, type: 2}
+    objectiveACHID: ACH_SUR_NORMAL
+  - missionDiffeculty: 2
+    objectiveSprite: {fileID: 21300000, guid: 070b6a3ff940e4246a2710a94b80c1e1, type: 2}
+    objectiveTime: 10
+    objectivePrefab: {fileID: 1709254077376921, guid: d6da3ea9551bb534db6f7fcf79eb6d79, type: 2}
+    objectiveAIConfiguration: {fileID: 11400000, guid: bbdbfc621d44c204b8b92022b505c59c, type: 2}
+    objectiveACHID: ACH_SUR_HARD
+  isEndless: 0
+  hasTimer: 1
+  isTimeEndCondition: 0
+  isPlayerWinWhenTimerIsOver: 0
+  isTimerCountingDown: 1
+  hasDistanceCounter: 0
+  hasBossBars: 1
+  isOffsetPlayer: 0
+  playerYOffset: 0
+  cameraTargetSizeOffset: -1

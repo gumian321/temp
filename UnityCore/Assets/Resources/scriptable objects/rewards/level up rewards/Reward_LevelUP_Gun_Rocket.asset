@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5e1bb4a747b247c6f7be6cde08e37ea, type: 3}
+  m_Name: Reward_LevelUP_Gun_Rocket
+  m_EditorClassIdentifier:
+  rewardOverrideCost: -1
+  rewardDesc: Part_Rocket_Desc
+  rewardStats:
+    HullDamage: 1
+    ShieldDamage: 1
+    Range: 1
+    RateOfFire: 1
+    PartsCount: 0
+    DronesCount: 0
+    LevelUp: 1
+    LinkedReward: {fileID: 11400000, guid: 9eeea24c9d14ba543b1c5e9e17ee3bca, type: 2}
+  rewardVideoClip: {fileID: 32900000, guid: f8c24627cbcdc434abfaa040e9328440, type: 3}
+  rarity: 2
+  rewardOverlaySprite: {fileID: 21300000, guid: dafbdf1b8528b6342aa1c8163ff443d8, type: 2}
+  rewardHeat: 1
+  coresList:
+  - {fileID: 11400000, guid: 3cca4692ebe489c45ac8cabf99c06163, type: 2}
+  - {fileID: 11400000, guid: f7f8e060264b3fb41ad3b94ed644849e, type: 2}
+  CoreHealthPercent: 0.25
+  DamagePercent: 0.25
+  RateOfFirePercent: 0.25
+  RangePercent: 0.05

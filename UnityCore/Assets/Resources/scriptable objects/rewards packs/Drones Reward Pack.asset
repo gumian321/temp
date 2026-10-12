@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00da2cbd92985df24eb507a9da41a3a3, type: 3}
+  m_Name: Drones Reward Pack
+  m_EditorClassIdentifier:
+  packSprite: {fileID: 21300000, guid: 834bfd9eac0a19c42ad5212ea7ea788b, type: 2}
+  packGameFreq: 5
+  packLevelUpFreq: 5
+  packRewardsList:
+  - {fileID: 11400000, guid: 1b3ecae98ef2f2148b177865739f7e2d, type: 2}
+  - {fileID: 11400000, guid: edc3f14ad334c244f86f6ef93adaaa10, type: 2}
+  - {fileID: 11400000, guid: 355f3b9a63b52244e909537fe06f9fce, type: 2}
+  - {fileID: 11400000, guid: 2de21e89e811b5449bbd16a2105e2ab2, type: 2}
+  - {fileID: 11400000, guid: a0251cbd27eb14c45b171aeb061f8936, type: 2}
+  - {fileID: 11400000, guid: c12af194c2d610049832e223f75854f6, type: 2}
+  - {fileID: 11400000, guid: fd901abceff8e4845a31a1ca037501a5, type: 2}
+  - {fileID: 11400000, guid: 8aa31fa473da62d4c96731487c77c896, type: 2}
+  - {fileID: 11400000, guid: dafce615747e99040a8a72d2da204b32, type: 2}
+  - {fileID: 11400000, guid: 23abf2dde5d6a6a4aa3506f996da3ec2, type: 2}
+  - {fileID: 11400000, guid: 53725b63a74cc5f488a55574c037b802, type: 2}
+  - {fileID: 11400000, guid: a49688318e5782d44ba2074c4ba7bb25, type: 2}

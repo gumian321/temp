@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1709254077376921
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4730242686860875}
+  - component: {fileID: 114724804207875695}
+  m_Layer: 0
+  m_Name: CurserManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4730242686860875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709254077376921}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+--- !u!114 &114724804207875695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709254077376921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb2eed5e5887dffcbd2facfa9b7b8698, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  CurserDatasList:
+  - curserType: 1
+    cursorTexturesList:
+    - {fileID: 2800000, guid: 19a606d5af1010942b1fba4f1382af58, type: 3}
+    cursorSpritesList: []
+    hotSpot: {x: 0, y: 0}
+  - curserType: 2
+    cursorTexturesList:
+    - {fileID: 2800000, guid: 447990c7d64c8ec46a2415290a65fb82, type: 3}
+    cursorSpritesList: []
+    hotSpot: {x: 0.5, y: 0.5}
+  - curserType: 3
+    cursorTexturesList:
+    - {fileID: 2800000, guid: 809d52bab97494441a60114a1c3c5c1f, type: 3}
+    cursorSpritesList: []
+    hotSpot: {x: 0.5, y: 0.5}
+  - curserType: 4
+    cursorTexturesList:
+    - {fileID: 2800000, guid: 2dacd9dc47b08094da5af2b7b6d41110, type: 3}
+    - {fileID: 2800000, guid: 3493e15244b1f9d4b9cdfd5857ea6637, type: 3}
+    - {fileID: 2800000, guid: 534bae7b502e68744b31ce10e0fbaba2, type: 3}
+    - {fileID: 2800000, guid: 3920e8909b9033a47a80165f5895447e, type: 3}
+    - {fileID: 2800000, guid: ece1c759911cfe4429ea84fd04c93ef9, type: 3}
+    - {fileID: 2800000, guid: c619f90ce80d3154e8ea3104bcdcf471, type: 3}
+    cursorSpritesList:
+    - {fileID: 21300000, guid: b4dc2cd23b658234387db82f59f0feb9, type: 2}
+    - {fileID: 21300000, guid: 2f6dff11299f86d4ebadf62448080799, type: 2}
+    - {fileID: 21300000, guid: 1f4a84419d496e140b7326b6309abe79, type: 2}
+    - {fileID: 21300000, guid: 228a82f5e9b6a214db9a7b91063e3b40, type: 2}
+    - {fileID: 21300000, guid: 0631cff94fa72e6498312806497cf86e, type: 2}
+    - {fileID: 21300000, guid: 909300ce24d0a21428b930a32ffdee98, type: 2}
+    hotSpot: {x: 0.25, y: 0}

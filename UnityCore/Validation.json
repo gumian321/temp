@@ -1,0 +1,37 @@
+{
+  "unityVersion": "2021.3.1f1c1",
+  "reachedMainMenu": true,
+  "reachedGame": true,
+  "gameFrames": 2965,
+  "gameplayStarted": true,
+  "playerMoved": true,
+  "controlScheme": "Keyboard and Mouse",
+  "enginePower": 3.0,
+  "renderPipeline": "UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset",
+  "gameplayImageCaptured": true,
+  "playerPresent": true,
+  "errors": [],
+  "missingComponents": [],
+  "result": "game scene ran for 16 seconds",
+  "validation_scope": "Original restored runtime project; experimental-only scripts excluded from UnityCore copy.",
+  "scenes": [
+    {
+      "path": "Assets/Scenes/IntroScene.unity",
+      "roots": 45,
+      "objects": 55,
+      "missingScripts": 0
+    },
+    {
+      "path": "Assets/Scenes/MainMenuScene.unity",
+      "roots": 36,
+      "objects": 5939,
+      "missingScripts": 0
+    },
+    {
+      "path": "Assets/Scenes/GameScene.unity",
+      "roots": 13,
+      "objects": 477,
+      "missingScripts": 0
+    }
+  ]
+}

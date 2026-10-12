@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41fc99404f956df42422ef2e6cc90435, type: 3}
+  m_Name: HQ_Gun_Rocket
+  m_EditorClassIdentifier:
+  coreSortingOrder: 1
+  coreNameID: Part_Rocket
+  CoreHealth: 0
+  coreHeat: 0
+  coreRatePrize: 0
+  coreScraps: 0
+  isChipable: 0
+  isClockable: 1
+  coreTurret: {fileID: 11400000, guid: 81b35350157598d4ca198499d2781882, type: 2}
+  radarConfiguration: {fileID: 11400000, guid: 7c38a51f93d71a74a8f1d7cb66308be2, type: 2}
+  turretRange: 2
+  turretRateOfFire: 0.4
+  turretRotateSpeed: 150
+  turretErrorAngle: 0.2
+  coreProjectile: {fileID: 11400000, guid: 3b6021d46085744429e461e9765c31a7, type: 2}
+  barrageInterval: 0.1
+  barrageProjectileCount: 10

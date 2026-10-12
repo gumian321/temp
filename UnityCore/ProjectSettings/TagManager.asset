@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Shield
+  - FxTemporaire
+  - IncomingThreat
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Player
+  - Enemy
+  - Shield
+  - Radar
+  - Projectile
+  - Scrap
+  - MapIcons
+  - MapNode
+  - MiniRadar
+  - Particles
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Background
+    uniqueID: 2432766667
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Blocks
+    uniqueID: 2693875071
+    locked: 0
+  - name: Turrets
+    uniqueID: 2098681785
+    locked: 0
+  - name: Enemy
+    uniqueID: 2004928261
+    locked: 0
+  - name: Projectiles
+    uniqueID: 4137795393
+    locked: 0
+  - name: Forground
+    uniqueID: 128073749
+    locked: 0
+  - name: Build Mode
+    uniqueID: 2225459843
+    locked: 0
+  - name: UI
+    uniqueID: 246255259
+    locked: 0

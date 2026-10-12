@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9a1aa3b956b8d19d9b1e90c9179a3c, type: 3}
+  m_Name: Reward_HQ_Drones_Attack_4
+  m_EditorClassIdentifier:
+  rewardOverrideCost: -1
+  rewardDesc: Attack_Drones_Desc
+  rewardStats:
+    HullDamage: 1
+    ShieldDamage: 1
+    Range: 4
+    RateOfFire: 3
+    PartsCount: 0
+    DronesCount: 4
+    LevelUp: 0
+    LinkedReward: {fileID: 0}
+  rewardVideoClip: {fileID: 32900000, guid: 383361740b9d3744eba05c76b9958430, type: 3}
+  rarity: 3
+  rewardOverlaySprite: {fileID: 21300000, guid: eea646a8b8b7b214ea233d319e293ceb, type: 2}
+  rewardHeat: 2
+  drone: {fileID: 11400000, guid: 6f7a311eec961be49825d1a99cd54bbe, type: 2}
+  dronesCount: 4

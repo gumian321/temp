@@ -1,0 +1,253 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cdbb0a059393297e6c8aa48bbb53dab, type: 3}
+  m_Name: DeviceDisplaySettings_Keyboard
+  m_EditorClassIdentifier:
+  deviceDisplayName: Keyboard
+  deviceDisplayIcon: {fileID: 21300000, guid: 4104b80e34c88eb43994d28abd499b92, type: 2}
+  deviceRebindCancelKeys:
+  - '<Keyboard>/esc'
+  - '*/{Back}'
+  deviceIgnoredKeys:
+  - '<Keyboard>/printScreen'
+  - '<Keyboard>/capsLock'
+  - '<Keyboard>/leftMeta'
+  - '<Keyboard>/rightMeta'
+  - '<Keyboard>/numLock'
+  - '<Keyboard>/pause'
+  - '<Keyboard>/delete'
+  - '<Keyboard>/home'
+  - '<Keyboard>/end'
+  - '<Keyboard>/pageUp'
+  - '<Keyboard>/pageDown'
+  - '<Keyboard>/contextMenu'
+  - '<Keyboard>/f1'
+  - '<Keyboard>/f2'
+  - '<Keyboard>/f3'
+  - '<Keyboard>/f4'
+  - '<Keyboard>/f5'
+  - '<Keyboard>/f6'
+  - '<Keyboard>/f7'
+  - '<Keyboard>/f8'
+  - '<Keyboard>/f9'
+  - '<Keyboard>/f10'
+  - '<Keyboard>/f11'
+  - '<Keyboard>/f12'
+  - '<Keyboard>/numLock'
+  - '<Keyboard>/insert'
+  - '<Mouse>/forwardButton'
+  - '<Mouse>/backButton'
+  - '<Mouse>/press'
+  - '<Keyboard>/esc'
+  customContextIcons:
+  - customInputContextString: '<Keyboard>/0'
+    customInputContextIcon: {fileID: 21300000, guid: 656920edb78329444a246746039bb593, type: 2}
+  - customInputContextString: '<Keyboard>/1'
+    customInputContextIcon: {fileID: 21300000, guid: 77d5ee5efed120f4183b57aca44c98a6, type: 2}
+  - customInputContextString: '<Keyboard>/2'
+    customInputContextIcon: {fileID: 21300000, guid: 1c2f6250f86eb7241a77b5772a54982c, type: 2}
+  - customInputContextString: '<Keyboard>/3'
+    customInputContextIcon: {fileID: 21300000, guid: 8e6787bc434929a4991fc88f3a52ac36, type: 2}
+  - customInputContextString: '<Keyboard>/4'
+    customInputContextIcon: {fileID: 21300000, guid: b891dffef35157c4c9857af02d0427c8, type: 2}
+  - customInputContextString: '<Keyboard>/5'
+    customInputContextIcon: {fileID: 21300000, guid: e3aa021bc83d6aa41845f88824c77480, type: 2}
+  - customInputContextString: '<Keyboard>/6'
+    customInputContextIcon: {fileID: 21300000, guid: c3b5db41ad6462c409c6e47d2627de5f, type: 2}
+  - customInputContextString: '<Keyboard>/7'
+    customInputContextIcon: {fileID: 21300000, guid: 7ad5308719655c74690ed3cd1c659021, type: 2}
+  - customInputContextString: '<Keyboard>/8'
+    customInputContextIcon: {fileID: 21300000, guid: 1bc46ad411ca46f47853d360044c59a0, type: 2}
+  - customInputContextString: '<Keyboard>/9'
+    customInputContextIcon: {fileID: 21300000, guid: 36b0091a68d1cef4fa63b473c3c66a34, type: 2}
+  - customInputContextString: '<Keyboard>/numpad0'
+    customInputContextIcon: {fileID: 21300000, guid: 236bdd59d3a00d24b9eef632d076c1f0, type: 2}
+  - customInputContextString: '<Keyboard>/numpad1'
+    customInputContextIcon: {fileID: 21300000, guid: e09e788b61e4a5246a37de526dcc952c, type: 2}
+  - customInputContextString: '<Keyboard>/numpad2'
+    customInputContextIcon: {fileID: 21300000, guid: 40170c74446f346499228a35e5c6439f, type: 2}
+  - customInputContextString: '<Keyboard>/numpad3'
+    customInputContextIcon: {fileID: 21300000, guid: 450579c52151b77419b451be3023ef32, type: 2}
+  - customInputContextString: '<Keyboard>/numpad4'
+    customInputContextIcon: {fileID: 21300000, guid: c0419b80ba756354db975d1a79020fff, type: 2}
+  - customInputContextString: '<Keyboard>/numpad5'
+    customInputContextIcon: {fileID: 21300000, guid: 7feddaf11f930bb47b201c8e839e809a, type: 2}
+  - customInputContextString: '<Keyboard>/numpad6'
+    customInputContextIcon: {fileID: 21300000, guid: 3ea4de2f992eb4e48b9c7fa20b19d5fd, type: 2}
+  - customInputContextString: '<Keyboard>/numpad7'
+    customInputContextIcon: {fileID: 21300000, guid: dacf66fb70722f446b74870fea7f25c9, type: 2}
+  - customInputContextString: '<Keyboard>/numpad8'
+    customInputContextIcon: {fileID: 21300000, guid: 5f2f9d79743854d43843973bb8deb84d, type: 2}
+  - customInputContextString: '<Keyboard>/numpad9'
+    customInputContextIcon: {fileID: 21300000, guid: a24ebed18b8188640be961489d475b88, type: 2}
+  - customInputContextString: '<Keyboard>/a'
+    customInputContextIcon: {fileID: 21300000, guid: e36747eb8b9a77b46aa7b4366442a2cd, type: 2}
+  - customInputContextString: '<Keyboard>/b'
+    customInputContextIcon: {fileID: 21300000, guid: 22a26c4021eeee943aed38b762a22bb5, type: 2}
+  - customInputContextString: '<Keyboard>/c'
+    customInputContextIcon: {fileID: 21300000, guid: 7872daba7e1d9fe438b7c1a11ce6ee02, type: 2}
+  - customInputContextString: '<Keyboard>/d'
+    customInputContextIcon: {fileID: 21300000, guid: 6f75ec872159eff478b2d801270cc3dd, type: 2}
+  - customInputContextString: '<Keyboard>/e'
+    customInputContextIcon: {fileID: 21300000, guid: d6f4a09146640fe40872ab7c3273dc37, type: 2}
+  - customInputContextString: '<Keyboard>/f'
+    customInputContextIcon: {fileID: 21300000, guid: 6d76a2e1cb7554241b55b1eb50ded96e, type: 2}
+  - customInputContextString: '<Keyboard>/g'
+    customInputContextIcon: {fileID: 21300000, guid: 1b51a681341d3574db777e46963e3279, type: 2}
+  - customInputContextString: '<Keyboard>/h'
+    customInputContextIcon: {fileID: 21300000, guid: 387735d81d1fac44892ff19af93bfa10, type: 2}
+  - customInputContextString: '<Keyboard>/i'
+    customInputContextIcon: {fileID: 21300000, guid: c38caf0eab5557640b0103c3a30b1665, type: 2}
+  - customInputContextString: '<Keyboard>/j'
+    customInputContextIcon: {fileID: 21300000, guid: 2d3902fe5e8669741b75dcca5953b367, type: 2}
+  - customInputContextString: '<Keyboard>/k'
+    customInputContextIcon: {fileID: 21300000, guid: 8d8b6793efcccd24a9a5689d9bb3051b, type: 2}
+  - customInputContextString: '<Keyboard>/l'
+    customInputContextIcon: {fileID: 21300000, guid: 70ddf2923e98dfa4694ec5a28b83116c, type: 2}
+  - customInputContextString: '<Keyboard>/m'
+    customInputContextIcon: {fileID: 21300000, guid: 388b70d30c9c3dc408f8f63aadc0d1d4, type: 2}
+  - customInputContextString: '<Keyboard>/n'
+    customInputContextIcon: {fileID: 21300000, guid: 548fc83ae90d3d842af65ea87a7bb035, type: 2}
+  - customInputContextString: '<Keyboard>/o'
+    customInputContextIcon: {fileID: 21300000, guid: 21b1981d4c659c540a9360c8fd6b1f9b, type: 2}
+  - customInputContextString: '<Keyboard>/p'
+    customInputContextIcon: {fileID: 21300000, guid: 35770cfdb310727478c67a936653fa94, type: 2}
+  - customInputContextString: '<Keyboard>/q'
+    customInputContextIcon: {fileID: 21300000, guid: 2be160a4823000e43b73870bce5e16fe, type: 2}
+  - customInputContextString: '<Keyboard>/r'
+    customInputContextIcon: {fileID: 21300000, guid: eadc235c5a5a15347895049876905cc5, type: 2}
+  - customInputContextString: '<Keyboard>/s'
+    customInputContextIcon: {fileID: 21300000, guid: 6b9d775b36294764998c4b32f13287d8, type: 2}
+  - customInputContextString: '<Keyboard>/t'
+    customInputContextIcon: {fileID: 21300000, guid: 1e2085667b7f54c40aae364558fcbac6, type: 2}
+  - customInputContextString: '<Keyboard>/u'
+    customInputContextIcon: {fileID: 21300000, guid: 91d1d68acf2f2d9488f97cba7c2271b8, type: 2}
+  - customInputContextString: '<Keyboard>/v'
+    customInputContextIcon: {fileID: 21300000, guid: b8d91067510573f46b2a943ceb5e911e, type: 2}
+  - customInputContextString: '<Keyboard>/w'
+    customInputContextIcon: {fileID: 21300000, guid: 60d6b6f134e8c854daa6d270845a9430, type: 2}
+  - customInputContextString: '<Keyboard>/x'
+    customInputContextIcon: {fileID: 21300000, guid: adb907b6e74ab734f90889459e62de62, type: 2}
+  - customInputContextString: '<Keyboard>/y'
+    customInputContextIcon: {fileID: 21300000, guid: a73511d287ff6124287f57c3a10ff257, type: 2}
+  - customInputContextString: '<Keyboard>/z'
+    customInputContextIcon: {fileID: 21300000, guid: c4f2c945eac2625498fbc400e11a9abc, type: 2}
+  - customInputContextString: '<Keyboard>/leftAlt'
+    customInputContextIcon: {fileID: 21300000, guid: 949278d1d7f1c504eabe0df09baf8e04, type: 2}
+  - customInputContextString: '<Keyboard>/rightAlt'
+    customInputContextIcon: {fileID: 21300000, guid: 7d60fc87803a0f44f93a483300caab11, type: 2}
+  - customInputContextString: '<Keyboard>/leftCtrl'
+    customInputContextIcon: {fileID: 21300000, guid: 7a040a700960535409cae1770fe34079, type: 2}
+  - customInputContextString: '<Keyboard>/rightCtrl'
+    customInputContextIcon: {fileID: 21300000, guid: dfd542e3dad27cc47ae31d2ef86fbe28, type: 2}
+  - customInputContextString: '<Keyboard>/leftShift'
+    customInputContextIcon: {fileID: 21300000, guid: 1c257e3df6e7bb44a8eb46dfe6a2065a, type: 2}
+  - customInputContextString: '<Keyboard>/rightShift'
+    customInputContextIcon: {fileID: 21300000, guid: 034d2763faedf974a88f70f7f84b0897, type: 2}
+  - customInputContextString: '<Keyboard>/space'
+    customInputContextIcon: {fileID: 21300000, guid: b886ad8b003c2c847a72524e7cc69389, type: 2}
+  - customInputContextString: '<Keyboard>/downArrow'
+    customInputContextIcon: {fileID: 21300000, guid: 3daa1efa39ea5d04a9cd9c094d581ac5, type: 2}
+  - customInputContextString: '<Keyboard>/upArrow'
+    customInputContextIcon: {fileID: 21300000, guid: 3e60c3c58e7df734aa40d9fb741ccfec, type: 2}
+  - customInputContextString: '<Keyboard>/rightArrow'
+    customInputContextIcon: {fileID: 21300000, guid: 714f0dad9b162d542b7f9a76b5690691, type: 2}
+  - customInputContextString: '<Keyboard>/leftArrow'
+    customInputContextIcon: {fileID: 21300000, guid: f8ef8957a9af4eb4c83de04286fbd140, type: 2}
+  - customInputContextString: '<Keyboard>/backspace'
+    customInputContextIcon: {fileID: 21300000, guid: 13b4d6820f447474893f46cc221bed33, type: 2}
+  - customInputContextString: '<Keyboard>/leftBracket'
+    customInputContextIcon: {fileID: 21300000, guid: cd0285eb9db62b44ab0f334fad946b37, type: 2}
+  - customInputContextString: '<Keyboard>/rightBracket'
+    customInputContextIcon: {fileID: 21300000, guid: 74f6683a4f5bd674da7111938d86d055, type: 2}
+  - customInputContextString: '<Keyboard>/capsLock'
+    customInputContextIcon: {fileID: 21300000, guid: d24ae3b8d18b4a74081494c3f688e625, type: 2}
+  - customInputContextString: '<Keyboard>/delete'
+    customInputContextIcon: {fileID: 21300000, guid: 4c12678f547404b449e5ac10aeff25af, type: 2}
+  - customInputContextString: '<Keyboard>/end'
+    customInputContextIcon: {fileID: 21300000, guid: 4eb128c9bfccc0042b3160525bfa1212, type: 2}
+  - customInputContextString: '<Keyboard>/enter'
+    customInputContextIcon: {fileID: 21300000, guid: fb1870b5d9820864f94003cb8d6f459d, type: 2}
+  - customInputContextString: '<Keyboard>/esc'
+    customInputContextIcon: {fileID: 21300000, guid: b7ab24d2f56aa7e45998e10cd7452fd0, type: 2}
+  - customInputContextString: '<Keyboard>/f1'
+    customInputContextIcon: {fileID: 21300000, guid: 077ddd8a251291347861868583f8068f, type: 2}
+  - customInputContextString: '<Keyboard>/f2'
+    customInputContextIcon: {fileID: 21300000, guid: f30f81248a5eda14bacaa0d858376f3e, type: 2}
+  - customInputContextString: '<Keyboard>/f3'
+    customInputContextIcon: {fileID: 21300000, guid: 3345014c0a722ba46a4f2bda662d4246, type: 2}
+  - customInputContextString: '<Keyboard>/f4'
+    customInputContextIcon: {fileID: 21300000, guid: e1e125d43230cef4497bbc3c671f38ca, type: 2}
+  - customInputContextString: '<Keyboard>/f5'
+    customInputContextIcon: {fileID: 21300000, guid: a632f513a0544a24dbc2f84c9f5632e5, type: 2}
+  - customInputContextString: '<Keyboard>/f6'
+    customInputContextIcon: {fileID: 21300000, guid: 902f2e4e2398e094687d35a72667e50a, type: 2}
+  - customInputContextString: '<Keyboard>/f7'
+    customInputContextIcon: {fileID: 21300000, guid: a7210817ab29c3f4eb11f64b337e1e4f, type: 2}
+  - customInputContextString: '<Keyboard>/f8'
+    customInputContextIcon: {fileID: 21300000, guid: 31481193a77bfa84d9048ec602a90b09, type: 2}
+  - customInputContextString: '<Keyboard>/f9'
+    customInputContextIcon: {fileID: 21300000, guid: 3fadea0a76ccf4d4cac9302ac32b7b92, type: 2}
+  - customInputContextString: '<Keyboard>/f10'
+    customInputContextIcon: {fileID: 21300000, guid: 2599fec49b89eab4695c0ab851b228ef, type: 2}
+  - customInputContextString: '<Keyboard>/f11'
+    customInputContextIcon: {fileID: 21300000, guid: 231847280fc72e2439bbeff8c5d2b549, type: 2}
+  - customInputContextString: '<Keyboard>/f12'
+    customInputContextIcon: {fileID: 21300000, guid: 48b89a681d8423049813c6f068afb0b5, type: 2}
+  - customInputContextString: '<Keyboard>/home'
+    customInputContextIcon: {fileID: 21300000, guid: e73fca31c12d77642895e99bf6baf623, type: 2}
+  - customInputContextString: '<Keyboard>/insert'
+    customInputContextIcon: {fileID: 21300000, guid: ca674ffb333494e4798a2644019a9525, type: 2}
+  - customInputContextString: '<Keyboard>/pageDown'
+    customInputContextIcon: {fileID: 21300000, guid: b5662bd3b47e6e24cb6f175725c1bf45, type: 2}
+  - customInputContextString: '<Keyboard>/pageUp'
+    customInputContextIcon: {fileID: 21300000, guid: 69ead81777dae1941a2a146f373a8028, type: 2}
+  - customInputContextString: '<Keyboard>/semicolon'
+    customInputContextIcon: {fileID: 21300000, guid: 85ceda41deb17974a8e2d75e25c3aceb, type: 2}
+  - customInputContextString: '<Keyboard>/quote'
+    customInputContextIcon: {fileID: 21300000, guid: 38d044e7f68f3f74eb8f11d8a70c32d8, type: 2}
+  - customInputContextString: '<Keyboard>/period'
+    customInputContextIcon: {fileID: 21300000, guid: ef6a67306eb5286439f3b9bda0fdba65, type: 2}
+  - customInputContextString: '<Keyboard>/comma'
+    customInputContextIcon: {fileID: 21300000, guid: 9cd38eaa2530c8049ad6231cb0e6af07, type: 2}
+  - customInputContextString: '<Keyboard>/slash'
+    customInputContextIcon: {fileID: 21300000, guid: 9be7da2077d428f49a2317e5744a48c4, type: 2}
+  - customInputContextString: '<Keyboard>/backslash'
+    customInputContextIcon: {fileID: 21300000, guid: 67cbf829881d3924ba880b5dce22628b, type: 2}
+  - customInputContextString: '<Keyboard>/OEM1'
+    customInputContextIcon: {fileID: 21300000, guid: 67cbf829881d3924ba880b5dce22628b, type: 2}
+  - customInputContextString: '<Keyboard>/minus'
+    customInputContextIcon: {fileID: 21300000, guid: dacd08cf8be0fbf48a014ca1743f01f6, type: 2}
+  - customInputContextString: '<Keyboard>/tab'
+    customInputContextIcon: {fileID: 21300000, guid: ddffa5e3ac036bb43b025e2873591c2e, type: 2}
+  - customInputContextString: '<Keyboard>/backquote'
+    customInputContextIcon: {fileID: 21300000, guid: 6ec79b70136244f4d9dfb4058eb6f1c4, type: 2}
+  - customInputContextString: '<Keyboard>/equals'
+    customInputContextIcon: {fileID: 21300000, guid: 2a3a3e78ab811a4459f8f431d674425a, type: 2}
+  - customInputContextString: '<Keyboard>/numpadPlus'
+    customInputContextIcon: {fileID: 21300000, guid: 6396073e48ce5cc468e370bf2a6c52c5, type: 2}
+  - customInputContextString: '<Keyboard>/numpadMultiply'
+    customInputContextIcon: {fileID: 21300000, guid: d300e6b1c1f0b0d469fecfd8743ec54d, type: 2}
+  - customInputContextString: '<Keyboard>/numpadMinus'
+    customInputContextIcon: {fileID: 21300000, guid: dacd08cf8be0fbf48a014ca1743f01f6, type: 2}
+  - customInputContextString: '<Keyboard>/numpadDivide'
+    customInputContextIcon: {fileID: 21300000, guid: 67cbf829881d3924ba880b5dce22628b, type: 2}
+  - customInputContextString: '<Keyboard>/numpadEnter'
+    customInputContextIcon: {fileID: 21300000, guid: ba082164bc00db6458e5d37e5e8ed66d, type: 2}
+  - customInputContextString: '<Keyboard>/numpadPeriod'
+    customInputContextIcon: {fileID: 21300000, guid: ec6e2f88408691342835872b0b2e0cf7, type: 2}
+  - customInputContextString: '<Mouse>/leftButton'
+    customInputContextIcon: {fileID: 21300000, guid: ac99c494b98ad1b4984401cc2624e9c3, type: 2}
+  - customInputContextString: '<Mouse>/rightButton'
+    customInputContextIcon: {fileID: 21300000, guid: 96ee2c0e331a10f4997aecb16b8cf4ae, type: 2}
+  - customInputContextString: '<Mouse>/middleButton'
+    customInputContextIcon: {fileID: 21300000, guid: b9a20ed5b0cf8014a946f32b44f777d4, type: 2}

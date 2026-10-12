@@ -1,0 +1,260 @@
+<b><size=50>Full Controller Support Update 2.2:</size></b>
+
+<b>[Added]</b>
+- Added Full Controller Support to the main menu and InGame
+- More Ultra Wide Screens Options
+- Lab Tree "Update All Stats Research" will show now what stats are going to change
+
+<b>[Fixed]</b>
+- Shield Part Gets the right size when previewing the part
+- Some Localization issues and misspelled words
+- Multiple Game Overs may happen at the same time Bug
+
+..........................................................................................
+
+<b><size=50>Ultra Wide and Balancing Update 2.1:</size></b>
+
+- Added Ultra Wide Screens Support
+
+- To ensure a fair start for everyone, we made all the surrounding events when the game starts either Asteroids or Containers events. 
+-Change the odd of the high level Station for Easy & Normal
+- Balanced Boss Numbers & Types for easy & normal difficulties.
+
+- Fixed Reward Box issues sometimes appear locked
+- Modified the scrap price of the in-game missions and the Toggle Researches Upgrade
+
+..........................................................................................
+
+<b><size=50>Balance Patch v2.0.2:</size></b>
+
+- Reduced the number of attacking ship while fighting a boss based on difficulty.
+- Increased time between waves based on difficulty.
+- Decreased the number of ships in one wave based on difficulty.
+- Now new game will start you with 55 Scraps
+
+..........................................................................................
+
+<b><size=50>Patch V2.0.1</size></b>
+
+- Fixed Leaderboards font missing some characters
+- Fixed Endless Mode Leaderboard Not recording scores
+- Improved Stalker Ships Movement
+- Fixed BlackHole still sucking ship after being destroyed
+- Improved Endless Mode Ships Speed
+
+..........................................................................................
+
+
+<b><size=50>Mission and Community Update V2.0</size></b>
+5 New Missions, 10 new Parts, New Enemies, Community Leaderboard and Community Items, and more…
+
+<b>[Added]</b>
+- Customizable key bindings Controls in the Options menu
+- Added 5 New Missions
+- Added a new Mission Board where you can select the Mission and Difficulty
+- Added Researches toggle System to customize your ship
+- A new ship building System: The ship now has a lot of places to build on but with a limited number of parts
+- Added a new Missions Timer and a new Boss Time in the game.
+- New Map Event Containers Art
+- New Enemies Spawning System
+- EMP does huge damage to the shield but will not disable it with one shot
+- Reworked the Scoring System to be unique with each new Mission mode
+- Added two more scoring ranks SS+ and SSS+
+- Disabled Speed Running options
+- Added global Steam leaderboard for each Mission type
+- Cannon & Nuke haul damage is reduced if they hit a shield
+ 
+
+<b>[New Enemies]</b>
+- Added a new Stalker Enemy that’ll always keep his distance from you.
+- Bigger ships to the Patrols and Hunters Armada
+- Bandit ships armed with a shotgun
+- Bigger and heavily armored Pyro ships
+- New Carrier Ship
+- Added Hunter Fleets that’ll follow you around the map hunting you down
+- Spawners Ships that’ll keep spawning  an infinite number of ships.
+- Spawners Stations that’ll spawn ships to protect its space.
+- Bosses are more aggressive and attack in fleets
+
+
+<b>[5 New Missions]</b>
+Endless Mission: Survive for as long as you can
+Bounty Hunter Mission: Hunt the fleeing ships before they warp away
+Station Hunter Mission: Destroy the Hunters Station before the time is up
+Guardian Angel Mission: Escort the Traders to safety
+Station Protector Mission: Defend your Station from waves of ships
+ 
+Plus, the old Survival Mission: Escape from being bounty hunted
+ 
+
+<b>[10 New Parts]</b>
+Clocking Tower: Hides the surrounding parts from enemies making them invincible
+Flak Cannon: Fires a cluster of bullets covering multiple ships
+Shotgun: Load, Aim, and Blast ships in the face
+Nuke Rocket: A massive nuke rocket with high damage over a larg area.
+Mines Spawner: Spawns waves of mines free in space
+Repair Tower: Repairs surrounding parts
+HQ Control Chip: Allow manual aiming for parts around it
+Move Part: Move a part around the ship
+Reinforce Parts: Add more hull Reinforcement to a part [which removed the walls part]
+Reward Box: a small mystery box that will appear inside the game.
+-With over 25+ new researches in the lab
+ 
+
+<b>[Fixed]</b>
+- Fixed Shield system
+- Scraps Drones AI fixing all drones were going to the same scrap
+- Fixed Game is Running while Loading Screen
+- EMP freeze particle not always showing
+- Fixed Rewards Pack gets randomized after each cycle
+- Boss Body will stay stuck on screen after being destroyed
+- Fixed Mute all looping Audio while the game is paused
+- Fixed Player Boost keeps playing while pausing
+- enemy ships will no longer be over the player in building mode
+
+
+<b>[16 New Achievements]</b>
+Treasure Hunter - Open a Reward Box
+Normal Survival - Beat the Survival Mission on Normal
+Master Survival - Beat the Survival Mission on Hard
+Normal Bounty Hunter - Beat the Bounty Hunter Mission on Normal
+Master Bounty Hunter - Beat the Bounty Hunter Mission on Hard
+Weasel Bounty Hunter - Beat the Bounty Hunter Mission on Hard without killing any bosses
+Normal Guardian Angel - Beat the Guardian Angel Mission on Normal
+Master Guardian Angel - Beat the Guardian Angel Mission on Hard
+True Guardian Angel - Beat the Guardian Angel Mission on Hard without losing a Trader
+Normal Station Hunter - Beat the Station Hunter Mission on Normal
+Master Station Hunter - Beat the Station Hunter Mission on Hard
+Normal Station Protector - Beat the Station Protector Mission on Normal
+Master Station Protector - Beat the Station Protector Mission on Hard
+True Station Protector - Beat the Station Protector Mission on Hard while having more than 75% of the station alive.
+Endless Survival - Survive in Endless Mode for 15mins on Hard
+Master Endless Survival - Survive in Endless Mode for 30mins on Hard
+ 
+ 
+<b>[Community]</b>
+Our own Game Steam Trading Cards are now available!
+As you play through the game, you will automatically earn Trading Cards.
+
+By trading with other players to collect the whole set of six cards, you can then unlock unique Run Build Pew! badges, emoticons, and profile backgrounds to enhance and level up your Steam Community profile.
+
+Thanks so much for playing and all the support in the past month.
+If you experience any bugs or need assistance with the game, please let us know on our Discord server or the Steam Discussion Forum.
+
+
+..........................................................................................
+
+
+<b><size=50>Information Overhaul Update V1.5</size></b>
+
+<b>[New]</b>
+- Added Stats to all the rewards in the lab
+- Added Description to all the rewards in the lab
+- Added Map Legends to the In-Game Radar
+- Added Tips in the loading Screen
+- Added "Skip bosses Animation Choice" in the options menu
+
+- Added In-Game UI to show the number of HQ Drones in building mode
+- Added In-Game UI to show the player stats in building mode
+- Added a way to highlight all ship parts when hovering on a chip reward and highlighting all ship chips when hovering on a part reward in building mode
+
+<b>[Bugs Fixed]</b>
+- Fuel Tanks fuel amount bug when Adding or removing tanks
+- Game starts playing when the camera is still coming back from Boss
+- Saving System Bug erasing the progress when changing devices
+
+<b>[Balancing]</b>
+- Flame Turret Rotation Speed reduced
+
+..........................................................................................
+
+
+<b><size=50>Stats and Ship Speed Patch v1.4.1</size></b>
+
+<b>[New]</b>
+- Stats update now can't go higher than 100% and lower than -80%
+- Ship Speed now has a min and max speed
+- Ship Boost now has a max boost
+- The HQ now can only hold 30 drones in it of all types
+- Asteroids Debris particles now last way less on screen
+
+<b>[Fixed]</b>
+- Reset Player Stats from the start of the run
+- Repair drone won't repair shields anymore
+- Shield wasn't recharging after being damaged
+
+..........................................................................................
+
+<b><size=50>Rewards and Balancing V1.4</size></b>
+ 
+<b>[New]</b>
+- Packs Recycle, Now you can skip packs you don't want and recycle them for half the price.
+- Explosions will not block the build mode anymore
+
+<b>[Bugs]</b>
+- Fixed Player Stats carries from run to run
+
+<b>[Balancing]</b>
+- Now you require fewer scraps to level up in game
+- A new Rewards Packs Shuffling to insure spreading out packs
+- Balanced the camera zooming
+- Added player max speed limit
+- Stats rewards effect lowered from 30% to 20%
+- Attack Drones Hanger now starts with 3 drones
+- EMP Stun duration decreased
+- Mines Damage decreased
+- Balanced Parts Health
+- F Rating now gives you only 5 Scraps
+
+..........................................................................................
+
+<b><size=50>Balancing and Bugs ... Patch #3 (v1.3) </size></b>
+
+- Rebalanced scraps collection 
+- Added Change Log and Version number in the Main Menu
+- Made fleet moving direction clearer
+- Increased the distance between map events
+- Made Scraper drones faster in finding scraps
+- Faster drones animation
+- Added ESC to Main Menu and in Game Pause menu
+- Raised Cannon part AOE up a bit
+- Increased Zooming out when building more parts
+
+
+Bugs Fixed:
+- Drones engine flare Switch Reward Glitch
+- Reward x2 Duplicate self-locking the game
+- [Exploit] Double clicking rewards will claim it multiple times
+- Some AI parts not firing at the player
+
+..........................................................................................
+
+
+<b><size=50>Optimization and AI Patch #2 (v1.2) </size></b>
+   Date: 7/6/2022
+    
+Gameplay:
+- Player Building limit to 8x8 around the HQ rather than 10x10
+
+Optimization:
+- Massive performance optimization especially for the mid & end game.
+- Homing Rockets performance optimization issues.
+
+AI:
+- AI Spawning Rate
+- AI Waves Spawning Rate
+- EMP won't stun bosses anymore.
+- Shield System now recharges to half after being depleted
+- Bosses Damage and health Overhaul
+
+..........................................................................................
+
+<b><size=50>Meta Progression Patch #1 (v1.1) </size></b>
+   Date: 7/6/2022
+    
+- The Game now starts now with 35 Lab Scraps.
+- The Game now starts with the fuel tanks, engineers hanger and two more HQ Turrets unlocked.
+- Chips lab prices balanced
+- Drones Level up rewards now will add more drones to the hangers
+- Rating System overhaul allowing for faster early game Progression
+- Faster Camera Zooming

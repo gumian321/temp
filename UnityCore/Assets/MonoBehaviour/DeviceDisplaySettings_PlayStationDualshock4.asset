@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cdbb0a059393297e6c8aa48bbb53dab, type: 3}
+  m_Name: DeviceDisplaySettings_PlayStationDualshock4
+  m_EditorClassIdentifier:
+  deviceDisplayName: PlayStation Controller
+  deviceDisplayIcon: {fileID: 21300000, guid: 4f07fb8d7e6e0b94b97c3d512830dcf6, type: 2}
+  deviceRebindCancelKeys:
+  - '<Gamepad>/optionsButton'
+  - '<Gamepad>/select'
+  - '<Gamepad>/start'
+  - '<Keyboard>/{Back}'
+  deviceIgnoredKeys:
+  - '<Gamepad>/start'
+  - '<Gamepad>/select'
+  - '<Gamepad>/systemButton'
+  - '<Gamepad>/shareButton'
+  customContextIcons:
+  - customInputContextString: '<Gamepad>/rightStick/left'
+    customInputContextIcon: {fileID: 21300000, guid: 7d1ea53eb1faf3848adb2147479840b7, type: 2}
+  - customInputContextString: '<Gamepad>/rightStick/right'
+    customInputContextIcon: {fileID: 21300000, guid: 4c308431b9bd55748a4fd1f811e34fb4, type: 2}
+  - customInputContextString: '<Gamepad>/rightStick/up'
+    customInputContextIcon: {fileID: 21300000, guid: f6e7f58318ad7ff4c90dcfc94ea10e84, type: 2}
+  - customInputContextString: '<Gamepad>/rightStick/down'
+    customInputContextIcon: {fileID: 21300000, guid: b392ab11c7fb254458aca6d873f791a2, type: 2}
+  - customInputContextString: '<Gamepad>/leftStick/left'
+    customInputContextIcon: {fileID: 21300000, guid: 8d66f0ccf5d79194188de1b815e2d923, type: 2}
+  - customInputContextString: '<Gamepad>/leftStick/right'
+    customInputContextIcon: {fileID: 21300000, guid: 00ec01c3e23134245abf9b308d4e6b0d, type: 2}
+  - customInputContextString: '<Gamepad>/leftStick/up'
+    customInputContextIcon: {fileID: 21300000, guid: 50eea121ba1bc724ea166148463b4e6d, type: 2}
+  - customInputContextString: '<Gamepad>/leftStick/down'
+    customInputContextIcon: {fileID: 21300000, guid: 3622a17b1e4b29940acbd90713a39878, type: 2}
+  - customInputContextString: '<Gamepad>/rightStickPress'
+    customInputContextIcon: {fileID: 21300000, guid: 6ca54feac2b2d6c4788b5ffdada9d165, type: 2}
+  - customInputContextString: '<Gamepad>/leftStickPress'
+    customInputContextIcon: {fileID: 21300000, guid: 5e1ee9acf5c121e428311e75570e224f, type: 2}
+  - customInputContextString: '<Gamepad>/rightTrigger'
+    customInputContextIcon: {fileID: 21300000, guid: adde82496aae55843b229bdf8ccb1b7b, type: 2}
+  - customInputContextString: '<Gamepad>/leftTrigger'
+    customInputContextIcon: {fileID: 21300000, guid: 196fe56fc15205f46982a023c52b76b5, type: 2}
+  - customInputContextString: '<Gamepad>/buttonNorth'
+    customInputContextIcon: {fileID: 21300000, guid: cc838b924211aac419d5005151df5c8a, type: 2}
+  - customInputContextString: '<Gamepad>/buttonSouth'
+    customInputContextIcon: {fileID: 21300000, guid: ea19d718d83148d4fbb2c6ba5f0dfc88, type: 2}
+  - customInputContextString: '<Gamepad>/buttonWest'
+    customInputContextIcon: {fileID: 21300000, guid: 1d6e46a6aa0e1db4fb83c922fd8ad748, type: 2}
+  - customInputContextString: '<Gamepad>/buttonEast'
+    customInputContextIcon: {fileID: 21300000, guid: 465d3efc3d32bf84fa3f129576603bfa, type: 2}
+  - customInputContextString: '<Gamepad>/leftShoulder'
+    customInputContextIcon: {fileID: 21300000, guid: 16d3282949a156a4f932b8e62189bd4c, type: 2}
+  - customInputContextString: '<Gamepad>/rightShoulder'
+    customInputContextIcon: {fileID: 21300000, guid: cfffab5ea8116644c8828d5f4d693050, type: 2}
+  - customInputContextString: '<Gamepad>/dpad/down'
+    customInputContextIcon: {fileID: 21300000, guid: 862c5d9b6bfd7d94ebad3132bdb3105e, type: 2}
+  - customInputContextString: '<Gamepad>/dpad/up'
+    customInputContextIcon: {fileID: 21300000, guid: 3455b5df741867b46aa4dc3f31989311, type: 2}
+  - customInputContextString: '<Gamepad>/dpad/left'
+    customInputContextIcon: {fileID: 21300000, guid: c1bbb932f3473a942b821e410a3497d6, type: 2}
+  - customInputContextString: '<Gamepad>/dpad/right'
+    customInputContextIcon: {fileID: 21300000, guid: 778b24aaad1aabd40b5cda59f10e9e65, type: 2}
+  - customInputContextString: '<Gamepad>/touchpadButton'
+    customInputContextIcon: {fileID: 21300000, guid: 7380d946c7dd12f4c9c23e4a22f0e044, type: 2}
+  - customInputContextString: '<Gamepad>/systemButton'
+    customInputContextIcon: {fileID: 21300000, guid: 0b6c858c702b90949baf72820fb85a5a, type: 2}
+  - customInputContextString: '<Gamepad>/shareButton'
+    customInputContextIcon: {fileID: 21300000, guid: 089110f22c0d8164d8f0d7cf15febc11, type: 2}
+  - customInputContextString: '<Gamepad>/optionsButton'
+    customInputContextIcon: {fileID: 21300000, guid: 8a3c0de31c4630e4393aba3c4e5568d0, type: 2}
+  - customInputContextString: '<Gamepad>/touchpadButton/left'
+    customInputContextIcon: {fileID: 21300000, guid: 9289ca835025a6644a102688e0f89113, type: 2}
+  - customInputContextString: '<Gamepad>/touchpadButton/right'
+    customInputContextIcon: {fileID: 21300000, guid: f155866bd20d25744a5dec0df11af54a, type: 2}

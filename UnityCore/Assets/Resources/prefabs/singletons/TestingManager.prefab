@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1709254077376921
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4730242686860875}
+  - component: {fileID: 114724804207875695}
+  m_Layer: 0
+  m_Name: TestingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4730242686860875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709254077376921}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+--- !u!114 &114724804207875695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709254077376921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d17589d965014c544cd5a04e3e8919d, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  isTestingMissions: 0
+  testingMission: {fileID: 0}
+  testingDifficulty: 0
+  isTestingRest: 0
+  isOverwriteGameStartTime: 0
+  OverwriteGameStartTimePercent: 0
+  isOverwriteGameTime: 0
+  OverwriteGameTimePercent: 0
+  isDestroyCoreRightClick: 0
+  isStunCoreRightClick: 0
+  isOverwriteBuildingSize: 0
+  buildingLimitX: 3
+  buildingLimitY: 3
+  isPlayerInvincible: 1
+  isPlayerOneShotKill: 0
+  isPlayerUltraSpeed: 1
+  isPlayerUnlimitedFuel: 0
+  isPlayerDisabledHQWeapon: 0
+  isTestingPlayerHQWeapon: 1
+  testingPlayerHQWeapon: {fileID: 11400000, guid: cc87d13d3e45b7748845260b953d29c4, type: 2}
+  isTestingPlayerHQDronesList: 0
+  testingPlayerHQDronesList:
+  - {fileID: 11400000, guid: 6f7a311eec961be49825d1a99cd54bbe, type: 2}
+  - {fileID: 11400000, guid: 6f7a311eec961be49825d1a99cd54bbe, type: 2}
+  - {fileID: 11400000, guid: 6f7a311eec961be49825d1a99cd54bbe, type: 2}
+  - {fileID: 11400000, guid: 6f7a311eec961be49825d1a99cd54bbe, type: 2}
+  - {fileID: 11400000, guid: 6f7a311eec961be49825d1a99cd54bbe, type: 2}
+  - {fileID: 11400000, guid: 6f7a311eec961be49825d1a99cd54bbe, type: 2}
+  - {fileID: 11400000, guid: 6f7a311eec961be49825d1a99cd54bbe, type: 2}
+  - {fileID: 11400000, guid: 6f7a311eec961be49825d1a99cd54bbe, type: 2}
+  - {fileID: 11400000, guid: 6f7a311eec961be49825d1a99cd54bbe, type: 2}
+  - {fileID: 11400000, guid: 6f7a311eec961be49825d1a99cd54bbe, type: 2}
+  isPrintTotalTreePrice: 0
+  isTestingRewardsList: 0
+  TestingRewards:
+  - {fileID: 11400000, guid: ed1b7a8fe4161584796e45a67bd879ce, type: 2}
+  - {fileID: 11400000, guid: fbdf8ac8859d50c4690c97e55b12689d, type: 2}
+  - {fileID: 11400000, guid: 87d8374ec775b47479ffba10b7bdc9ee, type: 2}
+  isTestingRewardPacksList: 0
+  TestingRewardPacks: []
+  UnlockAllRewards: 1
+  LockAllRewards: 0
+  stopSpawningBossAI: 0
+  SpawningBossAIOnTopPlayer: 0
+  StopSpawningSwarmAI: 1
+  StopSpawningSwarmAIWaves: 1
+  StopSpawningPatrolAI: 0
+  SpawningSwarmAIFromList: 0
+  TestingSwarmAISpawnsList: 22000000
+  SpawningPatrolAIFromList: 0
+  TestingPatrolAISpawnsList: []
+  StopSpawningMapEvents: 0
+  SpawningMapEventsFromList: 0
+  TestingMapEventsList: 67000000
+  isOverridingMapEventPercent: 0
+  mapEventPercent: 1

@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a126a07129058d6ba20070d9e7a54c39, type: 3}
+  m_Name: Endless Mission
+  m_EditorClassIdentifier:
+  MissionLeaderBoardName: ENDLESS
+  MissionNameTextID: Play_Endless
+  MissionDescTextID: Play_Endless_desc
+  MissionArrowIcon: {fileID: 21300000, guid: 8e60c721d4f9d2e40a9904be5f6d1b6a, type: 2}
+  MissionArrowColor: {r: 0.7176471, g: 0.10980393, b: 0.10980393, a: 1}
+  MissionCost: 100
+  CanBeCompleted: 1
+  MissionsObjectiveList:
+  - missionDiffeculty: 0
+    objectiveSprite: {fileID: 21300000, guid: e97f667b07ad7404eb2de4b2899089ee, type: 2}
+    objectiveTime: 10
+    objectivePrefab: {fileID: 1709254077376921, guid: bad6a1332d655044fa7a1f061ca6ea92, type: 2}
+    objectiveAIConfiguration: {fileID: 11400000, guid: a3e539aea2f401e4595bf287d0248cc0, type: 2}
+    objectiveACHID:
+  - missionDiffeculty: 1
+    objectiveSprite: {fileID: 21300000, guid: 1fbb8a0717db4964d8f28146293c7ff1, type: 2}
+    objectiveTime: 10
+    objectivePrefab: {fileID: 1709254077376921, guid: 5b5f5403f4fa61045b4479571788a840, type: 2}
+    objectiveAIConfiguration: {fileID: 11400000, guid: b9d764b7b42affb4c9db3dc42bd2df3f, type: 2}
+    objectiveACHID:
+  - missionDiffeculty: 2
+    objectiveSprite: {fileID: 21300000, guid: 1ca0c4f0225b48846be23c70515a4f6b, type: 2}
+    objectiveTime: 10
+    objectivePrefab: {fileID: 1709254077376921, guid: 530e41432f250c04daf54e219d290a75, type: 2}
+    objectiveAIConfiguration: {fileID: 11400000, guid: 907f6f8fc293631418db8b755c26cb2f, type: 2}
+    objectiveACHID:
+  isEndless: 1
+  hasTimer: 1
+  isTimeEndCondition: 0
+  isPlayerWinWhenTimerIsOver: 0
+  isTimerCountingDown: 0
+  hasDistanceCounter: 0
+  hasBossBars: 1
+  isOffsetPlayer: 0
+  playerYOffset: 0
+  cameraTargetSizeOffset: -1

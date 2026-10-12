@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34982cdde22efb5118bbf7b49bb066d1, type: 3}
+  m_Name: Reward_LevelUP_Shield
+  m_EditorClassIdentifier:
+  rewardOverrideCost: -1
+  rewardDesc: Part_Shield_Desc
+  rewardStats:
+    HullDamage: 0
+    ShieldDamage: 0
+    Range: 1
+    RateOfFire: 0
+    PartsCount: 0
+    DronesCount: 0
+    LevelUp: 1
+    LinkedReward: {fileID: 11400000, guid: 87d8374ec775b47479ffba10b7bdc9ee, type: 2}
+  rewardVideoClip: {fileID: 32900000, guid: 8d49aafab8f5f3049b477c9847d68336, type: 3}
+  rarity: 2
+  rewardOverlaySprite: {fileID: 21300000, guid: dafbdf1b8528b6342aa1c8163ff443d8, type: 2}
+  rewardHeat: 1
+  coresList:
+  - {fileID: 11400000, guid: 9e962695c6250ea48967ecded5f6cad0, type: 2}
+  - {fileID: 11400000, guid: e914ff6f0cf0889499d921eeaa370bc2, type: 2}
+  CoreHealthPercent: 0.5
+  ShieldHealthPercent: 0.5
+  ShieldRechargeRatePercent: 0.5
+  ShieldRechargeDelayPercent: -0.5
+  ShieldRangePercent: 0.2

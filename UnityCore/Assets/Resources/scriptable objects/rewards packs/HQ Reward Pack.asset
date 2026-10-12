@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00da2cbd92985df24eb507a9da41a3a3, type: 3}
+  m_Name: HQ Reward Pack
+  m_EditorClassIdentifier:
+  packSprite: {fileID: 21300000, guid: 4b9cd458d43e2814b9f9c8b187d8a292, type: 2}
+  packGameFreq: 1
+  packLevelUpFreq: 1
+  packRewardsList:
+  - {fileID: 11400000, guid: a2bf8c5268ca1bd429f8c870db990c2a, type: 2}
+  - {fileID: 11400000, guid: d1a42199c1ee72c40bc6fa21939a3160, type: 2}
+  - {fileID: 11400000, guid: 144c8022539d577438237b13b321a92d, type: 2}
+  - {fileID: 11400000, guid: 461b61fc03bfb1b4a806b18880c8e3d4, type: 2}
+  - {fileID: 11400000, guid: b8bedd9cb2dd1c4478a1825b997a0603, type: 2}
+  - {fileID: 11400000, guid: f8a7d4dd7d609ad469b30f364045a97c, type: 2}
+  - {fileID: 11400000, guid: 482450b405a715849a7b306eb6dce782, type: 2}
+  - {fileID: 11400000, guid: 227f69e214cb8ff459a5d9e9f65efac7, type: 2}
+  - {fileID: 11400000, guid: cba4c6b76cdb1f24cbd3d88f7feaf387, type: 2}
+  - {fileID: 11400000, guid: c4760fa79c621a140a3b34adf4aa8aab, type: 2}
+  - {fileID: 11400000, guid: f7f3c4cbd3aaae745967a9d9390adc5e, type: 2}
+  - {fileID: 11400000, guid: 0713e6313ee537e41a2cae76f6418133, type: 2}

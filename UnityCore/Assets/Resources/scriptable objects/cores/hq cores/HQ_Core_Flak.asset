@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db02044a0d6f0cfcc39128ce09e4cba5, type: 3}
+  m_Name: HQ_Core_Flak
+  m_EditorClassIdentifier:
+  coreSortingOrder: 1
+  coreNameID: Part_Flak
+  CoreHealth: 90
+  coreHeat: 2
+  coreRatePrize: 100
+  coreScraps: 1
+  isChipable: 1
+  isClockable: 1
+  coreTurret: {fileID: 11400000, guid: 4de77bff5035dbb43ba6c785ad49feb4, type: 2}
+  radarConfiguration: {fileID: 11400000, guid: 395777f4a85535049b836439ca5fb9b2, type: 2}
+  turretRange: 3
+  turretRateOfFire: 8
+  turretRotateSpeed: 250
+  turretErrorAngle: 0.5
+  coreProjectile: {fileID: 11400000, guid: 26a8abcfc3bd31a48851d48e59efa53b, type: 2}

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 410250461c20d63804a2433418f38b1a, type: 3}
+  m_Name: Boss_Center_Hanger
+  m_EditorClassIdentifier:
+  bossThreatLevel: 3
+  aIBossPartType: 2
+  coresList:
+  - {fileID: 11400000, guid: 8f197d9f12b13e9438a15e89477d8417, type: 2}
+  - {fileID: 11400000, guid: 8f197d9f12b13e9438a15e89477d8417, type: 2}
+  - {fileID: 11400000, guid: cce37637f15814b4f81c7065ad0b359b, type: 2}
+  - {fileID: 11400000, guid: ed33647ceac03a84e914fb56857a9d20, type: 2}
+  - {fileID: 11400000, guid: ed33647ceac03a84e914fb56857a9d20, type: 2}

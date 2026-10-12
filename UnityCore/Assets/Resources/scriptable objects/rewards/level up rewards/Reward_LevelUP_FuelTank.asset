@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0784bad90a34f02fbf45e317fffddbb5, type: 3}
+  m_Name: Reward_LevelUP_FuelTank
+  m_EditorClassIdentifier:
+  rewardOverrideCost: -1
+  rewardDesc: Part_Fuel_Desc
+  rewardStats:
+    HullDamage: 0
+    ShieldDamage: 0
+    Range: 0
+    RateOfFire: 0
+    PartsCount: 0
+    DronesCount: 0
+    LevelUp: 1
+    LinkedReward: {fileID: 0}
+  rewardVideoClip: {fileID: 32900000, guid: 02289c875b819e042955ff9f75f76ee3, type: 3}
+  rarity: 1
+  rewardOverlaySprite: {fileID: 21300000, guid: dafbdf1b8528b6342aa1c8163ff443d8, type: 2}
+  rewardHeat: 1
+  coresList:
+  - {fileID: 11400000, guid: 60c1544ce769098498bc62a91e59e8a3, type: 2}
+  CoreHealthPercent: 0.5
+  TankCapacityPercent: 0.5

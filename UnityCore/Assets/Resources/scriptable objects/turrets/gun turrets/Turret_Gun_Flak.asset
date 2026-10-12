@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad64672cfe89c0c853c4d5033905409, type: 3}
+  m_Name: Turret_Gun_Flak
+  m_EditorClassIdentifier:
+  turretSprite: {fileID: 21300000, guid: 7f6232c2eedb1e04fb3e44d5aee7bbc6, type: 2}
+  turretObject: {fileID: 1709254077376921, guid: 73b295bd6e491a240bfa16fa4ffec46b, type: 2}
+  turretsBarrels: {fileID: 1709254077376921, guid: a2def701bffa4ce4baef49e6c1945b66, type: 2}
+  fireAudioClipType: 11

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea1353b3045d517c9704c38d43392e3, type: 3}
+  m_Name: Core_AI_Shield_Mid
+  m_EditorClassIdentifier:
+  coreSortingOrder: 1
+  coreNameID:
+  CoreHealth: 50
+  coreHeat: 3
+  coreRatePrize: 1
+  coreScraps: 0
+  isChipable: 0
+  isClockable: 1
+  coreTurret: {fileID: 11400000, guid: 1be22aead96caf146aa44343693166be, type: 2}
+  ShieldRange: 2.5
+  maxShieldHealth: 1000
+  shieldRechargeRate: 40
+  shieldRechargeDelay: 5
+  activatableChips:
+    activatedChipsList:

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e9aef0ca0309981e8ab4d20ec5dc13, type: 3}
+  m_Name: Reward_LevelUP_Drone_Attack
+  m_EditorClassIdentifier:
+  rewardOverrideCost: -1
+  rewardDesc: Attack_Drones_Desc
+  rewardStats:
+    HullDamage: 1
+    ShieldDamage: 1
+    Range: 1
+    RateOfFire: 1
+    PartsCount: 0
+    DronesCount: 1
+    LevelUp: 1
+    LinkedReward: {fileID: 11400000, guid: a0251cbd27eb14c45b171aeb061f8936, type: 2}
+  rewardVideoClip: {fileID: 32900000, guid: f7e3dcb91f1dac94fb7bc31b02edd08f, type: 3}
+  rarity: 1
+  rewardOverlaySprite: {fileID: 21300000, guid: dafbdf1b8528b6342aa1c8163ff443d8, type: 2}
+  rewardHeat: 1
+  coresList:
+  - {fileID: 11400000, guid: 46a6c106f65e8bc4885312f434b3ac91, type: 2}
+  CoreHealthPercent: 0.649
+  dronesList:
+  - {fileID: 11400000, guid: 7bef1b6cd97a9e24b844a6866571c80d, type: 2}
+  - {fileID: 11400000, guid: 6f7a311eec961be49825d1a99cd54bbe, type: 2}
+  addDronesCount: 1
+  enginePowerPercent: 0.05
+  efficiencyPercent: 0.25
+  rangePercent: 0.1

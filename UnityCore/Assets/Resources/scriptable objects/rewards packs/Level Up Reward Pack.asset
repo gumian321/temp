@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00da2cbd92985df24eb507a9da41a3a3, type: 3}
+  m_Name: Level Up Reward Pack
+  m_EditorClassIdentifier:
+  packSprite: {fileID: 21300000, guid: 36a31640e184b9b4bba0f75f5eca16c4, type: 2}
+  packGameFreq: 6
+  packLevelUpFreq: 4
+  packRewardsList:
+  - {fileID: 11400000, guid: 29bd45c4df88c0d43934ae0c326d0fde, type: 2}
+  - {fileID: 11400000, guid: e0f9d169dcbe35d4e902d60f0c45992f, type: 2}
+  - {fileID: 11400000, guid: 1f8e8762c85bfd440afc2349ddab5ddc, type: 2}
+  - {fileID: 11400000, guid: 99ef91336d4d56544a3e8bc0f0016307, type: 2}
+  - {fileID: 11400000, guid: 82ea559c5c4a2ee4f9bafc0038d5e959, type: 2}
+  - {fileID: 11400000, guid: 75f08009dbd470943a84dfe16d0d7d78, type: 2}
+  - {fileID: 11400000, guid: 781ef692efed01e4d8c40e47fc644bb7, type: 2}
+  - {fileID: 11400000, guid: 103ef891d815c4c44a49886ea85b4d2d, type: 2}
+  - {fileID: 11400000, guid: e93d137989ecc7f4c9b9f1239128afbf, type: 2}
+  - {fileID: 11400000, guid: efb8c28e97bc4fe4187296ed324fcf75, type: 2}
+  - {fileID: 11400000, guid: ea14552e553d2eb4b8fc69c8fef8211e, type: 2}
+  - {fileID: 11400000, guid: 007d9ea03be993f49ac3f123a8bdd164, type: 2}
+  - {fileID: 11400000, guid: f4eec373b741e6b478ea9620e540afb4, type: 2}
+  - {fileID: 11400000, guid: 7ed9b55a2f3f564428fd26cfb829d845, type: 2}
+  - {fileID: 11400000, guid: 6a21124300e455c43b2e0e1cdec6b215, type: 2}
+  - {fileID: 11400000, guid: 69d379938d25d434484bddfc7c509930, type: 2}
+  - {fileID: 11400000, guid: f9fdcd9e35a77e64d98263aa065257c5, type: 2}
+  - {fileID: 11400000, guid: 136b45c765e1aa74396bfb3e8dfa9ded, type: 2}
+  - {fileID: 11400000, guid: 81928d83f3f7c6b44a4f2fbf5462c74e, type: 2}

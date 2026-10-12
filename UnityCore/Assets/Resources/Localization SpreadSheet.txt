@@ -1,0 +1,285 @@
+ID,English,Chinese (simplified),Chinese (traditional),Russian
+Menu_Start,Start,开始,開始,Начать
+Menu_Lab,Lab,实验室,實驗室,Лаборатория
+Menu_Options,Options,选项,選項,Настройки
+Menu_Exit,Exit,退出,退出,Выход
+Menu_Rougelike,Roguelike Mode,Roguelike模式,Roguelike模式,Режим Roguelike
+Menu_Build,Build Mode,建造模式,建造模式,Режим строительства
+Menu_Leaderboard,Leaderboard,排行榜,排行榜,Таблица лидеров
+Menu_FastestHunt,Fastest Hunt,最快狩猎,最快狩獵,Самая быстрая охота
+Menu_Steam,Available on Steam,可在Steam下载,可在Steam下載,Доступно на Steam
+Menu_NewsLetter,Newsletter,通讯,通訊,Рассылка
+Menu_NewsLetter_Demos,Demos,演示,演示,Демоверсии
+Menu_NewsLetter_News,News,新闻,新聞,Новости
+Menu_NewsLetter_Voting,Voting,投票,投票,Голосование
+Menu_NewsLetter_Updates,Updates,更新,更新,Обновления
+,,,,
+Lab_Unlock,Research,研究,研究,Исследовать
+Lab_Unlocked,Researched,已研究,已研究,Исследовано
+Lab_UnlockPrevious,Unlock Previous Research,解锁之前的研究,解鎖之前的研究,Разблокировать предыдущие исследования
+Lab_AllUnlocked,All Researched,所有已研究部件,所有已研究部件,Все исследования
+Lab_Demo,Not Available in Demo,演示中不可用,演示中不可用,Недоступно в демоверсии
+Lab_common,Common,普通,普通,Обычные
+Lab_Rare,Rare,罕见,罕見,Редкие
+Lab_Epic,Epic,史诗,史詩,Эпические
+Lab_Legendary,Legendary,传奇,傳奇,Легендарные
+,,,,
+InGame_Loading,Loading,加载中,加載中,Загрузка
+InGame_Open,Press to Open...,点击 打开…,點擊 打開…,"Нажмите , чтобы открыть..."
+,,,,
+Option_Resolution,Resolution,分辨率,解析度,Разрешение
+Option_Screen_Mode,Screen Mode,屏幕模式,屏幕模式,Режим экрана
+Option_Full_Screen,Full Screen,全屏,全屏,Полный экран
+Option_Borderless_Window,Borderless Window,无边界窗口,無邊界窗口,Окно без полей
+Option_Windowed,Windowed,视窗化,視窗化,В окне
+Option_Master,Master,音量,音量,Мастер
+Option_Music,Music,音乐,音樂,Музыка
+Option_SFX,SFX,特技效果,特技效果,SFX
+Option_Reset_Progress,Reset Progress,重置进度,重置進度,Сброс прогресса
+Option_Apply_Reset,Apply Reset,应用重置,應用重置,Применить сброс
+Option_Apply,Apply,应用,應用,Применить
+Option_Back,Back,返回,返回,Назад
+Option_Controls,Controls,控制,控制,Управление
+Option_Language,Language,语言,語言,Язык
+Option_SpeedRun,Speed Run Mode,急速模式,急速模式,Режим быстрого бега
+Option_Controller,Controller,控制器,控制器,Контроллер
+Option_Keyboard,Keyboard,键盘,鍵盤,Клавиатура
+,,,,
+Language_EN,English,英语,英語,Английский
+Language_RUS,Russian,俄语,俄語,Русский
+Language_CHS,Chinese (Simplified),中文(简体),中文(簡體),Китайский (упрощенный)
+Language_CHT,Chinese (Traditional),中文(繁体),中文(繁體),Китайский (традиционный)
+Language_AR,Arabic,阿拉伯语,阿拉伯語,Арабский
+,,,,
+Pause_Paused,Paused,暂停,暫停,Приостановлено
+Pause_Resume,Resume,恢复,恢復,Возобновить
+Pause_Restart,Restart,重新启动,重新啟動,Начать заново
+Pause_MainMenu,Main Menu,主菜单,主菜單,Главное меню
+,,,,
+Tutorial_Move,Move,移动,移動,Двигаться
+Tutorial_Shoot,Shoot,射击,射擊,Стрелять
+Tutorial_Build,Build,构建,構建,Строить
+Tutorial_Run,Run,跑,跑,Бегите
+Tutorial_Radar,Radar,雷达,雷達,Радар
+Tutorial_Boost,Boost,加速,加速,Усилить
+,,,,
+Chip_Chain,Chain Chip,链式火炮,鏈式火炮,Цепной чип
+Chip_Exploding,Exploding Chip,爆炸火炮,爆炸火炮,Взрывающийся чип
+Chip_Mammoth,Mammoth Chip,巨型火炮,巨型火炮,Гигантский чип
+Chip_Piercing,Piercing Chip,穿刺火炮,穿刺火炮,Пробивающий чип
+Chip_Shrapnel,Shrapnel Chip,弹片火炮,彈片火炮,Шрапнельный чип
+,,,,
+Attack_Drones,Attack Drones,攻击无人机,攻擊無人機,Атакующие дроны
+Engineer_Drones,Engineer Drones,维修无人机,維修無人機,Инженерные дроны
+Scrapper_Drones,Scrapper Drones,拆解无人机,拆解無人機,Дроны-утилизаторы
+Part_Hanger,{0} Hangar,{0}机舱,{0}機艙,Стоянка {0}
+,,,,
+Part_BlackHole,Blackhole Gun,黑洞枪,黑洞槍,Пушка Черная дыра
+Part_Cannon,Cannon,加农炮,加農炮,Пушка
+Part_EMP,EMP Gun,电磁脉冲枪,電磁脈衝槍,ЭМИ-пушка
+Part_FlameThrower,Flame Thrower,火焰喷射器,火焰噴射器,Метатель пламени
+Part_Gatling,Gatling Gun,加特林机枪,加特林機槍,Пушка Гатлинга
+Part_Rocket,Rocket Gun,火箭枪,火箭槍,Ракетная пушка
+Part_Sniper,Rail Gun,轨道炮,軌道炮,Рельсовая пушка
+Part_Sonic,Sonic Gun,声枪,聲槍,Звуковая пушка
+Part_Tesla,Tesla Coil,特斯拉线圈,特斯拉線圈,Катушка Тесла
+Part_Mines,Mines Field,雷场,雷場,Минное поле
+Part_Fuel,Fuel Tank,油箱,油箱,Топливный бак
+Part_Shield,Shield Generator,护盾发生器,護盾發生器,Генератор щита
+Part_Wall,Wall,墙,牆,Стена
+Part_HQ,HQ {0},母舰 {0},母艦 {0},{0} штаба
+HQ,HQ,母舰,母艦,Штаб
+,,,,
+Reward_Duplicate,Duplicate Part,复制部件,複製部件,Дублирующая деталь
+Reward_Switch,Switch Parts,交换部件,交換部件,Детали переключателя
+,,,,
+Ship_Boost,Engine Boost,引擎加速,引擎加速,Усиление двигателя
+Ship_Speed,Ship Speed,飞船速度,飛船速度,Скорость корабля
+Parts_Damage,Parts Damage,部件损坏,部件損壞,Урон деталей
+Parts_Health,Parts Health,部件健康,部件健康,Здоровье деталей
+Parts_Range,Parts Range,部件范围,部件範圍,Дальность действия деталей
+Parts_RateOfFire,Parts Rate of Fire,部件射击速率,部件射擊速率,Скорострельность деталей
+HQ_Damage,HQ Damage,母舰伤害,母艦傷害,Урон штаба
+HQ_Health,HQ Health,母舰健康,母艦健康,Здоровье штаба
+HQ_Range,HQ Range,母舰范围,母艦範圍,Дальность штаба
+HQ_RateOfFire,HQ Rate of Fire,母舰射击速率,母艦射擊速率,Скорострельность штаба
+,,,,
+Rating_Bonus,Bonus Rating,奖励排名,獎勵排名,Бонусный рейтинг
+Rating_EarlyHunt,Early Hunt,早期狩猎,早期狩獵,Ранняя охота
+Rating_TimeSurvived,Time Survived,存活时间,存活時間,Время выживания
+Rating_Destruction,Destruction,破坏,破壞,Уничтожение
+Rating_BossDestroyed,Bosses Destroyed,大怪已被摧毁,大怪已被摧毀,Уничтоженные боссы
+Rating_PartsBuilt,Parts Built,已建造的部件,已建造的部件,Построенные детали
+Rating_PacksOpened,Packs Opened,已打开的包,已打開的包,Открытые пакеты
+GameOver_Lost,You Lost,失败,失敗,Вы проиграли
+GameOver_Won,You Won,获胜,獲勝,Вы победили
+GameOver_Score,Score,分数,分數,Очки
+GameOver_Scraps,Scraps,碎片,碎片,Обломки
+GameOver_OpenLab,Open Lab,开放实验室,開放實驗室,Открыть лабораторию
+Demo_Thanks,Thanks For Playing The Demo,感谢体验演示版,感謝體驗演示版,Спасибо за игру в демоверсию
+Demo,Demo,演示,演示,Демо
+,,,,
+PopUpText_HQTurret,{0} replaced HQ Turret!,{0}替换了母舰炮塔!,{0}替換了母艦炮塔!,{0} заменил(а) штабную турель!
+PopUpText_HQDrones,HQ {0} Added!,已添加母舰{0}!,已添加母艦{0}!,Штабный {0} добавлен!
+PopUpText_LevelUp,{0} Level Up,{0}升级,{0}升級,Повышение уровня {0}
+,,,,
+Menu_Time,Time,时间,時間,Время
+Menu_ComingSoon,Coming Soon,即将推出,即將推出,Скоро в продаже.
+,,,,
+,,,,
+Lab_Damage,Hull Damage,船体损坏,船體損壞,Урон корпуса
+Lab_ShieldDamage,Shield Damage,护盾伤害,護盾傷害,Урон щита
+Lab_Range,Range,范围,範圍,Дальность
+Lab_RateOfFire,Rate of Fire,发射速度,發射速度,Скорострельность
+Lab_PartsCount,Parts Count,部件数量,部件數量,Количество деталей
+Lab_DronesCount,Drones Count,无人机数,無人機數,Количество дронов
+,,,,
+Legend_Patrols,Patrols,巡逻,巡邏,Патрули
+Legend_Hunters,Hunters,猎人,獵人,Охотники
+Legend_Boss,Boss,Boss,Boss,Босс
+Legend_Stations,Stations,站,站,Станции
+Legend_Asteroids,Asteroids,小行星,小行星,Астероиды
+Legend_Containers,Containers,容器,容器,Контейнеры
+Legend_Guards,Guards,警卫,警衛,Охрана
+Legend_Mission,Target,目标,目標,Цель
+Legend_Protect,Protect,保护,保護,Защитить
+Legend_Destroy,Destroy,摧毁,摧毀,Уничтожить
+,,,,
+Options_Font,Accessible Font,可访问的字体,可訪問的字體,Доступный шрифт
+Options_ControlsKeys,Press any key,按任意键,按任意鍵,Нажмите любую клавишу
+Optopn_ResetDefaults,Reset Defaults,重置默认值,重置預設值,Сбросить настройки по умолчанию
+Options_SkipBossesAnimation,Skip Bosses Animation,跳过Boss动画,跳過Boss動畫,Пропустить анимацию боссов
+Loading_PressAnyKey,Press to continue,按任意键继续,按任意鍵繼續,"Нажмите любую клавишу, чтобы продолжить"
+Loading_NextTip,Press for the next tip,按查看下一个技巧,按查看下一個技巧,Нажмите для получения следующей подсказки
+,,,,
+controls_moveup,Move Up,向上移动,向上移動,Двигаться вверх
+controls_movedown,Move Down,向下移动,向下移動,Двигаться вниз
+controls_moveleft,Move Left,向左移动,向左移動,Двигаться влево
+controls_moveright,Move Right,向右移动,向右移動,Двигаться вправо
+controls_shoot,Shoot,射击,射擊,Стрелять
+controls_openbuild,Build,构建,構建,Строить
+controls_radar,Radar,雷达,雷達,Радар
+controls_boost,Boost,加速,加速,Усилить
+Controls_PressAnyKey,[Press Any Key],[按任意键],[按任意鍵],[Нажмите любую клавишу]
+Controls_ReBinding,ReBinding,重新绑定,重新綁定,Перепривязка
+Controls_KeyAlreadyInUse,(Key already in use),密钥已被使用,密鑰已被使用,(Ключ уже используется)
+Controls_KeyExcluded,(Invalid Key),无效的密钥,無效的密鑰,(Неправильный ключ)
+Controls_CancelKey,To cancel,取消,取消,Отменить
+Controls_Connected,Connected,连接的,連接的,Связанный
+Controls_Disconnected,Disconnected,断开连接,斷開連接,Отключено
+Controls_DeviceUnknown,Input Device,输入设备,輸入設備,Устройство ввода
+Controls_InvertAimX,Invert Aim X,反转瞄准 X,反轉瞄準 X,Инвертировать цель X
+Controls_InvertAimY,Invert Aim Y,反转目标 Y,反轉目標 Y,Инвертировать цель Y
+Controls_SwitchAim,Aim with Left Stick,用左摇杆瞄准,用左搖桿瞄準,Цельтесь левым джойстиком
+Controls_Controller,Controller Settings,控制器设置,控制器設置,Настройки контроллера
+,,,,
+Part_BlackHole_Desc,Shoots a black hole that sucks and damages ships,发射一个黑洞，吸入并破坏船只,發射一個黑洞，吸入並破壞船隻,"Стреляет черной дырой, которая засасывает и повреждает корабли"
+Part_Cannon_Desc,Damages enemies in an area,伤害一个区域内的敌人,傷害一個區域內的敵人,Наносит урон врагам в области
+Part_EMP_Desc,Stuns ships and depletes shields,让船只眩晕并耗尽护盾,讓船隻眩暈並耗盡護盾,Оглушает корабли и разрушает щиты
+Part_FlameThrower_Desc,Ignores shields and Barbeques some ships,忽略护盾让一些船只燃烧,忽略護盾讓一些船隻燃燒,Игнорирует щиты и поджаривает некоторые корабли
+Part_Gatling_Desc,Shoots a stream of small bullets,发射一串小子弹,發射一串小子彈,Стреляет потоком мелких пуль
+Part_Rocket_Desc,Shoots a barrage of homing rockets,发射一连串的制导火箭,發射一連串的制導火箭,Выпускает шквал самонаводящихся ракет
+Part_Sniper_Desc,Shoots a long-range powerful laser,发射远程强激光,發射遠程强雷射,Стреляет мощным лазером на большие расстояния
+Part_Sonic_Desc,Shoots a wave that damages and pushes ships away,发射波浪，破坏并推开船只,發射波浪，破壞並推開船隻,"Стреляет волной, которая повреждает и отталкивает корабли"
+Part_Tesla_Desc,Shoots a chained shock that's powerful against shields,对护盾发射强力电击,對護盾發射强力電擊,"Стреляет цепным ударом, очень мощный против щитов."
+Part_Mines_Desc,Creates a mines field around the part,在部件周围创建雷区,在部件周圍創建雷區,Создает минное поле вокруг детали
+Part_Fuel_Desc,Hold and generate fuel for boosting,保存并生产出用于推进的燃料,保存並生產出用於推進的燃料,Удерживает и генерирует топливо для форсирования
+Part_Shield_Desc,Creates a Shield around the part,在部件周围创建一个护盾,在部件周圍創建一個護盾,Создает щит вокруг детали
+Part_Wall_Desc,A barrier defending other parts,屏障:保护其他部件,屏障：保護其他部件,"Барьер, защищающий другие части"
+,,,,
+Chip_Chain_Desc,Allow bullets to jump between ships,让子弹在船只之间跳跃,讓子彈在船隻之間跳躍,Позволяет пулям прыгать между кораблями
+Chip_Exploding_Desc,Allow bullets to explode damaging everything around it,让子弹爆炸破坏周围的一切,讓子彈爆炸破壞周圍的一切,"Позволяет пулям взрываться, повреждая все вокруг."
+Chip_Mammoth_Desc,"Bigger Bullets, Higher Damage, Bigger Damage Area",子弹越大，伤害越大，伤害范围越大,子彈越大，傷害越大，傷害範圍越大,"Большие пули, больший урон, большая площадь поражения"
+Chip_Piercing_Desc,Allow bullets to pierce through ships,让子弹穿透船只,讓子彈穿透船隻,Позволяет пулям пробивать корабли насквозь
+Chip_Shrapnel_Desc,Allow bullets to explode into small shrapnels,让子弹爆炸成小弹片,讓子彈爆炸成小彈片,Позволяет пулям разлететься на небольшие осколки
+,,,,
+Attack_Drones_Desc,Fires at the nearest ships,向最近的船只开火,向最近的船隻開火,Стреляет по ближайшим кораблям
+Engineer_Drones_Desc,Repairs all parts,修理所有部件,修理所有部件,Ремонтирует все части
+Scrapper_Drones_Desc,Collect scraps from space,收集太空垃圾,收集太空垃圾,Собирает обломки из космоса
+,,,,
+Reward_Boost_Desc,Allows the ship to boost faster and more efficient,让船只更快更高效推进,讓船隻更快更高效推進,Позволяет кораблю быстрее и эффективнее ускоряться
+Reward_Speed_Desc,Allows the ship to move faster,让船只移动得更快,讓船隻移動得更快,Позволяет кораблю двигаться быстрее
+Reward_Duplicate_Desc,Allows to duplicate a part,允许复制一个部分,允許複製一個部分,Позволяет дублировать деталь
+Reward_Switch_Desc,Allows to switch between two parts,允许在两个部件之间切换,允許在兩個部件之間切換,Позволяет переключаться между двумя частями
+,,,,
+Tip_1,Patrol ships won’t follow you for long distances,巡逻船不会长距离跟踪你,巡邏船不會長距離跟蹤你,Патрульные корабли не будут следовать за вами на большие расстояния
+Tip_2,Make sure to stay away from the Patrol ships path,一定要远离巡逻船的路线,一定要遠離巡邏船的路線,Старайтесь держаться подальше от пути патрульных кораблей.
+Tip_3,The level up reward will upgrade all the turret stats,升级奖励将升级所有炮塔的属性,陞級獎勵將陞級所有炮塔的内容,Награда за повышение уровня улучшит все характеристики турели
+Tip_4,Shields will recharge to half their health after being depleted,护盾耗尽后会恢复一半生命值,護盾耗盡後會恢復一半生命值,Щиты будут восстанавливаться до половины здоровья после истощения
+Tip_5,The fuel tank will show you how much you can boost,油箱会告诉你能推进多少,油箱會告訴你能推進多少,"Топливный бак покажет, сколько топлива можно увеличить."
+Tip_6,EMP will turn off the shields completely,电磁脉冲会完全关闭防护罩,電磁脈衝會完全關閉防護罩,ЭМИ полностью отключает щиты
+Tip_7,Bosses turrets are not affected by the EMP,boss的炮塔不受EMP的影响,boss的炮塔不受EMP的影響,Турели боссов не подвержены воздействию ЭМИ.
+Tip_8,The flamethrower can damage through the shields,火焰喷射器可以破坏防护罩,火焰噴射器可以破壞防護罩,Огнемет может нанести урон через щиты
+Tip_9,Turrets can take multiple chips at once,炮塔可以同时携带多个芯片,炮塔可以同時攜帶多個晶片,Турели могут принимать несколько чипов одновременно
+Tip_10,Stacking the same chip type will multiply its effect,堆叠相同的芯片类型将增加其效果,堆疊相同的晶片類型將新增其效果,Складывание чипов одного типа увеличивает их эффект.
+Tip_11,Always use walls to protect your ship when your shields are down,当你的护盾失效时，一定要用墙来保护你的船只,當你的護盾失效時，一定要用牆來保護你的船隻,"Всегда используйте стены для защиты корабля, когда щиты опущены."
+Tip_12,The final Boss speed will increase over time,最终Boss的速度会随着时间慢慢提高,最終Boss的速度會隨著時間慢慢提高,Скорость финального босса будет увеличиваться с течением времени
+Tip_13,"Asteroids drop scraps, Stations drop packs",小行星掉落残片，空间站掉落背包,小行星掉落殘片，空間站掉落背包,"С астероидов падают обрывки, со станций - пакеты."
+Tip_14,The packs color indicates its rarity,包装的颜色表明其稀有度,包裝的顏色表明其稀有度,Цвет упаковки указывает на ее редкость
+Tip_15,Enemies can’t rotate when they dash,敌人在冲刺时不能旋转,敵人在衝刺時不能旋轉,"Враги не могут вращаться, когда они бросаются."
+Tip_16,Spawner ships can create an endless amount of ships,产卵船可以创造无限数量的船只,產卵船可以創造無限數量的船隻,Корабли-размножители могут создавать бесконечное количество кораблей
+Tip_17,"Some enemies will try to escape when they're about to die, don’t let them",有些敌人会在快死的时候逃跑，别让他们得逞,有些敵人會在快死的時候逃跑，別讓他們得逞,"Некоторые враги будут пытаться убежать, когда они вот-вот умрут, не позволяйте им этого."
+Tip_18,Hover over chips to show the affected parts,将鼠标悬停在芯片上以显示受影响的部分,將鼠標懸停在芯片上以顯示受影響的部分,"Наведите указатель мыши на чипы, чтобы показать затронутые части"
+,,,,
+Lab_LevelUp,Level Up All Stats,升级所有统计数据,升級所有統計數據,Повышение уровня всех характеристик
+,,,,
+Modes_disabledAchievements,The Achievements are now disabled,现已禁用成就,現已禁用成就,Достижения теперь отключены
+Modes_ToggleResearches,Toggle Researches,切换研究,切換研究,Переключить Исследования
+Modes_ToggleAll,Toggle All,切换所有,切換所有,Переключить Все
+Modes_ToggleNone,Toggle None,未切换,未切換,Переключить Ни одного
+,,,,
+Play_Missions,Missions Board,任务板,任務板,Доска заданий
+Play_Play,Play,玩,玩,Играть
+Play_Objective,Objective,目标,目標,Цель
+Play_Mission,Mission,任务,任務,Миссия
+Play_Time,Time,时间,時間,Время
+Play_Modifiers,Modifiers,修改器,修改器,Модификаторы
+Play_ResetModifiers,Reset Modifiers,重置修改器,重置修改器,Сброс модификаторов
+,,,,
+Play_Difficulty_Mission,Mission Difficulty,任务难度,任務難度,Сложность миссии
+Play_Difficulty_AI,Enemies Difficulty,强敌,強敵,Сложность врагов
+Play_VeryEasy,Very Easy,非常容易,非常容易,Очень легко
+Play_Easy,Easy,容易,容易,Легко
+Play_Normal,Normal,正常,正常,Нормально
+Play_Hard,Hard,困难,困難,Сложно
+Play_Impossible,Impossible,不可能,不可能,Невозможно
+,,,,
+,,,,
+Play_Survival_Desc,Escape from being bounty hunted,逃脱赏金追捕,逃脫賞金追捕,Сбежите от охотников за головами
+Play_Endless,Endless,无尽,無盡,Бесконечно
+Play_Endless_Desc,Survive for as long as you can,尽力生存下来,盡力生存下來,"Выживайте столько, сколько сможете"
+Play_Mission_Running,Bounty Hunter,赏金猎人,賞金獵人,Охотник за головами
+Play_Mission_Running_Desc,Hunt the fleeing ships before they warp away,在逃跑的船只偏离航线前追捕它们,在逃跑的船隻偏離航線前追捕它們,"Охотьтесь на убегающие корабли, пока они не улетели."
+Play_Mission_Station,Station Hunter,驻扎猎人,駐紮獵人,Охотник за станцией
+Play_Mission_Station_Desc,Destroy the Hunters Station before the reinforcement arrives,在援军到达前摧毁猎人站,在援軍到達前摧毀獵人站,Уничтожьте станцию охотников до прибытия подкрепления.
+Play_Mission_Protect,Guardian Angel,护卫天使,護衛天使,Ангел-Хранитель
+Play_Mission_Protect_Desc,Escort the Traders to safety,护送商人到安全的地方,護送商人到安全的地方,Сопроводите торговцев в безопасное место
+Play_Mission_ProtectStation,Station Protector,驻扎保护者,駐紮保護者,Защитник станции
+Play_Mission_ProtectStation_Desc,Defend your Station from waves of ships,保护你的空间站不受海浪的冲击,保護你的空間站不受海浪的衝擊,Защитите свою станцию от волн кораблей
+Play_Survival,Survival,生存,生存,Выживание
+Part_PackCore,Reward Box,奖励箱,獎勵箱,Коробка с наградами
+Part_Clock,Cloaking Tower,钟楼,鐘樓,Часовая башня
+Part_Clock_Desc,Hides the surrounding parts from enemies making them invisible,隐藏敌人周围的部分，使他们无敌,隱藏敵人周圍的部分，使他們無敵,"Скрывает окружающие части от врагов, делая их непобедимыми"
+Part_Flak,Flak Cannon,高射炮,高射砲,Зенитная пушка
+Part_Flak_Desc,Fires a cluster of bullets covering multiple ships,发射一串子弹覆盖多艘船,發射一串子彈覆蓋多艘船,"Выпускает группу пуль, покрывая несколько кораблей."
+Part_Shotgun,Shotgun,霰弹枪,霰彈槍,Дробовик
+Part_Shotgun_Desc,"Load, Aim, and Blast ships in the face",装载、瞄准和爆破舰船,裝載、瞄準和爆破艦船,"Загрузите, прицельтесь и взорвите корабли в лицо"
+Part_Nuke,Nuke Rocket,核弹火箭,核彈火箭,Ядерная ракета
+Part_Nuke_Desc,A massive nuke rocket with high damage over a big area.,巨大的核弹火箭，在大范围内造成高伤害。,巨大的核彈火箭，在大範圍內造成高傷害。,Массивная ядерная ракета с большим уроном по большой площади.
+Part_MinesSpawner,Mines Spawner,地雷生成器,地雷生成器,Создатель шахт
+Part_MinesSpawner_Desc,Spawns waves of mines free in space,在太空中自由地产生地雷波,在太空中自由地產生地雷波,Создает волны мин в свободном космосе
+Part_Repair,Repair Tower,维修塔,維修塔,Ремонтная башня
+Part_Repair_Desc,Repairs surrounding Parts,修理周边零件,修理周邊零件,Ремонт окружающих частей
+Chip_HQ,HQ Control Chip,总部控制芯片,總部控制芯片,Чип управления штаб-квартирой
+Chip_HQ_Desc,Allow manual aiming for parts around it,允许手动瞄准它周围的零件,允許手動瞄準它周圍的零件,Разрешить ручное наведение на части вокруг него
+Reward_Move,Move Part,移动零件,移動零件,Переместить часть
+Reward_Move_Desc,Move a part around the ship,在船上移动一个零件,在船上移動一個零件,Переместить деталь по кораблю
+Reward_WallCores,Reinforce Parts,加强件,加強件,Усилить детали
+Reward_WallCores_Desc,Add more hull Reinforcement to a part,向零件添加更多船体钢筋,向零件添加更多船體鋼筋,Добавьте больше усиления корпуса к детали
+Rating_Completed,Mission Completed,任务完成,任務完成,Миссия выполнена
+Leaderboard_Title,Leaderboard,排行榜,排行榜,Таблица лидеров
+Leaderboard_Fail,Loading Leaderboard...,加载排行榜...,加載排行榜...,Загрузка таблицы лидеров...
+Leaderboard_Note,*All scores are set in the Hard Difficulty,*所有分数均在困难难度中设置,*所有分數均在困難難度中設置,*Все баллы выставляются на высокой сложности.
+Leaderboard_NewRank,New Rank,新排名,新排名,Новый ранг
+Options_SkipCutscene,Skip Cutscenes,跳过过场动画,跳過過場動畫,Пропустить ролики
+Leaderboard_Empty,Empty Leaderboard,空的排行榜,空的排行榜,Пустая таблица лидеров

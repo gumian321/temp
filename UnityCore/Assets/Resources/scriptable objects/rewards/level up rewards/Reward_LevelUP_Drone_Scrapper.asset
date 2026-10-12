@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e9aef0ca0309981e8ab4d20ec5dc13, type: 3}
+  m_Name: Reward_LevelUP_Drone_Scrapper
+  m_EditorClassIdentifier:
+  rewardOverrideCost: -1
+  rewardDesc: Scrapper_Drones_Desc
+  rewardStats:
+    HullDamage: 0
+    ShieldDamage: 0
+    Range: 0
+    RateOfFire: 0
+    PartsCount: 0
+    DronesCount: 0
+    LevelUp: 1
+    LinkedReward: {fileID: 11400000, guid: 1b3ecae98ef2f2148b177865739f7e2d, type: 2}
+  rewardVideoClip: {fileID: 32900000, guid: 38769019e3a0d0942a504eb1e295dbf7, type: 3}
+  rarity: 1
+  rewardOverlaySprite: {fileID: 21300000, guid: dafbdf1b8528b6342aa1c8163ff443d8, type: 2}
+  rewardHeat: 1
+  coresList:
+  - {fileID: 11400000, guid: a7e71b831046a07458b3c6a7a2dfeb3f, type: 2}
+  CoreHealthPercent: 0
+  dronesList:
+  - {fileID: 11400000, guid: 7408e8f5526c1f84c8d9c92d86fe6e5f, type: 2}
+  - {fileID: 11400000, guid: 283a8f426ca8a80419ffe1c2a3878080, type: 2}
+  addDronesCount: 1
+  enginePowerPercent: 0.05
+  efficiencyPercent: 0
+  rangePercent: 0.25

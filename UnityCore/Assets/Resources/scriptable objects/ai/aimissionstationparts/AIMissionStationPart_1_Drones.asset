@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e0a9df584caaa2af33977cd86c847ed, type: 3}
+  m_Name: AIMissionStationPart_1_Drones
+  m_EditorClassIdentifier:
+  partProbabilty: 3
+  aIThreatLevel: 0
+  prefabType: 404
+  coresList:
+  - {fileID: 11400000, guid: 8f197d9f12b13e9438a15e89477d8417, type: 2}
+  packRarityType: 1
+  rewardPacksList:
+  - {fileID: 11400000, guid: 503fdda42c119224ea5319ee7b56bde7, type: 2}
