@@ -1,0 +1,22 @@
+{
+  "039ff687823e0d34d8423b1eebfec655": "MoveDown",
+  "d9d9744488d39804599eb4b053115715": "TrackedDeviceOrientation",
+  "8d03a8a9ed7b865419a297286f3af4ff": "MoveRight",
+  "831860761cc6fc44da154b92db98f3d1": "TrackedDevicePosition",
+  "968663d7b5e2784479a66d833410641f": "Radar",
+  "8006b03efcab74b47a2392ec0cc28718": "OpenBuild",
+  "6a1045de24cfea3489052f6469f15328": "Click",
+  "1a02236662437564f8eae260d49af3a8": "Shoot",
+  "7249855523bf04a4ea9ec69fa54b7fe1": "Boost",
+  "0d8b9693bde88cd42a665e98e9eea341": "RightClick",
+  "430e6b7a88012be45a07e5b2ce48d7a7": "Point",
+  "c914a11a23f46bc4aa33d16c0cb5b436": "Navigate",
+  "4796dcfbb4a5a684f9648ff6ca3bf054": "Submit",
+  "ce815a66d6308664d92dfdee07593b90": "StartGame",
+  "c310ae6b976bb0646b8e02aacecd3b2d": "NextTip",
+  "7b2b36ce922e97b4fb8b751cdbaf6176": "MoveLeft",
+  "a5b035ff7d6ba0b479cbdd2f9c7fbf8f": "ScrollWheel",
+  "e5845f7d0b03dc4409fb221a30bf4db4": "MoveUp",
+  "089f7ca3eccb3054eba89f5dc3bcd45c": "MiddleClick",
+  "43b1a45c7db7c194db43a18c042e6402": "Cancel"
+}

@@ -1,0 +1,14 @@
+{
+  "counts": {
+    "audio": 57,
+    "particle_textures": 17,
+    "sprites": 444,
+    "videos": 73
+  },
+  "failures": [],
+  "headless_scene_initialized": true,
+  "host": "Linux Godot 4.6.3 loading the Windows-preset PCK",
+  "resource_load_passed": true,
+  "windows_executable_generated": false,
+  "windows_native_execution": false
+}

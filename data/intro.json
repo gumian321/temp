@@ -1,0 +1,48 @@
+{
+  "half_duration": 1,
+  "pages": [
+    {
+      "objImage": {
+        "pose": [
+          0,
+          0,
+          0.75,
+          0.75
+        ],
+        "sprite": "9b47d3607e7d6c24fb1c33a17813877f"
+      }
+    },
+    {
+      "objImage": {
+        "pose": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "sprite": "7a4605db9cd6c6a4d89481346395d66a"
+      }
+    },
+    {
+      "objImage": {
+        "pose": [
+          0,
+          0.47,
+          1.08144,
+          1.08144
+        ],
+        "sprite": "5f4ba5362bac0764a9faf84aa4bc72dd"
+      },
+      "objText": {
+        "pose": [
+          0.0,
+          0.47,
+          0.899999998128,
+          0.899999998128
+        ],
+        "text": "Play Better With A Controller",
+        "font_size": 9.6
+      }
+    }
+  ]
+}

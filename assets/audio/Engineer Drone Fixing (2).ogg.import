@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dungd3jiup8tn"
+path="res://.godot/imported/Engineer Drone Fixing (2).ogg-de2a2daa7c59aec6da505682ca95128f.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Engineer Drone Fixing (2).ogg"
+dest_files=["res://.godot/imported/Engineer Drone Fixing (2).ogg-de2a2daa7c59aec6da505682ca95128f.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

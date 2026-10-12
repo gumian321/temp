@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c4qoecm7dpffp"
+path="res://.godot/imported/Core Change (2).ogg-154a8ee2149cc243025e78013e444c7c.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Core Change (2).ogg"
+dest_files=["res://.godot/imported/Core Change (2).ogg-154a8ee2149cc243025e78013e444c7c.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

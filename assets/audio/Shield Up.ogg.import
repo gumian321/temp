@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c7i53pylnmfny"
+path="res://.godot/imported/Shield Up.ogg-87d9a0b2215bb2413055d99197652fcf.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Shield Up.ogg"
+dest_files=["res://.godot/imported/Shield Up.ogg-87d9a0b2215bb2413055d99197652fcf.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

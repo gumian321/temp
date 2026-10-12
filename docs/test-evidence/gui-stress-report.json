@@ -1,0 +1,35 @@
+{
+  "average_fps": 20.5333333333333,
+  "elapsed_real_seconds": 30.192,
+  "fixture": "60 legally adjacent source modules at start; source damage and natural combat; no invulnerability.",
+  "frames": 616,
+  "llvmpipe_threads": "3",
+  "p95_frame_ms": 58,
+  "peak_bullets": 121,
+  "peak_draw_calls": 285,
+  "peak_enemies": 136,
+  "peak_particle_emitters": 78,
+  "profile": {
+    "audio_hud": {
+      "calls": 618,
+      "microseconds": 358878
+    },
+    "body": {
+      "calls": 618,
+      "microseconds": 325813
+    },
+    "combat": {
+      "calls": 618,
+      "microseconds": 2245375
+    },
+    "mission": {
+      "calls": 618,
+      "microseconds": 410777
+    }
+  },
+  "remaining_parts": 61,
+  "renderer": "Actual X11 Godot window, Mesa llvmpipe software rendering",
+  "revision": "0209c1e-source-blend-space-fix",
+  "screen": "game",
+  "warmup": "1"
+}

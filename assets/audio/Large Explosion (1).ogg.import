@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b4v482gl27qq3"
+path="res://.godot/imported/Large Explosion (1).ogg-555c70ac17c793a4662364f231a63259.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Large Explosion (1).ogg"
+dest_files=["res://.godot/imported/Large Explosion (1).ogg-555c70ac17c793a4662364f231a63259.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

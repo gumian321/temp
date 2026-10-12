@@ -1,0 +1,14 @@
+.godot/
+artifacts/
+__pycache__/
+*.tmp
+*.log
+*.pck
+*.exe
+*.x86_64
+*.zip
+*.bundle
+.env
+.env.*
+export_credentials.cfg
+.godot/export_credentials.cfg

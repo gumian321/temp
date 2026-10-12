@@ -1,0 +1,8 @@
+{
+  "actual_currency": 30,
+  "actual_unlocked": 22,
+  "expected_currency": 30.0,
+  "expected_unlocked": 22.0,
+  "fresh_process": true,
+  "passed": true
+}

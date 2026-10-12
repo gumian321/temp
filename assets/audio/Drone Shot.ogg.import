@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cg0ree0hlw7m0"
+path="res://.godot/imported/Drone Shot.ogg-1e721e12299d8921704640bb3a28e2e0.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Drone Shot.ogg"
+dest_files=["res://.godot/imported/Drone Shot.ogg-1e721e12299d8921704640bb3a28e2e0.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,72 @@
+{
+  "fixture": "60 source modules with shield/engineer/fuel support and HQ shotgun plus attainable source upgrades; normal enemy/player damage; no direct HP edits, forced kills, timer jumps or victory callbacks. Automated aim/movement. Not a fresh-save playthrough.",
+  "step_seconds": 0.05,
+  "results": [
+    {
+      "bosses_destroyed": 3,
+      "elapsed": 840.049999999784,
+      "endless_waves": 0,
+      "finished": true,
+      "hp": 1000.0,
+      "mission": "Station Protector Mission",
+      "parts": 61,
+      "peak_entities": 155,
+      "won": true
+    },
+    {
+      "bosses_destroyed": 2,
+      "elapsed": 119.949999999995,
+      "endless_waves": 0,
+      "finished": true,
+      "hp": 1000.0,
+      "mission": "Bounty Hunter Mission",
+      "parts": 61,
+      "peak_entities": 144,
+      "won": true
+    },
+    {
+      "bosses_destroyed": 2,
+      "elapsed": 484.050000000076,
+      "endless_waves": 0,
+      "finished": true,
+      "hp": 1000.0,
+      "mission": "Gardian Angel Mission",
+      "parts": 61,
+      "peak_entities": 134,
+      "won": true
+    },
+    {
+      "bosses_destroyed": 9,
+      "elapsed": 900.049999999729,
+      "endless_waves": 4,
+      "finished": false,
+      "hp": 1000.0,
+      "mission": "Endless Mission",
+      "parts": 61,
+      "peak_entities": 159,
+      "won": false
+    },
+    {
+      "bosses_destroyed": 1,
+      "elapsed": 86.5499999999972,
+      "endless_waves": 0,
+      "finished": true,
+      "hp": 1000.0,
+      "mission": "Survival Mission",
+      "parts": 61,
+      "peak_entities": 130,
+      "won": true
+    },
+    {
+      "bosses_destroyed": 0,
+      "elapsed": 31.0000000000003,
+      "endless_waves": 0,
+      "finished": true,
+      "hp": 1000.0,
+      "mission": "Station Hunter Mission",
+      "parts": 61,
+      "peak_entities": 143,
+      "won": true
+    }
+  ]
+}

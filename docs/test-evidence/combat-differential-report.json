@@ -1,0 +1,13 @@
+{
+  "baseline_commit": "cac76a1948a4362aa1f296e2cfc3d751c4c30070",
+  "snapshots": 24,
+  "scenarios": [
+    "Core_Gun_BlackHoler",
+    "Core_Gun_Gatling",
+    "Core_Gun_SonicWave",
+    "Core_Gun_Tesla"
+  ],
+  "equal_counts": true,
+  "differences": [],
+  "passed": true
+}

@@ -1,0 +1,90 @@
+{
+  "status": "RUNNABLE_OFFLINE_PORT_NOT_FULL_PARITY_ACCEPTED",
+  "source_commit": "5045ffca4134d1a29052477a9d328477c4c07993",
+  "completed_scope": [
+    "Cloud terminal and read/write verified",
+    "Source branch fetched and archived without source edits",
+    "407 scripts inventoried with methods and source hashes",
+    "1263 Unity YAML documents parsed without errors",
+    "464 gameplay data assets, 18 AI configurations, six missions, 31 research nodes and 444 source sprites extracted",
+    "Arc-length path-following centipede and free-layout construction model",
+    "Research prerequisites, costs, toggle state and atomic independent save",
+    "Native Godot window smoke flow and 67 deterministic core checks",
+    "Six source-specific mission directors and independent Boss parts",
+    "Persistent map events, reward decks and special combat systems",
+    "Source Canvas menus/HUD/rewards/results, research tree and 73 preview videos",
+    "22 physical-input checks including natural death settlement and research purchase",
+    "Fresh-process save recovery after actual purchase",
+    "Paid source reward-pool groups: 10 checks",
+    "Drone pickup reservation, carrying and return delivery",
+    "9 physical reward/build and 8 physical construction-operation checks",
+    "10 injected controller-event checks, original intro and loading tips/video",
+    "60-module 60-second turning/boost stress passed",
+    "Independent turret aiming fixed and 60 Hz regression passed",
+    "Source shield initial charge, break recovery, stun and Mammoth range rules",
+    "Source fuel tank dependency and persisted tutorial limits",
+    "Source mission player offsets, timer direction and source input bindings",
+    "Enemy attack drone lifecycle and nine source radar checks",
+    "All 32 projectile cores: 224 chip-input emission/simulation checks",
+    "Original cursors, menu backdrop, hover audio, scrolling changelog and HUD fills",
+    "Station Protector 840-second fixture victory; Endless 900-second fixture run",
+    "Ten original particle presets / 24 emitters imported and connected; lifecycle checks passed",
+    "Reward popup queue with source one-second duration",
+    "Controlled 13.77 to 25.20 FPS optimization comparison; ordered spatial differential checks",
+    "Source menu camera, bindings, render selectors, arrows, pulse colors, neighbor decorations and 109 engine attachments",
+    "Physical individual scrap scatter, cap/despawn, drone-only return delivery and source recycled-pack flight",
+    "20 automatic suites passed; 22 final physical X11 input checks including research purchase",
+    "Latest balanced six-mission fixture: five natural wins, Endless 900 seconds / four waves / nine bosses",
+    "Final exported Linux runtime started and captured all smoke screens without script errors",
+    "Final 5090-file source integrity check: no unexpected differences; original temp worktree clean"
+  ],
+  "blocking_parity_gaps": [
+    "Steam native runtime and authenticated leaderboard/stat/achievement integration unavailable; Unity Analytics service configuration unavailable",
+    "No same-scene Unity capture to validate cross-engine particle integration/projection and all presentation frame by frame",
+    "No physical controller or hardware GPU acceptance; llvmpipe performance does not reach 60 FPS",
+    "Latest full deliverables have no Library IDs because official upload previously returned 403 and retries are explicitly prohibited"
+  ],
+  "source_limitations": [
+    "Original recovery README states missing original comments, Editor tools and unpackaged assets",
+    "Steam disabled in restored Editor; two compatibility components are empty",
+    "Two Cartoon FX shaders are approximate in original source",
+    "Original Unity validation covered 16 seconds and cannot validate this Godot port",
+    "Recovered particle SubModule points to fileID 0; core NoiseModules disabled; declared dissolve properties are not executed by recovered shaders"
+  ],
+  "not_done": [
+    "No pull request",
+    "No Release",
+    "No user-computer access",
+    "No driving-school modification",
+    "No Unity source modification"
+  ],
+  "next_actions": [
+    "Restore official Library upload route and explicitly lift no-retry restriction before uploading prepared bundle",
+    "Provide authorized Steam/Analytics runtime environment and hardware/controller/Unity reference validation for full parity acceptance"
+  ],
+  "external_blockers": [
+    "Library upload remains blocked; no retry or bypass requested.",
+    "GodotSteam official GitHub dependency query blocked by network proxy 403; native Steam runtime absent from recovered source."
+  ],
+  "final_software_renderer": {
+    "average_fps": 20.5333333333333,
+    "p95_frame_ms": 58,
+    "peak_enemies": 136,
+    "peak_bullets": 121,
+    "peak_emitters": 78,
+    "scope": "Final source stretch, built-in additive blending, world/local particle spaces, engine and individual scrap presentation; no 60FPS acceptance"
+  },
+  "source_classification": {
+    "mapped": 302,
+    "data_contract": 36,
+    "type_contract": 34,
+    "external_dependency": 10,
+    "uninstantiated_tool": 22,
+    "build_configuration": 3
+  },
+  "local_delivery_runtime_verified": true,
+  "publication": {
+    "source_checkpoint": "0ec582cb13fe80ac12f96a4c3ec5466b9dd162e9",
+    "scope": "User-authorized independent Git source branch; full parity not accepted; no PR or Release"
+  }
+}

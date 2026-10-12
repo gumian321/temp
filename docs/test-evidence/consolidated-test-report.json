@@ -1,0 +1,125 @@
+{
+  "suites": [
+    {
+      "suite": "core",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.639
+    },
+    {
+      "suite": "missions",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.841
+    },
+    {
+      "suite": "map",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.47
+    },
+    {
+      "suite": "rewards",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.453
+    },
+    {
+      "suite": "specials",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.592
+    },
+    {
+      "suite": "regressions",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.559
+    },
+    {
+      "suite": "drones",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.355
+    },
+    {
+      "suite": "reward_pool",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.748
+    },
+    {
+      "suite": "controller",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.912
+    },
+    {
+      "suite": "long_body",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.515
+    },
+    {
+      "suite": "shields",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.355
+    },
+    {
+      "suite": "turret_tracking",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.359
+    },
+    {
+      "suite": "achievements",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.354
+    },
+    {
+      "suite": "fuel_tutorial",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.447
+    },
+    {
+      "suite": "enemy_drones",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.448
+    },
+    {
+      "suite": "radar",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.353
+    },
+    {
+      "suite": "weapon_catalog",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.378
+    },
+    {
+      "suite": "particles",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.955
+    },
+    {
+      "suite": "presentation",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.736
+    },
+    {
+      "suite": "loot",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.447
+    }
+  ],
+  "passed": true
+}

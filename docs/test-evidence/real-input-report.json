@@ -1,0 +1,28 @@
+{
+  "passed": 22,
+  "checks": [
+    "Entered home through physical input",
+    "Entered options through physical input",
+    "Entered home through physical input",
+    "Entered menu through physical input",
+    "Entered game through physical input",
+    "WASD moves head in actual window",
+    "Entered pause through physical input",
+    "Pause freezes movement",
+    "Entered game through physical input",
+    "Entered build through physical input",
+    "Entered game through physical input",
+    "Entered pause through physical input",
+    "Entered home through physical input",
+    "Entered lab through physical input",
+    "Entered home through physical input",
+    "Entered menu through physical input",
+    "Entered game through physical input",
+    "Entered result through physical input",
+    "Normal combat reached death and score settlement without injecting outcome",
+    "Entered lab through physical input",
+    "Research purchase spends settled currency and increases unlocked rewards",
+    "Entered home through physical input"
+  ],
+  "exit_code": 0
+}

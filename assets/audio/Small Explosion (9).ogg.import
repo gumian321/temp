@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bd6yvjfbrf4m6"
+path="res://.godot/imported/Small Explosion (9).ogg-907160bfe917bc1c87c93cb408f47730.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Small Explosion (9).ogg"
+dest_files=["res://.godot/imported/Small Explosion (9).ogg-907160bfe917bc1c87c93cb408f47730.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

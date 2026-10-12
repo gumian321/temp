@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bnpfsb44engj1"
+path="res://.godot/imported/Scraps Pick Up (2).ogg-ecc0d5c068768d29dda07fa1b3d4167f.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Scraps Pick Up (2).ogg"
+dest_files=["res://.godot/imported/Scraps Pick Up (2).ogg-ecc0d5c068768d29dda07fa1b3d4167f.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

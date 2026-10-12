@@ -1,0 +1,4841 @@
+{
+  "source_commit": "5045ffca4134d1a29052477a9d328477c4c07993",
+  "scripts": [
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIBossBoostSystem.cs",
+      "lines": 125,
+      "sha256": "8a1bbfe1a99b14660cdfd4b71dbcbfdd9d5f0067533704d4e2efb6f994fe9ba1",
+      "methods": [
+        "SetTargetTransfrom",
+        "Awake",
+        "SetboostActionRadius",
+        "FixedUpdate",
+        "ShouldBoost",
+        "ActivateBoost",
+        "DectivateBoost"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIBossPart.cs",
+      "lines": 12,
+      "sha256": "c7de28dc78c11a983503d464fb6b8bb59fdc92e255527f8fbe7985b2ee13ddb2",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIBossPartController.cs",
+      "lines": 79,
+      "sha256": "58fd7e78753f08af9b295866c05b87eab55670563ec422267075d7bf62c518cc",
+      "methods": [
+        "GetAIBossPartTypes",
+        "Awake",
+        "TunrCollider",
+        "SetBossPart",
+        "SetCores"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIBossPartTypes.cs",
+      "lines": 8,
+      "sha256": "6bebfcaf77a19fb342d759ad10e36326c2efb19210a432bd1b9bf174b5934b44",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIBossSpawner.cs",
+      "lines": 69,
+      "sha256": "643228c2fa42e7b89fa1a51b578f20fb8f0ce917abdda076302f6d49c0a99afa",
+      "methods": [
+        "SetUpAIFaction",
+        "SetUp",
+        "SpawnBossWave",
+        "OnBossWaveDestroyed",
+        "CameraTargetBossWave",
+        "CompleteBossTargeting"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIBossUnit.cs",
+      "lines": 206,
+      "sha256": "29389533db8080982a3e674db7e76c6c838f3bd3a2642d3c29190e824b51fcfc",
+      "methods": [
+        "OnEnable",
+        "DeActivateUnit",
+        "SetBoss",
+        "PartDestroyed",
+        "TurnPartsCollidersOn",
+        "TurnPartsCollidersOff",
+        "DestroyBoss",
+        "ChangeSpeed",
+        "SpawnDisabledPart"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIBossUnitMovement.cs",
+      "lines": 83,
+      "sha256": "9871205be5d418de2af0603fa06b5f5e2b0684886dd89e4e90520b330352f28d",
+      "methods": [
+        "Start",
+        "AllowChangeSpeedWithHeat",
+        "ChangeSpeed",
+        "ActivateBoost",
+        "CanBoost",
+        "DeactivateBoost"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AICoreController.cs",
+      "lines": 96,
+      "sha256": "04b09df305f5f8c4ea71f31876bfc06f6f54ece3dd074e383277747de62180ea",
+      "methods": [
+        "BuildCore",
+        "BuildCore",
+        "UnitDestroyed",
+        "UpdateRange",
+        "OverrideDamage",
+        "GetCoreRadarRange",
+        "OverrideCoreRadar"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIDataStore.cs",
+      "lines": 532,
+      "sha256": "e1555265a54403f03236089b11bc5201143ce300ae26668beea80891f06c3034",
+      "methods": [
+        "GetAIShakeAmount",
+        "SetUpMissionAIConfiguration",
+        "GetSwarmAIFaction",
+        "GetFactionColor",
+        "GetDisabledColor",
+        "GetThreatLevelSprite",
+        "GetRandomSpawnerSprite",
+        "GetRandomStationSpawnerSprite",
+        "GetGuardLevelSprite",
+        "GetGuardThreatLevelSprite",
+        "GetStationCoreSprite",
+        "GetStationLevelSprite",
+        "GetStationThreatLevelSprite",
+        "GetScrapSpriteList",
+        "GetSpawningPauseAfterBoss",
+        "GetSwarmingSpawningDelay",
+        "GetSwarmingBossPercent",
+        "GetPatrolBossPercent",
+        "GetWaveBossPercent",
+        "GetPatrolSpawningRadius",
+        "GetSwarmSpawningRadius",
+        "GetWaveSpawningRadius",
+        "GetBossSpawningRadius",
+        "GetDeSpawningRadius",
+        "ResetAIPools",
+        "UpdateAIPools",
+        "GetHeatSpawnersList",
+        "GetAIPatrol",
+        "RefillPatrols",
+        "UpdatePatrolNumbers",
+        "GetAICore",
+        "RefillCores",
+        "GetAISwarming",
+        "RefillSwarmings",
+        "UpdateSwarmingNumbers",
+        "GetNextWaveTimer",
+        "GetAIWaveSwarm",
+        "RefillWaveSwarms",
+        "GetWaveCount",
+        "BuildGuardsList",
+        "GetAIGuardUnit",
+        "BuildAIStationPartList",
+        "GetAIStationPart",
+        "GetAIBossPart",
+        "BuildAIBossPartsDict"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIEnginesManager.cs",
+      "lines": 133,
+      "sha256": "4ad0cd82eab982766ecccb8d384602775dd313a5b62063bd45bfe30ffd95b7bb",
+      "methods": [
+        "FixedUpdate",
+        "UpdateEnginesStates"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIFaction.cs",
+      "lines": 7,
+      "sha256": "5a9349dd60d74fa7b4149b4aaaa4c9fefc22f520741b5b9bc6ed7a3e264c9aaf",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIFleetManager.cs",
+      "lines": 200,
+      "sha256": "3af22f6a780c7bceed19f87cf692a5fa94e0c4d37d871a1d262d92f8057a0a9e",
+      "methods": [
+        "SetUpInMiddle",
+        "SetUpRadius",
+        "SetUp",
+        "AddAction",
+        "FormFleetFormation",
+        "BuildFleetUnits",
+        "WaveShipDestroyed",
+        "FixedUpdate",
+        "GetFleetCenter"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIFollowingUnit.cs",
+      "lines": 148,
+      "sha256": "5c8ee429dd6b4eab99dc9f09bc3de78aaaf90f9fb046180ed23c17dc3c220d07",
+      "methods": [
+        "RefreshTarget",
+        "SetDistances"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIFollowingUnitMovement.cs",
+      "lines": 57,
+      "sha256": "b207e85c3f811eb2d72c72f4aa35191c3e0c8bfea59631d29d658219e2addb83",
+      "methods": [
+        "SetMoveTarget"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIGuardUnit.cs",
+      "lines": 14,
+      "sha256": "95124b9dd5b5b39fa7d8512ee40a3ae95f7c30223bc99efd256afc0f0b248006",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIGuardUnitController.cs",
+      "lines": 58,
+      "sha256": "3d9f5f2198fdd2b17f31390775e012f22355852b908418d6710a742a3dea6cec",
+      "methods": [
+        "SetGuard",
+        "SetGuardSprite",
+        "SetCores",
+        "DisableUnit"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIGuardsSpawner.cs",
+      "lines": 113,
+      "sha256": "ce3a8b8a8ad0d8096388f3ef42602083dc00fb1120d40dd3e72ecac20c87fa03",
+      "methods": [
+        "SpawnGuards",
+        "SpawnGuards",
+        "SpawnGuard",
+        "GuardDestroyed",
+        "DisableGuards",
+        "ActivateRadar"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIMapIconController.cs",
+      "lines": 26,
+      "sha256": "439c076df9fd7f6a9c704a93493b7cbb2e1ab9f35a9865fc91826eb82a82735f",
+      "methods": [
+        "SetUpAIMapIconController",
+        "SetUpAIMapIconController"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIMissionStation.cs",
+      "lines": 145,
+      "sha256": "48d0eb85379eeecea868e8997215a483ddeb48b736b48b5dff107b1bb1f84663",
+      "methods": [
+        "BuildStation",
+        "SpawnParts",
+        "SpawnPart",
+        "PartDestroyed",
+        "SpawnStationDisabledCenter",
+        "GetSurvivedPartsCount",
+        "CreateNewRadar"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIPatrolManager.cs",
+      "lines": 109,
+      "sha256": "4d714370833b2718e4b4e9d9c96b4eefba75c8b844a9eb3579b214d1677a1eba",
+      "methods": [
+        "GetSquadDetectionRange",
+        "Awake",
+        "SetUpUnits",
+        "UnitDestroyed",
+        "DestroyPatrol",
+        "FixedUpdate",
+        "StartChasingPlayer",
+        "StopChasingPlayer",
+        "CanBreakChasing"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIPatrolMovement.cs",
+      "lines": 169,
+      "sha256": "ecb4131a1ae9b28574ae3d1efaa3f75a9a09d726036abe15ea0053892a8752bf",
+      "methods": [
+        "Start",
+        "OnEnable",
+        "FixedUpdate",
+        "AddShip",
+        "RemoveShip",
+        "IsChasingPlayer",
+        "SetIsChasingPlayer",
+        "UpdateMovingSpeed",
+        "GetNextRoamingPoint"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIPatrolSpawner.cs",
+      "lines": 98,
+      "sha256": "923edbb9914cff800ba1c1c76154c80110ded42600c8c04a0fed3b9386225136",
+      "methods": [
+        "SetUp",
+        "PauseSpawner",
+        "ResumeSpawner",
+        "CalculateSpawningUnits",
+        "SpawnPatrols",
+        "PatrolDestroyed",
+        "SpawnNewPatrol",
+        "GetRandomInsidePos",
+        "BossActivated",
+        "BossDectivated"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIPatrolUnit.cs",
+      "lines": 35,
+      "sha256": "36fabf996a5412285ad9da03c3ee85c1c61c02c8d26cdbb81fd9d329c7f6971e",
+      "methods": [
+        "SetAIPatrolManager",
+        "OnHealthDamage"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIPatrolUnitMovement.cs",
+      "lines": 93,
+      "sha256": "8cbfcd89abea21715c75fc56f9197300b340ca78ad2be6919702dbd8fdc0d6cb",
+      "methods": [
+        "SetAIPatrolMovement",
+        "SetEnemySquad"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AISpawner.cs",
+      "lines": 138,
+      "sha256": "626f83796e656f3f77931aba865a5a2f77cdfcf4a64375a928ac5092579f22ff",
+      "methods": [
+        "SetUpAIFaction",
+        "Awake",
+        "OnEnable",
+        "OnDisable",
+        "SetTarget",
+        "ResetTimer",
+        "SelectSpawnType",
+        "SetUpSpawner",
+        "FixedUpdate",
+        "SpawnUnit",
+        "SpawnDestroyed"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIStation.cs",
+      "lines": 191,
+      "sha256": "c0b1f49e4cfc94e2dee2ac6f312851e20d4b1114952d274a895e6676615c049d",
+      "methods": [
+        "BuildStation",
+        "GetStationThreatLevel",
+        "GenerateStationThreatLevel",
+        "SpawnParts",
+        "SpawnPart",
+        "DeactivateNode",
+        "PartDestroyed",
+        "SpawnStationDisabledCenter",
+        "SpawnRewardPacks",
+        "ActivateRadar"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIStationPart.cs",
+      "lines": 23,
+      "sha256": "86d7e24d97c68152879ba7bfa438d751e3908cd67f859df0e17fbdeb3b950f21",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIStationPartController.cs",
+      "lines": 88,
+      "sha256": "ea1d68658be4aa16862e720752b2ef001303b0f27ff8ce4e0987091450514d6b",
+      "methods": [
+        "SetStationPart",
+        "GetPartThreatLevel",
+        "SetCores",
+        "SetStationPartSprite",
+        "DisableUnit"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AISwarmingSpawner.cs",
+      "lines": 145,
+      "sha256": "58b1718cc7a24f73e433719611105ccee4845b857bfa2c947d1c144ba5170a51",
+      "methods": [
+        "SetUpAIFaction",
+        "SetUp",
+        "PauseSpawner",
+        "ResumeSpawner",
+        "BossActivated",
+        "BossDectivated",
+        "CalculateSpawningUnits",
+        "SpawnUnits",
+        "SpawnNewUnit",
+        "SwarmingShipDestroyed",
+        "SetSpawningPoints"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AISwarmingUnit.cs",
+      "lines": 173,
+      "sha256": "e4777fc6a2f8f4e8d1b3bff7be2a58bcaddc6ae548b98a2152ae3aa1299af570",
+      "methods": [
+        "SetBossFleetTransform",
+        "RefreshTarget",
+        "SetDistances"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AISwarmingUnitMovement.cs",
+      "lines": 56,
+      "sha256": "64dcdc2a7dd7c71bc4c47d218ec80d122855b2b83da7cd1bf84ce12bf0227333",
+      "methods": [
+        "SetMoveTarget",
+        "SetIsMoving",
+        "Move",
+        "RotateToTarget"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIThreatLevel.cs",
+      "lines": 10,
+      "sha256": "c9169db5f82364f1cae350fc7a2bd251d15fde9470364d6be12a4369540b9ffb",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIUnitController.cs",
+      "lines": 370,
+      "sha256": "9ea331292137a7f0fb0e44b490d30b4890a2d44c7efe0b8a71fbe06f23008ac6",
+      "methods": [
+        "SetOnDestroyAction",
+        "GetAIThreatLevel",
+        "Awake",
+        "SetAIFaction",
+        "SetMaxHealth",
+        "RefreshAIMapIconController",
+        "UpdateRange",
+        "OverrideDamage",
+        "Stun",
+        "IsStunned",
+        "EndStun",
+        "StunCores",
+        "DisableCores",
+        "ActivateCores",
+        "GetCoresCount",
+        "ClearRadar",
+        "OverrideRadar",
+        "CreateCenteralizedRadar",
+        "ActivateRadar",
+        "GetRadarRange",
+        "GetUnitRadarSystem"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIUnitMovement.cs",
+      "lines": 137,
+      "sha256": "cc7e998275e2dd010f9d56a96ef166c04e707834543470c96f6b81894fe96595",
+      "methods": [
+        "GetEnginePower",
+        "OnEnable",
+        "SetMovement",
+        "AddEnginePowerPercent",
+        "FixedUpdate",
+        "IsWarping",
+        "Stun",
+        "EndStun",
+        "SonicWavePush",
+        "PushUnit",
+        "StartBlackHoleSuck",
+        "StopBlackHoleSuck",
+        "SuckUnit"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIWarpManager.cs",
+      "lines": 60,
+      "sha256": "8e400b31c34040758b8e8cfaee18136ba4e8285e547c8aef02583a00be89c0ec",
+      "methods": [
+        "SetActivateWarping",
+        "CheckWarp",
+        "WarpJump",
+        "WarpEnded"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AIWaveSpawner.cs",
+      "lines": 103,
+      "sha256": "cc96d425a3fd178047fb40cb48d3e0cbb2ed67e5329025ee1e1637fd572c744b",
+      "methods": [
+        "SetUp",
+        "SetUpAIFaction",
+        "PauseSpawner",
+        "ResumeSpawner",
+        "BossActivated",
+        "BossDectivated",
+        "StartTimer",
+        "FixedUpdate",
+        "SpawnNextWave"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Achievement.cs",
+      "lines": 18,
+      "sha256": "473dae111bd7d689aa043db6e0d0e7488ea8cd65fad7e89fe13f2f3a99a17d5a",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AchievementTypes.cs",
+      "lines": 10,
+      "sha256": "6fd7f18dcb1125d9fde875d7663c42ff1dd40ff5f448eff89a46ec0570a69b88",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AnalyticsManager.cs",
+      "lines": 157,
+      "sha256": "69f06820e477897c62fc1aa9ed7ef71d38694a442c1ede00d232bdb2499741c1",
+      "methods": [
+        "SendRunCompletedAnalytics",
+        "SendRunRestartAnalytics",
+        "CallUserRegisterEvent",
+        "CallLabNodeUnlockedEvent",
+        "CallLabHalfUnlockedEvent",
+        "CallLabFullyUnlockedEvent",
+        "CallLabFirstNodeUnlockedEvent",
+        "CallResetGameButtonEvent",
+        "CallDiscordButtonPressedEvent",
+        "CallNewsletterButtonPressedEvent",
+        "CallWishListButtonPressedEvent",
+        "CallEvent",
+        "CallEvent"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AreaBasicPositionProjectileController.cs",
+      "lines": 29,
+      "sha256": "50cbf5593625d6a2353108c4dde7e9ab5857166d2ee04e6a86755c1cd5eb0e41",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AreaBasicProjectile.cs",
+      "lines": 7,
+      "sha256": "7290ef3d885bee517f5d9c4035b2c62e2dd8e9441ae254c72c1b75d443b5054b",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AreaBasicProjectileController.cs",
+      "lines": 29,
+      "sha256": "cab7c816cd9b41bed225c4cb6b48d474074e2abb79cedaf79a84023d3a484a8b",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AreaHomingProjectile.cs",
+      "lines": 7,
+      "sha256": "13036528bb495167dfb6d87ce76f269e98508cd5708b1a6c0cfab941cd42602a",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AreaHomingProjectileController.cs",
+      "lines": 29,
+      "sha256": "60c80c1096d7982e9de890983498a0fbf740e6bd2ad7b636585887ee4b700377",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Asteroid.cs",
+      "lines": 26,
+      "sha256": "5f5a097ce1e60fab84fa76442db92fbfe7a3e05f27b2e4b701fa33116b2ee22c",
+      "methods": [
+        "SetAsteroid"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AsteroidField.cs",
+      "lines": 76,
+      "sha256": "657ab1498ae23ecbb5673e608f430b016ec133e953ebdfc85fe866546ef7b683",
+      "methods": [
+        "SpawnAstero",
+        "GetAsteroidPos",
+        "AsteroidDestroyed"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AudioClipObject.cs",
+      "lines": 22,
+      "sha256": "48707d7bd712e0d057aa8eabad236a7b5cc312d0f4acadc196350fb2c30e2d4e",
+      "methods": [
+        "GetAudioClip"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AudioClipTypes.cs",
+      "lines": 41,
+      "sha256": "c66d90ff32c37e745b8d19caf9f5d0d71eadfdb845a141713b04cbeffcea1540",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AudioDataStore.cs",
+      "lines": 11,
+      "sha256": "7cd65860b5eaba8ba1583b3e8a0c19f122b40b988f5e3f5a854588e3ebcaa082",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AudioManager.cs",
+      "lines": 197,
+      "sha256": "ebc0594438b0d3f3ba4b07ce810652b57c22aca9d760e92fd4be9ea79eb94cad",
+      "methods": [
+        "Start",
+        "OnDisable",
+        "Reset",
+        "ResetSources",
+        "InitiateAudioSources",
+        "LoadAudioFiles",
+        "RefreshAudio",
+        "PlaySFX",
+        "StopLoopedAudioSource",
+        "CalculateVolume",
+        "StopSource",
+        "ReleaseAudioSource",
+        "GetUnusedSource",
+        "MuteLoopedMusic"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AudioSlidersController.cs",
+      "lines": 46,
+      "sha256": "cd2272b1e10fe8458b99f674a329564383cb7763182e7592a1f23bc7f9313dfc",
+      "methods": [
+        "GetMasterSlider",
+        "SetMasterSlider",
+        "GetMusicVolume",
+        "GetMusicSlider",
+        "SetMusicSlider",
+        "GetSFXVolume",
+        "GetSFXSlider",
+        "SetSFXSlider"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AudioTester.cs",
+      "lines": 22,
+      "sha256": "6ef316951d58794ca8d015ef9e5489ed88aadcbc6b321e9279be0d8857dd781d",
+      "methods": [
+        "Awake",
+        "Update"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AudioUISlider.cs",
+      "lines": 48,
+      "sha256": "0ad26a31f6d4f3ed5ca4dc01f47acb88346593db61e2d38f7734dce572e2c64e",
+      "methods": [
+        "OnEnable",
+        "Start",
+        "OnDisable",
+        "OnSliderChange"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/AutoRotator.cs",
+      "lines": 29,
+      "sha256": "b8654abd8f47de6aa43f3ee45a7d1ec37a4a4c64b3dc2271ebfa316fc3b5dba6",
+      "methods": [
+        "SetIsRotating",
+        "SetRandomSpeed",
+        "FixedUpdate"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BHModeManager.cs",
+      "lines": 122,
+      "sha256": "c716690eceecaecf24c2b5b6d22814f927ef29464ad0052e3089c52a70304cf6",
+      "methods": [
+        "SetUpMode",
+        "StartMode",
+        "EndMode",
+        "GetModeTarget",
+        "GetMissionCompletedRating",
+        "GetBonusRating",
+        "SpawnBossesFleet",
+        "SpawnBoss",
+        "StartFleetMovement",
+        "WarpFleetAway",
+        "WarpFleetEndGame",
+        "CameraTargetFleet"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BackgroundAudioManager.cs",
+      "lines": 100,
+      "sha256": "1f80d9153191f84622f4557c62cb46314a3458ca51115614e7c49843a6c101ff",
+      "methods": [
+        "Start",
+        "OnDisable",
+        "Update",
+        "RefreshAudio",
+        "PlayBackgroundAudio",
+        "PlayNextAudioClip",
+        "FadeAudioSource",
+        "FadeInAudioSource",
+        "FadeOutAudioSource",
+        "MuteSource"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BackgroundColorChanger.cs",
+      "lines": 49,
+      "sha256": "5ff3862d11c79f23f930686b6cad684c678f6b6422ef08e5a5670c8f6902af9e",
+      "methods": [
+        "SetBackgroundColor",
+        "StartBackgroundColorChange",
+        "ResetBackgroundColor",
+        "LoadNextColor"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BackgroundColorPreset.cs",
+      "lines": 9,
+      "sha256": "dfddbe54fec61bbc8c5c515cdb6ab6b3dc8f57b9dcb2874c80af042f7753797f",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BackgroundsManager.cs",
+      "lines": 44,
+      "sha256": "0d9078938610658e764639f1e69de7386d944105330d2775e41d69714dfae772",
+      "methods": [
+        "Start",
+        "ChangeMaterial",
+        "OnDisable",
+        "Update"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BarrageProjectileCore.cs",
+      "lines": 10,
+      "sha256": "b1f639c8041f71c959df1dfad1f1fd78eb143af087bb12474a0d4f979bbf0433",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BarrageProjectileTurretController.cs",
+      "lines": 92,
+      "sha256": "0f9b29e0e89993ff7100ed547c0e41be74e8427c5d00e6ee697b3cd80c27c284",
+      "methods": [
+        "FireBarrage",
+        "EndBarrage",
+        "FireAllProjectiles",
+        "TimeToShootProjectile"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BasicPositionProjectileController.cs",
+      "lines": 49,
+      "sha256": "1cb162b000a9a27bb7ea34dec7878434bd3577115a81eca31a7486bfdf57a966",
+      "methods": [
+        "SetTargetPosition",
+        "SetTargetPosition"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BasicPositionProjectileTurretController.cs",
+      "lines": 18,
+      "sha256": "3032d4e9a09872ce52887ee1a2a8d6d719a758962fead391ff86169725f6f70e",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BasicProjectile.cs",
+      "lines": 9,
+      "sha256": "2a0e3f5d44f3b245a8529793388e6e507a1e7774cb623f5856baffc7983675e8",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BasicProjectileController.cs",
+      "lines": 24,
+      "sha256": "a5507df4c3170410154b2ab763ae36b28eb94b8161eddb3b1b7f165b25edb6f5",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BasicProjectileTurretController.cs",
+      "lines": 10,
+      "sha256": "3aec0f2b974ff4fc4b639fc7ab43aa92c9b92e71f6637493f865c5aa2db229e0",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BasicReward.cs",
+      "lines": 46,
+      "sha256": "9e0e59bb9fe4f65b5856aaac6eabd44e7401102bf798b002d94ca618a758a00e",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BiggestTargetRadarConfiguration.cs",
+      "lines": 28,
+      "sha256": "d156ed6571bf5f7c953fbf7f645e2be2924149edc61af7268500d486ecc0f3dd",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BindingUIAnimation.cs",
+      "lines": 194,
+      "sha256": "ff545fac79b23ccaad4df80a84ad86d0dac846e79729561d15f97ba9c7948e93",
+      "methods": [
+        "OnEnable",
+        "WaitToActivate",
+        "ActivatePanel",
+        "OnDisable",
+        "ShowPanel",
+        "HidePanel",
+        "OnActiveComplete",
+        "PlayClickAnimation",
+        "OnPlayClickAnimationComplete",
+        "PlayHoldAnimation",
+        "OnPlayClickHoldAnimationComplete",
+        "OnHoldComplete",
+        "SetBindingImage",
+        "SetBindingActionInfo"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BindingUIAnimationType.cs",
+      "lines": 5,
+      "sha256": "b418979c5dc30be9cd200b64e296da4896e1e691c023b61eab6a858f2d1c8ba3",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BlackHoleBasicProjectileController.cs",
+      "lines": 22,
+      "sha256": "ae6f35abe347affcf3215a5d0a2f1b6eda0d3d1da7af9365f206178e90c318c8",
+      "methods": [
+        "SpawnBlackHole"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BlackHoleController.cs",
+      "lines": 107,
+      "sha256": "c29b31567dbefc4dbc6d6c12ddefc2e4191fcb1b4f1cbc844c71a42b05cfff60",
+      "methods": [
+        "ActivateBlackHole",
+        "DestroyBlackHole",
+        "FixedUpdate",
+        "DamageTargets",
+        "OnTriggerEnter2D",
+        "OnTriggerExit2D"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BlackHoleProjectile.cs",
+      "lines": 14,
+      "sha256": "a79a8834bf1e605e35bd12be8faf4d2941ac3fe32c5e9ef18e73b5e86269aabb",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BladeController.cs",
+      "lines": 27,
+      "sha256": "f09d17a0fefdf8b21f18aee06fa4a60cd5f2759374026cbce4b9105e9bbb2fc7",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BlockReward.cs",
+      "lines": 62,
+      "sha256": "06c3c8ce5231c0f34ebf7c8a967004bfcff9c5396ed9423b7ff1c3e5ee7f4d41",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BossTimerUIController.cs",
+      "lines": 49,
+      "sha256": "047c09b70a0fa41ddb604669c33095827e5cb523d4d7400f41f5916152bab3a7",
+      "methods": [
+        "OnEnable",
+        "OnDisable",
+        "SetBossTimer",
+        "EndBossTimer",
+        "ChangeBarValue"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/BossesFleet.cs",
+      "lines": 37,
+      "sha256": "f46ca8903609423dcfbf49f53b86b00ddcab187e11d0e723c9c1426de4453fd7",
+      "methods": [
+        "CanSpawnFleet",
+        "SpawnFleet",
+        "SpawnFleetPoint"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CFX_AutoDestructShuriken.cs",
+      "lines": 34,
+      "sha256": "c0e5ee3f98467234283dbcb043facc0e2eab1e68ffd81b7ce16f532021ad2f73",
+      "methods": [
+        "OnEnable",
+        "CheckIfAlive"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CFX_AutoRotate.cs",
+      "lines": 13,
+      "sha256": "89f410592f90b3511de60607e1fe2bb0b299818ca15f2a1af81299eff6609348",
+      "methods": [
+        "Update"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CFX_AutoStopLoopedEffect.cs",
+      "lines": 32,
+      "sha256": "92b81fbee1e10e020771ddf52838edb8548630d004d870259403034c7abe7014",
+      "methods": [
+        "OnEnable",
+        "Update"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CFX_AutodestructWhenNoChildren.cs",
+      "lines": 12,
+      "sha256": "04a1d8885a0426e1c315ecd380d1e426841f5d2686eaff7c7e3fff331abaea76",
+      "methods": [
+        "Update"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CFX_Demo.cs",
+      "lines": 209,
+      "sha256": "47e678ba186606ba74a402531cc736d1dbc47949796dbe9a7869b6082756275c",
+      "methods": [
+        "OnMouseDown",
+        "spawnParticle",
+        "OnGUI",
+        "RandomSpawnsCoroutine",
+        "Update",
+        "prevParticle",
+        "nextParticle"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CFX_Demo_New.cs",
+      "lines": 208,
+      "sha256": "9a22b2d16a4aba7cb01d192112449dd5848d6b61c23c56cea7e80f36fb6f4d86",
+      "methods": [
+        "Awake",
+        "Update",
+        "OnToggleGround",
+        "OnToggleCamera",
+        "OnToggleSlowMo",
+        "OnPreviousEffect",
+        "OnNextEffect",
+        "UpdateUI",
+        "spawnParticle",
+        "CheckForDeletedParticles",
+        "prevParticle",
+        "nextParticle",
+        "destroyParticles"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CFX_Demo_RandomDir.cs",
+      "lines": 13,
+      "sha256": "b45404f50f5504c2c7fa4a140b050c1a69d3101002e9750381995b3663615a19",
+      "methods": [
+        "Start"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CFX_Demo_RandomDirectionTranslate.cs",
+      "lines": 30,
+      "sha256": "4e88e99830d630fc582d8c061de9985c87985ee7fa3294a4197e8b52f6f53038",
+      "methods": [
+        "Start",
+        "Update"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CFX_Demo_RotateCamera.cs",
+      "lines": 18,
+      "sha256": "c2bc542ca3f0e1b37460e4d3afe6dde17351687b995f65c1c056e5feda7c3473",
+      "methods": [
+        "Update"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CFX_Demo_Translate.cs",
+      "lines": 26,
+      "sha256": "5e7f7efdd717e1f35f592480e9ee979f04c157649dbd8bee02d44b097cfa4e6d",
+      "methods": [
+        "Start",
+        "Update"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CFX_InspectorHelp.cs",
+      "lines": 18,
+      "sha256": "d7aa28bfb81b2e59b32cd3348a693d76e2ad2dea980ad5d3740a4f9944a2b771",
+      "methods": [
+        "Unlock"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CFX_LightFlicker.cs",
+      "lines": 33,
+      "sha256": "46136e32a4357dfb87ecc097ee114979b6f6385d7eeadeb700438e5e9a2ea9d4",
+      "methods": [
+        "Awake",
+        "OnEnable",
+        "Update"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CFX_LightIntensityFade.cs",
+      "lines": 55,
+      "sha256": "12871255631e66f76f045f9a8c666f16c40625107d6cc01bba2db44e0457fa56",
+      "methods": [
+        "Start",
+        "OnEnable",
+        "Update"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CFX_ShurikenThreadFix.cs",
+      "lines": 29,
+      "sha256": "469598b5fa97b78f9778ca7eac016c63c7d64166a19002abb8a4c71cd69975bf",
+      "methods": [
+        "OnEnable",
+        "WaitFrame"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CFX_SpawnSystem.cs",
+      "lines": 166,
+      "sha256": "30c6b14aa15a0cc98ae3cb81e7a81f6e4c529e8ef8e9a9dd65c74fd17eb9ebe2",
+      "methods": [
+        "GetNextObject",
+        "PreloadObject",
+        "UnloadObjects",
+        "addObjectToPool",
+        "removeObjectsFromPool",
+        "increasePoolCursor",
+        "Awake",
+        "Start"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CSVReader.cs",
+      "lines": 40,
+      "sha256": "4c00a6447abc28e40d9b20186d2bcf6f3e8f433f1e4788bfbc23b20f2910cc78",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CamTargeting.cs",
+      "lines": 11,
+      "sha256": "da43284e19fa672224919ffe664d6149a01a8e2ad2bc9cab4bae060dd849feff",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CameraManager.cs",
+      "lines": 208,
+      "sha256": "2bdf362c0f5ddecca7874815b5047c74525db1e79efdcbb6b8a8cbdeb9a80aba",
+      "methods": [
+        "Start",
+        "Update",
+        "SetBuildingMode",
+        "SetRadarMode",
+        "ChangeCameraTarget",
+        "CameraTargetReached",
+        "ResetCameraSize",
+        "GameOverZoomOut",
+        "ChangePlainSize",
+        "ChangeSize",
+        "ShakeCamera",
+        "GetCameraCurrentSize"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ChangeLogUIController.cs",
+      "lines": 52,
+      "sha256": "25653d862108307c70fc31df67e10c5005ecb9188ab2c5281e748d6d4cb17fd1",
+      "methods": [
+        "Awake",
+        "ShowChangeLog",
+        "BackButton"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Chip.cs",
+      "lines": 11,
+      "sha256": "0d03257859991469c10fb66090ab7e80c76266ce381b3b309f41b9e0e14ac6f3",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ChipController.cs",
+      "lines": 64,
+      "sha256": "db45e55477768c240dfe77e4bda1ad850dadda017fdc6873f7d7b2c8f339dd79",
+      "methods": [
+        "OnEnable",
+        "DisableChipArt",
+        "DisableCore",
+        "ActivateCore",
+        "IsDisabled",
+        "PreviewChip",
+        "SetChipRangeState",
+        "BuildChip"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ChipCore.cs",
+      "lines": 85,
+      "sha256": "ede5427cbae98691dd33a65cbb4d16762b91717e8b46a2625b7fa0d8ccaf4a07",
+      "methods": [
+        "GetCoreChipType",
+        "SetChipRangeState"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ChipTypes.cs",
+      "lines": 10,
+      "sha256": "f8d2220d47da48865d3b0b8bfc43b9412e022352b1b03de424eaa2f644a4a88d",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ChipsContainer.cs",
+      "lines": 46,
+      "sha256": "47b63cb65399b42fc9a47416bf3c5bea9033870cf5ce17883100c98956712a1d",
+      "methods": [
+        "SetChips",
+        "AddChip",
+        "GetChipLevel",
+        "GetChipsCount",
+        "ResetChips",
+        "IsChipActivated"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ChipsDataStore.cs",
+      "lines": 149,
+      "sha256": "f56f06030585081de72bf90adea65e0ace26275f47052d93469fad9dd0e87df9",
+      "methods": [
+        "GetMammothArea",
+        "GetMammothDamage",
+        "GetMammothProjectileSize",
+        "GetChainTargetJumpCount",
+        "GetChainTargetRange",
+        "GetChainDamagePercent",
+        "ActivateChain",
+        "GetPiercingTargetCount",
+        "GetShrapnelDamagePercent",
+        "ActivateShrapnel",
+        "GetShrapnelDamageModifier",
+        "ActivateExplosion",
+        "GetExplosionDamage"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ClockingTurretController.cs",
+      "lines": 107,
+      "sha256": "f9927647ab80694ce339dcb0eebca72e6f948adbd8dffc6d19c88f3c80f4aca5",
+      "methods": [
+        "RefreshClockedCores",
+        "ClockCores",
+        "UnClockCores"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ClosetTargetRadarConfiguration.cs",
+      "lines": 23,
+      "sha256": "f49310a6d414ebcb5a17c91990be09f117395d37208032ca562aa5450f3177de",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ColorHelper.cs",
+      "lines": 245,
+      "sha256": "9722a1f4445ea27b374e5c8927f0b997702e65d8d62e2fd1a101f224f48e882e",
+      "methods": [
+        "GetColorByHex",
+        "GetRGBPerHex",
+        "GetHexCode",
+        "GetHexPerColor"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ContainerField.cs",
+      "lines": 65,
+      "sha256": "ce50b68eba15f1cd8c6c4d0ea8d686b6cf019ea0a926e48f20f184555790b967",
+      "methods": [
+        "SpawnContainer",
+        "GetContainerPos",
+        "ContainerDestroyed"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ContainerObject.cs",
+      "lines": 31,
+      "sha256": "4efc7a02af033a6a5fb5e60d85a69daa27ab81cd6c0390c8070a2ff489d5a994",
+      "methods": [
+        "SetContainer",
+        "CheckSpawnPack"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ContinuousProjectile.cs",
+      "lines": 12,
+      "sha256": "c8ee3033915b0ccd17498a433d455f7a69fec930efa783e4a50f15e55013d737",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ContinuousProjectileContoller.cs",
+      "lines": 105,
+      "sha256": "015d3ecd2dfc15881fc7c640fa97953ab0385b051220c2060ffc971d8d5489af",
+      "methods": [
+        "ActivatePorjectile",
+        "DeactivatePorjectile",
+        "UpdateRange",
+        "DamageTargets",
+        "OnTriggerExit2D"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ContinuousProjectileTurretController.cs",
+      "lines": 98,
+      "sha256": "dd560316018775a05201de1253a3b410d259664ecdd09c4c3bfbaac710f443e7",
+      "methods": [
+        "SetUpProjectile",
+        "StopProjectile"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ControlCancelUIImage.cs",
+      "lines": 28,
+      "sha256": "4a34012dbdfc0ed22b64ededd73494f684d5efd66c37fbb1d92614ef71fab317",
+      "methods": [
+        "OnEnable",
+        "OnDisable",
+        "SetCancelImage"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ControlRebindUIPanel.cs",
+      "lines": 101,
+      "sha256": "29af47a336ef87b1d940e5b7080c8f5f4cd9b656ed1d94fad1ed7d5d6c7cd8dc",
+      "methods": [
+        "ShowRebindPanel",
+        "ShowRebindPanel",
+        "SetRebindPanel",
+        "HideRebindPanel",
+        "OnHideRebindPanelComplete",
+        "OnRebindDuplicate",
+        "OnRebindExcluded",
+        "AnimateNotifyText"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ControlUIContainer.cs",
+      "lines": 157,
+      "sha256": "1dfc3f8be59bce1b0d6ed0dcc6c7d2d03d618697deee97fbc4cb32a7c3b1250e",
+      "methods": [
+        "OnEnable",
+        "OnDisable",
+        "UpdateContainerUI",
+        "DoRebind",
+        "OnRebindComplete",
+        "OnRebindCanceled",
+        "OnRebindEnded",
+        "UpdateBindingDisplayUI",
+        "SetContainerAsSelectable",
+        "GetContainerSelectable",
+        "SetBindingActionInfo"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ControlUIManager.cs",
+      "lines": 183,
+      "sha256": "8b972270148f24666ece45f1d0a3cdbe41be90fee993b73b750830d0ff7f82d7",
+      "methods": [
+        "ShowControlsMenu",
+        "LoadControlsValues",
+        "ResetButton",
+        "RefreshUI",
+        "BackButton",
+        "ApplyNewRebind",
+        "RefreshControlsUI",
+        "OnRebindStarted",
+        "OnRebindEnded",
+        "WaitAtLeastAFrameAndSave",
+        "RefreshControllerSetting",
+        "InvertAimX",
+        "InvertAimY",
+        "SwitchAim"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Core.cs",
+      "lines": 61,
+      "sha256": "673a91687a09f4de5ec4208f338746971abb8dd4f832afe0f8831f1df8a0c44f",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CoreAIHeat.cs",
+      "lines": 25,
+      "sha256": "28b46718cb96c9a085e5d1566465dd898259ec5b60a1e165ba87092c22c3ccc0",
+      "methods": [
+        "IsHeatSuitable"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CoreController.cs",
+      "lines": 421,
+      "sha256": "0a36e34e827058b6007136a89f872dd85214a7a4ddf7b0727f03d299b428e65e",
+      "methods": [
+        "GetCurrentCore",
+        "SetCurrentCore",
+        "GetCoreObject",
+        "Awake",
+        "SetCoreObject",
+        "PreviewCore",
+        "SpawnNewCoreObject",
+        "BuildCore",
+        "GetBuilder",
+        "RefreshCore",
+        "UpdateCoreHealth",
+        "RefreshCoreHealth",
+        "IsStunned",
+        "Stun",
+        "EndStun",
+        "DisableCore",
+        "ActivateCore",
+        "SetCoreObject",
+        "UpdateCoreSprite",
+        "DestroyCore",
+        "CoreHealthChanged",
+        "GetCoreDetectionType",
+        "GetCoreTargetDetectionType",
+        "IsCoreChip",
+        "GetChipsContainer",
+        "RefreshChipsContainer",
+        "FilterChipCores",
+        "SelectCore",
+        "DeselectCore",
+        "HighLightCore",
+        "DisableHighLightCore",
+        "SetCoreRangeSprite",
+        "SetCoreSortingLayer",
+        "AddWall",
+        "CanAddWall",
+        "ClockCore",
+        "UnClockCore",
+        "GetCoreColor",
+        "EnterBuildMode",
+        "ExitBuildMode"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CorePlacement.cs",
+      "lines": 14,
+      "sha256": "f0088ba55f4476855590d36adca4ae5bd8bf2fb7c62248220c7b23d9399799c9",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CoresDataStore.cs",
+      "lines": 72,
+      "sha256": "b41516552d61be809b518e35efcab7a4414630a15c92225748aa455bb165aac2",
+      "methods": [
+        "GetClockedCoreColor",
+        "GetWalledCoreAddedHealth",
+        "GetWalledCoreSprite",
+        "GetHighLightedCoreColor",
+        "GetCoreHealthSprite",
+        "GetMainCoreHealthSprite"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CountBasicReward.cs",
+      "lines": 34,
+      "sha256": "18d07520e89d3fc44bbcc6010002f075947b2c4abfa8a107e7cf56acc86748c9",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CrusedReward.cs",
+      "lines": 89,
+      "sha256": "9beb1845cbdb43b1e916eccc5811d94004c7d123085e54418153534e76306a1f",
+      "methods": [
+        "GetBuffRewardSprite",
+        "GetBuffRewardOverlaySprite",
+        "GetDebuffRewardSprite",
+        "GetDebuffRewardOverlaySprite"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CurserData.cs",
+      "lines": 15,
+      "sha256": "3211a2bc7b092f168cc1b7eda81cf8d21a57775a2ab0de37ebc4c27208fbc407",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CurserManager.cs",
+      "lines": 122,
+      "sha256": "2fbd7101d050e3417edad71a404900c5b3c42c44892541d0027145af3f10c6fa",
+      "methods": [
+        "OnEnable",
+        "HideMouseCurser",
+        "EnableMouseCurser",
+        "MoveMouseCurser",
+        "Update",
+        "SetCurser"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CurserTypes.cs",
+      "lines": 8,
+      "sha256": "feb04058edfe186de7abe1635d7e45e82418a00cb32b48efd68d0dae7043600d",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CustomInputContextIcon.cs",
+      "lines": 10,
+      "sha256": "e7aeaa45334c2c2ec78225857f5099760929fe58c6195b3d23b3b04c98f06feb",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/CutoutMaskUI.cs",
+      "lines": 15,
+      "sha256": "af7c0c8030cc00f8507862cdcec717df352938593d51c1f99a7625b5f7f74b65",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Damage.cs",
+      "lines": 36,
+      "sha256": "c21a619f71f83fa94d1ed66bb839119dd9bdb37e44b4471241d2ef6fdf57a513",
+      "methods": [
+        "GetDamage",
+        "GetTickDamage"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/DeActivateAfterTime.cs",
+      "lines": 27,
+      "sha256": "227d133ae96ec9627e112904bdabfb46843e01361f3caa3f752aca40aa1d16f2",
+      "methods": [
+        "OnEnable",
+        "SetDuration",
+        "DeActivate"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/DecorationData.cs",
+      "lines": 15,
+      "sha256": "36d867997444c194de8d51c450018b6175d5a7b57410ca53466e8b910ffd20d0",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/DemoBuildManager.cs",
+      "lines": 33,
+      "sha256": "e4d60356b395ba554791f0ef43fa06b5c1be1fbb04a3cb7d5b5afe08c1222e13",
+      "methods": [
+        "StartDemo",
+        "IsDemoEnabled",
+        "IsRewardAvilable",
+        "IsMissionAvilable"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/DestructibleObject.cs",
+      "lines": 99,
+      "sha256": "6fe2bfa66c0b2317311b61f2512b70041631609b243c4d7114a730c2a1ceb1bd",
+      "methods": [
+        "SetObject",
+        "SetObjectHealth",
+        "UpdateObjectHealth",
+        "SetMaxHealth",
+        "SetOnDestroyAction",
+        "SetOnHealthDamageAction",
+        "IsDetectionType",
+        "GetDetectionTransform",
+        "GetMaxHealth",
+        "TakeDamage",
+        "TakeFullDamage",
+        "GetDamagePercent",
+        "CanRepair",
+        "Repair",
+        "SetRepairStatue",
+        "IsBeingRepaired"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/DestructibleObjectHealth.cs",
+      "lines": 134,
+      "sha256": "ad6819da034f3eb7bc2c12e6bfb54061615dce8507185c9a20effc72df0867e8",
+      "methods": [
+        "SetHealth",
+        "SetOnDestroyAction",
+        "SetOnHealthDamageAction",
+        "UpdateHealth",
+        "SetMaxHealth",
+        "TakeDamage",
+        "DamageHealth",
+        "GetCurrnetHealth",
+        "GetMaxHealth",
+        "TakeFullDamage",
+        "GetDamagePercent",
+        "CanRepair",
+        "Repair"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/DetectionDataStore.cs",
+      "lines": 199,
+      "sha256": "9d1f989e12d6b9527ca79f3700a8fe9218c12d765b34e46d52ef77a36c38b44e",
+      "methods": [
+        "IsMapNodeLayer",
+        "IsMapNodeLayer",
+        "IsMapNodeLayer",
+        "IsMapNodeLayer",
+        "GetMapNodeLayer",
+        "IsPlayerLayer",
+        "IsPlayerLayer",
+        "IsPlayerLayer",
+        "IsPlayerLayer",
+        "GetPlayerLayer",
+        "IsEnemyLayer",
+        "IsEnemyLayer",
+        "IsEnemyLayer",
+        "IsEnemyLayer",
+        "GetEnemyLayer",
+        "IsShieldLayer",
+        "IsPlayer",
+        "GetLayer",
+        "GetLayerNumber",
+        "GetLayerNumber",
+        "GetDetectionType",
+        "GetTargetDetectionType",
+        "GetVSDetectionType"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/DetectionType.cs",
+      "lines": 7,
+      "sha256": "298b7ac152b8cff22d37650a577be20dc40bbd341b50cc8816ea630f0f7619c1",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/DeviceDisplayConfigurator.cs",
+      "lines": 89,
+      "sha256": "f8c01624c0ad6c2f763dcc18e28232a6db671b3fce541fc74d405ec732513c2a",
+      "methods": [
+        "GetDeviceBindingCancelKeys",
+        "GetDeviceBindingIgnoreKeys",
+        "GetDeviceSetting",
+        "GetDeviceBindingIcon",
+        "FilterForDeviceInputBinding",
+        "BuildDict"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/DeviceDisplaySettings.cs",
+      "lines": 16,
+      "sha256": "122bed0abd0bf38fdc37b3d3615c8515b287519f21bb60f228960767b298101b",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Difficulty.cs",
+      "lines": 15,
+      "sha256": "0fba0c38aad72f0c41e32d0b918d320e62d5cd1865bbce474e26825e55752267",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/DifficultyTypes.cs",
+      "lines": 6,
+      "sha256": "5ceb2f5195443de3d55b1570af053a7bfed8d64c19266962e2cb2b8efe0795ca",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/DistancePanelController.cs",
+      "lines": 29,
+      "sha256": "5c487af0fe15c2c961210b6012ef1dfa3e6672ac8c3bea32cd58de517f0b0b63",
+      "methods": [
+        "SetController",
+        "FixedUpdate"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Drone.cs",
+      "lines": 63,
+      "sha256": "41309930f0fd0486f9d2bab1dd2dc1ce2a7dcf8116a63bb057017cbce74c3709",
+      "methods": [
+        "GetDroneRange",
+        "GetDroneTitle",
+        "GetDroneTargetPingNewDelay"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/DroneController.cs",
+      "lines": 308,
+      "sha256": "9960dda07d1681db0c0d001ee3b1c59b28215561681be28e5d536ba85d0655e3",
+      "methods": [
+        "ActivateDrone",
+        "StartTargetRefreshingCoroutines",
+        "StartTargetRefreshing",
+        "CheckDroneActionDistance",
+        "CheckDroneTarget",
+        "SetDroneMovement",
+        "refreshDroneSpeed"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/DroneCore.cs",
+      "lines": 47,
+      "sha256": "6da157216a67f5f608fc837ac215ccc6e6b25618aa87f4c0e516b15ddf0f717f",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/DroneLevelUpReward.cs",
+      "lines": 30,
+      "sha256": "6398a687f55f675b21d518c03932703a82ec00d277f0b1f3e5f8cd7eb84ae462",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/DroneTurretController.cs",
+      "lines": 204,
+      "sha256": "4a4365509b1a592ad0224112b7a2acd0b176c3efceb857e22cb5fce279b734f9",
+      "methods": [
+        "OnEnable",
+        "FixedUpdate",
+        "AddDrones",
+        "AddDrone",
+        "BuileDrone",
+        "GetDroneRangePercent",
+        "UpdateDronesRange",
+        "ActivateDrones",
+        "RefreshDrones",
+        "GetSpawnPoint"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/EMPBasicProjectile.cs",
+      "lines": 7,
+      "sha256": "9e8749444bd1b68af3b5ba8c09b08a0ad687be106f7bd41c895e108c6fea205f",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/EMPBasicProjectileController.cs",
+      "lines": 28,
+      "sha256": "1a830b72da763f07ffde9c900ffaaa74bb51645d2bb0fddc4c750fc3a9cca0cb",
+      "methods": [
+        "StunTarget"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/EMPBasicProjectileTurretController.cs",
+      "lines": 11,
+      "sha256": "8fb76540df375058a86ff4848cfa89ce0db4dbdce4558c4c09e211228979a64a",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/EmptyMapNode.cs",
+      "lines": 23,
+      "sha256": "2defe225906fa71d2e3e4362ea8256495ec7ab6b4686d0623b8be584fc134736",
+      "methods": [
+        "ActivateNode",
+        "DeactivateNode",
+        "SetEvent"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/EndlessBossFleet.cs",
+      "lines": 8,
+      "sha256": "17ca3518f0746bae7ecce3f0b3707f3e6335b516db130fda50a58ede1db75270",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/EndlessBossesFleet.cs",
+      "lines": 27,
+      "sha256": "8e749721647c2807a875eb50f138733ce1f37134cd5f091253808f20821f2950",
+      "methods": [
+        "SpawnFleet"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/EndlessModeManager.cs",
+      "lines": 162,
+      "sha256": "a611f7e18b6e491ae397c8ecc35475e1e9e33873a28f665ca991a8f2805b9696",
+      "methods": [
+        "SetUpMode",
+        "StartMode",
+        "EndMode",
+        "GetModeTarget",
+        "GetMissionCompletedRating",
+        "GetBonusRating",
+        "SpawnBossesFleets",
+        "GameRoundCompleted",
+        "AddOneSwarm",
+        "AddOneWave",
+        "AddOnePatrol",
+        "EndlessCounter"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Engine.cs",
+      "lines": 55,
+      "sha256": "73776195d3c87b546d99e77c9d3dfb9b8ef90780ec36ea6c7dd69267b4048607",
+      "methods": [
+        "Start",
+        "SetEngineBoostState",
+        "ChangeEngineSize",
+        "SetEngineState"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/EngineerDrone.cs",
+      "lines": 13,
+      "sha256": "75632aafea627bfb36f84b5d190e7157208c91ced8e644a2864661416fe15b54",
+      "methods": [
+        "GetDroneRepairAmount"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/EngineerDroneController.cs",
+      "lines": 133,
+      "sha256": "350e8959d42e141f3442a37de0d78220c993648120434519627e8e0d61965925",
+      "methods": [
+        "Repair",
+        "TweenSparklePosition"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ExplosionSystem.cs",
+      "lines": 37,
+      "sha256": "ce25601408d2ecf263a1acb7d0439df44c41080b53b58c1db284be5bc3ff5f7f",
+      "methods": [
+        "TriggerExplosion"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/FieldMapNode.cs",
+      "lines": 57,
+      "sha256": "762f519b028c46a6ed2ed143e9ec0cc69d81302b0e2b34b1c506ea3214b47ff2",
+      "methods": [
+        "SetEvent",
+        "FieldDestroyed"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/FlakProjectileTurretController.cs",
+      "lines": 22,
+      "sha256": "598ef23ffb1adabc13eb64be16dd6fbe670487ace993a0beb468f848e43bfa83",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/FleetStep.cs",
+      "lines": 8,
+      "sha256": "86e3641df7d46338bb470f7c8656cf92c66f74a77615e41719092daa8d92ac2a",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Font.cs",
+      "lines": 10,
+      "sha256": "45d827fa2a12c8a17f4067a6c149fee1b60714f2f5028ab8f122236414b9a8c6",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/FuelCore.cs",
+      "lines": 7,
+      "sha256": "cd5c4a0ee4b335b621396658895635ce50cdccc1ad82093ec76fd38a2e38e626",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/FuelTankContoller.cs",
+      "lines": 71,
+      "sha256": "59df230cbaad75e8e9e98ee10a53fc3b4a54c05b8a1e85c38155e74adade7f6d",
+      "methods": [
+        "GetFuelCapacity",
+        "SetFuelPercent"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/FuelTankLevelUpReward.cs",
+      "lines": 8,
+      "sha256": "df4482dceddf5fea4a9c2136a6025f4dad2a0977afd69400a98495fbe83c3f68",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/FurthestRadarConfiguration.cs",
+      "lines": 23,
+      "sha256": "6e3c00be38e2193035f47074c2797480e0137f20b702d0c590e1e5e4c892ce19",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/GAModeManager.cs",
+      "lines": 110,
+      "sha256": "b02bc58ab6d5029d2061e4c0ac48dee1281bfebea4c650c17d9fa2e7b3a52fae",
+      "methods": [
+        "SetUpMode",
+        "StartMode",
+        "EndMode",
+        "GetModeTarget",
+        "GetMissionCompletedRating",
+        "GetBonusRating",
+        "SpawnBossesFleet",
+        "StartFleetMovement",
+        "CameraTargetFleet",
+        "SetMissionGoal"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/GameAchievementsManager.cs",
+      "lines": 310,
+      "sha256": "d785448d3d3f546ced7ef1d81a88144d93bc7c467cb10d723eb997568da9b321",
+      "methods": [
+        "Start",
+        "ActivateAchievement",
+        "BuildAchievements",
+        "ResetStats",
+        "SaveStats",
+        "Add_AchievementTypes",
+        "CheckAchievementTypesDictionary",
+        "SaveBossStats",
+        "ResetBossStats",
+        "Add_BossKilled",
+        "EndlessMissionCompleted",
+        "GAMissionCompleted",
+        "BHMissionCompleted",
+        "SProtectMissionCompleted",
+        "SaveBuildStats",
+        "ResetBuildStats",
+        "Add_PacksOpened",
+        "Add_ScrapsCollected",
+        "Complete_MINES_50",
+        "Complete_DRONES_40",
+        "Complete_HIVEMIND",
+        "Complete_SHIELD_5",
+        "Complete_FUEL_5",
+        "Complete_CHIPS_6",
+        "Complete_SUPERWEAPON",
+        "SavePewStats",
+        "ResetPewStats",
+        "Add_BulletsFired",
+        "Add_ShipsDestroyed",
+        "Add_PatrolsDestroyed",
+        "Add_StationsDestroyed",
+        "Add_AsteroidsDestroyed",
+        "Add_ContainersDestroyed",
+        "Complete_LabHalfUnlocked",
+        "Complete_LabFullUnlocked",
+        "Complete_LabCommonUnlocked",
+        "Complete_LabRareUnlocked",
+        "Complete_LabEpicUnlocked",
+        "Complete_LabLegendaryUnlocked"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/GameBuildManager.cs",
+      "lines": 102,
+      "sha256": "bb67e36db612455cc90bfbb6a43f669626c621af59015fef8120e722b528142c",
+      "methods": [
+        "GetGameVersion",
+        "GetPlatform",
+        "FirstRunGame",
+        "GetSteamDemoReady",
+        "GetSteamFullGameReady",
+        "GetSteamBetaReady",
+        "IsSteamBeta"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/GameCameraManager.cs",
+      "lines": 50,
+      "sha256": "a2bd8928b9e0f045b4435244907d33d22470c64b787d026be2037fe290ee8673",
+      "methods": [
+        "Start",
+        "SetCameraTarget",
+        "GetBackToPlayer",
+        "CompleteBackToPlayer"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/GameHeatManager.cs",
+      "lines": 99,
+      "sha256": "2def25c2b318d9ee0842dabb498d2cdc2fafeafb81d1bd7521f5b48adaa2227e",
+      "methods": [
+        "GetGameTime",
+        "StartTimer",
+        "OnDisable",
+        "Timer",
+        "GetTimer",
+        "GetSecondsSurvived",
+        "IsEarlyHunt",
+        "GetTimerHeatPercent",
+        "ChangeHeat"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/GameHeatUIManager.cs",
+      "lines": 31,
+      "sha256": "79520ff11aef2fa32d84594827a49d9cb135b5a0365ea36bc950435ff778b459",
+      "methods": [
+        "Awake",
+        "OnDisable",
+        "ChangeHeat"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/GameLeaderboardManager.cs",
+      "lines": 100,
+      "sha256": "c3258c5b7f2d49484aaa4db0616cb988f1d5599a908578108e0d40b4fdc29f60",
+      "methods": [
+        "GetMissionLeaderboard",
+        "LoadAllLeaderboards",
+        "LoadAllLeaderboardsCoroutine",
+        "SetTopLeaderboard",
+        "SetUserLeaderboard",
+        "LeaderBoardDownloadState",
+        "UploadScore",
+        "IsUserAccount",
+        "IsNewHighScore"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/GameLeaderboardUIManager.cs",
+      "lines": 84,
+      "sha256": "f8d621db69bf5ce4ac96ce6c3fb1827e0e5733d91a95f1bb84acebebc2069cff",
+      "methods": [
+        "LoadMissionLeaderboard",
+        "RefreshUI",
+        "ResetLeaderboardUI",
+        "SetTopLeaderboard",
+        "SetUserLeaderboard"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/GameManager.cs",
+      "lines": 313,
+      "sha256": "4d03d827633a593a10f76eb083f2c17385041fdbbbc60e0b96f4b0e662a66f52",
+      "methods": [
+        "Start",
+        "LoadGameScripts",
+        "EndLoading",
+        "StartGameScripts",
+        "EndGame",
+        "EndGameScripts",
+        "ActivateBoss",
+        "DectivateBoss",
+        "BossWaveDestroyed",
+        "StartAI",
+        "PauseAI",
+        "SpawnersAcitvateBoss",
+        "SpawnersDeacitvateBoss",
+        "GoToLab",
+        "RestartGame",
+        "GoToMainMenu",
+        "PauseKeyPressed",
+        "PauseGame",
+        "unPauseGame",
+        "OnApplicationFocus",
+        "Update",
+        "IsCameraTargeting",
+        "CanEndBuildMode",
+        "IsBuildingMode",
+        "OpenBuildMode",
+        "CloseBuildMode",
+        "SetPlayerStatsUIState",
+        "CanOpenBuildMode"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/GameMissionManager.cs",
+      "lines": 184,
+      "sha256": "4b9b252df5d136859c4128a2935d07f121447985b9933a9a7c1bc65d23cb68ec",
+      "methods": [
+        "LoadMissionData",
+        "MissionTimerRunOut",
+        "CalculateScoreRatings",
+        "StartMissionMode",
+        "EndMissionMode",
+        "GetMissionTarget",
+        "GetGameTimeSec",
+        "SetMissionMainArrow",
+        "SetMapIcon",
+        "GetMapIconSprite",
+        "GetMapIconColor",
+        "IsOffsetPlayer",
+        "GetCameraSizeOffset",
+        "GetPlayerOffset",
+        "IsMissionEndless",
+        "GetMissionEndlessSpeedHeat",
+        "IsMissionHard"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/GameObjectsSelector.cs",
+      "lines": 17,
+      "sha256": "eb8db1aecd8f8e2ab10f97c98920d68ab53aabd3b6de66b3be1e64ad789059b2",
+      "methods": [
+        "OnEnable"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/GameOverMenuManager.cs",
+      "lines": 137,
+      "sha256": "2c7f9ba3c8d4a7379cb7caa0f33a79d32e3e424c0cdaa0fe04a9c81059fb2d20",
+      "methods": [
+        "ShowGameOverUI",
+        "SetNewRank",
+        "TweenPanel",
+        "TweenPanelElemnets",
+        "TweenScore"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/GameTimeManager.cs",
+      "lines": 125,
+      "sha256": "1354fe5d074f55123543ea6f0141f38ba5ab5e9ace088de5b400e2fb4f31d5e2",
+      "methods": [
+        "SetCurrentTime",
+        "StartTimer",
+        "StopTimer",
+        "PauseTimer",
+        "ResumeTimer",
+        "Update",
+        "GetTimerString",
+        "GetTimerSeconds",
+        "GetGameMinutesSurvived",
+        "GetTimeSurvived",
+        "GetTimeString"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/GameVersion.cs",
+      "lines": 7,
+      "sha256": "c8379f9178b7113c331190311c7c05c97cdff7a5a501aa490177009f3097fd64",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/GoToURL.cs",
+      "lines": 54,
+      "sha256": "8a1caeb1e4082fd13921b37808380b1dd07879554cca470c7479ef533a7fe5d0",
+      "methods": [
+        "OnEnable",
+        "OnGameOverlayActivated",
+        "GoToUrlUI",
+        "GoToUrl",
+        "OpenLinkCoroutine"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/HeartBeatAudioController.cs",
+      "lines": 29,
+      "sha256": "9096ba416c9e20e31d4a4db8de1dd6603583ffd294baf20516a6c22904bf7a1a",
+      "methods": [
+        "Awake",
+        "StartHeatBeat",
+        "StopHeartBeat",
+        "GetHeartBeatStartPercent"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/HideUI.cs",
+      "lines": 37,
+      "sha256": "12e117bcc5d554a63ad8d954ee23922abad79b55b6b80bd6cb9eff8b79f60d8d",
+      "methods": [
+        "Start",
+        "Update"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/HomingProjectile.cs",
+      "lines": 21,
+      "sha256": "b0f16a5efb9ea852d1c73e742cfba064349e55c54cda593f56a8f070ee9c1f2c",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/HomingProjectileController.cs",
+      "lines": 102,
+      "sha256": "44be3e1e378fa8645a8022a74f07c859260dd589c261262b2fc423219822296f",
+      "methods": [
+        "ActivateProjectile",
+        "GetNewTarget",
+        "MoveProjectile",
+        "RotateProjectile"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/IBossBoost.cs",
+      "lines": 8,
+      "sha256": "dfef56c8a5474fd6f5606aaf8ba305f3bef89529eebd4ede692c3ad382d142a2",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/IBuilder.cs",
+      "lines": 11,
+      "sha256": "59d4d2e1fbc9466f7bba54394c40f90d4fedc2609899ab7f4e90d66139cc5fc9",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/IDamageable.cs",
+      "lines": 8,
+      "sha256": "bca72e4287f7acd6a4f16a06a725e41bebc53ea07f59f524052ba70130f08597",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/IDestructible.cs",
+      "lines": 7,
+      "sha256": "f12327411a2023d6b995005876b1e2545d561ea5907aa00c3944ded5c95c50cb",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/IDetectable.cs",
+      "lines": 8,
+      "sha256": "90cbf909f2f82f9223abd3b8a4340ec3b00e982b9e7dbdc792270bad1fda6685",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/IMapNode.cs",
+      "lines": 10,
+      "sha256": "c768c29c38579d84cadbfe284c6e79f231cd5d88caea6dd8190edf8cdc735c4b",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/IMissionModeManager.cs",
+      "lines": 16,
+      "sha256": "53a034679bad153f3c997ac97f272824674d7ce1caddd846a24dbed83caafb30",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/IMovable.cs",
+      "lines": 10,
+      "sha256": "37b68217d5dffba00871bef5eef938100eddded0d60a8ff9332c92edae29a2b9",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/IPickable.cs",
+      "lines": 12,
+      "sha256": "1ee8ca01cdca054e3d90374454659a2abe2e0bb08ed28f4ee41f76ce9a5b301e",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/IRepairable.cs",
+      "lines": 12,
+      "sha256": "e39e4440d00fdfa3bbe25a2002b0cbd9f1ea6f1886dbcc2f2d751a80194cd9d1",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ISpawner.cs",
+      "lines": 12,
+      "sha256": "2636c58febc04d2875d2ed98b34a1e8412797c7b5445c848609904597d916c70",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/IStunnable.cs",
+      "lines": 6,
+      "sha256": "b1351de8ca0f91a8cac280fe53cefd2dcd92217fc886c7b98682ad543ef068c2",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ImageSystem.cs",
+      "lines": 77,
+      "sha256": "790ae3be1cec375c2e0a8b43c04fef5278c7b2b5a7a9af2146beb435ab4f5c1a",
+      "methods": [
+        "Alphalizer",
+        "Alphalizer",
+        "Alphalizer",
+        "Alphalizer",
+        "Alphalizer",
+        "Alphalizer",
+        "Alphalizer",
+        "Alphalizer",
+        "Alphalizer"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/InGameEconomyDataStore.cs",
+      "lines": 5,
+      "sha256": "f610ea9a0ea7d8a7470fb7a7b5ad634043df68738243877394d91e2cada7d3b1",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/InGameEconomySystem.cs",
+      "lines": 80,
+      "sha256": "a438fd85c8e4cc659976037124d4ba9cfc0f196b2b26bbccf2811b5ad556fdad",
+      "methods": [
+        "Start",
+        "GetCurretLevel",
+        "AddScraps",
+        "AddLevel",
+        "UpdateScrapsToLevelUp",
+        "GetCurrentPackCost"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/InGameEconomyUISystem.cs",
+      "lines": 37,
+      "sha256": "812ec0719b48f26e5e9324c7cc5628a2753f25d5303675a16100f996c558fe2e",
+      "methods": [
+        "OnEnable",
+        "SetMaxXP",
+        "UpdateXP"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/InputDataStore.cs",
+      "lines": 214,
+      "sha256": "342a443d8c700ddf0204df5afaa340f8e366568ddcb6a0656b07b88d0c9e47d7",
+      "methods": [
+        "OnDisable",
+        "ConfigureDevicesChanges",
+        "OnDeviceLost",
+        "OnDeviceRegained",
+        "Start",
+        "SetPlayerInput",
+        "GetDeviceIgnoredKeys",
+        "GetDeviceCancelKeys",
+        "GetDeviceBindingIcon",
+        "GetInputAction",
+        "OnControlsChangedEvent",
+        "GetActionName",
+        "GetHumanReadableBinding",
+        "SetLoadingActionMap",
+        "SetGameplayActionMap",
+        "SetUIActionMap",
+        "SetInputActionMap"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/InputManager.cs",
+      "lines": 396,
+      "sha256": "d5d1ef87fb95b366cde1ed7c12c64efb79f2a0fbc65c746b374ae039bdb6a92f",
+      "methods": [
+        "EnableInput",
+        "DisableInput",
+        "GameEndedEnableInput",
+        "GameEndedDisableInput",
+        "ResetInputManagerValues",
+        "OnStartGame",
+        "OnNextTip",
+        "OnSkipIntro",
+        "OnMoveRight",
+        "OnMoveLeft",
+        "OnMoveUp",
+        "OnMoveDown",
+        "OnShoot",
+        "OnAimLeft",
+        "OnAimRight",
+        "ComputeAim",
+        "OnBoost",
+        "OnRadar",
+        "OnBuild",
+        "OnOpenBuild",
+        "OnBack",
+        "OnBackUI",
+        "OnControlsChangedEvent",
+        "ActivateBuildMode",
+        "EndBuildMode",
+        "RefreshControllerSetting"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/InputRebindManager.cs",
+      "lines": 182,
+      "sha256": "0f96a0445de2338a54cce77af61163c6cfe1580ed712badb14bb4cd233b4b39e",
+      "methods": [
+        "OnEnable",
+        "OnDisable",
+        "OnControlChanged",
+        "DoRebind",
+        "IsCancelKey",
+        "IsExcluded",
+        "IsDuplicate",
+        "CopyControlsBinding"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/IntervalSliderController.cs",
+      "lines": 31,
+      "sha256": "a5e8433c821b0a4f7b733d55d8dfe8ffeaae16d1634b84e98b3924ddfa9013a6",
+      "methods": [
+        "Awake",
+        "SetSlider",
+        "SliderChangedValue"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/IntroObject.cs",
+      "lines": 43,
+      "sha256": "9438cb8a43371b95c916af1a48a1beb365ba3f8678eacf20aa874aeaff65df8b",
+      "methods": [
+        "HideObject",
+        "AnimateObject"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/IntroSceneManager.cs",
+      "lines": 49,
+      "sha256": "ae1bc48558e1dba05155cf945ff79020732d38648edcabd042d29e7330f5b405",
+      "methods": [
+        "Start",
+        "PlayIntroAnimation",
+        "LoadMainMenuScene"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/KamikazeTrigger.cs",
+      "lines": 35,
+      "sha256": "897829f301b61428af632d0b826e48b2e172f4810a6d79b3e9ec27c5c6d5ce3e",
+      "methods": [
+        "Awake",
+        "OnTriggerEnter2D",
+        "TriggerExplosion"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Kit/ColorScope.cs",
+      "lines": 21,
+      "sha256": "a0861ce8de385c03461952393d8a0ca5eb5af38139c2ee675403ae2bf5df9334",
+      "methods": [
+        "Dispose"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Kit/GizmosExtend.cs",
+      "lines": 459,
+      "sha256": "d2114a0f85b58c52e9d3f255f8cfc3d8d6878d8bbd927263a70ce233c8a4c578",
+      "methods": [
+        "Dispose",
+        "Rotate",
+        "DrawPoint",
+        "DrawRay",
+        "DrawLine",
+        "DrawBounds",
+        "DrawCircle",
+        "DrawCylinder",
+        "DrawCone",
+        "DrawArrow",
+        "DrawCapsule",
+        "DrawFrustum",
+        "DrawPlane",
+        "DrawPlane",
+        "DrawSphere",
+        "DrawSphere",
+        "DrawDirection",
+        "DrawDirection",
+        "GetHandleSize",
+        "DrawLabel",
+        "DrawArc",
+        "DrawAngleBetween",
+        "DrawBox",
+        "DrawBox",
+        "DrawBoxCastOnHit",
+        "DrawBoxCastBox",
+        "CastCenterOnCollision",
+        "RotatePointAroundPivot",
+        "DrawLocalCube",
+        "DrawLocalCube",
+        "DrawLocalCube",
+        "DrawLocalCube"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/LabCanvas.cs",
+      "lines": 127,
+      "sha256": "0fef732220a0b749f63050857720c1f71bfb4b46b27df00de72f73c75c9bc69a",
+      "methods": [
+        "ShowTurrets",
+        "ShowEffects",
+        "ToggleDeleteMode",
+        "EndDeleteMode",
+        "TogglePlayStop",
+        "DeleteAll"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/LanguageChangerButton.cs",
+      "lines": 23,
+      "sha256": "47fe511c0aac607d97750c7440c32191fc0b0a170ceae45b41a90952df8a0f9d",
+      "methods": [
+        "ChangeLangauge",
+        "GetButtonLanguage"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/LanguageOption.cs",
+      "lines": 9,
+      "sha256": "bb55ad475225e870857d62c6e9287d92ad7ef21b4c5e7b4fe3efd0ad4674cd99",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Languages.cs",
+      "lines": 7,
+      "sha256": "024091560387153750bdd3d730c895a4152f47953452ad3645afb8478a17561f",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/LeaderboardData.cs",
+      "lines": 12,
+      "sha256": "87f23fdfec5854b90c6b7ba901f835ae246c9f96678e9325b202a740e23d85f7",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/LeaderboardUIContainer.cs",
+      "lines": 26,
+      "sha256": "5075636039ac9972d8a1b03d768082901478c698249e665609e6caadd0facce5",
+      "methods": [
+        "SetContainer"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/LetterRating.cs",
+      "lines": 16,
+      "sha256": "72692322d6363bf5ebaa0c4762c2f13ae676b971e2432bf3f5b129071ee62ed8",
+      "methods": [
+        "CompareTo"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/LevelUpReward.cs",
+      "lines": 56,
+      "sha256": "1e8ceebae03ddef897ed889ad55b0921a631106427ed3ff57f1b4eb6eb5c4ac7",
+      "methods": [
+        "CanRewardStarCount"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/LineProjectileController.cs",
+      "lines": 84,
+      "sha256": "27cadc7193dd0367845fe467ddfa3a655d55a10b0908845e6bcacb039bee7422",
+      "methods": [
+        "ActivateProjectile",
+        "SetUpLineRenderer",
+        "MoveByDistance"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/LineProjectileTurretController.cs",
+      "lines": 58,
+      "sha256": "4ef43775bf6463f385a5f7439379d22c3094ec73db67d9648dada33942494042",
+      "methods": [
+        "disableProjectile",
+        "RaycastTarget"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/LineRendererSpriteAnimator.cs",
+      "lines": 37,
+      "sha256": "d5ef33a47a87050579f4a92a6b25df9b578e853082a37d21eacb3abfba01a14c",
+      "methods": [
+        "Awake",
+        "Update"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ListSystem.cs",
+      "lines": 18,
+      "sha256": "ade22fc9e4103c48b6d9a277be99427e7f7a6043972194da166de397f65eb8c1",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/LoadingPanelContorller.cs",
+      "lines": 128,
+      "sha256": "50e05306017ac5af413b032687f61761e8c46c5669e33a0d6f147e1169dd9055",
+      "methods": [
+        "StartLoading",
+        "EndLoading",
+        "DisableLoadingScreen",
+        "DisablePanel",
+        "SetUpTips",
+        "NextTip",
+        "AnimateText"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/LocalizationFontActivator.cs",
+      "lines": 43,
+      "sha256": "2c75f9e3d8f51d88d2f500cef2621e9af55e98424314681c1c64aa7523bb3bd7",
+      "methods": [
+        "OnEnable",
+        "ChangeLanguage",
+        "SetFont"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/LocalizationFontStore.cs",
+      "lines": 22,
+      "sha256": "5a1fd62d6e616847d4dae0d630dcd1aceb84faf1814c7ad098c9b883a95c1349",
+      "methods": [
+        "GetTMP_FontAsset"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/LocalizationGameTextActivator.cs",
+      "lines": 81,
+      "sha256": "714b4bb76f26dae0177495ce776387bd4a56cef18f26e490f2f402054e6a41a3",
+      "methods": [
+        "OnEnable",
+        "OnDisable",
+        "ChangeLanguage",
+        "UpdateText",
+        "UpdateText"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/LocalizationSystem.cs",
+      "lines": 113,
+      "sha256": "f5f381a89387318acf070cb3632bdfc1f4b243b6d2952fc6c8bd6806e624f2f3",
+      "methods": [
+        "OnEnable",
+        "LoadLanguage",
+        "LoadDictionary",
+        "SetCurrentLanguage",
+        "SaveLanguage",
+        "GetDefaultLanguage",
+        "getDefaultDesktopLanguage",
+        "ChangeLanguage",
+        "GetIDString",
+        "HasIDString",
+        "CheckLanguage",
+        "GetCurrentLanguage"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/LocalizationTextActivator.cs",
+      "lines": 81,
+      "sha256": "d938e9fe9983f961287b49827bce523620a06b622579dd2a6a9dff0ee10d91f0",
+      "methods": [
+        "OnEnable",
+        "OnDisable",
+        "ChangeLanguage",
+        "UpdateText",
+        "UpdateText"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/LowestHealthTargetRadarConfiguration.cs",
+      "lines": 38,
+      "sha256": "b8e3e481b0d4e53dd67cf89d0216a230fb806ce699c03b0ffc2ddfae813f9780",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MainCore.cs",
+      "lines": 65,
+      "sha256": "7a9d4de74d6557aa5876651cfa626bf150800fd33e1db11c8f4516bbada6929b",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MainCoreDroneReward.cs",
+      "lines": 73,
+      "sha256": "d58b501d3a17293ce50a237c7a7548186e2d139ff2ef3ad3007dec2e9aa25a0f",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MainCoreTurretReward.cs",
+      "lines": 47,
+      "sha256": "1ede43f7fd2b31e7ef517748615a52398f79437f43287bc660615960eca4bca5",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MainMenuCameraManager.cs",
+      "lines": 84,
+      "sha256": "0013f293a92af07eab0245bd60aa92921f55e8239cd3378e7047166c9d7fd3fa",
+      "methods": [
+        "Update",
+        "SetCamTargetPos",
+        "SetCamTargetZoom",
+        "SetCamMask"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MainMenuManager.cs",
+      "lines": 174,
+      "sha256": "f8a8548e0059ce218157db831d2cd973b69c71523bdce14d4cb6c0c67062f26f",
+      "methods": [
+        "Start",
+        "PressBack",
+        "WaitAtLeastAFrameAndSave",
+        "SetOnEscKeyPressed",
+        "ShowMainMenu",
+        "DisableMainMenu",
+        "ExitApplication",
+        "PlayNextNewsLetter",
+        "OpenWishListButton",
+        "OpenDiscordButton",
+        "OpenGameButton",
+        "OpenNewsletter"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MainMenuSceneAnimator.cs",
+      "lines": 48,
+      "sha256": "9bc0637523b7aafe7715b23be5d17e6401f413ced0e3561530e6b76fc96b922b",
+      "methods": [
+        "Start",
+        "SpawnAnotherObject"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MainMenuSceneObject.cs",
+      "lines": 33,
+      "sha256": "71292d35d8e92992595649359a0bb6ee9757d88ebe7b9c9c655d1190e5b606ae",
+      "methods": [
+        "SetObject",
+        "Update",
+        "RotateToTarget"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MapIconFixedRotation.cs",
+      "lines": 16,
+      "sha256": "6bb7024fde1cfacd1b7413860321a0008159ee7f2c940c432d62e4b096ad9e58",
+      "methods": [
+        "Start",
+        "FixedUpdate"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MapNodeEventController.cs",
+      "lines": 23,
+      "sha256": "d9074f78095d19469c11b60b26f44716443956920c3de49dc226333287bd38c2",
+      "methods": [
+        "SetEvent"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MapNodeStatus.cs",
+      "lines": 7,
+      "sha256": "43811a4331a608edf331502de17bbab0d16d59604f1a8d55f64048ba2fec849f",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MapNodeType.cs",
+      "lines": 4,
+      "sha256": "9b11f0a0bca5a3a9bf527c03cb4ee14a578ad81d24cebeb3b66b7f6080f49b75",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MapNodesManager.cs",
+      "lines": 213,
+      "sha256": "b5337cd9b36977bec8693105f5324348c19cd7ae81293abc7ce8da2e3ab192d0",
+      "methods": [
+        "OnTriggerExit2D",
+        "Setup",
+        "UpdateEvents",
+        "SpawnEvents",
+        "SpawnMapNode",
+        "GetPlayerGridedPos",
+        "GetMapNodeType",
+        "GetMapEvent",
+        "EventDestroyedAt",
+        "GetRandPos"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MapObject.cs",
+      "lines": 60,
+      "sha256": "4add81b870061b8c9105c3bc4c20eabe2a63a1ba7deac0bc1475e74035921d5b",
+      "methods": [
+        "Awake",
+        "Reset",
+        "OnHealthChange"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MasterPool.cs",
+      "lines": 173,
+      "sha256": "c4133cb0fe757b274b601c7c3b98242859cb7953b5c9450eb1e3a70b2c0a3fd9",
+      "methods": [
+        "Awake",
+        "SetPrefabsData",
+        "UpdateNames",
+        "UpdateNameAnalysis",
+        "GetPos",
+        "GetPos",
+        "Get",
+        "CreateNew",
+        "ReturnToPoolTransform",
+        "SetToParent"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MenuBuildingManager.cs",
+      "lines": 322,
+      "sha256": "4250c42e50aa2a0b67ac68cb479a4e01713d3ec2ddce122daecfcfa1e16ff6fd",
+      "methods": [
+        "Update",
+        "SpawnShipPiece",
+        "BuildPiece",
+        "PieceDestroyed",
+        "ShowPossibleBuildingSpaces",
+        "HidePossibleBuildingspaces",
+        "RefershCores",
+        "UpdatePossibleBuildingSpaces",
+        "GetClosestPossibleBuildingSpaces",
+        "GetSurroundingEmpty",
+        "GetCorePos",
+        "GetCoreAt",
+        "GetCorePlacement",
+        "DeselectCore",
+        "SetDeleteMode",
+        "SaveCores",
+        "ResetCores",
+        "DestroyAllCores",
+        "GetRaycast2D",
+        "GetMousePos",
+        "GetCoreControllerUnderMouse"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MetaEconomySystem.cs",
+      "lines": 46,
+      "sha256": "e79c6c37c40e2020738ee608fa155f31637d1142dd844303e6f699d33d2c6d5f",
+      "methods": [
+        "GetCurrentMetaPoints",
+        "RefreshMetaSystem",
+        "SetMetaPoints",
+        "CanSpendMetaPoints",
+        "ModifyMetaPoints"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MetaEconomyUISystem.cs",
+      "lines": 28,
+      "sha256": "617c3f523fba2df93d4680a19c2291cf9728df70e22e6ee00be317ae5404887a",
+      "methods": [
+        "Awake",
+        "OnDisable",
+        "OnMetaChange"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Mine.cs",
+      "lines": 21,
+      "sha256": "902920c5ae6196daa5ee587b1f0ae954df9994fdcdfbc06a20d840af81de9618",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MineController.cs",
+      "lines": 101,
+      "sha256": "70a4e160fbff6494f9e8eb31597a696d75438110d863e4267bd270d8cfc148b4",
+      "methods": [
+        "SetMine",
+        "UpdateMineChipsContainer",
+        "OnTriggerEnter2D",
+        "DestroyMine",
+        "DisableMine",
+        "IsChipActive"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MineFieldLevelUpReward.cs",
+      "lines": 11,
+      "sha256": "ef0477574012f627f2e666b1f9a2ff71cdf664d67c5834b476041794906ad199",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MineSpawnerCore.cs",
+      "lines": 26,
+      "sha256": "c47af7c1145350376a217007280ed7525c71936271d653ecf1a0574364ee7c71",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MineSpawnerTurretController.cs",
+      "lines": 136,
+      "sha256": "7cbb0b2389ef536c665bbeb7f886a02538e2f50b892c89ece6125b8290e34ed9",
+      "methods": [
+        "SpawnMines",
+        "FixedUpdate",
+        "Update",
+        "TimeToSpawn"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MinesCore.cs",
+      "lines": 26,
+      "sha256": "f8dc8c6c8c34aaf5259469ff1f12f83a71d2876f63b2e1267bdda8fdcab26184",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MinesList.cs",
+      "lines": 16,
+      "sha256": "62879c9e4d3ca53612ac23279a6b2e2dc57a9a4a7928128497e09986c18294c1",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MinesManager.cs",
+      "lines": 79,
+      "sha256": "d0bba4ab3253440e8ad2ab4d4d4f74bd53aef13ef644bbf4e950d3acc0adc2ab",
+      "methods": [
+        "Start",
+        "Update",
+        "AddMinesList",
+        "RemoveMine",
+        "OnDisable",
+        "MinesRemover"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MinesSectionManager.cs",
+      "lines": 68,
+      "sha256": "b9672a9e472c457ec185c6ec45a97a9e85fdd2d6f6e21b96b95b3f18521f2786",
+      "methods": [
+        "GetMinesCount",
+        "SetMinesSection",
+        "UpdateMinesChipsContainer",
+        "SpawnMine",
+        "RemoveMines",
+        "MineDestroyed"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MinesTurretController.cs",
+      "lines": 210,
+      "sha256": "6d63a8fc01870d62a1a677e6e0e46a29c104356a4658405bccd254803ba9bf3b",
+      "methods": [
+        "AddMinesSectionManager",
+        "SpwanMine",
+        "MineDestroyed",
+        "UpdateMines",
+        "FixedUpdate",
+        "TimeToSpawn",
+        "GetSpawningPoint"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Mission.cs",
+      "lines": 86,
+      "sha256": "c447be933cdd4959a7082d222b0e3fa75c3bd5000f640a399c9479326fdc6a44",
+      "methods": [
+        "CanUnlockMission",
+        "UnlockMission",
+        "IsMissionUnlocked"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MissionAIConfiguration.cs",
+      "lines": 109,
+      "sha256": "5b292aef517bfd3ee6df7047b805b9dfe2a4fc5ca2bc102014aec3ed65e4a259",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MissionDataStore.cs",
+      "lines": 121,
+      "sha256": "8fe8ca0ac76e68dcbb0dea869ef600e27a2c9143b62655003be12c3f5739c73e",
+      "methods": [
+        "OnEnable",
+        "RefreshData",
+        "GetCurrentMission",
+        "GetCurrentMissionIndex",
+        "GetCurrentMission",
+        "GetAllMissions",
+        "GetMissionsCount",
+        "SetCurrentMission",
+        "SetTestingMission",
+        "GetCurrentMissionObjective",
+        "IsAllMissionUnlocked",
+        "GetCurrentMissionDifficulty",
+        "GetCurrentMissionDifficultyIndex",
+        "GetDifficultyText",
+        "GetDifficultyCount",
+        "SetMissionDifficulty"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MissionLeaderboard.cs",
+      "lines": 10,
+      "sha256": "f190504024db2e80094cb940a2242ff98d3db340b8917c925315335ddb152748",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MissionObjective.cs",
+      "lines": 19,
+      "sha256": "2f8c43477d2d1520f268ddb23868284fcefbfd893086daf5153743c9c1dfe0a1",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/MovementArrowsController.cs",
+      "lines": 46,
+      "sha256": "e92771e9668b2009034a488d00acc9c0adfc0eb022f1e16eb32385a1a55f0736",
+      "methods": [
+        "OnEnable",
+        "PlayNextArrow",
+        "OnDisable"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ObjectSystem.cs",
+      "lines": 72,
+      "sha256": "56e85f5d7f07a690afc0978f19eaeba7a30991422dc6484f0a913d2400f00c62",
+      "methods": [
+        "ReScaleX",
+        "ReScale",
+        "ReScale",
+        "SetOnRandomEdgePos",
+        "SetBetweenTwoPoints",
+        "GetRandomEdgePos",
+        "GetRandomPosInCircle",
+        "RotateAt",
+        "RotateAt",
+        "RotateToTarget",
+        "SnapRotateToTarget"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ObjectTriggersController.cs",
+      "lines": 34,
+      "sha256": "97d6a3f218e9711236d0d9bb7a0f1475b4cbbdc5d1e87236e360d31b4550c940",
+      "methods": [
+        "OnMouseEnter",
+        "OnMouseOver",
+        "OnMouseExit",
+        "OnMouseClick"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/OptionMenuManager.cs",
+      "lines": 330,
+      "sha256": "a89f22723d9d30e2e0508cbb78f1f7695b273f210a1d6861a5e7d90d1dbaa916",
+      "methods": [
+        "ShowOptionMenu",
+        "Start",
+        "SaveSettingsValues",
+        "LoadSettingsValues",
+        "IsSettingsValuesChanged",
+        "WaitAtLeastAFrameAndSave",
+        "ApplySettings",
+        "LeftResolution",
+        "RightResolution",
+        "LefScreenMode",
+        "RighScreenMode",
+        "LeftLanguage",
+        "RightLanguage",
+        "ActivateSkipBoss",
+        "DeActivateSkipBoss",
+        "MasterAudioSliderChanged",
+        "MusicAudioSliderChanged",
+        "SFXAudioSliderChanged",
+        "RefreshApplyButton",
+        "ApplySettingsButton",
+        "BackButton",
+        "ResettButton",
+        "ApplyResettButton"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PackCore.cs",
+      "lines": 61,
+      "sha256": "fafa74ef1e1c33ea8b028db8bf2f5565b0d765c553252d440924188989585dba",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PanelVideoPlayer.cs",
+      "lines": 30,
+      "sha256": "997dafd418fcaae7f19a570d16377d1984cf624bb53dc5d66f387aed7cbb22d0",
+      "methods": [
+        "SetVideo",
+        "PlayVideo",
+        "StopVideo"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ParticlesSystem.cs",
+      "lines": 74,
+      "sha256": "769b80de6e5a758e4f6f40e1294b84ac00a49530f7f62ddba23a03c05468f2c7",
+      "methods": [
+        "PlayAreaExplosionParticle",
+        "PlayExplosionParticle",
+        "PlayEMPShockParticle",
+        "PlayParticle",
+        "PlayParticle",
+        "PlayProjectileImpactParticle",
+        "PlayProjectieShieldImpactParticle"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PatrolAIHeat.cs",
+      "lines": 25,
+      "sha256": "ed8503c269f9204cdcf234c5d4ce5ff12bbd9729d6677b3a5d3cdcfd4d7788bb",
+      "methods": [
+        "IsHeatSuitable"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PauseMenuManager.cs",
+      "lines": 74,
+      "sha256": "2c655302d63b5e23e106b14b9ec416ed664efb8689aa308b0f0b7feed0655b3b",
+      "methods": [
+        "ShowPauseUI",
+        "HidePauseUI",
+        "MasterAudioSliderChanged",
+        "MusicAudioSliderChanged",
+        "SFXAudioSliderChanged"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PercentBasicReward.cs",
+      "lines": 28,
+      "sha256": "8008769368d774e5d54e43d680531cf77314fdf58c3d7e53d0afa1a0aab34ad3",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PickButton.cs",
+      "lines": 17,
+      "sha256": "315ebff85c8f5a5bc10a79b5aeaefcf2a074d495b2b073273d202cec3e7a8482",
+      "methods": [
+        "SetLocked"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Platform.cs",
+      "lines": 5,
+      "sha256": "bec4fddc9466b21f12564c4d11602c9d66e13b8e2663f00ff9752ddd534529df",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PlayUIManager.cs",
+      "lines": 179,
+      "sha256": "7b31707e8ae8868cf6ab3b210bae448f48b8c278411dede9a929d60ae00176ff",
+      "methods": [
+        "OnEnable",
+        "OnDisable",
+        "OnMetaChange",
+        "ShowPlayMenu",
+        "BackButton",
+        "ResetModifiers",
+        "PlayButton",
+        "RefreshSliders",
+        "RefreshSlidersText",
+        "RefreshMissionUI",
+        "NextMission",
+        "PreviousMission",
+        "RefreshButtons",
+        "ResearchMission"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PlayerArrowController.cs",
+      "lines": 95,
+      "sha256": "f8b2f11b53ad63988680a90df0019e85ad24eb602af2948ccc6c98190997d530",
+      "methods": [
+        "StartArrow",
+        "FixedUpdate",
+        "DisableArrow",
+        "ActivateArrow"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PlayerArrowsManager.cs",
+      "lines": 24,
+      "sha256": "e367e69a2ded4d6bb5c349c5781b557d541b5285ead0cbc5e4bf6e791541f8c4",
+      "methods": [
+        "SpawnArrow",
+        "SpawnMainArrow"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PlayerBuildingManager.cs",
+      "lines": 839,
+      "sha256": "2ac67eaec9a593e055e1aa0b809ba4a007a3ba4a72414855f5ec1e579e10cfdc",
+      "methods": [
+        "Start",
+        "Update",
+        "HighlightUnderMouse",
+        "LeftMouseClick",
+        "SpawnShipCenterPiece",
+        "SpawnShipPiece",
+        "PieceDestroyed",
+        "BuildPiece",
+        "UpdateShipSize",
+        "RefershCores",
+        "ShowPossibleBuildingSpaces",
+        "HidePossibleBuildingspaces",
+        "UpdatePossibleBuildingSpaces",
+        "IsWithinLimits",
+        "IsLocalSpaceOccupied",
+        "GetClosestPossibleBuildingSpaces",
+        "GetClosestCorePos",
+        "SetShipSizeLimits",
+        "GetSurroundingEmpty",
+        "GetSurroundingCoreControllers",
+        "IsHoldingCore",
+        "ActivateSwitchs",
+        "ActivateMove",
+        "ActivateWall",
+        "ActivateDuplicate",
+        "HasSwitches",
+        "HasDuplicate",
+        "HasMoveCore",
+        "HasReinforceWall",
+        "CanShowNextReward",
+        "DestroyUnconnectedCores",
+        "MoveWillDisconnectCores",
+        "VisitCores",
+        "VisitCore",
+        "GetMainCoreNeighbors",
+        "GetSurroundingCorePlacments",
+        "GetCorePlacement",
+        "GetCorePlacement",
+        "GetCorePlacement",
+        "GetCorePos",
+        "GetCoreAt",
+        "GetCoresPositions",
+        "HighLightCores",
+        "DisableHighLightCores",
+        "CanEndBuildMode"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PlayerCenterRadar.cs",
+      "lines": 44,
+      "sha256": "aa45b0becc95c2e44b8eeec37fa0cc169b1b19de3443003a4b4468d711eef029",
+      "methods": [
+        "ActivateRadar",
+        "UpdateRadars",
+        "GetRadarSystem",
+        "GetTarget"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PlayerCoresManager.cs",
+      "lines": 233,
+      "sha256": "20a001d004dbd2c8a4ba0567bab0aa992d157d08f8bc582efa329b4e11f337f6",
+      "methods": [
+        "Start",
+        "SetUIState",
+        "RefreshUI",
+        "GetCoresCount",
+        "CanAddCore",
+        "CanWallCores",
+        "AddCoreController",
+        "RemoveCoreController",
+        "DestroyAllCores",
+        "RefreshCores",
+        "RefreshCores",
+        "RefreshCoresHealth",
+        "EnterBuildMode",
+        "ExitBuildMode",
+        "HighLightCores",
+        "HighLightCores",
+        "DisableHighLightCores",
+        "HighLightCore",
+        "HighLightCore",
+        "SetMainCoreController",
+        "GetMainCoreController",
+        "RefreshMainCoreHealth"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PlayerDataStore.cs",
+      "lines": 516,
+      "sha256": "3bc2f31ffbf634ba68dff89e55486c55d253b6037c286ca259b4c018eb5306ae",
+      "methods": [
+        "GetScrapSpriteList",
+        "CanAddPercent",
+        "clampPercent",
+        "ResetPlayerDataStore",
+        "AddLevelUpReward",
+        "CheckLevelUpRewardsCount",
+        "GetLevelUpRewardsCount",
+        "GetLevelUpRewardsCount",
+        "GetLevelUpRewardsCount",
+        "GetLevelUpReward",
+        "GetLevelUpReward",
+        "CanLevelUp",
+        "GetLevelUpHealthPercent",
+        "GetCoresRangePercent",
+        "AddRangePercent",
+        "GetCoresRateOfFirePercent",
+        "AddRateOfFirePercent",
+        "GetCoresDamagePercent",
+        "AddTurretsDamagePercent",
+        "GetCoresHealthPercent",
+        "AddCoresHealthPercent",
+        "GetCoreHealthPercent",
+        "GetMainCoreHealthPercent",
+        "AddMainCoreHealthPercent",
+        "GetMainCoreHealthPercent",
+        "GetMainCoreSpeedPercent",
+        "AddMainCoreSpeedPercent",
+        "GetMainCoreBoostPercent",
+        "AddMainCoreBoostPercent",
+        "GetMainCoreRateOfFirePercent",
+        "AddMainCoreRateOfFireBoost",
+        "GetMainCoreDamagePercent",
+        "AddMainCoreDamageBoost",
+        "GetMainCoreRangePercent",
+        "AddMainCoreRangeBoost",
+        "GetMainTurretCore",
+        "GetMaxHQDronesCount",
+        "CanAddHQDrones",
+        "GetMainCoreDronesList",
+        "GetPlayerDetectionRange",
+        "GetDamageModifier",
+        "GetAccelrationPower",
+        "GetDeaccelrationPower",
+        "GetFuelRechargeRate",
+        "GetFuelConsumptionRate",
+        "GetFuelRechargeDelay",
+        "GetMaxBuiltCores",
+        "GetBuildingLimitX",
+        "GetBuildingLimitY",
+        "GetShipMaxSize",
+        "GetEnginePower",
+        "CanChangeEnginePower",
+        "GetBossEnginePower",
+        "GetBoostEnginePower",
+        "IsMaxEngineBoostPower",
+        "GetStartEngineSize",
+        "GetBoostEngineSize"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PlayerDecorationManager.cs",
+      "lines": 367,
+      "sha256": "6350b0b047981c6058ad6bee4793115ccd5bfe67539dc7995a8392c01464d7f5",
+      "methods": [
+        "UpdateShipDecorations",
+        "IUpdateShipDecorations",
+        "HasNeighboringCore",
+        "SpawnDec4Sides",
+        "SpawnDec3Sides",
+        "SpawnDec2Sides",
+        "SpawnDec1Sides",
+        "GetRot3Sides",
+        "GetRot2Sides",
+        "GetRot1Sides",
+        "GetEngineDirection",
+        "GetDecorationAt",
+        "RemoveAll"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PlayerDronesManager.cs",
+      "lines": 110,
+      "sha256": "6331cb3116a1f276795883f8ed4a1b72102a2904ce78d5027733a538072e436d",
+      "methods": [
+        "BuildDrones",
+        "DisableDrones",
+        "ActivateDrones",
+        "SetMainParent",
+        "RefreshDrones",
+        "AddDrone",
+        "Start",
+        "SetUIState",
+        "RefreshUI"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PlayerEngineBoostController.cs",
+      "lines": 217,
+      "sha256": "02a5db0a98ef0395d34e5ce4929fa82281461f4519cb7411cae23f4b93b15352",
+      "methods": [
+        "Setup",
+        "AddFuelTankContoller",
+        "RemoveFuelTankContoller",
+        "UpdateFuelTankCapacity",
+        "UpdateBoostEngine",
+        "UpdateFuel",
+        "UpdateFuelTanks",
+        "DisableEngine",
+        "StartEngineDelay",
+        "ActivateEngine",
+        "FixedUpdate",
+        "CanUseEngine",
+        "UseEngine",
+        "StartUsingEngine",
+        "StopUsingEngine"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PlayerInputActions.cs",
+      "lines": 666,
+      "sha256": "9fbd2bafe9f2e16c92a27a642e427f0288659f4e4c31dd00af8d5356480ad130",
+      "methods": [
+        "Get",
+        "Enable",
+        "Disable",
+        "AddCallbacks",
+        "UnregisterCallbacks",
+        "RemoveCallbacks",
+        "SetCallbacks",
+        "Get",
+        "Enable",
+        "Disable",
+        "AddCallbacks",
+        "UnregisterCallbacks",
+        "RemoveCallbacks",
+        "SetCallbacks",
+        "Get",
+        "Enable",
+        "Disable",
+        "AddCallbacks",
+        "UnregisterCallbacks",
+        "RemoveCallbacks",
+        "SetCallbacks",
+        "Dispose",
+        "Contains",
+        "GetEnumerator",
+        "Enable",
+        "Disable",
+        "FindAction",
+        "FindBinding"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PlayerManager.cs",
+      "lines": 59,
+      "sha256": "e7a34442d11ab20d30d3a7e28cf3b9bb9efe5ff5d7c898554fd836a43d1c1dd9",
+      "methods": [
+        "Start",
+        "Reset",
+        "SetUpMainCore",
+        "SetShipSize",
+        "GetPlayerTransform",
+        "GetPlayerShipSize",
+        "GetPlayerDetectionType"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PlayerMovement.cs",
+      "lines": 296,
+      "sha256": "c53071ff99179dc8a6825165d4c9ff93a86c8699bb4332a7e7df8b98d066202d",
+      "methods": [
+        "Setup",
+        "Update",
+        "ActivateEngineBoost",
+        "deactivateEngineBoost",
+        "UpdateEngine",
+        "MoveUpClicked",
+        "MoveDownClicked",
+        "MoveLeftClicked",
+        "MoveRightClicked",
+        "SetEnginesState",
+        "UpdateEnginesStates",
+        "SetEnginesBoostState",
+        "AddEngine",
+        "RemoveEngine"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PlayerRewardsManager.cs",
+      "lines": 135,
+      "sha256": "eb4981cd8dc29e996680c779bd5f4eab5ed182e3f3c22dcce59e811bded9302a",
+      "methods": [
+        "Start",
+        "CanSelectReward",
+        "SelectReward",
+        "SelectCountReward",
+        "CanSelectPercentReward",
+        "SelectPercentReward"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PlayerStatsUIController.cs",
+      "lines": 65,
+      "sha256": "89497a4fb65a73ca6413de4256cb485a7af94d1d88cfa13ac92f409fbbf53478",
+      "methods": [
+        "Start",
+        "SetUIState",
+        "RefreshUI",
+        "GetPercent"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PlayerTurretManager.cs",
+      "lines": 243,
+      "sha256": "728f74ca859f02e0a5cf863f6e72cc5b5782c5912b490647450dd6d32e51182f",
+      "methods": [
+        "Start",
+        "IsSameCore",
+        "BuildPlayerTurret",
+        "SetUpTurret",
+        "GetTurretCore",
+        "RefreshTurret",
+        "UpdateTurretRateOfFire",
+        "UpdateTurretDamage",
+        "UpdateTurretRange",
+        "DisableTurret",
+        "ActivateTurret",
+        "FixedUpdate",
+        "ActivateTurret",
+        "CanControlTurret",
+        "SetCurser",
+        "AddTurret",
+        "RemoveTurret",
+        "SetAimDirection"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PointerManager.cs",
+      "lines": 257,
+      "sha256": "0f52a6bbbf06e7ec75eacbdf51edd795fc85bda8aeceac31ba239b34cf0dd3af",
+      "methods": [
+        "OnEnable",
+        "StartPointer",
+        "DisablePointer",
+        "SetPointerSprite",
+        "Update",
+        "UpdatePointerPos",
+        "GetPointerPos",
+        "GetCoreControllerUnderPointer",
+        "CoreControllerUnderPointer",
+        "CurserMoved",
+        "GetMousePos",
+        "CoreControllerUnderMouse",
+        "MoveUpClicked",
+        "MoveDownClicked",
+        "MoveLeftClicked",
+        "MoveRightClicked"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PopUpContent.cs",
+      "lines": 8,
+      "sha256": "e32b6a79681f3388dc3bd25b9b4b53d77b44c04da4562cd7b2890fbb1e01d25c",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PopUpTextController.cs",
+      "lines": 32,
+      "sha256": "2e7609c40cd6a4509c55c1820a25892209f55445413cc63581d51f9c942f2559",
+      "methods": [
+        "Awake",
+        "SetPopUpText",
+        "Disable"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PopUpTextManager.cs",
+      "lines": 97,
+      "sha256": "b3c7bfabe1e966f3b49caa1ef20900c671075f052d54a9f9eb91b9f774753624",
+      "methods": [
+        "Start",
+        "AddPopUpText",
+        "AddPopUpText",
+        "QueuePopUpText",
+        "SpawnPopUpText",
+        "SpawnNextPopUpText",
+        "buildPopUpTextString"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/PrefabTypes.cs",
+      "lines": 111,
+      "sha256": "5e8e6c1ccc5d001f1151f857c4adb3f67f022100e62907659d11e99cd79b49dd",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ProbabilitySystem.cs",
+      "lines": 41,
+      "sha256": "e509aa932c0af64a524a32c7d1aaab988e945f50544ff5846a7065ac6f3f1f75",
+      "methods": [
+        "GetItemByProbabilityRarity",
+        "MakeCumulativeByProbabilityRarity",
+        "GetprobabilityByRarityModifer"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Projectile.cs",
+      "lines": 27,
+      "sha256": "90818da7537816cc34a616e6b161e8aa9baf5da01a1286492b92b6a649233ea6",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ProjectileController.cs",
+      "lines": 231,
+      "sha256": "0797730ce996cf006dfec396b347af536df24b931bb31651842828c35e9b56b7",
+      "methods": [
+        "DestroyProjectile",
+        "DisableProjectile",
+        "RotateToTarget",
+        "RotateAngle",
+        "SetIgnoreTarget",
+        "SetChainTargetJumpCount",
+        "UpdateProjectileChipsContainer",
+        "IsChipActive",
+        "deactivateProjectilesChips",
+        "ResetProjectileDamage",
+        "GetProjectileDamage",
+        "SetDamageModifier",
+        "GetDamageModifier",
+        "OverrideProjectileDamage"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ProjectileCore.cs",
+      "lines": 44,
+      "sha256": "f3e9ab126abb20e1b00809f5256e6a188c4374d3795a997508dd4a509fb62403",
+      "methods": [
+        "GetTurretRateOfFire",
+        "GetTurretRange"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ProjectileDrone.cs",
+      "lines": 20,
+      "sha256": "19ef98bfd6bb09b777f2402c69be415c206680b0be9d27b1d179f4760b95abf8",
+      "methods": [
+        "GetDroneRateOfFire"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ProjectileDroneController.cs",
+      "lines": 108,
+      "sha256": "ca4705ca59c68eed9f4676cc4f010d91ae158590d2e1e90da24d27365090c363",
+      "methods": [
+        "ShootTurret",
+        "FireProjectile",
+        "TimeToShoot"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ProjectileTimeDisabler.cs",
+      "lines": 22,
+      "sha256": "dc32861b6082430533cc438f1400c442d5f22713e4f2e2c3645c7b33f4bdf16a",
+      "methods": [
+        "SetTimer"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ProjectileTurret.cs",
+      "lines": 9,
+      "sha256": "08a427f23dbb86decec2d577eb434c5b2af66573803d97081f38a6fdc81a7349",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ProjectileTurretController.cs",
+      "lines": 355,
+      "sha256": "fc855256d3393d6b23c24de1e7cdf3ceacc169982c590bb7509105115b60aa1f",
+      "methods": [
+        "UpdateRateOfFire",
+        "OverrideDamageModifer",
+        "UpdateDamageModifer",
+        "GetRangePercent",
+        "SetTurretTarget",
+        "GetTurretPosition",
+        "IsFiring",
+        "TimeToShoot",
+        "ActivateRadar",
+        "SetTarget",
+        "RefreshTarget",
+        "OverrideTurretRadar",
+        "StartRecoil",
+        "RecallTurret",
+        "EndRecoil"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Properties/AssemblyInfo.cs",
+      "lines": 5,
+      "sha256": "d22a60bf5ec1732d361798e77474f1fe3a190c6d75fbf587c6ca31b6c1bad488",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RadarConfiguration.cs",
+      "lines": 81,
+      "sha256": "d744a938c89a0a170d7d4c98c5157b20979711e3926d953886f4bfcf648589e4",
+      "methods": [
+        "GetShieldedTargets",
+        "GetRangeTargets",
+        "FilterTargetList"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RadarSystem.cs",
+      "lines": 153,
+      "sha256": "ee3aca5120195770548bd550f23c4f332c2b559665887b4d7b161a7452163fe5",
+      "methods": [
+        "SetRadarSystem",
+        "AddTurretActions",
+        "RescaleRadar",
+        "UpdateTargetList",
+        "OnTriggerEnter2D",
+        "UpdateRadar",
+        "OnTriggerExit2D",
+        "GetTarget",
+        "UpdateRadarRigidbody2D",
+        "FilterRadar"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RandomRadarConfiguration.cs",
+      "lines": 28,
+      "sha256": "ed3732007ab1e7473971d4ed54bddfd649643447b60214f173f4119c6eb9bf5a",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RandomRotator.cs",
+      "lines": 13,
+      "sha256": "45b28103f9126679faab73bc74f3183a9ecc8261e0f919ef4cf16cafc2d7ebb3",
+      "methods": [
+        "OnEnable"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Randomizer.cs",
+      "lines": 19,
+      "sha256": "48a71a873b3cdd80090b38ab55d82db3caa39e8b7c680e76d800c45411ba8441",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RangeType.cs",
+      "lines": 9,
+      "sha256": "39aa4691bb3b7b16fc988f582824d1aafea6301c211ed735fec27cb76d6e692f",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RarityTreeValue.cs",
+      "lines": 9,
+      "sha256": "d32b941f4118ee19220a8f6de3879a172ef55a59c9b02ab627d5fd94cff6a037",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RarityTypes.cs",
+      "lines": 8,
+      "sha256": "0437020776ab0ee2cd62e7c093959d31d2065baee0b45028645c4d3e07f355a6",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RatingDataStore.cs",
+      "lines": 69,
+      "sha256": "5fbce9ebd7d9a240e8c14d50bf652f0eafc74ea848769a503e410f448db35123",
+      "methods": [
+        "Start",
+        "GetRatingTypes",
+        "GetRatingTypeTitle",
+        "GetRatingTypeValue",
+        "GetLetterRating",
+        "GetLetterMetaPoints"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RatingSystemManager.cs",
+      "lines": 93,
+      "sha256": "17effcc1a26eef14bd47139b91a9a8c7f6ec1a4a7e43165793aec8a7ffa40f91",
+      "methods": [
+        "GetScoreRatingContainers",
+        "GetScoreContainer",
+        "GetTotalScore",
+        "GetScoreRating",
+        "RefreshSystem",
+        "AddRating",
+        "ClearRating",
+        "GetRating",
+        "IsRatingCompleted",
+        "GetWonMetaPoints",
+        "CalculateScoreRatings"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RatingType.cs",
+      "lines": 11,
+      "sha256": "ea4181232bc09a27e8b78a52c3ddba4a04e3eab37728833196060b584720d86c",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RatingTypes.cs",
+      "lines": 11,
+      "sha256": "9b0277d6633d724a19da913028c4e232af22d4ec32f21156ec84a650c817ec35",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RepairCore.cs",
+      "lines": 12,
+      "sha256": "60c156b8b4571c464065301a77dc7f8bc155bc3dd8518685618f2eaee708e95f",
+      "methods": [
+        "GetRepairAmount"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RepairTurretController.cs",
+      "lines": 154,
+      "sha256": "d54029858107f79b0a263ef7bc8216be8752fdf51c14b0cc5ebd8154798f68b8",
+      "methods": [
+        "FixedUpdate",
+        "Repair",
+        "AnimateLasers",
+        "GetEndSparkPoint",
+        "StopParticles"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Resolution.cs",
+      "lines": 9,
+      "sha256": "0bdcfe4389ded8cc67a11c2ac4291ed85b7d645b04af2b2df2e595a48588fb34",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Reward.cs",
+      "lines": 115,
+      "sha256": "c6ab321658d7abc3071cc73b0e4b37dd543a64254de897d6d027e00ac22e0103",
+      "methods": [
+        "GetRewardOverlaySprite",
+        "ActivateReward",
+        "UnlockReward",
+        "LockReward",
+        "IsRewardUnlocked",
+        "UnToggleReward",
+        "ToggleReward",
+        "IsRewardToggled",
+        "CheckRewardDemo"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RewardDataStore.cs",
+      "lines": 466,
+      "sha256": "26bb11a9fcbc84ef7494e572e3daf2101d211ad850a15f63c1ce1f5bed4aef40",
+      "methods": [
+        "GetScrapsPerRewardPack",
+        "GetScrapsRecyclePercent",
+        "CanAddPackReward",
+        "GetPackReward",
+        "BuildRewardPacksList",
+        "GetRewardPercentBuffColor",
+        "GetLevelUpRewardPack",
+        "GetGameRewardPack",
+        "GetRandomRewardPack",
+        "GetRewardPack",
+        "GetSelectedRewardPacksList",
+        "CanSelectedRewardPackFromList",
+        "GetRarityFilterdRewardPacksList",
+        "BuildPacksProbabiltyList",
+        "GetPackRewardsCumulativeProbabilityList",
+        "GetRarityColor",
+        "GetRarityChance",
+        "GetRandomRarityType",
+        "BuildRarityDict",
+        "GetRewardsRarityTypesList",
+        "FillterUnlockedRewards",
+        "DownGradeRarityType",
+        "LockRewards",
+        "UnLockRewards",
+        "GetRanomTestingRewardsList"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RewardPack.cs",
+      "lines": 68,
+      "sha256": "5c7b557889062e0be1a13797a523db0bb120270ddfd145d3c3116a117daa25a9",
+      "methods": [
+        "GetRandomRarityType",
+        "CheckRarityTypeAvilablity",
+        "CanSpawnRewardPack",
+        "CanSelectRewardPack",
+        "ContainRewardRarity"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RewardPackController.cs",
+      "lines": 216,
+      "sha256": "7635cdba7ea2d6160d7dfde9b8c963860a90faa8e1e5e3cc488a880fadaf5e8c",
+      "methods": [
+        "GetRewardPack",
+        "GetPackRarityType",
+        "GetRandomRewardList",
+        "GetRandomReward",
+        "GetRewardListByRarity",
+        "FilterRewards",
+        "SetUpPack",
+        "GetLockedRewardsList",
+        "GetUnLockedRewardsList",
+        "GetRandomPackRarity",
+        "GetTemp_RandomRewardRarity",
+        "GetRandomRewardRarityIndex"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RewardPackObjectController.cs",
+      "lines": 28,
+      "sha256": "0fec1996f6c63a278790b0b9ab88f6056eed072d8fcc19a0f96c3499ff65488e",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RewardPackUIController.cs",
+      "lines": 44,
+      "sha256": "91540f7ebeff4be687850acfa511121881595bf80aaea99a560d0eae8a75da1b",
+      "methods": [
+        "SetLayoutPos",
+        "RefreshUI"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RewardRarity.cs",
+      "lines": 12,
+      "sha256": "f6ce885bbe81a2fbc1ef13e3b33ee8d1bd0b893b51bcbf12cd511745cbbb4e1e",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RewardScrapPackController.cs",
+      "lines": 24,
+      "sha256": "3f1630d83016e6d60a0b5ce707a85d5a435dc24d46b7276f96093633d31e3c9a",
+      "methods": [
+        "StartRewardPack",
+        "Update"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RewardStats.cs",
+      "lines": 64,
+      "sha256": "6b6957cac1bbe068236f422de3df1b9a17647d6d835e001909da7c22e7a9ca19",
+      "methods": [
+        "GetStatTypes",
+        "IsEmpty"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RewardSystemManager.cs",
+      "lines": 176,
+      "sha256": "1ffaf5fc557d22ceccb833856b6620dbbbc798f143ae6e24f1bb97f0b3e46173",
+      "methods": [
+        "GetAvilableRewardsCount",
+        "Start",
+        "Update",
+        "CanShowNextReward",
+        "OnLevelUp",
+        "CanEndBuildMode",
+        "IsRewardAvilable",
+        "IsRewardShown",
+        "SpawnRewardPack",
+        "SetCollectingState",
+        "GetPickable",
+        "ReturnPickable",
+        "CollectPickable",
+        "AddRewardPackToUI",
+        "ActivateNextRewardPack",
+        "IsQueueFull",
+        "RecyclePack"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RewardSystemUIManager.cs",
+      "lines": 176,
+      "sha256": "3d6b6731dfc56b7f9c883890acbc93ccfc2ca4ba81f1ba32ccf729cd2b9b2ef0",
+      "methods": [
+        "Awake",
+        "Start",
+        "SetUpRewardsUI",
+        "AddRewardPack",
+        "ActivateNextRewardPack",
+        "HideUI",
+        "IsPanelShown",
+        "UpdateRewardsCountText",
+        "UpdatePressSpaceText"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RewardTypes.cs",
+      "lines": 22,
+      "sha256": "a71e9ed60cc643b4609d9a65635b4041bdf46cb009279e15f3a58f69245ee953",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/RewardUIPanelController.cs",
+      "lines": 170,
+      "sha256": "a2970321d6d289e789e6113a42166a2196e942864f8831190eec2426eef08ddf",
+      "methods": [
+        "SetPanel",
+        "ResetPanel",
+        "SetPanelReward",
+        "SetNullPanel",
+        "DisableButton",
+        "PointerEnter",
+        "PointerExit"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SDestroyModeManager.cs",
+      "lines": 110,
+      "sha256": "e7ebd0d59dad4ef92da2d9928f1315cb5ef6e879bc69cbcd19a00ca73b001636",
+      "methods": [
+        "SetUpMode",
+        "StartMode",
+        "EndMode",
+        "GetModeTarget",
+        "GetMissionCompletedRating",
+        "GetBonusRating",
+        "SpawnBossesFleet",
+        "BuildStation",
+        "WarpStationEndGame",
+        "StationDestroyed",
+        "CameraTargetStation"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SProtectModeManager.cs",
+      "lines": 99,
+      "sha256": "849a9bb60561a756cab93b23bc9fb9151a817cbcb7de8c8a6da16c62b117a29a",
+      "methods": [
+        "SetUpMode",
+        "StartMode",
+        "EndMode",
+        "GetModeTarget",
+        "GetMissionCompletedRating",
+        "GetBonusRating",
+        "SpawnBossesFleet",
+        "BuildStation",
+        "StationDestroyed",
+        "CameraTargetStation"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SaveSystem.cs",
+      "lines": 243,
+      "sha256": "0ed4d444f2e3533f8a4e7810b0807b3c6cd92fbf2b2837ef54493a0de3a1e2d0",
+      "methods": [
+        "GetFilePath",
+        "GetExperimentSavePath",
+        "GetSaveDir",
+        "IsSaveFileAvilable",
+        "OnEnable",
+        "ResetGame",
+        "SaveGame",
+        "GetMetaPoints",
+        "SaveMetaPoints",
+        "GetResulationSetting",
+        "SaveResulationSetting",
+        "GetSkipBossSetting",
+        "SaveSkipBossSetting",
+        "GetScreenModeSetting",
+        "SaveScreenModeSetting",
+        "GetLanguageSetting",
+        "SaveLanguageSetting",
+        "UnlockReward",
+        "LockReward",
+        "IsRewardUnlocked",
+        "UnToggleReward",
+        "ToggleReward",
+        "IsRewardToggled",
+        "UnlockSystem",
+        "IsSystemUnlocked",
+        "SavePlayerInput",
+        "LoadPlayerInput",
+        "ResetPlayerInput",
+        "GetInvertAimXSetting",
+        "SaveInvertAimXSetting",
+        "GetInvertAimYSetting",
+        "SaveInvertAimYSetting",
+        "GetSwitchAimSetting",
+        "SaveSwitchAimSetting"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SceneSingleton.cs",
+      "lines": 30,
+      "sha256": "89093eb22c052257027c99c3b9b9a73d24fed97c0f2efe41975e318c32155525",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ScenesManager.cs",
+      "lines": 70,
+      "sha256": "66d316248013fa85bb904bc04771fa326ef6d50305f20fac5cd7ee7587ac9747",
+      "methods": [
+        "GoToScene",
+        "GoToSceneName",
+        "GoToMainMenuScene",
+        "GoToGameScene",
+        "GoToIntroScene",
+        "ExitApplication",
+        "FadeTranstion"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ScoreRatingContainer.cs",
+      "lines": 15,
+      "sha256": "0fd10c39c5d1bac50d7d4cfed6e5fa8b3900892a0dc7b91cf8b6cf508c777dd1",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ScraperDroneController.cs",
+      "lines": 108,
+      "sha256": "9a61aa32ffe05a79b63d8ab86673c2aaf2ea1c9209b8ebaa46e2b4dd9bfbce37",
+      "methods": [
+        "SetCollectingState",
+        "ClearPickable",
+        "ReleasePickable"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ScrapsManager.cs",
+      "lines": 126,
+      "sha256": "92759a887b180ef720be088a7ad471cd326ea160e87f016cca9f0411561203ad",
+      "methods": [
+        "Start",
+        "OnDisable",
+        "SetCollectingState",
+        "GetPickable",
+        "ReturnPickable",
+        "CollectPickable",
+        "SpawnScraps",
+        "RotateAngle",
+        "ScrapRemover"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ScreenMode.cs",
+      "lines": 10,
+      "sha256": "eaf53db94051d893e1a2a427e21ecac793ab4a47eabdd9166aa97367b0fd6f0b",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ScreenshotCapture.cs",
+      "lines": 59,
+      "sha256": "e25993eb6ea2293c73073fa53f0e361cd850c1a4ab56d93591522a443730ffa3",
+      "methods": [
+        "Start",
+        "Update",
+        "capture",
+        "RandomID"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ShieldController.cs",
+      "lines": 194,
+      "sha256": "a9269aacb383da4df60503b0b92b411e52e1d714f67ce75cca585ab63bd32c34",
+      "methods": [
+        "SetShield",
+        "StartShieldController",
+        "RefreshShield",
+        "StartShieldDelay",
+        "OnHealthDamageAction",
+        "OnDestroyAction",
+        "ActivateShield",
+        "DeactivateShield",
+        "IsShieldDestroyed",
+        "SetTurretStunState",
+        "FixedUpdate",
+        "UpdateShieldSprite",
+        "GetProjectileShieldHitPoint"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ShieldCore.cs",
+      "lines": 58,
+      "sha256": "356e066a1f76d8637233b6d0582f80282a910ea21ed0ae8fae9e0af046dd14a0",
+      "methods": [
+        "GetShieldRange",
+        "GetShieldRange",
+        "GetShieldRechargeRate",
+        "GetShieldRechargeDelay"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ShieldLevelUpReward.cs",
+      "lines": 17,
+      "sha256": "31d6d549a46a3b53a8548e89e6fe3b6bf75f575d50fa0e9e833956811634204a",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ShieldTurretController.cs",
+      "lines": 86,
+      "sha256": "b9538a894c1a17534050337cc65434b1b866f46a52ce1ae3722ecb7a88adb2f4",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Singleton.cs",
+      "lines": 21,
+      "sha256": "f2ce792bd6908eadebca47bb4dcc70c6197b34225fb1b155bbcab70b5fc958a4",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SmallestTargetRadarConfiguration.cs",
+      "lines": 28,
+      "sha256": "89c9f4243e755c6c3e86e511623f927eeb4e741e99493c4233e4e132178c7091",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SocrePanelController.cs",
+      "lines": 38,
+      "sha256": "3dd5235be6d2d3dcd96b238d96182ab913e1940d7b1e96a69be52bb23e935956",
+      "methods": [
+        "SetPanel"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SonicBasicProjectile.cs",
+      "lines": 9,
+      "sha256": "4b16f262bf5b0543b996de03d45228cd6f8b23ddfeb7388a463eb412c117522d",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SonicWaveBasicProjectileController.cs",
+      "lines": 36,
+      "sha256": "0287a695d2890000c08dbb12eff4ac094361e994028357e47c8fdbc1dbf6b5d9",
+      "methods": [
+        "PushTarget"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SpawnType.cs",
+      "lines": 16,
+      "sha256": "923a062a1fcf9116f5f6533b31a0606c512f12e71ba0f61317405bf399374bbd",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SpawnerRims.cs",
+      "lines": 12,
+      "sha256": "f4597b1d061109787abace3504cc6a8cfc9223d87321da6e3113535d93b56b2f",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SpawnerStation.cs",
+      "lines": 84,
+      "sha256": "0de206925dd5541978a51d6f44c69b32e6e79e67ff87174b258dc4ddfca6c454",
+      "methods": [
+        "Awake",
+        "SpawnStation",
+        "OnDestroyAction",
+        "EnableSpawner",
+        "DisableSpawner",
+        "SpawnRewardPacks"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SpawnerStationEventController.cs",
+      "lines": 68,
+      "sha256": "6dd602ce3f8e46bd0800f1de776f54538cf0f765b3364a270074880e8377644d",
+      "methods": [
+        "SpawnStationDisabled"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SpritePulseEffector.cs",
+      "lines": 71,
+      "sha256": "7c22b74bcd8e0dcef3293fab7cf7255fd7acd33657860c4a36fe95e1d2562042",
+      "methods": [
+        "Awake",
+        "OnEnable",
+        "StartEffect",
+        "StopEffect",
+        "FixedUpdate"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SpriteRandomSelector.cs",
+      "lines": 13,
+      "sha256": "218be1eaf212c016e5d83204291450eb98fa125126e984f6b21f701e0aa60622",
+      "methods": [
+        "OnEnable"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/StatTypes.cs",
+      "lines": 10,
+      "sha256": "aef644198312490172b4b5bfe43d2ffb1b961535d8010f21bc80d5a327da8daf",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/StationEventController.cs",
+      "lines": 49,
+      "sha256": "0cc8c8d21926deff2ba24798a61cb485f5b02be8b01c2a7d168547c014a2e6dd",
+      "methods": [
+        "SpawnStation",
+        "DestroyStation"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/StationMissionManager.cs",
+      "lines": 150,
+      "sha256": "22a6ab788bc918ac097ea60cf99ed17d3e8461c62211e82146fade488aef5f29",
+      "methods": [
+        "GetPartHealth",
+        "SpawnStation",
+        "SpawnSpawners",
+        "GetStationPartSprite",
+        "SpawnSpawner",
+        "RefreshSpawningPointsList",
+        "DestroyStation",
+        "GetSurvivedPartsCount",
+        "GetSurvivedPartsPercent"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/StationPartsHealth.cs",
+      "lines": 9,
+      "sha256": "8b6dede30df9f80f19a1f04eb9bb475fd38d731e749957e1825d4718571e5883",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SteamAchievementsManager.cs",
+      "lines": 36,
+      "sha256": "f4d99a30c0eb6b4f60f0c444488f3c0effc1b42da87ca63d7ffdd63373037ee8",
+      "methods": [
+        "Start",
+        "SetAchievement",
+        "ResetAchievements"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SteamLeaderboardManager.cs",
+      "lines": 158,
+      "sha256": "82f99c07e6da710a23ed823a2f663886a300fdba5734b9ec8106a1d82408800f",
+      "methods": [
+        "Start",
+        "FindLeaderBoard",
+        "UploadScore",
+        "IsUserAccount",
+        "UploadLeaderBoardScore",
+        "GetLeaderboardDataset",
+        "LoadLeaderboardDataset",
+        "OnLeaderboardDownloadResult",
+        "OnLeaderboardUserDownloadResult"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SteamManager.cs",
+      "lines": 130,
+      "sha256": "acaa69b07fc02b05b02766fef628aff4559994459eb5c2b9df49d1206e01e6df",
+      "methods": [
+        "SteamAPIDebugTextHook",
+        "InitOnPlayMode"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SteamStatsManager.cs",
+      "lines": 59,
+      "sha256": "31137f93018e9f03d53b3aef8ab5fa5bae1b50a9f6b4576b7e200175cbdf497b",
+      "methods": [
+        "Start",
+        "GetINTStat",
+        "ADDINTStat",
+        "SetINTStat",
+        "SaveStats",
+        "ResetAchievements"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SteamUtilsManager.cs",
+      "lines": 26,
+      "sha256": "363af8cce2984c6d7692711158b923155a5e81b14f88b1fa9812262790ab6f0a",
+      "methods": [
+        "GetSteamAvatar",
+        "GetSteamImageAsTexture2D"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/StunnedRadarConfiguration.cs",
+      "lines": 18,
+      "sha256": "7950d7072411466ded7f565cf037d2604ae4fa2e5afca5640adc90e665c84ad1",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SurvivalModeManager.cs",
+      "lines": 104,
+      "sha256": "46ecec45dd6b975a5c8371e867f92d8e7db2b539e90505dbc0504230a48a2af4",
+      "methods": [
+        "SetUpMode",
+        "StartMode",
+        "EndMode",
+        "GetModeTarget",
+        "GetMissionCompletedRating",
+        "GetBonusRating",
+        "SpawnBoss",
+        "SpawnEndBoss",
+        "EndBossDestroyed",
+        "MidBossDestroyed"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/SwarmingAIHeat.cs",
+      "lines": 25,
+      "sha256": "ee67f8fbb6ed2ec41c1623119efa53fb8cdb6ed0dde577658800ec6628db6c08",
+      "methods": [
+        "IsHeatSuitable"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/TestingManager.cs",
+      "lines": 547,
+      "sha256": "f6072b9dd45e13ad947c661b087e07cb2dd7d420e06970e67356db04975684af",
+      "methods": [
+        "DisableTestingManager",
+        "IsTestingRest",
+        "IsTestingMissions",
+        "GetTestingMission",
+        "GetTestingDifficulty",
+        "IsOverwriteGameStartTime",
+        "GetOverwriteGameStartTimePercent",
+        "IsOverwriteGameTime",
+        "GetOverwriteGameTime",
+        "IsDestroyCoreRightClick",
+        "IsStunCoreRightClick",
+        "IsOverwriteBuildingSize",
+        "IsPlayerInvincible",
+        "IsPlayerOneShotKill",
+        "IsPlayerUltraSpeed",
+        "IsPlayerUnlimitedFuel",
+        "IsPlayerDisabledHQWeapon",
+        "IsTestingPlayerHQWeapon",
+        "GetTestingPlayerHQWeapon",
+        "IsTestingPlayerHQDronesList",
+        "GetTestingPlayerHQDronesList",
+        "IsPrintTotalTreePrice",
+        "IsTestingRewardsList",
+        "GetTestingRewardsList",
+        "IsTestingRewardPacksList",
+        "GetRandomTestingRewardPack",
+        "IsUnlockAllRewards",
+        "IsLockAllRewards",
+        "IsStopSpawningBossAI",
+        "IsSpawningBossAIOnTopPlayer",
+        "IsStopSpawningSwarmAI",
+        "IsStopSpawningSwarmWaveAI",
+        "IsStopSpawningPatrolAI",
+        "IsSpawningSwarmAIFromList",
+        "GetTestingSwarmAISpawn",
+        "IsSpawningPatrolAIFromList",
+        "GetTestingPatrolAISpawn",
+        "IsSpawningMapEvents",
+        "IsSpawningMapEventsFromList",
+        "GetTestingMapEventSpawn",
+        "IsOverridingMapEventPercent",
+        "GetMapEventPercent"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/TimeScaleManager.cs",
+      "lines": 50,
+      "sha256": "0cd718f2d4e261d5da16247a42c2f67cc293ca907ee455d0b7e5d01ad315c4eb",
+      "methods": [
+        "StartGame",
+        "EndGame",
+        "CanPause",
+        "IsPaused",
+        "GetTimeScale",
+        "PauseGame",
+        "UnpauseGame"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/TipObject.cs",
+      "lines": 13,
+      "sha256": "1dc021ace5a29e9c61dc2c6d9a71decaff13665b2a1082674079bef65eeb5771",
+      "methods": [
+        "GetTipText"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ToggleResearchUIManager.cs",
+      "lines": 221,
+      "sha256": "cb5d7a0f3246237c0eaeca05b9a0588da4840077ddb0ba1c180aa36818c9c1c2",
+      "methods": [
+        "Start",
+        "OnEnable",
+        "OnDisable",
+        "OnMetaChange",
+        "ShowMenu",
+        "BackButton",
+        "ToggleAllButton",
+        "ToggleNoneButton",
+        "ApplyButton",
+        "LoadRewards",
+        "RefreshRewards",
+        "SaveRewards",
+        "CanApplyToggles",
+        "RefreshButtons",
+        "ResearchSystem",
+        "isToggleResearchesUnlocked"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/ToggleRewardController.cs",
+      "lines": 110,
+      "sha256": "4266811e15849d828013c191eba1a02ec920e6364fc36d9d0bb2bc3a9a2d6d7b",
+      "methods": [
+        "Awake",
+        "SetReward",
+        "RefreshReward",
+        "ToggleReward",
+        "ToggleReward",
+        "IsToggled",
+        "IsTogglable",
+        "ToggleAllRewards",
+        "UnToggleAllRewards"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/TraderFleetManager.cs",
+      "lines": 250,
+      "sha256": "91db943de826e4db9eb550814379d95a0e4e4d2741e83b3bc16e62ff28e3610e",
+      "methods": [
+        "Setup",
+        "ListTraders",
+        "FixedUpdate",
+        "GetRandomUnit",
+        "UnitDestroyed",
+        "GetTraderSurvivedCount",
+        "WarpFleet",
+        "IWarpFleet",
+        "ActiveUnits"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/TraderUnit.cs",
+      "lines": 80,
+      "sha256": "3b68b9195bd9ac987ecbc0863c1485b1a861162f9a25aec14c80de0d090dd15e",
+      "methods": [
+        "ActivateHealthBar",
+        "OnHealthDamage",
+        "SetOnUnitDestroy",
+        "GetMapIcon",
+        "SpawnRewardPacks"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/TraderUnitMovement.cs",
+      "lines": 71,
+      "sha256": "9d6085053f2be23219f624ab03f14ceaf3371e4b50af13fc90d6cff138a19f84",
+      "methods": [
+        "SetMoveTarget",
+        "SnapToTarget"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/TrailRendererClearer.cs",
+      "lines": 5,
+      "sha256": "a246955c3f10ad6e1a1c24fcaeef89a75cbb403c71aa8cc21762c6d8d4866e00",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/TransparencyCaptureToFile.cs",
+      "lines": 19,
+      "sha256": "b42a7e1776c1b16eb75eac6cfc36913c7d6295d952319d999e697c77a98bcbc0",
+      "methods": [
+        "capture",
+        "Update"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/Turret.cs",
+      "lines": 9,
+      "sha256": "9858d7ae52384af672e76651e30679ddd8119873ff5692cdc2ba0de35d012fb6",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/TurretBarrelsController.cs",
+      "lines": 26,
+      "sha256": "979d2ce9277b8f9ef06d1da4e68a64e7aa1ed22408aded1483eaa71b3abd248a",
+      "methods": [
+        "ResetBarrels",
+        "GetNextBarrel"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/TurretController.cs",
+      "lines": 84,
+      "sha256": "2e113c339eea999629f57680aad38c30b11d6ae72f92f6d2aa13bd264f592851",
+      "methods": [
+        "OnEnable",
+        "DisableTurretArt",
+        "GetBarrelTransform"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/TurretCore.cs",
+      "lines": 86,
+      "sha256": "7744c5b3df9ee28ac134daf60da1e1e60144ccaba6ba4ce6447223ca7c74489d",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/TurretLevelUpReward.cs",
+      "lines": 14,
+      "sha256": "3800dda577f7d9168e8c95b5752e7f88ce6be2c20c0837e5257c66e5a57a2213",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/TurretsDataStore.cs",
+      "lines": 23,
+      "sha256": "cc5ce1ff4272ec2b704eb05d8796a93094b6db1642d79f3a26740917f49a00f5",
+      "methods": [
+        "GetTurretRecoilRange",
+        "GetTurretRange"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/TutorialMenuController.cs",
+      "lines": 113,
+      "sha256": "5e68f371907646a17c73d9eee91038ced5d946e2751ba834ef62c41939231053",
+      "methods": [
+        "Start",
+        "StartTutorial",
+        "ShowMoveTutorial",
+        "ShowShootTutorial",
+        "ShowBuildTutorial",
+        "ShowBoostTutorial",
+        "ShowRadarTutorial",
+        "ShowRunTutorial",
+        "AnimateTutoiral",
+        "CanShowTutorial"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/TweenController.cs",
+      "lines": 142,
+      "sha256": "0ed0038d0fdd72035d92d83f1e05cfd65c68936f5b9efb251e2cc0d57a9f0d1d",
+      "methods": [
+        "Awake",
+        "KillTweens",
+        "Shake",
+        "Scale",
+        "ScaleV3",
+        "PunchScale",
+        "LocalMove",
+        "DelayedCall",
+        "DelayedCall",
+        "LocalRectMove",
+        "LocalMove",
+        "DOFloat",
+        "DOColor",
+        "DOCameraColor",
+        "DOCameraColor",
+        "ScatterItem",
+        "ScatterItems",
+        "RotateAngle"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/TweenDataStore.cs",
+      "lines": 28,
+      "sha256": "bf280e6314e90683076ead41436a85a7bc7e14fefe59072d7f9338973e8635f0",
+      "methods": [
+        "GetTweenDuration",
+        "GetShakeStrength",
+        "GetShakeVibration"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/TweenDuration.cs",
+      "lines": 9,
+      "sha256": "2f6d617bbdd033dde3a673bd3952c6b297fc960e4b06a86c320ac765434f318e",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/TweenScaleDisable.cs",
+      "lines": 33,
+      "sha256": "d79d462ace75a3095b7be8b4809e86b57b78d9653c8170734d92f509e2bfbeaa",
+      "methods": [
+        "OnEnable",
+        "Disable"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/UIBackKeyManager.cs",
+      "lines": 44,
+      "sha256": "79345163441cc1df8023d956adef552cb7a9630f0049227c92b071cf5403c96e",
+      "methods": [
+        "BackUI",
+        "AddOnBackKeyPressed",
+        "ClearQueue"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/UIButtonTiggersController.cs",
+      "lines": 73,
+      "sha256": "aacfc15fd6832e0afd2d5ea18edda383780a54d1fa2362cbf383d63f1554f4ce",
+      "methods": [
+        "Awake",
+        "SetUpEventTriggers",
+        "OnPointerClick",
+        "OnPointerEnter",
+        "OnPointerExit"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/UIEventTriggers.cs",
+      "lines": 169,
+      "sha256": "1773cf02acffd8d997ecff04cfd54f2cf3bc6e9a724f52f58652707501befe51",
+      "methods": [
+        "Awake",
+        "OnEnable",
+        "OnDisable",
+        "OnCurserMove",
+        "OnCurserHide",
+        "OnCanvasGroupChanged",
+        "OnPointerClick",
+        "OnPointerEnter",
+        "OnPointerExit",
+        "OnSubmit",
+        "OnMove",
+        "OnSelect",
+        "OnDeselect"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/UIFeedback.cs",
+      "lines": 40,
+      "sha256": "c2ccdf4783272b4a928132daccebefcb8ede51331ce47f6fff0f294d7d3928c7",
+      "methods": [
+        "Awake",
+        "SubscribeToEvents",
+        "OnPointerClick",
+        "OnPointerEnter",
+        "OnPointerExit"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/UIManager.cs",
+      "lines": 5,
+      "sha256": "119fbc5d7737565f10f8971c8793ad04b433c30741939a1d3bb761241e805855",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/UITriggersController.cs",
+      "lines": 45,
+      "sha256": "aafa9c4e60ffa087e092c69ca1d53aab2f7e06fd6063a57448f48c5c2d506cd1",
+      "methods": [
+        "OnPointerEnter",
+        "OnPointerExit",
+        "OnPointerClick",
+        "OnPointerDown",
+        "OnSelect",
+        "OnDeselect"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/UnityEngineSystem.cs",
+      "lines": 42,
+      "sha256": "079c56f479b8516f052e5386a6223e3dde99bb7ac62b93edba6311068ee4dfae",
+      "methods": [
+        "GetPerSecAmount",
+        "GetTickAmount",
+        "GetPercent",
+        "CalcPercent",
+        "AddPercent",
+        "SubtractPercent"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/UnityTemplateProjects/SimpleCameraController.cs",
+      "lines": 220,
+      "sha256": "1c89843151c6701a8f357daa585989e99239d58de70f5e37705b3108fa85f825",
+      "methods": [
+        "SetFromTransform",
+        "Translate",
+        "LerpTowards",
+        "UpdateTransform",
+        "Start",
+        "OnEnable",
+        "GetInputTranslationDirection",
+        "Update",
+        "GetBoostFactor",
+        "GetInputLookRotation",
+        "IsBoostPressed",
+        "IsEscapePressed",
+        "IsCameraRotationAllowed",
+        "IsRightMouseButtonDown",
+        "IsRightMouseButtonUp"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/UpgradeTreeDataStore.cs",
+      "lines": 41,
+      "sha256": "4716825a7f705a186bab7b2f9f2e2bdaf738e116231149dbb3d7c022b4e5893a",
+      "methods": [
+        "GetRarityValue",
+        "GetRewardPrice",
+        "RoundTo5"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/UpgradeTreeManager.cs",
+      "lines": 293,
+      "sha256": "85ea77559619a66eb2edd73ae985c2449c89ecbf66fb888b60de2c7c5c1a42f8",
+      "methods": [
+        "Start",
+        "ShowTree",
+        "ActivateTree",
+        "DeActivateTree",
+        "BackNode",
+        "CanAvctivateNode",
+        "ActivateNode",
+        "DeactivateNode",
+        "ShowAllNodes",
+        "HideAllNodes",
+        "GetZoomPos",
+        "GetTreeNodesUnlockedCount",
+        "CountTreeNodes",
+        "GetTreeRewards",
+        "TreeNodeUnlocked",
+        "IsFirstNodesUnlocked",
+        "IsRarityUnlocked",
+        "PrintTotalTreePrice"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/UpgradeTreeNode.cs",
+      "lines": 465,
+      "sha256": "223548c6fd39e9b795af376f5bb6ecc7c05faeb26e69cf0a9efebb1308ce4dc9",
+      "methods": [
+        "GetNodeRewardsList",
+        "OnEnable",
+        "OnDisable",
+        "Awake",
+        "ShowCaseNextReward",
+        "SetUpNodeRewards",
+        "ShowCaseReward",
+        "ShowShowcase",
+        "SetUpButton",
+        "SetButtonPrice",
+        "CanUnlockReward",
+        "GetNextReward",
+        "OnMetaChange",
+        "ButtonPressed",
+        "ShowReward",
+        "ActivateNode",
+        "DeactivateNode",
+        "ResetTweenNode",
+        "TweenNode",
+        "IsMainNodeUnlocked",
+        "IsNodeFullyUnlocked",
+        "IsNodeFullyLocked",
+        "HideNode",
+        "ShowNode",
+        "IsFirstNodeUnlocked",
+        "GetCurrentRewardPrice",
+        "GetTotalNodePrice",
+        "IsRarityUnlocked"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/UpgradeTreeReward.cs",
+      "lines": 73,
+      "sha256": "2d71e852c6e6bae7401fdcb4db49f5a010e0fa144d7684c5a46d61cc090cbd2b",
+      "methods": [
+        "SetUI",
+        "ShowShowcase",
+        "HideLock",
+        "RefreshLock",
+        "HideArrow",
+        "ShowReward"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/UpgradeTreeStat.cs",
+      "lines": 56,
+      "sha256": "cc02a466030dd6e444010170c705a190f7cde91cf45bb734156a4a0b806b5a9a",
+      "methods": [
+        "GetStatType",
+        "IsStatType",
+        "SetStat"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/UpgradeTreeStatsController.cs",
+      "lines": 47,
+      "sha256": "3d135d17271fda6ef908733e168f2b10ca02215cdac8bf328c33a1ae234de807",
+      "methods": [
+        "SetUpRewardsStats"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/VersionUIController.cs",
+      "lines": 15,
+      "sha256": "cea4d60308a0c815d24917ed899d5783be2728d4bc7af040936f207dda61d030",
+      "methods": [
+        "Awake"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/WallCore.cs",
+      "lines": 64,
+      "sha256": "88146acea288dc4fb01bda06693954c98f0643217f039b979f8886fce514854c",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/zzTransparencyCapture.cs",
+      "lines": 73,
+      "sha256": "d6575b9383ebbd92fc3cdde6cc067927dba80eb0ba73ef0323d267fdd8e1d7d0",
+      "methods": [
+        "capture",
+        "captureScreenshot",
+        "captureScreenshot",
+        "getColor",
+        "getAlpha",
+        "captureView"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/Assembly-CSharp/zzTransparencyCaptureExample.cs",
+      "lines": 56,
+      "sha256": "ac87951df720d8bac08c111b7adfee49a3478099bb6dd6c884a889595f632ba3",
+      "methods": [
+        "Start",
+        "capture",
+        "Update",
+        "OnGUI"
+      ]
+    },
+    {
+      "path": "Assets/Scripts/RecoveryCompatibility/SteamAppIDSetter.cs",
+      "lines": 4,
+      "sha256": "b08f894e02fd11c1e1eb634df0728816726a12193ebe54f74849dccb327d39db",
+      "methods": []
+    },
+    {
+      "path": "Assets/Scripts/RecoveryCompatibility/SteamTester.cs",
+      "lines": 4,
+      "sha256": "be47f373c66407555937f5b250087d6c35535d683090ec31d4f6cc853c415d9a",
+      "methods": []
+    }
+  ],
+  "asset_classes": {
+    "Unity.InputSystem": 22,
+    "Unity.RenderPipelines.Universal.Runtime": 6,
+    "Unity.TextMeshPro": 10,
+    "DeviceDisplayConfigurator": 1,
+    "DeviceDisplaySettings": 4,
+    "DOTween": 1,
+    "PackCore": 1,
+    "Chip": 6,
+    "TipObject": 18,
+    "Drone": 2,
+    "ProjectileDrone": 3,
+    "EngineerDrone": 2,
+    "FurthestRadarConfiguration": 1,
+    "RandomRadarConfiguration": 1,
+    "StunnedRadarConfiguration": 1,
+    "SmallestTargetRadarConfiguration": 2,
+    "ClosetTargetRadarConfiguration": 2,
+    "BiggestTargetRadarConfiguration": 2,
+    "LowestHealthTargetRadarConfiguration": 1,
+    "BasicProjectile": 16,
+    "Turret": 12,
+    "RewardPack": 8,
+    "AudioClipObject": 37,
+    "DroneCore": 4,
+    "ChipCore": 6,
+    "ProjectileCore": 24,
+    "MainCore": 1,
+    "BarrageProjectileCore": 8,
+    "ShieldCore": 6,
+    "MineSpawnerCore": 1,
+    "MinesCore": 1,
+    "FuelCore": 1,
+    "TurretCore": 1,
+    "WallCore": 1,
+    "RepairCore": 1,
+    "BlockReward": 62,
+    "MainCoreDroneReward": 6,
+    "MineFieldLevelUpReward": 2,
+    "DroneLevelUpReward": 3,
+    "ShieldLevelUpReward": 1,
+    "TurretLevelUpReward": 12,
+    "FuelTankLevelUpReward": 1,
+    "CountBasicReward": 9,
+    "CrusedReward": 10,
+    "PercentBasicReward": 10,
+    "LevelUpReward": 1,
+    "MainCoreTurretReward": 12,
+    "AIStationPart": 50,
+    "AIBossPart": 51,
+    "AIGuardUnit": 6,
+    "AreaHomingProjectile": 2,
+    "EMPBasicProjectile": 3,
+    "AreaBasicProjectile": 6,
+    "SonicBasicProjectile": 2,
+    "BlackHoleProjectile": 2,
+    "HomingProjectile": 3,
+    "ContinuousProjectile": 2,
+    "Mine": 1,
+    "ProjectileTurret": 13,
+    "MissionAIConfiguration": 18,
+    "Mission": 6
+  },
+  "components": 18905,
+  "documents": 1263,
+  "errors": []
+}

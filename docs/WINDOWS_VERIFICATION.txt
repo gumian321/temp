@@ -1,0 +1,36 @@
+补充验证与截图交付说明（2026-10-12）
+
+截图
+三张1440×900真实Godot运行截图位于selected-screenshots，manifest.json记录来源、场景与SHA256。均为原资源迁移版，未进行blue-ink改版。战斗为满容量测试场景；建造和研究为最终Linux导出包展示场景，预置装备/研究点不作为自然成长证据。战斗画面仍有身体聚拢重叠，不能称最终视觉验收。没有成功的Library图片ID。
+
+剩余项与验收边界
+普通运行系统已实现并经过本地测试；完整逐项等价尚未签收。仍需Unity/Godot成对视觉对照（粒子积分、二维投影、布局、运动和时序）、在线Steam榜单/成就/统计接入与服务验收、Unity Analytics授权配置与接入、实体手柄验证、独显性能验证。Windows可执行交付与原生运行未完成。源恢复工程缺原始注释、Editor工具与未打包资产，两项FX源码本身是近似实现；这些属于源缺失，不等同迁移遗漏。详见工程docs/FEATURE_PARITY.md、source_feature_matrix.csv及REMAINING_WORK.md。
+
+性能对照
+13.9333FPS来自final-static-stretch-performance.log：418帧/30.237秒，P95帧间隔166ms，峰值136敌人、93弹体、73粒子发射器、273绘制调用。
+20.5333FPS来自final-blend-space-performance.log：616帧/30.192秒，P95帧间隔58ms，峰值136敌人、121弹体、78发射器、285绘制调用。
+两次相同Linux云环境、Godot4.6.3、1440×900、GL Compatibility/Mesa25.0.7 llvmpipe、LP_NUM_THREADS=3，相同seed20261012、60模块+HQ、Endless、8秒预热与30秒实战协议。期间修正Unity内置202加法混合、TintColor、粒子世界/局部空间与CanvasLayer相机变换，没有缩减模块或敌人/粒子容量。但渲染结果、重叠和动态弹体数量改变，且各一次测量，不是严格等负载A/B，不能宣称47%纯性能优化。最终也未达到60FPS。
+另有较早独立的同范围优化对照13.7667→25.2FPS：支持缓存、保序空间索引与背景合成；不能混入上面最终画面测量。四武器场景24个状态/RNG快照差分通过。
+
+Windows
+本机只有Linux Godot4.6.3，没有Wine/Windows运行环境；现有模板目录为空。真实Windows Desktop导出退出1，缺：
+/workspace/scratch/xdg-data/godot/export_templates/4.6.3.stable/windows_debug_x86_64.exe
+/workspace/scratch/xdg-data/godot/export_templates/4.6.3.stable/windows_release_x86_64.exe
+未下载依赖或重试403。Windows预设PCK已导出：artifacts/windows/RunBuildPewCentipede.pck，约51MiB；Linux端加载444精灵、57音频、73视频、17粒子纹理并初始化场景通过。它不是可运行Windows包，未生成EXE、未通过Windows原生测试。日志和JSON见artifacts/windows-*。
+后续需通过授权官方过程在上述目录安装同版本Windows x86_64模板，再执行：
+XDG_DATA_HOME=/workspace/scratch/xdg-data godot --headless --path /workspace/centipede-godot --export-release "Windows Desktop" artifacts/windows/RunBuildPewCentipede.exe
+然后在Windows云端机器进行真实输入/图形/声音测试并打包EXE、PCK及必要依赖。不使用用户电脑。
+
+Unity逐帧对照
+源ProjectVersion为2021.3.1f1c1 (0cb3bd085a01)。当前云端无Unity Editor/Hub或可运行Unity Player，授权/许可证未提供或验证，不能运行成对录制。源Validation.json是历史验证记录，不是当前环境运行证据。73段原预览视频只能作局部参考，缺相同输入、种子、镜头与时序的成对序列。
+需要匹配且已授权的Unity编辑器或源工程Player在云端可运行，完成真实导入/构建检查，再使用一致场景/种子/输入/镜头/时间基准抓取两端序列。蜈蚣造型运动是明确玩法变更，应与未变武器、敌人、UI、FX分开验收。
+
+403目标与恢复方案
+Steam失败请求是只读依赖元数据：https://api.github.com/repos/GodotSteam/GodotSteam/releases/latest
+错误：URLError <urlopen error Tunnel connection failed: 403 Forbidden>。不是排行榜写入。源仅Steamworks.NET托管DLL，缺Linux原生steam_api及已授权客户端游戏会话。
+Library历史完整HTTP现场日志不在本地，不能确认失败的具体端点或prepare/字节传输/finalize阶段。没有据此猜测签名URL或自动审核理由。本轮没有上传或改道尝试。
+需平台恢复官方Library通道，并明确撤销此前不重试限制；再按官方prepared-upload流程对工程、Linux运行包、报告及截图进行prepare→传输→finalize，逐文件核验返回ID。不得拆分或换工具/存储规避403。
+唯一历史Library ID libfile_47f2cf9fd5f88191919965867f62bfe4是早期不可运行数据备份，不是最终工程、运行包或截图。本次全部最新交付仍无Library ID。
+
+已有Linux交付保持不变
+centipede-godot-project-checkpoint.zip、centipede-linux-runnable-checkpoint.zip、centipede-checkpoint-report.html、centipede-local-history.bundle及checksums.json对应已验证07e07c5检查点。本次新增Windows导出预设与补充说明，不重新宣称旧归档包含新预设。原Unity源与temp仓库未修改；无push、PR或Release。
