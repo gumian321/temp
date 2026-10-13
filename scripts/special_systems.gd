@@ -32,6 +32,7 @@ func step(dt: float):
 		if p.hp<=0:
 			if not p.get("destroy_processed",false):
 				p.destroy_processed = true
+				battle().segment_destroyed(i)
 				battle().spawn_scraps(p.position,int(c.get("coreScraps",0)))
 				if c["class"]=="PackCore":
 					for j in range(battle().rng.randi_range(int(c.minPacksCount),int(c.maxPacksCount))): battle().loot.append({"position":p.position,"value":0,"pack":true})

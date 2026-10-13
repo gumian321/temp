@@ -1,0 +1,40 @@
+{
+  "suites": [
+    {
+      "suite": "specials",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.764,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_support",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.65,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "segment_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.642,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "segment_feedback_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.027,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chain_segments",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.084,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}
