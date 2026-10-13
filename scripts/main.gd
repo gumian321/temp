@@ -75,6 +75,7 @@ var mouth_activity = 0.0
 var ink_world
 var insect_layer
 var build_ui
+var mission_ui
 var build_selected_segment = 1
 
 func _ready():
@@ -144,7 +145,9 @@ func ink_node_added(node: Node):
 
 func ink_style_later(reference: WeakRef):
 	var node = reference.get_ref()
-	if node != null and is_ancestor_of(node): Ink.style_item(node)
+	if node == null or not is_ancestor_of(node):return
+	if screen=="menu" and is_instance_valid(mission_ui) and (node==mission_ui or mission_ui.is_ancestor_of(node)):return
+	Ink.style_item(node)
 
 func label_at(text: String, pos: Vector2, size: int = 22, color: Color = Color.WHITE) -> Label:
 	var label = Label.new()
@@ -268,29 +271,11 @@ func refid(config:Dictionary,key:String)->String:
 
 func show_missions():
 	screen="menu"
-	source_screen("MainMenuScene/PlayCanvas")
-	var config:Dictionary=db.scene_config.PlayUIManager
-	source_ui.set_text(refid(config,"missionText"),db.title(selected_mission))
-	source_ui.set_text(refid(config,"missionDescText"),db.text(selected_mission.MissionDescTextID))
-	source_ui.set_text(refid(config,"missionDiffecultyText"),"("+db.text(db.stores.MissionDataStore.DifficultiesList[difficulty].diffecultyTextID)+")")
-	source_ui.set_image(refid(config,"missionObjectiveImage"),selected_mission.MissionsObjectiveList[difficulty].objectiveSprite)
-	source_ui.show_node(refid(config,"playButton"),save.mission_unlocked(selected_mission))
-	source_ui.show_node(refid(config,"researchButton"),not save.mission_unlocked(selected_mission))
-	source_ui.show_node(refid(config,"demoButton"),false)
-	source_ui.show_node(refid(config,"backButton"),true)
-	source_ui.show_node(refid(config,"scrapsAmountUI"),false)
-	source_ui.set_text(refid(config,"costText"),str(int(selected_mission.MissionCost)))
-	for name in source_ui.nodes_by_name:
-		if "LeaderBoard" in name:source_ui.nodes_by_name[name].visible=false
-	# The source's IntervalSlider is a composite wrapper; bind its actual native Slider.
-	for slider in source_ui.sliders.values():slider.min_value=0;slider.max_value=2;slider.step=1;slider.set_value_no_signal(difficulty)
-	label_at(db.ui("%d RP", "%d 研究点")%save.state.meta,Vector2(1190,40),23,Color("ebaa4b"))
-	if db.sprite(selected_mission.MissionsObjectiveList[difficulty].objectiveSprite)==null:
-		var objective=selected_mission.MissionsObjectiveList[difficulty]
-		var summary=db.title(selected_mission)+"\n\n"+db.text(selected_mission.MissionDescTextID)
-		summary+="\n\n"+(db.ui("No time limit","无时间限制") if selected_mission.isEndless else db.ui("Mission timer: %d min","任务时间：%d 分钟")%int(objective.objectiveTime))
-		var goal_text=label_at(summary,Vector2(895,505),22)
-		goal_text.size=Vector2(415,200);goal_text.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;goal_text.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+	clear_ui()
+	source_ui=null
+	mission_ui=preload("res://scripts/mission_select.gd").new()
+	panel.add_child(mission_ui)
+	mission_ui.setup(self)
 
 func show_lab():
 	screen="lab"
@@ -685,6 +670,7 @@ func _process(dt: float):
 
 func focus_menu_button():
 	if screen=="game" or panel==null:return
+	if screen=="menu" and is_instance_valid(mission_ui):mission_ui.focus_selection();return
 	var candidates:Array=[]
 	collect_focus_buttons(panel,candidates)
 	if not candidates.is_empty():candidates[0].grab_focus()
@@ -751,7 +737,7 @@ func _unhandled_input(event):
 		if event.is_action_pressed("pause"):
 			if screen == "game": show_pause()
 			elif screen == "pause": show_game()
-			elif screen in ["lab", "options", "changelog"]: show_menu()
+			elif screen in ["menu", "lab", "options", "changelog"]: show_menu()
 			elif screen=="reward_pool":show_missions()
 		if event.is_action_pressed("build"):
 			if screen == "game": show_build()

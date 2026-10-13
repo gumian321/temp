@@ -32,7 +32,7 @@ func execute():
 	await capture("01-menu")
 	game.show_missions()
 	await capture("02-missions")
-	check(game.source_ui.images.values().all(func(n):return n.material!=null),"All source menu images use the ink treatment")
+	check(is_instance_valid(game.mission_ui) and game.mission_ui.rows.size()==6,"Mission briefing uses the new six-mission ink layout")
 	game.show_options()
 	await capture("03-options")
 	var audio_config=game.source_ui.components["22641"]

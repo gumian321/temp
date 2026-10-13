@@ -1,0 +1,39 @@
+任务选择界面改版 · 2026-10-13
+
+基于远端 codex/godot-centipede-game-20261012 的 ac4720f4109e0fb41fe93d72ff0c530491577455。
+仅本地分支 codex/centipede-mission-ui-20261013；本次未推送或合并。
+
+问题根因
+旧 MainMenuScene/PlayCanvas 将排行榜与任务板分列。排行榜隐藏后，Play Panel仍保留anchored.x=152.86；SourceUI使用1280×720、1.125倍固定缩放和(0,45)位置，右侧板偏移约172显示像素，没有因排行榜隐藏而居中。
+旧界面的真实渲染截图已查看，形态与父对话描述一致。用户Library参考图 libfile_c47db35d666c81918487daaa5b4d6d52 的官方prepare返回了传输信息，但官方本地化助手返回download failed；未成功查看该附件本身，未猜测URL或改道重试。
+
+实现
+scripts/mission_select.gd：独立任务页。全视口锚点、随resized更新的最大宽高面板，面板中心由当前Control尺寸计算；内部使用Godot VBox/HBox/Panel容器，不对旧图形固定减X。
+左侧六任务列表；右侧任务说明、文字目标、时长与三档难度；奖励池设置和恢复默认；底部返回、解锁或出发。移除旧粗排线框、巨型标题牌和左右三角翻页。
+米白纸面、细蓝线、局部浅蓝选中态与深蓝主按钮；明确的键盘/手柄焦点。
+沿用原任务ID、难度索引、研究点解锁和奖励池持久化逻辑；未改变战斗、腿部素材或此前两处审查问题。
+main.gd仅接入新任务页、保留局部主题、选择项初始焦点，以及补齐任务页Escape返回。
+原奖励池页面仍使用旧页面，本轮仅改变入口和返回衔接，不扩展为全游戏UI重构。
+
+验证
+Godot4.6.3/Linux/X11/Mesa软件渲染。tests/test_mission_select.gd最终111项通过：
+- 实际渲染1440×900、1280×720、1920×1080、1100×820，并连续缩放回1440×900。
+- 另外使用项目原有1440×900基准缩放配置，验证1280×720、1920×1080窗口；宽高比差异由原有等比适配保留，截图只捕获实际渲染视口。
+- 所有布局中心误差0；按钮与关键文字均在主板内。英语六任务长文本也通过几何检查。
+- 鼠标选择全部六任务、全部三档难度；显示对应时长/无尽模式。
+- 研究点不足禁用、足额解锁仅扣费一次并停留任务页。
+- 奖励池进入/Escape返回，保留任务和难度；恢复默认奖励配置。
+- 反复开关页面、按钮返回、Escape、键盘方向/Enter、手柄D-pad/A/B事件、焦点跨栏。
+- 出发进入所选任务加载页，确认后进入游戏。
+原有默认30套headless回归全部通过。blue_ink_scene实际渲染回归通过；旧任务页的贴图断言更新为新六任务界面断言。
+最后只有局部文字色调整；最终任务页111项在调整后重新通过，未重复无关战斗回归。
+未做物理手柄、Windows原生测试、独显性能或完整六任务长流程重新验收。
+
+证据
+artifacts/mission-ui-test-report.json：111项、几何坐标和图像尺寸。
+artifacts/mission-ui-final-render.json：最终专项运行结果。
+artifacts/consolidated-test-report.json：30套默认回归。
+artifacts/mission-ui-render-suite.json：任务页与blue_ink_scene实际渲染结果。
+docs/test-evidence/mission-ui-*：本次通过报告的可版本化副本。
+真实截图：artifacts/mission-ui-1440x900.png、mission-ui-1280x720.png、mission-ui-1920x1080.png、mission-ui-1100x820.png、mission-ui-locked.png。
+所有图为Godot实机渲染，使用隔离测试存档；未上传Library，无新的Library ID。
