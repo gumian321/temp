@@ -1,0 +1,19 @@
+{
+  "suites": [
+    {
+      "suite": "battle_hud",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 8.995,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "mission_select",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 25.424,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

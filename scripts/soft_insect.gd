@@ -64,30 +64,32 @@ static func impact(e: Dictionary, point: Vector2, direction: Vector2, damage: fl
 	if family.is_empty():family=str(e.get("last_fx","impact"))
 	var species=Brood.species(e)
 	local=surface_point(state,local,push,species)
-	var weight=float({"gatling":.78,"drone":.72,"flame":.4,"cannon":1.2,"rail":1.35,"nuke":1.45,"mine":1.15}.get(family,1.0))
+	var weight=float({"gatling":.78,"drone":.72,"flame":.4,"blackhole":.5,"shield":.35,"cannon":1.2,"rail":1.35,"nuke":1.45,"mine":1.15}.get(family,1.0))
 	var strength=clampf(.6+sqrt(damage/maxf(1,float(e.get("max_hp",100))))*1.5,.65,1.65)*weight
 	if species=="beetle":strength*=.78
 	var uv_push=push/state.aspect
 	var hit_uv=local/state.aspect
 	var fresh=float(state.cue_cooldown)<=0
+	state.hits += 1
+	# Group body impulses too, not only sparks: sustained fire must permit recovery.
+	if not fresh:return
 	for i in state.rest.size():
 		var falloff=exp(-Vector2(state.rest[i]).distance_squared_to(hit_uv)*10)
 		# An immediate dent registers on the first rendered frame, before the spring advances.
-		if fresh:state.offset[i]=(Vector2(state.offset[i])+uv_push*.12*strength*falloff).limit_length(MAX_OFFSET)
+		if fresh:state.offset[i]=(Vector2(state.offset[i])+uv_push*.16*strength*falloff).limit_length(MAX_OFFSET)
 		state.velocity[i]=(Vector2(state.velocity[i])+uv_push*strength*(.10+falloff)*4.5).limit_length(5.5)
 		state.peak=maxf(state.peak,Vector2(state.offset[i]).length())
 	if fresh:
 		state.contact=local;state.direction=push;state.family=family
 		state.cue+=1;state.cue_age=0.0;state.cue_strength=strength
-		state.cue_cooldown=.13 if family=="flame" else .085
-		state.hold=0 if family=="flame" else clampf(.035+strength*.014,.04,.06)
+		state.cue_cooldown=.28 if family in ["flame","blackhole"] else .20
+		state.hold=0 if family in ["flame","blackhole","shield"] else clampf(.035+strength*.014,.04,.06)
 		state.shock=maxf(state.shock,minf(1.35,strength))
-		state.recoil=(Vector2(state.recoil)+push*.12*strength).limit_length(.23)
+		state.recoil=(Vector2(state.recoil)+push*.16*strength).limit_length(.23)
 		state.recoil_velocity=(Vector2(state.recoil_velocity)+push*strength*1.4).limit_length(3)
 		var torque=clampf(local.cross(push)*.45+push.x*.065,-.18,.18)*strength
 		state.lean=clampf(state.lean+torque,-.25,.25);state.lean_velocity+=torque*6
-		state.flash=.16
-	state.hits += 1
+		state.flash=.07
 	constrain_lattice(state)
 
 static func constrain_lattice(state:Dictionary):

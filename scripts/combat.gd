@@ -548,6 +548,7 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 				gun.shield_delay = float(shield.shieldRechargeDelay)
 				if gun.shield<=0:gun.shield_broken=true;gun.shield_delay=float(shield.maxShieldHealth)/2/float(shield.shieldRechargeRate)
 				impact_feedback(e,b,true)
+				SoftInsect.impact(e,Vector2(b.get("position",e.position)),Vector2(b.get("velocity",Vector2.RIGHT)),float(b.shield_damage)*.2,"shield")
 				b.pierce=1
 				return
 	if b.data["class"]=="BlackHoleProjectile":

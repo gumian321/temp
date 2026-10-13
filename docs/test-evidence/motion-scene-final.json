@@ -1,0 +1,12 @@
+{
+  "suites": [
+    {
+      "suite": "motion_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 124.379,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

@@ -79,6 +79,7 @@ func step(dt: float):
 			if e.hp<=0 or not e.damageable or (e.role=="friendly" if hole.friendly else e.role!="friendly"): continue
 			if e.position.distance_to(hole.position)<hole.radius:
 				e.hp-=hole.damage*dt
+				preload("res://scripts/soft_insect.gd").impact(e,Vector2(hole.position),Vector2(e.position)-Vector2(hole.position),hole.damage*dt,"blackhole")
 				e.last_fx="blackhole"; e.last_friendly=hole.friendly
 				if not e.mission_controlled and e.parent==0: e.position = Vector2(e.position).move_toward(hole.position,hole.force*dt)
 		if not hole.friendly:

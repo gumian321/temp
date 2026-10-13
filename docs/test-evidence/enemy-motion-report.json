@@ -1,0 +1,911 @@
+{
+	"actual_hit_kinds": [
+		"MineController",
+		"AISwarmingUnit",
+		"AIFollowingUnit",
+		"AIBossPartController",
+		"AIBossUnit",
+		"AIGuardUnitController",
+		"AIStation",
+		"AIStationPartController",
+		"AIUnitController",
+		"SpawnerStation"
+	],
+	"checks": [
+		{
+			"name": "Actual source enemy prefabs use the grub art",
+			"passed": true
+		},
+		{
+			"name": "Bounded start/stop/turn body and legs: grub 30FPS",
+			"passed": true
+		},
+		{
+			"name": "Visual pose does not change health",
+			"passed": true
+		},
+		{
+			"name": "No PI wrap flip: grub",
+			"passed": true
+		},
+		{
+			"name": "Bounded start/stop/turn body and legs: grub 60FPS",
+			"passed": true
+		},
+		{
+			"name": "Visual pose does not change health",
+			"passed": true
+		},
+		{
+			"name": "No PI wrap flip: grub",
+			"passed": true
+		},
+		{
+			"name": "Bounded start/stop/turn body and legs: grub 120FPS",
+			"passed": true
+		},
+		{
+			"name": "Visual pose does not change health",
+			"passed": true
+		},
+		{
+			"name": "No PI wrap flip: grub",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: grub cannon",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: grub cannon",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: grub gatling",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: grub gatling",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: grub flame",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: grub flame",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: grub blackhole",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: grub blackhole",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: grub shield",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: grub shield",
+			"passed": true
+		},
+		{
+			"name": "Hit animation leaves AI transform and HP untouched: grub",
+			"passed": true
+		},
+		{
+			"name": "Bounded start/stop/turn body and legs: beetle 30FPS",
+			"passed": true
+		},
+		{
+			"name": "Visual pose does not change health",
+			"passed": true
+		},
+		{
+			"name": "No PI wrap flip: beetle",
+			"passed": true
+		},
+		{
+			"name": "Bounded start/stop/turn body and legs: beetle 60FPS",
+			"passed": true
+		},
+		{
+			"name": "Visual pose does not change health",
+			"passed": true
+		},
+		{
+			"name": "No PI wrap flip: beetle",
+			"passed": true
+		},
+		{
+			"name": "Bounded start/stop/turn body and legs: beetle 120FPS",
+			"passed": true
+		},
+		{
+			"name": "Visual pose does not change health",
+			"passed": true
+		},
+		{
+			"name": "No PI wrap flip: beetle",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: beetle cannon",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: beetle cannon",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: beetle gatling",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: beetle gatling",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: beetle flame",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: beetle flame",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: beetle blackhole",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: beetle blackhole",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: beetle shield",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: beetle shield",
+			"passed": true
+		},
+		{
+			"name": "Hit animation leaves AI transform and HP untouched: beetle",
+			"passed": true
+		},
+		{
+			"name": "Bounded start/stop/turn body and legs: moth 30FPS",
+			"passed": true
+		},
+		{
+			"name": "Visual pose does not change health",
+			"passed": true
+		},
+		{
+			"name": "No PI wrap flip: moth",
+			"passed": true
+		},
+		{
+			"name": "Bounded start/stop/turn body and legs: moth 60FPS",
+			"passed": true
+		},
+		{
+			"name": "Visual pose does not change health",
+			"passed": true
+		},
+		{
+			"name": "No PI wrap flip: moth",
+			"passed": true
+		},
+		{
+			"name": "Bounded start/stop/turn body and legs: moth 120FPS",
+			"passed": true
+		},
+		{
+			"name": "Visual pose does not change health",
+			"passed": true
+		},
+		{
+			"name": "No PI wrap flip: moth",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: moth cannon",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: moth cannon",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: moth gatling",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: moth gatling",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: moth flame",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: moth flame",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: moth blackhole",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: moth blackhole",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: moth shield",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: moth shield",
+			"passed": true
+		},
+		{
+			"name": "Hit animation leaves AI transform and HP untouched: moth",
+			"passed": true
+		},
+		{
+			"name": "Bounded start/stop/turn body and legs: sac 30FPS",
+			"passed": true
+		},
+		{
+			"name": "Visual pose does not change health",
+			"passed": true
+		},
+		{
+			"name": "No PI wrap flip: sac",
+			"passed": true
+		},
+		{
+			"name": "Bounded start/stop/turn body and legs: sac 60FPS",
+			"passed": true
+		},
+		{
+			"name": "Visual pose does not change health",
+			"passed": true
+		},
+		{
+			"name": "No PI wrap flip: sac",
+			"passed": true
+		},
+		{
+			"name": "Bounded start/stop/turn body and legs: sac 120FPS",
+			"passed": true
+		},
+		{
+			"name": "Visual pose does not change health",
+			"passed": true
+		},
+		{
+			"name": "No PI wrap flip: sac",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: sac cannon",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: sac cannon",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: sac gatling",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: sac gatling",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: sac flame",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: sac flame",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: sac blackhole",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: sac blackhole",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: sac shield",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: sac shield",
+			"passed": true
+		},
+		{
+			"name": "Hit animation leaves AI transform and HP untouched: sac",
+			"passed": true
+		},
+		{
+			"name": "Bounded start/stop/turn body and legs: mantis 30FPS",
+			"passed": true
+		},
+		{
+			"name": "Visual pose does not change health",
+			"passed": true
+		},
+		{
+			"name": "No PI wrap flip: mantis",
+			"passed": true
+		},
+		{
+			"name": "Bounded start/stop/turn body and legs: mantis 60FPS",
+			"passed": true
+		},
+		{
+			"name": "Visual pose does not change health",
+			"passed": true
+		},
+		{
+			"name": "No PI wrap flip: mantis",
+			"passed": true
+		},
+		{
+			"name": "Bounded start/stop/turn body and legs: mantis 120FPS",
+			"passed": true
+		},
+		{
+			"name": "Visual pose does not change health",
+			"passed": true
+		},
+		{
+			"name": "No PI wrap flip: mantis",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: mantis cannon",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: mantis cannon",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: mantis gatling",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: mantis gatling",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: mantis flame",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: mantis flame",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: mantis blackhole",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: mantis blackhole",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: mantis shield",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: mantis shield",
+			"passed": true
+		},
+		{
+			"name": "Hit animation leaves AI transform and HP untouched: mantis",
+			"passed": true
+		},
+		{
+			"name": "Bounded start/stop/turn body and legs: queen 30FPS",
+			"passed": true
+		},
+		{
+			"name": "Visual pose does not change health",
+			"passed": true
+		},
+		{
+			"name": "No PI wrap flip: queen",
+			"passed": true
+		},
+		{
+			"name": "Bounded start/stop/turn body and legs: queen 60FPS",
+			"passed": true
+		},
+		{
+			"name": "Visual pose does not change health",
+			"passed": true
+		},
+		{
+			"name": "No PI wrap flip: queen",
+			"passed": true
+		},
+		{
+			"name": "Bounded start/stop/turn body and legs: queen 120FPS",
+			"passed": true
+		},
+		{
+			"name": "Visual pose does not change health",
+			"passed": true
+		},
+		{
+			"name": "No PI wrap flip: queen",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: queen cannon",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: queen cannon",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: queen gatling",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: queen gatling",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: queen flame",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: queen flame",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: queen blackhole",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: queen blackhole",
+			"passed": true
+		},
+		{
+			"name": "High-rate body feedback stays bounded: queen shield",
+			"passed": true
+		},
+		{
+			"name": "Body recovers after sustained fire: queen shield",
+			"passed": true
+		},
+		{
+			"name": "Hit animation leaves AI transform and HP untouched: queen",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: MineController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIFollowingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIFollowingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIFollowingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIFollowingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIFollowingUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossUnit",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIBossPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIGuardUnitController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIGuardUnitController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIStation",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIStationPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIStationPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIStationPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIStationPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIStationPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIStationPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIStationPartController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: AIUnitController",
+			"passed": true
+		},
+		{
+			"name": "Combat hit reaches body: SpawnerStation",
+			"passed": true
+		}
+	],
+	"grub_source_ids": [
+		{
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_1",
+			"pool": "275",
+			"prefab": "b6dbff10a154b6e4595c2f87534352cb"
+		},
+		{
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_2",
+			"pool": "276",
+			"prefab": "4e72941f8cce31e45a7135ebe397b75a"
+		},
+		{
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_3",
+			"pool": "277",
+			"prefab": "c3cccf91095f996468c8b96def0e0496"
+		},
+		{
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_4",
+			"pool": "278",
+			"prefab": "a117abebb2af7b942aa86c6f2da843eb"
+		},
+		{
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_5",
+			"pool": "279",
+			"prefab": "6d53424734dadf849ad36d52bafe05e5"
+		},
+		{
+			"kind": "AIUnitController",
+			"name": "AI_Station_Spawner",
+			"pool": "408",
+			"prefab": "72532110ebe489f49a5510fdb6f79933"
+		}
+	],
+	"measurements": [
+		{
+			"fps": 30,
+			"gait_cycles": 8.16239588488308,
+			"max_leg_radians_per_second": 9.0000057220459,
+			"max_offset_step": 0.0158836282789707,
+			"species": "grub"
+		},
+		{
+			"fps": 60,
+			"gait_cycles": 8.1631705660323,
+			"max_leg_radians_per_second": 9.0000057220459,
+			"max_offset_step": 0.00830636359751225,
+			"species": "grub"
+		},
+		{
+			"fps": 120,
+			"gait_cycles": 8.16317056603231,
+			"max_leg_radians_per_second": 9.0000057220459,
+			"max_offset_step": 0.00419603986665606,
+			"species": "grub"
+		},
+		{
+			"fps": 30,
+			"gait_cycles": 8.16239588488308,
+			"max_leg_radians_per_second": 9.0000057220459,
+			"max_offset_step": 0.0158836282789707,
+			"species": "beetle"
+		},
+		{
+			"fps": 60,
+			"gait_cycles": 8.1631705660323,
+			"max_leg_radians_per_second": 9.0000057220459,
+			"max_offset_step": 0.00830636359751225,
+			"species": "beetle"
+		},
+		{
+			"fps": 120,
+			"gait_cycles": 8.16317056603231,
+			"max_leg_radians_per_second": 9.0000057220459,
+			"max_offset_step": 0.00419603986665606,
+			"species": "beetle"
+		},
+		{
+			"fps": 30,
+			"gait_cycles": 8.16239588488308,
+			"max_leg_radians_per_second": 9.0000057220459,
+			"max_offset_step": 0.0158836282789707,
+			"species": "moth"
+		},
+		{
+			"fps": 60,
+			"gait_cycles": 8.1631705660323,
+			"max_leg_radians_per_second": 9.0000057220459,
+			"max_offset_step": 0.00830636359751225,
+			"species": "moth"
+		},
+		{
+			"fps": 120,
+			"gait_cycles": 8.16317056603231,
+			"max_leg_radians_per_second": 9.0000057220459,
+			"max_offset_step": 0.00419603986665606,
+			"species": "moth"
+		},
+		{
+			"fps": 30,
+			"gait_cycles": 8.16239588488308,
+			"max_leg_radians_per_second": 9.0000057220459,
+			"max_offset_step": 0.0158836282789707,
+			"species": "sac"
+		},
+		{
+			"fps": 60,
+			"gait_cycles": 8.1631705660323,
+			"max_leg_radians_per_second": 9.0000057220459,
+			"max_offset_step": 0.00830636359751225,
+			"species": "sac"
+		},
+		{
+			"fps": 120,
+			"gait_cycles": 8.16317056603231,
+			"max_leg_radians_per_second": 8.99997711181641,
+			"max_offset_step": 0.00419603986665606,
+			"species": "sac"
+		},
+		{
+			"fps": 30,
+			"gait_cycles": 8.16239588488308,
+			"max_leg_radians_per_second": 7.44795799255371,
+			"max_offset_step": 0.0158836282789707,
+			"species": "mantis"
+		},
+		{
+			"fps": 60,
+			"gait_cycles": 8.1631705660323,
+			"max_leg_radians_per_second": 7.53779411315918,
+			"max_offset_step": 0.00830636359751225,
+			"species": "mantis"
+		},
+		{
+			"fps": 120,
+			"gait_cycles": 8.16317056603231,
+			"max_leg_radians_per_second": 7.55776405334473,
+			"max_offset_step": 0.00419603986665606,
+			"species": "mantis"
+		},
+		{
+			"fps": 30,
+			"gait_cycles": 8.16239588488308,
+			"max_leg_radians_per_second": 9.0000057220459,
+			"max_offset_step": 0.0158836282789707,
+			"species": "queen"
+		},
+		{
+			"fps": 60,
+			"gait_cycles": 8.1631705660323,
+			"max_leg_radians_per_second": 9.0000057220459,
+			"max_offset_step": 0.00830636359751225,
+			"species": "queen"
+		},
+		{
+			"fps": 120,
+			"gait_cycles": 8.16317056603231,
+			"max_leg_radians_per_second": 9.0000057220459,
+			"max_offset_step": 0.00419603986665606,
+			"species": "queen"
+		}
+	],
+	"passed": true
+}

@@ -1,0 +1,40 @@
+{
+  "suites": [
+    {
+      "suite": "reward_flow",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 14.194,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "battle_hud",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 9.567,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "mission_select",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 34.646,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "blue_ink_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 14.543,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "motion_scene",
+      "passed": false,
+      "error": "120-second timeout",
+      "seconds": 120.144,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": false
+}

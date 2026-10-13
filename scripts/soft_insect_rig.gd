@@ -25,7 +25,9 @@ var hit_fx:Node2D
 var visual_offset=Vector2.ZERO
 var visual_angle=0.0
 var walk_amount=0.0
-const STRIDE={"grub":.20,"beetle":.40,"moth":.44,"sac":.36,"mantis":.44,"queen":.38}
+var gait_speed=0.0
+var display_heading=0.0
+const STRIDE={"grub":1.0,"beetle":1.15,"moth":1.3,"sac":1.0,"mantis":1.3,"queen":1.1}
 @export var preview_species=""
 
 func _ready():
@@ -161,7 +163,7 @@ func _build_hinge(kind:String,pivot:Vector2,region:PackedVector2Array,body:Packe
 	for clipped in Geometry2D.clip_polygons(region,body):_cutout(hinge,_flipped_polygon(clipped,side),p,0)
 
 func _bind_appendages():
-	previous_position=entity.position;previous_angle=float(entity.angle)+PI/2
+	previous_position=entity.position;previous_angle=float(entity.angle)+PI/2;display_heading=previous_angle
 	for node in limb_skeleton.get_children():
 		var anchor:Vector2=node.get_meta("anchor")
 		var item={"node":node,"anchor":anchor,"weights":_skin_weights(anchor/aspect),"side":int(node.get_meta("side"))}
@@ -177,8 +179,8 @@ func _bind_appendages():
 			"Wing":wings.append(item)
 			"Feeler":feelers.append(item)
 
-func _to_world(p:Vector2)->Vector2:return Vector2(entity.position)+(p+visual_offset).rotated(float(entity.angle)+PI/2+visual_angle)*Brood.extent(entity)*.5
-func _from_world(p:Vector2)->Vector2:return (p-Vector2(entity.position)).rotated(-float(entity.angle)-PI/2-visual_angle)/(Brood.extent(entity)*.5)-visual_offset
+func _to_world(p:Vector2)->Vector2:return Vector2(entity.position)+(p+visual_offset).rotated(display_heading+visual_angle)*Brood.extent(entity)*.5
+func _from_world(p:Vector2)->Vector2:return (p-Vector2(entity.position)).rotated(-display_heading-visual_angle)/(Brood.extent(entity)*.5)-visual_offset
 
 func _attachment(item:Dictionary)->Vector2:
 	var result=Vector2.ZERO
@@ -209,7 +211,7 @@ func _pose_leg(item:Dictionary,moving:bool,travel:Vector2,dt:float):
 		item.swing_u=u
 		var smooth=u*u*(3-2*u)
 		var lift=minf(.16,(item.l1+item.l2)*.30)
-		item.world_foot=Vector2(item.swing_start).lerp(item.swing_end,smooth)+Vector2(-item.side*lift,-.035).rotated(float(entity.angle)+PI/2)*Brood.extent(entity)*.5*sin(u*PI)
+		item.world_foot=Vector2(item.swing_start).lerp(item.swing_end,smooth)+Vector2(-item.side*lift,-.035).rotated(display_heading)*Brood.extent(entity)*.5*sin(u*PI)
 		if not moving and u>=1:item.swing=false
 	elif item.swing:
 		item.world_foot=item.swing_end;item.swing=false
@@ -218,10 +220,10 @@ func _pose_leg(item:Dictionary,moving:bool,travel:Vector2,dt:float):
 	var distance=clampf(target.length(),absf(item.l1-item.l2)+.001,item.l1+item.l2-.001)
 	var along=target.angle()
 	var bend=acos(clampf((item.l1*item.l1+distance*distance-item.l2*item.l2)/(2*item.l1*distance),-1,1))
-	upper.rotation=along+item.bend*bend
+	upper.rotation=rotate_toward(upper.rotation,along+item.bend*bend,9.0*maxf(dt,0))
 	var knee=upper.position+Vector2.from_angle(upper.rotation)*item.l1
 	var reachable=upper.position+Vector2.from_angle(along)*distance
-	lower.rotation=(reachable-knee).angle()-upper.rotation
+	lower.rotation=rotate_toward(lower.rotation,(reachable-knee).angle()-upper.rotation,12.0*maxf(dt,0))
 
 func pose(dt:float,dying:bool=false):
 	if mesh==null:return
@@ -231,14 +233,27 @@ func pose(dt:float,dying:bool=false):
 	var species=Brood.species(entity)
 	var travel:Vector2=Vector2(entity.position)-previous_position
 	var turn=angle_difference(previous_angle,float(entity.angle)+PI/2)
-	var advance=travel.length()/(Brood.extent(entity)*.5)+absf(turn)*.4
-	var moving=dt>0 and advance>.00001 and not dying and float(state.hold)<=0
-	walk_amount=move_toward(walk_amount,1.0 if moving else 0.0,dt*9)
-	if moving:gait+=minf(advance,.15)*TAU/STRIDE[species]
-	visual_offset=Vector2(state.recoil)+Vector2(sin(gait)*.025,cos(gait*2)*.038)*walk_amount
-	visual_angle=float(state.lean)+sin(gait)*.055*walk_amount
+	# Derive a bounded cycle rate from world speed, not a per-frame distance cap.
+	# Tiny sprites previously took 10-20 strides per second and vibrated at 2x that rate.
+	var span=maxf(1.0,Brood.extent(entity)*.5)
+	var relocated=travel.length()>span*4.0
+	var measured=(travel.length()+absf(turn)*span*.12)/maxf(dt,.0001) if dt>0 and not relocated else 0.0
+	var target_rate=clampf(measured/(span*STRIDE[species]),0.0,2.8)
+	var held=dying or float(state.hold)>0
+	if held:target_rate=0.0
+	var response=1.0-exp(-12.0*maxf(dt,0))
+	var cycle_advance=target_rate*maxf(dt,0)+(gait_speed-target_rate)*response/12.0
+	gait_speed=lerpf(gait_speed,target_rate,response)
+	var moving=dt>0 and gait_speed>.04 and not held
+	walk_amount=move_toward(walk_amount,clampf(gait_speed,0,1) if moving else 0.0,dt*6)
+	if moving:gait+=maxf(0,cycle_advance)*TAU
+	display_heading=lerp_angle(display_heading,float(entity.angle)+PI/2,1.0-exp(-14.0*maxf(dt,0)))
+	visual_offset=Vector2(state.recoil)+Vector2(sin(gait)*.009,cos(gait*2)*.014)*walk_amount
+	visual_angle=float(state.lean)+sin(gait)*.018*walk_amount
+	if relocated:
+		for item in legs:item.world_foot=_to_world(item.rest_tip);item.swing=false;item.swing_u=0.0
 	mesh.position=visual_offset;limb_skeleton.position=visual_offset;hit_fx.position=visual_offset
-	rotation=float(entity.get("angle",0))+PI/2+visual_angle
+	rotation=display_heading+visual_angle
 	var push:Vector2=state.direction;var side=push.orthogonal()
 	var squeeze=minf(.26,float(state.shock)*.20)
 	var center=Vector2(0,rest_points[7].y)*aspect
@@ -248,13 +263,13 @@ func pose(dt:float,dying:bool=false):
 		# Head/thorax resist deformation; the abdomen retains the spring impulse.
 		var softness=lerpf(.22,1.0,belly)
 		var sway=Vector2(sin(t*4.2-rest.y*3.2)*.038,cos(t*3.7-rest.y*2.8)*.027)*belly
-		sway+=Vector2(sin(gait-rest.y*4.0)*.070,cos(gait*2-rest.y*3.5)*.048)*belly*walk_amount
+		sway+=Vector2(sin(gait-rest.y*4.0)*.025,cos(gait*2-rest.y*3.5)*.018)*belly*walk_amount
 		if species=="beetle":sway*=.65
 		var collapse=Vector2(rest.x*.18,-rest.y*.42)*clampf(death_age/.28,0,1)*softness
 		var p=(rest+Vector2(state.offset[i])*softness+sway+collapse)*aspect
 		var delta=p-center
 		bones[i].position=p-push*delta.dot(push)*squeeze*softness+side*delta.dot(side)*squeeze*.30*softness
-		bones[i].rotation=(sin(t*4.5-rest.y*3.5)*.032+sin(gait-rest.y*3.5)*.07*walk_amount+float(state.offset[i].x)*.25)*softness
+		bones[i].rotation=(sin(t*4.5-rest.y*3.5)*.032+sin(gait-rest.y*3.5)*.025*walk_amount+float(state.offset[i].x)*.25)*softness
 	for item in legs:_pose_leg(item,moving,travel,dt)
 	for item in wings:
 		item.node.position=_attachment(item)

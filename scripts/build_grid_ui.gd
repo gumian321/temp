@@ -38,6 +38,7 @@ func setup(owner_game):
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	selected_segment = clampi(game.build_selected_segment,1,player.segment_count())
 	page = (selected_segment-1)/PAGE_SIZE
+	if game.reward_flow_active and not player.pending.is_empty():selected_data={"kind":"inventory","index":0,"id":player.pending[0]}
 	rebuild()
 
 func text_at(content: String, at: Vector2, extent: Vector2, px: int = 20) -> Label:
@@ -72,7 +73,7 @@ func rebuild():
 	for child in get_children():
 		remove_child(child); child.queue_free()
 	slots.clear(); inventory.clear(); segment_buttons.clear(); stat_targets.clear()
-	text_at("武装",Vector2(48,34),Vector2(280,50),34)
+	text_at("安放奖励" if game.reward_flow_active else "武装",Vector2(48,34),Vector2(280,50),34)
 	text_at("%d / 60" % (player.parts.size()-1),Vector2(1180,47),Vector2(180,32),20)
 	text_at("待装",Vector2(58,230),Vector2(160,36),23)
 	text_at(str(player.pending.size()),Vector2(261,236),Vector2(36,28),18)
@@ -125,6 +126,9 @@ func rebuild():
 	hint = text_at("",Vector2(48,823),Vector2(1040,42),17)
 	hint.add_theme_color_override("font_color",Color("b45846")); hint.visible = false
 	return_button = action_button("出战  →",Vector2(1170,812),Vector2(190,52),game.show_game,not player.pending.is_empty())
+	if game.reward_flow_active:
+		action_button("稍后安装",Vector2(1008,812),Vector2(142,52),game.postpone_rewards)
+		return_button.text="安装后继续"
 	return_button.tooltip_text = "E 返回战斗" if player.pending.is_empty() else "先将左侧模块放入空位"
 	rebuilding = false
 	inspect({})
@@ -202,7 +206,7 @@ func inspect(data: Dictionary):
 	if detail!=null:
 		detail.text = "实装预览" if shown.is_empty() else db.title(db.asset(shown.get("id",shown.get("part",{}).get("id",""))))
 	var mounted = selected_data.get("kind") == "mounted"
-	copy_button.visible = mounted; armor_button.visible = mounted
+	copy_button.visible = mounted and not game.reward_flow_active; armor_button.visible = mounted and not game.reward_flow_active
 	copy_button.disabled = player.actions.duplicate<=0
 	armor_button.disabled = player.actions.wall<=0 or selected_data.get("part",{}).get("wall",false)
 	var core = db.asset(shown.get("id",shown.get("part",{}).get("id","")))
@@ -259,7 +263,7 @@ func can_drop(target: Dictionary, data: Dictionary) -> bool:
 	if data.get("kind") == "mounted":
 		var index = player.parts.find(data.get("part",{}))
 		if index<=0: return false
-		if copying: return player.actions.duplicate>0 and player.parts.size()<=60 and player.can_mount(dest.x,dest.y)
+		if copying: return player.actions.duplicate>0 and player.parts.size()+player.pending.size()<=60 and player.can_mount(dest.x,dest.y)
 		var occupant = player.part_at(dest.x,dest.y)
 		if occupant>=0: return occupant!=index and player.actions.swap>0
 		return player.actions.move>0 and player.can_mount(dest.x,dest.y)
@@ -286,7 +290,10 @@ func drop(target: Dictionary, data: Dictionary):
 	if changed:
 		selected_data = {}; inspected_data = {}; active_drag_data = {}; hovered_target = {}; copying = false
 		selected_segment = dest.x; game.build_selected_segment = dest.x; page = (dest.x-1)/PAGE_SIZE
-		game.audio_system.play(70); rebuild.call_deferred(); game.queue_redraw()
+		game.audio_system.play(70)
+		if game.reward_flow_active:game.reward_placement_changed.call_deferred()
+		else:rebuild.call_deferred()
+		game.queue_redraw()
 	else: toast(player.last_error)
 
 func click(target: Dictionary, data: Dictionary):
@@ -296,6 +303,8 @@ func click(target: Dictionary, data: Dictionary):
 		selected_data = data.duplicate(); copying = false; rebuild.call_deferred()
 	elif not selected_data.is_empty() and (data.is_empty() or copying or selected_data.kind == "mounted"):
 		drop(target,selected_data)
+	elif game.reward_flow_active and selected_data.get("kind")=="inventory":
+		toast("请选择空位")
 	elif not data.is_empty():
 		selected_data = data.duplicate(); rebuild.call_deferred()
 

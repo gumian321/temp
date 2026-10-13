@@ -1,0 +1,169 @@
+{
+	"captures": [
+		"res://artifacts/hud-1440x900.png",
+		"res://artifacts/hud-1280x720.png",
+		"res://artifacts/hud-1920x1080.png"
+	],
+	"checks": [
+		{
+			"name": "Start/restart 0 enters combat without confirmation",
+			"passed": true
+		},
+		{
+			"name": "First frame advances without tip input",
+			"passed": true
+		},
+		{
+			"name": "Start/restart 1 enters combat without confirmation",
+			"passed": true
+		},
+		{
+			"name": "First frame advances without tip input",
+			"passed": true
+		},
+		{
+			"name": "Start/restart 2 enters combat without confirmation",
+			"passed": true
+		},
+		{
+			"name": "First frame advances without tip input",
+			"passed": true
+		},
+		{
+			"name": "Zero fuel capacity has explicit no-tank state",
+			"passed": true
+		},
+		{
+			"name": "Initial health uses real maximum",
+			"passed": true
+		},
+		{
+			"name": "Initial capacities use source limits",
+			"passed": true
+		},
+		{
+			"name": "Damage refreshes remaining health in the real loop",
+			"passed": true
+		},
+		{
+			"name": "Fuel reports half of actual tank capacity",
+			"passed": true
+		},
+		{
+			"name": "Capacity fill bounded for [0, 60]",
+			"passed": true
+		},
+		{
+			"name": "Capacity fill bounded for [60, 60]",
+			"passed": true
+		},
+		{
+			"name": "Capacity fill bounded for [65, 60]",
+			"passed": true
+		},
+		{
+			"name": "Capacity fill bounded for [-3, 60]",
+			"passed": true
+		},
+		{
+			"name": "Capacity fill bounded for [3, 0]",
+			"passed": true
+		},
+		{
+			"name": "No limit is not represented as a full or dividing-by-zero bar",
+			"passed": true
+		},
+		{
+			"name": "Over-cap numeric count remains truthful",
+			"passed": true
+		},
+		{
+			"name": "Cumulative danger 0.0",
+			"passed": true
+		},
+		{
+			"name": "Cumulative danger 1.0",
+			"passed": true
+		},
+		{
+			"name": "Cumulative danger 1.65",
+			"passed": true
+		},
+		{
+			"name": "Countdown remains text with remaining time",
+			"passed": true
+		},
+		{
+			"name": "Endless shows elapsed text, not a countdown bar",
+			"passed": true
+		},
+		{
+			"name": "Head drone capacity excludes module-owned drones",
+			"passed": true
+		},
+		{
+			"name": "Packs and scrap remain numeric text",
+			"passed": true
+		},
+		{
+			"name": "HUD stays at viewport edges without covering centre at (1440, 900)",
+			"passed": true
+		},
+		{
+			"name": "Capture 1440x900",
+			"passed": true
+		},
+		{
+			"name": "HUD stays at viewport edges without covering centre at (1280, 720)",
+			"passed": true
+		},
+		{
+			"name": "Capture 1280x720",
+			"passed": true
+		},
+		{
+			"name": "HUD stays at viewport edges without covering centre at (1920, 1080)",
+			"passed": true
+		},
+		{
+			"name": "Capture 1920x1080",
+			"passed": true
+		},
+		{
+			"name": "E build button remains clickable",
+			"passed": true
+		},
+		{
+			"name": "Returning rebuilds HUD with current values",
+			"passed": true
+		},
+		{
+			"name": "Tips data and video resources retained",
+			"passed": true
+		}
+	],
+	"geometry": [
+		{
+			"passed": true,
+			"window": [
+				1440,
+				900
+			]
+		},
+		{
+			"passed": true,
+			"window": [
+				1280,
+				720
+			]
+		},
+		{
+			"passed": true,
+			"window": [
+				1920,
+				1080
+			]
+		}
+	],
+	"passed": true
+}

@@ -1,0 +1,12 @@
+{
+  "suites": [
+    {
+      "suite": "reward_flow",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 5.506,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

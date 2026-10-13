@@ -1,0 +1,10 @@
+{
+  "generator": "OpenAI image_gen.imagegen",
+  "date": "2026-10-13",
+  "original": "/workspace/generated_images/exec-ec40a560-73e4-48fd-9923-6ebe9ddc6500.png",
+  "asset": "assets/blue_ink/centipede_leg_links.png",
+  "sha256": "6febfeb1f6c9732bc029da61b3c295db93ffce0830bb72bf20d023c84c1c1210",
+  "transparent_background": true,
+  "pixel_edits": "None. Original PNG copied unchanged; Godot AtlasTexture regions and mipmap import used.",
+  "runtime": "Two-link inverse kinematics, world-space planted feet and controlled replant on tight turns. No player physics or collision modifications."
+}

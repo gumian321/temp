@@ -1,0 +1,699 @@
+{
+	"captures": [
+		"res://artifacts/mission-ui-1440x900.png",
+		"res://artifacts/mission-ui-1280x720.png",
+		"res://artifacts/mission-ui-1920x1080.png",
+		"res://artifacts/mission-ui-1100x820.png",
+		"res://artifacts/mission-ui-1440x900.png",
+		"res://artifacts/mission-ui-stretched-1280x720.png",
+		"res://artifacts/mission-ui-stretched-1920x1080.png",
+		"res://artifacts/mission-ui-locked.png"
+	],
+	"checks": [
+		{
+			"name": "All six source missions present",
+			"passed": true
+		},
+		{
+			"name": "Selected difficulty remains dark and readable while hovered",
+			"passed": true
+		},
+		{
+			"name": "Initial focus follows selected mission",
+			"passed": true
+		},
+		{
+			"name": "Board centred at 1440x900",
+			"passed": true
+		},
+		{
+			"name": "Board inside viewport at 1440x900",
+			"passed": true
+		},
+		{
+			"name": "Buttons and text inside board at 1440x900",
+			"passed": true
+		},
+		{
+			"name": "Captured 1440x900",
+			"passed": true
+		},
+		{
+			"name": "Board centred at 1280x720",
+			"passed": true
+		},
+		{
+			"name": "Board inside viewport at 1280x720",
+			"passed": true
+		},
+		{
+			"name": "Buttons and text inside board at 1280x720",
+			"passed": true
+		},
+		{
+			"name": "Captured 1280x720",
+			"passed": true
+		},
+		{
+			"name": "Board centred at 1920x1080",
+			"passed": true
+		},
+		{
+			"name": "Board inside viewport at 1920x1080",
+			"passed": true
+		},
+		{
+			"name": "Buttons and text inside board at 1920x1080",
+			"passed": true
+		},
+		{
+			"name": "Captured 1920x1080",
+			"passed": true
+		},
+		{
+			"name": "Board centred at 1100x820",
+			"passed": true
+		},
+		{
+			"name": "Board inside viewport at 1100x820",
+			"passed": true
+		},
+		{
+			"name": "Buttons and text inside board at 1100x820",
+			"passed": true
+		},
+		{
+			"name": "Captured 1100x820",
+			"passed": true
+		},
+		{
+			"name": "Board centred at 1440x900",
+			"passed": true
+		},
+		{
+			"name": "Board inside viewport at 1440x900",
+			"passed": true
+		},
+		{
+			"name": "Buttons and text inside board at 1440x900",
+			"passed": true
+		},
+		{
+			"name": "Captured 1440x900",
+			"passed": true
+		},
+		{
+			"name": "Board centred at stretched-1280x720",
+			"passed": true
+		},
+		{
+			"name": "Board inside viewport at stretched-1280x720",
+			"passed": true
+		},
+		{
+			"name": "Buttons and text inside board at stretched-1280x720",
+			"passed": true
+		},
+		{
+			"name": "Captured stretched-1280x720",
+			"passed": true
+		},
+		{
+			"name": "Board centred at stretched-1920x1080",
+			"passed": true
+		},
+		{
+			"name": "Board inside viewport at stretched-1920x1080",
+			"passed": true
+		},
+		{
+			"name": "Buttons and text inside board at stretched-1920x1080",
+			"passed": true
+		},
+		{
+			"name": "Captured stretched-1920x1080",
+			"passed": true
+		},
+		{
+			"name": "Board centred at english-mission-0",
+			"passed": true
+		},
+		{
+			"name": "Board inside viewport at english-mission-0",
+			"passed": true
+		},
+		{
+			"name": "Buttons and text inside board at english-mission-0",
+			"passed": true
+		},
+		{
+			"name": "Board centred at english-mission-1",
+			"passed": true
+		},
+		{
+			"name": "Board inside viewport at english-mission-1",
+			"passed": true
+		},
+		{
+			"name": "Buttons and text inside board at english-mission-1",
+			"passed": true
+		},
+		{
+			"name": "Board centred at english-mission-2",
+			"passed": true
+		},
+		{
+			"name": "Board inside viewport at english-mission-2",
+			"passed": true
+		},
+		{
+			"name": "Buttons and text inside board at english-mission-2",
+			"passed": true
+		},
+		{
+			"name": "Board centred at english-mission-3",
+			"passed": true
+		},
+		{
+			"name": "Board inside viewport at english-mission-3",
+			"passed": true
+		},
+		{
+			"name": "Buttons and text inside board at english-mission-3",
+			"passed": true
+		},
+		{
+			"name": "Board centred at english-mission-4",
+			"passed": true
+		},
+		{
+			"name": "Board inside viewport at english-mission-4",
+			"passed": true
+		},
+		{
+			"name": "Buttons and text inside board at english-mission-4",
+			"passed": true
+		},
+		{
+			"name": "Board centred at english-mission-5",
+			"passed": true
+		},
+		{
+			"name": "Board inside viewport at english-mission-5",
+			"passed": true
+		},
+		{
+			"name": "Buttons and text inside board at english-mission-5",
+			"passed": true
+		},
+		{
+			"name": "Mouse selects mission 0",
+			"passed": true
+		},
+		{
+			"name": "Difficulty 0 selected for mission 0",
+			"passed": true
+		},
+		{
+			"name": "Objective time follows selected difficulty",
+			"passed": true
+		},
+		{
+			"name": "Difficulty 1 selected for mission 0",
+			"passed": true
+		},
+		{
+			"name": "Objective time follows selected difficulty",
+			"passed": true
+		},
+		{
+			"name": "Difficulty 2 selected for mission 0",
+			"passed": true
+		},
+		{
+			"name": "Objective time follows selected difficulty",
+			"passed": true
+		},
+		{
+			"name": "Mouse selects mission 1",
+			"passed": true
+		},
+		{
+			"name": "Difficulty 0 selected for mission 1",
+			"passed": true
+		},
+		{
+			"name": "Objective time follows selected difficulty",
+			"passed": true
+		},
+		{
+			"name": "Difficulty 1 selected for mission 1",
+			"passed": true
+		},
+		{
+			"name": "Objective time follows selected difficulty",
+			"passed": true
+		},
+		{
+			"name": "Difficulty 2 selected for mission 1",
+			"passed": true
+		},
+		{
+			"name": "Objective time follows selected difficulty",
+			"passed": true
+		},
+		{
+			"name": "Mouse selects mission 2",
+			"passed": true
+		},
+		{
+			"name": "Difficulty 0 selected for mission 2",
+			"passed": true
+		},
+		{
+			"name": "Objective time follows selected difficulty",
+			"passed": true
+		},
+		{
+			"name": "Difficulty 1 selected for mission 2",
+			"passed": true
+		},
+		{
+			"name": "Objective time follows selected difficulty",
+			"passed": true
+		},
+		{
+			"name": "Difficulty 2 selected for mission 2",
+			"passed": true
+		},
+		{
+			"name": "Objective time follows selected difficulty",
+			"passed": true
+		},
+		{
+			"name": "Mouse selects mission 3",
+			"passed": true
+		},
+		{
+			"name": "Difficulty 0 selected for mission 3",
+			"passed": true
+		},
+		{
+			"name": "Objective time follows selected difficulty",
+			"passed": true
+		},
+		{
+			"name": "Difficulty 1 selected for mission 3",
+			"passed": true
+		},
+		{
+			"name": "Objective time follows selected difficulty",
+			"passed": true
+		},
+		{
+			"name": "Difficulty 2 selected for mission 3",
+			"passed": true
+		},
+		{
+			"name": "Objective time follows selected difficulty",
+			"passed": true
+		},
+		{
+			"name": "Mouse selects mission 4",
+			"passed": true
+		},
+		{
+			"name": "Difficulty 0 selected for mission 4",
+			"passed": true
+		},
+		{
+			"name": "Objective time follows selected difficulty",
+			"passed": true
+		},
+		{
+			"name": "Difficulty 1 selected for mission 4",
+			"passed": true
+		},
+		{
+			"name": "Objective time follows selected difficulty",
+			"passed": true
+		},
+		{
+			"name": "Difficulty 2 selected for mission 4",
+			"passed": true
+		},
+		{
+			"name": "Objective time follows selected difficulty",
+			"passed": true
+		},
+		{
+			"name": "Mouse selects mission 5",
+			"passed": true
+		},
+		{
+			"name": "Difficulty 0 selected for mission 5",
+			"passed": true
+		},
+		{
+			"name": "Objective time follows selected difficulty",
+			"passed": true
+		},
+		{
+			"name": "Difficulty 1 selected for mission 5",
+			"passed": true
+		},
+		{
+			"name": "Objective time follows selected difficulty",
+			"passed": true
+		},
+		{
+			"name": "Difficulty 2 selected for mission 5",
+			"passed": true
+		},
+		{
+			"name": "Objective time follows selected difficulty",
+			"passed": true
+		},
+		{
+			"name": "Locked mission cannot be launched without points",
+			"passed": true
+		},
+		{
+			"name": "Captured locked",
+			"passed": true
+		},
+		{
+			"name": "Unlock charges once and stays on briefing",
+			"passed": true
+		},
+		{
+			"name": "Reward pool opens from briefing",
+			"passed": true
+		},
+		{
+			"name": "Reward pool Escape preserves mission and difficulty",
+			"passed": true
+		},
+		{
+			"name": "Reset reward modifiers still works",
+			"passed": true
+		},
+		{
+			"name": "Back button returns home",
+			"passed": true
+		},
+		{
+			"name": "Repeated opening restores focus",
+			"passed": true
+		},
+		{
+			"name": "Back button returns home",
+			"passed": true
+		},
+		{
+			"name": "Repeated opening restores focus",
+			"passed": true
+		},
+		{
+			"name": "Back button returns home",
+			"passed": true
+		},
+		{
+			"name": "Repeated opening restores focus",
+			"passed": true
+		},
+		{
+			"name": "Keyboard down moves through mission list",
+			"passed": true
+		},
+		{
+			"name": "Keyboard Enter chooses focused mission",
+			"passed": true
+		},
+		{
+			"name": "Keyboard right reaches difficulty",
+			"passed": true
+		},
+		{
+			"name": "Controller D-pad and A select mission",
+			"passed": true
+		},
+		{
+			"name": "Controller B returns home",
+			"passed": true
+		},
+		{
+			"name": "Escape returns home from briefing",
+			"passed": true
+		},
+		{
+			"name": "Deploy directly enters the selected mission",
+			"passed": true
+		},
+		{
+			"name": "No extra confirmation is needed",
+			"passed": true
+		}
+	],
+	"controller": "Injected Godot events; no physical controller acceptance",
+	"geometry": [
+		{
+			"board": [
+				130.0,
+				75.0,
+				1180.0,
+				750.0
+			],
+			"case": "1440x900",
+			"center_error": 0.0,
+			"outside": [],
+			"viewport": [
+				1440.0,
+				900.0
+			]
+		},
+		{
+			"board": [
+				50.0,
+				32.0,
+				1180.0,
+				656.0
+			],
+			"case": "1280x720",
+			"center_error": 0.0,
+			"outside": [],
+			"viewport": [
+				1280.0,
+				720.0
+			]
+		},
+		{
+			"board": [
+				370.0,
+				165.0,
+				1180.0,
+				750.0
+			],
+			"case": "1920x1080",
+			"center_error": 0.0,
+			"outside": [],
+			"viewport": [
+				1920.0,
+				1080.0
+			]
+		},
+		{
+			"board": [
+				32.0,
+				35.0,
+				1036.0,
+				750.0
+			],
+			"case": "1100x820",
+			"center_error": 0.0,
+			"outside": [],
+			"viewport": [
+				1100.0,
+				820.0
+			]
+		},
+		{
+			"board": [
+				130.0,
+				75.0,
+				1180.0,
+				750.0
+			],
+			"case": "1440x900",
+			"center_error": 0.0,
+			"outside": [],
+			"viewport": [
+				1440.0,
+				900.0
+			]
+		},
+		{
+			"board": [
+				130.0,
+				75.0,
+				1180.0,
+				750.0
+			],
+			"case": "stretched-1280x720",
+			"center_error": 0.0,
+			"outside": [],
+			"viewport": [
+				1440.0,
+				900.0
+			]
+		},
+		{
+			"board": [
+				130.0,
+				75.0,
+				1180.0,
+				750.0
+			],
+			"case": "stretched-1920x1080",
+			"center_error": 0.0,
+			"outside": [],
+			"viewport": [
+				1440.0,
+				900.0
+			]
+		},
+		{
+			"board": [
+				130.0,
+				75.0,
+				1180.0,
+				750.0
+			],
+			"case": "english-mission-0",
+			"center_error": 0.0,
+			"outside": [],
+			"viewport": [
+				1440.0,
+				900.0
+			]
+		},
+		{
+			"board": [
+				130.0,
+				75.0,
+				1180.0,
+				750.0
+			],
+			"case": "english-mission-1",
+			"center_error": 0.0,
+			"outside": [],
+			"viewport": [
+				1440.0,
+				900.0
+			]
+		},
+		{
+			"board": [
+				130.0,
+				75.0,
+				1180.0,
+				750.0
+			],
+			"case": "english-mission-2",
+			"center_error": 0.0,
+			"outside": [],
+			"viewport": [
+				1440.0,
+				900.0
+			]
+		},
+		{
+			"board": [
+				130.0,
+				75.0,
+				1180.0,
+				750.0
+			],
+			"case": "english-mission-3",
+			"center_error": 0.0,
+			"outside": [],
+			"viewport": [
+				1440.0,
+				900.0
+			]
+		},
+		{
+			"board": [
+				130.0,
+				75.0,
+				1180.0,
+				750.0
+			],
+			"case": "english-mission-4",
+			"center_error": 0.0,
+			"outside": [],
+			"viewport": [
+				1440.0,
+				900.0
+			]
+		},
+		{
+			"board": [
+				130.0,
+				75.0,
+				1180.0,
+				750.0
+			],
+			"case": "english-mission-5",
+			"center_error": 0.0,
+			"outside": [],
+			"viewport": [
+				1440.0,
+				900.0
+			]
+		}
+	],
+	"passed": true,
+	"raster_sizes": [
+		{
+			"case": "1440x900",
+			"height": 900,
+			"width": 1440
+		},
+		{
+			"case": "1280x720",
+			"height": 720,
+			"width": 1280
+		},
+		{
+			"case": "1920x1080",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"case": "1100x820",
+			"height": 820,
+			"width": 1100
+		},
+		{
+			"case": "1440x900",
+			"height": 900,
+			"width": 1440
+		},
+		{
+			"case": "stretched-1280x720",
+			"height": 720,
+			"width": 1152
+		},
+		{
+			"case": "stretched-1920x1080",
+			"height": 1080,
+			"width": 1728
+		},
+		{
+			"case": "locked",
+			"height": 900,
+			"width": 1440
+		}
+	]
+}

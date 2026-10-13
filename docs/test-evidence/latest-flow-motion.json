@@ -1,0 +1,19 @@
+{
+  "suites": [
+    {
+      "suite": "reward_flow",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 5.445,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "enemy_motion",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 4.139,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

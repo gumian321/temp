@@ -37,6 +37,7 @@ var music: AudioStreamPlayer
 var test_mode = false
 var test_time = 0.0
 var leg_phase = 0.0
+var player_legs=preload("res://scripts/centipede_legs.gd").new()
 var capture_stage = 0
 const InputSystem=preload("res://scripts/input_system.gd")
 var controls
@@ -75,6 +76,14 @@ var mouth_activity = 0.0
 var ink_world
 var insect_layer
 var build_ui
+var mission_ui
+var battle_hud
+var reward_ui
+var reward_flow_active=false
+var reward_epoch=0
+var reward_choice_busy=false
+var reward_snoozed=false
+var reward_snooze_count=0
 var build_selected_segment = 1
 
 func _ready():
@@ -144,7 +153,11 @@ func ink_node_added(node: Node):
 
 func ink_style_later(reference: WeakRef):
 	var node = reference.get_ref()
-	if node != null and is_ancestor_of(node): Ink.style_item(node)
+	if node == null or not is_ancestor_of(node):return
+	if screen=="menu" and is_instance_valid(mission_ui) and (node==mission_ui or mission_ui.is_ancestor_of(node)):return
+	if screen=="game" and is_instance_valid(battle_hud) and (node==battle_hud or battle_hud.is_ancestor_of(node)):return
+	if screen=="rewards" and is_instance_valid(reward_ui) and (node==reward_ui or reward_ui.is_ancestor_of(node)):return
+	Ink.style_item(node)
 
 func label_at(text: String, pos: Vector2, size: int = 22, color: Color = Color.WHITE) -> Label:
 	var label = Label.new()
@@ -268,29 +281,11 @@ func refid(config:Dictionary,key:String)->String:
 
 func show_missions():
 	screen="menu"
-	source_screen("MainMenuScene/PlayCanvas")
-	var config:Dictionary=db.scene_config.PlayUIManager
-	source_ui.set_text(refid(config,"missionText"),db.title(selected_mission))
-	source_ui.set_text(refid(config,"missionDescText"),db.text(selected_mission.MissionDescTextID))
-	source_ui.set_text(refid(config,"missionDiffecultyText"),"("+db.text(db.stores.MissionDataStore.DifficultiesList[difficulty].diffecultyTextID)+")")
-	source_ui.set_image(refid(config,"missionObjectiveImage"),selected_mission.MissionsObjectiveList[difficulty].objectiveSprite)
-	source_ui.show_node(refid(config,"playButton"),save.mission_unlocked(selected_mission))
-	source_ui.show_node(refid(config,"researchButton"),not save.mission_unlocked(selected_mission))
-	source_ui.show_node(refid(config,"demoButton"),false)
-	source_ui.show_node(refid(config,"backButton"),true)
-	source_ui.show_node(refid(config,"scrapsAmountUI"),false)
-	source_ui.set_text(refid(config,"costText"),str(int(selected_mission.MissionCost)))
-	for name in source_ui.nodes_by_name:
-		if "LeaderBoard" in name:source_ui.nodes_by_name[name].visible=false
-	# The source's IntervalSlider is a composite wrapper; bind its actual native Slider.
-	for slider in source_ui.sliders.values():slider.min_value=0;slider.max_value=2;slider.step=1;slider.set_value_no_signal(difficulty)
-	label_at(db.ui("%d RP", "%d 研究点")%save.state.meta,Vector2(1190,40),23,Color("ebaa4b"))
-	if db.sprite(selected_mission.MissionsObjectiveList[difficulty].objectiveSprite)==null:
-		var objective=selected_mission.MissionsObjectiveList[difficulty]
-		var summary=db.title(selected_mission)+"\n\n"+db.text(selected_mission.MissionDescTextID)
-		summary+="\n\n"+(db.ui("No time limit","无时间限制") if selected_mission.isEndless else db.ui("Mission timer: %d min","任务时间：%d 分钟")%int(objective.objectiveTime))
-		var goal_text=label_at(summary,Vector2(895,505),22)
-		goal_text.size=Vector2(415,200);goal_text.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;goal_text.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+	clear_ui()
+	source_ui=null
+	mission_ui=preload("res://scripts/mission_select.gd").new()
+	panel.add_child(mission_ui)
+	mission_ui.setup(self)
 
 func show_lab():
 	screen="lab"
@@ -351,12 +346,13 @@ func show_controls():
 	button(db.text("Option_Back"),Vector2(80,810),Vector2(260,50),func():options_draft=save.state.settings.duplicate(true);show_options())
 
 func start_run():
+	reward_flow_active=false;reward_choice_busy=false;reward_snoozed=false;reward_epoch+=1
 	hit_pause_left=0.0; hit_pause_cooldown=0.0; camera_recoil=Vector2.ZERO; camera_impact=0.0
 	if popup_text!=null:popup_text.clear()
 	if particle_effects!=null:particle_effects.clear()
 	if tutorials!=null:tutorials.reset_run()
 	player = Body.new(db)
-	leg_phase=0.0
+	leg_phase=0.0;player_legs.reset()
 	build_selected_segment=1
 	combat = Battle.new(db, player)
 	run = Run.new(db, save, player, combat, selected_mission, difficulty)
@@ -388,12 +384,9 @@ func show_game():
 	for id in ["11","90","264","408","37"]:source_ui.show_node(id,false)
 	for id in ["43","124"]:source_ui.show_node(id,true)
 	for slider in source_ui.sliders.values():slider.editable=false
-	hud=label_at("",Vector2(30,25),19)
-	run_hud=label_at("",Vector2(645,25),19,Color("e8cf9a"))
-	equipment_hud=label_at("",Vector2(1220,90),18,Color("b7d8c4"))
-	message=label_at(db.ui("WASD move · Mouse aim / fire · Shift boost · E build · Esc pause", "WASD 移动 · 鼠标瞄准 / 左键射击 · Shift 加速 · E 装塔 · Esc 暂停"),Vector2(30,855),18)
-	button(db.ui("BUILD [E]", "逐节装塔 [E]"),Vector2(1220,30),Vector2(180,45),show_build)
-	label_at(db.ui("RADAR · Tab", "战场雷达 · Tab"),Vector2(1230,632),17,Color("a9c5ba"))
+	battle_hud=preload("res://scripts/battle_hud.gd").new()
+	panel.add_child(battle_hud)
+	battle_hud.setup(self)
 	update_source_hud()
 
 func boss_timer_progress()->float:
@@ -411,6 +404,7 @@ func boss_timer_progress()->float:
 	return 1.0 if run.director.end_spawned else run.heat
 
 func update_source_hud():
+	if is_instance_valid(battle_hud) and screen=="game":battle_hud.refresh()
 	source_ui.set_fill("1889",run.heat)
 	source_ui.set_fill("1614",boss_timer_progress())
 	var timer=maxf(0,run.duration-run.elapsed) if selected_mission.get("isTimerCountingDown",false) else run.elapsed
@@ -438,6 +432,11 @@ func control_title(action:String)->String:
 	return db.ui(action.replace("_"," ").capitalize(),names.get(action,action))
 
 func show_build():
+	if reward_waiting():
+		reward_snoozed=false;advance_reward_flow();return
+	show_build_ui()
+
+func show_build_ui():
 	audio_system.sync_loops([])
 	if run == null:return
 	screen = "build"
@@ -448,44 +447,57 @@ func show_build():
 	queue_redraw()
 	return
 
+func reward_waiting()->bool:
+	return run!=null and (not player.pending.is_empty() or run.packs>0)
+
+func auto_reward_ready()->bool:
+	return reward_waiting() and (not reward_snoozed or run.packs>reward_snooze_count)
+
+func advance_reward_flow():
+	if run==null or run.finished or player.parts[0].hp<=0:return
+	reward_choice_busy=false;reward_snoozed=false
+	if not player.pending.is_empty():
+		reward_flow_active=true;show_build_ui()
+	elif run.packs>0:show_rewards()
+	else:
+		reward_flow_active=false;show_game()
+
 func show_rewards():
-	var choices:Array=run.roll_rewards()
-	if choices.is_empty():return
-	screen="rewards"
-	source_screen("GameScene/InGame Canvas")
-	for id in ["11","43","51","5","37","21","59","470","124","408"]:source_ui.show_node(id,false)
-	source_ui.set_text("293",str(run.packs))
-	var manager:Dictionary=source_ui.components["1572"]
-	for i in range(manager.rewardUIPanelControllersList.size()):
-		var id=str(int(manager.rewardUIPanelControllersList[i].fileID))
-		var config:Dictionary=source_ui.components[id]
-		source_ui.show_node(id,i<choices.size())
-		if i>=choices.size():continue
-		var reward:Dictionary=choices[i]
-		source_ui.set_text(refid(config,"rewardTitle"),db.title(reward))
-		for field in ["rewardSprite","rewardSprite1","rewardSprite2","rewardOverlay","rewardOverlay1","rewardOverlay2"]:source_ui.show_node(refid(config,field),false)
-		if reward.get("class")=="CrusedReward":
-			for pair in [["rewardSprite1","buffRewardSprite"],["rewardSprite2","debuffRewardSprite"],["rewardOverlay1","buffRewardOverlaySprite"],["rewardOverlay2","debuffRewardOverlaySprite"]]:
-				source_ui.show_node(refid(config,pair[0]),true);source_ui.set_image(refid(config,pair[0]),reward[pair[1]])
-		else:
-			var image_id=refid(config,"rewardSprite")
-			source_ui.show_node(image_id,true)
-			source_ui.set_texture(image_id,db.reward_sprite(reward))
-			if reward.get("rewardOverlaySprite") is String:
-				source_ui.show_node(refid(config,"rewardOverlay"),true);source_ui.set_image(refid(config,"rewardOverlay"),reward.rewardOverlaySprite)
-		var can_select=run.can_reward(reward)
-		source_ui.show_node(refid(config,"rewardLock"),not can_select)
-		var select_button=source_ui.buttons.get(refid(config,"rewardSelectButton"))
-		if select_button!=null:
-			select_button.disabled=not can_select
-			select_button.pressed.connect(func():run.take_reward(reward);show_build())
-		for j in range(config.starsList.size()):source_ui.show_node(str(int(config.starsList[j].fileID)),j<int(player.levels.get(reward.id,0))+1 and "LevelUp" in reward.get("class",""))
-	label_at(db.ui("CHOOSE ONE REWARD", "选择一项奖励"),Vector2(520,65),30)
-	label_at(db.ui("Modules go to assembly; upgrades apply immediately.", "模块领取后拖拽安装；属性升级、操作次数直接生效。"),Vector2(410,110),20)
+	if run==null or run.finished or player.parts[0].hp<=0:return
+	if not player.pending.is_empty():advance_reward_flow();return
+	if run.packs<=0:reward_flow_active=false;show_game();return
+	reward_flow_active=true;reward_choice_busy=false;reward_epoch+=1
+	screen="rewards";audio_system.sync_loops([]);clear_ui();source_ui=null
+	reward_ui=preload("res://scripts/reward_choice.gd").new();panel.add_child(reward_ui)
+	reward_ui.setup(self,run.roll_rewards(),reward_epoch)
+
+func choose_reward(reward:Dictionary,token:int):
+	if screen!="rewards" or token!=reward_epoch or reward_choice_busy or run.finished or player.parts[0].hp<=0:return
+	reward_choice_busy=true
+	if not run.take_reward(reward):reward_choice_busy=false;return
+	reward_epoch+=1
+	advance_reward_flow.call_deferred()
+
+func recycle_reward(token:int):
+	if screen!="rewards" or token!=reward_epoch or reward_choice_busy or run.finished or player.parts[0].hp<=0:return
+	reward_choice_busy=true;reward_epoch+=1
+	run.rewards.recycle();advance_reward_flow.call_deferred()
+
+func postpone_rewards():
+	reward_epoch+=1;reward_choice_busy=false;reward_flow_active=false
+	reward_snoozed=true;reward_snooze_count=run.packs
+	show_game()
+
+func reward_placement_changed():
+	if not reward_flow_active:return
+	if player.pending.is_empty():advance_reward_flow()
+	elif is_instance_valid(build_ui):
+		build_ui.selected_data={"kind":"inventory","index":0,"id":player.pending[0]}
+		build_ui.rebuild()
 
 func begin_run():
+	# Tips remain available in show_loading(), but no longer interrupt deployment.
 	start_run()
-	show_loading()
 
 func show_loading():
 	screen="loading"
@@ -555,6 +567,9 @@ func profile_mark(key:String,started:int):
 		sample.microseconds+=Time.get_ticks_usec()-started;sample.calls+=1;performance_samples[key]=sample
 
 func _process(dt: float):
+	if run!=null and screen in ["rewards","build"] and (run.finished or player.parts[0].hp<=0):
+		if not run.finished:run.finish(false)
+		reward_flow_active=false;show_result();return
 	var combat_dt=Feedback.combat_delta(dt,hit_pause_left)
 	hit_pause_left=maxf(0,hit_pause_left-dt)
 	hit_pause_cooldown=maxf(0,hit_pause_cooldown-dt)
@@ -613,6 +628,7 @@ func _process(dt: float):
 		tutorials.tick(dt,screen=="game" and camera_focus.is_empty(),player,run)
 	center = get_viewport_rect().size * 0.5
 	if screen == "game":
+		if auto_reward_ready() and not run.finished and player.parts[0].hp>0:advance_reward_flow();queue_redraw();return
 		if not camera_focus.is_empty():tick_camera_focus(dt);insect_layer.sync(self,0);queue_redraw();return
 		var dir:Vector2 = controls.movement(true)
 		if test_mode:
@@ -623,6 +639,7 @@ func _process(dt: float):
 		var measured=Time.get_ticks_usec()
 		player.step(dt, dir, Input.is_action_pressed("boost"))
 		leg_phase+=player.velocity.length()*dt*0.075
+		player_legs.step(player,dt)
 		profile_mark("body",measured);measured=Time.get_ticks_usec()
 		# Confirmed heavy hits briefly hold combat motion; steering and UI remain
 		# responsive and repeated volleys cannot chain the hold indefinitely.
@@ -670,21 +687,19 @@ func _process(dt: float):
 		audio_system.sync_loops(loop_requests)
 		audio_system.change_music("boss" if combat.enemies.any(func(e):return e.kind=="AIBossUnit" and e.active) else "game")
 		camera = camera.lerp(player.head, 1.0 - exp(-8.0 * dt))
-		hud.text = db.ui("%s\nHead %d/%d · Fuel %d%% · Modules %d", "%s\n头部耐久 %d/%d · 燃料 %d%% · 已装模块 %d 个")%[db.title(selected_mission),int(player.parts[0].hp),int(player.parts[0].max_hp),int(player.fuel/maxf(1,player.max_fuel)*100),player.parts.size()-1]
-		var time_left=maxf(0,run.duration-run.elapsed) if selected_mission.get("isTimerCountingDown",false) else run.elapsed
-		run_hud.text=db.ui("%02d:%02d · Danger %d%%\nPacks %d · Scrap %d", "%02d:%02d · 危险度 %d%%\n奖励包 %d · 废料 %d")%[int(time_left)/60,int(time_left)%60,int(run.heat*100),run.packs,run.scraps]
-		equipment_hud.text=db.ui("Modules %d / %d\nDrones %d / %d", "模块 %d / %d\n无人机 %d / %d")%[player.parts.size()-1,int(db.stores.PlayerDataStore.maxBuiltCores),combat.drones.filter(func(d):return d.owner==0).size(),int(db.stores.PlayerDataStore.get("maxHQDronesCount",30))]
 		update_source_hud()
 		profile_mark("audio_hud",measured)
-		if run.packs>=6: show_build()
 		if run.finished:
 			show_result()
+		elif auto_reward_ready():advance_reward_flow()
 	test_time += dt
 	insect_layer.sync(self,dt if screen=="game" else 0.0)
 	queue_redraw()
 
 func focus_menu_button():
 	if screen=="game" or panel==null:return
+	if screen=="menu" and is_instance_valid(mission_ui):mission_ui.focus_selection();return
+	if screen=="rewards" and is_instance_valid(reward_ui):reward_ui.focus_first();return
 	var candidates:Array=[]
 	collect_focus_buttons(panel,candidates)
 	if not candidates.is_empty():candidates[0].grab_focus()
@@ -732,10 +747,13 @@ func _input(event):
 		elif screen=="reward_pool" or screen=="menu":show_missions() if screen=="reward_pool" else show_menu()
 		elif screen in ["lab","options","controls"]:show_menu()
 		elif screen=="pause":show_game()
+		elif screen=="rewards" or (screen=="build" and reward_flow_active):postpone_rewards()
 		elif screen=="build" and is_instance_valid(build_ui):build_ui.cancel_selection()
 		get_viewport().set_input_as_handled()
 
 func _unhandled_input(event):
+	if event.is_action_pressed("pause") and (screen=="rewards" or (screen=="build" and reward_flow_active)):
+		postpone_rewards();get_viewport().set_input_as_handled();return
 	if rebind_action!="" and event is InputEventKey and event.pressed:
 		if event.physical_keycode!=KEY_ESCAPE:controls.bind(rebind_action,event.physical_keycode)
 		rebind_action="";show_controls();return
@@ -751,7 +769,7 @@ func _unhandled_input(event):
 		if event.is_action_pressed("pause"):
 			if screen == "game": show_pause()
 			elif screen == "pause": show_game()
-			elif screen in ["lab", "options", "changelog"]: show_menu()
+			elif screen in ["menu", "lab", "options", "changelog"]: show_menu()
 			elif screen=="reward_pool":show_missions()
 		if event.is_action_pressed("build"):
 			if screen == "game": show_build()
@@ -861,7 +879,7 @@ func _draw():
 			var pose:Dictionary=player.segment_pose(segment)
 			var previous:Dictionary=player.segment_pose(segment-1)
 			draw_line(world(pose.point),world(previous.point),Color("173b70"),22*zoom,true)
-			CentipedeArt.segment(self,world(pose.point),Vector2(pose.direction).angle(),zoom,leg_phase-segment*0.8,false,player.parts_on_segment(segment).is_empty())
+			CentipedeArt.segment(self,world(pose.point),Vector2(pose.direction).angle(),zoom,leg_phase-segment*0.8,false,player.parts_on_segment(segment).is_empty(),false,0,-1,player_legs.poses(segment))
 		CentipedeArt.segment(self,world(player.head),player.facing.angle(),zoom,leg_phase,true,false,false,mouth_activity,test_time)
 		for i in range(player.parts.size()-1,-1,-1):
 			var p:Dictionary=player.parts[i]
@@ -891,13 +909,14 @@ func _draw():
 			else:draw_line(world(b.previous),world(b.position),Color("173b70") if b.friendly else Color("6984a4"),b.radius)
 		weapon_fx.paint(self,combat,test_time,zoom)
 		# Radar uses actual world objects, including distant mission bosses.
-		draw_rect(Rect2(1230, 665, 180, 150), Color("d8e3ec"))
-		draw_rect(Rect2(1230,665,180,150),Ink.MUTED,false,1.0)
+		var radar_origin=get_viewport_rect().size-Vector2(210,235)
+		draw_rect(Rect2(radar_origin,Vector2(180,150)), Color("d8e3ec"))
+		draw_rect(Rect2(radar_origin,Vector2(180,150)),Ink.MUTED,false,1.0)
 		for e in combat.enemies:
 			var offset: Vector2 = (e.position - player.head) * 0.012
 			if offset.length() < 70:
-				draw_map_icon(e,Vector2(1320,740)+offset,8 if e.kind!="AIBossUnit" else 13)
-		draw_circle(Vector2(1320, 740), 4, Color("173b70"))
+				draw_map_icon(e,radar_origin+Vector2(90,75)+offset,8 if e.kind!="AIBossUnit" else 13)
+		draw_circle(radar_origin+Vector2(90,75), 4, Color("173b70"))
 		draw_objective_arrows()
 
 func automated_flow():

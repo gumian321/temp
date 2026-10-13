@@ -1,0 +1,215 @@
+{
+  "suites": [
+    {
+      "suite": "brood",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.661,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "armament_art",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.231,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "core",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.636,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "missions",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.819,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "map",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.449,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "rewards",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.696,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "specials",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.446,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "regressions",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.54,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "drones",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.446,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_pool",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.822,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "controller",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.982,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "long_body",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.377,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "shields",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.452,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "turret_tracking",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.448,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "achievements",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.448,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "fuel_tutorial",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.546,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "enemy_drones",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.448,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "radar",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.448,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "weapon_catalog",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.054,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "particles",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.638,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "presentation",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.008,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "loot",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.448,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_segments",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.727,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_support",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.447,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chinese",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.199,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 4.212,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "blue_ink",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.916,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "grid_mounts",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.726,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_motion",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.724,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "weapon_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.821,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

@@ -1,0 +1,64 @@
+{
+	"captures": [
+		"res://artifacts/player-legs-straight.png",
+		"res://artifacts/player-legs-turn.png",
+		"res://artifacts/player-legs-stop.png",
+		"res://artifacts/player-legs-build-preview.png"
+	],
+	"checks": [
+		{
+			"name": "Real leg rig stays attached during straight",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced player-legs-straight",
+			"passed": true
+		},
+		{
+			"name": "Saved player-legs-straight",
+			"passed": true
+		},
+		{
+			"name": "Real leg rig stays attached during turn",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced player-legs-turn",
+			"passed": true
+		},
+		{
+			"name": "Saved player-legs-turn",
+			"passed": true
+		},
+		{
+			"name": "Real leg rig stays attached during boost",
+			"passed": true
+		},
+		{
+			"name": "Real leg rig stays attached during stop",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced player-legs-stop",
+			"passed": true
+		},
+		{
+			"name": "Saved player-legs-stop",
+			"passed": true
+		},
+		{
+			"name": "Real input release stops the head",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced player-legs-build-preview",
+			"passed": true
+		},
+		{
+			"name": "Saved player-legs-build-preview",
+			"passed": true
+		}
+	],
+	"frames": 60,
+	"passed": true
+}

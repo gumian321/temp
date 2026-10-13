@@ -1,0 +1,106 @@
+{
+	"captures": [],
+	"checks": [
+		{
+			"name": "Use eligible real source reward definitions",
+			"passed": true
+		},
+		{
+			"name": "Rewards do not interrupt an explicit pause",
+			"passed": true
+		},
+		{
+			"name": "One earned pack automatically opens three choices",
+			"passed": true
+		},
+		{
+			"name": "Combat timer pauses for reward modal",
+			"passed": true
+		},
+		{
+			"name": "Duplicate click consumes exactly one reward",
+			"passed": true
+		},
+		{
+			"name": "Module proceeds directly to selected placement",
+			"passed": true
+		},
+		{
+			"name": "Illegal placement retains module",
+			"passed": true
+		},
+		{
+			"name": "Postpone installation retains items and resumes combat",
+			"passed": true
+		},
+		{
+			"name": "E construction resumes deferred installation",
+			"passed": true
+		},
+		{
+			"name": "Choosing legal slots installs all items and resumes automatically",
+			"passed": true
+		},
+		{
+			"name": "E still opens free construction when no reward is pending",
+			"passed": true
+		},
+		{
+			"name": "Six-pack threshold has no automatic build/return loop",
+			"passed": true
+		},
+		{
+			"name": "Postponing preserves six packs and rolled choices without reopening",
+			"passed": true
+		},
+		{
+			"name": "Queue consumes one pack per choice 0",
+			"passed": true
+		},
+		{
+			"name": "Queue consumes one pack per choice 1",
+			"passed": true
+		},
+		{
+			"name": "Queue consumes one pack per choice 2",
+			"passed": true
+		},
+		{
+			"name": "Queue consumes one pack per choice 3",
+			"passed": true
+		},
+		{
+			"name": "Queue consumes one pack per choice 4",
+			"passed": true
+		},
+		{
+			"name": "Queue consumes one pack per choice 5",
+			"passed": true
+		},
+		{
+			"name": "Non-entity rewards apply directly and queue resumes only when finished",
+			"passed": true
+		},
+		{
+			"name": "New pickup wakes a postponed queue",
+			"passed": true
+		},
+		{
+			"name": "Full capacity rejects stale selection without consumption",
+			"passed": true
+		},
+		{
+			"name": "No eligible choice is disabled and retained",
+			"passed": true
+		},
+		{
+			"name": "No-slot path can continue without discarding reward",
+			"passed": true
+		},
+		{
+			"name": "Death closes reward UI and cannot consume a reward",
+			"passed": true
+		}
+	],
+	"passed": true
+}
