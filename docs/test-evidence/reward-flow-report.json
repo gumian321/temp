@@ -1,12 +1,12 @@
 {
-	"captures": [
-		"res://artifacts/reward-flow-01-choice.png",
-		"res://artifacts/reward-flow-02-place.png",
-		"res://artifacts/reward-flow-03-full.png"
-	],
+	"captures": [],
 	"checks": [
 		{
 			"name": "Use eligible real source reward definitions",
+			"passed": true
+		},
+		{
+			"name": "Rewards do not interrupt an explicit pause",
 			"passed": true
 		},
 		{
@@ -15,14 +15,6 @@
 		},
 		{
 			"name": "Combat timer pauses for reward modal",
-			"passed": true
-		},
-		{
-			"name": "Renderer produced reward-flow-01-choice",
-			"passed": true
-		},
-		{
-			"name": "Saved reward-flow-01-choice",
 			"passed": true
 		},
 		{
@@ -35,14 +27,6 @@
 		},
 		{
 			"name": "Illegal placement retains module",
-			"passed": true
-		},
-		{
-			"name": "Renderer produced reward-flow-02-place",
-			"passed": true
-		},
-		{
-			"name": "Saved reward-flow-02-place",
 			"passed": true
 		},
 		{
@@ -107,14 +91,6 @@
 		},
 		{
 			"name": "No eligible choice is disabled and retained",
-			"passed": true
-		},
-		{
-			"name": "Renderer produced reward-flow-03-full",
-			"passed": true
-		},
-		{
-			"name": "Saved reward-flow-03-full",
 			"passed": true
 		},
 		{
