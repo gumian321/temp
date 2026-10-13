@@ -21,7 +21,7 @@ func execute():
 	game.player.pending.append(game.db.named("Core_Gun_Tesla").id)
 	game.show_build_ui();await settle()
 	var ui=game.build_ui
-	check(ui.return_button.get_theme_stylebox("normal").bg_color==Color("55e3c1"),"Local teal action styling survives deferred global theme application")
+	check(ui.return_button.get_theme_stylebox("normal") is StyleBoxTexture and ui.return_button.get_theme_color("font_color")==load("res://scripts/game_ui.gd").TEXT,"Generated light action skin and navy text survive deferred global theme application")
 	var rail=ui.chain_scroll
 	var card=ui.segment_buttons[2]
 	await click_at(card.get_global_rect().get_center())

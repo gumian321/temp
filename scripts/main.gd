@@ -112,7 +112,7 @@ func _ready():
 	selected_mission = db.asset(db.stores.MissionDataStore.missionsList[0])
 	ui = CanvasLayer.new()
 	add_child(ui)
-	font = load("res://assets/fonts/NotoSansSC-Light.otf")
+	font = UI.theme().default_font
 	ThemeDB.fallback_font = font
 	audio_system=AudioSystem.new()
 	add_child(audio_system)
@@ -204,7 +204,7 @@ func show_menu():
 	reset_pending=false
 	screen="home";audio_system.change_music("menu");clear_ui();source_ui=null
 	UI.backdrop(panel,true)
-	UI.panel(panel,Rect2(48,48,440,804),UI.TEAL).modulate.a=.94
+	UI.panel(panel,Rect2(48,48,440,804),UI.TEAL)
 	UI.label(panel,"C E N T I P E D E",Vector2(84,88),19,UI.TEAL)
 	UI.label(panel,db.ui("ARMORED\nINSTINCT","逐节武装"),Vector2(80,136),52)
 	UI.label(panel,"01 / "+db.ui("EXPEDITION","远征"),Vector2(84,225),17,UI.MUTED)
@@ -215,7 +215,7 @@ func show_menu():
 	var exit_button=UI.button(panel,"",Rect2(380,628,76,66),safe_shutdown,"exit");exit_button.tooltip_text=db.ui("Exit","退出游戏")
 	UI.icon(panel,"meta",Vector2(82,765),38,UI.AMBER)
 	UI.label(panel,str(save.state.meta),Vector2(136,760),34,UI.AMBER)
-	UI.label(panel,db.ui("EVOLUTION","进化点"),Vector2(136,807),15,UI.MUTED)
+	UI.label(panel,db.ui("EVOLUTION","进化点"),Vector2(136,807),16,UI.MUTED)
 	UI.label(panel,"W A S D  /  "+db.ui("MOVE","移动")+"     E  /  "+db.ui("BUILD","装配"),Vector2(780,830),18,UI.TEXT)
 
 func source_ui_action(method:String,_id:String,_args:Dictionary):
@@ -746,7 +746,7 @@ func _process(dt: float):
 			var type=int(effect.get("particle_type",303 if effect.kind=="explosion" else (305 if effect.kind=="hit" else 0)))
 			# The layered weapon blast already includes its flash and fragments.
 			# Stacking the old opaque ink burst on top hides its color and targets.
-			if effect.kind=="explosion" and effect.has("fx_family"):type=0
+			if effect.kind in ["hit","shield_hit"] or (effect.kind=="explosion" and effect.has("fx_family")):type=0
 			if type>0 and particle_bursts<12 and particle_effects.get_child_count()<200 and weapon_fx.visible(self,effect.position,440):
 				particle_effects.play(type,effect.position,float(effect.radius)/48 if effect.kind=="explosion" else 1,float(effect.get("duration",0)),effect.get("follow",{}))
 				particle_bursts+=1
@@ -960,7 +960,7 @@ func _draw():
 				var offset = Vector2(renderer.x, renderer.y).rotated(e.angle + PI * 0.5) * 48
 				var extent = texture.get_size() / ppu * Vector2(renderer.sx, renderer.sy) * 48 * zoom
 				var tint=RenderState.color(renderer,e.age,pulse,pulse_color(e))
-				if hit_flash>0: tint=tint.lerp(Color(2.7,2.7,2.7,tint.a),hit_flash*0.9)
+				if hit_flash>0: tint=tint.lerp(Color(1.15,1.1,1.0,tint.a),hit_flash*0.25)
 				art(texture, world(visual_position + offset), extent, e.angle + PI * 0.5 + RenderState.angle(renderer,e.age),tint)
 			draw_rect(Rect2(pos + Vector2(-22, -e.radius - 12), Vector2(44 * maxf(0, e.hp / e.max_hp), 3)), Color("173b70"))
 			for gun in e.guns:

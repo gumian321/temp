@@ -80,7 +80,7 @@ func execute():
 	root.add_child(lab)
 	lab.setup(db, save, func():pass, func():pass)
 	var lab_text = texts(lab)
-	check("拖动 · 缩放" in lab_text and "◈ 55" in lab_text, "Research navigation is Chinese and current research balance is displayed")
+	check("拖动 · 缩放" in lab_text and lab.points.text=="%d RP"%save.state.meta, "Research navigation is Chinese and current research balance is displayed")
 	var intro = load("res://scripts/intro_ui.gd").new()
 	root.add_child(intro)
 	intro.setup(db, func():pass)

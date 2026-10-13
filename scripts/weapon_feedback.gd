@@ -40,3 +40,41 @@ static func decorate(event: Dictionary, key: String, friendly: bool = true) -> D
 
 static func shot_sound(key: String, serial: int) -> Dictionary:
 	return {"pitch": profile(key).pitch * (1.0 + sin(serial * 2.39996) * 0.035), "gain": 1.05 if key in ["cannon", "rail", "shotgun", "nuke"] else 0.95}
+
+## Bounded, monotonic world-space extent from the damage carried by this hit.
+## No family multiplier: a buffed weak gun must grow too, and huge damage caps.
+static func impact_size(damage: float) -> float:
+	return clampf(3.5 + sqrt(maxf(0.0,damage))*1.65,3.5,24.0)
+
+## Earliest swept-circle contact, projected back onto the target surface.
+## This is presentation only; it deliberately does not change collision ordering.
+static func surface_contact(center: Vector2, radius: float, shot: Dictionary, projectile_radius: float = -1.0) -> Dictionary:
+	var start=Vector2(shot.get("previous",shot.get("position",center)))
+	var finish=Vector2(shot.get("position",center))
+	var axis=Vector2(shot.get("velocity",shot.get("direction",Vector2.RIGHT))).normalized()
+	if axis.length_squared()<0.001:axis=Vector2.RIGHT
+	# Hitscan, chain beams and continuous emitters have no travelled segment yet.
+	if start.distance_squared_to(finish)<0.001:
+		finish=center
+		if start.distance_squared_to(center)>0.001:axis=start.direction_to(center)
+	var delta=finish-start
+	var expanded=maxf(0.1,radius)+maxf(0.0,float(shot.get("radius",0.0)) if projectile_radius<0 else projectile_radius)
+	var offset=start-center
+	var a=delta.length_squared()
+	var on_path=Geometry2D.get_closest_point_to_segment(center,start,finish)
+	if a>0.0001:
+		var half_b=offset.dot(delta)
+		var disc=half_b*half_b-a*(offset.length_squared()-expanded*expanded)
+		if disc>=0:
+			var entry=(-half_b-sqrt(disc))/a
+			if entry>=0 and entry<=1:on_path=start+delta*entry
+	var normal=(on_path-center).normalized()
+	if normal.length_squared()<0.001:normal=-axis
+	return {"position":center+normal*maxf(0.1,radius),"normal":normal,"direction":axis}
+
+
+static func shield_contact(center: Vector2, radius: float, shot: Dictionary) -> Dictionary:
+	var path=shot.duplicate()
+	# Hull collision may be several frames beyond the shield edge already.
+	path.previous=shot.get("origin",shot.get("previous",shot.get("position",center)))
+	return surface_contact(center,radius,path,0.0)

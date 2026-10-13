@@ -255,7 +255,7 @@ func fire(core: Dictionary, at: Vector2, direction: Vector2, friendly: bool, chi
 		if int(projectile.get("projectilePrefab",0)) in [45,46]:
 			var target = nearest(at,db.range_units(core.get("turretRange",4))*48) if friendly else {}
 			if not target.is_empty():
-				effects.append(Feedback.decorate({"position":muzzle,"end":target.position,"life":0.25 if family=="rail" else 0.32,"radius":0,"kind":"chain"},family,friendly))
+				effects.append(Feedback.decorate({"position":muzzle,"end":visual_contact(target,b).position,"life":0.25 if family=="rail" else 0.32,"radius":0,"kind":"chain"},family,friendly))
 				b.pierce = 1
 				b.chips = chips.duplicate()
 				b.line_jumps = int(projectile.targetPiercingCount)-1+int(special.chip("PiercingTargetCount",int(chips.get(3,0))))
@@ -263,8 +263,8 @@ func fire(core: Dictionary, at: Vector2, direction: Vector2, friendly: bool, chi
 			elif not friendly:
 				# Preserve the existing instantaneous hit; show Tesla's missing beam.
 				if family=="tesla":
-					effects.append(Feedback.decorate({"position":muzzle,"end":player.head,"life":0.32,"radius":0,"kind":"chain"},family,false))
-				hurt_player(0,b.damage,b.shield_damage)
+					effects.append(Feedback.decorate({"position":muzzle,"end":player_visual_contact(0,b).position,"life":0.32,"radius":0,"kind":"chain"},family,false))
+				hurt_player(0,b.damage,b.shield_damage,b)
 		else: bullets.append(b)
 
 var phase_times:Dictionary={}
@@ -296,6 +296,7 @@ func step(dt: float, aim: Vector2, shooting: bool):
 		p.organ_pulse=maxf(0,float(p.get("organ_pulse",0))-dt)
 		p.recoil=maxf(0.0,float(p.get("recoil",0))-dt*42.0)
 		p.impact_left=maxf(0.0,float(p.get("impact_left",0))-dt)
+		p.fx_cooldown=maxf(0.0,float(p.get("fx_cooldown",0))-dt)
 		p.cooldown -= dt
 		p.stun = maxf(0, p.stun - dt)
 		if p.hp <= 0 or p.stun > 0:
@@ -556,22 +557,29 @@ func explosion(at: Vector2, radius: float, lifetime: float = 0.35, family: Strin
 	audio_events.append({"type":20 if size<=1.0 else (21 if size<=2.0 else 22),"position":at,"pitch":0.82 if family=="nuke" else 0.95,"feedback":family,"strength":clampf(radius/110.0,0.6,1.5)})
 	effects.append(Feedback.decorate({"position":at,"radius":radius,"life":maxf(lifetime,1.15 if family=="nuke" else 0.65),"kind":"explosion"},family,friendly))
 
-func impact_feedback(e: Dictionary, b: Dictionary, shielded: bool = false):
+func impact_feedback(e: Dictionary, b: Dictionary, shielded: bool = false, contact_center: Variant = null, contact_radius: float = -1.0):
 	var family = str(b.get("fx_family",Feedback.family(b.data)))
 	e.last_fx=family; e.last_friendly=bool(b.get("friendly",true))
-	# A shotgun volley and continuous damage still apply every hit, but their
-	# embellishments are grouped per target so large builds remain readable.
-	if float(e.get("fx_cooldown",0))>0: return
+	var power=maxf(0.0,float(b.get("shield_damage",0) if shielded else b.get("damage",0)))
+	# Group repeated weak hits only. A stronger hit still gets its own readable cue.
+	if float(e.get("fx_cooldown",0))>0 and power<=float(e.get("fx_power",0))*1.5:return
 	e.fx_cooldown=0.12 if family=="flame" else 0.055
+	e.fx_power=power
 	var style=Feedback.profile(family)
-	var axis=Vector2(b.get("velocity",Vector2.RIGHT)).normalized()
+	var center=Vector2(e.position) if contact_center==null else Vector2(contact_center)
+	var radius=float(e.get("radius",20)) if contact_radius<0 else contact_radius
+	var contact=Feedback.shield_contact(center,radius,b) if shielded else Feedback.surface_contact(center,radius,b)
+	var size=Feedback.impact_size(power)
 	if not shielded:
-		e.feedback_left=0.095
-		e.feedback_kick=axis*minf(8,style.weight*4)
-	var kind="shield_hit" if shielded else "hit"
-	var effect=Feedback.decorate({"position":e.position-axis*minf(16,float(e.get("radius",20))*0.45),"radius":20,"life":0.28 if family in ["emp","tesla","sonic"] else 0.22,"kind":kind,"particle_type":307 if shielded else 305+hit_count%2,"hit_pause":style.pause},family,bool(b.get("friendly",true)))
-	effects.append(effect)
-	audio_events.append({"type":-1,"position":e.position,"feedback":"emp" if shielded else family,"strength":0.6,"flesh":not shielded and SoftInsect.Brood.eligible(e),"flesh_strength":clampf(.6+style.weight*.25,.7,1.1)})
+		e.feedback_left=0.065
+		e.feedback_kick=Vector2(contact.direction)*minf(4,size*0.15)
+	var effect=Feedback.decorate({"position":contact.position,"direction":contact.direction,"normal":contact.normal,"damage":power,"radius":size,"life":0.075+size*0.004,"kind":"shield_hit" if shielded else "hit","particle_type":0,"hit_pause":style.pause},family,bool(b.get("friendly",true)))
+	# Hard cap only presentation. Do not consume the gameplay random stream.
+	var count=0
+	for old in effects:
+		if old.kind in ["hit","shield_hit"]:count+=1
+	if count<48:effects.append(effect)
+	audio_events.append({"type":-1,"position":contact.position,"feedback":"emp" if shielded else family,"strength":clampf(size/18.0,0.3,1.0),"flesh":not shielded and SoftInsect.Brood.eligible(e),"flesh_strength":clampf(.6+style.weight*.25,.7,1.1)})
 
 func hit_enemy(e: Dictionary, b: Dictionary):
 	if e.has("patrol") and patrols.has(e.patrol):patrols[e.patrol].chase=float(patrols[e.patrol].data.get("ChaseDuration",3))
@@ -584,8 +592,8 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 				gun.shield = maxf(0,float(gun.get("shield",shield.maxShieldHealth))-float(b.shield_damage))
 				gun.shield_delay = float(shield.shieldRechargeDelay)
 				if gun.shield<=0:gun.shield_broken=true;gun.shield_delay=float(shield.maxShieldHealth)/2/float(shield.shieldRechargeRate)
-				impact_feedback(e,b,true)
-				SoftInsect.impact(e,Vector2(b.get("position",e.position)),Vector2(b.get("velocity",Vector2.RIGHT)),float(b.shield_damage)*.2,"shield")
+				impact_feedback(e,b,true,other.position,float(shield.ShieldRange)*48)
+				SoftInsect.impact(e,Vector2(Feedback.surface_contact(e.position,e.radius,b).position),Vector2(b.get("velocity",Vector2.RIGHT)),float(b.shield_damage)*.2,"shield")
 				b.pierce=1
 				return
 	if b.data["class"]=="BlackHoleProjectile":
@@ -594,7 +602,7 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 	impact_feedback(e,b)
 	e.hp -= b.damage
 	insect_control_system.attach(e,b)
-	SoftInsect.impact(e,Vector2(b.get("position",e.position)),Vector2(b.get("velocity",Vector2.RIGHT)),float(b.damage),str(b.get("fx_family",Feedback.family(b.data))))
+	SoftInsect.impact(e,Vector2(Feedback.surface_contact(e.position,e.radius,b).position),Vector2(b.get("velocity",Vector2.RIGHT)),float(b.damage),str(b.get("fx_family",Feedback.family(b.data))))
 	if e.kind in ["Asteroid", "ContainerObject"]:
 		var scraps = roundi((1.0-maxf(0,e.hp)/e.max_hp)*float(e.unit.get("totalScraps",0)))
 		var difference = scraps-int(e.get("spawned_scraps",0))
@@ -616,7 +624,11 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 			if other.uid != e.uid and other.damageable and (other.role != "friendly" if b.friendly else other.role == "friendly") and other.position.distance_to(e.position) < area:
 				other.hp -= b.damage * (special.chip("ExplosionDamagePercent",int(b.chips[2])) if b.chips.has(2) and not b.data.has("projectileEffectArea") else 1.0)
 				SoftInsect.impact(other,Vector2(e.position),(Vector2(other.position)-Vector2(e.position)).normalized(),float(b.damage),str(b.get("fx_family",Feedback.family(b.data))))
-				impact_feedback(other,b)
+				var splash=b.duplicate()
+				splash.previous=e.position;splash.position=e.position;splash.radius=0.0
+				splash.velocity=Vector2(e.position).direction_to(other.position)
+				splash.damage=float(b.damage)*(special.chip("ExplosionDamagePercent",int(b.chips[2])) if b.chips.has(2) and not b.data.has("projectileEffectArea") else 1.0)
+				impact_feedback(other,splash)
 		explosion(e.position,area,0.35,str(b.get("fx_family",Feedback.family(b.data))),bool(b.friendly))
 	if typ == "BlackHoleProjectile":
 		for other in enemies:
@@ -637,13 +649,14 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 			clone.line_jumps = 0
 			clone.pierce = 1
 			clone.position = e.position
+			clone.origin = e.position
 			clone.previous = e.position
 			clone.velocity = (Vector2(other.position)-Vector2(e.position)).normalized()*maxf(480,Vector2(b.velocity).length())
 			clone.direction = Vector2(clone.velocity).normalized()
 			clone.age = 0.0
 			clone.life = maxf(0.2,float(b.data.get("projectileLifeTime",1)))
 			if int(b.data.get("projectilePrefab",0)) in [45,46]:
-				effects.append(Feedback.decorate({"position":e.position,"end":other.position,"life":0.28 if str(b.get("fx_family",""))=="tesla" else 0.20,"radius":0,"kind":"chain"},str(b.get("fx_family",Feedback.family(b.data))),bool(b.friendly)))
+				effects.append(Feedback.decorate({"position":e.position,"end":visual_contact(other,clone).position,"life":0.28 if str(b.get("fx_family",""))=="tesla" else 0.20,"radius":0,"kind":"chain"},str(b.get("fx_family",Feedback.family(b.data))),bool(b.friendly)))
 				hit_enemy(other,clone)
 			else: bullets.append(clone)
 	if b.chips.has(1):
@@ -672,7 +685,7 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 func hit_player(index:int,b:Dictionary):
 	var p:Dictionary=player.parts[index]
 	if b.data["class"]=="BlackHoleProjectile":special.add_black_hole(b);return
-	hurt_player(index,b.damage,b.shield_damage)
+	hurt_player(index,b.damage,b.shield_damage,b)
 	if b.data["class"]=="EMPBasicProjectile":p.stun=maxf(p.stun,float(b.data.stunDuration))
 	if b.data["class"]=="SonicBasicProjectile" and index==0:player.head+=Vector2(b.velocity).normalized()*float(b.data.pushBackForce)*48
 	var radius=float(b.data.get("projectileEffectArea",0))*48
@@ -681,7 +694,7 @@ func hit_player(index:int,b:Dictionary):
 			if i!=index and player.parts[i].position.distance_to(p.position)<radius:hurt_player(i,b.damage,b.shield_damage)
 		explosion(p.position,radius,0.35,str(b.get("fx_family",Feedback.family(b.data))),bool(b.friendly))
 
-func hurt_player(index: int, damage: float, shield_damage: float):
+func hurt_player(index: int, damage: float, shield_damage: float, shot: Dictionary = {}):
 	if index<0 or index>=player.parts.size():return
 	var p: Dictionary = player.parts[index]
 	if p.hp<=0:return
@@ -690,6 +703,7 @@ func hurt_player(index: int, damage: float, shield_damage: float):
 		var shield:Dictionary=player.parts[i]
 		var c: Dictionary = db.asset(shield.id)
 		if c["class"] == "ShieldCore" and shield.hp>0 and shield.stun<=0 and shield.shield > 0 and shield.position.distance_to(p.position) < shield_range(i):
+			if not shot.is_empty():impact_feedback(p,shot,true,shield.position,shield_range(i))
 			shield.shield = maxf(0, shield.shield - shield_damage)
 			if shield.shield<=0:
 				shield.shield_broken=true
@@ -701,7 +715,10 @@ func hurt_player(index: int, damage: float, shield_damage: float):
 			return
 	p.hp -= damage
 	p.impact_left=SegmentFeedback.HIT_TIME
-	effects.append({"position": p.position, "radius": 22, "life": 0.15, "kind": "hit","player_hit":true})
+	if not shot.is_empty():
+		var contact_shot=shot.duplicate()
+		contact_shot.radius=0.0 # Player collision tests use the hull radius without bullet expansion.
+		impact_feedback(p,contact_shot,false,p.position,player.collision_radius(index))
 	if p.hp<=0:segment_destroyed(index)
 
 func segment_destroyed(index: int):
@@ -873,3 +890,22 @@ func step_scraps(dt:float):
 	for drop in scraps:
 		if drop.position.distance_to(player.head)>75*48:loot.erase(drop);removed+=1
 		if removed>5:break
+
+
+func visual_contact(e: Dictionary, shot: Dictionary) -> Dictionary:
+	for other in enemies:
+		if other.hp<=0 or other.stun>0 or (other.role=="friendly")!=(e.role=="friendly"):continue
+		for gun in other.guns:
+			var shield=db.asset(gun.id)
+			if shield.get("class")=="ShieldCore" and float(gun.get("shield",shield.maxShieldHealth))>0 and other.position.distance_to(e.position)<float(shield.ShieldRange)*48:
+				return Feedback.shield_contact(other.position,float(shield.ShieldRange)*48,shot)
+	return Feedback.surface_contact(e.position,e.radius,shot)
+
+func player_visual_contact(index: int, shot: Dictionary) -> Dictionary:
+	var p:Dictionary=player.parts[index]
+	for i in player.parts.size():
+		var shield:Dictionary=player.parts[i]
+		var core=db.asset(shield.id)
+		if core.get("class")=="ShieldCore" and shield.hp>0 and shield.stun<=0 and shield.shield>0 and shield.position.distance_to(p.position)<shield_range(i):
+			return Feedback.shield_contact(shield.position,shield_range(i),shot)
+	return Feedback.surface_contact(p.position,player.collision_radius(index),shot,0.0)

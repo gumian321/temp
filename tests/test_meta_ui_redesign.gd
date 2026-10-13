@@ -30,6 +30,8 @@ func execute():
  var db=load('res://scripts/source_db.gd').new();var save=load('res://scripts/save_store.gd').new(db);save.fresh();save.path='user://meta-redesign.json'
  var lab=load('res://scripts/research_ui.gd').new();root.add_child(lab);lab.setup(db,save,func():pass,func():pass)
  await process_frame
+ check(lab.theme.default_font.resource_path.ends_with('NotoSansCJKsc-Bold.otf'),'Research uses bold Chinese typography')
+ check(lab.node_buttons.values().all(func(b):return b.get_theme_stylebox('normal') is StyleBoxTexture),'Research nodes render generated raster panel skins')
  check(lab.node_buttons.size()==db.research.size(),'Every research branch represented in pictorial constellation')
  check(lab.canvas.get_child(0).lines.size()>0,'Prerequisite links shown as constellation paths')
  for b in lab.node_buttons.values():check(b.text.is_empty() and b.icon!=null,'Research node uses actual reward art with tooltip')
@@ -49,6 +51,7 @@ func execute():
  lab.queue_free();await process_frame
  var pool=load('res://scripts/reward_pool_ui.gd').new();root.add_child(pool);pool.setup(db,save,func():pass,func():pass)
  await process_frame
+ check(pool.cards.all(func(b):return b.get_theme_stylebox('normal') is StyleBoxTexture),'Codex entries render generated raster skins')
  check(pool.cards.size()==pool.groups.size(),'Every original reward group appears in codex')
  check(pool.cards.all(func(b):return b.icon!=null),'Codex cards use reward illustrations')
  check(pool.unlock_button.visible and not pool.apply_button.visible,'Filter purchase is separate from codex browsing')
@@ -69,6 +72,8 @@ func execute():
  var game=load('res://main.tscn').instantiate();root.add_child(game);await settle();game.set_process(false)
  game.save.path='user://meta-mission-render.json';game.save.fresh();game.test_mode=true
  game.show_missions();await settle()
+ check(game.mission_ui.emblem is TextureRect and game.mission_ui.emblem.texture!=null,'Mission emblem is generated raster art')
+ check(game.mission_ui.rows.all(func(b):return b.get_theme_color('font_color')==load('res://scripts/game_ui.gd').TEXT),'Mission text retains navy contrast')
  var mission_id=game.selected_mission.id;var level=game.difficulty;var meta=game.save.state.meta
  for extent in [Vector2i(1440,900),Vector2i(1280,720)]:
   root.size=extent;await settle();game.mission_ui.layout_board();await settle()

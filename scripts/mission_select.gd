@@ -29,12 +29,12 @@ class RouteMap extends Control:
  var selected=0
  func _draw():
   var center=Vector2(295,320)
-  for radius in [110,200,280]:draw_arc(center,radius,0,TAU,90,Color("203d48"),1,true)
+  for radius in [110,200,280]:draw_arc(center,radius,0,TAU,90,Color(UI.MUTED,.14),1,true)
   var coords=[Vector2(100,280),Vector2(245,160),Vector2(435,205),Vector2(475,395),Vector2(280,455),Vector2(95,460)]
-  for i in 5:draw_line(coords[i],coords[i+1],Color("355767"),2,true)
+  for i in 5:draw_line(coords[i],coords[i+1],Color(UI.MUTED,.32),2,true)
   for i in coords.size():
-   draw_arc(coords[i],57,0,TAU,48,Color("55e3c1") if i==selected else Color("355767"),3 if i==selected else 1,true)
-  draw_circle(center,5,Color("ffc86a"))
+   draw_arc(coords[i],57,0,TAU,48,UI.TEAL if i==selected else Color(UI.MUTED,.32),3 if i==selected else 1,true)
+  draw_circle(center,5,UI.AMBER)
 
 func setup(owner_game):
  game=owner_game;set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);mouse_filter=MOUSE_FILTER_IGNORE;theme=UI.theme();UI.protect(self)
@@ -44,28 +44,30 @@ func setup(owner_game):
  UI.label(board,tr_text("出征","OPERATIONS"),Vector2(96,22),30)
  points=UI.label(board,"",Vector2(956,30),22,UI.AMBER)
  mark=RouteMap.new();mark.size=Vector2(620,570);mark.mouse_filter=MOUSE_FILTER_IGNORE;board.add_child(mark)
- UI.label(board,"SECTOR / 06",Vector2(26,88),13,UI.MUTED)
+ UI.label(board,"SECTOR / 06",Vector2(26,88),16,UI.MUTED)
  for i in game.db.stores.MissionDataStore.missionsList.size():
   var b=UI.button(board,"",Rect2(COORDS[i]-Vector2(40,40),Vector2(80,80)),func():select_mission(i),KEYS[i])
+  for state in ["hover","pressed","hover_pressed"]:b.add_theme_stylebox_override(state,UI.card_style(true))
+  b.add_theme_stylebox_override("focus",UI.card_focus_style())
   b.toggle_mode=true;b.tooltip_text=game.db.title(game.db.asset(game.db.stores.MissionDataStore.missionsList[i]));rows.append(b)
   UI.label(board,(NAMES_ZH if game.db.language.begins_with("Chinese") else NAMES_EN)[i],COORDS[i]+Vector2(-36,58),16,UI.MUTED)
  UI.panel(board,Rect2(640,92,532,462),UI.TEAL)
- serial=UI.label(board,"",Vector2(672,114),15,UI.TEAL)
+ serial=UI.label(board,"",Vector2(672,114),16,UI.TEAL)
  title=UI.label(board,"",Vector2(672,148),38);title.size=Vector2(365,62)
  emblem=UI.icon(board,"target",Vector2(1058,132),70,UI.AMBER)
  objective_text=UI.label(board,"",Vector2(672,227),21);objective_text.size=Vector2(458,64);objective_text.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
  description=UI.label(board,"",Vector2(672,296),16,UI.MUTED);description.visible=false
  duration=UI.label(board,"",Vector2(672,302),27,UI.AMBER)
  mode_label=UI.label(board,"",Vector2(922,310),16,UI.MUTED)
- UI.label(board,tr_text("威胁等级","THREAT"),Vector2(672,375),14,UI.MUTED)
+ UI.label(board,tr_text("威胁等级","THREAT"),Vector2(672,375),16,UI.MUTED)
  for i in 3:
   var b=UI.button(board,"I".repeat(i+1),Rect2(672+i*152,405,136,58),func():select_difficulty(i))
   b.toggle_mode=true;b.tooltip_text=game.db.text(game.db.stores.MissionDataStore.DifficultiesList[i].diffecultyTextID);difficulty_buttons.append(b)
  status=UI.label(board,"",Vector2(672,490),17,UI.MUTED)
- pool_button=UI.button(board,tr_text("战利品","LOOT"),Rect2(24,586,168,52),func():game.show_reward_pool(),"reward")
- pool_summary=UI.label(board,"",Vector2(211,600),16,UI.MUTED)
+ pool_button=UI.button(board,tr_text("战利品","LOOT"),Rect2(24,586,192,52),func():game.show_reward_pool(),"reward")
+ pool_summary=UI.label(board,"",Vector2(232,600),16,UI.MUTED)
  reset_button=UI.button(board,tr_text("重置","RESET"),Rect2(456,586,130,52),reset_pool)
- launch_button=UI.button(board,"",Rect2(640,576,532,64),launch,"play",UI.AMBER)
+ launch_button=UI.button(board,tr_text("出发","DEPLOY"),Rect2(640,576,532,64),launch,"play",UI.AMBER)
  resized.connect(layout_board);refresh();layout_board.call_deferred()
 func tr_text(zh:String,en:String)->String:return game.db.ui(en,zh)
 func layout_board():
@@ -79,8 +81,8 @@ func refresh():
  var index=maxi(0,game.db.stores.MissionDataStore.missionsList.find(mission.id))
  for i in rows.size():
   var m=game.db.asset(game.db.stores.MissionDataStore.missionsList[i]);var unlocked=game.save.mission_unlocked(m)
-  rows[i].set_pressed_no_signal(i==index);rows[i].modulate=Color.WHITE if unlocked else Color(.55,.65,.7)
-  rows[i].add_theme_stylebox_override("normal",UI.style(Color("24544e") if i==index else UI.PANEL,UI.TEAL if i==index else Color("355767"),40))
+  rows[i].set_pressed_no_signal(i==index);rows[i].modulate=Color.WHITE if unlocked else Color(1,1,1,.65)
+  rows[i].add_theme_stylebox_override("normal",UI.card_style(i==index))
   rows[i].tooltip_text=game.db.title(m)+(tr_text(" · 锁定"," · Locked") if not unlocked else "")
  for i in difficulty_buttons.size():difficulty_buttons[i].set_pressed_no_signal(i==game.difficulty)
  title.text=(NAMES_ZH if game.db.language.begins_with("Chinese") else NAMES_EN)[index]
@@ -91,13 +93,13 @@ func refresh():
  objective_text.text=(zh if game.db.language.begins_with("Chinese") else en)[index]
  duration.text="∞" if mission.isEndless else "%02d : 00"%int(mission.MissionsObjectiveList[game.difficulty].objectiveTime)
  mode_label.text=tr_text("无限波次","ENDLESS") if mission.isEndless else tr_text("行动时限","TIME LIMIT")
- points.text="◈ %d"%game.save.state.meta
+ points.text="%d RP"%game.save.state.meta
  var unlocked=game.save.mission_unlocked(mission)
- launch_button.text=tr_text("出发","DEPLOY") if unlocked else tr_text("解锁  ◈ %d","UNLOCK  ◈ %d")%int(mission.MissionCost)
+ launch_button.text=tr_text("出发","DEPLOY") if unlocked else tr_text("解锁  %d RP","UNLOCK  %d RP")%int(mission.MissionCost)
  launch_button.disabled=not unlocked and game.save.state.meta<int(mission.MissionCost)
  status.text=tr_text("准备就绪","READY") if unlocked else (tr_text("研究点不足","MORE RP NEEDED") if launch_button.disabled else tr_text("永久解锁","PERMANENT UNLOCK"))
  pool_summary.text=tr_text("全部启用","ALL ACTIVE") if game.save.state.disabled.is_empty() else tr_text("排除 %d 项","%d EXCLUDED")%game.save.state.disabled.size()
- emblem.key=KEYS[index];emblem.queue_redraw()
+ emblem.texture=UI.icon_texture(KEYS[index])
  reset_button.visible=not game.save.state.disabled.is_empty();mark.selected=index;mark.queue_redraw();connect_focus();layout_board.call_deferred()
 func launch():
  if game.save.mission_unlocked(game.selected_mission):game.begin_run()
