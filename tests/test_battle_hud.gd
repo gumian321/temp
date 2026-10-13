@@ -17,7 +17,9 @@ func execute():
   var before=game.run.elapsed;game._process(.016)
   check(game.run.elapsed>before and game.screen=="game","First frame advances without tip input")
  var h=game.battle_hud
- check(h.fuel.bar.value==0 and h.fuel.amount.text.contains("未装"),"Zero fuel capacity has explicit no-tank state")
+ for instrument in [h.health,h.fuel,h.danger,h.modules,h.drones]:
+  check(instrument.icon is TextureRect and instrument.icon.texture is AtlasTexture,"Instrument uses generated raster artwork: "+instrument.glyph)
+ check(h.fuel.bar.value==0 and not h.fuel.visible,"Zero fuel capacity hides the irrelevant instrument")
  check(h.health.amount.text=="500 / 500" and h.health.bar.value==1,"Initial health uses real maximum")
  check(h.modules.amount.text=="0 / 60" and h.drones.amount.text=="4 / 30","Initial capacities use source limits")
  game.combat.hurt_player(0,125,0);game._process(.016)
@@ -37,7 +39,7 @@ func execute():
  game.run.heat=.42;game.run.elapsed=65;h.refresh()
  check(h.timer.text.contains("12:55"),"Countdown remains text with remaining time")
  game.selected_mission=game.db.named("Endless Mission");h.refresh()
- check(h.timer.text.contains("01:05") and h.timer.text.contains("已进行"),"Endless shows elapsed text, not a countdown bar")
+ check(h.timer.text.contains("01:05") and h.timer.tooltip_text.contains("已进行"),"Endless shows elapsed text, not a countdown bar")
  game.selected_mission=game.db.named("Survival Mission")
  game.player.install_module(game.db.named("Core_Gun_Cannon").id,2,4)
  var head_count=game.combat.drones.filter(func(d):return d.owner==0).size()
@@ -48,13 +50,41 @@ func execute():
  for dimensions in [Vector2i(1440,900),Vector2i(1280,720),Vector2i(1920,1080)]:
   root.size=dimensions;await settle();game.queue_redraw();await settle()
   var viewport=root.get_visible_rect();var good=true
-  for meter_control in [h.health,h.fuel,h.danger,h.modules,h.drones]:
-   good=good and viewport.encloses(meter_control.get_global_rect()) and meter_control.get_global_rect().end.y<190
-  good=good and viewport.encloses(h.build_button.get_global_rect()) and h.build_button.size.y<=48
+  var controls=[h.mission,h.health,h.fuel,h.timer,h.danger,h.counters,h.modules,h.drones,h.build_button]
+  var area=0.0
+  for control in controls:
+   if not control.visible:continue
+   var rect=control.get_global_rect()
+   good=good and viewport.encloses(rect) and rect.end.y<=100
+   area+=rect.get_area()
+   for child in control.get_children():
+    if (child is Label or child is TextureRect) and child.visible:
+     good=good and viewport.encloses(child.get_global_rect()) and rect.encloses(child.get_global_rect())
+  for left in range(controls.size()):
+   for right in range(left+1,controls.size()):
+    if controls[left].visible and controls[right].visible:
+     good=good and not controls[left].get_global_rect().intersects(controls[right].get_global_rect())
+  good=good and area<viewport.get_area()*.06
+  var backing_area=0.0
+  for rect in h.instrument_backings():
+   good=good and viewport.encloses(rect) and rect.end.y<=100
+   backing_area+=rect.get_area()
+  good=good and backing_area<viewport.get_area()*.03
+  good=good and h.build_button.size.y<=44
   good=good and viewport.encloses(h.keys.get_global_rect()) and viewport.encloses(h.radar_label.get_global_rect())
-  check(good,"HUD stays at viewport edges without covering centre at "+str(dimensions))
-  geometry.append({"window":[dimensions.x,dimensions.y],"passed":good})
+  check(good,"Actual controls stay within 100px edge band, do not overlap and occupy under 6% at "+str(dimensions))
+  geometry.append({"window":[dimensions.x,dimensions.y],"passed":good,"occupied_area":area,"fraction":area/viewport.get_area()})
   await shot("%dx%d"%[dimensions.x,dimensions.y])
+ for fraction in [1.0,.1,0.0]:
+  game.player.parts[0].hp=game.player.parts[0].max_hp*fraction
+  game.player.fuel=game.player.max_fuel*fraction
+  h.refresh()
+  check(is_equal_approx(h.health.bar.value,fraction) and is_equal_approx(h.fuel.bar.value,fraction),"Armor and fuel remain accurate at "+str(fraction))
+  check(h.health.warning==(fraction<=.25) and h.fuel.warning==(fraction<=.25),"Low/empty resource warnings at "+str(fraction))
+  for count_value in [0,1,30]:
+   h.drones.capacity(count_value,30,"∞")
+   check(h.drones.get_global_rect().encloses(h.drones.amount.get_global_rect()),"Drone counter fits at "+str(count_value))
+  await shot("state-"+str(roundi(fraction*100)))
  root.size=Vector2i(1440,900);await settle()
  game.run.packs=0;game.run.rewards.queue.clear()
  await click_at(h.build_button.get_global_rect().get_center());check(game.screen=="build","E build button remains clickable")

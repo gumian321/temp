@@ -47,12 +47,12 @@ func execute():
 	var rng=battle.rng.state
 	battle.fire(tesla,body.head,Vector2.RIGHT,true)
 	var beam=battle.effects.filter(func(e):return e.kind=="chain")[0]
-	check(beam.life==0.32 and beam.fx_duration==0.32 and beam.end==enemy.position,"Tesla readable 320ms beam connects actual emitter and hit target")
+	check(beam.life==0.32 and beam.fx_duration==0.32 and absf(beam.end.distance_to(enemy.position)-enemy.radius)<0.001,"Tesla readable 320ms beam connects actual emitter and target surface")
 	check(enemy.hp==980 and battle.bullets.is_empty(),"Tesla remains one instantaneous 20 damage hit, no persistent damage")
 	check(battle.rng.state==rng,"Readability changes do not consume gameplay randomness")
 	battle.effects.clear()
 	battle.fire(tesla,enemy.position,Vector2.LEFT,false)
-	check(battle.effects.any(func(e):return e.kind=="chain" and not e.friendly and e.end==body.head),"Hostile instantaneous Tesla now has a visible source-to-player beam")
+	check(battle.effects.any(func(e):return e.kind=="chain" and not e.friendly and absf(e.end.distance_to(body.head)-body.collision_radius(0))<0.001),"Hostile instantaneous Tesla has a visible source-to-player-surface beam")
 	var report={"checks":checks,"passed":checks.all(func(c):return c.passed)}
 	FileAccess.open("res://artifacts/weapon-readability-report.json",FileAccess.WRITE).store_string(JSON.stringify(report,"\t"))
 	print(JSON.stringify(report));quit(0 if report.passed else 1)

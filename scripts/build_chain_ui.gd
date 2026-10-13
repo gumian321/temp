@@ -37,8 +37,8 @@ func rebuild():
 	var title=text_at("蜕变舱" if game.reward_flow_active else "虫巢武装",Vector2(65,35),Vector2(600,58),38)
 	var capacity=text_at("%02d / 60"%player.segment_count(),Vector2(1200,42),Vector2(170,36),24)
 	var subtitle=text_at("1 元素 = 1 体节    ·    拖入 + 生长",Vector2(65,106),Vector2(900,30),17)
-	text_at("待装  ·  %02d"%player.pending.size(),Vector2(65,510),Vector2(280,36),22)
-	var scroll=ScrollContainer.new();scroll.position=Vector2(65,565);scroll.size=Vector2(666,214)
+	text_at("待装  ·  %02d"%player.pending.size(),Vector2(72,527),Vector2(280,36),22)
+	var scroll=ScrollContainer.new();scroll.position=Vector2(72,579);scroll.size=Vector2(652,186)
 	scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;add_child(scroll)
 	inventory_scroll=scroll;scroll.set_deferred("scroll_vertical",previous_inventory_scroll)
 	var list=GridContainer.new();list.columns=5;list.add_theme_constant_override("h_separation",17);list.add_theme_constant_override("v_separation",14);scroll.add_child(list)
@@ -50,11 +50,11 @@ func rebuild():
 	if player.pending.is_empty():
 		text_at("暂无待装元素",Vector2(250,607),Vector2(420,40),23)
 		text_at("战斗 → 奖励 → 生长",Vector2(250,655),Vector2(400,36),17)
-	reward_button=action_button("▣  %d"%game.run.packs,Vector2(590,503),Vector2(140,44),game.show_rewards,not player.pending.is_empty())
+	reward_button=action_button("奖励  %d"%game.run.packs,Vector2(582,526),Vector2(140,44),game.show_rewards,not player.pending.is_empty())
 	reward_button.tooltip_text="选择奖励";reward_button.visible=game.run.packs>0
-	text_at("身体序列",Vector2(65,157),Vector2(280,34),21)
-	text_at("头部 → 尾部",Vector2(1200,160),Vector2(170,30),16)
-	chain_scroll=ScrollContainer.new();chain_scroll.position=Vector2(48,206);chain_scroll.size=Vector2(1344,272)
+	text_at("身体序列",Vector2(72,174),Vector2(280,34),21)
+	text_at("头部 → 尾部",Vector2(1200,174),Vector2(170,30),16)
+	chain_scroll=ScrollContainer.new();chain_scroll.position=Vector2(72,218);chain_scroll.size=Vector2(1296,256)
 	chain_scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
 	chain_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_AUTO;add_child(chain_scroll)
 	var row=HBoxContainer.new();row.add_theme_constant_override("separation",0);chain_scroll.add_child(row)
@@ -77,7 +77,7 @@ func rebuild():
 	health_label=text_at("",Vector2(1000,608),Vector2(350,32),19)
 	description_label=text_at("",Vector2(1000,658),Vector2(350,92),17)
 	armor_button=action_button("加固  %d"%player.actions.wall,Vector2(806,724),Vector2(165,43),reinforce_selected)
-	hint=text_at("",Vector2(48,825),Vector2(1040,42),17);hint.add_theme_color_override("font_color",Color("ff8275"));hint.visible=false
+	hint=text_at("",Vector2(48,825),Vector2(1040,42),17);hint.add_theme_color_override("font_color",UI.RED);hint.visible=false
 	return_button=action_button("出击  →",Vector2(1170,812),Vector2(190,52),game.finish_building,not player.pending.is_empty())
 	return_button.tooltip_text="手动返回战斗 · E / Esc"
 	if game.reward_flow_active:
@@ -90,10 +90,10 @@ func apply_local_styles(title:Label,subtitle:Label,capacity:Label):
 	title.add_theme_color_override("font_color",UI.TEXT)
 	subtitle.add_theme_color_override("font_color",UI.MUTED)
 	capacity.add_theme_color_override("font_color",UI.AMBER)
-	return_button.add_theme_stylebox_override("normal",UI.style(UI.TEAL,UI.TEAL,12))
-	return_button.add_theme_stylebox_override("hover",UI.style(UI.TEAL.lightened(.2),UI.TEAL,12))
-	return_button.add_theme_color_override("font_color",UI.BG)
-	return_button.add_theme_color_override("font_hover_color",UI.BG)
+	return_button.add_theme_stylebox_override("normal",UI.Art.skin("active"))
+	return_button.add_theme_stylebox_override("hover",UI.Art.skin("active"))
+	return_button.add_theme_color_override("font_color",UI.TEXT)
+	return_button.add_theme_color_override("font_hover_color",UI.TEXT)
 
 func _process(dt:float):
 	super._process(dt)
@@ -153,22 +153,22 @@ func _draw():
 	draw_style_box(UI.style(UI.PANEL,Color(UI.TEAL,.24),22),Rect2(32,145,1376,344))
 	draw_style_box(UI.style(UI.PANEL,Color(UI.TEAL,.16),22),Rect2(32,501,724,292))
 	draw_style_box(UI.style(UI.PANEL,Color(UI.TEAL,.16),22),Rect2(780,501,628,292))
-	draw_arc(Vector2(886,624),74,0,TAU,64,Color(UI.TEAL,.22),2,true)
+	draw_arc(Vector2(906,624),74,0,TAU,64,Color(UI.TEAL,.22),2,true)
 	for i in 12:
 		var a=i*TAU/12
-		draw_line(Vector2(886,624)+Vector2.from_angle(a)*78,Vector2(886,624)+Vector2.from_angle(a)*84,Color(UI.TEAL,.36),2,true)
+		draw_line(Vector2(906,624)+Vector2.from_angle(a)*78,Vector2(906,624)+Vector2.from_angle(a)*84,Color(UI.TEAL,.36),2,true)
 	if player.pending.is_empty():
 		draw_head(self,Vector2(154,650),1.1)
 	var data=shown_data()
 	var core=db.asset(data.get("id",data.get("part",{}).get("id","")))
 	if core.is_empty():
-		draw_head(self,Vector2(886,624),1.4)
+		draw_head(self,Vector2(906,624),1.4)
 	else:
-		if int(data.get("part",{}).get("segment",-1))==player.segment_count():Art.tail(self,Vector2(886,624),ASSEMBLY_FACING,1.7)
-		Art.segment(self,Vector2(886,624),ASSEMBLY_FACING,1.7,0,false)
+		if int(data.get("part",{}).get("segment",-1))==player.segment_count():Art.tail(self,Vector2(906,624),ASSEMBLY_FACING,1.7)
+		Art.segment(self,Vector2(906,624),ASSEMBLY_FACING,1.7,0,false)
 		var texture=db.core_sprite(core)
 		if texture!=null:
-			draw_element(self,texture,Vector2(886,617),1.7)
+			draw_element(self,texture,Vector2(906,617),1.7)
 
 func draw_head(canvas:CanvasItem,at:Vector2,scale_factor:float):
 	if player.segment_count()==0:Art.tail(canvas,at,ASSEMBLY_FACING,scale_factor,true)
@@ -286,5 +286,5 @@ func action_button(title: String, at: Vector2, extent: Vector2, callback: Callab
 	var button=Button.new();button.text=title;button.position=at;button.size=extent;button.disabled=disabled
 	button.add_theme_font_size_override("font_size",19)
 	for state in ["normal","hover","pressed","disabled","focus"]:
-		button.add_theme_stylebox_override(state,UI.style(UI.PANEL if state=="normal" else Color("21434b"),UI.TEAL if state!="disabled" else UI.MUTED,12,8))
+		button.add_theme_stylebox_override(state,UI.focus_style() if state=="focus" else UI.Art.skin("normal" if state in ["normal","disabled"] else "active",8))
 	button.pressed.connect(callback);add_child(button);return button

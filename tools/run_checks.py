@@ -12,7 +12,7 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SUITES = [
-    "brood", "armament_art", "insect_armaments", "insect_art_routes", "insect_controls", "insect_attack_fx", "game_ui_shell", "meta_ui_redesign", "battle_hud", "reward_cards", "mission_select",
+    "brood", "armament_art", "generated_light_ui", "tooltip_theme", "contact_impacts", "insect_armaments", "insect_art_routes", "insect_controls", "insect_attack_fx", "game_ui_shell", "meta_ui_redesign", "battle_hud", "reward_cards", "mission_select",
     "core", "missions", "map", "rewards", "specials", "regressions", "drones",
     "reward_pool", "controller", "long_body", "shields", "turret_tracking",
     "achievements", "fuel_tutorial", "enemy_drones", "radar", "weapon_catalog",

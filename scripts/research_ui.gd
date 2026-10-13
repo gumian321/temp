@@ -26,8 +26,8 @@ class Veins extends Control:
   for pair in lines:
    var a:Vector2=pair[0];var b:Vector2=pair[1]
    var mid=(a+b)*.5
-   draw_polyline(PackedVector2Array([a,Vector2(mid.x,a.y),Vector2(mid.x,b.y),b]),Color('355e64'),3,true)
-   draw_circle(mid,4,Color('55e3c1'))
+   draw_polyline(PackedVector2Array([a,Vector2(mid.x,a.y),Vector2(mid.x,b.y),b]),Color(UI.MUTED,.38),3,true)
+   draw_circle(mid,4,UI.TEAL)
 
 func setup(source,store,on_close:Callable,on_change:Callable):
  db=source;save=store;close=on_close;changed=on_change
@@ -58,13 +58,15 @@ func rebuild():
  for n in db.research:
   var pos:Dictionary=positions.get(n.id,{'x':0,'y':0})
   var b=button(canvas,'',Vector2(pos.x,pos.y)*42,Vector2(94,94),func():show_detail(n,0))
+  for state in ["hover","pressed","hover_pressed"]:b.add_theme_stylebox_override(state,UI.card_style(true))
+  b.add_theme_stylebox_override("focus",UI.card_focus_style())
   b.focus_entered.connect(func():
    if not controller_navigation:return
    pan=Vector2(710,350)-(b.position+b.size/2)*magnification;canvas.position=pan)
   b.icon=icon(db.asset(n.nodeRewardsList[0]));b.expand_icon=true;b.icon_alignment=HORIZONTAL_ALIGNMENT_CENTER;b.add_theme_constant_override('icon_max_width',62)
   var unlocked=n.nodeRewardsList.filter(func(id):return id in save.state.unlocked).size()
-  b.add_theme_stylebox_override('normal',UI.style(Color('1d4948') if unlocked>0 else UI.PANEL,UI.TEAL if unlocked>0 else Color('385260'),32))
-  b.modulate=Color.WHITE if unlocked>0 else Color(.66,.74,.77)
+  b.add_theme_stylebox_override('normal',UI.card_style(unlocked>0))
+  b.modulate=Color.WHITE if unlocked>0 else Color(1,1,1,.72)
   b.tooltip_text=db.title(db.asset(n.nodeRewardsList[0]))+' · %d / %d'%[unlocked,n.nodeRewardsList.size()]
   for i in n.nodeRewardsList.size():
    var pip=ColorRect.new();pip.position=Vector2(15+i*13,83);pip.size=Vector2(8,3);pip.color=UI.AMBER if i<unlocked else UI.MUTED;pip.mouse_filter=MOUSE_FILTER_IGNORE;b.add_child(pip)
@@ -73,7 +75,7 @@ func rebuild():
   var previous=str(int(n.get('previousUpgradeTreeNode',{}).get('fileID',0)))
   if node_buttons.has(previous) and node_buttons.has(n.id):veins.lines.append([node_buttons[previous].position+Vector2(47,47),node_buttons[n.id].position+Vector2(47,47)])
  veins.queue_redraw();canvas.position=pan;canvas.scale=Vector2.ONE*magnification
- points.text='◈ %d'%save.state.meta
+ points.text='%d RP'%save.state.meta
 func _gui_input(event):
  if is_instance_valid(detail):return
  if event is InputEventMouseButton:
@@ -117,9 +119,9 @@ func show_detail(n:Dictionary,index:int):
   modal_blocker.position=-position/scale;modal_blocker.size=get_viewport_rect().size/scale
  detail=Panel.new();detail.position=Vector2(170,125);detail.size=Vector2(1100,620);detail.add_theme_stylebox_override('panel',UI.style(UI.BG,UI.TEAL,24));add_child(detail)
  var r:Dictionary=db.asset(n.nodeRewardsList[index])
- UI.panel(detail,Rect2(24,24,420,465),Color('315665'))
+ UI.panel(detail,Rect2(24,24,420,465),Color(UI.MUTED,.35))
  var art=TextureRect.new();art.texture=icon(r);art.position=Vector2(64,72);art.size=Vector2(340,340);art.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;art.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;art.mouse_filter=MOUSE_FILTER_IGNORE;detail.add_child(art)
- UI.label(detail,'EVOLUTION / %02d'%[index+1],Vector2(480,34),14,UI.TEAL)
+ UI.label(detail,'EVOLUTION / %02d'%[index+1],Vector2(480,34),16,UI.TEAL)
  var title=label(detail,db.title(r),Vector2(480,70),Vector2(560,65),32);title.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
  var desc=label(detail,db.text(r.get('rewardDesc','')),Vector2(480,150),Vector2(550,115),19);desc.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;desc.clip_text=true;desc.tooltip_text=desc.text;desc.add_theme_color_override('font_color',UI.MUTED)
  var stats:Dictionary=r.get('rewardStats',{});var linked:Dictionary=db.asset(stats.get('LinkedReward','')).get('rewardStats',{})
@@ -130,19 +132,19 @@ func show_detail(n:Dictionary,index:int):
   if value<=0:continue
   label(detail,db.text(names[i]),Vector2(480,282+row*32),Vector2(190,30),16)
   for j in range(6):
-   var bar=ColorRect.new();bar.position=Vector2(700+j*48,289+row*32);bar.size=Vector2(36,10);bar.color=UI.TEAL if j<value else (UI.AMBER if j<value+added else Color('263e49'));bar.mouse_filter=MOUSE_FILTER_IGNORE;detail.add_child(bar)
+   var bar=ColorRect.new();bar.position=Vector2(700+j*48,289+row*32);bar.size=Vector2(36,10);bar.color=UI.TEAL if j<value else (UI.AMBER if j<value+added else Color('d9e0df'));bar.mouse_filter=MOUSE_FILTER_IGNORE;detail.add_child(bar)
   row+=1
  for i in range(n.nodeRewardsList.size()):
   var reward:Dictionary=db.asset(n.nodeRewardsList[i])
   var b=button(detail,str(i+1),Vector2(40+i*75,420),Vector2(64,54),func():show_detail(n,i));b.tooltip_text=db.title(reward)
-  b.add_theme_stylebox_override('normal',UI.style(Color('28544d') if i==index else UI.PANEL,UI.TEAL if reward.id in save.state.unlocked else UI.MUTED))
+  b.add_theme_stylebox_override('normal',UI.Art.skin("active" if i==index else "normal"))
   if i==index:b.call_deferred('grab_focus')
  var unlocked=r.id in save.state.unlocked;var cost=save.research_price(n,index);var allowed=save.state.meta>=cost
  for i in range(index):allowed=allowed and n.nodeRewardsList[i] in save.state.unlocked
  var previous=str(int(n.get('previousUpgradeTreeNode',{}).get('fileID',0)))
  for other in db.research:
   if other.id==previous:allowed=allowed and other.nodeRewardsList[0] in save.state.unlocked
- var buy=UI.button(detail,db.ui('EVOLVED','已进化') if unlocked else db.ui('EVOLVE  ◈ %d','进化  ◈ %d')%cost,Rect2(480,526,430,62),func():
+ var buy=UI.button(detail,db.ui('EVOLVED','已进化') if unlocked else db.ui('EVOLVE  %d RP','进化  %d RP')%cost,Rect2(480,526,430,62),func():
   if save.unlock_research(n,index):changed.call();rebuild();show_detail(n,mini(index+1,n.nodeRewardsList.size()-1)), 'research',UI.AMBER)
  buy.disabled=unlocked or not allowed
  if not unlocked and not allowed:buy.tooltip_text=db.ui('Requires earlier evolutions and enough research points.','需要完成前置进化，并持有足够研究点。')

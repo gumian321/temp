@@ -50,7 +50,7 @@ func refresh_localized_labels(data:Dictionary):
  var activation:Dictionary=data.get('components',{}).get('LocalizationTextActivator',{})
  if not activation.is_empty() and view.labels.has(data.id):
   view.set_text(data.id,db.text(str(activation.IDString).strip_edges()))
-  view.labels[data.id].add_theme_font_override('font',load('res://assets/fonts/NotoSansSC-Light.otf'))
+  view.labels[data.id].add_theme_font_override('font',UI.theme().default_font)
  for child in data.children:refresh_localized_labels(child)
 func ref(key:String)->String:return str(int(config[key+'Tutorial'].fileID))
 func reset_run():

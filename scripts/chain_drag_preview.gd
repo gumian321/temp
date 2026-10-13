@@ -20,6 +20,6 @@ func _draw():
 	var caption="松开取消"
 	if valid:caption="交换位置" if target.get("kind")=="swap" else "插入这里"
 	var tint=UI.TEAL if valid else UI.MUTED
-	var style=Ink.box(UI.PANEL,tint,2);style.set_corner_radius_all(12)
+	var style=UI.style(UI.PANEL,tint,12)
 	draw_style_box(style,Rect2(at+Vector2(-56,54),Vector2(112,30)))
-	draw_string(Ink.theme().default_font,at+Vector2(-50,75),caption,HORIZONTAL_ALIGNMENT_CENTER,100,15,tint)
+	draw_string(Ink.theme().default_font,at+Vector2(-50,75),caption,HORIZONTAL_ALIGNMENT_CENTER,100,16,tint)

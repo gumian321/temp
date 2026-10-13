@@ -49,35 +49,14 @@ static func box(fill: Color = PAPER, edge: Color = INK, width: int = 1) -> Style
 
 static func theme() -> Theme:
 	if shared_theme != null: return shared_theme
-	shared_theme = Theme.new()
-	shared_theme.default_font = load("res://assets/fonts/NotoSansSC-Light.otf")
-	shared_theme.default_font_size = 20
-	for kind in ["Label", "Button", "CheckButton", "CheckBox", "OptionButton", "RichTextLabel", "PopupMenu", "LineEdit"]:
-		shared_theme.set_color("font_color", kind, INK)
-		shared_theme.set_color("default_color", kind, INK)
-		shared_theme.set_color("font_hover_color", kind, BLUE)
-		shared_theme.set_color("font_pressed_color", kind, PAPER)
-		shared_theme.set_color("font_focus_color", kind, INK)
-		shared_theme.set_color("font_disabled_color", kind, MUTED)
-	for kind in ["Button", "OptionButton"]:
-		shared_theme.set_stylebox("normal", kind, box())
-		shared_theme.set_stylebox("hover", kind, box(WASH, BLUE, 2))
-		shared_theme.set_stylebox("pressed", kind, box(INK))
-		shared_theme.set_stylebox("disabled", kind, box(Color("ecece6"), MUTED))
-		shared_theme.set_stylebox("focus", kind, box(Color.TRANSPARENT, BLUE, 2))
-	for kind in ["Panel", "PanelContainer", "PopupPanel"]:
-		shared_theme.set_stylebox("panel", kind, box())
-	shared_theme.set_stylebox("panel", "TooltipPanel", box(PAPER, BLUE))
-	shared_theme.set_color("font_color", "TooltipLabel", INK)
-	for kind in ["HSlider", "VSlider", "ProgressBar"]:
-		shared_theme.set_stylebox("slider", kind, box(WASH, MUTED))
-		shared_theme.set_stylebox("grabber_area", kind, box(BLUE, BLUE))
-		shared_theme.set_stylebox("grabber_area_highlight", kind, box(INK, INK))
-		shared_theme.set_stylebox("background", kind, box(WASH, MUTED))
-		shared_theme.set_stylebox("fill", kind, box(BLUE, BLUE))
+	shared_theme = preload("res://scripts/game_ui.gd").theme()
 	return shared_theme
 
 static func style_item(node: Node):
+	var ancestor=node
+	while ancestor!=null:
+		if ancestor.has_meta("game_ui"):return
+		ancestor=ancestor.get_parent()
 	if node is Label or node is RichTextLabel:
 		node.add_theme_color_override("font_color", INK)
 		node.add_theme_color_override("default_color", INK)
@@ -103,9 +82,10 @@ static func style_item(node: Node):
 			node.remove_theme_color_override(state)
 		if node.icon != null: node.material = null if keeps_color(node.icon) else illustration()
 	elif node is Panel or node is PanelContainer:
-		node.add_theme_stylebox_override("panel", box())
+		node.add_theme_stylebox_override("panel", preload("res://scripts/game_ui.gd").style())
 
 static func apply_tree(node: Node):
+	if node.has_meta("game_ui"):return
 	if node is Control: node.theme = theme()
 	style_item(node)
 	for child in node.get_children(): apply_tree(child)
