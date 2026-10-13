@@ -1,0 +1,150 @@
+{
+	"checks": [
+		{
+			"name": "Source module exists: Core_Gun_Gatling",
+			"passed": true
+		},
+		{
+			"name": "Free mount accepts weapon/support in slot 0",
+			"passed": true
+		},
+		{
+			"name": "Source module exists: Core_Gun_Cannon",
+			"passed": true
+		},
+		{
+			"name": "Free mount accepts weapon/support in slot 1",
+			"passed": true
+		},
+		{
+			"name": "Source module exists: Core_Shield",
+			"passed": true
+		},
+		{
+			"name": "Free mount accepts weapon/support in slot 2",
+			"passed": true
+		},
+		{
+			"name": "Source module exists: Core_Repair",
+			"passed": true
+		},
+		{
+			"name": "Free mount accepts weapon/support in slot 3",
+			"passed": true
+		},
+		{
+			"name": "Source module exists: Core_Gun_Tesla",
+			"passed": true
+		},
+		{
+			"name": "Free mount accepts weapon/support in slot 4",
+			"passed": true
+		},
+		{
+			"name": "Source module exists: Core_Gun_EMP",
+			"passed": true
+		},
+		{
+			"name": "Free mount accepts weapon/support in slot 5",
+			"passed": true
+		},
+		{
+			"name": "Source module exists: Core_Gun_Flame Thrower",
+			"passed": true
+		},
+		{
+			"name": "Free mount accepts weapon/support in slot 6",
+			"passed": true
+		},
+		{
+			"name": "Source module exists: Core_Gun_Shotgun",
+			"passed": true
+		},
+		{
+			"name": "Free mount accepts weapon/support in slot 7",
+			"passed": true
+		},
+		{
+			"name": "Source module exists: Core_Chip_Mammoth",
+			"passed": true
+		},
+		{
+			"name": "Free mount accepts weapon/support in slot 8",
+			"passed": true
+		},
+		{
+			"name": "Nine modules occupy one shell without widening or growing the body",
+			"passed": true
+		},
+		{
+			"name": "Occupied slots and skipped tail segments reject installation",
+			"passed": true
+		},
+		{
+			"name": "All nine world mounts stay within the existing 54-pixel shell",
+			"passed": true
+		},
+		{
+			"name": "Nine installed modules have distinct world positions",
+			"passed": true
+		},
+		{
+			"name": "Center support has exactly four orthogonal grid neighbors",
+			"passed": true
+		},
+		{
+			"name": "A shield covers a neighboring module at its actual world position",
+			"passed": true
+		},
+		{
+			"name": "Moving to the tail grows one segment and clears only the old slot",
+			"passed": true
+		},
+		{
+			"name": "Move token is consumed once; refused moves preserve placement",
+			"passed": true
+		},
+		{
+			"name": "Swap exchanges mount coordinates while preserving module state",
+			"passed": true
+		},
+		{
+			"name": "Duplicate creates a module in the chosen empty grid slot",
+			"passed": true
+		},
+		{
+			"name": "Blueprint records both body segment and local slot",
+			"passed": true
+		},
+		{
+			"name": "Destroyed modules leave an empty mount without renumbering survivors or shrinking the body",
+			"passed": true
+		},
+		{
+			"name": "All source turret sprites preserve color and aspect ratio in compact, head, world and UI sizes",
+			"passed": true
+		},
+		{
+			"name": "Nine-slot construction retains the source 60-module limit",
+			"passed": true
+		},
+		{
+			"name": "All sixty grid mounts rotate rigidly with their individual shells through hard turns",
+			"passed": true
+		},
+		{
+			"name": "Only the orthogonal chip affects the turret; a diagonal chip does not",
+			"passed": true
+		},
+		{
+			"name": "Repair heals its neighbor in the same shell",
+			"passed": true
+		},
+		{
+			"name": "Touching grid edges connect support across neighboring body segments",
+			"passed": true
+		}
+	],
+	"passed": true,
+	"turret_textures": 25
+}

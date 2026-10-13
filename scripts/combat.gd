@@ -1,6 +1,9 @@
 extends RefCounted
 
 const SpecialSystems = preload("res://scripts/special_systems.gd")
+const SoftInsect = preload("res://scripts/soft_insect.gd")
+const Feedback = preload("res://scripts/weapon_feedback.gd")
+var shot_serial = 0
 var special
 var barrages: Array = []
 var db
@@ -201,15 +204,19 @@ func target_for(core: Dictionary, at: Vector2, reach: float) -> Dictionary:
 		if (value>best if radar in ["BiggestTargetRadarConfiguration","FurthestRadarConfiguration"] else value<best):best=value;result=e
 	return result
 
-func fire(core: Dictionary, at: Vector2, direction: Vector2, friendly: bool, chips: Dictionary = {}, damage_boost: float = 0.0, single: bool = false, barrel_index: int = 0):
+func fire(core: Dictionary, at: Vector2, direction: Vector2, friendly: bool, chips: Dictionary = {}, damage_boost: float = 0.0, single: bool = false, barrel_index: int = 0, visual_scale: float = 1.0):
 	var sound = db.asset(core.get("coreTurret", "")).get("fireAudioClipType",0)
-	audio_events.append({"type":int(sound),"position":at})
 	var projectile: Dictionary = db.asset(core.get("coreProjectile", ""))
 	if projectile.is_empty():
 		return
+	var family = Feedback.family(projectile)
+	shot_serial += 1
+	var sound_event = Feedback.shot_sound(family,shot_serial)
+	sound_event.type = int(sound); sound_event.position = at
+	audio_events.append(sound_event)
 	var count = int(core.get("barrageProjectileCount", 1)) if not single else 1
 	if count>1 and float(core.get("barrageInterval",0))>0:
-		barrages.append({"core":core,"at":at,"direction":direction,"friendly":friendly,"chips":chips,"boost":damage_boost,"count":count-1,"barrel_index":1,"timer":float(core.barrageInterval)})
+		barrages.append({"core":core,"at":at,"direction":direction,"friendly":friendly,"chips":chips,"boost":damage_boost,"count":count-1,"barrel_index":1,"timer":float(core.barrageInterval),"visual_scale":visual_scale})
 		count=1
 	var barrel_prefab: String = db.asset(core.get("coreTurret", "")).get("turretsBarrels", "")
 	var barrel_refs: Array = db.component(barrel_prefab,"TurretBarrelsController").get("barrels",[])
@@ -219,14 +226,16 @@ func fire(core: Dictionary, at: Vector2, direction: Vector2, friendly: bool, chi
 		var barrel: Dictionary = {}
 		if not barrel_refs.is_empty():barrel=transforms.get(str(int(barrel_refs[(barrel_index+i)%barrel_refs.size()].fileID)),{})
 		var dir = direction.rotated(float(barrel.get("angle",0)))
-		var muzzle = at + Vector2(float(barrel.get("x",0)),float(barrel.get("y",0))).rotated(direction.angle()+PI/2)*48
+		var muzzle = at + Vector2(float(barrel.get("x",0)),float(barrel.get("y",0))).rotated(direction.angle()+PI/2)*48*visual_scale
+		effects.append(Feedback.decorate({"position":muzzle,"direction":dir,"radius":clampf(float(projectile.get("projectileDamage",{}).get("hullDamage",1))*0.15,2,10),"life":0.14,"kind":"muzzle","visual_scale":visual_scale},family,friendly))
 		var damage: Dictionary = projectile.get("projectileDamage", {"hullDamage": 1, "shieldDamage": 1})
 		var multiplier = (1.0 + damage_boost) * (1.0 + special.chip("MammothDamagePercentBoost", int(chips.get(5,0))))
 		var b = {"position": muzzle, "previous": muzzle, "velocity": dir * float(projectile.get("projectileSpeed", 20)) * 48.0, "life": maxf(0.1, float(projectile.get("projectileLifeTime", 2))), "data": projectile, "friendly": friendly, "damage": float(damage.hullDamage) * multiplier, "shield_damage": float(damage.shieldDamage) * multiplier, "pierce": int(projectile.get("targetPiercingCount", 1)) + int(special.chip("PiercingTargetCount",int(chips.get(3,0)))), "chips": chips, "hit": [], "age":0.0, "direction":dir, "homing_speed":0.0,"rot_speed":0.0, "radius": 4.0 * (1.0 + float(chips.get(5, 0)) * 0.5)}
+		b.fx_family = family; b.origin = muzzle
 		if int(projectile.get("projectilePrefab",0)) in [45,46]:
 			var target = nearest(at,db.range_units(core.get("turretRange",4))*48) if friendly else {}
 			if not target.is_empty():
-				effects.append({"position":at,"end":target.position,"life":0.12,"radius":0,"kind":"chain"})
+				effects.append(Feedback.decorate({"position":muzzle,"end":target.position,"life":0.25 if family=="rail" else 0.18,"radius":0,"kind":"chain"},family,friendly))
 				b.pierce = 1
 				b.chips = chips.duplicate()
 				b.line_jumps = int(projectile.targetPiercingCount)-1+int(special.chip("PiercingTargetCount",int(chips.get(3,0))))
@@ -251,7 +260,7 @@ func step(dt: float, aim: Vector2, shooting: bool):
 	for salvo in barrages.duplicate():
 		salvo.timer -= dt
 		if salvo.timer<=0:
-			fire(salvo.core,salvo.at,salvo.direction,salvo.friendly,salvo.chips,salvo.boost,true,salvo.barrel_index)
+			fire(salvo.core,salvo.at,salvo.direction,salvo.friendly,salvo.chips,salvo.boost,true,salvo.barrel_index,float(salvo.get("visual_scale",1)))
 			salvo.barrel_index+=1
 			salvo.count-=1
 			salvo.timer+=float(salvo.core.barrageInterval)
@@ -259,6 +268,8 @@ func step(dt: float, aim: Vector2, shooting: bool):
 	rebuild_grid(target_grid,false);target_grid_active=true
 	for i in range(player.parts.size()):
 		var p: Dictionary = player.parts[i]
+		p.recoil=maxf(0.0,float(p.get("recoil",0))-dt*42.0)
+		p.impact_left=maxf(0.0,float(p.get("impact_left",0))-dt)
 		p.cooldown -= dt
 		p.stun = maxf(0, p.stun - dt)
 		if p.hp <= 0 or p.stun > 0:
@@ -279,7 +290,9 @@ func step(dt: float, aim: Vector2, shooting: bool):
 			if p.cooldown <= 0 and ((manual and shooting) or (not manual and not target.is_empty())) and absf(angle_difference(p.angle,dir.angle()))<deg_to_rad(float(c.get("turretErrorAngle",2))):
 				var rate = float(c.get("turretRateOfFire", 1)) * (1.0 + player.stats.get("13" if i == 0 else "2", 0.0) + player.upgrade_bonus(c.id, "RateOfFirePercent"))
 				p.cooldown = 1.0 / maxf(rate, 0.01)
-				fire(c, p.position, dir, true, chips, player.stats.get("14" if i == 0 else "15", 0.0) + player.upgrade_bonus(c.id, "DamagePercent"))
+				fire(c, p.position, dir, true, chips, player.stats.get("14" if i == 0 else "15", 0.0) + player.upgrade_bonus(c.id, "DamagePercent"), false, int(p.get("barrel_index",0)),player.weapon_visual_scale(i))
+				p.barrel_index=int(p.get("barrel_index",0))+1
+				p.recoil=float(Feedback.profile(Feedback.family(c)).recoil)
 		elif c["class"] == "ShieldCore":
 			p.shield_delay -= dt
 			if p.shield_delay <= 0:
@@ -288,14 +301,17 @@ func step(dt: float, aim: Vector2, shooting: bool):
 					p.shield=capacity/2;p.shield_broken=false;audio_events.append({"type":50,"position":p.position})
 				else:p.shield = minf(capacity, p.shield + float(c.shieldRechargeRate)*(1+player.upgrade_bonus(c.id,"ShieldRechargeRatePercent")) * dt)
 		elif c["class"] == "RepairCore":
-			for other in player.parts:
-				if abs(other.cell.x - p.cell.x) <= 1 and abs(other.cell.y - p.cell.y) <= 1 and other.hp > 0:
+			for neighbor_index in player.adjacent_part_indices(i, true):
+				var other: Dictionary = player.parts[neighbor_index]
+				if other.hp > 0:
 					other.hp = minf(other.max_hp, other.hp + float(c.get("repairAmountPerSec", 4)) * dt)
 		elif c["class"] == "DroneCore":
 			ensure_drones(i, c)
 	target_grid_active=false
 	measured=mark_phase("player_weapons",measured)
 	for e in enemies:
+		e.feedback_left=maxf(0,float(e.get("feedback_left",0))-dt)
+		e.fx_cooldown=maxf(0,float(e.get("fx_cooldown",0))-dt)
 		if e.kind == "AIBossUnit":
 			e.hp = 0.0
 			for uid in e.parts:
@@ -303,6 +319,7 @@ func step(dt: float, aim: Vector2, shooting: bool):
 		if e.hp <= 0:
 			continue
 		e.age += dt
+		SoftInsect.step(e,dt)
 		e.warp = maxf(0, e.warp - dt)
 		e.stun = maxf(0, e.stun - dt)
 		if e.stun > 0 or e.warp > 0:
@@ -367,7 +384,7 @@ func step(dt: float, aim: Vector2, shooting: bool):
 		var kamikaze=source_component(e.components,"KamikazeTrigger")
 		if not kamikaze.is_empty():
 			for i in range(player.parts.size()):
-				if player.parts[i].hp>0 and not player.parts[i].get("cloaked",false) and e.position.distance_to(player.parts[i].position)<e.radius+20:
+				if player.parts[i].hp>0 and not player.parts[i].get("cloaked",false) and e.position.distance_to(player.parts[i].position)<e.radius+player.collision_radius(i):
 					hurt_player(i,float(kamikaze.explosionDamage.hullDamage),float(kamikaze.explosionDamage.shieldDamage));e.hp=0;break
 		if e.unit.get("UseActionDistance",false) and e.position.distance_to(target)>e.action_distance:continue
 
@@ -388,7 +405,8 @@ func step(dt: float, aim: Vector2, shooting: bool):
 				if delta.length()<db.range_units(core.get("turretRange",1))*48: special.continuous(core,e.position,delta.normalized(),e.role=="friendly",{},e.damage_modifier-1,dt,"enemy:"+str(e.uid)+":"+str(e.guns.find(gun)))
 				continue
 			if gun.cooldown <= 0 and e.position.distance_to(target) < db.range_units(core.get("turretRange", 1)) * 48 * (1.0 + e.range_modifier):
-				fire(core, e.position + Vector2(gun.get("offset", Vector2.ZERO)).rotated(e.angle), Vector2.from_angle(gun.angle), e.role == "friendly", {}, e.damage_modifier - 1.0)
+				fire(core, e.position + Vector2(gun.get("offset", Vector2.ZERO)).rotated(e.angle), Vector2.from_angle(gun.angle), e.role == "friendly", {}, e.damage_modifier - 1.0, false, int(gun.get("barrel_index",0)))
+				gun.barrel_index=int(gun.get("barrel_index",0))+1
 				gun.cooldown = 1.0 / maxf(0.1, float(core.get("turretRateOfFire", 1)))
 	measured=mark_phase("enemy_ai",measured)
 	step_drones(dt)
@@ -431,7 +449,7 @@ func step(dt: float, aim: Vector2, shooting: bool):
 			if b.life <= 0: continue
 			for i in range(player.parts.size()):
 				var p: Dictionary = player.parts[i]
-				if p.hp > 0 and not p.get("cloaked",false) and Geometry2D.get_closest_point_to_segment(p.position, b.previous, b.position).distance_to(p.position) < (30 if i == 0 else 20):
+				if p.hp > 0 and not p.get("cloaked",false) and Geometry2D.get_closest_point_to_segment(p.position, b.previous, b.position).distance_to(p.position) < player.collision_radius(i):
 					hit_player(i,b)
 					b.life = 0
 					break
@@ -448,7 +466,6 @@ func step(dt: float, aim: Vector2, shooting: bool):
 			kills += 1
 			var stat_key={"Asteroid":"stat_AsteroidsDestroyed","ContainerObject":"stat_ContainersDestroyed","AISwarmingUnit":"stat_ShipsDestroyed","AIFollowingUnit":"stat_ShipsDestroyed"}.get(e.kind,"")
 			if stat_key!="":statistics[stat_key]=int(statistics.get(stat_key,0))+1
-			audio_events.append({"type":20,"position":e.position})
 			if e.damageable: destruction += e.max_hp
 			if e.kind == "AIBossUnit":
 				boss_kills += 1
@@ -472,12 +489,12 @@ func step(dt: float, aim: Vector2, shooting: bool):
 			if e.kind == "ContainerObject": loot.append({"position": e.position,"value":0,"pack":true,"rarity":int(e.unit.containerRarity)})
 			if e.kind == "SpawnerStation":
 				for i in range(int(e.unit.packsDropCount)): loot.append({"position":e.position,"value":0,"pack":true,"pack_ids":e.unit.stationRewardPacksList})
-			effects.append({"position": e.position, "radius": e.radius * 2, "life": 0.5, "kind": "explosion"})
+			explosion(e.position,float(e.unit.get("explosionSize",e.radius/24.0))*48.0,0.65,str(e.get("last_fx","impact")),bool(e.get("last_friendly",true)))
 	enemies = enemies.filter(func(e): return e.hp > 0 and not e.get("despawn",false))
 	for effect in effects:
 		effect.life -= dt
 	effects = effects.filter(func(e): return e.life > 0)
-	# Destroyed disconnected modules are removed as in PlayerBuildingManager; remap owners.
+	# Remove destroyed mounts without severing the living body; remap owners.
 	var removed: Array = []
 	for i in range(1,player.parts.size()):
 		if player.parts[i].hp<=0 and player.parts[i].get("destroy_processed",false): removed.append(i)
@@ -496,6 +513,29 @@ func step(dt: float, aim: Vector2, shooting: bool):
 	player.end_support_tick()
 	mark_phase("cleanup",measured)
 
+func explosion(at: Vector2, radius: float, lifetime: float = 0.35, family: String = "impact", friendly: bool = true):
+	# ParticlesSystem.cs selects a different recording for tiny / small / big blasts.
+	var size=radius/48.0
+	audio_events.append({"type":20 if size<=1.0 else (21 if size<=2.0 else 22),"position":at,"pitch":0.82 if family=="nuke" else 0.95,"feedback":family,"strength":clampf(radius/110.0,0.6,1.5)})
+	effects.append(Feedback.decorate({"position":at,"radius":radius,"life":maxf(lifetime,1.15 if family=="nuke" else 0.65),"kind":"explosion"},family,friendly))
+
+func impact_feedback(e: Dictionary, b: Dictionary, shielded: bool = false):
+	var family = str(b.get("fx_family",Feedback.family(b.data)))
+	e.last_fx=family; e.last_friendly=bool(b.get("friendly",true))
+	# A shotgun volley and continuous damage still apply every hit, but their
+	# embellishments are grouped per target so large builds remain readable.
+	if float(e.get("fx_cooldown",0))>0: return
+	e.fx_cooldown=0.12 if family=="flame" else 0.055
+	var style=Feedback.profile(family)
+	var axis=Vector2(b.get("velocity",Vector2.RIGHT)).normalized()
+	if not shielded:
+		e.feedback_left=0.095
+		e.feedback_kick=axis*minf(8,style.weight*4)
+	var kind="shield_hit" if shielded else "hit"
+	var effect=Feedback.decorate({"position":e.position-axis*minf(16,float(e.get("radius",20))*0.45),"radius":20,"life":0.28 if family in ["emp","tesla","sonic"] else 0.22,"kind":kind,"particle_type":307 if shielded else 305+hit_count%2,"hit_pause":style.pause},family,bool(b.get("friendly",true)))
+	effects.append(effect)
+	audio_events.append({"type":-1,"position":e.position,"feedback":"emp" if shielded else family,"strength":0.6,"flesh":not shielded and SoftInsect.Brood.eligible(e),"flesh_strength":clampf(.6+style.weight*.25,.7,1.1)})
+
 func hit_enemy(e: Dictionary, b: Dictionary):
 	if e.has("patrol") and patrols.has(e.patrol):patrols[e.patrol].chase=float(patrols[e.patrol].data.get("ChaseDuration",3))
 	for other in enemies:
@@ -507,14 +547,15 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 				gun.shield = maxf(0,float(gun.get("shield",shield.maxShieldHealth))-float(b.shield_damage))
 				gun.shield_delay = float(shield.shieldRechargeDelay)
 				if gun.shield<=0:gun.shield_broken=true;gun.shield_delay=float(shield.maxShieldHealth)/2/float(shield.shieldRechargeRate)
-				effects.append({"position":e.position,"radius":20,"life":0.12,"kind":"shield_hit","particle_type":307})
+				impact_feedback(e,b,true)
 				b.pierce=1
 				return
 	if b.data["class"]=="BlackHoleProjectile":
 		special.add_black_hole(b)
 		return
-	if b.data.get("class")!="ContinuousProjectile":effects.append({"position":e.position,"radius":20,"life":0.12,"kind":"hit"})
+	impact_feedback(e,b)
 	e.hp -= b.damage
+	SoftInsect.impact(e,Vector2(b.get("position",e.position)),Vector2(b.get("velocity",Vector2.RIGHT)),float(b.damage),str(b.get("fx_family",Feedback.family(b.data))))
 	if e.kind in ["Asteroid", "ContainerObject"]:
 		var scraps = roundi((1.0-maxf(0,e.hp)/e.max_hp)*float(e.unit.get("totalScraps",0)))
 		var difference = scraps-int(e.get("spawned_scraps",0))
@@ -535,7 +576,9 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 		for other in enemies:
 			if other.uid != e.uid and other.damageable and (other.role != "friendly" if b.friendly else other.role == "friendly") and other.position.distance_to(e.position) < area:
 				other.hp -= b.damage * (special.chip("ExplosionDamagePercent",int(b.chips[2])) if b.chips.has(2) and not b.data.has("projectileEffectArea") else 1.0)
-		effects.append({"position": e.position, "radius": area, "life": 0.35, "kind": "explosion"})
+				SoftInsect.impact(other,Vector2(e.position),(Vector2(other.position)-Vector2(e.position)).normalized(),float(b.damage),str(b.get("fx_family",Feedback.family(b.data))))
+				impact_feedback(other,b)
+		explosion(e.position,area,0.35,str(b.get("fx_family",Feedback.family(b.data))),bool(b.friendly))
 	if typ == "BlackHoleProjectile":
 		for other in enemies:
 			if other.position.distance_to(e.position) < area * 2:
@@ -561,7 +604,7 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 			clone.age = 0.0
 			clone.life = maxf(0.2,float(b.data.get("projectileLifeTime",1)))
 			if int(b.data.get("projectilePrefab",0)) in [45,46]:
-				effects.append({"position":e.position,"end":other.position,"life":0.12,"radius":0,"kind":"chain"})
+				effects.append(Feedback.decorate({"position":e.position,"end":other.position,"life":0.20,"radius":0,"kind":"chain"},str(b.get("fx_family",Feedback.family(b.data))),bool(b.friendly)))
 				hit_enemy(other,clone)
 			else: bullets.append(clone)
 	if b.chips.has(1):
@@ -571,6 +614,8 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 			var clone: Dictionary = b.duplicate(true)
 			clone.chips = {}
 			clone.data = shard
+			clone.fx_family = "flak"
+			clone.origin = e.position
 			clone.position = e.position
 			clone.previous = e.position
 			clone.velocity = Vector2.from_angle(TAU*j/count)*float(shard.projectileSpeed)*48
@@ -594,7 +639,7 @@ func hit_player(index:int,b:Dictionary):
 	if radius>0:
 		for i in range(player.parts.size()):
 			if i!=index and player.parts[i].position.distance_to(p.position)<radius:hurt_player(i,b.damage,b.shield_damage)
-		effects.append({"position":p.position,"radius":radius,"life":0.35,"kind":"explosion"})
+		explosion(p.position,radius,0.35,str(b.get("fx_family",Feedback.family(b.data))),bool(b.friendly))
 
 func hurt_player(index: int, damage: float, shield_damage: float):
 	var p: Dictionary = player.parts[index]
@@ -613,9 +658,8 @@ func hurt_player(index: int, damage: float, shield_damage: float):
 				audio_events.append({"type":51,"position":shield.position})
 			return
 	p.hp -= damage
-	if index>0 and p.hp<=0:
-		for detached in player.detached_indices(): player.parts[detached].hp=0
-	effects.append({"position": p.position, "radius": 22, "life": 0.15, "kind": "hit"})
+	p.impact_left=0.11
+	effects.append({"position": p.position, "radius": 22, "life": 0.15, "kind": "hit","player_hit":true})
 
 func shield_range(index:int)->float:
 	var c:Dictionary=db.asset(player.parts[index].id)

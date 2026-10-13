@@ -1,0 +1,35 @@
+{
+  "suites": [
+    {
+      "suite": "blue_ink",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.629,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "blue_ink_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.078,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.606,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

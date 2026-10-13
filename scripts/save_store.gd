@@ -5,20 +5,21 @@ var state: Dictionary
 var db
 var last_error = ""
 
-func _init(source):
+func _init(source, save_path: String = "user://centipede-save.json", load_existing: bool = true):
 	db = source
+	path = save_path
 	fresh()
-	load_save()
+	if load_existing:load_save()
 
 func fresh():
-	state = {"version": 1, "systems": {}, "meta": 55, "unlocked": [], "disabled": [], "missions": [], "scores": {}, "achievements": [], "settings": {"volume": 0.7, "music": 0.5, "sfx": 0.8, "language": "English", "skip_boss": false,"resolution":0,"screen_mode":2,"bindings":{},"invert_x":false,"invert_y":false,"left_aim":false}, "blueprint": [],"tutorials":{},"statistics":{}}
+	state = {"version": 1, "systems": {}, "meta": 55, "unlocked": [], "disabled": [], "missions": [], "scores": {}, "achievements": [], "settings": {"volume": 0.7, "music": 0.5, "sfx": 0.8, "language": db.DEFAULT_LANGUAGE, "language_revision": 1, "skip_boss": false,"resolution":0,"screen_mode":2,"bindings":{},"invert_x":false,"invert_y":false,"left_aim":false}, "blueprint": [],"tutorials":{},"statistics":{}}
 	for id in db.stores.get("RewardDataStore", {}).get("rewardsUnlockedList", []):
 		state.unlocked.append(id)
 
 func reset_progress():
 	var settings:Dictionary=state.settings.duplicate(true)
 	fresh()
-	for key in ["volume","music","sfx","resolution","screen_mode","skip_boss"]:state.settings[key]=settings[key]
+	for key in settings:state.settings[key]=settings[key]
 	save()
 
 func load_save() -> bool:
@@ -41,6 +42,12 @@ func load_save() -> bool:
 					if parsed.settings.has(setting):state.settings[setting]=parsed.settings[setting]
 			else:state[k] = parsed[k]
 	state.meta = int(parsed.meta)
+	# Adopt the Chinese-first default once for old English saves. The marker is
+	# persisted by normal saves, so a later explicit language choice is respected.
+	var previous_settings: Dictionary = parsed.get("settings", {})
+	if int(previous_settings.get("language_revision", 0)) < 1:
+		if state.settings.language == "English":state.settings.language = db.DEFAULT_LANGUAGE
+		state.settings.language_revision = 1
 	return true
 
 func save() -> bool:

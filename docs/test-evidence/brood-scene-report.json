@@ -1,0 +1,41 @@
+{
+	"checks": [
+		{
+			"name": "Capture res://artifacts/brood-lineup.png",
+			"passed": true
+		},
+		{
+			"name": "Capture res://artifacts/brood-impact.png",
+			"passed": true
+		},
+		{
+			"name": "Capture res://artifacts/brood-rebound.png",
+			"passed": true
+		},
+		{
+			"name": "Capture res://artifacts/brood-in-game.png",
+			"passed": true
+		},
+		{
+			"name": "All six new insects render through the real game layer",
+			"passed": true
+		},
+		{
+			"name": "World insect meshes hide while the full radar is open",
+			"passed": true
+		},
+		{
+			"name": "Killed insect retains a brief soft collapse",
+			"passed": true
+		},
+		{
+			"name": "Death rig is freed after collapse",
+			"passed": true
+		},
+		{
+			"name": "No enemy meshes leak into build screen",
+			"passed": true
+		}
+	],
+	"passed": true
+}

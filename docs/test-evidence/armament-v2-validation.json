@@ -1,0 +1,45 @@
+{
+  "suites": [
+    {
+      "suite": "armament_art",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 3.494,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "brood",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.871,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "grid_mounts",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.493,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "weapon_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.685,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

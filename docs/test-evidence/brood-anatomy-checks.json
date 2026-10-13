@@ -1,0 +1,65 @@
+{
+  "suites": [
+    {
+      "suite": "brood",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.271,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "core",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.785,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "presentation",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.056,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "blue_ink",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.972,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "radar",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.606,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "enemy_drones",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.601,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

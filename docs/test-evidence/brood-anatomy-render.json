@@ -1,0 +1,15 @@
+{
+  "suites": [
+    {
+      "suite": "brood_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.396,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

@@ -1,0 +1,437 @@
+{
+	"checks": [
+		{
+			"name": "Generated weapon: Turret_Gun_EMP",
+			"passed": true
+		},
+		{
+			"name": "Generated weapon: Turret_Gun_Rocket_AI",
+			"passed": true
+		},
+		{
+			"name": "Generated weapon: Turret_Gun_Tesla",
+			"passed": true
+		},
+		{
+			"name": "Generated weapon: Turret_Gun_Nuke",
+			"passed": true
+		},
+		{
+			"name": "Generated weapon: Turret_Gun_Gatling",
+			"passed": true
+		},
+		{
+			"name": "Generated weapon: Turret_Gun_Shotgun",
+			"passed": true
+		},
+		{
+			"name": "Generated weapon: Turret_Gun_Black Holer",
+			"passed": true
+		},
+		{
+			"name": "Generated weapon: Turret_Gun_Cannon",
+			"passed": true
+		},
+		{
+			"name": "Generated weapon: Turret_Gun_Rocket",
+			"passed": true
+		},
+		{
+			"name": "Generated weapon: Turret_Gun_SonicWave",
+			"passed": true
+		},
+		{
+			"name": "Generated weapon: Turret_Gun_Sniper",
+			"passed": true
+		},
+		{
+			"name": "Generated weapon: Turret_Gun_FlameThrower",
+			"passed": true
+		},
+		{
+			"name": "Generated weapon: Turret_Gun_Flak",
+			"passed": true
+		},
+		{
+			"name": "All twelve ranged weapon families have distinct new art",
+			"passed": true
+		},
+		{
+			"name": "Immediate first-frame dent, directional kick and short hold: grub",
+			"passed": true
+		},
+		{
+			"name": "Contact compression holds before rebound: grub",
+			"passed": true
+		},
+		{
+			"name": "Visible local dent: grub",
+			"passed": true
+		},
+		{
+			"name": "Impact remains local: grub",
+			"passed": true
+		},
+		{
+			"name": "Settles without permanent deformation: grub",
+			"passed": true
+		},
+		{
+			"name": "Repeated hits stay bounded: grub",
+			"passed": true
+		},
+		{
+			"name": "Torso-only skinned mesh and fifteen spring bones: grub",
+			"passed": true
+		},
+		{
+			"name": "Six articulated legs and two independent feelers: grub",
+			"passed": true
+		},
+		{
+			"name": "Leg segments remain rigid and constant length under walking and hits: grub",
+			"passed": true
+		},
+		{
+			"name": "Movement drives actual joint angles: grub",
+			"passed": true
+		},
+		{
+			"name": "Stopping finishes the step then keeps feet planted: grub",
+			"passed": true
+		},
+		{
+			"name": "Mesh weights normalize to four influences: grub",
+			"passed": true
+		},
+		{
+			"name": "Saved scene restores soft torso and articulated legs: grub",
+			"passed": true
+		},
+		{
+			"name": "Each saved insect owns its flash material independently: grub",
+			"passed": true
+		},
+		{
+			"name": "Immediate first-frame dent, directional kick and short hold: beetle",
+			"passed": true
+		},
+		{
+			"name": "Contact compression holds before rebound: beetle",
+			"passed": true
+		},
+		{
+			"name": "Visible local dent: beetle",
+			"passed": true
+		},
+		{
+			"name": "Impact remains local: beetle",
+			"passed": true
+		},
+		{
+			"name": "Settles without permanent deformation: beetle",
+			"passed": true
+		},
+		{
+			"name": "Repeated hits stay bounded: beetle",
+			"passed": true
+		},
+		{
+			"name": "Torso-only skinned mesh and fifteen spring bones: beetle",
+			"passed": true
+		},
+		{
+			"name": "Six articulated legs and two independent feelers: beetle",
+			"passed": true
+		},
+		{
+			"name": "Leg segments remain rigid and constant length under walking and hits: beetle",
+			"passed": true
+		},
+		{
+			"name": "Movement drives actual joint angles: beetle",
+			"passed": true
+		},
+		{
+			"name": "Stopping finishes the step then keeps feet planted: beetle",
+			"passed": true
+		},
+		{
+			"name": "Mesh weights normalize to four influences: beetle",
+			"passed": true
+		},
+		{
+			"name": "Saved scene restores soft torso and articulated legs: beetle",
+			"passed": true
+		},
+		{
+			"name": "Each saved insect owns its flash material independently: beetle",
+			"passed": true
+		},
+		{
+			"name": "Immediate first-frame dent, directional kick and short hold: moth",
+			"passed": true
+		},
+		{
+			"name": "Contact compression holds before rebound: moth",
+			"passed": true
+		},
+		{
+			"name": "Visible local dent: moth",
+			"passed": true
+		},
+		{
+			"name": "Impact remains local: moth",
+			"passed": true
+		},
+		{
+			"name": "Settles without permanent deformation: moth",
+			"passed": true
+		},
+		{
+			"name": "Repeated hits stay bounded: moth",
+			"passed": true
+		},
+		{
+			"name": "Torso-only skinned mesh and fifteen spring bones: moth",
+			"passed": true
+		},
+		{
+			"name": "Six articulated legs and two independent feelers: moth",
+			"passed": true
+		},
+		{
+			"name": "Leg segments remain rigid and constant length under walking and hits: moth",
+			"passed": true
+		},
+		{
+			"name": "Movement drives actual joint angles: moth",
+			"passed": true
+		},
+		{
+			"name": "Stopping finishes the step then keeps feet planted: moth",
+			"passed": true
+		},
+		{
+			"name": "Moth wings flap around separate rigid hinges",
+			"passed": true
+		},
+		{
+			"name": "Wing sweep reads clearly from full extension to folded projection",
+			"passed": true
+		},
+		{
+			"name": "Mesh weights normalize to four influences: moth",
+			"passed": true
+		},
+		{
+			"name": "Saved scene restores soft torso and articulated legs: moth",
+			"passed": true
+		},
+		{
+			"name": "Each saved insect owns its flash material independently: moth",
+			"passed": true
+		},
+		{
+			"name": "Immediate first-frame dent, directional kick and short hold: sac",
+			"passed": true
+		},
+		{
+			"name": "Contact compression holds before rebound: sac",
+			"passed": true
+		},
+		{
+			"name": "Visible local dent: sac",
+			"passed": true
+		},
+		{
+			"name": "Impact remains local: sac",
+			"passed": true
+		},
+		{
+			"name": "Settles without permanent deformation: sac",
+			"passed": true
+		},
+		{
+			"name": "Repeated hits stay bounded: sac",
+			"passed": true
+		},
+		{
+			"name": "Torso-only skinned mesh and fifteen spring bones: sac",
+			"passed": true
+		},
+		{
+			"name": "Six articulated legs and two independent feelers: sac",
+			"passed": true
+		},
+		{
+			"name": "Leg segments remain rigid and constant length under walking and hits: sac",
+			"passed": true
+		},
+		{
+			"name": "Movement drives actual joint angles: sac",
+			"passed": true
+		},
+		{
+			"name": "Stopping finishes the step then keeps feet planted: sac",
+			"passed": true
+		},
+		{
+			"name": "Mesh weights normalize to four influences: sac",
+			"passed": true
+		},
+		{
+			"name": "Saved scene restores soft torso and articulated legs: sac",
+			"passed": true
+		},
+		{
+			"name": "Each saved insect owns its flash material independently: sac",
+			"passed": true
+		},
+		{
+			"name": "Immediate first-frame dent, directional kick and short hold: mantis",
+			"passed": true
+		},
+		{
+			"name": "Contact compression holds before rebound: mantis",
+			"passed": true
+		},
+		{
+			"name": "Visible local dent: mantis",
+			"passed": true
+		},
+		{
+			"name": "Impact remains local: mantis",
+			"passed": true
+		},
+		{
+			"name": "Settles without permanent deformation: mantis",
+			"passed": true
+		},
+		{
+			"name": "Repeated hits stay bounded: mantis",
+			"passed": true
+		},
+		{
+			"name": "Torso-only skinned mesh and fifteen spring bones: mantis",
+			"passed": true
+		},
+		{
+			"name": "Six articulated legs and two independent feelers: mantis",
+			"passed": true
+		},
+		{
+			"name": "Leg segments remain rigid and constant length under walking and hits: mantis",
+			"passed": true
+		},
+		{
+			"name": "Movement drives actual joint angles: mantis",
+			"passed": true
+		},
+		{
+			"name": "Stopping finishes the step then keeps feet planted: mantis",
+			"passed": true
+		},
+		{
+			"name": "Mantis sickles have shoulder, elbow and wrist joints",
+			"passed": true
+		},
+		{
+			"name": "Mesh weights normalize to four influences: mantis",
+			"passed": true
+		},
+		{
+			"name": "Saved scene restores soft torso and articulated legs: mantis",
+			"passed": true
+		},
+		{
+			"name": "Each saved insect owns its flash material independently: mantis",
+			"passed": true
+		},
+		{
+			"name": "Immediate first-frame dent, directional kick and short hold: queen",
+			"passed": true
+		},
+		{
+			"name": "Contact compression holds before rebound: queen",
+			"passed": true
+		},
+		{
+			"name": "Visible local dent: queen",
+			"passed": true
+		},
+		{
+			"name": "Impact remains local: queen",
+			"passed": true
+		},
+		{
+			"name": "Settles without permanent deformation: queen",
+			"passed": true
+		},
+		{
+			"name": "Repeated hits stay bounded: queen",
+			"passed": true
+		},
+		{
+			"name": "Torso-only skinned mesh and fifteen spring bones: queen",
+			"passed": true
+		},
+		{
+			"name": "Six articulated legs and two independent feelers: queen",
+			"passed": true
+		},
+		{
+			"name": "Leg segments remain rigid and constant length under walking and hits: queen",
+			"passed": true
+		},
+		{
+			"name": "Movement drives actual joint angles: queen",
+			"passed": true
+		},
+		{
+			"name": "Stopping finishes the step then keeps feet planted: queen",
+			"passed": true
+		},
+		{
+			"name": "Mesh weights normalize to four influences: queen",
+			"passed": true
+		},
+		{
+			"name": "Saved scene restores soft torso and articulated legs: queen",
+			"passed": true
+		},
+		{
+			"name": "Each saved insect owns its flash material independently: queen",
+			"passed": true
+		},
+		{
+			"name": "60 and 120 FPS impacts agree",
+			"passed": true
+		},
+		{
+			"name": "Real projectile hull damage triggers the soft-body impulse",
+			"passed": true
+		},
+		{
+			"name": "Hull damage triggers the wet body slap in the grouped hit event",
+			"passed": true
+		},
+		{
+			"name": "Visual deformation preserves collision position and gameplay balance",
+			"passed": true
+		},
+		{
+			"name": "Blast splash triggers deformation on nearby insects",
+			"passed": true
+		},
+		{
+			"name": "Rapid hull damage preserves every hit without stacking repeated burst cues",
+			"passed": true
+		},
+		{
+			"name": "Wet slap audio is a complete bounded PCM transient",
+			"passed": true
+		}
+	],
+	"passed": true
+}

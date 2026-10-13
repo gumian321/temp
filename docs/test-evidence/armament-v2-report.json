@@ -1,0 +1,360 @@
+{
+	"checks": [
+		{
+			"name": "Production core resolves to new art: gatling",
+			"passed": true
+		},
+		{
+			"name": "Color and proportions survive all mount/UI sizes: gatling",
+			"passed": true
+		},
+		{
+			"name": "Transparent background survives import: gatling",
+			"passed": true
+		},
+		{
+			"name": "Production core resolves to new art: shotgun",
+			"passed": true
+		},
+		{
+			"name": "Color and proportions survive all mount/UI sizes: shotgun",
+			"passed": true
+		},
+		{
+			"name": "Transparent background survives import: shotgun",
+			"passed": true
+		},
+		{
+			"name": "Production core resolves to new art: cannon",
+			"passed": true
+		},
+		{
+			"name": "Color and proportions survive all mount/UI sizes: cannon",
+			"passed": true
+		},
+		{
+			"name": "Transparent background survives import: cannon",
+			"passed": true
+		},
+		{
+			"name": "Production core resolves to new art: flak",
+			"passed": true
+		},
+		{
+			"name": "Color and proportions survive all mount/UI sizes: flak",
+			"passed": true
+		},
+		{
+			"name": "Transparent background survives import: flak",
+			"passed": true
+		},
+		{
+			"name": "Production core resolves to new art: sniper",
+			"passed": true
+		},
+		{
+			"name": "Color and proportions survive all mount/UI sizes: sniper",
+			"passed": true
+		},
+		{
+			"name": "Transparent background survives import: sniper",
+			"passed": true
+		},
+		{
+			"name": "Production core resolves to new art: tesla",
+			"passed": true
+		},
+		{
+			"name": "Color and proportions survive all mount/UI sizes: tesla",
+			"passed": true
+		},
+		{
+			"name": "Transparent background survives import: tesla",
+			"passed": true
+		},
+		{
+			"name": "Production core resolves to new art: emp",
+			"passed": true
+		},
+		{
+			"name": "Color and proportions survive all mount/UI sizes: emp",
+			"passed": true
+		},
+		{
+			"name": "Transparent background survives import: emp",
+			"passed": true
+		},
+		{
+			"name": "Production core resolves to new art: flame",
+			"passed": true
+		},
+		{
+			"name": "Color and proportions survive all mount/UI sizes: flame",
+			"passed": true
+		},
+		{
+			"name": "Transparent background survives import: flame",
+			"passed": true
+		},
+		{
+			"name": "Production core resolves to new art: rocket",
+			"passed": true
+		},
+		{
+			"name": "Color and proportions survive all mount/UI sizes: rocket",
+			"passed": true
+		},
+		{
+			"name": "Transparent background survives import: rocket",
+			"passed": true
+		},
+		{
+			"name": "Production core resolves to new art: nuke",
+			"passed": true
+		},
+		{
+			"name": "Color and proportions survive all mount/UI sizes: nuke",
+			"passed": true
+		},
+		{
+			"name": "Transparent background survives import: nuke",
+			"passed": true
+		},
+		{
+			"name": "Production core resolves to new art: sonic",
+			"passed": true
+		},
+		{
+			"name": "Color and proportions survive all mount/UI sizes: sonic",
+			"passed": true
+		},
+		{
+			"name": "Transparent background survives import: sonic",
+			"passed": true
+		},
+		{
+			"name": "Production core resolves to new art: blackhole",
+			"passed": true
+		},
+		{
+			"name": "Color and proportions survive all mount/UI sizes: blackhole",
+			"passed": true
+		},
+		{
+			"name": "Transparent background survives import: blackhole",
+			"passed": true
+		},
+		{
+			"name": "Production core resolves to new art: mine",
+			"passed": true
+		},
+		{
+			"name": "Color and proportions survive all mount/UI sizes: mine",
+			"passed": true
+		},
+		{
+			"name": "Transparent background survives import: mine",
+			"passed": true
+		},
+		{
+			"name": "Production core resolves to new art: mine_spawner",
+			"passed": true
+		},
+		{
+			"name": "Color and proportions survive all mount/UI sizes: mine_spawner",
+			"passed": true
+		},
+		{
+			"name": "Transparent background survives import: mine_spawner",
+			"passed": true
+		},
+		{
+			"name": "Production core resolves to new art: drone_bay",
+			"passed": true
+		},
+		{
+			"name": "Color and proportions survive all mount/UI sizes: drone_bay",
+			"passed": true
+		},
+		{
+			"name": "Transparent background survives import: drone_bay",
+			"passed": true
+		},
+		{
+			"name": "Every weapon and both mine devices have distinct art",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: HQ_Gun_Gatling",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: HQ_Gun_SonicWave",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: HQ_Gun_Sniper",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: HQ_Gun_EMP",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: HQ_Gun_Cannon",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: HQ_Gun_Tesla",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: HQ_Core_Flak",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: HQ_Gun_Rocket",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: HQ_Core_Shotgun",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: HQ_Core_Nuke",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: HQ_Gun_BlackHoler",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_Gun_Cannon",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_Gun_Flak",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_Gun_BlackHoler",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_Gun_Tesla",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_Gun_EMP",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_Gun_Gatling",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_Gun_Nuke",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_Gun_Flame Thrower",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_Gun_Rocket",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_Gun_Shotgun",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_Gun_SonicWave",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_Gun_Sniper",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_AI_Gun_Tesla",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_AI_Gun_Cannon",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_AI_Gun_EMP",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_AI_Gun_Sniper",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_AI_Gun_Gatling",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_AI_Gun_Rocket",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_AI_Gun_Flame Thrower",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_AI_Gun_Flak",
+			"passed": true
+		},
+		{
+			"name": "HQ/player/enemy weapon shares current art: Core_AI_Gun_Shotgun",
+			"passed": true
+		},
+		{
+			"name": "All 32 source gun cores are themed",
+			"passed": true
+		},
+		{
+			"name": "Attack drone entity is themed: Drones_HQ_Attack",
+			"passed": true
+		},
+		{
+			"name": "Attack drone entity is themed: Drones_Core_Attack",
+			"passed": true
+		},
+		{
+			"name": "Attack drone entity is themed: Drones_AI_Attack",
+			"passed": true
+		},
+		{
+			"name": "Deployed mine entity is themed",
+			"passed": true
+		},
+		{
+			"name": "Captured armament-v2-lineup.png",
+			"passed": true
+		},
+		{
+			"name": "All nine slots can show different new weapons together",
+			"passed": true
+		},
+		{
+			"name": "Captured armament-v2-build.png",
+			"passed": true
+		},
+		{
+			"name": "Assembly uses all nine generated images",
+			"passed": true
+		},
+		{
+			"name": "Captured armament-v2-mounted.png",
+			"passed": true
+		}
+	],
+	"new_textures": 17,
+	"passed": true,
+	"renderer": "Windows",
+	"weapon_devices": 15
+}

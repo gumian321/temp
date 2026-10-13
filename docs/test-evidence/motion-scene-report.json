@@ -1,0 +1,148 @@
+{
+	"captures": [
+		"res://artifacts/centipede-reward-explanation.png",
+		"res://artifacts/centipede-choose-one-reward.png",
+		"res://artifacts/centipede-motion-180.png",
+		"res://artifacts/centipede-motion-270.png",
+		"res://artifacts/centipede-motion-540.png",
+		"res://artifacts/centipede-motion-idle.png"
+	],
+	"checks": [
+		{
+			"name": "Empty inventory explains where rewards and modules come from",
+			"passed": true
+		},
+		{
+			"name": "Build screen distinguishes modules from immediate upgrades",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced centipede-reward-explanation",
+			"passed": true
+		},
+		{
+			"name": "Saved centipede-reward-explanation",
+			"passed": true
+		},
+		{
+			"name": "Reward button opens the real three-choice reward screen",
+			"passed": true
+		},
+		{
+			"name": "Reward screen explicitly says to select one item",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced centipede-choose-one-reward",
+			"passed": true
+		},
+		{
+			"name": "Saved centipede-choose-one-reward",
+			"passed": true
+		},
+		{
+			"name": "Selecting a module consumes one pack and returns to assembly with the item",
+			"passed": true
+		},
+		{
+			"name": "Claimed modules can actually be installed from the explained inventory",
+			"passed": true
+		},
+		{
+			"name": "Main loop stays playable during D · 起步 / 前进",
+			"passed": true
+		},
+		{
+			"name": "Keyboard input moves the character during D · 起步 / 前进",
+			"passed": true
+		},
+		{
+			"name": "Main loop stays playable during W · 向上转弯",
+			"passed": true
+		},
+		{
+			"name": "Keyboard input moves the character during W · 向上转弯",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced centipede-motion-180",
+			"passed": true
+		},
+		{
+			"name": "Saved centipede-motion-180",
+			"passed": true
+		},
+		{
+			"name": "Main loop stays playable during A · 向左转弯",
+			"passed": true
+		},
+		{
+			"name": "Keyboard input moves the character during A · 向左转弯",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced centipede-motion-270",
+			"passed": true
+		},
+		{
+			"name": "Saved centipede-motion-270",
+			"passed": true
+		},
+		{
+			"name": "Main loop stays playable during S · 向下转弯",
+			"passed": true
+		},
+		{
+			"name": "Keyboard input moves the character during S · 向下转弯",
+			"passed": true
+		},
+		{
+			"name": "Main loop stays playable during D · 连续转弯",
+			"passed": true
+		},
+		{
+			"name": "Keyboard input moves the character during D · 连续转弯",
+			"passed": true
+		},
+		{
+			"name": "Main loop stays playable during A · 反向掉头",
+			"passed": true
+		},
+		{
+			"name": "Keyboard input moves the character during A · 反向掉头",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced centipede-motion-540",
+			"passed": true
+		},
+		{
+			"name": "Saved centipede-motion-540",
+			"passed": true
+		},
+		{
+			"name": "Main loop stays playable during 松开按键 · 停住 / 尾部轻摆",
+			"passed": true
+		},
+		{
+			"name": "Releasing real game input stops the head",
+			"passed": true
+		},
+		{
+			"name": "Head movement in the main loop has no teleport frames",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced centipede-motion-idle",
+			"passed": true
+		},
+		{
+			"name": "Saved centipede-motion-idle",
+			"passed": true
+		}
+	],
+	"clip_fps": 20,
+	"clip_frames": 220,
+	"passed": true,
+	"scope": "Real game input, deliberately staged equipment and no enemies for motion inspection."
+}

@@ -1,0 +1,105 @@
+{
+	"checks": [
+		{
+			"name": "Movement reaches cruising speed within 200 ms",
+			"passed": true
+		},
+		{
+			"name": "Starting input moves the actual playable head promptly instead of double smoothing",
+			"passed": true
+		},
+		{
+			"name": "A 90-degree turn responds within 400 ms",
+			"passed": true
+		},
+		{
+			"name": "Releasing movement stops the head within 100 ms",
+			"passed": true
+		},
+		{
+			"name": "Idle spine motion never moves or rotates the head/aim anchor",
+			"passed": true
+		},
+		{
+			"name": "Idle body stays alive without drifting away",
+			"passed": true
+		},
+		{
+			"name": "Rendering, paused construction and zero-delta refreshes do not advance the spine",
+			"passed": true
+		},
+		{
+			"name": "Identical input at 30, 60 and 120 FPS produces the same head and body path",
+			"passed": true
+		},
+		{
+			"name": "6 segments keep exact spacing and bounded curvature through reversals",
+			"passed": true
+		},
+		{
+			"name": "6 segments follow turns with less than four pixels of motion per frame",
+			"passed": true
+		},
+		{
+			"name": "6-segment weapon follows its physical mount while aiming independently",
+			"passed": true
+		},
+		{
+			"name": "60 segments keep exact spacing and bounded curvature through reversals",
+			"passed": true
+		},
+		{
+			"name": "60 segments follow turns with less than four pixels of motion per frame",
+			"passed": true
+		},
+		{
+			"name": "60-segment weapon follows its physical mount while aiming independently",
+			"passed": true
+		},
+		{
+			"name": "A full reversal completes as a responsive continuous arc",
+			"passed": true
+		},
+		{
+			"name": "Steering eases into alignment without overshoot or snapping angular velocity to zero",
+			"passed": true
+		},
+		{
+			"name": "A new bend travels from neck to tail instead of rotating the whole body immediately",
+			"passed": true
+		},
+		{
+			"name": "Diagonal input cannot exceed normal cruising speed",
+			"passed": true
+		},
+		{
+			"name": "Boost still uses installed fuel tanks and the source consumption rate",
+			"passed": true
+		},
+		{
+			"name": "A new run resets all movement and spine state",
+			"passed": true
+		}
+	],
+	"metrics": {
+		"60_segments": {
+			"gap_error": 0.000125885009765625,
+			"max_bend": 0.785244524478912,
+			"max_step": 2.85570526123047,
+			"mount_error": 0.0
+		},
+		"6_segments": {
+			"gap_error": 0.0000152587890625,
+			"max_bend": 0.785234272480011,
+			"max_step": 2.57164669036865,
+			"mount_error": 0.0
+		},
+		"frame_rate_pose_error": 0.0,
+		"idle_tail_span": 8.15035247802734,
+		"previous_speed_at_200ms": 7.21947813034058,
+		"reversal_seconds": 0.583333333333334,
+		"speed_at_200ms": 144.0,
+		"turning_tail_lateral_motion": 0.00000491241371491924
+	},
+	"passed": true
+}

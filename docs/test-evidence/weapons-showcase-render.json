@@ -1,0 +1,15 @@
+{
+  "suites": [
+    {
+      "suite": "weapon_showcase",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 35.745,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

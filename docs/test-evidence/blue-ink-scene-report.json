@@ -1,0 +1,79 @@
+{
+	"captures": [
+		"res://artifacts/blue-ink-01-menu.png",
+		"res://artifacts/blue-ink-02-missions.png",
+		"res://artifacts/blue-ink-03-options.png",
+		"res://artifacts/blue-ink-04-research.png",
+		"res://artifacts/blue-ink-05-research-detail.png",
+		"res://artifacts/blue-ink-06-loading.png",
+		"res://artifacts/blue-ink-07-rewards.png",
+		"res://artifacts/blue-ink-08-pause.png",
+		"res://artifacts/blue-ink-09-combat.png",
+		"res://artifacts/blue-ink-10-mouth-open.png",
+		"res://artifacts/blue-ink-11-mouth-close.png"
+	],
+	"checks": [
+		{
+			"name": "Captured 01-menu",
+			"passed": true
+		},
+		{
+			"name": "Captured 02-missions",
+			"passed": true
+		},
+		{
+			"name": "All source menu images use the ink treatment",
+			"passed": true
+		},
+		{
+			"name": "Captured 03-options",
+			"passed": true
+		},
+		{
+			"name": "Audio percentage matches the actual slider value",
+			"passed": true
+		},
+		{
+			"name": "Captured 04-research",
+			"passed": true
+		},
+		{
+			"name": "Captured 05-research-detail",
+			"passed": true
+		},
+		{
+			"name": "Captured 06-loading",
+			"passed": true
+		},
+		{
+			"name": "Captured 07-rewards",
+			"passed": true
+		},
+		{
+			"name": "Reward icons retain their colors and aspect ratio while UI frames remain ink",
+			"passed": true
+		},
+		{
+			"name": "Captured 08-pause",
+			"passed": true
+		},
+		{
+			"name": "Captured 09-combat",
+			"passed": true
+		},
+		{
+			"name": "Captured 10-mouth-open",
+			"passed": true
+		},
+		{
+			"name": "Captured 11-mouth-close",
+			"passed": true
+		},
+		{
+			"name": "Square mounted segments remain separate after turning",
+			"passed": true
+		}
+	],
+	"passed": true,
+	"scope": "Real screens plus explicitly staged enemy/explosion and mouth-animation fixtures."
+}

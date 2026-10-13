@@ -13,6 +13,12 @@ var fuel_delay = 0.0
 var max_fuel = 0.0
 var boost = false
 var body_spacing = 58.0
+var resting_segments = 6
+var input_velocity = Vector2.ZERO
+var engine_power = 0.0
+var body_poses: Array = []
+var build_cells: Array[Vector2i] = []
+var body_cells: Array[Vector2i] = []
 var stats: Dictionary = {}
 var hq_weapon: String
 var levels: Dictionary = {}
@@ -23,21 +29,105 @@ var built_score = 0
 func _init(source):
 	db = source
 	hq_weapon = db.stores.PlayerDataStore.mainTurretCore
+	prepare_build_cells()
 	reset()
 
 func reset():
 	head = Vector2.ZERO
 	velocity = Vector2.ZERO
+	input_velocity = Vector2.ZERO
+	engine_power = 0.0
+	facing = Vector2.RIGHT
 	history.clear()
+	body_poses.clear()
 	for i in range(2000):
 		history.append(Vector2(-i * 4.0, 0))
 	parts = [make_part(db.stores.PlayerDataStore.HQCore, Vector2i.ZERO)]
+	body_cells.clear()
 	pending.clear()
 	stats.clear()
 	levels.clear()
 	fuel = 0.0
 	max_fuel=0.0
 	built_count = 0
+	refresh_positions()
+
+# Keep source blueprint coordinates for saves and legacy build validation. Their
+# installation order maps to individual body segments, never a row of side pods.
+func prepare_build_cells():
+	var limit_x = int(db.stores.PlayerDataStore.buildingLimitX)
+	var limit_y = int(db.stores.PlayerDataStore.buildingLimitY)
+	for y in range(-limit_y, limit_y + 1):
+		for x in range(-limit_x, limit_x + 1):
+			if x in [0, 1] and y in [0, 1]:
+				continue
+			build_cells.append(Vector2i(x, y))
+	build_cells.sort_custom(func(a: Vector2i, b: Vector2i):
+		var a_distance = maxi(0, -a.x) + maxi(0, a.x - 1) + maxi(0, -a.y) + maxi(0, a.y - 1)
+		var b_distance = maxi(0, -b.x) + maxi(0, b.x - 1) + maxi(0, -b.y) + maxi(0, b.y - 1)
+		if a_distance != b_distance:
+			return a_distance < b_distance
+		return a.y < b.y if a.y != b.y else a.x < b.x)
+
+func body_part_indices() -> Array:
+	var indices = []
+	var present = {}
+	for i in range(1, parts.size()):
+		present[parts[i].cell] = i
+	var retained: Array[Vector2i] = []
+	for cell in body_cells:
+		if present.has(cell):
+			indices.append(present[cell])
+			retained.append(cell)
+			present.erase(cell)
+	for i in range(1, parts.size()):
+		if present.has(parts[i].cell):
+			indices.append(i)
+			retained.append(parts[i].cell)
+			present.erase(parts[i].cell)
+	body_cells = retained
+	return indices
+
+func segment_index(part_index: int) -> int:
+	if part_index == 0:
+		return 0
+	return body_part_indices().find(part_index) + 1
+
+func segment_count() -> int:
+	return maxi(resting_segments, parts.size() - 1)
+
+func segment_pose(index: int) -> Dictionary:
+	if index >= 0 and index < body_poses.size():
+		return body_poses[index]
+	return path_sample(maxi(0, index) * body_spacing)
+
+func next_segment_cell() -> Vector2i:
+	for cell in build_cells:
+		if not occupied(cell) and can_place(cell):
+			return cell
+	return Vector2i.ZERO
+
+func append_segment(id: String) -> bool:
+	return add_piece(id, next_segment_cell())
+
+func move_piece_to_segment(index: int, target_segment: int) -> bool:
+	if index <= 0 or index >= parts.size() or actions.move <= 0:
+		return false
+	var ordered = body_part_indices()
+	if target_segment < 1 or target_segment > ordered.size():
+		return false
+	var start = ordered.find(index)
+	var destination = target_segment - 1
+	if start == destination:
+		return false
+	var cells = ordered.map(func(i): return parts[i].cell)
+	ordered.remove_at(start)
+	ordered.insert(destination, index)
+	for i in range(ordered.size()):
+		parts[ordered[i]].cell = cells[i]
+	actions.move -= 1
+	refresh_positions()
+	return true
 
 func make_part(id: String, cell: Vector2i) -> Dictionary:
 	var c: Dictionary = db.asset(id)
@@ -46,15 +136,18 @@ func make_part(id: String, cell: Vector2i) -> Dictionary:
 
 func add_piece(id: String, cell: Vector2i) -> bool:
 	if parts.size() >= int(db.stores.PlayerDataStore.maxBuiltCores) + 1:
-		last_error = "Maximum parts reached"
+		last_error = db.ui("Maximum parts reached", "身体已装满，最多可安装60座炮塔或模块")
 		return false
 	if not can_place(cell):
 		return false
+	body_part_indices()
 	parts.append(make_part(id, cell))
+	body_cells.append(cell)
 	built_count += 1
 	built_score += int(db.asset(id).get("coreRatePrize",0))
 	refresh_upgrades()
 	refresh_positions()
+	last_error = ""
 	return true
 
 func occupied(cell: Vector2i, ignore: int = -1) -> bool:
@@ -67,15 +160,15 @@ func occupied(cell: Vector2i, ignore: int = -1) -> bool:
 
 func can_place(cell: Vector2i, ignore: int = -1) -> bool:
 	if abs(cell.x) > int(db.stores.PlayerDataStore.buildingLimitX) or abs(cell.y) > int(db.stores.PlayerDataStore.buildingLimitY):
-		last_error = "Outside original build limits"
+		last_error = db.ui("Outside original build limits", "超出可安装范围")
 		return false
 	if occupied(cell, ignore):
-		last_error = "Occupied cell"
+		last_error = db.ui("Occupied cell", "这个体节已安装模块")
 		return false
 	for v in [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN]:
 		if occupied(cell + v, ignore):
 			return true
-	last_error = "Parts must connect to the structure"
+	last_error = db.ui("Parts must connect to the structure", "模块必须与身体相连")
 	return false
 
 func connected(ignore: int = -1) -> bool:
@@ -96,13 +189,16 @@ func connected(ignore: int = -1) -> bool:
 func move_piece(index: int, cell: Vector2i) -> bool:
 	if index <= 0 or actions.move <= 0 or not can_place(cell, index):
 		return false
+	body_part_indices()
 	var old: Vector2i = parts[index].cell
 	parts[index].cell = cell
 	if not connected():
 		parts[index].cell = old
-		last_error = "This move disconnects the structure"
+		last_error = db.ui("This move disconnects the structure", "这样移动会使后面的身体断开")
 		return false
+	body_cells[body_cells.find(old)] = cell
 	actions.move -= 1
+	refresh_positions()
 	return true
 
 func swap_piece(a: int, b: int) -> bool:
@@ -112,6 +208,7 @@ func swap_piece(a: int, b: int) -> bool:
 	parts[a].cell = parts[b].cell
 	parts[b].cell = old
 	actions.swap -= 1
+	refresh_positions()
 	return true
 
 func duplicate_piece(index: int, cell: Vector2i) -> bool:
@@ -144,9 +241,16 @@ func step(dt: float, direction: Vector2, wants_boost: bool):
 		fuel_delay -= dt
 		if fuel_delay <= 0.0:
 			fuel = minf(max_fuel, fuel + 25.0 * dt)
-	velocity = velocity.move_toward(direction.limit_length() * speed, speed * (0.75 if direction.length() > 0 else 1.5) * dt)
+	# Match PlayerMovement.cs: independent axes, then engine-power interpolation.
+	# The head turns visually without steering movement away from the input.
+	var acceleration = clampf(float(db.stores.PlayerDataStore.enginePower) * (1.0 + stats.get("11", 0.0)), 2.0, 4.0)
+	input_velocity.x = move_toward(input_velocity.x, direction.x, acceleration * (0.25 if direction.x != 0 else 0.5) * dt)
+	input_velocity.y = move_toward(input_velocity.y, direction.y, acceleration * (0.25 if direction.y != 0 else 0.5) * dt)
+	engine_power = lerpf(engine_power, speed, minf(1.0, 2.0 * dt))
+	velocity = input_velocity.limit_length() * engine_power
 	if velocity.length() > 0.1:
-		facing = velocity.normalized()
+		facing = Vector2.from_angle(rotate_toward(facing.angle(), velocity.angle(), 12.0 * dt))
+	if velocity.length() > 0.1:
 		head += velocity * dt
 		if history[0].distance_to(head) >= 3.0:
 			history.push_front(head)
@@ -174,49 +278,70 @@ func body_rows() -> Array:
 	return rows
 
 func refresh_positions():
-	var rows = body_rows()
+	refresh_body_poses()
 	parts[0].position = head
 	parts[0].body_angle = facing.angle()
-	for i in range(1, parts.size()):
-		var p: Dictionary = parts[i]
-		var idx = rows.find(p.cell.y) + 1
-		var pose = path_sample(idx * body_spacing)
-		var normal: Vector2 = pose.direction.orthogonal()
-		p.position = pose.point + normal * (float(p.cell.x) - 0.5) * 44.0
+	var ordered = body_part_indices()
+	for i in range(ordered.size()):
+		var p: Dictionary = parts[ordered[i]]
+		var pose = segment_pose(i + 1)
+		p.position = pose.point
 		p.body_angle = pose.direction.angle()
 		if not db.asset(p.id).has("coreProjectile"):p.angle=p.body_angle
 
+func refresh_body_poses():
+	var previous_poses = body_poses
+	body_poses = [{"point": head, "direction": facing}]
+	for index in range(1, segment_count() + 1):
+		var leader: Vector2 = body_poses[index - 1].point
+		var point: Vector2 = previous_poses[index].point if index < previous_poses.size() else path_sample(index * body_spacing).point
+		var direction = point.direction_to(leader)
+		if direction.length_squared() < 0.001: direction = body_poses[index - 1].direction
+		# Rigid shell spacing permits immediate strafing and reversing without
+		# folding two square mounts onto the same point of the history path.
+		body_poses.append({"point": leader - direction * body_spacing, "direction": direction})
+
 var support_tick=false
-var chip_sources:Array=[]
+var support_indices:Array=[]
 func begin_support_tick():
-	chip_sources.clear()
-	for part in parts:
-		if db.asset(part.id).has("coreChip"):chip_sources.append(part)
+	support_indices = [0] + body_part_indices()
 	support_tick=true
-func end_support_tick():support_tick=false
+func end_support_tick():
+	support_tick=false
+	support_indices.clear()
+
+# Support effects follow the visible spine, including its first connection to
+# the head. Hidden blueprint cells only remain a legacy construction interface.
+func adjacent_part_indices(index: int, include_self: bool = false) -> Array:
+	var ordered: Array = support_indices if support_tick else [0] + body_part_indices()
+	var at = ordered.find(index)
+	if at < 0:
+		return []
+	var result = []
+	for slot in range(maxi(0, at - 1), mini(ordered.size(), at + 2)):
+		if include_self or slot != at:
+			result.append(ordered[slot])
+	return result
 
 func chips(index: int) -> Dictionary:
 	var result = {}
 	if index == 0:
 		return result
-	var sources=chip_sources if support_tick else parts.filter(func(p):return db.asset(p.id).has("coreChip"))
-	if sources.is_empty():return result
 	var c: Dictionary = db.asset(parts[index].id)
 	if not c.get("isChipable", false):
 		return result
 	var projectile: Dictionary = db.asset(c.get("coreProjectile", c.get("coreMine", "")))
 	if c.has("coreDrone"):projectile=db.asset(db.asset(c.coreDrone).get("droneProjectile",""))
 	var allowed: Array = db.packed(c.get("activatableChips",projectile.get("activatableChips", {})).get("activatedChipsList"))
-	for p in sources:
+	for source_index in adjacent_part_indices(index):
+		var p: Dictionary = parts[source_index]
 		var chip_core: Dictionary = db.asset(p.id)
 		if not chip_core.has("coreChip") or p.hp <= 0:
 			continue
-		var delta: Vector2i = parts[index].cell - p.cell
-		if abs(delta.x) <= 1 and abs(delta.y) <= 1:
-			var chip: Dictionary = db.asset(chip_core.coreChip)
-			var type = int(chip.chipType)
-			if type in allowed or type == 6:
-				result[type] = mini(2, int(result.get(type, 0)) + 1)
+		var chip: Dictionary = db.asset(chip_core.coreChip)
+		var type = int(chip.chipType)
+		if type in allowed or type == 6:
+			result[type] = mini(2, int(result.get(type, 0)) + 1)
 	return result
 
 func change_stat(type: int, value: float):
@@ -225,7 +350,8 @@ func change_stat(type: int, value: float):
 
 func blueprint() -> Array:
 	var result = []
-	for p in parts:
+	for index in [0] + body_part_indices():
+		var p: Dictionary = parts[index]
 		result.append({"id": p.id, "x": p.cell.x, "y": p.cell.y, "wall": p.wall})
 	return result
 
@@ -259,16 +385,15 @@ func update_fuel_capacity():
 	fuel=minf(fuel,max_fuel)
 
 func detached_indices() -> Array:
-	var visited: Array = [Vector2i(0,0),Vector2i(1,0),Vector2i(0,1),Vector2i(1,1)]
-	var todo = visited.duplicate()
-	while not todo.is_empty():
-		var at: Vector2i = todo.pop_back()
-		for p in parts:
-			if p.hp<=0 or p.cell in visited: continue
-			if absi(p.cell.x-at.x)+absi(p.cell.y-at.y)==1:
-				visited.append(p.cell)
-				todo.append(p.cell)
+	# Towers mount onto a continuous body; destroying one does not sever other
+	# towers according to the old, invisible building grid.
 	var detached: Array = []
 	for i in range(1,parts.size()):
-		if parts[i].hp<=0 or parts[i].cell not in visited: detached.append(i)
+		if parts[i].hp<=0: detached.append(i)
 	return detached
+
+func collision_radius(index: int) -> float:
+	return 30.0 if index == 0 else 20.0
+
+func weapon_visual_scale(_index: int) -> float:
+	return 1.0

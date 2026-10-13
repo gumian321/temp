@@ -2,8 +2,16 @@ extends Node2D
 
 const DB = preload("res://scripts/source_db.gd")
 const Save = preload("res://scripts/save_store.gd")
-const Body = preload("res://scripts/centipede.gd")
+const Body = preload("res://scripts/grid_centipede.gd")
+const CentipedeArt = preload("res://scripts/centipede_art.gd")
+const Ink = preload("res://scripts/blue_ink.gd")
+const Brood = preload("res://scripts/brood_theme.gd")
 const Battle = preload("res://scripts/combat.gd")
+const Feedback = preload("res://scripts/weapon_feedback.gd")
+var weapon_fx = preload("res://scripts/weapon_fx.gd").new()
+var hit_pause_left = 0.0
+var hit_pause_cooldown = 0.0
+var camera_recoil = Vector2.ZERO
 const Run = preload("res://scripts/run_state.gd")
 var db
 var save
@@ -16,19 +24,19 @@ var difficulty = 0
 var ui: CanvasLayer
 var panel: Control
 var hud: Label
+var run_hud: Label
+var equipment_hud: Label
 var message: Label
 var center = Vector2(720, 450)
 var camera = Vector2.ZERO
 var aim = Vector2.RIGHT
 var zoom = 1.0
-var selected_piece = -1
-var build_action = "place"
-var build_origin = Vector2(720, 440)
 const AudioSystem = preload("res://scripts/audio_system.gd")
 var audio_system
 var music: AudioStreamPlayer
 var test_mode = false
 var test_time = 0.0
+var leg_phase = 0.0
 var capture_stage = 0
 const InputSystem=preload("res://scripts/input_system.gd")
 var controls
@@ -61,21 +69,37 @@ var particle_effects
 var particle_layer:CanvasLayer
 var native_visuals=preload("res://scripts/native_visuals.gd").new()
 var popup_text
+var camera_kick = Vector2.ZERO
+var camera_impact = 0.0
+var mouth_activity = 0.0
+var ink_world
+var insect_layer
+var build_ui
+var build_selected_segment = 1
 
 func _ready():
+	texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+	get_tree().node_added.connect(ink_node_added)
 	db = DB.new()
-	save = Save.new(db)
-	if "--smoke" in OS.get_cmdline_user_args():save.path="user://smoke-isolated.json";save.fresh()
+	Ink.register_game_colors(db)
+	ink_world = preload("res://scripts/blue_ink_layer.gd").new()
+	ink_world.show_behind_parent = true
+	ink_world.material = Ink.illustration()
+	add_child(ink_world)
+	insect_layer=preload("res://scripts/soft_insect_layer.gd").new()
+	insect_layer.z_index=-1
+	add_child(insect_layer)
+	var isolated = Array(OS.get_cmdline_user_args()).any(func(arg):return arg in ["--smoke","--operations-input-fixture","--build-input-fixture"])
+	save = Save.new(db, "user://preview-isolated.json" if isolated else "user://centipede-save.json", not isolated)
 	controls=InputSystem.new(save)
 	db.language = save.state.settings.language
+	DisplayServer.window_set_title(db.ui("Centipede · Run Build Pew!", "蜈蚣：逐节武装"))
 	player = Body.new(db)
 	combat = Battle.new(db, player)
 	selected_mission = db.asset(db.stores.MissionDataStore.missionsList[0])
 	ui = CanvasLayer.new()
 	add_child(ui)
 	font = load("res://assets/fonts/NotoSansSC-Light.otf")
-	var theme = Theme.new()
-	theme.default_font = font
 	ThemeDB.fallback_font = font
 	audio_system=AudioSystem.new()
 	add_child(audio_system)
@@ -84,10 +108,10 @@ func _ready():
 	tutorials=load("res://scripts/tutorial_ui.gd").new();add_child(tutorials);tutorials.setup(db,save)
 	for name in ["Background Nebula BackGround.png","BackStarsMat.png","Background Nebula ForeGround.png","FrontStarsMat.png"]:background_layers.append(load("res://assets/backgrounds/"+name))
 	background_palette=db.scene_config.BackgroundColorChanger.backgroundColorPresetsList[1].colorsList
-	if OS.get_environment("RBPEW_BACKGROUND_ORIGINAL")!="1":
-		background_renderer=load("res://scripts/background_layers.gd").new();add_child(background_renderer);background_renderer.setup(background_layers)
+	background_renderer=load("res://scripts/background_layers.gd").new();add_child(background_renderer);background_renderer.setup(background_layers)
 	cursor_system=load("res://scripts/cursor_system.gd").new();add_child(cursor_system);cursor_system.setup(db)
 	menu_background=load("res://scripts/menu_background.gd").new();add_child(menu_background);menu_background.setup(db)
+	menu_background.material=Ink.illustration()
 	particle_layer=CanvasLayer.new();particle_layer.layer=0;add_child(particle_layer)
 	particle_effects=load("res://scripts/particle_effects.gd").new();particle_layer.add_child(particle_effects);particle_effects.setup(db);native_visuals.setup(db,particle_effects)
 	popup_text=load("res://scripts/popup_text.gd").new();popup_text.layer=3;add_child(popup_text)
@@ -107,17 +131,27 @@ func clear_ui():
 	for child in ui.get_children():
 		child.queue_free()
 	panel = Control.new()
+	panel.theme = Ink.theme()
 	panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	ui.add_child(panel)
 	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	call_deferred("focus_menu_button")
+
+func ink_node_added(node: Node):
+	if node is Control and is_ancestor_of(node):
+		# Defer until the creating screen has finished setting local styles.
+		ink_style_later.call_deferred(weakref(node))
+
+func ink_style_later(reference: WeakRef):
+	var node = reference.get_ref()
+	if node != null and is_ancestor_of(node): Ink.style_item(node)
 
 func label_at(text: String, pos: Vector2, size: int = 22, color: Color = Color.WHITE) -> Label:
 	var label = Label.new()
 	label.text = text
 	label.position = pos
 	label.add_theme_font_size_override("font_size", size)
-	label.add_theme_color_override("font_color", color)
+	label.add_theme_color_override("font_color", Color(Ink.INK, color.a))
 	panel.add_child(label)
 	return label
 
@@ -134,7 +168,7 @@ func button(text: String, pos: Vector2, extent: Vector2, fn: Callable, disabled:
 
 func frame(title: String, subtitle: String):
 	clear_ui()
-	label_at("RUN / BUILD / PEW!", Vector2(64, 35), 19, Color("ebaa4b"))
+	label_at(db.ui("CENTIPEDE / ARM EACH SEGMENT", "蜈蚣 / 逐节武装"), Vector2(64, 35), 19, Color("ebaa4b"))
 	label_at(title, Vector2(64, 75), 44)
 	label_at(subtitle, Vector2(66, 134), 18, Color("a8acae"))
 
@@ -149,9 +183,16 @@ func show_menu():
 	if audio_system!=null:audio_system.sync_loops([])
 	screen="home"
 	audio_system.change_music("menu")
-	clear_ui()
-	source_ui=SourceUI.new();panel.add_child(source_ui)
-	source_ui.setup(db,"MainMenuScene/MenuCanvas",source_ui_action,save.state.settings.bindings)
+	frame(db.ui("CENTIPEDE", "蜈蚣：逐节武装"),db.ui("Grow your body. Arm every segment. Survive together.", "长出身体，逐节装塔，带着整条蜈蚣一起战斗。"))
+	button(db.ui("PLAY", "开始游戏"),Vector2(90,290),Vector2(300,65),show_missions)
+	button(db.ui("RESEARCH", "研究与升级"),Vector2(90,375),Vector2(300,65),show_lab)
+	button(db.ui("OPTIONS", "游戏设置"),Vector2(90,460),Vector2(300,65),show_options)
+	button(db.ui("WHAT'S NEW", "更新说明"),Vector2(90,545),Vector2(300,65),show_changelog)
+	button(db.ui("EXIT", "退出游戏"),Vector2(90,630),Vector2(300,65),safe_shutdown)
+	label_at(db.ui("ONE SEGMENT · ONE MODULE", "一节身体 · 一个模块"),Vector2(675,270),30,Color("d8ebd5"))
+	label_at(db.ui("Turrets ride on the shell. Every leg follows the head.", "炮塔装在背上，身体跟着头部蜿蜒前进。"),Vector2(675,320),20,Color("a9c5ba"))
+	label_at(db.ui("WASD move · Mouse fire · E build", "WASD 移动 · 鼠标瞄准射击 · E 逐节装塔"),Vector2(90,795),20,Color("ebc584"))
+	label_at(db.ui("Research points: %d", "可用研究点：%d")%save.state.meta,Vector2(1030,795),20,Color("ebc584"))
 
 func source_ui_action(method:String,_id:String,_args:Dictionary):
 	if method=="HoverFeedback":audio_system.play(int(_args.get("type",72)));return
@@ -216,7 +257,7 @@ func show_changelog():
 		scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
 		var content=RichTextLabel.new();content.bbcode_enabled=true;content.fit_content=true;content.scroll_active=false
 		content.custom_minimum_size.x=maxf(400,container.size.x-25)
-		content.text=FileAccess.get_file_as_string("res://data/changelog.txt").replace("<b>","[b]").replace("</b>","[/b]").replace("<size=50>","[font_size=30]").replace("</size>","[/font_size]")
+		content.text=FileAccess.get_file_as_string("res://data/changelog_zh.txt" if db.language.begins_with("Chinese") else "res://data/changelog.txt").replace("<b>","[b]").replace("</b>","[/b]").replace("<size=50>","[font_size=30]").replace("</size>","[/font_size]")
 		content.add_theme_font_size_override("normal_font_size",20);scroll.add_child(content)
 
 func source_screen(key:String):
@@ -237,12 +278,19 @@ func show_missions():
 	source_ui.show_node(refid(config,"researchButton"),not save.mission_unlocked(selected_mission))
 	source_ui.show_node(refid(config,"demoButton"),false)
 	source_ui.show_node(refid(config,"backButton"),true)
+	source_ui.show_node(refid(config,"scrapsAmountUI"),false)
 	source_ui.set_text(refid(config,"costText"),str(int(selected_mission.MissionCost)))
 	for name in source_ui.nodes_by_name:
 		if "LeaderBoard" in name:source_ui.nodes_by_name[name].visible=false
 	# The source's IntervalSlider is a composite wrapper; bind its actual native Slider.
 	for slider in source_ui.sliders.values():slider.min_value=0;slider.max_value=2;slider.step=1;slider.set_value_no_signal(difficulty)
-	label_at("%d RP"%save.state.meta,Vector2(1190,40),23,Color("ebaa4b"))
+	label_at(db.ui("%d RP", "%d 研究点")%save.state.meta,Vector2(1190,40),23,Color("ebaa4b"))
+	if db.sprite(selected_mission.MissionsObjectiveList[difficulty].objectiveSprite)==null:
+		var objective=selected_mission.MissionsObjectiveList[difficulty]
+		var summary=db.title(selected_mission)+"\n\n"+db.text(selected_mission.MissionDescTextID)
+		summary+="\n\n"+(db.ui("No time limit","无时间限制") if selected_mission.isEndless else db.ui("Mission timer: %d min","任务时间：%d 分钟")%int(objective.objectiveTime))
+		var goal_text=label_at(summary,Vector2(895,505),22)
+		goal_text.size=Vector2(415,200);goal_text.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;goal_text.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
 
 func show_lab():
 	screen="lab"
@@ -267,7 +315,7 @@ func show_options():
 	var resolution:Dictionary=config.resolutions[int(options_draft.resolution)]
 	source_ui.set_text(refid(config,"resolutionText"),"%d X %d"%[resolution.width,resolution.height])
 	source_ui.set_text(refid(config,"screenModeText"),db.text(str(config.screenModesList[int(options_draft.screen_mode)].Text).strip_edges()))
-	source_ui.set_text(refid(config,"languageText"),str(options_draft.language))
+	source_ui.set_text(refid(config,"languageText"),db.language_name(str(options_draft.language)))
 	source_ui.show_node(refid(config,"backButton"),true)
 	source_ui.show_node(refid(config,"activateSkipBossButton"),not options_draft.skip_boss)
 	source_ui.show_node(refid(config,"deactivateSkipBossButton"),options_draft.skip_boss)
@@ -280,6 +328,8 @@ func show_options():
 func apply_options():
 	save.state.settings=options_draft.duplicate(true)
 	db.language=save.state.settings.language
+	if tutorials!=null:tutorials.refresh_language()
+	DisplayServer.window_set_title(db.ui("Centipede · Run Build Pew!", "蜈蚣：逐节武装"))
 	var resolution:Dictionary=db.scene_config.OptionMenuManager.resolutions[int(options_draft.resolution)]
 	DisplayServer.window_set_mode([DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN,DisplayServer.WINDOW_MODE_FULLSCREEN,DisplayServer.WINDOW_MODE_WINDOWED][int(options_draft.screen_mode)])
 	if int(options_draft.screen_mode)==2:DisplayServer.window_set_size(Vector2i(int(resolution.width),int(resolution.height)))
@@ -287,24 +337,27 @@ func apply_options():
 
 func show_controls():
 	screen="controls"
-	frame(db.text("Option_Controls"),"Select a binding, then press a key. Esc cancels rebinding.")
+	frame(db.text("Option_Controls"),db.ui("Select a binding, then press a key. Esc cancels rebinding.", "点击要修改的操作，再按新按键。按 Esc 取消。"))
 	var index=0
 	for action in InputSystem.DEFAULTS:
 		var code=int(save.state.settings.bindings.get(action,InputSystem.DEFAULTS[action]))
-		button(action.replace("_"," ").capitalize()+"   ["+OS.get_keycode_string(code)+"]",Vector2(80,205+index*63),Vector2(600,50),func():rebind_action=action;message.text="Press a key for "+action)
+		button(control_title(action)+"   ["+OS.get_keycode_string(code)+"]",Vector2(80,205+index*63),Vector2(600,50),func():rebind_action=action;message.text=db.ui("Press a key for ", "请按新按键：")+control_title(action))
 		index+=1
 	for i in range(3):
 		var key=["invert_x","invert_y","left_aim"][i]
-		button(key.replace("_"," ").capitalize()+": "+str(save.state.settings[key]),Vector2(800,250+i*80),Vector2(490,50),func():save.state.settings[key]=not save.state.settings[key];save.save();show_controls())
+		button(control_title(key)+"："+db.ui("On" if save.state.settings[key] else "Off", "开启" if save.state.settings[key] else "关闭"),Vector2(800,250+i*80),Vector2(490,50),func():save.state.settings[key]=not save.state.settings[key];save.save();show_controls())
 	message=label_at("",Vector2(800,535),20)
-	button("Reset bindings",Vector2(800,610),Vector2(490,50),func():save.state.settings.bindings.clear();controls.apply();save.save();show_controls())
+	button(db.ui("Reset bindings", "恢复默认按键"),Vector2(800,610),Vector2(490,50),func():save.state.settings.bindings.clear();controls.apply();save.save();show_controls())
 	button(db.text("Option_Back"),Vector2(80,810),Vector2(260,50),func():options_draft=save.state.settings.duplicate(true);show_options())
 
 func start_run():
+	hit_pause_left=0.0; hit_pause_cooldown=0.0; camera_recoil=Vector2.ZERO; camera_impact=0.0
 	if popup_text!=null:popup_text.clear()
 	if particle_effects!=null:particle_effects.clear()
 	if tutorials!=null:tutorials.reset_run()
 	player = Body.new(db)
+	leg_phase=0.0
+	build_selected_segment=1
 	combat = Battle.new(db, player)
 	run = Run.new(db, save, player, combat, selected_mission, difficulty)
 	camera_focus.clear();shown_bosses.clear()
@@ -331,12 +384,16 @@ func tick_camera_focus(dt:float):
 func show_game():
 	screen = "game"
 	source_screen("GameScene/InGame Canvas")
+	source_ui.hide()
 	for id in ["11","90","264","408","37"]:source_ui.show_node(id,false)
 	for id in ["43","124"]:source_ui.show_node(id,true)
 	for slider in source_ui.sliders.values():slider.editable=false
 	hud=label_at("",Vector2(30,25),19)
-	message=label_at("WASD · Mouse · Shift · E · Esc",Vector2(30,855),18)
-	button("BUILD [E]",Vector2(1220,30),Vector2(180,45),show_build)
+	run_hud=label_at("",Vector2(645,25),19,Color("e8cf9a"))
+	equipment_hud=label_at("",Vector2(1220,90),18,Color("b7d8c4"))
+	message=label_at(db.ui("WASD move · Mouse aim / fire · Shift boost · E build · Esc pause", "WASD 移动 · 鼠标瞄准 / 左键射击 · Shift 加速 · E 装塔 · Esc 暂停"),Vector2(30,855),18)
+	button(db.ui("BUILD [E]", "逐节装塔 [E]"),Vector2(1220,30),Vector2(180,45),show_build)
+	label_at(db.ui("RADAR · Tab", "战场雷达 · Tab"),Vector2(1230,632),17,Color("a9c5ba"))
 	update_source_hud()
 
 func boss_timer_progress()->float:
@@ -376,34 +433,20 @@ func update_source_hud():
 	source_ui.set_text("99",str(roundi(distance)))
 	source_ui.show_node("100",run.director.end_spawned or run.mode.get("class")=="EndlessModeManager")
 
+func control_title(action:String)->String:
+	var names={"move_up":"向上移动","move_down":"向下移动","move_left":"向左移动","move_right":"向右移动","boost":"加速","build":"逐节装塔","pause":"暂停","radar":"雷达","shoot":"射击","invert_x":"反转横向瞄准","invert_y":"反转纵向瞄准","left_aim":"左摇杆瞄准"}
+	return db.ui(action.replace("_"," ").capitalize(),names.get(action,action))
+
 func show_build():
 	audio_system.sync_loops([])
-	if run == null:
-		return
-	if screen in ["build","rewards"] and player.pending.is_empty() and run.packs==0 and not player.actions.values().any(func(v):return v>0):show_game();return
+	if run == null:return
 	screen = "build"
-	if player.pending.is_empty() and not player.actions.values().any(func(v):return v>0) and run.packs>0:show_rewards();return
-	frame("FREE BUILD", "Choose a reward, then place each module on an adjacent cell. Layout rows become following body sections.")
-	label_at("Pending parts: %d   •   Reward packs: %d" % [player.pending.size(), run.packs], Vector2(64, 195), 22, Color("ebaa4b"))
-	var actions: Array = ["place", "move", "swap", "duplicate", "wall"]
-	for i in range(actions.size()):
-		var action: String = actions[i]
-		var count: String = "" if action == "place" else " (%d)" % player.actions[action]
-		button(action.to_upper() + count, Vector2(64, 255 + i * 65), Vector2(220, 50), func(): build_action = action; selected_piece = -1)
-	if not player.pending.is_empty():
-		label_at("PLACE: " + db.title(db.asset(player.pending[0])), Vector2(64, 615), 19, Color("e8bb66"))
-	message = label_at("", Vector2(64, 760), 18, Color("e8bb66"))
-	button("OPEN REWARD", Vector2(1060, 250), Vector2(300, 55), show_rewards, run.packs == 0 or not player.pending.is_empty())
-	button("RESUME [E]", Vector2(1060, 650), Vector2(300, 55), show_game, not player.pending.is_empty() or run.packs>0 or player.actions.values().any(func(v):return v>0))
-	var stats_ui=SourceUI.new();panel.add_child(stats_ui);stats_ui.setup(db,"GameScene/InGame Canvas",source_ui_action)
-	var stats_panel=stats_ui.controls["37"]
-	stats_panel.reparent(stats_ui,false)
-	for child in stats_ui.get_children():child.visible=child==stats_panel
-	stats_panel.position=Vector2(940,285)
-	var config:Dictionary=stats_ui.components["1559"]
-	var values={"shipSpeedText":11,"shipBoostText":12,"partDamageText":15,"partRangeText":3,"partRateText":2,"partHealthText":16,"hqDamageText":14}
-	for key in values:stats_ui.set_text(refid(config,key),"+%d%%"%(100+int(100*float(player.stats.get(str(values[key]),0)))))
-
+	clear_ui()
+	build_ui = preload("res://scripts/build_grid_ui.gd").new()
+	panel.add_child(build_ui)
+	build_ui.setup(self)
+	queue_redraw()
+	return
 
 func show_rewards():
 	var choices:Array=run.roll_rewards()
@@ -427,7 +470,7 @@ func show_rewards():
 		else:
 			var image_id=refid(config,"rewardSprite")
 			source_ui.show_node(image_id,true)
-			if source_ui.images.has(image_id):source_ui.images[image_id].texture=db.reward_sprite(reward)
+			source_ui.set_texture(image_id,db.reward_sprite(reward))
 			if reward.get("rewardOverlaySprite") is String:
 				source_ui.show_node(refid(config,"rewardOverlay"),true);source_ui.set_image(refid(config,"rewardOverlay"),reward.rewardOverlaySprite)
 		var can_select=run.can_reward(reward)
@@ -437,7 +480,8 @@ func show_rewards():
 			select_button.disabled=not can_select
 			select_button.pressed.connect(func():run.take_reward(reward);show_build())
 		for j in range(config.starsList.size()):source_ui.show_node(str(int(config.starsList[j].fileID)),j<int(player.levels.get(reward.id,0))+1 and "LevelUp" in reward.get("class",""))
-	label_at("CHOOSE YOUR REWARD",Vector2(520,65),30)
+	label_at(db.ui("CHOOSE ONE REWARD", "选择一项奖励"),Vector2(520,65),30)
+	label_at(db.ui("Modules go to assembly; upgrades apply immediately.", "模块领取后拖拽安装；属性升级、操作次数直接生效。"),Vector2(410,110),20)
 
 func begin_run():
 	start_run()
@@ -451,7 +495,7 @@ func show_loading():
 	source_ui.show_node(refid(config,"loadingObject"),false)
 	source_ui.show_node(refid(config,"doneLoadingObject"),true)
 	for pair in [["127","337","133","LMB"],["261","373","259","D"]]:
-		source_ui.show_node(pair[0],false);source_ui.show_node(pair[1],true);source_ui.set_text(pair[2],pair[3])
+		source_ui.show_node(pair[0],false);source_ui.show_node(pair[1],true);source_ui.set_text(pair[2],db.ui("LMB","左键") if pair[3]=="LMB" else pair[3])
 	tip_index=randi()%config.tipsList.size()
 	var video_container=source_ui.controls.get(refid(config,"panelVideoPlayer"))
 	if video_container!=null:
@@ -511,22 +555,24 @@ func profile_mark(key:String,started:int):
 		sample.microseconds+=Time.get_ticks_usec()-started;sample.calls+=1;performance_samples[key]=sample
 
 func _process(dt: float):
+	var combat_dt=Feedback.combat_delta(dt,hit_pause_left)
+	hit_pause_left=maxf(0,hit_pause_left-dt)
+	hit_pause_cooldown=maxf(0,hit_pause_cooldown-dt)
+	camera_recoil=camera_recoil.lerp(Vector2.ZERO,1-exp(-22*dt))
+	camera_impact = maxf(0.0, camera_impact - dt * 22.0)
+	camera_kick = Vector2(sin(test_time * 91.0), cos(test_time * 73.0)) * camera_impact + camera_recoil
+	mouth_activity = move_toward(mouth_activity, 1.0 if screen == "game" and (controls.shooting() or test_mode) else 0.0, dt * 8.0)
 	if run!=null and popup_text!=null:
 		for notification in run.notifications:popup_text.enqueue(notification)
 		run.notifications.clear()
 	if particle_effects!=null:
-		particle_layer.transform=Transform2D(Vector2(zoom,0),Vector2(0,zoom),center-camera*zoom)
+		particle_layer.transform=Transform2D(Vector2(zoom,0),Vector2(0,zoom),center-camera*zoom+camera_kick)
 		particle_effects.visible=screen in ["game","pause","result"]
 		particle_effects.process_mode=Node.PROCESS_MODE_INHERIT if screen=="game" else Node.PROCESS_MODE_DISABLED
 		if screen=="game":
-			decoration_system.refresh(player)
 			var engines:Array=[]
-			for decoration in decoration_system.decorations:
-				if decoration.type!=505:continue
-				var pose:Dictionary=decoration_system.pose(decoration,player)
-				var exhaust=Vector2.DOWN.rotated(pose.angle)
-				engines.append({'key':str(decoration.cell),'position':pose.position,'angle':pose.angle,'active':player.velocity.dot(exhaust)<-0.001,'boost':player.boost})
 			for enemy in combat.enemies:
+				if Brood.eligible(enemy):continue
 				var motion:Vector2=enemy.position-Vector2(enemy.get('_engine_previous',enemy.position));enemy._engine_previous=enemy.position
 				for engine in particle_effects.engine_definitions.get(enemy.prefab,[]):
 					if engine.owner!=str(enemy.source_id):continue
@@ -543,7 +589,7 @@ func _process(dt: float):
 			particle_effects.sync_flames(combat.effects)
 	if screen=="build" and run!=null:run.step_recycled_packs(dt)
 	if menu_background!=null:
-		menu_background.visible=screen in ["home","menu","options","lab","controls","reward_pool","changelog"]
+		menu_background.visible=screen in ["menu","options","lab","controls","reward_pool","changelog"]
 		menu_background.set_menu(screen)
 	if "--ui-probe" in OS.get_cmdline_user_args():
 		probe_time+=dt
@@ -567,8 +613,8 @@ func _process(dt: float):
 		tutorials.tick(dt,screen=="game" and camera_focus.is_empty(),player,run)
 	center = get_viewport_rect().size * 0.5
 	if screen == "game":
-		if not camera_focus.is_empty():tick_camera_focus(dt);queue_redraw();return
-		var dir:Vector2 = controls.movement()
+		if not camera_focus.is_empty():tick_camera_focus(dt);insect_layer.sync(self,0);queue_redraw();return
+		var dir:Vector2 = controls.movement(true)
 		if test_mode:
 			dir = Vector2.from_angle(test_time * 0.7)
 		aim = (get_global_mouse_position() - center) / zoom + camera
@@ -576,13 +622,34 @@ func _process(dt: float):
 		if stick!=Vector2.ZERO:aim=player.head+stick*700
 		var measured=Time.get_ticks_usec()
 		player.step(dt, dir, Input.is_action_pressed("boost"))
+		leg_phase+=player.velocity.length()*dt*0.075
 		profile_mark("body",measured);measured=Time.get_ticks_usec()
-		combat.step(dt, aim, controls.shooting() or test_mode)
+		# Confirmed heavy hits briefly hold combat motion; steering and UI remain
+		# responsive and repeated volleys cannot chain the hold indefinitely.
+		combat.step(combat_dt, aim, controls.shooting() or test_mode)
+		var particle_bursts=0
 		for effect in combat.effects:
 			if effect.get("rendered",false):continue
 			effect.rendered=true
+			var distance=Vector2(effect.position).distance_to(player.head)
+			var style=Feedback.profile(str(effect.get("fx_family","impact")))
+			if effect.get("friendly",true) and distance<700:
+				if effect.kind=="muzzle" and distance<180:
+					camera_recoil=(-Vector2(effect.direction)*style.kick*0.6).limit_length(3.0)
+				if float(effect.get("hit_pause",0))>0 and hit_pause_cooldown<=0:
+					hit_pause_left=float(effect.hit_pause)
+					hit_pause_cooldown=0.16
+					camera_impact=maxf(camera_impact,style.kick*clampf(1-distance/900.0,0,1))
+			if effect.kind=="explosion":
+				camera_impact=maxf(camera_impact,clampf(float(effect.radius)/48.0-0.4,0.0,7.0)*clampf(1.0-distance/900.0,0.0,1.0))
+			elif effect.get("player_hit",false):camera_impact=maxf(camera_impact,3.5)
 			var type=int(effect.get("particle_type",303 if effect.kind=="explosion" else (305 if effect.kind=="hit" else 0)))
-			if type>0:particle_effects.play(type,effect.position,float(effect.radius)/48 if effect.kind=="explosion" else 1,float(effect.get("duration",0)),effect.get("follow",{}))
+			# The layered weapon blast already includes its flash and fragments.
+			# Stacking the old opaque ink burst on top hides its color and targets.
+			if effect.kind=="explosion" and effect.has("fx_family"):type=0
+			if type>0 and particle_bursts<12 and particle_effects.get_child_count()<200 and weapon_fx.visible(self,effect.position,440):
+				particle_effects.play(type,effect.position,float(effect.radius)/48 if effect.kind=="explosion" else 1,float(effect.get("duration",0)),effect.get("follow",{}))
+				particle_bursts+=1
 		profile_mark("combat",measured);measured=Time.get_ticks_usec()
 		run.step(dt)
 		profile_mark("mission",measured);measured=Time.get_ticks_usec()
@@ -592,7 +659,7 @@ func _process(dt: float):
 				if not save.state.settings.skip_boss:focus_camera(enemy.position,true)
 				elif tutorials!=null:tutorials.show_tip("run")
 		audio_system.listener=player.head
-		for sound in combat.audio_events:audio_system.play(sound.type,sound.position)
+		for sound in combat.audio_events:audio_system.play_event(sound)
 		combat.audio_events.clear()
 		var loop_requests:Array=[]
 		if player.boost:loop_requests.append({"key":"boost","type":41,"position":player.head})
@@ -602,14 +669,18 @@ func _process(dt: float):
 			if effect.kind=="flame":loop_requests.append({"key":"flame_"+str(flame_index),"type":7,"position":effect.position});flame_index+=1
 		audio_system.sync_loops(loop_requests)
 		audio_system.change_music("boss" if combat.enemies.any(func(e):return e.kind=="AIBossUnit" and e.active) else "game")
-		camera = camera.lerp(player.head, minf(1, dt * 5))
-		hud.text = "%s\nHQ %d/%d · FUEL %d%%"%[db.title(selected_mission),int(player.parts[0].hp),int(player.parts[0].max_hp),int(player.fuel/maxf(1,player.max_fuel)*100)]
+		camera = camera.lerp(player.head, 1.0 - exp(-8.0 * dt))
+		hud.text = db.ui("%s\nHead %d/%d · Fuel %d%% · Modules %d", "%s\n头部耐久 %d/%d · 燃料 %d%% · 已装模块 %d 个")%[db.title(selected_mission),int(player.parts[0].hp),int(player.parts[0].max_hp),int(player.fuel/maxf(1,player.max_fuel)*100),player.parts.size()-1]
+		var time_left=maxf(0,run.duration-run.elapsed) if selected_mission.get("isTimerCountingDown",false) else run.elapsed
+		run_hud.text=db.ui("%02d:%02d · Danger %d%%\nPacks %d · Scrap %d", "%02d:%02d · 危险度 %d%%\n奖励包 %d · 废料 %d")%[int(time_left)/60,int(time_left)%60,int(run.heat*100),run.packs,run.scraps]
+		equipment_hud.text=db.ui("Modules %d / %d\nDrones %d / %d", "模块 %d / %d\n无人机 %d / %d")%[player.parts.size()-1,int(db.stores.PlayerDataStore.maxBuiltCores),combat.drones.filter(func(d):return d.owner==0).size(),int(db.stores.PlayerDataStore.get("maxHQDronesCount",30))]
 		update_source_hud()
 		profile_mark("audio_hud",measured)
 		if run.packs>=6: show_build()
 		if run.finished:
 			show_result()
 	test_time += dt
+	insect_layer.sync(self,dt if screen=="game" else 0.0)
 	queue_redraw()
 
 func focus_menu_button():
@@ -661,7 +732,7 @@ func _input(event):
 		elif screen=="reward_pool" or screen=="menu":show_missions() if screen=="reward_pool" else show_menu()
 		elif screen in ["lab","options","controls"]:show_menu()
 		elif screen=="pause":show_game()
-		elif screen=="build":selected_piece=-1
+		elif screen=="build" and is_instance_valid(build_ui):build_ui.cancel_selection()
 		get_viewport().set_input_as_handled()
 
 func _unhandled_input(event):
@@ -672,7 +743,7 @@ func _unhandled_input(event):
 	if event is InputEventJoypadButton and event.pressed:
 		if event.is_action_pressed("build"):
 			if screen=="game":show_build()
-			elif screen=="build" and player.pending.is_empty() and run.packs==0 and not player.actions.values().any(func(v):return v>0):show_game()
+			elif screen=="build" and player.pending.is_empty():show_game()
 		if event.is_action_pressed("pause"):
 			if screen=="game":show_pause()
 			elif screen=="pause":show_game()
@@ -684,53 +755,33 @@ func _unhandled_input(event):
 			elif screen=="reward_pool":show_missions()
 		if event.is_action_pressed("build"):
 			if screen == "game": show_build()
-			elif screen == "build" and player.pending.is_empty() and run.packs==0 and not player.actions.values().any(func(v):return v>0): show_game()
-	if screen == "build" and event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		var local: Vector2 = (event.position - build_origin) / 46.0
-		var cell = Vector2i(roundi(local.x), -roundi(local.y))
-		if abs(cell.x) > 5 or abs(cell.y) > 5:
-			return
-		var index = -1
-		for i in range(player.parts.size()):
-			if player.parts[i].cell == cell:
-				index = i
-		if build_action == "place" and not player.pending.is_empty():
-			if player.add_piece(player.pending[0], cell):
-				player.pending.pop_front()
-				show_build()
-			else:
-				message.text = player.last_error
-		elif build_action == "wall":
-			player.reinforce(index)
-			show_build()
-		elif selected_piece < 0:
-			selected_piece = index
-			message.text = "Select destination" if index > 0 else "Select a built module"
-		else:
-			match build_action:
-				"move": player.move_piece(selected_piece, cell)
-				"swap": player.swap_piece(selected_piece, index)
-				"duplicate": player.duplicate_piece(selected_piece, cell)
-			selected_piece = -1
-			show_build()
+			elif screen == "build" and player.pending.is_empty(): show_game()
 
 func world(p: Vector2) -> Vector2:
-	return (p - camera) * zoom + center
+	return (p - camera) * zoom + center + camera_kick
 
-func art(texture: Texture2D, position: Vector2, size: Vector2, rotation: float = 0.0, tint: Color = Color.WHITE):
+func art(texture: Texture2D, position: Vector2, size: Vector2, rotation: float = 0.0, tint: Color = Color.WHITE, colored: bool = false):
 	if texture == null:
+		return
+	if not colored and not Ink.keeps_color(texture):
+		ink_world.paint(texture, position, size, rotation, tint)
 		return
 	draw_set_transform(position, rotation)
 	draw_texture_rect(texture, Rect2(-size * 0.5, size), false, tint)
 	draw_set_transform(Vector2.ZERO)
 
+func module_art(texture: Texture2D, position: Vector2, bounds: Vector2, rotation: float = 0.0, tint: Color = Color.WHITE):
+	# Mounts are square; their weapons retain the original sprite proportions.
+	art(texture, position, Ink.fitted_size(texture, bounds), rotation, tint, true)
+
 func _draw():
+	if ink_world != null: ink_world.begin_frame()
 	var background=Color("20222c")
 	if not background_palette.is_empty():
 		var progress=clampf(run.heat if run!=null and screen in ["game","pause","build","rewards","result"] else 0.0,0,1)*2
 		var i=mini(1,int(progress));var from:Dictionary=background_palette[i];var to:Dictionary=background_palette[i+1]
 		background=Color(from.r,from.g,from.b).lerp(Color(to.r,to.g,to.b),progress-i)
-	if background_renderer!=null:background_renderer.configure(camera,background,get_viewport_rect().size)
+	if background_renderer!=null:background_renderer.configure(camera,background,get_viewport_rect().size,zoom,camera_kick,screen in ["game","pause","result","rewards"])
 	else:
 		draw_rect(Rect2(Vector2.ZERO,get_viewport_rect().size),background)
 		for i in range(background_layers.size()):
@@ -740,7 +791,15 @@ func _draw():
 				for y in range(-1,2):draw_texture_rect(background_layers[i],Rect2(Vector2(x,y)*900+offset,Vector2(900,900)),false)
 	if db == null:
 		return
-	if screen in ["game", "pause", "result"]:
+	if screen=="home":
+		CentipedeArt.tail(self,Vector2(1120-8*55,520+sin(8*0.5+test_time*0.5)*50),0.0,1.0)
+		for segment in range(8,-1,-1):
+			var pos=Vector2(1120-segment*55,520+sin(segment*0.5+test_time*0.5)*50)
+			var ahead=Vector2(1120-(segment-1)*55,520+sin((segment-1)*0.5+test_time*0.5)*50)
+			if segment>0:draw_line(pos,ahead,Color("173b70"),23,true)
+			CentipedeArt.segment(self,pos,(ahead-pos).angle(),1.0,test_time*3-segment*0.8,segment==0,segment>3)
+			if segment in [1,2,3]:module_art(db.core_sprite(db.named(["Core_Gun_Gatling","Core_Gun_Shotgun","Core_Gun_Cannon"][segment-1])),pos,Vector2(35,35),-PI/2)
+	if screen in ["game", "pause", "result", "rewards"]:
 		for node in run.map_director.nodes.values():
 			if node.has("center_sprite"):art(db.sprite(node.center_sprite),world(node.position),Vector2(180,180)*zoom)
 		if run.mode.get("class") in ["SDestroyModeManager","SProtectModeManager"]:
@@ -752,14 +811,19 @@ func _draw():
 			for e in combat.enemies:
 				var at=world(e.position)
 				if Rect2(0,0,1440,900).has_point(at):draw_map_icon(e,at,20)
-			draw_circle(world(player.head),8,Color("ffeabd"))
+			draw_circle(world(player.head),8,Color("2f60a0"))
 			draw_objective_arrows()
 			return
 		for e in combat.enemies:
-			var pos = world(e.position)
+			var hit_flash=clampf(float(e.get("feedback_left",0))/0.095,0,1)
+			var visual_position=Vector2(e.position)+Vector2(e.get("feedback_kick",Vector2.ZERO))*hit_flash
+			var pos = world(visual_position)
 			if pos.x < -250 or pos.x > 1700 or pos.y < -250 or pos.y > 1150:
 				continue
 			var pulse=health_pulse(e)
+			if Brood.eligible(e):
+				draw_rect(Rect2(pos+Vector2(-18,-float(e.radius)*zoom-10),Vector2(36*maxf(0,e.hp/e.max_hp),2)),Color("173b70"))
+				continue
 			for renderer in e.get("render", []):
 				var texture: Texture2D = db.sprite(renderer.sprite)
 				if texture == null:
@@ -767,12 +831,14 @@ func _draw():
 				var ppu: float = db.sprites[renderer.sprite].get("ppu", 100)
 				var offset = Vector2(renderer.x, renderer.y).rotated(e.angle + PI * 0.5) * 48
 				var extent = texture.get_size() / ppu * Vector2(renderer.sx, renderer.sy) * 48 * zoom
-				art(texture, world(e.position + offset), extent, e.angle + PI * 0.5 + RenderState.angle(renderer,e.age),RenderState.color(renderer,e.age,pulse,pulse_color(e)))
-			draw_rect(Rect2(pos + Vector2(-22, -e.radius - 12), Vector2(44 * maxf(0, e.hp / e.max_hp), 3)), Color("d88760"))
+				var tint=RenderState.color(renderer,e.age,pulse,pulse_color(e))
+				if hit_flash>0: tint=tint.lerp(Color(2.7,2.7,2.7,tint.a),hit_flash*0.9)
+				art(texture, world(visual_position + offset), extent, e.angle + PI * 0.5 + RenderState.angle(renderer,e.age),tint)
+			draw_rect(Rect2(pos + Vector2(-22, -e.radius - 12), Vector2(44 * maxf(0, e.hp / e.max_hp), 3)), Color("173b70"))
 			for gun in e.guns:
 				var texture: Texture2D = db.core_sprite(db.asset(gun.id))
 				if texture != null:
-					art(texture,world(e.position+Vector2(gun.get("offset",Vector2.ZERO)).rotated(e.angle)),Vector2(42,42)*zoom,float(gun.angle))
+					module_art(texture,world(visual_position+Vector2(gun.get("offset",Vector2.ZERO)).rotated(e.angle)),Vector2(42,42)*zoom,float(gun.angle)+PI/2)
 		for pack in run.recycled_packs:
 			for renderer in db.prefabs[db.pool['203']].get('render',[]):
 				var texture=db.sprite(renderer.sprite)
@@ -788,84 +854,51 @@ func _draw():
 				if texture!=null:
 					var extent=texture.get_size()/float(db.sprites[renderer.sprite].get('ppu',100))*Vector2(renderer.sx,renderer.sy)*48*zoom
 					art(texture,world(drop.position),extent,RenderState.angle(renderer,test_time),RenderState.color(renderer,test_time))
-		var rows: Array = player.body_rows()
-		for i in range(rows.size(), 0, -1):
-			var pose: Dictionary = player.path_sample(i * player.body_spacing)
-			var previous: Dictionary = player.path_sample((i - 1) * player.body_spacing)
-			draw_line(world(pose.point), world(previous.point), Color("708578"), 13)
-			var pos = world(pose.point)
-			draw_circle(pos, 23, Color("35483d"))
-			for side in [-1, 1]:
-				var normal: Vector2 = Vector2(pose.direction).orthogonal() * side
-				var knee: Vector2 = pose.point + normal * 38 - pose.direction * 12
-				var foot: Vector2 = pose.point + normal * 54 - pose.direction * (24 + sin(test_time * 10 + i) * 8)
-				draw_line(pos, world(knee), Color("9baf94"), 4)
-				draw_line(world(knee), world(foot), Color("9baf94"), 3)
-		decoration_system.refresh(player)
-		for decoration in decoration_system.decorations:
-			var pose:Dictionary=decoration_system.pose(decoration,player)
-			for renderer in db.prefabs[db.pool[str(decoration.type)]].get('render',[]):
-				var texture=db.sprite(renderer.sprite)
-				if texture!=null:
-					var extent=texture.get_size()/float(db.sprites[renderer.sprite].get('ppu',100))*Vector2(renderer.sx,renderer.sy)*44*zoom
-					art(texture,world(pose.position),extent,pose.angle+renderer.angle)
-		for i in range(player.parts.size() - 1, -1, -1):
-			var p: Dictionary = player.parts[i]
-			var pos = world(p.position)
+		# Continuous insect silhouette; turrets sit on the carapace of each segment.
+		var last_pose:Dictionary=player.segment_pose(player.segment_count())
+		CentipedeArt.tail(self,world(last_pose.point),Vector2(last_pose.direction).angle(),zoom)
+		for segment in range(player.segment_count(),0,-1):
+			var pose:Dictionary=player.segment_pose(segment)
+			var previous:Dictionary=player.segment_pose(segment-1)
+			draw_line(world(pose.point),world(previous.point),Color("173b70"),22*zoom,true)
+			CentipedeArt.segment(self,world(pose.point),Vector2(pose.direction).angle(),zoom,leg_phase-segment*0.8,false,player.parts_on_segment(segment).is_empty())
+		CentipedeArt.segment(self,world(player.head),player.facing.angle(),zoom,leg_phase,true,false,false,mouth_activity,test_time)
+		for i in range(player.parts.size()-1,-1,-1):
+			var p:Dictionary=player.parts[i]
+			var pos=world(p.position)
 			var pulse=health_pulse(p)
-			var size = Vector2(72, 72) if i == 0 else Vector2(42, 42)
-			var health_sprites:Array=db.stores.CoresDataStore.mainCoreHealthSprites if i==0 else db.stores.CoresDataStore.coreHealthSprites
-			art(db.sprite(health_sprites[clampi(int(p.hp/maxf(1,p.max_hp)*health_sprites.size()),0,health_sprites.size()-1)]),pos,size)
-			if p.wall:art(db.sprite(db.stores.CoresDataStore.walledCoreSprite),pos,size)
-			var c: Dictionary = db.asset(player.hq_weapon if i == 0 else p.id)
-			art(db.core_sprite(c), pos, size * 0.9, p.angle + PI * 0.5,Color(1,1,1,0.3) if p.get("cloaked",false) else (pulse_color(p) if pulse else Color.WHITE))
-			if p.shield > 0 and p.stun<=0:
-				draw_arc(pos, combat.shield_range(i)*zoom, 0, TAU, 50, Color(0.3, 0.8, 1.0, 0.35), 2)
-			if p.hp < p.max_hp:
-				draw_rect(Rect2(pos + Vector2(-20, -29), Vector2(40 * maxf(0, p.hp / p.max_hp), 3)), Color("b7dd65"))
+			var size=Vector2.ONE*player.module_size(i)*zoom
+			if p.wall:draw_arc(pos,(player.module_size(i)*0.5+2)*zoom,0,TAU,24,Color("2f60a0"),1.5*zoom,true)
+			var c:Dictionary=db.asset(player.hq_weapon if i==0 else p.id)
+			var recoil=Vector2.from_angle(p.angle)*float(p.get("recoil",0))*zoom*minf(1,player.module_size(i)/35.0)
+			module_art(db.core_sprite(c),pos-recoil,size,p.angle+PI*0.5,Color(1,1,1,0.3) if p.get("cloaked",false) else (pulse_color(p) if pulse else Color.WHITE))
+			if p.shield>0 and p.stun<=0:draw_arc(pos,combat.shield_range(i)*zoom,0,TAU,50,Color(0.3,0.8,1.0,0.35),2)
+			if p.hp<p.max_hp:draw_rect(Rect2(pos+Vector2(-size.x/2,-size.y/2-4*zoom),Vector2(size.x*maxf(0,p.hp/p.max_hp),2*zoom)),Color("173b70"))
 		for mine in combat.special.mines:
-			art(db.sprite(mine.data.mineSprite),world(mine.position),Vector2(22,22)*zoom)
-		for hole in combat.special.black_holes:
-			draw_circle(world(hole.position),hole.radius*zoom,Color(0.04,0.01,0.09,0.8))
-			draw_arc(world(hole.position),hole.radius*zoom,0,TAU,50,Color("a65ceb"),3)
+			module_art(db.sprite(mine.data.mineSprite),world(mine.position),Vector2(22,22)*zoom)
 		for d in combat.drones+combat.enemy_drones:
 			if d.get("docked",false):continue
 			native_visuals.trail(self,d,d.data.get("dronePrefab",0),test_time,zoom)
-			art(db.sprite(d.data.get("droneSprite", "")), world(d.position), Vector2(18, 18))
+			var drone_angle=float(d.get("angle",0))+PI/2 if d.data.get("class","")=="ProjectileDrone" else 0.0
+			module_art(db.sprite(d.data.get("droneSprite", "")), world(d.position), Vector2(18, 18)*zoom,drone_angle)
+		weapon_fx.draw_count=0
 		for b in combat.bullets:
-			native_visuals.trail(self,b,b.data.get("projectilePrefab",0),test_time,zoom)
+			weapon_fx.paint_projectile(self,b,test_time,zoom)
 			var texture=db.sprite(b.data.get("projectileSprite",""))
 			if texture!=null:
 				var extent=texture.get_size()/float(db.sprites[b.data.projectileSprite].get("ppu",100))*48*zoom
 				art(texture,world(b.position),extent*maxf(1,b.radius/4),Vector2(b.velocity).angle()+PI/2)
-			else:draw_line(world(b.previous),world(b.position),Color("e6f3bb") if b.friendly else Color("f57562"),b.radius)
-		for effect in combat.effects:
-			if effect.kind in ["explosion","hit","shield_hit","pickup","emp","flame"]:continue
-			if effect.kind=="chain":native_visuals.beam(self,effect,test_time,zoom)
-			elif effect.kind=="flame":
-				draw_line(world(effect.position), world(effect.end), Color("a6e7f0") if effect.kind=="chain" else Color("ee803d"),3 if effect.kind=="chain" else 24)
-			else:
-				draw_arc(world(effect.position), effect.radius * (1 - effect.life), 0, TAU, 28, Color(1, 0.75, 0.4, minf(1, effect.life * 2)), 3)
+			else:draw_line(world(b.previous),world(b.position),Color("173b70") if b.friendly else Color("6984a4"),b.radius)
+		weapon_fx.paint(self,combat,test_time,zoom)
 		# Radar uses actual world objects, including distant mission bosses.
-		draw_rect(Rect2(1230, 665, 180, 150), Color(0.03, 0.05, 0.05, 0.9))
+		draw_rect(Rect2(1230, 665, 180, 150), Color("d8e3ec"))
+		draw_rect(Rect2(1230,665,180,150),Ink.MUTED,false,1.0)
 		for e in combat.enemies:
 			var offset: Vector2 = (e.position - player.head) * 0.012
 			if offset.length() < 70:
 				draw_map_icon(e,Vector2(1320,740)+offset,8 if e.kind!="AIBossUnit" else 13)
-		draw_circle(Vector2(1320, 740), 4, Color("e4ebbb"))
+		draw_circle(Vector2(1320, 740), 4, Color("173b70"))
 		draw_objective_arrows()
-	elif screen == "build":
-		for x in range(-5, 6):
-			for y in range(-5, 6):
-				var pos = build_origin + Vector2(x, -y) * 46
-				draw_rect(Rect2(pos - Vector2(21, 21), Vector2(42, 42)), Color("293732"), false, 1)
-		for i in range(player.parts.size()):
-			var p: Dictionary = player.parts[i]
-			var pos = build_origin + Vector2(p.cell.x, -p.cell.y) * 46
-			var size = Vector2(86, 86) if i == 0 else Vector2(42, 42)
-			if i == 0: pos += Vector2(23, -23)
-			draw_rect(Rect2(pos - size * 0.5, size), Color("9da878") if i == selected_piece else Color("637668"))
-			art(db.core_sprite(db.asset(player.hq_weapon if i == 0 else p.id)), pos, size * 0.85)
 
 func automated_flow():
 	await get_tree().process_frame
@@ -937,14 +970,14 @@ func collect_buttons(node:Node,result:Array):
 	for child in node.get_children():collect_buttons(child,result)
 
 func draw_map_icon(enemy:Dictionary,at:Vector2,pixels:float):
+	if Brood.eligible(enemy):
+		var insect=Brood.texture("enemy_"+Brood.species(enemy))
+		art(insect,at,Ink.fitted_size(insect,Vector2.ONE*pixels),0,Color.WHITE,true)
+		return
 	var threat=int(enemy.unit.get("aIThreatLevel",0))
 	var sprites:Array=db.stores.AIDataStore.threatsLevelSprites
 	var texture=db.sprite(sprites[clampi(threat,0,sprites.size()-1)])
-	var faction=int(enemy.unit.get("aIFaction",1))
-	var value:Dictionary=db.stores.AIDataStore["BlueColor" if faction==0 else "RedColor"]
-	var tint=Color(value.r,value.g,value.b)
-	if enemy.role=="friendly":tint=Color("5de553")
-	art(texture,at,Vector2.ONE*pixels,0,tint)
+	art(texture,at,Ink.fitted_size(texture,Vector2.ONE*pixels),0,Ink.MUTED if enemy.role=="friendly" else Ink.INK,true)
 
 func draw_objective_arrows():
 	for enemy in combat.enemies:
@@ -954,7 +987,7 @@ func draw_objective_arrows():
 		var direction=(at-center).normalized()
 		var extent=minf(610/maxf(0.001,absf(direction.x)),340/maxf(0.001,absf(direction.y)))
 		var pos=center+direction*extent
-		art(db.sprite("714f0dad9b162d542b7f9a76b5690691"),pos,Vector2(30,30),direction.angle())
+		art(db.sprite("714f0dad9b162d542b7f9a76b5690691"),pos,Vector2(30,30),direction.angle(),Ink.INK,true)
 		draw_map_icon(enemy,pos-direction*27,22)
 
 func source_hit_color()->Color:
@@ -962,10 +995,10 @@ func source_hit_color()->Color:
 	return Color(c.get('r',1),c.get('g',1),c.get('b',1),1)
 func health_pulse(entity:Dictionary)->bool:
 	if entity.hp!=float(entity.get('_visual_hp',entity.hp)):
-		entity._visual_hit_until=test_time+0.05
+		entity._visual_hit_until=test_time+0.10
 		entity._visual_repair=entity.hp>float(entity.get('_visual_hp',entity.hp))
 	entity._visual_hp=entity.hp
-	return test_time<float(entity.get('_visual_hit_until',0))
+	return test_time<float(entity.get('_visual_hit_until',0)) or float(entity.get("impact_left",0))>0
 
 func pulse_color(entity:Dictionary)->Color:
 	if not entity.get('_visual_repair',false):return source_hit_color()

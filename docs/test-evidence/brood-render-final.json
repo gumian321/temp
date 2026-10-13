@@ -1,0 +1,25 @@
+{
+  "suites": [
+    {
+      "suite": "brood_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.253,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "blue_ink_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.384,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

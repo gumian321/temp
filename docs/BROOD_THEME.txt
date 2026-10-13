@@ -1,0 +1,35 @@
+生体武装与软体虫群（2026-10-13）
+
+武器后续更新：当前已改用 weapon_v2_*.png，共 17 张新图，覆盖 12 类枪械、两种布雷装置、攻击蜂巢、攻击无人机与孢雷实体。
+详细说明见 ARMAMENT_ART.txt；下述 13 张武器图为上一版记录，原文件仍保留，虫群动画说明仍适用。
+
+已接入游戏：12 类射击武器 + 1 类孢雷装置，共 13 张全新独立贴图；幼虫、甲虫、飞蛾、泡囊虫、镰臂虫、虫后共 6 张独立虫怪贴图。
+延续米白甲壳、蓝墨描线；武器保留琥珀、青、紫等功能色。护盾、维修、燃料、无人机等辅助模块本次保留已有资源。
+原始 PNG 与透明通道保存在 assets/blue_ink/brood/；生成采用内置 image_gen，完整逐张提示词见同目录 generation.json，两张透明边缘修正见 alpha-repair.json。
+游戏导入限制 512 像素并生成 mipmaps，原始 PNG 不缩改；运行时仅以 AtlasTexture 的 UV 区域排除透明留白。
+
+结构修正：身体可软，腿节保持刚性。六种虫怪均已从原贴图用独立 UV 裁片拆出六条关节腿和两侧触须；飞蛾另外拆出两片翅膀。幼虫和虫后用已有足部裁片补齐第三对足。原 PNG 未改动。
+SkinMesh 只覆盖头胸腹轮廓，按轮廓裁切并细分为三角网格，由 15 根弹性骨骼以归一化四骨权重驱动。骨骼按每种真实躯干的轮廓排布，飞蛾骨骼不再散布在整幅翅膀范围内。头胸降低变形幅度，腹部保留局部凹陷、传递、阻尼回弹；甲虫较硬、泡囊更软、虫后更沉。
+Appendages 是独立 Skeleton2D。普通腿使用髋、膝两个刚性段；镰臂虫前肢有肩、肘、腕三级骨骼。每段是无软体权重的 Polygon2D，绕关节旋转，行走及受击均不拉伸腿节。
+移动距离驱动左右交替步态，短足采用更短步幅。2026-10-13 后续加大步幅、摆足向内收膝、镰臂约 25 度的摆幅与腹节步态波；髋与膝关节增加圆形接缝盖片。支撑期保存世界坐标足端，通过双骨逆运动学屈膝；停步完成当前摆足后落地。髋部取身体表面的加权位移，所以受击时连接处会跟随，腿仍保持形状与长度。超过腿可达距离时限制伸展。
+翅片绕独立翅根约 23 度扇动，用整片的水平投影表现从完整展开到 14% 宽度的收展，不进入软体网格。触须单独绕根部轻摆，受击有瞬间后甩。死亡时身体塌软，关节腿分别收折。
+受击增强：第一帧直接压出局部凹陷，沿来弹方向挤压腹部并使整体后仰，保持 40–60 毫秒后弹簧回弹；火焰持续伤害不添加保持时间。叠加保留蓝墨轮廓的暖色闪击、接触星芒、蓝色体液飞溅与湿润拍击声。物理帧驱动反冲和转动回落，快速连射的飞溅提示按目标节流，所有伤害仍逐次生效。
+重击形变上限为局部坐标 0.30，整体反冲上限 0.23；对骨骼行列施加顺序约束，避免密集受击时皮肤翻转。每只虫怪的命中材质独立，保存场景多次实例化也不会一起闪击。
+实际弹丸、持续火焰、链式命中、爆炸波及均通过伤害路径触发形变；护盾拦截不触发躯体凹陷。死亡保留约 0.34 秒塌软后清除。
+碰撞半径、血量、攻击与关卡规则仍由原战斗系统处理。这里采用轻量骨骼弹性模拟，不是逐肢体刚体碰撞或完整物理软体解算。
+参考 chonglai_2/ggame 中 SoftBody2D 的贴图网格、骨骼和局部冲量思路；该参考目录未修改，也未复制其插件代码或怪物贴图。
+Godot Polygon2D API 依据：https://docs.godotengine.org/en/4.4/classes/class_polygon2d.html
+
+可编辑场景：assets/blue_ink/brood/rigs/ 下的 6 个 .tscn。
+在 Godot 中可展开 SkinMesh / Skeleton2D / SoftBone，编辑身体 UV、权重和骨骼；Appendages / LegL0 / Knee 等节点可编辑足部裁片、关节。飞蛾含 WingL / WingR，镰臂虫前足含 Wrist。
+F6 运行单只场景后可点虫体查看回弹；方向键查看原地迈步。保存的场景会恢复同样的软腹、关节腿和翅片结构。
+运行 godot --headless --path . --script res://tools/build_brood_rigs.gd 可从生成器重建这些场景。
+当前游戏按种类动态创建相同结构。解剖轮廓、裁片和关节位置在 scripts/insect_anatomy.gd；身体弹性与冲量参数在 scripts/soft_insect.gd；腿部 IK、步幅和翅根动画在 scripts/soft_insect_rig.gd；命中飞溅在 scripts/insect_hit_fx.gd，命中材质在 shaders/insect_hit.gdshader，湿声合成在 scripts/insect_hit_audio.gd；外观映射在 scripts/brood_theme.gd。
+
+检查：
+python tools/run_checks.py brood --godot D:\godot\Godot_v4.6.3-stable_win64.exe
+python tools/run_checks.py brood_scene --render --godot D:\godot\Godot_v4.6.3-stable_win64.exe
+前者检查局部冲量、稳定回弹、连续受击、帧率一致、身体网格权重、腿节长度不变、行走关节转动、停步足端目标、独立翅根、镰爪三级关节、保存场景与真实伤害接入。
+后者渲染资源总览、行走 → 停步受击 → 行走受击的五秒预览与布置好的实际战斗场景，并检查死亡清理、装配界面隐藏。
+增强预览：artifacts/brood-impact-v2.webp；命中瞬间：artifacts/brood-impact.png；回弹：artifacts/brood-rebound.png；湿声：artifacts/brood-wet-hit.wav；资源总览：artifacts/brood-lineup.png；实际场景：artifacts/brood-in-game.png。
+预览由 Godot 实际渲染帧编码，属于固定布置的验收画面，便于比较 6 种虫怪，并非随机关卡的完整游戏录像。

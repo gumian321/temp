@@ -53,9 +53,10 @@ func rebuild():
  if not is_instance_valid(points):
   points=label(self,'',Vector2(1120,25),Vector2(290,50),28)
   label(self,db.text('Menu_Lab'),Vector2(35,25),Vector2(700,50),32)
-  label(self,'Drag to pan · Mouse wheel to zoom',Vector2(35,825),Vector2(700,40),18)
+  label(self,db.ui('Drag to pan · Mouse wheel to zoom','拖动平移 · 滚轮缩放'),Vector2(35,825),Vector2(700,40),18)
   button(self,db.text('Option_Back'),Vector2(1170,810),Vector2(220,55),close)
- points.text='%d RP'%save.state.meta
+ points.text=db.ui('%d RP','%d 研究点')%save.state.meta
+ load('res://scripts/blue_ink.gd').apply_tree(self)
  queue_redraw()
 func _gui_input(event):
  if event is InputEventMouseButton:
@@ -87,16 +88,16 @@ func show_detail(n:Dictionary,index:int):
  var stats:Dictionary=r.get('rewardStats',{})
  var linked:Dictionary=db.asset(stats.get('LinkedReward','')).get('rewardStats',{})
  var keys=['HullDamage','ShieldDamage','Range','RateOfFire','PartsCount','DronesCount']
- var names=['Hull damage','Shield damage','Range','Rate of fire','Parts','Drones'] if db.language=='English' else ['船体伤害','护盾伤害','射程','射速','部件数量','无人机数量']
+ var names=['Lab_Damage','Lab_ShieldDamage','Lab_Range','Lab_RateOfFire','Lab_PartsCount','Lab_DronesCount']
  var row=0
  for i in keys.size():
   var value=int(stats.get(keys[i],0));var added=0
   if stats.get('LevelUp',false) and not linked.is_empty() and keys[i]!='PartsCount':added=value;value=int(linked.get(keys[i],0))
   if value<=0:continue
-  label(detail,names[i],Vector2(620,320+row*35),Vector2(180,30),18)
+  label(detail,db.text(names[i]),Vector2(620,320+row*35),Vector2(180,30),18)
   for j in range(6):
    var bar=ColorRect.new();bar.position=Vector2(815+j*40,327+row*35);bar.size=Vector2(30,18)
-   bar.color=Color('63b458') if j<value else (Color('6dd8ef') if j<value+added else Color('3e494e'))
+   bar.color=Color('173b70') if j<value else (Color('6984a4') if j<value+added else Color('d8e3ec'))
    detail.add_child(bar)
   row+=1
  for i in range(n.nodeRewardsList.size()):
@@ -111,10 +112,11 @@ func show_detail(n:Dictionary,index:int):
  var previous=str(int(n.get('previousUpgradeTreeNode',{}).get('fileID',0)))
  for other in db.research:
   if other.id==previous:allowed=allowed and other.nodeRewardsList[0] in save.state.unlocked
- var buy=button(detail,db.text('Lab_Unlocked') if unlocked else db.text('Lab_Unlock')+' · %d RP'%cost,Vector2(35,590),Vector2(360,65),func():
+ var buy=button(detail,db.text('Lab_Unlocked') if unlocked else db.text('Lab_Unlock')+db.ui(' · %d RP',' · %d 研究点')%cost,Vector2(35,590),Vector2(360,65),func():
   if save.unlock_research(n,index):changed.call();rebuild();show_detail(n,mini(index+1,n.nodeRewardsList.size()-1)))
  buy.disabled=unlocked or not allowed
  button(detail,db.text('Option_Back'),Vector2(880,590),Vector2(220,65),func():detail.queue_free())
+ load('res://scripts/blue_ink.gd').apply_tree(detail)
 
 func _input(event):
  if event is InputEventJoypadButton or event is InputEventJoypadMotion:controller_navigation=true

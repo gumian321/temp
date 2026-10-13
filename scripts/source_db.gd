@@ -11,7 +11,10 @@ var entities: Dictionary
 var prefab_transforms: Dictionary
 var scene_config: Dictionary
 var textures: Dictionary = {}
-var language = "English"
+const DEFAULT_LANGUAGE = "Chinese (simplified)"
+var language = DEFAULT_LANGUAGE
+var chinese_ui: Dictionary
+var english_keys: Dictionary = {}
 var names:Dictionary={}
 var classes:Dictionary={}
 
@@ -25,7 +28,13 @@ func _init():
 	prefab_transforms = read_json("prefab_transforms")
 	scene_config = read_json("scene_config")
 	sprites = read_json("sprites")
+	preload("res://scripts/brood_theme.gd").install(self)
 	localization = read_json("localization")
+	chinese_ui = read_json("chinese_ui")
+	for key in chinese_ui.localization:
+		if localization.has(key):localization[key][DEFAULT_LANGUAGE] = chinese_ui.localization[key]
+	for key in localization:
+		english_keys[str(localization[key].get("English", ""))] = key
 	for value in catalog.values():
 		if not names.has(value.name):names[value.name]=value
 		if not classes.has(value["class"]):classes[value["class"]]=[]
@@ -48,6 +57,18 @@ func text(key) -> String:
 		return ""
 	return str(localization.get(str(key), {}).get(language, key))
 
+func ui(english: String, chinese: String) -> String:
+	return chinese if language.begins_with("Chinese") else english
+
+func ui_text(content: String) -> String:
+	var stripped = content.strip_edges()
+	if language.begins_with("Chinese") and chinese_ui.literal.has(stripped):
+		return str(chinese_ui.literal[stripped])
+	return text(english_keys[stripped]) if english_keys.has(stripped) else content
+
+func language_name(value: String) -> String:
+	return {"English":"English", "Chinese (simplified)":"简体中文", "Chinese (traditional)":"繁體中文", "Russian":"Русский"}.get(value, value)
+
 func title(v: Dictionary) -> String:
 	if v.has("coresList") and "LevelUp" in str(v.get("class","")):return text("PopUpText_LevelUp").replace("{0}",title(asset(v.coresList[0])))
 	if v.get("class")=="CrusedReward":return "%s +%d%%\n%s %d%%"%[text(v.buffRewardPopUpText),v.buffPercent*100,text(v.debuffRewardPopUpText),v.debuffPercent*100]
@@ -58,7 +79,7 @@ func title(v: Dictionary) -> String:
 	if v.has("blockCore"):
 		return "%s ×%d" % [title(asset(v.blockCore)), v.get("coresCount", 1)]
 	if v.has("core") and v.core is String:
-		return "HQ " + title(asset(v.core))
+		return ui("HQ ", "蜈蚣头部 · ") + title(asset(v.core))
 	if v.has("drone"):
 		return title(asset(v.drone)) + " ×" + str(int(v.get("dronesCount", 1)))
 	if v.has("turretCore"):
@@ -66,10 +87,11 @@ func title(v: Dictionary) -> String:
 	return str(v.get("name", "" )).replace("Reward_", "").replace("_", " ")
 
 func sprite(id) -> Texture2D:
+	id = str(id)
 	if not sprites.has(str(id)):
 		return null
 	if not textures.has(id):
-		textures[id] = load(sprites[id].path)
+		textures[id] = preload("res://scripts/brood_theme.gd").texture(str(sprites[id].path).get_file().get_basename()) if sprites[id].get("brood",false) else load(sprites[id].path)
 	return textures[id]
 
 func core_sprite(c: Dictionary) -> Texture2D:

@@ -1,0 +1,352 @@
+{
+  "suites": [
+    {
+      "suite": "brood",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.623,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "armament_art",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.191,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "core",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.876,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "missions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.053,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "map",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.693,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "rewards",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.691,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "specials",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.692,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "regressions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.898,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-headless-repair.json"
+    },
+    {
+      "suite": "drones",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.697,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "reward_pool",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.987,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "controller",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.837,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "long_body",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.54,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "shields",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.687,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "turret_tracking",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.696,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "achievements",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.698,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "fuel_tutorial",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.783,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "enemy_drones",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.68,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "radar",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.689,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "weapon_catalog",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 3.126,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "particles",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.87,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "presentation",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.063,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "loot",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.712,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "centipede_segments",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.87,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "centipede_support",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.684,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "chinese",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.159,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "centipede_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.535,
+      "isolated_user_data": true,
+      "source_report": "visual-build-final-render.json"
+    },
+    {
+      "suite": "blue_ink",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.194,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "grid_mounts",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.025,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "centipede_motion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.794,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    },
+    {
+      "suite": "weapon_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.07,
+      "isolated_user_data": true,
+      "source_report": "visual-steering-initial-run.json"
+    }
+  ],
+  "passed": true,
+  "suite_count": 30,
+  "rendered_motion": {
+    "suites": [
+      {
+        "suite": "motion_scene",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 78.626,
+        "isolated_user_data": true
+      }
+    ],
+    "passed": true
+  },
+  "aggregation": "Latest completed run for each suite. Failed suites were repaired and rerun; unchanged passing suites retain their full-run evidence."
+}

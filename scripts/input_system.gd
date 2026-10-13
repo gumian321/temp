@@ -24,13 +24,13 @@ func bind(action:String,key:int):
 	if key==KEY_PRINT or key==0:return
 	save.state.settings.bindings[action]=key
 	save.save();apply()
-func movement()->Vector2:
-	var value=Input.get_vector("move_left","move_right","move_up","move_down")
+func movement(raw_axes:bool=false)->Vector2:
+	var value=Vector2(Input.get_axis("move_left","move_right"),Input.get_axis("move_up","move_down"))
 	if joy_device()>=0:
 		var id=joy_device()
 		var stick=Vector2(Input.get_joy_axis(id,JOY_AXIS_LEFT_X),Input.get_joy_axis(id,JOY_AXIS_LEFT_Y))
 		if stick.length()>0.15:value=stick
-	return value.limit_length()
+	return value if raw_axes else value.limit_length()
 func joy_aim()->Vector2:
 	if joy_device()<0:return Vector2.ZERO
 	var id=joy_device()

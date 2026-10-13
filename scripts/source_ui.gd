@@ -13,8 +13,10 @@ var nodes_by_name:Dictionary={}
 var animation_nodes:Array=[]
 var animation_time=0.0
 var font_materials:Dictionary
+const Ink = preload("res://scripts/blue_ink.gd")
 func setup(source,key:String,callback:Callable,bindings:Dictionary={}):
 	db=source;action=callback;font_materials=db.read_json("font_materials");layouts=db.read_json("ui_layouts")
+	Ink.register_game_colors(db)
 	mouse_filter=Control.MOUSE_FILTER_IGNORE
 	var root:Dictionary=layouts[key]
 	size=Vector2(1280,720)
@@ -23,6 +25,7 @@ func setup(source,key:String,callback:Callable,bindings:Dictionary={}):
 	for child in root.children:build(child,self,size)
 	set_binding_labels(bindings)
 	collect_animations(root)
+	load("res://scripts/blue_ink.gd").apply_tree(self)
 func color(value:Dictionary)->Color:
 	return Color(float(value.get("r",1)),float(value.get("g",1)),float(value.get("b",1)),float(value.get("a",1)))
 func vector(value:Dictionary,default:float=0)->Vector2:
@@ -68,7 +71,7 @@ func build(data:Dictionary,parent:Control,parent_size:Vector2,forced=null):
 				for id in data.get("ids",[]):fills[id]=fill
 	if data.has("text"):
 		var label=Label.new();label.size=extent;label.mouse_filter=Control.MOUSE_FILTER_IGNORE
-		var content=str(data.text.content) if data.text.content!=null else ""
+		var content=db.ui_text(str(data.text.content)) if data.text.content!=null else ""
 		if data.components.has("LocalizationTextActivator"):content=db.text(str(data.components.LocalizationTextActivator.IDString).strip_edges())
 		label.text=content
 		label.add_theme_font_size_override("font_size",maxi(8,roundi(float(data.text.font_size))))
@@ -92,6 +95,7 @@ func build(data:Dictionary,parent:Control,parent_size:Vector2,forced=null):
 	if data.has("slider"):
 		var slider=HSlider.new();slider.size=extent;slider.min_value=float(data.slider.min);slider.max_value=float(data.slider.max);slider.step=0.01;slider.value=float(data.slider.value)
 		slider.value_changed.connect(func(value):action.call("SliderChanged",data.id,{"value":value}))
+		slider.value_changed.connect(func(value):update_slider_percent(data.id,value))
 		for child in node.get_children():child.hide()
 		node.add_child(slider);sliders[data.id]=slider
 		for id in data.get("ids",[]):sliders[id]=slider
@@ -122,11 +126,22 @@ func set_fill(id:String,value:float):
 
 func show_node(id:String,value:bool):
 	if controls.has(id):controls[id].visible=value
+func set_texture(id:String,texture:Texture2D):
+	if images.has(id):
+		images[id].texture=texture
+		Ink.style_item(images[id])
 func set_image(id:String,sprite):
-	if images.has(id):images[id].texture=db.sprite(sprite)
+	set_texture(id,db.sprite(sprite))
 func set_slider(id:String,value:float,min_value:float=0,max_value:float=1):
 	if sliders.has(id):
 		sliders[id].min_value=min_value;sliders[id].max_value=max_value;sliders[id].set_value_no_signal(value)
+		update_slider_percent(id,value)
+
+func update_slider_percent(id:String,value:float):
+	for component in components.values():
+		if not component.has("sliderPercent") or not component.has("slider"):continue
+		if sliders.get(str(int(component.slider.fileID)))==sliders.get(id):
+			set_text(str(int(component.sliderPercent.fileID)),"%d%%"%roundi(value*100))
 func show_all_panels():
 	for name in nodes_by_name:
 		if "Panel" in name:nodes_by_name[name].visible=true
@@ -162,11 +177,22 @@ func arrange(data:Dictionary,extent:Vector2)->Dictionary:
 
 func fit_label(label:Label):
 	var extent:Vector2=label.get_meta("extent")
+	var original_px=int(label.get_meta("original_px",label.get_theme_font_size("font_size")))
+	label.set_meta("original_px",original_px)
 	if extent.x<10 or extent.y<10:
 		var font=label.get_theme_font("font")
 		var px=label.get_theme_font_size("font_size")
 		label.size=font.get_string_size(label.text,HORIZONTAL_ALIGNMENT_LEFT,-1,px).max(Vector2(extent.x,font.get_height(px)))
 		label.position=(extent-label.size)/2
+	else:
+		var face=label.get_theme_font("font")
+		var px=original_px
+		var wrap=label.autowrap_mode!=TextServer.AUTOWRAP_OFF
+		while px>12:
+			var measured=face.get_multiline_string_size(label.text,HORIZONTAL_ALIGNMENT_LEFT,extent.x if wrap else -1,px)
+			if measured.y<=extent.y+2 and (wrap or measured.x<=extent.x+2):break
+			px-=1
+		label.add_theme_font_size_override("font_size",px)
 
 func set_binding_labels(bindings:Dictionary,joy:bool=false):
 	var references:Dictionary=db.read_json("input_references")

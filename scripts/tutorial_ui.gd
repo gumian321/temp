@@ -14,6 +14,15 @@ func setup(source,store):
  db=source;save=store;layer=4;config=db.scene_config.TutorialMenuController
  view=load('res://scripts/source_ui.gd').new();add_child(view);view.setup(db,'GameScene/Tutorial Canvas',func(_m,_i,_a):pass)
  for key in ['move','shoot','boost','radar','build','run']:view.show_node(ref(key),false)
+func refresh_language():
+ # Change existing labels in place so visible tips, tweens and counters survive.
+ refresh_localized_labels(view.layouts['GameScene/Tutorial Canvas'])
+func refresh_localized_labels(data:Dictionary):
+ var activation:Dictionary=data.get('components',{}).get('LocalizationTextActivator',{})
+ if not activation.is_empty() and view.labels.has(data.id):
+  view.set_text(data.id,db.text(str(activation.IDString).strip_edges()))
+  view.labels[data.id].add_theme_font_override('font',load('res://assets/fonts/NotoSansSC-Light.otf'))
+ for child in data.children:refresh_localized_labels(child)
 func ref(key:String)->String:return str(int(config[key+'Tutorial'].fileID))
 func reset_run():
  elapsed=0;started=false;movement_shown=false;radar_shown=false;fuel_shown=false;last_packs=0

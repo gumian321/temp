@@ -15,6 +15,6 @@ func _initialize():
   p.step(1.0/60,Vector2.from_angle(frame/120.0),frame%180<90)
   for i in p.parts.size():
    maximum_step=maxf(maximum_step,p.parts[i].position.distance_to(previous[i]))
-   bounded=bounded and p.parts[i].position.is_finite() and p.parts[i].position.distance_to(p.head)<1600
+   bounded=bounded and p.parts[i].position.is_finite() and p.parts[i].position.distance_to(p.head)<(p.parts.size()-1)*p.body_spacing+1
  var report={'max_modules':p.parts.size()-1,'seconds_simulated':60,'full_capacity':complete,'finite_bounded_positions':bounded,'maximum_part_step_pixels':maximum_step,'compute_ms':(Time.get_ticks_usec()-start)/1000.0,'passed':complete and bounded and maximum_step<30}
  FileAccess.open('res://artifacts/long-body-report.json',FileAccess.WRITE).store_string(JSON.stringify(report,'\t'));print(JSON.stringify(report));quit(0 if report.passed else 1)

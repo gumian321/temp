@@ -29,6 +29,10 @@ func execute():
  audio.sync_loops([{'key':'boost','type':41,'position':Vector2.ZERO}])
  check(audio.loops.size()==1 and audio.loops.boost.playing,'Source boost loop starts')
  audio.sync_loops([]);check(audio.loops.is_empty(),'Loop stops when effect ends')
- audio.shutdown();audio.queue_free();await process_frame;await create_timer(0.3).timeout
+ audio.shutdown()
+ # Drain the audio mixer in wall time before freeing its streams/bus. Frame
+ # timers may advance faster than the mixer in an isolated headless fixture.
+ for i in 12:OS.delay_msec(10);await process_frame
+ audio.queue_free();await process_frame;await process_frame
  var report={'checks':checks,'passed':checks-failures.size(),'failures':failures,'scope':'Source barrel geometry, player EMP, shield interception, backup recovery, reset semantics and looped audio lifecycle.'}
  FileAccess.open('res://artifacts/regression-test-report.json',FileAccess.WRITE).store_string(JSON.stringify(report,'\t'));print(JSON.stringify(report));quit(1 if not failures.is_empty() else 0)

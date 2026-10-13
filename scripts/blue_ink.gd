@@ -1,0 +1,111 @@
+extends RefCounted
+## Shared ink, paper and control treatment for every screen, including source UI.
+const INK = Color("173b70")
+const BLUE = Color("2f60a0")
+const PAPER = Color("f6f2e7")
+const WASH = Color("d8e3ec")
+const MUTED = Color("6984a4")
+static var sprite_material: ShaderMaterial
+static var surface_material: ShaderMaterial
+static var shared_theme: Theme
+static var colored_paths: Dictionary = {}
+
+static func register_game_colors(db):
+	# Keep equipment/ability identifiers consistent between the world and UI.
+	for asset in db.catalog.values():
+		for field in ["turretSprite", "chipSprite", "droneSprite", "projectileSprite", "mineSprite", "rewardSprite", "buffRewardSprite", "debuffRewardSprite"]:
+			var sprite = db.sprites.get(str(asset.get(field, "")), {})
+			if not sprite.is_empty(): colored_paths[sprite.path] = true
+
+static func keeps_color(texture: Texture2D) -> bool:
+	if texture is AtlasTexture: return keeps_color(texture.atlas)
+	return texture != null and colored_paths.has(texture.resource_path)
+
+static func fitted_size(texture: Texture2D, bounds: Vector2) -> Vector2:
+	if texture == null: return Vector2.ZERO
+	var original = texture.get_size()
+	return original * minf(bounds.x / maxf(1, original.x), bounds.y / maxf(1, original.y))
+
+static func illustration(surface: bool = false) -> ShaderMaterial:
+	if sprite_material == null:
+		sprite_material = ShaderMaterial.new()
+		sprite_material.shader = load("res://shaders/blue_ink.gdshader")
+	if surface_material == null:
+		surface_material = sprite_material.duplicate()
+		surface_material.set_shader_parameter("ui_surface", true)
+	return surface_material if surface else sprite_material
+
+static func box(fill: Color = PAPER, edge: Color = INK, width: int = 1) -> StyleBoxFlat:
+	var style = StyleBoxFlat.new()
+	style.bg_color = fill
+	style.border_color = edge
+	style.set_border_width_all(width)
+	style.set_corner_radius_all(3)
+	style.content_margin_left = 12
+	style.content_margin_right = 12
+	style.content_margin_top = 5
+	style.content_margin_bottom = 5
+	return style
+
+static func theme() -> Theme:
+	if shared_theme != null: return shared_theme
+	shared_theme = Theme.new()
+	shared_theme.default_font = load("res://assets/fonts/NotoSansSC-Light.otf")
+	shared_theme.default_font_size = 20
+	for kind in ["Label", "Button", "CheckButton", "CheckBox", "OptionButton", "RichTextLabel", "PopupMenu", "LineEdit"]:
+		shared_theme.set_color("font_color", kind, INK)
+		shared_theme.set_color("default_color", kind, INK)
+		shared_theme.set_color("font_hover_color", kind, BLUE)
+		shared_theme.set_color("font_pressed_color", kind, PAPER)
+		shared_theme.set_color("font_focus_color", kind, INK)
+		shared_theme.set_color("font_disabled_color", kind, MUTED)
+	for kind in ["Button", "OptionButton"]:
+		shared_theme.set_stylebox("normal", kind, box())
+		shared_theme.set_stylebox("hover", kind, box(WASH, BLUE, 2))
+		shared_theme.set_stylebox("pressed", kind, box(INK))
+		shared_theme.set_stylebox("disabled", kind, box(Color("ecece6"), MUTED))
+		shared_theme.set_stylebox("focus", kind, box(Color.TRANSPARENT, BLUE, 2))
+	for kind in ["Panel", "PanelContainer", "PopupPanel"]:
+		shared_theme.set_stylebox("panel", kind, box())
+	shared_theme.set_stylebox("panel", "TooltipPanel", box(PAPER, BLUE))
+	shared_theme.set_color("font_color", "TooltipLabel", INK)
+	for kind in ["HSlider", "VSlider", "ProgressBar"]:
+		shared_theme.set_stylebox("slider", kind, box(WASH, MUTED))
+		shared_theme.set_stylebox("grabber_area", kind, box(BLUE, BLUE))
+		shared_theme.set_stylebox("grabber_area_highlight", kind, box(INK, INK))
+		shared_theme.set_stylebox("background", kind, box(WASH, MUTED))
+		shared_theme.set_stylebox("fill", kind, box(BLUE, BLUE))
+	return shared_theme
+
+static func style_item(node: Node):
+	if node is Label or node is RichTextLabel:
+		node.add_theme_color_override("font_color", INK)
+		node.add_theme_color_override("default_color", INK)
+		node.add_theme_color_override("font_outline_color", PAPER)
+		node.add_theme_constant_override("outline_size", 0)
+	elif node is TextureRect:
+		if node.texture is AtlasTexture: node.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+		node.material = null if keeps_color(node.texture) else illustration()
+		if keeps_color(node.texture): node.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		node.modulate = Color(1, 1, 1, node.modulate.a)
+	elif node is TextureProgressBar:
+		node.material = illustration()
+		node.modulate = Color(1, 1, 1, node.modulate.a)
+	elif node is VideoStreamPlayer:
+		node.material = illustration(true)
+	elif node is Button:
+		# Source UI has transparent hit areas; keep its visible art behind them.
+		if not node.flat:
+			for state in ["normal", "hover", "pressed", "disabled", "focus"]:
+				if state == "normal" and node.get_meta("ink_selected", false): continue
+				node.remove_theme_stylebox_override(state)
+		for state in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color", "font_disabled_color"]:
+			node.remove_theme_color_override(state)
+		if node.icon != null: node.material = null if keeps_color(node.icon) else illustration()
+	elif node is Panel or node is PanelContainer:
+		node.add_theme_stylebox_override("panel", box())
+
+static func apply_tree(node: Node):
+	if node is Control: node.theme = theme()
+	style_item(node)
+	for child in node.get_children(): apply_tree(child)

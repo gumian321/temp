@@ -1,15 +1,15 @@
 extends Node2D
 var definitions:Dictionary
 var textures:Dictionary={}
-var stretch_shaders:Dictionary={}
+const PARTICLE_SHADER = preload('res://shaders/source_particle.gdshader')
 var followers:Array=[]
 var engines:Dictionary={}
 var flames:Dictionary={}
 var engine_definitions:Dictionary={}
 func setup(db):
  definitions=db.read_json('particles');engine_definitions=db.read_json('engines')
- for emitters in definitions.values():
-  for data in emitters:
+ for effect_type in definitions:
+  for data in definitions[effect_type]:
    data['_size_curve']=source_curve(data.size.get('curve',{}))
    data['_color_ramp']=source_gradient(data.color.get('gradient',{}).get('maxGradient',{}))
    if 'Procedural Glow' in data.get('shader',''):
@@ -25,25 +25,21 @@ func setup(db):
     data['_texture']=atlas
    var additive=int(data.material.get('m_Floats',{}).get('_DstBlend',10))==1 or int(data.get('shader_ref',{}).get('fileID',0))==202
    data['_additive']=additive
-   var material=CanvasItemMaterial.new();material.blend_mode=CanvasItemMaterial.BLEND_MODE_ADD if additive else CanvasItemMaterial.BLEND_MODE_MIX
+   var material=ShaderMaterial.new();material.shader=PARTICLE_SHADER
+   # Ability colors retain the source coverage mask, preventing black quads.
+   material.set_shader_parameter('blue_ink',str(effect_type) not in ['302','307','308','flame'])
+   material.set_shader_parameter('single_channel',float(data.material.get('m_Floats',{}).get('_SingleChannel',0))>0.5)
+   material.set_shader_parameter('burst_flash',float(data.material.get('m_Floats',{}).get('_SingleChannel',0))>0.5 and int(data.get('renderer',{}).get('m_RenderMode',0))==4)
+   material.set_shader_parameter('additive_source',additive)
    if data.uv.get('enabled',false):
-    material.particles_animation=true;material.particles_anim_h_frames=maxi(1,int(data.uv.tilesX));material.particles_anim_v_frames=1 if int(data.uv.get("animationType",0))==1 else maxi(1,int(data.uv.tilesY));material.particles_anim_loop=true
+    material.set_shader_parameter('frames',Vector2(maxi(1,int(data.uv.tilesX)),1 if int(data.uv.get('animationType',0))==1 else maxi(1,int(data.uv.tilesY))))
    data['_material']=material
    if int(data.get('renderer',{}).get('m_RenderMode',0))==1:
-    var blend='blend_add' if additive else 'blend_mix'
-    var shader_key=blend+("_static" if float(data.renderer.get("m_VelocityScale",0))==0 else "_velocity")
-    if not stretch_shaders.has(shader_key):
-     var shader=Shader.new()
-     shader.code='shader_type canvas_item; render_mode unshaded, '+blend+'; uniform float length_scale=1.0; uniform float velocity_scale=0.0; uniform float speed=0.0; uniform float size=1.0; uniform float decay=0.0; uniform float lifetime=1.0; void vertex(){ float velocity=abs(speed)*exp(-decay*INSTANCE_CUSTOM.y*lifetime); VERTEX.y*=max(0.001,length_scale+velocity_scale*velocity/max(0.0001,size)); }'
-     if shader_key.ends_with('_static'):shader.code='shader_type canvas_item; render_mode unshaded, '+blend+'; uniform float length_scale=1.0; void vertex(){ VERTEX.y*=max(0.001,length_scale); }'
-     stretch_shaders[shader_key]=shader
-    var stretch=ShaderMaterial.new();stretch.shader=stretch_shaders[shader_key]
-    stretch.set_shader_parameter('length_scale',float(data.renderer.get('m_LengthScale',1)));stretch.set_shader_parameter('velocity_scale',float(data.renderer.get('m_VelocityScale',0)))
+    material.set_shader_parameter('length_scale',float(data.renderer.get('m_LengthScale',1)));material.set_shader_parameter('velocity_scale',float(data.renderer.get('m_VelocityScale',0)))
     var speed=scalar_range(data.initial.startSpeed);var size=scalar_range(data.initial.startSize)
-    stretch.set_shader_parameter('speed',(speed.x+speed.y)*.5);stretch.set_shader_parameter('size',(size.x+size.y)*.5);stretch.set_shader_parameter('lifetime',scalar_range(data.initial.startLifetime).y)
+    material.set_shader_parameter('speed',(speed.x+speed.y)*.5);material.set_shader_parameter('size',(size.x+size.y)*.5);material.set_shader_parameter('lifetime',scalar_range(data.initial.startLifetime).y)
     var clamp_data:Dictionary=data.get('clamp',{})
-    if clamp_data.get('enabled',false) and float(clamp_data.get('dampen',0))>0 and float(clamp_data.get('dampen',0))<1:stretch.set_shader_parameter('decay',-log(1-float(clamp_data.dampen))*60)
-    data['_material']=stretch
+    if clamp_data.get('enabled',false) and float(clamp_data.get('dampen',0))>0 and float(clamp_data.get('dampen',0))<1:material.set_shader_parameter('decay',-log(1-float(clamp_data.dampen))*60)
    if data.uv.get('enabled',false) and int(data.uv.get('frameOverTime',{}).get('minMaxState',0))==1:
     var frame_curve=source_curve(data.uv.frameOverTime);var speed_curve=Curve.new();speed_curve.min_value=-10;speed_curve.max_value=10
     for i in 101:

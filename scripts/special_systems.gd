@@ -1,4 +1,5 @@
 extends RefCounted
+const Feedback = preload("res://scripts/weapon_feedback.gd")
 var battle_ref: WeakRef
 var db
 var player
@@ -16,16 +17,18 @@ func chip(field: String, level: int) -> float:
 	return float(values[clampi(level-1,0,values.size()-1)])
 func add_black_hole(b: Dictionary):
 	var data: Dictionary = b.data
+	battle().effects.append(Feedback.decorate({"kind":"hole_birth","position":b.position,"radius":40,"life":0.55},"blackhole",bool(b.friendly)))
 	black_holes.append({"position":b.position,"life":float(data.projectileEffectAreaDuration),"radius":float(data.projectileEffectArea)*48*(1+chip("MammothAreaPercentBoost",int(b.chips.get(5,0)))),"damage":float(data.projectileDamage.hullDamage),"shield_damage":float(data.projectileDamage.shieldDamage),"friendly":b.friendly,"force":float(db.component(data.blackHoleObject,"BlackHoleController").get("maxForce",10))*48})
 func step(dt: float):
-	var cloakers=player.parts.filter(func(p):return db.asset(p.id).get("name")=="Core_Clocking")
 	for i in range(player.parts.size()):
 		var p: Dictionary = player.parts[i]
 		var c: Dictionary = db.asset(p.id)
 		p.cloaked = false
 		if i>0 and c.get("isClockable",false):
-			for neighbor in cloakers:
-				if neighbor.hp>0 and neighbor.stun<=0 and abs(neighbor.cell.x-p.cell.x)<=1 and abs(neighbor.cell.y-p.cell.y)<=1: p.cloaked = true
+			for neighbor_index in player.adjacent_part_indices(i, true):
+				var neighbor: Dictionary = player.parts[neighbor_index]
+				if db.asset(neighbor.id).get("name")=="Core_Clocking" and neighbor.hp>0 and neighbor.stun<=0:
+					p.cloaked = true
 		if p.hp<=0:
 			if not p.get("destroy_processed",false):
 				p.destroy_processed = true
@@ -54,6 +57,7 @@ func step(dt: float):
 		for j in range(count):
 			var offset: Vector2 = choices[battle().rng.randi_range(0,choices.size()-1)]
 			mines.append({"owner":i,"anchored":anchored,"offset":offset,"position":p.position+offset,"life":INF if anchored else 7.0,"data":db.asset(c.coreMine),"chips":player.chips(i)})
+			battle().effects.append(Feedback.decorate({"kind":"mine_arm","position":p.position+offset,"radius":22,"life":0.3},"mine"))
 	for mine in mines:
 		mine.life -= dt
 		if mine.anchored:
@@ -61,17 +65,21 @@ func step(dt: float):
 			mine.position = player.parts[mine.owner].position + Vector2(mine.offset).rotated(player.facing.angle())
 		var enemy = battle().nearest(mine.position,24)
 		if enemy.is_empty(): continue
-		var projectile = {"class":"BasicProjectile","projectileDamage":mine.data.mineDamage}
+		var projectile = {"class":"BasicProjectile","projectileDamage":mine.data.mineDamage,"fx_family":"mine"}
 		var b = {"position":mine.position,"data":projectile,"damage":float(mine.data.mineDamage.hullDamage),"shield_damage":float(mine.data.mineDamage.shieldDamage),"friendly":true,"chips":mine.chips,"velocity":Vector2.RIGHT,"pierce":1,"hit":[]}
 		battle().hit_enemy(enemy,b)
+		battle().explosion(mine.position,62,0.55,"mine")
 		mine.life=0
 	mines = mines.filter(func(m):return m.life>0)
 	for hole in black_holes:
 		hole.life-=dt
+		if hole.life<=0:
+			battle().effects.append(Feedback.decorate({"kind":"hole_collapse","position":hole.position,"radius":hole.radius,"life":0.65},"blackhole",bool(hole.friendly)))
 		for e in battle().enemies:
 			if e.hp<=0 or not e.damageable or (e.role=="friendly" if hole.friendly else e.role!="friendly"): continue
 			if e.position.distance_to(hole.position)<hole.radius:
 				e.hp-=hole.damage*dt
+				e.last_fx="blackhole"; e.last_friendly=hole.friendly
 				if not e.mission_controlled and e.parent==0: e.position = Vector2(e.position).move_toward(hole.position,hole.force*dt)
 		if not hole.friendly:
 			for i in range(player.parts.size()):
@@ -91,4 +99,4 @@ func continuous(core: Dictionary,at: Vector2,dir: Vector2,friendly: bool,chips: 
 		for i in range(player.parts.size()):
 			var delta: Vector2 = player.parts[i].position-at
 			if delta.length()<reach and absf(angle_difference(dir.angle(),delta.angle()))<0.2: battle().hurt_player(i,damage,shield_damage)
-	battle().effects.append({"position":at,"end":at+dir*reach,"radius":reach,"life":0.06,"kind":"flame","owner":visual_owner})
+	battle().effects.append(Feedback.decorate({"position":at,"end":at+dir*reach,"radius":reach,"life":0.06,"kind":"flame","owner":visual_owner},"flame",friendly))

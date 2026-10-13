@@ -1,0 +1,500 @@
+{
+	"checks": [
+		{
+			"name": "HQ_Gun_Gatling has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Gatling emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Gatling visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_SonicWave has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_SonicWave emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_SonicWave visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Sniper has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Sniper emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Sniper visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Sniper uses the correct rail/arc beam identity",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_EMP has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_EMP emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_EMP visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Cannon has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Cannon emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Cannon visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Tesla has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Tesla emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Tesla visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Tesla uses the correct rail/arc beam identity",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Flak has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Flak emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Flak visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Rocket has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Rocket emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Rocket visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shotgun has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shotgun emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shotgun visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Nuke has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Nuke emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Nuke visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_BlackHoler has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_BlackHoler emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_BlackHoler visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Cannon has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Cannon emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Cannon visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flak has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flak emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flak visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_BlackHoler has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_BlackHoler emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_BlackHoler visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Tesla has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Tesla emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Tesla visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Tesla uses the correct rail/arc beam identity",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_EMP has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_EMP emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_EMP visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Gatling has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Gatling emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Gatling visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Nuke has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Nuke emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Nuke visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flame Thrower has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flame Thrower emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flame Thrower visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Rocket has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Rocket emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Rocket visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Shotgun has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Shotgun emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Shotgun visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_SonicWave has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_SonicWave emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_SonicWave visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Sniper has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Sniper emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Sniper visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Sniper uses the correct rail/arc beam identity",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Tesla has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Tesla emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Tesla visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Tesla uses the correct rail/arc beam identity",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Cannon has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Cannon emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Cannon visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_EMP has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_EMP emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_EMP visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Sniper has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Sniper emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Sniper visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Sniper uses the correct rail/arc beam identity",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Gatling has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Gatling emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Gatling visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Rocket has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Rocket emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Rocket visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flame Thrower has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flame Thrower emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flame Thrower visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flak has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flak emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flak visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Shotgun has a consistent weapon-specific feedback profile",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Shotgun emits its own effect through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Shotgun visual/audio identity does not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "All twelve source gun families are covered",
+			"passed": true
+		},
+		{
+			"name": "Short impact holds retain the same duration at 30Hz",
+			"passed": true
+		},
+		{
+			"name": "Short impact holds retain the same duration at 60Hz",
+			"passed": true
+		},
+		{
+			"name": "Short impact holds retain the same duration at 120Hz",
+			"passed": true
+		},
+		{
+			"name": "Grouping rapid hit embellishments never drops damage",
+			"passed": true
+		},
+		{
+			"name": "A rapid volley groups hit flashes, particles and sound per target",
+			"passed": true
+		},
+		{
+			"name": "Hit recoil is visual; the collision anchor stays fixed",
+			"passed": true
+		},
+		{
+			"name": "Grouped hits emit one family-specific impact sound",
+			"passed": true
+		},
+		{
+			"name": "Core_MinesField has an arming effect",
+			"passed": true
+		},
+		{
+			"name": "Core_MinesField has its own detonation feedback",
+			"passed": true
+		},
+		{
+			"name": "Core_MineSpawner has an arming effect",
+			"passed": true
+		},
+		{
+			"name": "Core_MineSpawner has its own detonation feedback",
+			"passed": true
+		},
+		{
+			"name": "Attack drone shots use their own mint-colored feedback",
+			"passed": true
+		},
+		{
+			"name": "All procedural halos have a transparent outer edge",
+			"passed": true
+		},
+		{
+			"name": "Each weapon has a distinct finite, unclipped impact layer",
+			"passed": true
+		},
+		{
+			"name": "Combat mix has a limiter and a bounded impact voice pool",
+			"passed": true
+		},
+		{
+			"name": "Simultaneous cannon impacts are sound-rate limited",
+			"passed": true
+		},
+		{
+			"name": "Audio shutdown releases the owned combat bus",
+			"passed": true
+		}
+	],
+	"gun_cores": 32,
+	"gun_families": [
+		"gatling",
+		"sonic",
+		"rail",
+		"emp",
+		"cannon",
+		"tesla",
+		"flak",
+		"rocket",
+		"shotgun",
+		"nuke",
+		"blackhole",
+		"flame"
+	],
+	"passed": true
+}

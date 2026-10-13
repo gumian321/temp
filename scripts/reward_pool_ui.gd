@@ -22,8 +22,7 @@ func setup(source,store,on_back:Callable,on_sound:Callable):
   var overlay=db.asset(group[0]).get('rewardOverlaySprite','')
   view.show_node(ref(entry,'rewardOverlay'),not str(overlay).is_empty())
   if overlay is String:view.set_image(ref(entry,'rewardOverlay'),overlay)
-  var image=view.images.get(ref(entry,'rewardIcon'))
-  if image!=null:image.texture=db.reward_sprite(db.asset(group[0]))
+  view.set_texture(ref(entry,'rewardIcon'),db.reward_sprite(db.asset(group[0])))
   var b=view.buttons.get(ref(entry,'rewardButton'))
   if b!=null:
    for connection in b.pressed.get_connections():b.pressed.disconnect(connection.callable)

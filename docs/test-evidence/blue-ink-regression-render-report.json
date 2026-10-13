@@ -1,0 +1,74 @@
+{
+	"checks": [
+		{
+			"name": "Source axis acceleration moves vertically from an east-facing start without a steering arc",
+			"passed": true
+		},
+		{
+			"name": "Changing input accelerates the new axis and brakes the released axis independently",
+			"passed": true
+		},
+		{
+			"name": "Releasing both directions settles the source acceleration without coasting in the facing direction",
+			"passed": true
+		},
+		{
+			"name": "Firing starts weapon recoil and advances the muzzle index",
+			"passed": true
+		},
+		{
+			"name": "Every projectile shot produces a visible muzzle event",
+			"passed": true
+		},
+		{
+			"name": "Explosion recordings use the source tiny, small and big radius boundaries",
+			"passed": true
+		},
+		{
+			"name": "Turret-bearing shell is drawn square",
+			"passed": true
+		},
+		{
+			"name": "Head and both jaw sprites are independent atlas regions",
+			"passed": true
+		},
+		{
+			"name": "Mouth animation changes while the head and body pose remain fixed",
+			"passed": true
+		},
+		{
+			"name": "Jaw pivots open in opposite directions",
+			"passed": true
+		},
+		{
+			"name": "Explosion star reads its source red-channel coverage",
+			"passed": true
+		},
+		{
+			"name": "Stretched explosion sparks also read red-channel coverage",
+			"passed": true
+		},
+		{
+			"name": "Smoke retains its 2 by 2 animation sheet",
+			"passed": true
+		},
+		{
+			"name": "EMP and flame abilities retain their source colors",
+			"passed": true
+		},
+		{
+			"name": "Shield feedback is colored while general impact explosions retain blue ink",
+			"passed": true
+		},
+		{
+			"name": "Rendered explosion-mask corners show the paper, with no black or blue rectangle",
+			"passed": true
+		},
+		{
+			"name": "The explosion mask produces visible blue ink around its paper flash",
+			"passed": true
+		}
+	],
+	"passed": true,
+	"renderer": "Windows"
+}

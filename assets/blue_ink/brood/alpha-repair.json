@@ -1,0 +1,12 @@
+[
+  {
+    "id": "turret_sniper",
+    "hint": "Generated images are saved to C:\\Users\\lvan\\.codex\\generated_images\\01a13363-6eb4-7cb0-a76d-3784b662a713 as C:\\Users\\lvan\\.codex\\generated_images\\01a13363-6eb4-7cb0-a76d-3784b662a713\\exec-df947607-88e6-47e6-9891-34f82ea4d16c.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+    "prompt": "Background-extraction repair: remove all diffuse halo, vignette and background, preserve crisp opaque subject."
+  },
+  {
+    "id": "enemy_mantis",
+    "hint": "Generated images are saved to C:\\Users\\lvan\\.codex\\generated_images\\01a13363-6eb4-7cb0-a76d-3784b662a713 as C:\\Users\\lvan\\.codex\\generated_images\\01a13363-6eb4-7cb0-a76d-3784b662a713\\exec-d8002f5e-1d67-47d4-8278-4a84036cfb6b.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+    "prompt": "Background-extraction repair: remove all diffuse halo, vignette and background, preserve crisp opaque subject."
+  }
+]

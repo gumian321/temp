@@ -1,0 +1,46 @@
+全武器主题素材 · 2026-10-13
+
+本轮用内置 image_gen 逐张生成 17 张独立透明 PNG，不使用 CLI/API 回退，也不将程序图形冒充生成素材。
+目录：assets/blue_ink/brood/weapon_v2_*.png。
+完整逐张提示词、生成源路径、项目路径：assets/blue_ink/brood/armament-v2-generation.json。
+原图保留生成的 RGBA 像素；Godot 导入限制 512 像素并生成 mipmaps，运行时仅按透明包围盒裁出 UV 区域。
+上一版 turret_*.png 仍保留用于对照，当前生产引用改为 weapon_v2_*。
+
+外观原则：深蓝墨线、米白甲壳、彩色有机树脂；紧凑底座与清晰轮廓优先，减少长细装饰。
+枪械、装置用轮廓和颜色双重区分，全部使用原图等比缩放。
+
+12 类枪械：
+gatling 刺管机枪，金色三管。
+shotgun 双口霰弹，珊瑚色宽口。
+cannon 骨壳重炮，橙色单粗管。
+flak 散刺高射炮，黄色四管扇形。
+sniper 针式轨道炮，青色单针。
+tesla 分叉电角，蓝色电容珠与角叉。
+emp 脉冲腺，青绿圆形树脂镜片。
+flame 焰囊喷口，橙红双囊。
+rocket 种荚火箭，珊瑚红双蜂窝发射荚。
+nuke 裂变种，黄色卵形核心。
+sonic 鸣螺声波，紫色扇贝喇叭。
+blackhole 引力涡眼，紫金螺旋虹膜。
+
+其他三种武器装置：
+mine 环卫孢雷巢，三枚孢子组成圆形巢。
+mine_spawner 后放孢雷囊，纵向双卵与后排出口。
+drone_bay 攻击蜂巢，薄荷绿巢室。
+两个战斗实体：mine_unit 为落地孢雷；drone_unit 为攻击无人机，随实际飞行方向旋转。
+
+接入：scripts/brood_theme.gd 根据既有素材 ID 替换贴图路径；source_db、装配、奖励、战斗共同使用这些引用。
+全部 32 个头部/玩家/敌方射击核心使用本轮枪械图；三种攻击无人机数据共用新飞行实体图，玩家/敌方攻击蜂巢均已替换。
+护盾、维修、燃料及工程/回收无人机属于辅助模块，沿用当前资源。武器伤害、射程、射速、存档 ID 没有修改。
+
+验证：
+python tools/run_checks.py armament_art brood grid_mounts weapon_feedback --render --godot D:\godot\Godot_v4.6.3-stable_win64.exe --report armament-v2-validation.json
+python tools/run_checks.py weapon_showcase --render --timeout 60 --godot D:\godot\Godot_v4.6.3-stable_win64.exe --report armament-v2-combat-render.json
+artifacts/armament-v2-lineup.png：Godot 实际渲染图集，含 14 / 27 / 35 像素小图。
+artifacts/armament-v2-build.png：实际九宫格装配页。
+artifacts/armament-v2-mounted.png：真实场景中的九格混装与单装。
+上述场景为可复现的布置演示；运行测试使用隔离存档目录。
+测试报告归档于 docs/test-evidence/armament-v2-*.json。
+
+开发维护：python tools/configure_armament_imports.py 可重设此图集的 mipmap 和尺寸导入参数，不修改 PNG。
+测试输出目录写入 .gdignore，避免 Godot 将截图和动画预览当作游戏资源导入。

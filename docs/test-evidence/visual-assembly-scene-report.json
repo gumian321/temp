@@ -1,0 +1,246 @@
+{
+	"captures": [
+		"res://artifacts/centipede-01-chinese-menu.png",
+		"res://artifacts/centipede-02-fresh-run.png",
+		"res://artifacts/centipede-05-drag-preview.png",
+		"res://artifacts/centipede-03-segment-construction.png",
+		"res://artifacts/centipede-04-armed-combat.png"
+	],
+	"checks": [
+		{
+			"name": "Fresh user defaults to Simplified Chinese",
+			"passed": true
+		},
+		{
+			"name": "Main menu contains Chinese navigation",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced centipede-01-chinese-menu",
+			"passed": true
+		},
+		{
+			"name": "Saved centipede-01-chinese-menu",
+			"passed": true
+		},
+		{
+			"name": "Fresh run has no installed tower fixture",
+			"passed": true
+		},
+		{
+			"name": "Fresh run shows at least six empty body segments",
+			"passed": true
+		},
+		{
+			"name": "Bare centipede has a visible extended tail",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced centipede-02-fresh-run",
+			"passed": true
+		},
+		{
+			"name": "Saved centipede-02-fresh-run",
+			"passed": true
+		},
+		{
+			"name": "Source module exists: Core_Gun_Gatling",
+			"passed": true
+		},
+		{
+			"name": "Source module exists: Core_Gun_Shotgun",
+			"passed": true
+		},
+		{
+			"name": "Source module exists: Core_Gun_Cannon",
+			"passed": true
+		},
+		{
+			"name": "Source module exists: Core_Shield",
+			"passed": true
+		},
+		{
+			"name": "Source module exists: Core_Repair",
+			"passed": true
+		},
+		{
+			"name": "Source module exists: Core_Gun_Tesla",
+			"passed": true
+		},
+		{
+			"name": "Source module exists: Core_Gun_EMP",
+			"passed": true
+		},
+		{
+			"name": "Source module exists: Core_Chip_Mammoth",
+			"passed": true
+		},
+		{
+			"name": "Source module exists: Core_FuelTank",
+			"passed": true
+		},
+		{
+			"name": "Source module exists: Core_Gun_Gatling",
+			"passed": true
+		},
+		{
+			"name": "Pending modules open the nine-slot drag construction screen",
+			"passed": true
+		},
+		{
+			"name": "Native drag preview is active before mouse release",
+			"passed": true
+		},
+		{
+			"name": "Dropping outside all mounts cancels without consuming a pending module",
+			"passed": true
+		},
+		{
+			"name": "Native drag preview is active before mouse release",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced centipede-05-drag-preview",
+			"passed": true
+		},
+		{
+			"name": "Saved centipede-05-drag-preview",
+			"passed": true
+		},
+		{
+			"name": "Mouse installs exactly one module in grid slot 0",
+			"passed": true
+		},
+		{
+			"name": "Native drag preview is active before mouse release",
+			"passed": true
+		},
+		{
+			"name": "Mouse installs exactly one module in grid slot 1",
+			"passed": true
+		},
+		{
+			"name": "Native drag preview is active before mouse release",
+			"passed": true
+		},
+		{
+			"name": "Mouse installs exactly one module in grid slot 2",
+			"passed": true
+		},
+		{
+			"name": "Mouse installs exactly one module in grid slot 3",
+			"passed": true
+		},
+		{
+			"name": "Mouse installs exactly one module in grid slot 4",
+			"passed": true
+		},
+		{
+			"name": "Mouse installs exactly one module in grid slot 5",
+			"passed": true
+		},
+		{
+			"name": "Mouse installs exactly one module in grid slot 6",
+			"passed": true
+		},
+		{
+			"name": "Mouse installs exactly one module in grid slot 7",
+			"passed": true
+		},
+		{
+			"name": "Mouse installs exactly one module in grid slot 8",
+			"passed": true
+		},
+		{
+			"name": "Filling all nine mounts keeps the same shell width and body length",
+			"passed": true
+		},
+		{
+			"name": "Native drag preview is active before mouse release",
+			"passed": true
+		},
+		{
+			"name": "Occupied target rejects an inventory drop without losing the item",
+			"passed": true
+		},
+		{
+			"name": "Native drag preview is active before mouse release",
+			"passed": true
+		},
+		{
+			"name": "Dropping on the tail grows exactly one body segment and mounts the item",
+			"passed": true
+		},
+		{
+			"name": "Construction title is Chinese",
+			"passed": true
+		},
+		{
+			"name": "Assembly communicates with icons and short labels, not paragraphs",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced centipede-03-segment-construction",
+			"passed": true
+		},
+		{
+			"name": "Saved centipede-03-segment-construction",
+			"passed": true
+		},
+		{
+			"name": "Real main loop moves the centipede",
+			"passed": true
+		},
+		{
+			"name": "Installed towers fire in the real combat loop",
+			"passed": true
+		},
+		{
+			"name": "All nine installed modules retain compact independent world mounts",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced centipede-04-armed-combat",
+			"passed": true
+		},
+		{
+			"name": "Saved centipede-04-armed-combat",
+			"passed": true
+		},
+		{
+			"name": "Native drag preview is active before mouse release",
+			"passed": true
+		},
+		{
+			"name": "Native drag swaps occupied mounts and consumes one swap token",
+			"passed": true
+		},
+		{
+			"name": "Native drag preview is active before mouse release",
+			"passed": true
+		},
+		{
+			"name": "Native drag moves a module to a new tail segment and consumes one move token",
+			"passed": true
+		},
+		{
+			"name": "Native drag preview is active before mouse release",
+			"passed": true
+		},
+		{
+			"name": "Hovering another shell during native drag switches grids without losing the dragged module",
+			"passed": true
+		},
+		{
+			"name": "Click fallback duplicates into the selected empty grid slot",
+			"passed": true
+		},
+		{
+			"name": "Armor applies to the selected local mount",
+			"passed": true
+		}
+	],
+	"passed": true,
+	"renderer": "Windows",
+	"user_data": "C:/Users/lvan/AppData/Local/Temp/centipede-checks-2uobpg3n/roaming/Godot/app_userdata/Run Build Pew! — Centipede"
+}

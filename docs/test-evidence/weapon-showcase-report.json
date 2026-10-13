@@ -1,0 +1,575 @@
+{
+	"captures": [
+		"res://artifacts/weapon-gatling.png",
+		"res://artifacts/weapon-shotgun.png",
+		"res://artifacts/weapon-cannon.png",
+		"res://artifacts/weapon-flak.png",
+		"res://artifacts/weapon-rail.png",
+		"res://artifacts/weapon-tesla.png",
+		"res://artifacts/weapon-emp.png",
+		"res://artifacts/weapon-flame.png",
+		"res://artifacts/weapon-rocket.png",
+		"res://artifacts/weapon-nuke.png",
+		"res://artifacts/weapon-sonic.png",
+		"res://artifacts/weapon-blackhole.png",
+		"res://artifacts/weapon-mine.png",
+		"res://artifacts/weapon-drone.png"
+	],
+	"checks": [
+		{
+			"name": "Saved weapon-gatling.png",
+			"passed": true
+		},
+		{
+			"name": "gatling reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "gatling keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-shotgun.png",
+			"passed": true
+		},
+		{
+			"name": "shotgun reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "shotgun keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-cannon.png",
+			"passed": true
+		},
+		{
+			"name": "cannon reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "cannon keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-flak.png",
+			"passed": true
+		},
+		{
+			"name": "flak reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "flak keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0000.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0001.png",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-rail.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0002.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0003.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0004.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0005.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0006.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0007.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0008.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0009.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0010.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0011.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0012.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0013.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0014.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0015.png",
+			"passed": true
+		},
+		{
+			"name": "rail reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "rail keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0016.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0017.png",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-tesla.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0018.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0019.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0020.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0021.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0022.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0023.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0024.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0025.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0026.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0027.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0028.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0029.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0030.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0031.png",
+			"passed": true
+		},
+		{
+			"name": "tesla reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "tesla keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-emp.png",
+			"passed": true
+		},
+		{
+			"name": "emp reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "emp keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0032.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0033.png",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-flame.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0034.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0035.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0036.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0037.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0038.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0039.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0040.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0041.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0042.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0043.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0044.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0045.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0046.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0047.png",
+			"passed": true
+		},
+		{
+			"name": "flame reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "flame keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-rocket.png",
+			"passed": true
+		},
+		{
+			"name": "rocket reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "rocket keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0048.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0049.png",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-nuke.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0050.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0051.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0052.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0053.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0054.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0055.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0056.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0057.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0058.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0059.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0060.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0061.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0062.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0063.png",
+			"passed": true
+		},
+		{
+			"name": "nuke reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "nuke keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0064.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0065.png",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-sonic.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0066.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0067.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0068.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0069.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0070.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0071.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0072.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0073.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0074.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0075.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0076.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0077.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0078.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0079.png",
+			"passed": true
+		},
+		{
+			"name": "sonic reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "sonic keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0080.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0081.png",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-blackhole.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0082.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0083.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0084.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0085.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0086.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0087.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0088.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0089.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0090.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0091.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0092.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0093.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0094.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0095.png",
+			"passed": true
+		},
+		{
+			"name": "blackhole reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "blackhole keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-mine.png",
+			"passed": true
+		},
+		{
+			"name": "mine reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "mine keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-drone.png",
+			"passed": true
+		},
+		{
+			"name": "drone reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "drone keeps the production scene playable",
+			"passed": true
+		}
+	],
+	"clip_frames": 96,
+	"passed": true,
+	"scope": "Fourteen real weapon families against stationary controlled targets in the production scene. Preview captures visual behavior; audio is validated separately."
+}
