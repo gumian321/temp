@@ -11,6 +11,7 @@ const Brood = preload("res://scripts/brood_theme.gd")
 const Battle = preload("res://scripts/combat.gd")
 const Feedback = preload("res://scripts/weapon_feedback.gd")
 const InsectAttackFX = preload("res://scripts/insect_attack_fx.gd")
+var passive_fx = preload("res://scripts/passive_feedback.gd").new()
 var weapon_fx = preload("res://scripts/weapon_fx.gd").new()
 var hit_pause_left = 0.0
 var hit_pause_cooldown = 0.0
@@ -33,6 +34,7 @@ var message: Label
 var center = Vector2(720, 450)
 var camera = Vector2.ZERO
 var aim = Vector2.RIGHT
+var weapon_mouse_blocked = false
 var zoom = 1.0
 const AudioSystem = preload("res://scripts/audio_system.gd")
 var audio_system
@@ -128,6 +130,7 @@ func _ready():
 	particle_layer=CanvasLayer.new();particle_layer.layer=0;add_child(particle_layer)
 	particle_effects=load("res://scripts/particle_effects.gd").new();particle_layer.add_child(particle_effects);particle_effects.setup(db);native_visuals.setup(db,particle_effects)
 	popup_text=load("res://scripts/popup_text.gd").new();popup_text.layer=3;add_child(popup_text)
+	passive_fx.setup(self)
 	show_menu()
 	if "--smoke" in OS.get_cmdline_user_args():
 		test_mode = true
@@ -393,6 +396,7 @@ func show_controls():
 	UI.button(panel,db.ui("RESET KEYS","恢复按键"),Rect2(1060,792,300,65),func():save.state.settings.bindings.clear();controls.apply();save.save();show_controls(),"settings")
 
 func start_run():
+	passive_fx.reset()
 	reward_flow_active=false;reward_choice_busy=false;reward_snoozed=false;reward_epoch+=1
 	hit_pause_left=0.0; hit_pause_cooldown=0.0; camera_recoil=Vector2.ZERO; camera_impact=0.0
 	if popup_text!=null:popup_text.clear()
@@ -650,6 +654,7 @@ func profile_mark(key:String,started:int):
 		sample.microseconds+=Time.get_ticks_usec()-started;sample.calls+=1;performance_samples[key]=sample
 
 func _process(dt: float):
+	passive_fx.tick(self,dt)
 	if run!=null and screen in ["rewards","build"] and (run.finished or player.parts[0].hp<=0):
 		if not run.finished:run.finish(false)
 		reward_flow_active=false;show_result();return
@@ -716,9 +721,8 @@ func _process(dt: float):
 		var dir:Vector2 = controls.movement(true)
 		if test_mode:
 			dir = Vector2.from_angle(test_time * 0.7)
-		aim = (get_global_mouse_position() - center) / zoom + camera
-		var stick:Vector2=controls.joy_aim()
-		if stick!=Vector2.ZERO:aim=player.head+stick*700
+		var weapon_input = main_weapon_input()
+		aim = weapon_input.aim
 		var measured=Time.get_ticks_usec()
 		player.step(dt, dir, Input.is_action_pressed("boost"))
 		leg_phase+=player.velocity.length()*dt*0.075
@@ -726,7 +730,7 @@ func _process(dt: float):
 		profile_mark("body",measured);measured=Time.get_ticks_usec()
 		# Confirmed heavy hits briefly hold combat motion; steering and UI remain
 		# responsive and repeated volleys cannot chain the hold indefinitely.
-		combat.step(combat_dt, aim, controls.shooting() or test_mode)
+		combat.step(combat_dt, aim, weapon_input.manual, weapon_input.enabled)
 		var particle_bursts=0
 		for effect in combat.effects:
 			if effect.get("rendered",false):continue
@@ -794,7 +798,26 @@ func collect_focus_buttons(node:Node,result:Array):
 func _notification(what):
 	if what==NOTIFICATION_WM_WINDOW_FOCUS_OUT and screen=="game" and not test_mode and is_instance_valid(ui):show_pause()
 
+# Mouse motion is only a pointer update. A held fire button or an aim stick
+# outside the configured deadzone explicitly takes priority over HQ auto fire.
+func main_weapon_input() -> Dictionary:
+	var enabled = screen == "game" and camera_focus.is_empty()
+	var hovered = get_viewport().gui_get_hovered_control()
+	if hovered != null and hovered.mouse_filter != Control.MOUSE_FILTER_IGNORE:
+		enabled = false
+	var stick: Vector2 = controls.joy_aim()
+	var pointer = (get_global_mouse_position() - center) / zoom + camera
+	var mouse_held = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+	if not mouse_held:weapon_mouse_blocked = false
+	elif not enabled:weapon_mouse_blocked = true
+	if weapon_mouse_blocked:enabled = false
+	var direction_target = player.head + stick * 700 if stick != Vector2.ZERO and not mouse_held else pointer
+	return {"aim": direction_target, "manual": enabled and (controls.shooting() or stick != Vector2.ZERO or test_mode), "enabled": enabled}
+
 func _input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		var hovered = get_viewport().gui_get_hovered_control()
+		weapon_mouse_blocked = event.pressed and (screen != "game" or (hovered != null and hovered.mouse_filter != Control.MOUSE_FILTER_IGNORE))
 	if controls!=null:controls.observe(event)
 	# Capture before focused controls consume Tab, arrows, Space or Enter.
 	# Escape is always cancellation, even if the gameplay pause key was rebound.
@@ -1000,15 +1023,14 @@ func _draw():
 			if i>0:draw_weapon_neck(world(p.position),pos,4.0*zoom,0.3 if p.get("cloaked",false) else 1.0)
 			var pulse=health_pulse(p)
 			var size=Vector2.ONE*player.module_size(i)*zoom
-			if p.wall:draw_arc(pos,(player.module_size(i)*0.5+2)*zoom,0,TAU,24,Color("2f60a0"),1.5*zoom,true)
 			var c:Dictionary=db.asset(player.hq_weapon if i==0 else p.id)
 			var recoil=Vector2.from_angle(p.angle)*float(p.get("recoil",0))*zoom*minf(1,player.module_size(i)/35.0)
 			organ_art(db.core_sprite(c),pos-recoil,size,p.angle+PI*0.5,Color(1,1,1,0.3) if p.get("cloaked",false) else (pulse_color(p) if pulse else Color.WHITE),Feedback.family(c),float(p.get("organ_pulse",float(p.get("recoil",0))/42.0)))
-			if p.shield>0 and p.stun<=0:draw_arc(world(p.position),combat.shield_range(i)*zoom,0,TAU,50,Color(0.3,0.8,1.0,0.35),2)
 			if i>0:
 				var health_at=world(p.position)+Vector2(-20,35)*zoom
 				draw_rect(Rect2(health_at,Vector2(40,3)*zoom),Ink.WASH)
 				draw_rect(Rect2(health_at,Vector2(40*clampf(p.hp/maxf(1,p.max_hp),0,1),3)*zoom),Ink.BLUE)
+		passive_fx.paint(self,player,combat,zoom)
 		for mine in combat.special.mines:
 			module_art(db.sprite(mine.data.mineSprite),world(mine.position),Vector2(22,22)*zoom)
 		for d in combat.drones+combat.enemy_drones:

@@ -212,7 +212,7 @@ func take_reward(r: Dictionary) -> bool:
 			player.change_stat(int(r.buffRewardType), float(r.buffPercent))
 			player.change_stat(int(r.debuffRewardType), float(r.debuffPercent))
 		"MainCoreTurretReward":
-			player.hq_weapon = r.core
+			player.set_hq_weapon(r.core)
 		"MainCoreDroneReward":
 			for i in range(int(r.dronesCount)):
 				if combat.drones.filter(func(d): return d.owner == 0).size() < int(db.stores.PlayerDataStore.maxHQDronesCount):
@@ -220,7 +220,8 @@ func take_reward(r: Dictionary) -> bool:
 		_:
 			player.levels[r.id] = int(player.levels.get(r.id, 0)) + 1
 	player.refresh_upgrades()
-	notifications.append(db.title(r)+(" +%d%%"%int(float(r.percent)*100) if r.has("percent") else ""))
+	player.record_reward_feedback(r,combat.drones)
+	# The targeted feedback event owns the acquisition notice exactly once.
 	rewards.consume()
 	opened += 1
 	offers.clear()

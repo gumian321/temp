@@ -1,0 +1,313 @@
+PASSIVE / REWARD FEEDBACK COVERAGE — 2026-10-13
+================================================
+Scope: Godot centipede, branch codex/godot-centipede-game-20261012.
+Audit baseline: 4270baa. This document distinguishes original findings from
+implementation observations. A code observation is not a passing runtime test.
+
+EXHAUSTIVE INVENTORY
+129 reward records (excluding 8 RewardPack records).
+116 unique IDs in all pack lists + injected Reward_Block_RewardBox =117 reachable.
+Six legacy move/swap/duplicate CountBasicReward IDs are forbidden by chain mode;
+111 IDs remain potentially selectable before unlock/stat/capacity restrictions.
+12 catalog rewards are not reachable. The per-ID ledger below records every entry.
+Recipe: union RewardPack.packRewardsList, add RewardDataStore.packReward; exclude
+CountBasicReward rewardType 8/9/20 for chain, without changing the original pools.
+
+WHAT “强化” MEANS
+reward_choice formerly used generic “变异强化” and “选择后立即应用此项强化”.
+Actual level-up titles are “{器官}升级”. Reward_WallCores was “强化装甲” in
+chinese_ui but insect_armaments overrides it with “铁鞘”, giving ×2/3/4 铁鞘.
+The user's exact card cannot be identified solely from the word 强化.
+Count21 adds banked wall charges. It does NOT reinforce a segment until the user
+selects a body module and chooses 加固. Reinforcement adds hull health, not a shield.
+An upgrade for an absent equipment family is stored for future matching equipment;
+it must not show an active shield or link to an unrelated body part.
+
+ACQUISITION / PERSISTENCE MATRIX
+All baseline rewards only enqueue a title notification in run_state.take_reward.
+BlockReward: pending module; chain always grants one segment, regardless of old
+coresCount variants. Show activation on installation, not on acquisition.
+CountBasicReward: pending action charges. Type21 armor; 8 swap;9 duplicate;20 move.
+PercentBasicReward: permanent corresponding stat (2 rate,3 range,10 head health,
+11 movement,12 boost,13 head rate,14 head damage,15 body weapon damage,
+16 body health,17 head range). Capped formulas can limit the actual resulting stat.
+CrusedReward: apply BOTH positive and negative stat changes, not a universal buff.
+MainCoreTurretReward: replace only head weapon; shield replacement needs actual
+shield initialization/reset and shared effective-core lookup across all consumers.
+MainCoreDroneReward: add 2/4 attack, repair, or scrap head drones; obey maximum.
+TurretLevelUpReward (12 families): matching cores +25% life/damage/rate,+5% range.
+Continuous flame has no discrete rate-of-fire mechanism; do not advertise that
+field as functional. Head/body targeting must follow matching effective weapon ID.
+ShieldLevelUpReward: matching shield +50% core life/capacity/recharge,
+-50% recharge delay,+20% range per level; never create a shield without equipment.
+FuelTankLevelUpReward: matching fuel tank +50% life/capacity per level.
+MineFieldLevelUpReward: field +25% life/max mines, -25% reload interval;
+spawner +25% life,-10% spawn interval. Spawner maxMinesCountPercent is unused.
+DroneLevelUpReward: add one BAY drone per level, not an extra HQ drone; matching
+existing/future drone IDs also gain speed/efficiency/range. Attack bay core life
+field is 0.649, not rounded to an invented 0.65. Engineer/scrapper core life is zero.
+LevelUpReward (unpooled wall): +25% hull life, no energy shield.
+
+ALL SUPPORT / MODIFIER TARGETS AND LIFETIMES
+Shield: live, unstunned ShieldCore with shield>0 protects parts inside actual world
+radius. Baseline faint arc + contact spark. Needed: clear boundary, charge gauge,
+localized hit, break disappearance, recharge/recovery. No protection while broken.
+Armor: permanent on reinforced target until destruction; baseline thin blue ring.
+Needed: plated silhouette + application pulse; not an energy bubble.
+Repair core: live unstunned source heals self and immediate visible neighbors only
+while targets live and damaged. Baseline generic 100ms healing color. Needed actual
+healing-target stitch cue, bounded source links; no full-health healing animation.
+Cloak: live unstunned source affects clockable self/adjacent body modules; never HQ.
+Baseline 30% opacity. Needed veil/source cues removed when adjacency/source changes.
+Fuel: live unstunned tank provides capacity; boost requires fuel and movement.
+Baseline HUD fuel and movement. Needed capacity/acquisition cues and active-boost
+feedback only when consuming fuel; no shield.
+Attack/repair/scrap bays: drones already rendered, shooting/carrying partly visible.
+Needed spawning, actual repair-target cue, carried cargo/delivery, dock/work states.
+Mines field: attached mines; mine spawner releases while moving, lifetime seven sec.
+Baseline mine objects/arming/explosion. Add emitter/actual capacity/reload cue only.
+Pack core: drops 2–4 reward packs when destroyed. No imaginary passive stat buff.
+Wall core: independent hull-health equipment (unpooled); armor imagery, not shield.
+Chips: only compatible immediately adjacent body equipment, max two of same type;
+head chips() is always empty. Baseline no link/status; triggering projectiles exist.
+1 Shrapnel: fragments;2 Explosion: splash;3 Piercing: target pierce count;
+4 Chain: target jump;5 Mammoth: projectile size/damage/area and compatible shield
+radius;6 Control: manual aiming of compatible adjacent weapons. Draw truthful
+links/types and triggered pulse without expanding existing restrained contact FX.
+Baseline chips checks source HP but not stun: preserve that rule or change/test
+mechanics together; never draw a disabled state inconsistent with actual behavior.
+
+ALL CURSED REWARD PAIRS
+Turtle: body damage +20%, movement -20%.
+GlassCannon: body damage +20%, body health -20%.
+Camper: body range +20%, movement -20%.
+Castle: body health +20%, body damage -20%.
+Shotgun: body damage +20%, body range -20%.
+Runner: movement +20%, body range -20%.
+King: head damage +60%, body damage -20%.
+Peasants: body damage +20%, head damage -60%.
+Skirmish: movement +20%, body damage -20%.
+Slingshot: body range +20%, body damage -20%.
+
+ORIGINAL MECHANIC FINDINGS (NOT JUST VISUAL)
+HQ shield: combat step recharged hq_weapon, but hurt_player/shield_range/
+player_visual_contact used head-body ID, causing no protection/missing ShieldRange;
+switching away retained stale shield. Must use effective_core and reset on swap.
+Continuous flame: damage call omitted family DamagePercent and HQ stat14;
+actual cone range omitted RangePercent and global range despite target acquisition.
+Field mine recharge: negative interval bonus incorrectly multiplied a frequency,
+slowing reload. Spawner interval formula already had correct direction.
+Health debuff: refresh_upgrades could leave HP over reduced max and could resurrect
+dead parts on positive upgrade. Clamp live HP and preserve dead-state.
+
+IMPLEMENTED FIXES AND REVIEW RESULT
+Shared effective_core/set_hq_weapon lookup and replacement reset make head shields
+protect correctly and remove obsolete shield state when changing weapons.
+Live hull HP clamps to the new maximum; positive upgrades preserve dead-state.
+Feedback uses stable part UIDs, a bounded event queue, exact reward statuses,
+chain-specific installation hooks and persistent summed upgrade levels.
+Stat cues target actual consumers: projectile body range, attack-only bay/drone
+attack modifiers (including head drones), projectile-only head gun modifiers.
+ContinuousProjectile fire-rate cues are excluded because that field is unused.
+Continuous damage and cone range now include the applicable global/family bonuses.
+Minefield reload uses base interval*(1+bonus), with .05sec minimum for field and
+spawner. This interpretation is inferred from negative catalog values and the
+existing spawner formula, not certified Unity/C# equivalence. Field level0/1/2
+intervals are1/.75/.5sec; spawner intervals are5/4.5/4sec.
+Legacy charge actions have correct names; unused spawner maximum/flame fire-rate
+fields are excluded from summaries; bay drone count is distinguished from HQ count.
+Six generated AtlasTexture overlays cover shield/armor/repair/chip/boost/cloak.
+Active fuel tanks have five-pip fill/boost cues; mine deployments have emitter
+pulses; carrying drones have cargo diamonds; upgraded drones have correct ranks.
+The stat ledger remains visible and ignores mouse input. Original localized attack
+and pack-drop visuals are retained. Healing cues mark the actual healed target.
+Repair-drone tethers require an unstunned owner, their own healed target and actual
+action-range proximity, avoiding shared-owner false positives across drones.
+Shield-hit arcs use the real boundary; notices have bounded text and layout.
+No outstanding blocking false-active or lifecycle defect was found in this review.
+
+FOCUSED TEST EVIDENCE
+artifacts/passive-feedback-state-test-report.json:351 checks passed,129 reward
+records/12 classes,117 reachable/111 chain assertions and117 reachable mappings.
+artifacts/passive-upgrade-effects-report.json:69 checks passed.
+artifacts/main-autofire-report.json:31 checks passed.
+artifacts/main-autofire-scene-report.json:17 checks passed, production scene using
+Input.parse_input_event. Physical controller hardware was not tested.
+Final aggregate and native-rendering evidence is recorded below.
+
+RECOMMENDED EXHAUSTIVE VERIFICATION
+Enumerate all129 classes/IDs; assert117 reachable and111 chain candidates.
+Test acquisition, repeated level1/2/3, absent equipment/dormant then installation,
+HQ-only vs body-only/global effects, positive/negative pair, no phantom protection.
+Test pending/recycle/cancel/double-click, reward pause and resume, new-run reset,
+queue bounds, max capacities and stats, reorder/removal with stable target identity.
+Shield: ready/hit/broken/recover/stun/death, HQ shield->gun->shield, true radius.
+Repair: damaged/full/dead self/neighbors, source loss; drones actual target work.
+All six chips: compatibility, double stacks, zero neighbor, reorder, source death.
+Render checks at reduced zoom and long chains; preserve readable ivory/navy UI,
+generated insect artwork and restrained localized impact effects.
+Existing suites: test_rewards/reward_flow/shields/centipede_support/drones/specials;
+new feedback state/renderer and HQ auto-fire suites should be run with aggregate.
+
+FINAL EXTENSION: LOWER-RIGHT REWARD PROGRESS BADGES
+Requested current/maximum progression is displayed on every reward card.
+Level rewards use actual player.levels[id] / configured levelUpsAllowed (default3),
+with explicit max-level state. Nonlevel rewards use truthful contextual quantities:
+module slots x/60, banked charges, equipped0/1, head drones x/30, or accumulated
+attribute percentage; no invented level cap for uncapped acquisition categories.
+Stored upgrades retain the same acquired level even without matching equipment.
+Generated fallback icons now cover attribute and cursed cards; no monochrome
+placeholder remains in those reward categories. Noninteractive stat ledger is
+mouse-ignore so hovering it cannot suppress automatic weapons.
+
+FINAL VALIDATION RECORD — 2026-10-13 15:55 UTC
+artifacts/passive-autofire-final-regression.json completed15:55:00.855289 UTC:
+53/53 suites passed, no failing suite. This final aggregate began after runtime
+code was frozen at15:53 and covers the final icon/label refinements as well as
+feedback state, upgrade mechanics, visual feedback, reward progress badges,
+HQ unit/production-scene input tests and existing gameplay/UI/movement/weapon/
+support regressions. The result and all53 suite statuses were read independently.
+Focused badge report:28/28 checks. Visual report:161/161 checks.
+Final actual OpenGL native captures completed15:53:20 UTC after the last icon
+edits: passive_visual_feedback9.741sec and reward_progress_badges5.267sec passed.
+Seven passive-feedback images plus two progress-card images were visually reviewed,
+covering active,pending,dormant,curse,shield-break and current/max progress states.
+Headless runs may overwrite captures arrays in shared JSON reports; image files
+remain separate. Physical gamepad hardware was not used; production
+Input.parse_input_event verified stick deadzone and manual/automatic arbitration.
+Frozen passive test fixtures may show HUD counts captured before fixture-only
+installations; production HUD counts update normally. There is no Unity/C# parity
+claim for the inferred mine interval semantics described above.
+
+PER-ID REWARD LEDGER (all129 records)
+Columns: exact ID | class | internal name | reachability | mechanic fields
+
+7d86f4780171cde43bea37721ce2b33c | BlockReward | Reward_Block_Chip_Chain | CHAIN CANDIDATE | {"blockCore":"031c259d370067542b7ff8b26c7d2932","coresCount":1}
+b826ac3daf25cba46ba9787e6d1229f3 | BlockReward | Reward_Block_Chip_Exploding | CHAIN CANDIDATE | {"blockCore":"74cef92b743a03247a905df56d2510d2","coresCount":1}
+1f8004625162d0246a4347afac200971 | BlockReward | Reward_Block_Chip_HQControl | CHAIN CANDIDATE | {"blockCore":"3775503929699714ebd081ae215998f0","coresCount":1}
+ed1b7a8fe4161584796e45a67bd879ce | BlockReward | Reward_Block_Chip_Mammoth | CHAIN CANDIDATE | {"blockCore":"fcb0ac63443e34b46b95003a36c54ef7","coresCount":1}
+fde80c46a059d0d4797eda5a0628cdda | BlockReward | Reward_Block_Chip_Piercing | CHAIN CANDIDATE | {"blockCore":"3dc241166b66aea4ab3876c3a60ff266","coresCount":1}
+78d427de9d3931b48a672d27683013f7 | BlockReward | Reward_Block_Chip_Shrapnel | CHAIN CANDIDATE | {"blockCore":"d33aeed5f87d0184bb56674be4050619","coresCount":1}
+b219d3d6b0bca2a4996450818d42d075 | BlockReward | Reward_Block_Clocking | CHAIN CANDIDATE | {"blockCore":"6852c498e49eb76468680aa86b0882a0","coresCount":1}
+629c92f380ccad3458015b8aeaf29192 | BlockReward | Reward_Block_Clocking_2 | CHAIN CANDIDATE | {"blockCore":"6852c498e49eb76468680aa86b0882a0","coresCount":2}
+a0251cbd27eb14c45b171aeb061f8936 | BlockReward | Reward_Block_Drones_Attack | CHAIN CANDIDATE | {"blockCore":"46a6c106f65e8bc4885312f434b3ac91","coresCount":1}
+c12af194c2d610049832e223f75854f6 | BlockReward | Reward_Block_Drones_Attack_2 | CHAIN CANDIDATE | {"blockCore":"46a6c106f65e8bc4885312f434b3ac91","coresCount":2}
+355f3b9a63b52244e909537fe06f9fce | BlockReward | Reward_Block_Drones_Engineer | CHAIN CANDIDATE | {"blockCore":"f242ef2cfe041a847999656f92da4d03","coresCount":1}
+2de21e89e811b5449bbd16a2105e2ab2 | BlockReward | Reward_Block_Drones_Engineer_2 | CHAIN CANDIDATE | {"blockCore":"f242ef2cfe041a847999656f92da4d03","coresCount":2}
+1b3ecae98ef2f2148b177865739f7e2d | BlockReward | Reward_Block_Drones_Scrapper | CHAIN CANDIDATE | {"blockCore":"a7e71b831046a07458b3c6a7a2dfeb3f","coresCount":1}
+edc3f14ad334c244f86f6ef93adaaa10 | BlockReward | Reward_Block_Drones_Scrapper_2 | CHAIN CANDIDATE | {"blockCore":"a7e71b831046a07458b3c6a7a2dfeb3f","coresCount":2}
+7c86b3fcb49b0a746859edbc6b7d4818 | BlockReward | Reward_Block_Fuel_Tank | CHAIN CANDIDATE | {"blockCore":"60c1544ce769098498bc62a91e59e8a3","coresCount":1}
+ce8ae2d5c7660a3418fc529f5a228697 | BlockReward | Reward_Block_Fuel_Tank_2 | CHAIN CANDIDATE | {"blockCore":"60c1544ce769098498bc62a91e59e8a3","coresCount":2}
+4176c43ee566b39489d91adcdbe866d2 | BlockReward | Reward_Block_Gun_BlackHoler | CHAIN CANDIDATE | {"blockCore":"e3988ca645aa8b745a7746b945334069","coresCount":1}
+c9ad48e00759ccd418f2fd2ed2d669c5 | BlockReward | Reward_Block_Gun_BlackHoler_2 | CHAIN CANDIDATE | {"blockCore":"e3988ca645aa8b745a7746b945334069","coresCount":2}
+e47014d2c6f378e49a0ca47a9e7e501f | BlockReward | Reward_Block_Gun_Cannon | CHAIN CANDIDATE | {"blockCore":"7f7854aaf566b3b43b2a7395230d018e","coresCount":1}
+dfc9a7e6bd3331e43b415071ee94b592 | BlockReward | Reward_Block_Gun_Cannon_2 | CHAIN CANDIDATE | {"blockCore":"7f7854aaf566b3b43b2a7395230d018e","coresCount":2}
+350b70f6d1b58134f974378ee0f62b7b | BlockReward | Reward_Block_Gun_Cannon_3 | CHAIN CANDIDATE | {"blockCore":"7f7854aaf566b3b43b2a7395230d018e","coresCount":3}
+fbdf8ac8859d50c4690c97e55b12689d | BlockReward | Reward_Block_Gun_EMP | CHAIN CANDIDATE | {"blockCore":"c2a52716362c2c34db81d159935b408f","coresCount":1}
+5e45886cc13f5c54aa36e464f2a3019f | BlockReward | Reward_Block_Gun_EMP_2 | CHAIN CANDIDATE | {"blockCore":"c2a52716362c2c34db81d159935b408f","coresCount":2}
+1785a64a6c3996b4eb1c77c0d5716c45 | BlockReward | Reward_Block_Gun_EMP_3 | CHAIN CANDIDATE | {"blockCore":"c2a52716362c2c34db81d159935b408f","coresCount":3}
+b0467afe9d4633549bb2e22ea7c3d473 | BlockReward | Reward_Block_Gun_Flak | CHAIN CANDIDATE | {"blockCore":"83a1b3247766f664a8dc2d7fec31a98f","coresCount":1}
+bef0134a3fbb72842bac0106ac1bd018 | BlockReward | Reward_Block_Gun_Flak_2 | CHAIN CANDIDATE | {"blockCore":"83a1b3247766f664a8dc2d7fec31a98f","coresCount":2}
+12dbff3af513f234ea1da75dc9d45376 | BlockReward | Reward_Block_Gun_Flak_3 | CHAIN CANDIDATE | {"blockCore":"83a1b3247766f664a8dc2d7fec31a98f","coresCount":3}
+c4b4a37ee6f1ba24caa105c252a4a3dd | BlockReward | Reward_Block_Gun_FlameThrower | CHAIN CANDIDATE | {"blockCore":"32400f1cc69fefc4389f2a86dc4196fb","coresCount":1}
+c82228bff71a49c46b72a40a162677fd | BlockReward | Reward_Block_Gun_FlameThrower_2 | CHAIN CANDIDATE | {"blockCore":"32400f1cc69fefc4389f2a86dc4196fb","coresCount":2}
+e905c45f5a2626449bf9506d098c9de2 | BlockReward | Reward_Block_Gun_Gatling | CHAIN CANDIDATE | {"blockCore":"054aa4df097171c489ab55f747300546","coresCount":1}
+345902c63d6966c46b1960e66f867da0 | BlockReward | Reward_Block_Gun_Gatling_2 | CHAIN CANDIDATE | {"blockCore":"054aa4df097171c489ab55f747300546","coresCount":2}
+b155b96d1b54ec54f8aee8e684c142d8 | BlockReward | Reward_Block_Gun_Gatling_3 | CHAIN CANDIDATE | {"blockCore":"054aa4df097171c489ab55f747300546","coresCount":3}
+141357e2e8e50ae47b880ad806ed79b4 | BlockReward | Reward_Block_Gun_Nuke | CHAIN CANDIDATE | {"blockCore":"be633caabc2190c41803e4453c9170e1","coresCount":1}
+56d5d43c14b4c5c408cdb476ddcf6d03 | BlockReward | Reward_Block_Gun_Nuke_2 | CHAIN CANDIDATE | {"blockCore":"be633caabc2190c41803e4453c9170e1","coresCount":2}
+9eeea24c9d14ba543b1c5e9e17ee3bca | BlockReward | Reward_Block_Gun_Rocket | CHAIN CANDIDATE | {"blockCore":"3cca4692ebe489c45ac8cabf99c06163","coresCount":1}
+feec82f5c06228640bd00d688cb05c36 | BlockReward | Reward_Block_Gun_Rocket_2 | CHAIN CANDIDATE | {"blockCore":"3cca4692ebe489c45ac8cabf99c06163","coresCount":2}
+b933efe7307e05a4ebbccc40fdb088eb | BlockReward | Reward_Block_Gun_Rocket_3 | CHAIN CANDIDATE | {"blockCore":"3cca4692ebe489c45ac8cabf99c06163","coresCount":3}
+d23da9904ccf9f84ea185d61eef26bac | BlockReward | Reward_Block_Gun_Shotgun | CHAIN CANDIDATE | {"blockCore":"adc4e58660047d748a704e2429f5a65f","coresCount":1}
+b0aca1cd688c7f74cba03381b941cb66 | BlockReward | Reward_Block_Gun_Shotgun_2 | CHAIN CANDIDATE | {"blockCore":"adc4e58660047d748a704e2429f5a65f","coresCount":2}
+42fb579cefb979d4fa5c482548374e7a | BlockReward | Reward_Block_Gun_Shotgun_3 | CHAIN CANDIDATE | {"blockCore":"adc4e58660047d748a704e2429f5a65f","coresCount":3}
+578dae58cc98d684982f6fcb02263f6c | BlockReward | Reward_Block_Gun_Sniper | CHAIN CANDIDATE | {"blockCore":"3a79bbc71354a2c4cb33c3d6eb588a29","coresCount":1}
+102cff2b732b006418eb46c8e423feea | BlockReward | Reward_Block_Gun_Sniper_2 | CHAIN CANDIDATE | {"blockCore":"3a79bbc71354a2c4cb33c3d6eb588a29","coresCount":2}
+b0e6792711c0a3a4589f56491bf503dd | BlockReward | Reward_Block_Gun_Sniper_3 | CHAIN CANDIDATE | {"blockCore":"3a79bbc71354a2c4cb33c3d6eb588a29","coresCount":3}
+37b3436eaec9068458070a80be102f1f | BlockReward | Reward_Block_Gun_SonicWave | CHAIN CANDIDATE | {"blockCore":"e09727a375823394bbb876700f69c9a3","coresCount":1}
+f389cfd140967124a97193be8b92df31 | BlockReward | Reward_Block_Gun_SonicWave_2 | CHAIN CANDIDATE | {"blockCore":"e09727a375823394bbb876700f69c9a3","coresCount":2}
+e25cb75ff0928aa42a2e8c085286dd13 | BlockReward | Reward_Block_Gun_Tesla | CHAIN CANDIDATE | {"blockCore":"032596d8c75f5ca4c9173b3aa32d64ae","coresCount":1}
+42d95330d79a5734792570d4c78d4fc9 | BlockReward | Reward_Block_Gun_Tesla_2 | CHAIN CANDIDATE | {"blockCore":"032596d8c75f5ca4c9173b3aa32d64ae","coresCount":2}
+98cf6c9aa7956c540977b7a37c05944e | BlockReward | Reward_Block_Gun_Tesla_3 | CHAIN CANDIDATE | {"blockCore":"032596d8c75f5ca4c9173b3aa32d64ae","coresCount":3}
+d0b9c3f46badc094bbe91dca62e0d5f8 | BlockReward | Reward_Block_MinesField | CHAIN CANDIDATE | {"blockCore":"1dbc4d59d73e0f9468babdf8b488b687","coresCount":1}
+8edd6d9ba4d9ea345800de7d914e4963 | BlockReward | Reward_Block_MinesField_2 | CHAIN CANDIDATE | {"blockCore":"1dbc4d59d73e0f9468babdf8b488b687","coresCount":2}
+b0048299d17f273409779ee8fbafb48a | BlockReward | Reward_Block_MinesField_3 | CHAIN CANDIDATE | {"blockCore":"1dbc4d59d73e0f9468babdf8b488b687","coresCount":3}
+ab81532736e1fa7409c71db0d88a4eff | BlockReward | Reward_Block_MinesSpawner | CHAIN CANDIDATE | {"blockCore":"f80c5204ba93ad24197c5053439e4427","coresCount":1}
+37f7513b6946bd843964d6582578adec | BlockReward | Reward_Block_MinesSpawner_2 | CHAIN CANDIDATE | {"blockCore":"f80c5204ba93ad24197c5053439e4427","coresCount":2}
+d0a15fd236b22b842a597cd1643d0aa4 | BlockReward | Reward_Block_MinesSpawner_3 | CHAIN CANDIDATE | {"blockCore":"f80c5204ba93ad24197c5053439e4427","coresCount":3}
+5b5e162c37aaaa94a85f4fe83c1a5ba3 | BlockReward | Reward_Block_Repair | CHAIN CANDIDATE | {"blockCore":"b1fa7fdc9a5243b418521aeac33e16f1","coresCount":1}
+a459c776efe4a88478d5a1940c2636ca | BlockReward | Reward_Block_Repair_2 | CHAIN CANDIDATE | {"blockCore":"b1fa7fdc9a5243b418521aeac33e16f1","coresCount":2}
+26c1661df7a7b3e4b82de24c031aaef7 | BlockReward | Reward_Block_RewardBox | CHAIN CANDIDATE | {"blockCore":"e234721a98638194fbffa7a37c0a5e70","coresCount":1}
+87d8374ec775b47479ffba10b7bdc9ee | BlockReward | Reward_Block_Shield | CHAIN CANDIDATE | {"blockCore":"e914ff6f0cf0889499d921eeaa370bc2","coresCount":1}
+1ae5874807337934bb90fc821feab74b | BlockReward | Reward_Block_Shield_2 | CHAIN CANDIDATE | {"blockCore":"e914ff6f0cf0889499d921eeaa370bc2","coresCount":2}
+160153d495e6fcc4cb05558114cffa7a | BlockReward | Reward_Block_Wall_2 | UNPOOLED | {"blockCore":"6e225caadc00d594783ffcfa8796caad","coresCount":2}
+b642293b8ff38394d8ca633a8877c369 | BlockReward | Reward_Block_Wall_3 | UNPOOLED | {"blockCore":"6e225caadc00d594783ffcfa8796caad","coresCount":3}
+b889db95336b38c49a161c5c6bacffb0 | BlockReward | Reward_Block_Wall_4 | UNPOOLED | {"blockCore":"6e225caadc00d594783ffcfa8796caad","coresCount":4}
+dc1d24b1fd75ee34a84bd7aac88186dd | CountBasicReward | Reward_Count_DuplicateBuild_1 | LEGACY ONLY (chain disabled) | {"rewardTextID":"Reward_Duplicate","rewardType":9,"rewardCount":1}
+5f4c519d36fac6f42b00e6df23f35f6f | CountBasicReward | Reward_Count_DuplicateBuild_2 | LEGACY ONLY (chain disabled) | {"rewardTextID":"Reward_Duplicate","rewardType":9,"rewardCount":2}
+7bf81b8e4ab4fe34eb75e5fedb034089 | CountBasicReward | Reward_Count_MoveCores_1 | LEGACY ONLY (chain disabled) | {"rewardTextID":"Reward_Move","rewardType":20,"rewardCount":1}
+d9e61136d1d61954caaa1949ef825060 | CountBasicReward | Reward_Count_MoveCores_2 | LEGACY ONLY (chain disabled) | {"rewardTextID":"Reward_Move","rewardType":20,"rewardCount":2}
+5bb353c98f652134e8ef3f8bd510c461 | CountBasicReward | Reward_Count_SwitchCores_1 | LEGACY ONLY (chain disabled) | {"rewardTextID":"Reward_Switch","rewardType":8,"rewardCount":1}
+6c24e938bf29eb34195bc9f4d560512c | CountBasicReward | Reward_Count_SwitchCores_2 | LEGACY ONLY (chain disabled) | {"rewardTextID":"Reward_Switch","rewardType":8,"rewardCount":2}
+d5f5bbe0c05ece84d9c004f8aa171837 | CountBasicReward | Reward_Count_WallCores_2 | CHAIN CANDIDATE | {"rewardTextID":"Reward_WallCores","rewardType":21,"rewardCount":2}
+b928d08c482b5db4b9b758969de796ff | CountBasicReward | Reward_Count_WallCores_3 | CHAIN CANDIDATE | {"rewardTextID":"Reward_WallCores","rewardType":21,"rewardCount":3}
+9382a8be0100cb94aa4493ef62bce5ba | CountBasicReward | Reward_Count_WallCores_4 | CHAIN CANDIDATE | {"rewardTextID":"Reward_WallCores","rewardType":21,"rewardCount":4}
+a555d845907575640b986e44d3556465 | CrusedReward | Reward_Cursed_Camper | CHAIN CANDIDATE | {"buffRewardType":3,"buffPercent":0.2,"buffRewardPopUpText":"Parts_Range","debuffRewardType":11,"debuffPercent":-0.2,"debuffRewardPopUpText":"Ship_Speed"}
+3e724bae49bcb8349b725976f92b5dca | CrusedReward | Reward_Cursed_Castle | CHAIN CANDIDATE | {"buffRewardType":16,"buffPercent":0.2,"buffRewardPopUpText":"Parts_Health","debuffRewardType":15,"debuffPercent":-0.2,"debuffRewardPopUpText":"Parts_Damage"}
+4854558505762ce4ea924b8dbcfaab87 | CrusedReward | Reward_Cursed_GlassCannon | CHAIN CANDIDATE | {"buffRewardType":15,"buffPercent":0.2,"buffRewardPopUpText":"Parts_Damage","debuffRewardType":16,"debuffPercent":-0.2,"debuffRewardPopUpText":"Parts_Health"}
+f8da5eeb20f71034aa8676bbf427e7dc | CrusedReward | Reward_Cursed_King | CHAIN CANDIDATE | {"buffRewardType":14,"buffPercent":0.6,"buffRewardPopUpText":"HQ_Damage","debuffRewardType":15,"debuffPercent":-0.2,"debuffRewardPopUpText":"Parts_Damage"}
+8e892a81db9d0a743ab665ab584d45ee | CrusedReward | Reward_Cursed_Peasants | CHAIN CANDIDATE | {"buffRewardType":15,"buffPercent":0.2,"buffRewardPopUpText":"Parts_Damage","debuffRewardType":14,"debuffPercent":-0.6,"debuffRewardPopUpText":"HQ_Damage"}
+6ff5221cfcd78364287a21debeddf5e0 | CrusedReward | Reward_Cursed_Runner | CHAIN CANDIDATE | {"buffRewardType":11,"buffPercent":0.2,"buffRewardPopUpText":"Ship_Speed","debuffRewardType":3,"debuffPercent":-0.2,"debuffRewardPopUpText":"Parts_Range"}
+d76813a8d05b9af48a96a1a3a7f75a01 | CrusedReward | Reward_Cursed_Shotgun | CHAIN CANDIDATE | {"buffRewardType":15,"buffPercent":0.2,"buffRewardPopUpText":"Parts_Damage","debuffRewardType":3,"debuffPercent":-0.2,"debuffRewardPopUpText":"Parts_Range"}
+236ab81bc8440aa4a9f8ca25388058e0 | CrusedReward | Reward_Cursed_Skirmish | CHAIN CANDIDATE | {"buffRewardType":11,"buffPercent":0.2,"buffRewardPopUpText":"Ship_Speed","debuffRewardType":15,"debuffPercent":-0.2,"debuffRewardPopUpText":"Parts_Damage"}
+c581d107dc493e84daa937520ece47d8 | CrusedReward | Reward_Cursed_Slingshot | CHAIN CANDIDATE | {"buffRewardType":3,"buffPercent":0.2,"buffRewardPopUpText":"Parts_Range","debuffRewardType":15,"debuffPercent":-0.2,"debuffRewardPopUpText":"Parts_Damage"}
+a8f4443daef70c147901139e1f873383 | CrusedReward | Reward_Cursed_Turtle | CHAIN CANDIDATE | {"buffRewardType":15,"buffPercent":0.2,"buffRewardPopUpText":"Parts_Damage","debuffRewardType":11,"debuffPercent":-0.2,"debuffRewardPopUpText":"Ship_Speed"}
+29bd45c4df88c0d43934ae0c326d0fde | DroneLevelUpReward | Reward_LevelUP_Drone_Attack | CHAIN CANDIDATE | {"coresList":["46a6c106f65e8bc4885312f434b3ac91"],"CoreHealthPercent":0.649,"dronesList":["7bef1b6cd97a9e24b844a6866571c80d","6f7a311eec961be49825d1a99cd54bbe"],"addDronesCount":1,"enginePowerPercent":0.05,"efficiencyPercent":0.25,"rangePercent":0.1}
+e0f9d169dcbe35d4e902d60f0c45992f | DroneLevelUpReward | Reward_LevelUP_Drone_Engineer | CHAIN CANDIDATE | {"coresList":["f242ef2cfe041a847999656f92da4d03"],"CoreHealthPercent":0,"dronesList":["6caa67553dc7c3d4d95990ba8d956246","8d54df9235637524781fcf76c5dc2002"],"addDronesCount":1,"enginePowerPercent":0.05,"efficiencyPercent":0.5,"rangePercent":0.5}
+1f8e8762c85bfd440afc2349ddab5ddc | DroneLevelUpReward | Reward_LevelUP_Drone_Scrapper | CHAIN CANDIDATE | {"coresList":["a7e71b831046a07458b3c6a7a2dfeb3f"],"CoreHealthPercent":0,"dronesList":["7408e8f5526c1f84c8d9c92d86fe6e5f","283a8f426ca8a80419ffe1c2a3878080"],"addDronesCount":1,"enginePowerPercent":0.05,"efficiencyPercent":0,"rangePercent":0.25}
+99ef91336d4d56544a3e8bc0f0016307 | FuelTankLevelUpReward | Reward_LevelUP_FuelTank | CHAIN CANDIDATE | {"coresList":["60c1544ce769098498bc62a91e59e8a3"],"CoreHealthPercent":0.5,"TankCapacityPercent":0.5}
+04d5b6a57ffc5934fb5c68d7686d6aa1 | LevelUpReward | Reward_LevelUP_Wall | UNPOOLED | {"coresList":["6e225caadc00d594783ffcfa8796caad"],"CoreHealthPercent":0.25}
+fd901abceff8e4845a31a1ca037501a5 | MainCoreDroneReward | Reward_HQ_Drones_Attack_2 | CHAIN CANDIDATE | {"drone":"6f7a311eec961be49825d1a99cd54bbe","dronesCount":2}
+8aa31fa473da62d4c96731487c77c896 | MainCoreDroneReward | Reward_HQ_Drones_Attack_4 | CHAIN CANDIDATE | {"drone":"6f7a311eec961be49825d1a99cd54bbe","dronesCount":4}
+53725b63a74cc5f488a55574c037b802 | MainCoreDroneReward | Reward_HQ_Drones_Engineer_2 | CHAIN CANDIDATE | {"drone":"8d54df9235637524781fcf76c5dc2002","dronesCount":2}
+a49688318e5782d44ba2074c4ba7bb25 | MainCoreDroneReward | Reward_HQ_Drones_Engineer_4 | CHAIN CANDIDATE | {"drone":"8d54df9235637524781fcf76c5dc2002","dronesCount":4}
+dafce615747e99040a8a72d2da204b32 | MainCoreDroneReward | Reward_HQ_Drones_Scrapper_2 | CHAIN CANDIDATE | {"drone":"283a8f426ca8a80419ffe1c2a3878080","dronesCount":2}
+23abf2dde5d6a6a4aa3506f996da3ec2 | MainCoreDroneReward | Reward_HQ_Drones_Scrapper_4 | CHAIN CANDIDATE | {"drone":"283a8f426ca8a80419ffe1c2a3878080","dronesCount":4}
+227f69e214cb8ff459a5d9e9f65efac7 | MainCoreTurretReward | Reward_HQ_Gun_BlackHoler | CHAIN CANDIDATE | {"core":"430fab3766215e741a0bf24f1e0b7108"}
+a2bf8c5268ca1bd429f8c870db990c2a | MainCoreTurretReward | Reward_HQ_Gun_Cannon | CHAIN CANDIDATE | {"core":"d1b49ac337f6e344d89e0f21bc669ebf"}
+461b61fc03bfb1b4a806b18880c8e3d4 | MainCoreTurretReward | Reward_HQ_Gun_EMP | CHAIN CANDIDATE | {"core":"d20cae36214e60a42a708648a808e6b5"}
+0713e6313ee537e41a2cae76f6418133 | MainCoreTurretReward | Reward_HQ_Gun_Flak | CHAIN CANDIDATE | {"core":"9f744976df8db834b84c53978d906e8f"}
+144c8022539d577438237b13b321a92d | MainCoreTurretReward | Reward_HQ_Gun_Gatling | CHAIN CANDIDATE | {"core":"154d6f696c950e04792c80d0579e005f"}
+c4760fa79c621a140a3b34adf4aa8aab | MainCoreTurretReward | Reward_HQ_Gun_Nuke | CHAIN CANDIDATE | {"core":"45a824e3e278878499c3018068f0899c"}
+b8bedd9cb2dd1c4478a1825b997a0603 | MainCoreTurretReward | Reward_HQ_Gun_Rockets | CHAIN CANDIDATE | {"core":"f7f8e060264b3fb41ad3b94ed644849e"}
+f7f3c4cbd3aaae745967a9d9390adc5e | MainCoreTurretReward | Reward_HQ_Gun_Shotgun | CHAIN CANDIDATE | {"core":"df3b12c439bc868448a697601c920389"}
+f8a7d4dd7d609ad469b30f364045a97c | MainCoreTurretReward | Reward_HQ_Gun_Sniper | CHAIN CANDIDATE | {"core":"cc87d13d3e45b7748845260b953d29c4"}
+482450b405a715849a7b306eb6dce782 | MainCoreTurretReward | Reward_HQ_Gun_Sonic Wave | CHAIN CANDIDATE | {"core":"e46f6ba82e2e1c94d8521c4bbbd89fc3"}
+d1a42199c1ee72c40bc6fa21939a3160 | MainCoreTurretReward | Reward_HQ_Gun_Tesla | CHAIN CANDIDATE | {"core":"c4844b0bb41e9264caebadb49153874d"}
+cba4c6b76cdb1f24cbd3d88f7feaf387 | MainCoreTurretReward | Reward_HQ_Shield | CHAIN CANDIDATE | {"core":"9e962695c6250ea48967ecded5f6cad0"}
+7ed9b55a2f3f564428fd26cfb829d845 | MineFieldLevelUpReward | Reward_LevelUP_MineField | CHAIN CANDIDATE | {"coresList":["1dbc4d59d73e0f9468babdf8b488b687"],"CoreHealthPercent":0.25,"maxMinesCountPercent":0.25,"minesRechargeRatePercent":-0.25}
+81928d83f3f7c6b44a4f2fbf5462c74e | MineFieldLevelUpReward | Reward_LevelUP_MineSpawner | CHAIN CANDIDATE | {"coresList":["f80c5204ba93ad24197c5053439e4427"],"CoreHealthPercent":0.25,"maxMinesCountPercent":0.1,"minesRechargeRatePercent":-0.1}
+27bc4547fccd7c14481beecff3add4b5 | PercentBasicReward | Reward_Percent_Core_Health | UNPOOLED | {"rewardTextID":null,"rewardType":16,"percent":0.2}
+511a8231109afbf4ebd3328f6ad529e9 | PercentBasicReward | Reward_Percent_EngineBoost | CHAIN CANDIDATE | {"rewardTextID":"Ship_Boost","rewardType":12,"percent":0.2}
+113d8c82e4037dd43b15192b25f6c533 | PercentBasicReward | Reward_Percent_Gun_Damage | UNPOOLED | {"rewardTextID":null,"rewardType":15,"percent":0.1}
+973a05fd650b77e4c9d201b93373f092 | PercentBasicReward | Reward_Percent_Gun_Range | UNPOOLED | {"rewardTextID":null,"rewardType":3,"percent":0.05}
+6f680abf98cbf744ab4b9221fe4e3dfa | PercentBasicReward | Reward_Percent_Gun_RateOfFire | UNPOOLED | {"rewardTextID":null,"rewardType":2,"percent":0.1}
+a9368db72cd8f9148a3d1a8b0707d5d0 | PercentBasicReward | Reward_Percent_HQ_Damage | UNPOOLED | {"rewardTextID":null,"rewardType":14,"percent":0.1}
+ded35f8fa51b7eb4c87bda7573f3d53c | PercentBasicReward | Reward_Percent_HQ_Health | UNPOOLED | {"rewardTextID":null,"rewardType":10,"percent":0.2}
+0ae2441747b6e7a459cac15757c9298e | PercentBasicReward | Reward_Percent_HQ_Range | UNPOOLED | {"rewardTextID":null,"rewardType":17,"percent":0.2}
+0d620281f31928f45819d3b61fe5d68b | PercentBasicReward | Reward_Percent_HQ_RateOfFire | UNPOOLED | {"rewardTextID":null,"rewardType":13,"percent":0.1}
+fb9f47b78ba74564aae3a13469d1ff56 | PercentBasicReward | Reward_Percent_ShipSpeed | CHAIN CANDIDATE | {"rewardTextID":"Ship_Speed","rewardType":11,"percent":0.1}
+6a21124300e455c43b2e0e1cdec6b215 | ShieldLevelUpReward | Reward_LevelUP_Shield | CHAIN CANDIDATE | {"coresList":["9e962695c6250ea48967ecded5f6cad0","e914ff6f0cf0889499d921eeaa370bc2"],"CoreHealthPercent":0.5,"ShieldHealthPercent":0.5,"ShieldRechargeRatePercent":0.5,"ShieldRechargeDelayPercent":-0.5,"ShieldRangePercent":0.2}
+82ea559c5c4a2ee4f9bafc0038d5e959 | TurretLevelUpReward | Reward_LevelUP_Gun_BlackHole | CHAIN CANDIDATE | {"coresList":["e3988ca645aa8b745a7746b945334069","430fab3766215e741a0bf24f1e0b7108"],"CoreHealthPercent":0.25,"DamagePercent":0.25,"RateOfFirePercent":0.25,"RangePercent":0.05}
+75f08009dbd470943a84dfe16d0d7d78 | TurretLevelUpReward | Reward_LevelUP_Gun_Cannon | CHAIN CANDIDATE | {"coresList":["7f7854aaf566b3b43b2a7395230d018e","d1b49ac337f6e344d89e0f21bc669ebf"],"CoreHealthPercent":0.25,"DamagePercent":0.25,"RateOfFirePercent":0.25,"RangePercent":0.05}
+781ef692efed01e4d8c40e47fc644bb7 | TurretLevelUpReward | Reward_LevelUP_Gun_EMP | CHAIN CANDIDATE | {"coresList":["c2a52716362c2c34db81d159935b408f","d20cae36214e60a42a708648a808e6b5"],"CoreHealthPercent":0.25,"DamagePercent":0.25,"RateOfFirePercent":0.25,"RangePercent":0.05}
+69d379938d25d434484bddfc7c509930 | TurretLevelUpReward | Reward_LevelUP_Gun_Flak | CHAIN CANDIDATE | {"coresList":["83a1b3247766f664a8dc2d7fec31a98f","9f744976df8db834b84c53978d906e8f"],"CoreHealthPercent":0.25,"DamagePercent":0.25,"RateOfFirePercent":0.25,"RangePercent":0.05}
+103ef891d815c4c44a49886ea85b4d2d | TurretLevelUpReward | Reward_LevelUP_Gun_FlameThrower | CHAIN CANDIDATE | {"coresList":["32400f1cc69fefc4389f2a86dc4196fb"],"CoreHealthPercent":0.25,"DamagePercent":0.25,"RateOfFirePercent":0.25,"RangePercent":0.05}
+e93d137989ecc7f4c9b9f1239128afbf | TurretLevelUpReward | Reward_LevelUP_Gun_Gatling | CHAIN CANDIDATE | {"coresList":["054aa4df097171c489ab55f747300546","154d6f696c950e04792c80d0579e005f"],"CoreHealthPercent":0.25,"DamagePercent":0.25,"RateOfFirePercent":0.25,"RangePercent":0.05}
+f9fdcd9e35a77e64d98263aa065257c5 | TurretLevelUpReward | Reward_LevelUP_Gun_Nuke | CHAIN CANDIDATE | {"coresList":["be633caabc2190c41803e4453c9170e1","45a824e3e278878499c3018068f0899c"],"CoreHealthPercent":0.25,"DamagePercent":0.25,"RateOfFirePercent":0.25,"RangePercent":0.05}
+efb8c28e97bc4fe4187296ed324fcf75 | TurretLevelUpReward | Reward_LevelUP_Gun_Rocket | CHAIN CANDIDATE | {"coresList":["3cca4692ebe489c45ac8cabf99c06163","f7f8e060264b3fb41ad3b94ed644849e"],"CoreHealthPercent":0.25,"DamagePercent":0.25,"RateOfFirePercent":0.25,"RangePercent":0.05}
+136b45c765e1aa74396bfb3e8dfa9ded | TurretLevelUpReward | Reward_LevelUP_Gun_Shotgun | CHAIN CANDIDATE | {"coresList":["adc4e58660047d748a704e2429f5a65f","df3b12c439bc868448a697601c920389"],"CoreHealthPercent":0.25,"DamagePercent":0.25,"RateOfFirePercent":0.25,"RangePercent":0.05}
+ea14552e553d2eb4b8fc69c8fef8211e | TurretLevelUpReward | Reward_LevelUP_Gun_Sniper | CHAIN CANDIDATE | {"coresList":["3a79bbc71354a2c4cb33c3d6eb588a29","cc87d13d3e45b7748845260b953d29c4"],"CoreHealthPercent":0.25,"DamagePercent":0.25,"RateOfFirePercent":0.25,"RangePercent":0.05}
+007d9ea03be993f49ac3f123a8bdd164 | TurretLevelUpReward | Reward_LevelUP_Gun_SonicWave | CHAIN CANDIDATE | {"coresList":["e09727a375823394bbb876700f69c9a3","e46f6ba82e2e1c94d8521c4bbbd89fc3"],"CoreHealthPercent":0.25,"DamagePercent":0.25,"RateOfFirePercent":0.25,"RangePercent":0.05}
+f4eec373b741e6b478ea9620e540afb4 | TurretLevelUpReward | Reward_LevelUP_Gun_Tesla | CHAIN CANDIDATE | {"coresList":["032596d8c75f5ca4c9173b3aa32d64ae","c4844b0bb41e9264caebadb49153874d"],"CoreHealthPercent":0.25,"DamagePercent":0.25,"RateOfFirePercent":0.25,"RangePercent":0.05}

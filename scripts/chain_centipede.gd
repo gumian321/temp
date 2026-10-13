@@ -51,6 +51,8 @@ func install_module(id: String, before: int, _slot: int = 4) -> bool:
 	parts.append(part)
 	built_count+=1;built_score+=int(db.asset(id).get("coreRatePrize",0))
 	refresh_positions();refresh_upgrades();last_error=""
+	emit_feedback("installed",[part.feedback_uid])
+	pulse_feedback(parts.size()-1,"installed",1.2)
 	return true
 
 func first_free_mount() -> Vector2i:

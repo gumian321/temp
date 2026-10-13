@@ -188,7 +188,7 @@ func target_for(core: Dictionary, at: Vector2, reach: float) -> Dictionary:
 	var shielded:Array=[]
 	var reach_squared=reach*reach
 	for e in target_candidates(at,reach):
-		if e.hp<=0 or not e.damageable or e.role=="friendly" or at.distance_squared_to(e.position)>=reach_squared:continue
+		if e.hp<=0 or not e.damageable or e.role=="friendly" or float(e.get("warp",0))>0 or e.get("cloaked",false) or at.distance_squared_to(e.position)>=reach_squared:continue
 		candidates.append(e)
 		if config.get("priortizeShield",true) and e.stun<=0:
 			for gun in e.guns:
@@ -274,7 +274,8 @@ func mark_phase(label:String,started:int)->int:
 	if profile_enabled:phase_times[label]=int(phase_times.get(label,0))+now-started
 	return now
 
-func step(dt: float, aim: Vector2, shooting: bool):
+func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool = true):
+	player.step_feedback(dt)
 	segment_sound_cooldown=maxf(0,segment_sound_cooldown-dt)
 	step_scraps(dt)
 	player.begin_support_tick()
@@ -283,6 +284,7 @@ func step(dt: float, aim: Vector2, shooting: bool):
 	special.step(dt)
 	measured=mark_phase("patrol_special",measured)
 	for salvo in barrages.duplicate():
+		if str(salvo.get("control_source", "")).begins_with("player:") and not player_weapons_enabled:continue
 		salvo.timer -= dt
 		if salvo.timer<=0:
 			fire(salvo.core,salvo.at,salvo.direction,salvo.friendly,salvo.chips,salvo.boost,true,salvo.barrel_index,float(salvo.get("visual_scale",1)),str(salvo.get("control_source","")))
@@ -301,27 +303,31 @@ func step(dt: float, aim: Vector2, shooting: bool):
 		p.stun = maxf(0, p.stun - dt)
 		if p.hp <= 0 or p.stun > 0:
 			continue
-		var c: Dictionary = db.asset(player.hq_weapon if i == 0 else p.id)
+		var c: Dictionary = player.effective_core(i)
 		if c.has("coreProjectile"):
 			var chips: Dictionary = player.chips(i)
 			var emitter: Vector2 = player.weapon_origin(i)
 			var reach = db.range_units(c.get("turretRange", 1)) * 48.0 * (1.0 + player.stats.get("17" if i == 0 else "3", 0.0) + player.upgrade_bonus(c.id, "RangePercent"))
 			var target = target_for(c, p.position, reach)
 			var dir: Vector2 = (aim - emitter).normalized()
-			var manual: bool = i == 0 or chips.has(6)
-			if not manual and not target.is_empty():
-				dir = (target.position - emitter).normalized()
+			# HQ defaults to its normal radar; held input temporarily overrides it.
+			# The manual-aim chip still requires explicit input for adjacent guns.
+			var manual: bool = shooting if i == 0 else chips.has(6)
+			if not manual:
+				dir = Vector2.from_angle(p.angle) if target.is_empty() else (target.position - emitter).normalized()
 			p.angle = rotate_toward(p.angle,dir.angle(),deg_to_rad(float(c.get("turretRotateSpeed",360)))*dt)
 			if db.asset(c.coreProjectile).get("class")=="ContinuousProjectile":
-				if (manual and shooting) or (not manual and not target.is_empty()):
+				if player_weapons_enabled and ((manual and shooting) or (not manual and not target.is_empty())):
 					p.organ_pulse=0.18
-					special.continuous(c,emitter,Vector2.from_angle(p.angle),true,chips,player.stats.get("15",0.0),dt,"player:"+str(i))
+					player.pulse_chip_sources(i)
+					special.continuous(c,emitter,Vector2.from_angle(p.angle),true,chips,player.stats.get("14" if i == 0 else "15",0.0)+player.upgrade_bonus(c.id,"DamagePercent"),dt,"player:"+str(i),player.stats.get("17" if i == 0 else "3",0.0)+player.upgrade_bonus(c.id,"RangePercent"))
 				continue
-			if p.cooldown <= 0 and ((manual and shooting) or (not manual and not target.is_empty())) and absf(angle_difference(p.angle,dir.angle()))<deg_to_rad(float(c.get("turretErrorAngle",2))):
+			if player_weapons_enabled and p.cooldown <= 0 and ((manual and shooting) or (not manual and not target.is_empty())) and absf(angle_difference(p.angle,dir.angle()))<deg_to_rad(float(c.get("turretErrorAngle",2))):
 				var rate = float(c.get("turretRateOfFire", 1)) * (1.0 + player.stats.get("13" if i == 0 else "2", 0.0) + player.upgrade_bonus(c.id, "RateOfFirePercent"))
 				p.cooldown = 1.0 / maxf(rate, 0.01)
 				fire(c, emitter, dir, true, chips, player.stats.get("14" if i == 0 else "15", 0.0) + player.upgrade_bonus(c.id, "DamagePercent"), false, int(p.get("barrel_index",0)),player.weapon_visual_scale(i),"player:"+str(i))
 				p.organ_pulse=0.18
+				player.pulse_chip_sources(i)
 				p.barrel_index=int(p.get("barrel_index",0))+1
 				p.recoil=float(Feedback.profile(Feedback.family(c)).recoil)
 		elif c["class"] == "ShieldCore":
@@ -330,11 +336,18 @@ func step(dt: float, aim: Vector2, shooting: bool):
 				var capacity=float(c.maxShieldHealth)*(1+player.upgrade_bonus(c.id,"ShieldHealthPercent"))
 				if p.get("shield_broken",false):
 					p.shield=capacity/2;p.shield_broken=false;audio_events.append({"type":50,"position":p.position})
-				else:p.shield = minf(capacity, p.shield + float(c.shieldRechargeRate)*(1+player.upgrade_bonus(c.id,"ShieldRechargeRatePercent")) * dt)
+					player.pulse_feedback(i,"shield_recharge",0.7)
+					player.emit_feedback("shield_recharge",[p.feedback_uid])
+				else:
+					if p.shield < capacity: player.pulse_feedback(i,"shield_recharge")
+					p.shield = minf(capacity, p.shield + float(c.shieldRechargeRate)*(1+player.upgrade_bonus(c.id,"ShieldRechargeRatePercent")) * dt)
 		elif c["class"] == "RepairCore":
 			for neighbor_index in player.adjacent_part_indices(i, true):
 				var other: Dictionary = player.parts[neighbor_index]
 				if other.hp > 0:
+					if other.hp < other.max_hp:
+						player.pulse_feedback(i,"repair")
+						player.pulse_feedback(neighbor_index,"healed")
 					other.hp = minf(other.max_hp, other.hp + float(c.get("repairAmountPerSec", 4)) * dt)
 		elif c["class"] == "DroneCore":
 			ensure_drones(i, c)
@@ -701,12 +714,16 @@ func hurt_player(index: int, damage: float, shield_damage: float, shot: Dictiona
 	if p.get("cloaked",false): return
 	for i in player.parts.size():
 		var shield:Dictionary=player.parts[i]
-		var c: Dictionary = db.asset(shield.id)
+		var c: Dictionary = player.effective_core(i)
 		if c["class"] == "ShieldCore" and shield.hp>0 and shield.stun<=0 and shield.shield > 0 and shield.position.distance_to(p.position) < shield_range(i):
 			if not shot.is_empty():impact_feedback(p,shot,true,shield.position,shield_range(i))
+			player.pulse_feedback(i,"shield_hit",0.25)
+			player.pulse_chip_sources(i)
 			shield.shield = maxf(0, shield.shield - shield_damage)
 			if shield.shield<=0:
 				shield.shield_broken=true
+				player.pulse_feedback(i,"shield_break",0.7)
+				player.emit_feedback("shield_break",[shield.feedback_uid])
 				audio_events.append({"type":52,"position":shield.position})
 				shield.shield_delay=float(c.maxShieldHealth)*(1+player.upgrade_bonus(c.id,"ShieldHealthPercent"))/2.0/(float(c.shieldRechargeRate)*(1+player.upgrade_bonus(c.id,"ShieldRechargeRatePercent")))
 			else:
@@ -735,7 +752,7 @@ func segment_destroyed(index: int):
 		segment_sound_cooldown=0.08
 
 func shield_range(index:int)->float:
-	var c:Dictionary=db.asset(player.parts[index].id)
+	var c:Dictionary=player.effective_core(index)
 	return float(c.ShieldRange)*48*(1+player.upgrade_bonus(c.id,"ShieldRangePercent"))*(1+special.chip("MammothAreaPercentBoost",int(player.chips(index).get(5,0))))
 
 func ensure_drones(owner: int, core: Dictionary):
@@ -794,6 +811,9 @@ func step_drones(dt: float):
 					d.target.delivered=true;d.target.erase("reserved_by");d.target.erase("carried");d.target={};d.carrying=false;d.mode="return"
 					audio_events.append({"type":int(data.droneActionAudioType),"position":home.position})
 				"repair":
+					if d.target.hp < d.target.max_hp:
+						player.pulse_feedback(d.owner,"repair")
+						player.pulse_feedback(player.parts.find(d.target),"healed")
 					d.position=d.target.position;d.target.hp=minf(d.target.max_hp,d.target.hp+float(data.droneRepairAmountPerSec)*efficiency*dt)
 					continue
 				"attack":
@@ -905,7 +925,7 @@ func player_visual_contact(index: int, shot: Dictionary) -> Dictionary:
 	var p:Dictionary=player.parts[index]
 	for i in player.parts.size():
 		var shield:Dictionary=player.parts[i]
-		var core=db.asset(shield.id)
+		var core=player.effective_core(i)
 		if core.get("class")=="ShieldCore" and shield.hp>0 and shield.stun<=0 and shield.shield>0 and shield.position.distance_to(p.position)<shield_range(i):
 			return Feedback.shield_contact(shield.position,shield_range(i),shot)
 	return Feedback.surface_contact(p.position,player.collision_radius(index),shot,0.0)

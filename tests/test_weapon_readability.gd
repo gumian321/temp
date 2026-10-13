@@ -33,7 +33,11 @@ func execute():
 		enemy.guns=[];enemy.mission_controlled=true;enemy.warp=0;enemy.hp=100;enemy.max_hp=100
 		var hp=float(body.parts[0].hp)
 		battle.fire(core,body.head if friendly else enemy.position,Vector2.RIGHT if friendly else Vector2.LEFT,friendly)
-		for frame in range(12):battle.step(1.0/120.0,body.head+Vector2.RIGHT,false)
+		# shooting=false now means HQ auto fire. Suppress autonomous player
+		# weapons explicitly so this fixture isolates the one injected round.
+		var shots_before=int(battle.statistics.get("stat_BulletsFired",0))
+		for frame in range(12):battle.step(1.0/120.0,body.head+Vector2.RIGHT,false,false)
+		check(int(battle.statistics.get("stat_BulletsFired",0))==shots_before,"Collision fixture emits no autonomous player rounds: "+str(friendly))
 		check((body.parts[0].hp==hp and enemy.hp<100) if friendly else (body.parts[0].hp<hp and enemy.hp==100),"Actual Gatling collision damages only opposing side: "+str(friendly))
 	var body=Body.new(db)
 	var battle=Battle.new(db,body)
