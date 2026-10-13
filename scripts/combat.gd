@@ -3,6 +3,8 @@ extends RefCounted
 const SpecialSystems = preload("res://scripts/special_systems.gd")
 const SoftInsect = preload("res://scripts/soft_insect.gd")
 const Feedback = preload("res://scripts/weapon_feedback.gd")
+const SegmentFeedback = preload("res://scripts/segment_feedback.gd")
+var segment_sound_cooldown = 0.0
 var shot_serial = 0
 var special
 var barrages: Array = []
@@ -251,6 +253,7 @@ func mark_phase(label:String,started:int)->int:
 	return now
 
 func step(dt: float, aim: Vector2, shooting: bool):
+	segment_sound_cooldown=maxf(0,segment_sound_cooldown-dt)
 	step_scraps(dt)
 	player.begin_support_tick()
 	var measured=Time.get_ticks_usec()
@@ -644,7 +647,9 @@ func hit_player(index:int,b:Dictionary):
 		explosion(p.position,radius,0.35,str(b.get("fx_family",Feedback.family(b.data))),bool(b.friendly))
 
 func hurt_player(index: int, damage: float, shield_damage: float):
+	if index<0 or index>=player.parts.size():return
 	var p: Dictionary = player.parts[index]
+	if p.hp<=0:return
 	if p.get("cloaked",false): return
 	for i in player.parts.size():
 		var shield:Dictionary=player.parts[i]
@@ -660,8 +665,22 @@ func hurt_player(index: int, damage: float, shield_damage: float):
 				audio_events.append({"type":51,"position":shield.position})
 			return
 	p.hp -= damage
-	p.impact_left=0.11
+	p.impact_left=SegmentFeedback.HIT_TIME
 	effects.append({"position": p.position, "radius": 22, "life": 0.15, "kind": "hit","player_hit":true})
+	if p.hp<=0:segment_destroyed(index)
+
+func segment_destroyed(index: int):
+	if index<=0 or index>=player.parts.size():return
+	var part: Dictionary = player.parts[index]
+	if part.hp>0 or part.get("break_feedback",false):return
+	part.break_feedback=true
+	var snapshot = SegmentFeedback.snapshot(player,index)
+	var existing = effects.filter(func(effect):return effect.kind=="segment_break")
+	if existing.size()>=SegmentFeedback.MAX_DEBRIS:effects.erase(existing[0])
+	effects.append(snapshot)
+	if segment_sound_cooldown<=0:
+		audio_events.append({"type":21,"position":snapshot.position,"pitch":0.82,"strength":1.0,"feedback":"segment_break"})
+		segment_sound_cooldown=0.08
 
 func shield_range(index:int)->float:
 	var c:Dictionary=db.asset(player.parts[index].id)

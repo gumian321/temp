@@ -4,6 +4,7 @@ const DB = preload("res://scripts/source_db.gd")
 const Save = preload("res://scripts/save_store.gd")
 const Body = preload("res://scripts/chain_centipede.gd")
 const CentipedeArt = preload("res://scripts/centipede_art.gd")
+const SegmentFeedback = preload("res://scripts/segment_feedback.gd")
 const Ink = preload("res://scripts/blue_ink.gd")
 const Brood = preload("res://scripts/brood_theme.gd")
 const Battle = preload("res://scripts/combat.gd")
@@ -890,6 +891,9 @@ func _draw():
 			var previous:Dictionary=player.segment_pose(segment-1)
 			draw_line(world(pose.point),world(previous.point),Color("173b70"),22*zoom,true)
 			CentipedeArt.segment(self,world(pose.point),Vector2(pose.direction).angle(),zoom,leg_phase-segment*0.8,false,player.parts_on_segment(segment).is_empty(),false,0,-1,player_legs.poses(segment))
+			var hit_strength=0.0
+			for part_index in player.parts_on_segment(segment):hit_strength=maxf(hit_strength,float(player.parts[part_index].get("impact_left",0)))
+			SegmentFeedback.paint_hit(self,world(pose.point),Vector2(pose.direction).angle(),hit_strength,zoom)
 		CentipedeArt.segment(self,world(player.head),player.facing.angle(),zoom,leg_phase,true,false,false,mouth_activity,test_time)
 		for i in range(player.parts.size()-1,-1,-1):
 			var p:Dictionary=player.parts[i]
@@ -922,6 +926,7 @@ func _draw():
 				art(texture,world(b.position),extent*maxf(1,b.radius/4),Vector2(b.velocity).angle()+PI/2)
 			else:draw_line(world(b.previous),world(b.position),Color("173b70") if b.friendly else Color("6984a4"),b.radius)
 		weapon_fx.paint(self,combat,test_time,zoom)
+		SegmentFeedback.paint(self,combat,zoom)
 		# Radar uses actual world objects, including distant mission bosses.
 		var radar_origin=get_viewport_rect().size-Vector2(210,235)
 		draw_rect(Rect2(radar_origin,Vector2(180,150)), Color("d8e3ec"))

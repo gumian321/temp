@@ -1,0 +1,18 @@
+{
+	"checks": [
+		{
+			"name": "The animation ends with three surviving body segments",
+			"passed": true
+		},
+		{
+			"name": "The real-time animation naturally expires its debris",
+			"passed": true
+		}
+	],
+	"destruction_frame": 54,
+	"fps": 30,
+	"frames": 120,
+	"hit_frame": 36,
+	"passed": true,
+	"seconds": 4
+}

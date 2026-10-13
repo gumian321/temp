@@ -1,0 +1,12 @@
+体节损毁反馈 · 2026-10-13
+
+身体受击：0.20 秒暖色描边、甲壳亮闪和裂纹，配合已有武器受击闪色与镜头反馈。
+身体损毁：立即冻结该节原来的世界位置、朝向和装备姿态，甲壳分成四块向外旋转，装备单独翻落；蓝墨碎屑、暖色冲击圈和短暂“体节损毁”提示持续约 0.95 秒后淡出。同步播放爆裂音。
+存活身体仍按原有规则马上补位。碎片不参与碰撞，也不保存被删除元素的对象或所有者索引，不改变无人机、地雷的归属重映射。
+连续/范围伤害不会重复触发同一节的死亡反馈。视觉碎片最多保留 24 组，文字最多同时显示 3 组；同一瞬间多节损毁的声音合并，避免堆叠噪音。
+仅复用已有蓝墨甲壳与彩色装备贴图，没有生成新图片。
+
+实现：scripts/segment_feedback.gd、combat.gd、special_systems.gd，main.gd 仅增加绘制挂钩。
+验证：python3 tools/run_checks.py segment_feedback segment_feedback_scene chain_segments
+实际渲染：python3 tools/run_checks.py segment_feedback_scene --render --report segment-feedback-render.json
+渲染检查生成 artifacts/segment-feedback-*.png，涵盖完整身体、受击、破裂、碎片散开与淡出、恢复战斗。
