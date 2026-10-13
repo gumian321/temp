@@ -920,6 +920,7 @@ func _draw():
 		weapon_fx.draw_count=0
 		for b in combat.bullets:
 			weapon_fx.paint_projectile(self,b,test_time,zoom)
+			if str(b.get("fx_family",Feedback.family(b.data)))=="gatling":continue
 			var texture=db.sprite(b.data.get("projectileSprite",""))
 			if texture!=null:
 				var extent=texture.get_size()/float(db.sprites[b.data.projectileSprite].get("ppu",100))*48*zoom

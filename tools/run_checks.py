@@ -16,7 +16,7 @@ DEFAULT_SUITES = [
     "core", "missions", "map", "rewards", "specials", "regressions", "drones",
     "reward_pool", "controller", "long_body", "shields", "turret_tracking",
     "achievements", "fuel_tutorial", "enemy_drones", "radar", "weapon_catalog",
-    "particles", "presentation", "loot", "centipede_segments", "centipede_support", "chinese", "chain_segments", "chain_scene", "chain_ui_redesign", "segment_feedback", "reward_flow", "blue_ink", "grid_mounts", "centipede_motion", "weapon_feedback",
+    "particles", "presentation", "loot", "centipede_segments", "centipede_support", "chinese", "chain_segments", "chain_scene", "chain_ui_redesign", "segment_feedback", "reward_flow", "blue_ink", "grid_mounts", "centipede_motion", "weapon_feedback", "weapon_readability",
 ]
 
 

@@ -1,0 +1,233 @@
+{
+	"checks": [
+		{
+			"name": "Gatling ownership and outward velocity (1.0, 0.0) true",
+			"passed": true
+		},
+		{
+			"name": "Gatling starts at the firing weapon",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 0.5",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.5",
+			"passed": true
+		},
+		{
+			"name": "Gatling ownership and outward velocity (1.0, 0.0) false",
+			"passed": true
+		},
+		{
+			"name": "Gatling starts at the firing weapon",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 0.5",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.5",
+			"passed": true
+		},
+		{
+			"name": "Gatling ownership and outward velocity (-1.0, 0.0) true",
+			"passed": true
+		},
+		{
+			"name": "Gatling starts at the firing weapon",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 0.5",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.5",
+			"passed": true
+		},
+		{
+			"name": "Gatling ownership and outward velocity (-1.0, 0.0) false",
+			"passed": true
+		},
+		{
+			"name": "Gatling starts at the firing weapon",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 0.5",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.5",
+			"passed": true
+		},
+		{
+			"name": "Gatling ownership and outward velocity (0.0, -1.0) true",
+			"passed": true
+		},
+		{
+			"name": "Gatling starts at the firing weapon",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 0.5",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.5",
+			"passed": true
+		},
+		{
+			"name": "Gatling ownership and outward velocity (0.0, -1.0) false",
+			"passed": true
+		},
+		{
+			"name": "Gatling starts at the firing weapon",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 0.5",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.5",
+			"passed": true
+		},
+		{
+			"name": "Gatling ownership and outward velocity (0.0, 1.0) true",
+			"passed": true
+		},
+		{
+			"name": "Gatling starts at the firing weapon",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 0.5",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.5",
+			"passed": true
+		},
+		{
+			"name": "Gatling ownership and outward velocity (0.0, 1.0) false",
+			"passed": true
+		},
+		{
+			"name": "Gatling starts at the firing weapon",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 0.5",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.5",
+			"passed": true
+		},
+		{
+			"name": "Gatling ownership and outward velocity (0.707107, 0.707107) true",
+			"passed": true
+		},
+		{
+			"name": "Gatling starts at the firing weapon",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 0.5",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.5",
+			"passed": true
+		},
+		{
+			"name": "Gatling ownership and outward velocity (0.707107, 0.707107) false",
+			"passed": true
+		},
+		{
+			"name": "Gatling starts at the firing weapon",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 0.5",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Gatling bright nose leads and tail trails at zoom 1.5",
+			"passed": true
+		},
+		{
+			"name": "Actual Gatling collision damages only opposing side: true",
+			"passed": true
+		},
+		{
+			"name": "Actual Gatling collision damages only opposing side: false",
+			"passed": true
+		},
+		{
+			"name": "Real enemy AI Gatling fires hostile rounds from its own weapon toward player",
+			"passed": true
+		},
+		{
+			"name": "Tesla readable 320ms beam connects actual emitter and hit target",
+			"passed": true
+		},
+		{
+			"name": "Tesla remains one instantaneous 20 damage hit, no persistent damage",
+			"passed": true
+		},
+		{
+			"name": "Readability changes do not consume gameplay randomness",
+			"passed": true
+		},
+		{
+			"name": "Hostile instantaneous Tesla now has a visible source-to-player beam",
+			"passed": true
+		}
+	],
+	"passed": true
+}

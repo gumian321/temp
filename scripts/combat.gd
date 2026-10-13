@@ -237,12 +237,16 @@ func fire(core: Dictionary, at: Vector2, direction: Vector2, friendly: bool, chi
 		if int(projectile.get("projectilePrefab",0)) in [45,46]:
 			var target = nearest(at,db.range_units(core.get("turretRange",4))*48) if friendly else {}
 			if not target.is_empty():
-				effects.append(Feedback.decorate({"position":muzzle,"end":target.position,"life":0.25 if family=="rail" else 0.18,"radius":0,"kind":"chain"},family,friendly))
+				effects.append(Feedback.decorate({"position":muzzle,"end":target.position,"life":0.25 if family=="rail" else 0.32,"radius":0,"kind":"chain"},family,friendly))
 				b.pierce = 1
 				b.chips = chips.duplicate()
 				b.line_jumps = int(projectile.targetPiercingCount)-1+int(special.chip("PiercingTargetCount",int(chips.get(3,0))))
 				hit_enemy(target,b)
-			elif not friendly: hurt_player(0,b.damage,b.shield_damage)
+			elif not friendly:
+				# Preserve the existing instantaneous hit; show Tesla's missing beam.
+				if family=="tesla":
+					effects.append(Feedback.decorate({"position":muzzle,"end":player.head,"life":0.32,"radius":0,"kind":"chain"},family,false))
+				hurt_player(0,b.damage,b.shield_damage)
 		else: bullets.append(b)
 
 var phase_times:Dictionary={}
@@ -609,7 +613,7 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 			clone.age = 0.0
 			clone.life = maxf(0.2,float(b.data.get("projectileLifeTime",1)))
 			if int(b.data.get("projectilePrefab",0)) in [45,46]:
-				effects.append(Feedback.decorate({"position":e.position,"end":other.position,"life":0.20,"radius":0,"kind":"chain"},str(b.get("fx_family",Feedback.family(b.data))),bool(b.friendly)))
+				effects.append(Feedback.decorate({"position":e.position,"end":other.position,"life":0.28 if str(b.get("fx_family",""))=="tesla" else 0.20,"radius":0,"kind":"chain"},str(b.get("fx_family",Feedback.family(b.data))),bool(b.friendly)))
 				hit_enemy(other,clone)
 			else: bullets.append(clone)
 	if b.chips.has(1):

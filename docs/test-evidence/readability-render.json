@@ -1,0 +1,12 @@
+{
+  "suites": [
+    {
+      "suite": "weapon_readability_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 21.864,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}
