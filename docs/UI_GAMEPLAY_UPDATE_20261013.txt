@@ -24,11 +24,16 @@ Completed:
   No repeated velocity injection while cooling down; no visual freeze for flame,
   blackhole or shield ticks. Shield/blackhole hits now reach body feedback too.
   Six body families recover after sustained hits. Actual source grub enemies are
-  AI_ProjectileShip_1..5, pool 275..279; the unavailable attachment was not viewed.
+  AI_ProjectileShip_1..5, pool 275..279 (station spawner pool 408 also uses grub art);
+  the unavailable attachment was not viewed.
 
 Validation:
 - tools/run_checks.py default set: all 30 suites pass, isolated saves.
 - Additional reward_flow, enemy_motion and real-render HUD/mission/reward suites.
+- Enemy motion: 182 checks; reward flow including explicit pause: 25 checks.
+- Real rendered mission, HUD, reward and blue-ink scene suites pass. Continuous
+  keyboard-motion render first exceeded 120 s, then passed with a 240 s bound
+  in 124.379 s; both timeout evidence and successful retry are retained.
 - Reports: docs/test-evidence and artifacts/*report.json / *suite.log.
 - Real software-rendered screenshots and 5-second enemy-motion-preview.mp4.
   Reward-flow test screenshots intentionally repeat one source reward to make

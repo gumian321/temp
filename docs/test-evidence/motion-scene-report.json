@@ -1,6 +1,5 @@
 {
 	"captures": [
-		"res://artifacts/centipede-reward-explanation.png",
 		"res://artifacts/centipede-choose-one-reward.png",
 		"res://artifacts/centipede-motion-180.png",
 		"res://artifacts/centipede-motion-270.png",
@@ -9,27 +8,7 @@
 	],
 	"checks": [
 		{
-			"name": "Empty inventory explains where rewards and modules come from",
-			"passed": true
-		},
-		{
-			"name": "Build screen distinguishes modules from immediate upgrades",
-			"passed": true
-		},
-		{
-			"name": "Renderer produced centipede-reward-explanation",
-			"passed": true
-		},
-		{
-			"name": "Saved centipede-reward-explanation",
-			"passed": true
-		},
-		{
-			"name": "Reward button opens the real three-choice reward screen",
-			"passed": true
-		},
-		{
-			"name": "Reward screen explicitly says to select one item",
+			"name": "Earned pack automatically opens three choices",
 			"passed": true
 		},
 		{
