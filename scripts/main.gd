@@ -77,6 +77,12 @@ var insect_layer
 var build_ui
 var mission_ui
 var battle_hud
+var reward_ui
+var reward_flow_active=false
+var reward_epoch=0
+var reward_choice_busy=false
+var reward_snoozed=false
+var reward_snooze_count=0
 var build_selected_segment = 1
 
 func _ready():
@@ -149,6 +155,7 @@ func ink_style_later(reference: WeakRef):
 	if node == null or not is_ancestor_of(node):return
 	if screen=="menu" and is_instance_valid(mission_ui) and (node==mission_ui or mission_ui.is_ancestor_of(node)):return
 	if screen=="game" and is_instance_valid(battle_hud) and (node==battle_hud or battle_hud.is_ancestor_of(node)):return
+	if screen=="rewards" and is_instance_valid(reward_ui) and (node==reward_ui or reward_ui.is_ancestor_of(node)):return
 	Ink.style_item(node)
 
 func label_at(text: String, pos: Vector2, size: int = 22, color: Color = Color.WHITE) -> Label:
@@ -338,6 +345,7 @@ func show_controls():
 	button(db.text("Option_Back"),Vector2(80,810),Vector2(260,50),func():options_draft=save.state.settings.duplicate(true);show_options())
 
 func start_run():
+	reward_flow_active=false;reward_choice_busy=false;reward_snoozed=false;reward_epoch+=1
 	hit_pause_left=0.0; hit_pause_cooldown=0.0; camera_recoil=Vector2.ZERO; camera_impact=0.0
 	if popup_text!=null:popup_text.clear()
 	if particle_effects!=null:particle_effects.clear()
@@ -423,6 +431,11 @@ func control_title(action:String)->String:
 	return db.ui(action.replace("_"," ").capitalize(),names.get(action,action))
 
 func show_build():
+	if reward_waiting():
+		reward_snoozed=false;advance_reward_flow();return
+	show_build_ui()
+
+func show_build_ui():
 	audio_system.sync_loops([])
 	if run == null:return
 	screen = "build"
@@ -433,40 +446,53 @@ func show_build():
 	queue_redraw()
 	return
 
+func reward_waiting()->bool:
+	return run!=null and (not player.pending.is_empty() or run.packs>0)
+
+func auto_reward_ready()->bool:
+	return reward_waiting() and (not reward_snoozed or run.packs>reward_snooze_count)
+
+func advance_reward_flow():
+	if run==null or run.finished or player.parts[0].hp<=0:return
+	reward_choice_busy=false;reward_snoozed=false
+	if not player.pending.is_empty():
+		reward_flow_active=true;show_build_ui()
+	elif run.packs>0:show_rewards()
+	else:
+		reward_flow_active=false;show_game()
+
 func show_rewards():
-	var choices:Array=run.roll_rewards()
-	if choices.is_empty():return
-	screen="rewards"
-	source_screen("GameScene/InGame Canvas")
-	for id in ["11","43","51","5","37","21","59","470","124","408"]:source_ui.show_node(id,false)
-	source_ui.set_text("293",str(run.packs))
-	var manager:Dictionary=source_ui.components["1572"]
-	for i in range(manager.rewardUIPanelControllersList.size()):
-		var id=str(int(manager.rewardUIPanelControllersList[i].fileID))
-		var config:Dictionary=source_ui.components[id]
-		source_ui.show_node(id,i<choices.size())
-		if i>=choices.size():continue
-		var reward:Dictionary=choices[i]
-		source_ui.set_text(refid(config,"rewardTitle"),db.title(reward))
-		for field in ["rewardSprite","rewardSprite1","rewardSprite2","rewardOverlay","rewardOverlay1","rewardOverlay2"]:source_ui.show_node(refid(config,field),false)
-		if reward.get("class")=="CrusedReward":
-			for pair in [["rewardSprite1","buffRewardSprite"],["rewardSprite2","debuffRewardSprite"],["rewardOverlay1","buffRewardOverlaySprite"],["rewardOverlay2","debuffRewardOverlaySprite"]]:
-				source_ui.show_node(refid(config,pair[0]),true);source_ui.set_image(refid(config,pair[0]),reward[pair[1]])
-		else:
-			var image_id=refid(config,"rewardSprite")
-			source_ui.show_node(image_id,true)
-			source_ui.set_texture(image_id,db.reward_sprite(reward))
-			if reward.get("rewardOverlaySprite") is String:
-				source_ui.show_node(refid(config,"rewardOverlay"),true);source_ui.set_image(refid(config,"rewardOverlay"),reward.rewardOverlaySprite)
-		var can_select=run.can_reward(reward)
-		source_ui.show_node(refid(config,"rewardLock"),not can_select)
-		var select_button=source_ui.buttons.get(refid(config,"rewardSelectButton"))
-		if select_button!=null:
-			select_button.disabled=not can_select
-			select_button.pressed.connect(func():run.take_reward(reward);show_build())
-		for j in range(config.starsList.size()):source_ui.show_node(str(int(config.starsList[j].fileID)),j<int(player.levels.get(reward.id,0))+1 and "LevelUp" in reward.get("class",""))
-	label_at(db.ui("CHOOSE ONE REWARD", "选择一项奖励"),Vector2(520,65),30)
-	label_at(db.ui("Modules go to assembly; upgrades apply immediately.", "模块领取后拖拽安装；属性升级、操作次数直接生效。"),Vector2(410,110),20)
+	if run==null or run.finished or player.parts[0].hp<=0:return
+	if not player.pending.is_empty():advance_reward_flow();return
+	if run.packs<=0:reward_flow_active=false;show_game();return
+	reward_flow_active=true;reward_choice_busy=false;reward_epoch+=1
+	screen="rewards";audio_system.sync_loops([]);clear_ui();source_ui=null
+	reward_ui=preload("res://scripts/reward_choice.gd").new();panel.add_child(reward_ui)
+	reward_ui.setup(self,run.roll_rewards(),reward_epoch)
+
+func choose_reward(reward:Dictionary,token:int):
+	if screen!="rewards" or token!=reward_epoch or reward_choice_busy or run.finished or player.parts[0].hp<=0:return
+	reward_choice_busy=true
+	if not run.take_reward(reward):reward_choice_busy=false;return
+	reward_epoch+=1
+	advance_reward_flow.call_deferred()
+
+func recycle_reward(token:int):
+	if screen!="rewards" or token!=reward_epoch or reward_choice_busy or run.finished or player.parts[0].hp<=0:return
+	reward_choice_busy=true;reward_epoch+=1
+	run.rewards.recycle();advance_reward_flow.call_deferred()
+
+func postpone_rewards():
+	reward_epoch+=1;reward_choice_busy=false;reward_flow_active=false
+	reward_snoozed=true;reward_snooze_count=run.packs
+	show_game()
+
+func reward_placement_changed():
+	if not reward_flow_active:return
+	if player.pending.is_empty():advance_reward_flow()
+	elif is_instance_valid(build_ui):
+		build_ui.selected_data={"kind":"inventory","index":0,"id":player.pending[0]}
+		build_ui.rebuild()
 
 func begin_run():
 	# Tips remain available in show_loading(), but no longer interrupt deployment.
@@ -540,6 +566,9 @@ func profile_mark(key:String,started:int):
 		sample.microseconds+=Time.get_ticks_usec()-started;sample.calls+=1;performance_samples[key]=sample
 
 func _process(dt: float):
+	if run!=null and screen in ["rewards","build"] and (run.finished or player.parts[0].hp<=0):
+		if not run.finished:run.finish(false)
+		reward_flow_active=false;show_result();return
 	var combat_dt=Feedback.combat_delta(dt,hit_pause_left)
 	hit_pause_left=maxf(0,hit_pause_left-dt)
 	hit_pause_cooldown=maxf(0,hit_pause_cooldown-dt)
@@ -598,6 +627,7 @@ func _process(dt: float):
 		tutorials.tick(dt,screen=="game" and camera_focus.is_empty(),player,run)
 	center = get_viewport_rect().size * 0.5
 	if screen == "game":
+		if auto_reward_ready() and not run.finished and player.parts[0].hp>0:advance_reward_flow();queue_redraw();return
 		if not camera_focus.is_empty():tick_camera_focus(dt);insect_layer.sync(self,0);queue_redraw();return
 		var dir:Vector2 = controls.movement(true)
 		if test_mode:
@@ -657,9 +687,9 @@ func _process(dt: float):
 		camera = camera.lerp(player.head, 1.0 - exp(-8.0 * dt))
 		update_source_hud()
 		profile_mark("audio_hud",measured)
-		if run.packs>=6: show_build()
 		if run.finished:
 			show_result()
+		elif auto_reward_ready():advance_reward_flow()
 	test_time += dt
 	insect_layer.sync(self,dt if screen=="game" else 0.0)
 	queue_redraw()
@@ -667,6 +697,7 @@ func _process(dt: float):
 func focus_menu_button():
 	if screen=="game" or panel==null:return
 	if screen=="menu" and is_instance_valid(mission_ui):mission_ui.focus_selection();return
+	if screen=="rewards" and is_instance_valid(reward_ui):reward_ui.focus_first();return
 	var candidates:Array=[]
 	collect_focus_buttons(panel,candidates)
 	if not candidates.is_empty():candidates[0].grab_focus()
@@ -714,10 +745,13 @@ func _input(event):
 		elif screen=="reward_pool" or screen=="menu":show_missions() if screen=="reward_pool" else show_menu()
 		elif screen in ["lab","options","controls"]:show_menu()
 		elif screen=="pause":show_game()
+		elif screen=="rewards" or (screen=="build" and reward_flow_active):postpone_rewards()
 		elif screen=="build" and is_instance_valid(build_ui):build_ui.cancel_selection()
 		get_viewport().set_input_as_handled()
 
 func _unhandled_input(event):
+	if event.is_action_pressed("pause") and (screen=="rewards" or (screen=="build" and reward_flow_active)):
+		postpone_rewards();get_viewport().set_input_as_handled();return
 	if rebind_action!="" and event is InputEventKey and event.pressed:
 		if event.physical_keycode!=KEY_ESCAPE:controls.bind(rebind_action,event.physical_keycode)
 		rebind_action="";show_controls();return

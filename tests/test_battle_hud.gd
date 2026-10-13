@@ -54,6 +54,7 @@ func execute():
   geometry.append({"window":[dimensions.x,dimensions.y],"passed":good})
   await shot("%dx%d"%[dimensions.x,dimensions.y])
  root.size=Vector2i(1440,900);await settle()
+ game.run.packs=0;game.run.rewards.queue.clear()
  await click_at(h.build_button.get_global_rect().get_center());check(game.screen=="build","E build button remains clickable")
  game.show_game();await settle();check(game.battle_hud!=h and game.battle_hud.modules.amount.text=="2 / 60","Returning rebuilds HUD with current values")
  check(game.db.read_json("videos").size()>0 and not game.db.scene_config.LoadingPanelContorller.tipsList.is_empty(),"Tips data and video resources retained")

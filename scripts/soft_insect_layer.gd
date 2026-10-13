@@ -11,7 +11,7 @@ func clear():
 func sync(game,dt:float):
 	if battle_id!=game.combat.get_instance_id():
 		clear();battle_id=game.combat.get_instance_id()
-	visible=game.screen in ["game","pause","result"] and not game.radar_mode
+	visible=game.screen in ["game","pause","result","rewards"] and not game.radar_mode
 	if not visible:return
 	var active:Dictionary={}
 	for e in game.combat.enemies:

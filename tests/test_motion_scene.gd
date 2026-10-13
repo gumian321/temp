@@ -28,23 +28,15 @@ func execute():
 	game.save.state.settings.skip_boss = true
 	game.start_run()
 	game.run.rewards.enqueue(true)
-	game.show_build()
+	game._process(.016)
 	await process_frame
-	var build_text = visible_text(game.panel)
-	check("领奖 · 1" in build_text and game.build_ui.reward_button.visible,"Available rewards have one clear entry point")
-	check(build_text.length()<80,"Empty assembly screen uses short visual labels")
-	await capture("centipede-reward-explanation")
-	await click_at(game.build_ui.reward_button.get_global_rect().get_center())
-	check(game.screen == "rewards" and game.run.offers.size() == 3, "Reward button opens the real three-choice reward screen")
-	check("选择一项奖励" in visible_text(game.panel), "Reward screen explicitly says to select one item")
+	check(game.screen == "rewards" and game.run.offers.size() == 3, "Earned pack automatically opens three choices")
 	await capture("centipede-choose-one-reward")
-	var manager: Dictionary = game.source_ui.components["1572"]
 	var selected = false
 	for i in range(game.run.offers.size()):
 		var reward: Dictionary = game.run.offers[i]
 		if reward.get("class") != "BlockReward" or not game.run.can_reward(reward): continue
-		var config: Dictionary = game.source_ui.components[str(int(manager.rewardUIPanelControllersList[i].fileID))]
-		var button = game.source_ui.buttons[game.refid(config, "rewardSelectButton")]
+		var button = game.reward_ui.buttons[i]
 		await click_at(button.get_global_rect().get_center())
 		selected = true
 		break

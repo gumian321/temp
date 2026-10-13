@@ -1,0 +1,44 @@
+Local UI and gameplay-flow update — 2026-10-13
+Base: ac4720f4109e0fb41fe93d72ff0c530491577455
+Branch: codex/centipede-mission-ui-20261013 (not pushed)
+
+Completed:
+- Centred responsive mission briefing; all source missions, difficulty, lock state,
+  reward pool and navigation retained. 111 layout/input checks.
+- First and repeated deployment enter combat directly. Existing tips/videos remain
+  callable through show_loading; no wait-for-input startup gate.
+- Live HUD health/fuel/danger and module/head-drone capacity meters. Numeric timer,
+  packs and scraps. Zero/no-limit/over-cap values handled explicitly.
+- Earned rewards automatically pause combat and show three choices. Modules go
+  directly to user-selected legal mounts; other rewards apply immediately.
+  Queue drains one pack at a time. Esc / Later preserves offers and pending items,
+  resumes battle, and snoozes until E or a new pack. Explicit recycling remains;
+  no auto-recycling. Epoch guards reject duplicate or stale button callbacks.
+  Full capacity/no eligible offer retains rewards. Death wins over reward input.
+  Removed the old six-pack automatic construction/re-entry loop.
+- Enemy gait uses bounded, analytically integrated frequency and smoothed visual
+  heading; bounded joint speed prevents frame-rate-sensitive flips. Small enemy
+  probe at 96 world units/s changed from ~13 to ~2.7 cycles/s (30/60/120 FPS).
+  Body gait sway reduced; source AI transforms, collision and HP unchanged.
+- Hit shape/recoil has a 0.20 s refresh cap (0.28 s for continuous fire fields).
+  No repeated velocity injection while cooling down; no visual freeze for flame,
+  blackhole or shield ticks. Shield/blackhole hits now reach body feedback too.
+  Six body families recover after sustained hits. Actual source grub enemies are
+  AI_ProjectileShip_1..5, pool 275..279; the unavailable attachment was not viewed.
+
+Validation:
+- tools/run_checks.py default set: all 30 suites pass, isolated saves.
+- Additional reward_flow, enemy_motion and real-render HUD/mission/reward suites.
+- Reports: docs/test-evidence and artifacts/*report.json / *suite.log.
+- Real software-rendered screenshots and 5-second enemy-motion-preview.mp4.
+  Reward-flow test screenshots intentionally repeat one source reward to make
+  edge cases deterministic; centipede-choose-one-reward.png uses real rolled offers.
+
+Boundaries:
+No Unity source / driving-school modifications; no push, PR or Release.
+Player legs and upgraded shield-preview radius were not changed.
+Reference image Library materializations failed; no guessed alternate downloads.
+Library upload remains blocked; no new Library file IDs are available.
+This update is runnable offline, not a declaration of full Unity parity. Existing
+FEATURE_PARITY.md / REMAINING_WORK.md list online Steam/Analytics, Unity paired
+reference validation, physical-controller and platform verification gaps.

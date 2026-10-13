@@ -97,7 +97,7 @@ func execute():
 		var core = game.db.named(module)
 		check(not core.is_empty(), "Source module exists: " + module)
 		game.player.pending.append(core.id)
-	game.show_build()
+	game.show_build_ui()
 	await process_frame
 	check(game.screen == "build" and game.build_ui.slots.size()==9, "Pending modules open the nine-slot drag construction screen")
 	await drag_at(game.build_ui.inventory[0].get_global_rect().get_center(),Vector2(850,780))
@@ -128,7 +128,7 @@ func execute():
 	game.zoom=1.6;game.camera=game.player.head-Vector2(140,0)
 	await capture("centipede-04-armed-combat")
 	game.player.actions = {"move": 2, "swap": 1, "duplicate": 1, "wall": 1}
-	game.show_build()
+	game.show_build_ui()
 	await process_frame
 	var source=game.player.part_at(1,0)
 	await drag_at(game.build_ui.slots[0].get_global_rect().get_center(),game.build_ui.slots[1].get_global_rect().get_center())
