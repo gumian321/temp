@@ -1,4 +1,9 @@
 extends CanvasLayer
+const UI=preload("res://scripts/game_ui.gd")
+var cards:Dictionary={}
+var prompts:Dictionary={}
+var keys:Dictionary={}
+var joystick=false
 var db
 var save
 var view
@@ -14,9 +19,33 @@ func setup(source,store):
  db=source;save=store;layer=4;config=db.scene_config.TutorialMenuController
  view=load('res://scripts/source_ui.gd').new();add_child(view);view.setup(db,'GameScene/Tutorial Canvas',func(_m,_i,_a):pass)
  for key in ['move','shoot','boost','radar','build','run']:view.show_node(ref(key),false)
+ build_cards()
+func build_cards():
+ UI.protect(view);view.theme=UI.theme();view.scale=Vector2.ONE;view.position=Vector2.ZERO
+ var index=0
+ for key in ['move','shoot','boost','radar','build','run']:
+  var node=view.controls.get(ref(key))
+  if node==null:continue
+  for child in node.get_children():child.hide()
+  node.position=Vector2(36,550+(index%3)*96);node.size=Vector2(360,82);node.pivot_offset=Vector2.ZERO
+  UI.panel(node,Rect2(0,0,360,82))
+  UI.icon(node,{'move':'next','shoot':'target','boost':'play','radar':'target','build':'settings','run':'play'}[key],Vector2(16,22),36)
+  keys[key]=UI.label(node,"",Vector2(68,12),25,UI.AMBER)
+  prompts[key]=UI.label(node,"",Vector2(68,48),16,UI.MUTED)
+  cards[key]=node;index+=1
+ refresh_bindings()
+func refresh_bindings(using_joy:bool=false):
+ joystick=using_joy;view.set_binding_labels(save.state.settings.bindings,using_joy)
+ var input=load('res://scripts/input_system.gd')
+ for key in keys:
+  var binding="W A S D" if key=='move' else (db.ui("MOUSE","鼠标") if key=='shoot' else OS.get_keycode_string(int(save.state.settings.bindings.get(key,input.DEFAULTS.get(key,KEY_SPACE)))))
+  if joystick:binding={'move':'L','shoot':'R / RT','boost':'LT','radar':'A','build':'B','run':'RT'}[key]
+  keys[key].text=binding
+  prompts[key].text=db.text({'move':'Tutorial_Move','shoot':'Tutorial_Shoot','boost':'Tutorial_Boost','radar':'Tutorial_Radar','build':'Tutorial_Build','run':'Tutorial_Run'}[key])
 func refresh_language():
  # Change existing labels in place so visible tips, tweens and counters survive.
  refresh_localized_labels(view.layouts['GameScene/Tutorial Canvas'])
+ refresh_bindings(joystick)
 func refresh_localized_labels(data:Dictionary):
  var activation:Dictionary=data.get('components',{}).get('LocalizationTextActivator',{})
  if not activation.is_empty() and view.labels.has(data.id):
