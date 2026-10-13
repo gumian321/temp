@@ -1,0 +1,19 @@
+{
+  "suites": [
+    {
+      "suite": "reward_cards",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 6.965,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "player_legs_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 13.697,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

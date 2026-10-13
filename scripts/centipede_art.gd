@@ -1,7 +1,8 @@
 extends RefCounted
-## Painted square shells plus separately pivoted mouth sprites and ink-drawn legs.
+## Painted square shells plus separately pivoted mouth sprites and generated articulated leg sprites.
 const Ink = preload("res://scripts/blue_ink.gd")
 const BODY_SIZE = Vector2(54, 54)
+const Legs=preload("res://scripts/centipede_legs.gd")
 static var pieces: Dictionary = {}
 
 static func prepare():
@@ -19,6 +20,11 @@ static func prepare():
 	tail.region = Rect2(1120,140,300,830)
 	tail.filter_clip = true
 	pieces.tail = tail
+	var links:Texture2D=load("res://assets/blue_ink/centipede_leg_links.png")
+	for key in ["upper_leg","lower_leg"]:
+		var link=AtlasTexture.new();link.atlas=links
+		link.region=Rect2(44,150,1230,310) if key=="upper_leg" else Rect2(20,575,1495,405)
+		link.filter_clip=true;pieces[key]=link
 
 static func outline(canvas: CanvasItem, points: PackedVector2Array, color: Color, width: float):
 	canvas.draw_polyline(points, color, width, true)
@@ -26,7 +32,7 @@ static func outline(canvas: CanvasItem, points: PackedVector2Array, color: Color
 static func jaw_angle(clock: float, activity: float, side: int) -> float:
 	return side * (0.10 + (0.5 + 0.5 * sin(clock * lerpf(3.5, 19.0, activity))) * lerpf(0.13, 0.42, activity))
 
-static func segment(canvas: CanvasItem, at: Vector2, angle: float, scale_factor: float, phase: float, head: bool = false, empty: bool = false, selected: bool = false, activity: float = 0.0, clock: float = -1.0):
+static func segment(canvas: CanvasItem, at: Vector2, angle: float, scale_factor: float, phase: float, head: bool = false, empty: bool = false, selected: bool = false, activity: float = 0.0, clock: float = -1.0, leg_poses:Array=[]):
 	prepare()
 	canvas.draw_set_transform(at, angle, Vector2.ONE * scale_factor)
 	if head:
@@ -43,12 +49,10 @@ static func segment(canvas: CanvasItem, at: Vector2, angle: float, scale_factor:
 			var rect = Rect2(-3,-8,34,23) if side == -1 else Rect2(-4,-14,34,23)
 			canvas.draw_texture_rect(pieces.upper_jaw if side == -1 else pieces.lower_jaw, rect, false)
 	else:
-		for side in [-1, 1]:
-			for pair in [-1, 1]:
-				var stride = sin(phase+pair*0.65+(PI if side==1 else 0.0))*6.0
-				var leg = PackedVector2Array([Vector2(pair*12,side*19),Vector2(pair*13-3+stride,side*29),Vector2(pair*12-10+stride,side*38),Vector2(pair*12-21+stride,side*45),Vector2(pair*12-27+stride,side*42)])
-				outline(canvas,leg,Ink.INK,4.0)
-				outline(canvas,leg,Ink.PAPER,1.25)
+		for leg in (Legs.resting(phase) if leg_poses.is_empty() else leg_poses):
+			draw_link(canvas,at,angle,scale_factor,leg.root,leg.knee,leg.side,true)
+			draw_link(canvas,at,angle,scale_factor,leg.knee,leg.foot,leg.side,false)
+		canvas.draw_set_transform(at,angle,Vector2.ONE*scale_factor)
 		canvas.draw_texture_rect(pieces.body,Rect2(-BODY_SIZE/2,BODY_SIZE),false)
 		if empty:
 			canvas.draw_line(Vector2(-5,0),Vector2(5,0),Ink.PAPER,1.3,true)
@@ -61,3 +65,15 @@ static func tail(canvas: CanvasItem, at: Vector2, angle: float, scale_factor: fl
 	canvas.draw_set_transform(at,angle+PI/2,Vector2.ONE*scale_factor)
 	canvas.draw_texture_rect(pieces.tail,Rect2(-14,-15,28,63),false)
 	canvas.draw_set_transform(Vector2.ZERO)
+
+static func draw_link(canvas:CanvasItem,at:Vector2,angle:float,scale_factor:float,start:Vector2,end:Vector2,side:int,upper:bool):
+	var pivot=at+start.rotated(angle)*scale_factor
+	# Atlas pivots measured on the untouched image. Align the painted claw tip,
+	# rather than the bounding box, with the planted foot solved by the rig.
+	var source_start=Vector2(101,140) if upper else Vector2(92,115)
+	var source_end=Vector2(1154,185) if upper else Vector2(1460,365)
+	var source_axis=source_end-source_start
+	var factor=start.distance_to(end)/source_axis.length()*scale_factor
+	canvas.draw_set_transform(pivot,angle+(end-start).angle()-side*source_axis.angle(),Vector2(factor,side*factor))
+	var texture:Texture2D=pieces.upper_leg if upper else pieces.lower_leg
+	canvas.draw_texture_rect(texture,Rect2(-source_start,texture.get_size()),false)

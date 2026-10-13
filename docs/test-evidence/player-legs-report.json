@@ -1,0 +1,85 @@
+{
+	"checks": [
+		{
+			"name": "Generated atlas is loaded at original resolution",
+			"passed": true
+		},
+		{
+			"name": "Generated links have real transparent margins",
+			"passed": true
+		},
+		{
+			"name": "Leg animation leaves player simulation unchanged at 30 FPS",
+			"passed": true
+		},
+		{
+			"name": "Planted feet do not slide at 30 FPS",
+			"passed": true
+		},
+		{
+			"name": "Two-link limb lengths remain fixed at 30 FPS",
+			"passed": true
+		},
+		{
+			"name": "Idle legs settle and stop stepping at 30 FPS",
+			"passed": true
+		},
+		{
+			"name": "Leg animation leaves player simulation unchanged at 60 FPS",
+			"passed": true
+		},
+		{
+			"name": "Planted feet do not slide at 60 FPS",
+			"passed": true
+		},
+		{
+			"name": "Two-link limb lengths remain fixed at 60 FPS",
+			"passed": true
+		},
+		{
+			"name": "Idle legs settle and stop stepping at 60 FPS",
+			"passed": true
+		},
+		{
+			"name": "Leg animation leaves player simulation unchanged at 120 FPS",
+			"passed": true
+		},
+		{
+			"name": "Planted feet do not slide at 120 FPS",
+			"passed": true
+		},
+		{
+			"name": "Two-link limb lengths remain fixed at 120 FPS",
+			"passed": true
+		},
+		{
+			"name": "Idle legs settle and stop stepping at 120 FPS",
+			"passed": true
+		},
+		{
+			"name": "Left and right knees mirror correctly",
+			"passed": true
+		}
+	],
+	"measurements": [
+		{
+			"fps": 30,
+			"max_joint_error": 0.00000762939453125,
+			"max_slip": 0.0,
+			"stance_samples": 2059
+		},
+		{
+			"fps": 60,
+			"max_joint_error": 0.0000095367431640625,
+			"max_slip": 0.0,
+			"stance_samples": 4207
+		},
+		{
+			"fps": 120,
+			"max_joint_error": 0.0000095367431640625,
+			"max_slip": 0.0,
+			"stance_samples": 8521
+		}
+	],
+	"passed": true
+}

@@ -37,6 +37,7 @@ var music: AudioStreamPlayer
 var test_mode = false
 var test_time = 0.0
 var leg_phase = 0.0
+var player_legs=preload("res://scripts/centipede_legs.gd").new()
 var capture_stage = 0
 const InputSystem=preload("res://scripts/input_system.gd")
 var controls
@@ -351,7 +352,7 @@ func start_run():
 	if particle_effects!=null:particle_effects.clear()
 	if tutorials!=null:tutorials.reset_run()
 	player = Body.new(db)
-	leg_phase=0.0
+	leg_phase=0.0;player_legs.reset()
 	build_selected_segment=1
 	combat = Battle.new(db, player)
 	run = Run.new(db, save, player, combat, selected_mission, difficulty)
@@ -638,6 +639,7 @@ func _process(dt: float):
 		var measured=Time.get_ticks_usec()
 		player.step(dt, dir, Input.is_action_pressed("boost"))
 		leg_phase+=player.velocity.length()*dt*0.075
+		player_legs.step(player,dt)
 		profile_mark("body",measured);measured=Time.get_ticks_usec()
 		# Confirmed heavy hits briefly hold combat motion; steering and UI remain
 		# responsive and repeated volleys cannot chain the hold indefinitely.
@@ -877,7 +879,7 @@ func _draw():
 			var pose:Dictionary=player.segment_pose(segment)
 			var previous:Dictionary=player.segment_pose(segment-1)
 			draw_line(world(pose.point),world(previous.point),Color("173b70"),22*zoom,true)
-			CentipedeArt.segment(self,world(pose.point),Vector2(pose.direction).angle(),zoom,leg_phase-segment*0.8,false,player.parts_on_segment(segment).is_empty())
+			CentipedeArt.segment(self,world(pose.point),Vector2(pose.direction).angle(),zoom,leg_phase-segment*0.8,false,player.parts_on_segment(segment).is_empty(),false,0,-1,player_legs.poses(segment))
 		CentipedeArt.segment(self,world(player.head),player.facing.angle(),zoom,leg_phase,true,false,false,mouth_activity,test_time)
 		for i in range(player.parts.size()-1,-1,-1):
 			var p:Dictionary=player.parts[i]

@@ -1,0 +1,795 @@
+{
+	"captures": [
+		"res://artifacts/reward-cards-1280x720.png",
+		"res://artifacts/reward-cards-1440x900.png",
+		"res://artifacts/reward-cards-1920x1080.png",
+		"res://artifacts/reward-cards-english.png"
+	],
+	"checks": [
+		{
+			"name": "Use real source rewards with three rarity levels",
+			"passed": true
+		},
+		{
+			"name": "Panel inside viewport: 1280x720",
+			"passed": true
+		},
+		{
+			"name": "Panel centred: 1280x720",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: 1280x7200",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1280x72000",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1280x72001",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1280x72002",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1280x72003",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1280x72004",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1280x72005",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: 1280x7200",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: 1280x7201",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1280x72010",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1280x72011",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1280x72012",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1280x72013",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1280x72014",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1280x72015",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: 1280x7201",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: 1280x7202",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1280x72020",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1280x72021",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1280x72022",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1280x72023",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1280x72024",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1280x72025",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: 1280x7202",
+			"passed": true
+		},
+		{
+			"name": "Footer accessible: 1280x720",
+			"passed": true
+		},
+		{
+			"name": "Capture 1280x720",
+			"passed": true
+		},
+		{
+			"name": "Panel inside viewport: 1440x900",
+			"passed": true
+		},
+		{
+			"name": "Panel centred: 1440x900",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: 1440x9000",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1440x90000",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1440x90001",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1440x90002",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1440x90003",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1440x90004",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1440x90005",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: 1440x9000",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: 1440x9001",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1440x90010",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1440x90011",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1440x90012",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1440x90013",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1440x90014",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1440x90015",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: 1440x9001",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: 1440x9002",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1440x90020",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1440x90021",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1440x90022",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1440x90023",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1440x90024",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1440x90025",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: 1440x9002",
+			"passed": true
+		},
+		{
+			"name": "Footer accessible: 1440x900",
+			"passed": true
+		},
+		{
+			"name": "Capture 1440x900",
+			"passed": true
+		},
+		{
+			"name": "Panel inside viewport: 1920x1080",
+			"passed": true
+		},
+		{
+			"name": "Panel centred: 1920x1080",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: 1920x10800",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1920x108000",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1920x108001",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1920x108002",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1920x108003",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1920x108004",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1920x108005",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: 1920x10800",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: 1920x10801",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1920x108010",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1920x108011",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1920x108012",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1920x108013",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1920x108014",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1920x108015",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: 1920x10801",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: 1920x10802",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1920x108020",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1920x108021",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1920x108022",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1920x108023",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1920x108024",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: 1920x108025",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: 1920x10802",
+			"passed": true
+		},
+		{
+			"name": "Footer accessible: 1920x1080",
+			"passed": true
+		},
+		{
+			"name": "Capture 1920x1080",
+			"passed": true
+		},
+		{
+			"name": "Panel inside viewport: scaled-(1280, 720)",
+			"passed": true
+		},
+		{
+			"name": "Panel centred: scaled-(1280, 720)",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: scaled-(1280, 720)0",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1280, 720)00",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1280, 720)01",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1280, 720)02",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1280, 720)03",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1280, 720)04",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1280, 720)05",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: scaled-(1280, 720)0",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: scaled-(1280, 720)1",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1280, 720)10",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1280, 720)11",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1280, 720)12",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1280, 720)13",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1280, 720)14",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1280, 720)15",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: scaled-(1280, 720)1",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: scaled-(1280, 720)2",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1280, 720)20",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1280, 720)21",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1280, 720)22",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1280, 720)23",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1280, 720)24",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1280, 720)25",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: scaled-(1280, 720)2",
+			"passed": true
+		},
+		{
+			"name": "Footer accessible: scaled-(1280, 720)",
+			"passed": true
+		},
+		{
+			"name": "Panel inside viewport: scaled-(1920, 1080)",
+			"passed": true
+		},
+		{
+			"name": "Panel centred: scaled-(1920, 1080)",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: scaled-(1920, 1080)0",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1920, 1080)00",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1920, 1080)01",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1920, 1080)02",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1920, 1080)03",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1920, 1080)04",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1920, 1080)05",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: scaled-(1920, 1080)0",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: scaled-(1920, 1080)1",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1920, 1080)10",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1920, 1080)11",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1920, 1080)12",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1920, 1080)13",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1920, 1080)14",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1920, 1080)15",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: scaled-(1920, 1080)1",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: scaled-(1920, 1080)2",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1920, 1080)20",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1920, 1080)21",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1920, 1080)22",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1920, 1080)23",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1920, 1080)24",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: scaled-(1920, 1080)25",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: scaled-(1920, 1080)2",
+			"passed": true
+		},
+		{
+			"name": "Footer accessible: scaled-(1920, 1080)",
+			"passed": true
+		},
+		{
+			"name": "Panel inside viewport: English",
+			"passed": true
+		},
+		{
+			"name": "Panel centred: English",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: English0",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: English00",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: English01",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: English02",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: English03",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: English04",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: English05",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: English0",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: English1",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: English10",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: English11",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: English12",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: English13",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: English14",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: English15",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: English1",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: English2",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: English20",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: English21",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: English22",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: English23",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: English24",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: English25",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: English2",
+			"passed": true
+		},
+		{
+			"name": "Footer accessible: English",
+			"passed": true
+		},
+		{
+			"name": "Capture english",
+			"passed": true
+		},
+		{
+			"name": "Panel inside viewport: long-titles",
+			"passed": true
+		},
+		{
+			"name": "Panel centred: long-titles",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: long-titles0",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: long-titles00",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: long-titles01",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: long-titles02",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: long-titles03",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: long-titles04",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: long-titles05",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: long-titles0",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: long-titles1",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: long-titles10",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: long-titles11",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: long-titles12",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: long-titles13",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: long-titles14",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: long-titles15",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: long-titles1",
+			"passed": true
+		},
+		{
+			"name": "Card inside panel: long-titles2",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: long-titles20",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: long-titles21",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: long-titles22",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: long-titles23",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: long-titles24",
+			"passed": true
+		},
+		{
+			"name": "Card content inside card: long-titles25",
+			"passed": true
+		},
+		{
+			"name": "Effect text exists: long-titles2",
+			"passed": true
+		},
+		{
+			"name": "Footer accessible: long-titles",
+			"passed": true
+		},
+		{
+			"name": "Full effect is available as tooltip",
+			"passed": true
+		},
+		{
+			"name": "Redesigned card click enters placement exactly once",
+			"passed": true
+		}
+	],
+	"passed": true
+}

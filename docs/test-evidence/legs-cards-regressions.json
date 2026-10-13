@@ -1,0 +1,33 @@
+{
+  "suites": [
+    {
+      "suite": "player_legs",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.853,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_flow",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 5.936,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_motion",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.75,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 5.152,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

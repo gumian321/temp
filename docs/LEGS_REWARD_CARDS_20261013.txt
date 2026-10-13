@@ -1,0 +1,42 @@
+Generated player legs and reward-card visuals — 2026-10-13
+Base: f99d1571684e88fcece5c76bc66fa67ec37d3f45 (already pushed).
+These follow-up changes are LOCAL ONLY pending user acceptance/authorization.
+
+Leg asset and integration
+Official OpenAI image_gen.imagegen generated a transparent RGBA PNG with separate
+upper and distal/claw links. Original PNG copied without pixel edits. Generator,
+source file and SHA-256 are recorded in assets/blue_ink/centipede-leg-generation.json.
+Godot AtlasTexture selects links; native mipmaps prevent broken small-scale lines.
+Measured hip/knee/claw pivots align actual painted joints with a two-link IK rig.
+The body hides hip attachment; left/right links are mirrored; adjacent legs have
+staggered phases driven by actual segment travel. Stance feet stay in world space.
+Swing and controlled replant handle turns; idle stops stepping. Head antennae,
+player physics, collision, speed and gameplay data are unchanged.
+
+Reward cards
+Three equal horizontal paper cards with thin blue borders, icon, source reward
+name/effect, rarity and select/place or immediate-effect caption. Muted rarity
+accents; visible keyboard/controller focus and disabled states. Source effects
+and numbers retained; long effects are bounded and available in full on hover.
+Existing automatic popup, queue, duplicate-click guard, placement, postpone and
+explicit recycling remain unchanged. No eggs/hatching design or copied game art.
+
+Verification
+- Default 30 regression suites: all pass, isolated user data.
+- Player leg model: 15 checks at 30/60/120 FPS. Planted-foot slip 0 in tested
+  stance samples; maximum IK link-length error under 0.00001 world units.
+- Real player-leg scene: 13 checks; straight, turning, boost, stop, build preview.
+- Reward cards: 196 checks; real 1280x720, 1440x900, 1920x1080 and original
+  project scaling; English, long source titles, layout, mouse placement once.
+- Existing reward-flow and construction tests pass with redesigned cards.
+- Real Godot software-rendered screenshots and 4-second 15 FPS animation preview.
+
+Initial test issues were corrected: editor data path permissions fixed by using
+workspace XDG paths; a new test's shared fixture array was cleared by reward
+consumption, fixed with duplicate fixtures. Final runs are clean.
+
+Evidence: docs/test-evidence/legs-cards-* and player-legs*/reward-cards reports.
+No new push, PR or Release for these changes. No Library upload attempted because
+previous official upload access was denied and retry was prohibited. Local
+archives are available, but no new Library IDs. Existing full-Unity-parity and
+online/platform/hardware limitations remain as documented in FEATURE_PARITY.md.
