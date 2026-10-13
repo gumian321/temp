@@ -36,7 +36,7 @@ func execute():
 	await click_at(game.build_ui.inventory[0].get_global_rect().get_center())
 	await click_at(game.build_ui.tail_target.get_global_rect().get_center());await settle()
 	check(game.player.pending.is_empty() and game.player.segment_count()==4,"Click placement also adds one complete segment")
-	check("每节一个元素" in visible_text(game.panel),"The new assembly screen explains the one-element rule")
+	check("1 元素 = 1 体节" in visible_text(game.panel),"The assembly screen communicates one element per segment with a compact equation")
 	await capture("chain-03-assembly")
 	game.player.actions.move=0;game.player.actions.swap=0
 	var repair:Dictionary=game.player.parts[game.player.part_at(4)]

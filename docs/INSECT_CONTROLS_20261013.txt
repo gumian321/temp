@@ -1,0 +1,66 @@
+Insect control mechanics — 2026-10-13
+
+Scope and compatibility
+The original core/turret IDs, source damage, shield damage, projectile collision,
+chain targeting and save keys are unchanged. Controls are selected by source
+turret identity, independently of cosmetic family labels. Shrapnel does not
+inherit a parent's silk/pull effect. Tesla's existing chain can control multiple
+eligible targets within the same global limit.
+
+Silk (Turret_Gun_EMP / 缄鸣)
+An unshielded hit applies 65% movement reduction for 0.8 seconds to an eligible
+opposing actor. The actor's weapons continue firing. This replaces that tagged
+EMP projectile's previous actor stun. Player segment targeting still uses the
+existing EMP gun-stun behavior; this change does not deform player body topology.
+The slowdown scales actual AI displacement, including patrol/follow movement,
+with fractional-frame expiry, rather than only changing visual animation.
+
+Tendril (Turret_Gun_Tesla / 雷须)
+After an unshielded hit, an eligible actor is pulled toward the live firing organ
+at up to 200 pixels/second for 0.32 seconds, with a cumulative 64-pixel limit.
+Pull ends outside max(48 pixels, target radius + 24 pixels) of the source.
+Normal AI motion continues; damage, chain count and shield interception remain.
+No impulse, rigid-body simulation or player-body relocation is involved.
+
+Bounds and resistance
+- At most 32 active controls globally, and one control per target across both types.
+- Repeated hits cannot refresh or stack active controls.
+- A target gets a 0.9-second recovery window after its original control expiry.
+- Ordinary swarming/following/patrol/trader actors may be affected. Bosses, boss
+  parts, stations, objects, attached actors, mission-controlled actors and actors
+  with source canBeStunned=false are immune. Damage still follows original rules.
+- Wrong-team, dead, warping and despawning targets cannot receive controls.
+- Shield interception occurs before hull damage and before either control.
+- Caps skip only control application, not the original damage/hit processing.
+
+Ownership, resets and lifecycle
+combat.insect_controls exposes the live array for rendering. Each record has
+kind (silk/tendril), target (live Dictionary), origin, life, duration, friendly,
+serial, remaining_pull, source_key and source_token. Rendering must not mutate it.
+Actor-side state stores only serial/timestamps, avoiding actor/control cycles.
+Source keys are player:<index> or enemy:<uid>:<gun index>. Player identity uses a
+stable runtime source_token, so rearranging part indices does not reattach the
+rope to a different organ. Tokens survive reuse of a body with a fresh Combat;
+the allocator starts above existing tokens. Enemy origins include gun offsets.
+The live origin follows the source, while total pull distance remains capped.
+Dead/removed source organs, dead/removed/warping targets and target faction
+changes release controls. Source actor faction changes also release controls.
+Anonymous direct fire calls without a source key retain their launch-point origin.
+Controls and elapsed recovery clocks belong to one Combat instance and disappear
+with battle replacement; no gameplay IDs or saved control statuses are introduced.
+All lifetime/displacement integration uses delta time and clamps expiry portions;
+large deltas cannot overrun pull distance or leave a permanent control.
+
+Visual state
+Player parts and enemy guns expose organ_pulse, set to 0.18 seconds on firing
+(including continuous fire) and decayed with simulation delta. It has no combat
+meaning. The visual layer consumes this and the live controls separately.
+
+Verification
+43 assertions in tests/test_insect_controls.gd cover real EMP/Tesla firing,
+actual AI slowdown, continued enemy gunfire while bound, actual pull displacement,
+30/60/120Hz expiry, large deltas, contact spacing, ownership, boss/source immunity,
+shield interception, global/per-target caps, recovery/rebind, source reordering
+and removal, death, warp and despawn cleanup. Tests run through tools/run_checks.py
+with independently verified isolated user data. Existing weapon_feedback,
+regressions, specials, drones, enemy_drones and shields suites also passed.

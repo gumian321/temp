@@ -23,8 +23,8 @@ func execute():
 	for v in db.catalog.values():
 		if not str(v.name).begins_with("Turret_Gun_"):continue
 		var sprite=db.sprite(v.turretSprite)
-		check(sprite is AtlasTexture and "/brood/" in sprite.atlas.resource_path,"Generated weapon: "+v.name)
-		paths[sprite.atlas.resource_path]=true
+		check(sprite is AtlasTexture and "armaments_atlas_" in sprite.atlas.resource_path,"Generated weapon: "+v.name)
+		paths[sprite.atlas.resource_path+str(sprite.region)]=true
 	check(paths.size()==12,"All twelve ranged weapon families have distinct new art")
 	for species in Brood.SPECIES:
 		var e=specimen(species)

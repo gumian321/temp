@@ -11,6 +11,7 @@ var entities: Dictionary
 var prefab_transforms: Dictionary
 var scene_config: Dictionary
 var textures: Dictionary = {}
+const Armaments = preload("res://scripts/insect_armaments.gd")
 const DEFAULT_LANGUAGE = "Chinese (simplified)"
 var language = DEFAULT_LANGUAGE
 var chinese_ui: Dictionary
@@ -33,6 +34,7 @@ func _init():
 	chinese_ui = read_json("chinese_ui")
 	for key in chinese_ui.localization:
 		if localization.has(key):localization[key][DEFAULT_LANGUAGE] = chinese_ui.localization[key]
+	Armaments.install_names(self)
 	for key in localization:
 		english_keys[str(localization[key].get("English", ""))] = key
 	for value in catalog.values():
@@ -70,6 +72,7 @@ func language_name(value: String) -> String:
 	return {"English":"English", "Chinese (simplified)":"简体中文", "Chinese (traditional)":"繁體中文", "Russian":"Русский"}.get(value, value)
 
 func title(v: Dictionary) -> String:
+	if v.has("insect_variant"): return text(Armaments.entries()[v.insect_variant].key)
 	if v.has("coresList") and "LevelUp" in str(v.get("class","")):return text("PopUpText_LevelUp").replace("{0}",title(asset(v.coresList[0])))
 	if v.get("class")=="CrusedReward":return "%s +%d%%\n%s %d%%"%[text(v.buffRewardPopUpText),v.buffPercent*100,text(v.debuffRewardPopUpText),v.debuffPercent*100]
 	if v.get("class")=="CountBasicReward":return ("×%d "%int(v.rewardCount) if int(v.rewardCount)>1 else "")+text(v.rewardTextID)
@@ -90,6 +93,8 @@ func sprite(id) -> Texture2D:
 	id = str(id)
 	if not sprites.has(str(id)):
 		return null
+	if sprites[id].has("insect_variant"):
+		return Armaments.texture(str(sprites[id].insect_variant))
 	if not textures.has(id):
 		textures[id] = preload("res://scripts/brood_theme.gd").texture(str(sprites[id].path).get_file().get_basename()) if sprites[id].get("brood",false) else load(sprites[id].path)
 	return textures[id]
@@ -123,8 +128,17 @@ func range_units(value) -> float:
 	return [5.0, 9.0, 12.0, 15.0, 20.0, 7.0][clampi(int(value), 0, 5)]
 
 func reward_sprite(reward:Dictionary)->Texture2D:
+	var variant = armament_variant(reward)
+	if not variant.is_empty(): return Armaments.texture(variant)
 	for field in ["blockCore","core","turretCore"]:
 		if reward.get(field) is String:return core_sprite(asset(reward[field]))
 	if reward.has("coresList") and not reward.coresList.is_empty():return core_sprite(asset(reward.coresList[0]))
 	if reward.has("drone"):return sprite(asset(reward.drone).get("droneSprite",""))
 	return sprite(reward.get("rewardSprite",""))
+
+func armament_variant(value: Dictionary) -> String:
+	return Armaments.variant(self, value)
+
+func armament_description(value: Dictionary) -> String:
+	var variant = armament_variant(value)
+	return text(Armaments.entries()[variant].key + "_Desc") if not variant.is_empty() else ""

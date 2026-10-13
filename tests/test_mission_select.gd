@@ -41,7 +41,7 @@ func execute():
  game.set_process(false);game.save.fresh();game.save.state.settings.skip_boss=true;game.test_mode=true
  game.show_missions();await settle()
  check(game.mission_ui.rows.size()==6,"All six source missions present")
- check(game.mission_ui.difficulty_buttons[0].get_theme_color("font_hover_pressed_color")==Color("173b70"),"Selected difficulty remains dark and readable while hovered")
+ check(game.mission_ui.difficulty_buttons[0].get_theme_color("font_hover_pressed_color")==preload("res://scripts/game_ui.gd").TEAL,"Selected difficulty retains high-contrast teal while hovered")
  check(root.gui_get_focus_owner()==game.mission_ui.rows[0],"Initial focus follows selected mission")
  for size_value in [Vector2i(1440,900),Vector2i(1280,720),Vector2i(1920,1080),Vector2i(1100,820),Vector2i(1440,900)]:
   root.size=size_value;await settle()

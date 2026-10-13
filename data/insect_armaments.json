@@ -1,0 +1,722 @@
+{
+  "gatling": {
+    "key": "Part_Gatling",
+    "zh": "蜂尾针簇",
+    "en": "Stinger Cluster",
+    "description_zh": "密集尾针连续射击，适合持续压制。",
+    "description_en": "Rapidly fires a stream of small stingers.",
+    "turrets": [
+      "Turret_Gun_Gatling"
+    ],
+    "atlas": "a",
+    "cell": 0,
+    "region": [
+      74,
+      6,
+      296,
+      383
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "shotgun": {
+    "key": "Part_Shotgun",
+    "zh": "裂颚",
+    "en": "Fan Mandible",
+    "description_zh": "张开的虫颚一次喷出扇形弹群。",
+    "description_en": "Open mandibles release a fan of pellets.",
+    "turrets": [
+      "Turret_Gun_Shotgun"
+    ],
+    "atlas": "a",
+    "cell": 1,
+    "region": [
+      437,
+      5,
+      380,
+      389
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "cannon": {
+    "key": "Part_Cannon",
+    "zh": "爆腹",
+    "en": "Bombardier Sac",
+    "description_zh": "鼓胀腹囊抛出爆裂弹，造成范围伤害。",
+    "description_en": "A swollen sac launches explosive shots that damage an area.",
+    "turrets": [
+      "Turret_Gun_Cannon"
+    ],
+    "atlas": "a",
+    "cell": 2,
+    "region": [
+      894,
+      13,
+      316,
+      385
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "flak": {
+    "key": "Part_Flak",
+    "zh": "刺冠",
+    "en": "Thorn Crown",
+    "description_zh": "放射刺冠发射密集弹簇，覆盖多个目标。",
+    "description_en": "A radial thorn crown fires clusters across multiple targets.",
+    "turrets": [
+      "Turret_Gun_Flak"
+    ],
+    "atlas": "a",
+    "cell": 3,
+    "region": [
+      29,
+      404,
+      377,
+      396
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "sniper": {
+    "key": "Part_Sniper",
+    "zh": "穿喙",
+    "en": "Piercing Proboscis",
+    "description_zh": "细长虫喙发射远距离高伤光束。",
+    "description_en": "An elongated proboscis fires a powerful long-range beam.",
+    "turrets": [
+      "Turret_Gun_Sniper"
+    ],
+    "atlas": "a",
+    "cell": 4,
+    "region": [
+      542,
+      402,
+      170,
+      396
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "tesla": {
+    "key": "Part_Tesla",
+    "zh": "雷须",
+    "en": "Storm Antennae",
+    "description_zh": "触须释放连锁电击，并将无护盾的普通移动敌人短暂拉向发射器官。牵引不可叠加，首领与特殊目标免疫。",
+    "description_en": "Tendrils release chained shocks and briefly pull unshielded ordinary mobile enemies toward the firing organ. Pulls do not stack; bosses and special targets are immune.",
+    "turrets": [
+      "Turret_Gun_Tesla"
+    ],
+    "atlas": "a",
+    "cell": 5,
+    "region": [
+      868,
+      422,
+      359,
+      378
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "emp": {
+    "key": "Part_EMP",
+    "zh": "缄鸣",
+    "en": "Silence Tymbal",
+    "description_zh": "丝束命中无护盾的普通移动敌人时减速 65%，持续 0.8 秒，不中断射击。控制不可叠加，首领与特殊目标免疫。",
+    "description_en": "Silk slows unshielded ordinary mobile enemies by 65% for 0.8 seconds without stopping their guns. Control does not stack; bosses and special targets are immune.",
+    "turrets": [
+      "Turret_Gun_EMP"
+    ],
+    "atlas": "a",
+    "cell": 6,
+    "region": [
+      19,
+      810,
+      399,
+      401
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "flame": {
+    "key": "Part_FlameThrower",
+    "zh": "炽嗉",
+    "en": "Cinder Throat",
+    "description_zh": "灼热嗉囊持续喷吐火焰，绕过护盾。",
+    "description_en": "A heated throat continuously breathes flame that bypasses shields.",
+    "turrets": [
+      "Turret_Gun_FlameThrower"
+    ],
+    "atlas": "a",
+    "cell": 7,
+    "region": [
+      448,
+      814,
+      358,
+      397
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "rocket": {
+    "key": "Part_Rocket",
+    "zh": "追蛹",
+    "en": "Homing Brood",
+    "description_zh": "幼蛹荚连续发射追踪弹。",
+    "description_en": "Larval pods release a barrage of homing projectiles.",
+    "turrets": [
+      "Turret_Gun_Rocket",
+      "Turret_Gun_Rocket_AI"
+    ],
+    "atlas": "a",
+    "cell": 8,
+    "region": [
+      864,
+      811,
+      365,
+      414
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "nuke": {
+    "key": "Part_Nuke",
+    "zh": "王卵",
+    "en": "Queen Egg",
+    "description_zh": "厚壳王卵释放重型爆裂弹，造成大范围高伤害。",
+    "description_en": "A thick queen egg releases a heavy projectile with high area damage.",
+    "turrets": [
+      "Turret_Gun_Nuke"
+    ],
+    "atlas": "b",
+    "cell": 0,
+    "region": [
+      46,
+      27,
+      340,
+      391
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "sonic": {
+    "key": "Part_Sonic",
+    "zh": "振翅",
+    "en": "Resonant Wings",
+    "description_zh": "扇形翅膜发出冲击波，伤害并推开敌人。",
+    "description_en": "Fan-shaped wings emit a wave that damages and pushes enemies away.",
+    "turrets": [
+      "Turret_Gun_SonicWave"
+    ],
+    "atlas": "b",
+    "cell": 1,
+    "region": [
+      395,
+      110,
+      465,
+      262
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "blackhole": {
+    "key": "Part_BlackHole",
+    "zh": "螳涡",
+    "en": "Mantis Vortex",
+    "description_zh": "弯曲螳爪围出涡心，发射吸引并伤害敌人的引力场。",
+    "description_en": "Curved mantis claws launch a gravity field that pulls and damages enemies.",
+    "turrets": [
+      "Turret_Gun_Black Holer"
+    ],
+    "atlas": "b",
+    "cell": 2,
+    "region": [
+      880,
+      86,
+      342,
+      333
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "mine": {
+    "key": "Part_Mines",
+    "zh": "卵环",
+    "en": "Egg Ring",
+    "description_zh": "在体节周围布置环形爆卵阵。",
+    "description_en": "Creates a field of explosive eggs around the segment.",
+    "turrets": [
+      "Turret_Mines"
+    ],
+    "atlas": "b",
+    "cell": 3,
+    "region": [
+      48,
+      450,
+      329,
+      348
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "mine_spawner": {
+    "key": "Part_MinesSpawner",
+    "zh": "播卵",
+    "en": "Ovipositor",
+    "description_zh": "长产卵器持续向外释放爆卵。",
+    "description_en": "An elongated ovipositor releases waves of free-moving explosive eggs.",
+    "turrets": [
+      "Turret_Mines Spawner"
+    ],
+    "atlas": "b",
+    "cell": 4,
+    "region": [
+      517,
+      409,
+      221,
+      409
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "drone_bay": {
+    "key": "Insect_HunterHive",
+    "zh": "猎蜂巢",
+    "en": "Hunter Hive",
+    "description_zh": "孵出猎蜂，向附近敌人射击。",
+    "description_en": "Houses hunter wasps that fire at nearby enemies.",
+    "turrets": [
+      "Turret_Drones_Attack",
+      "Turret_Drones_Attack_AI"
+    ],
+    "atlas": "b",
+    "cell": 5,
+    "region": [
+      868,
+      434,
+      363,
+      377
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "repair_bay": {
+    "key": "Insect_MenderNest",
+    "zh": "缝蚁巢",
+    "en": "Mender Nest",
+    "description_zh": "孵出缝蚁，为受损体节提供修复。",
+    "description_en": "Houses mender ants that repair damaged segments.",
+    "turrets": [
+      "Turret_Drones_Engineer"
+    ],
+    "atlas": "b",
+    "cell": 6,
+    "region": [
+      36,
+      823,
+      357,
+      377
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "scrap_bay": {
+    "key": "Insect_ForagerNest",
+    "zh": "拾蚁巢",
+    "en": "Forager Nest",
+    "description_zh": "孵出拾蚁，收集附近散落资源。",
+    "description_en": "Houses forager ants that collect nearby scrap.",
+    "turrets": [
+      "Turret_Drones_Scrapper"
+    ],
+    "atlas": "b",
+    "cell": 7,
+    "region": [
+      443,
+      827,
+      369,
+      381
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "shield": {
+    "key": "Part_Shield",
+    "zh": "鞘盾",
+    "en": "Wing Shield",
+    "description_zh": "展开成对鞘翅，为周围体节生成护盾。",
+    "description_en": "Paired elytra generate a shield around nearby segments.",
+    "turrets": [
+      "Turret_Shield"
+    ],
+    "atlas": "b",
+    "cell": 8,
+    "region": [
+      877,
+      811,
+      347,
+      405
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "repair": {
+    "key": "Part_Repair",
+    "zh": "缝生蜱",
+    "en": "Mender Tick",
+    "description_zh": "共生虫器持续修复周围受损体节。",
+    "description_en": "A symbiotic organ repairs surrounding damaged segments.",
+    "turrets": [
+      "Turret_RepairTurret"
+    ],
+    "atlas": "c",
+    "cell": 0,
+    "region": [
+      78,
+      45,
+      283,
+      337
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "fuel": {
+    "key": "Part_Fuel",
+    "zh": "蜜囊",
+    "en": "Nectar Sac",
+    "description_zh": "储存并生成加速所需燃料。",
+    "description_en": "Stores and generates fuel for boosting.",
+    "turrets": [
+      "Turret_FuelTank"
+    ],
+    "atlas": "c",
+    "cell": 1,
+    "region": [
+      501,
+      28,
+      252,
+      371
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "cloak": {
+    "key": "Part_Clock",
+    "zh": "隐翅",
+    "en": "Veil Wings",
+    "description_zh": "遮蔽周围体节，使其不被敌人发现。",
+    "description_en": "Conceals surrounding segments from enemies.",
+    "turrets": [
+      "Turret_Clocking"
+    ],
+    "atlas": "c",
+    "cell": 2,
+    "region": [
+      856,
+      42,
+      352,
+      348
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "wall": {
+    "key": "Part_Wall",
+    "zh": "铁鞘",
+    "en": "Iron Elytra",
+    "description_zh": "厚重虫鞘承受伤害，保护其他体节。",
+    "description_en": "Heavy chitin absorbs damage and protects other segments.",
+    "turrets": [
+      "Turret_Wall"
+    ],
+    "atlas": "c",
+    "cell": 3,
+    "region": [
+      74,
+      436,
+      297,
+      345
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "pack": {
+    "key": "Part_PackCore",
+    "zh": "孵囊",
+    "en": "Hatch Sac",
+    "description_zh": "储存可获取新元素与升级的补给。",
+    "description_en": "Holds supplies for new elements and upgrades.",
+    "turrets": [
+      "Turret_PackCore"
+    ],
+    "atlas": "c",
+    "cell": 4,
+    "region": [
+      478,
+      450,
+      299,
+      340
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "mine_unit": {
+    "key": "Insect_BurstEgg",
+    "zh": "裂卵",
+    "en": "Burst Egg",
+    "description_zh": "部署后的爆卵，对接近目标造成爆炸伤害。",
+    "description_en": "A deployed explosive egg damages nearby targets.",
+    "turrets": [],
+    "atlas": "c",
+    "cell": 5,
+    "region": [
+      886,
+      441,
+      295,
+      335
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "drone_unit": {
+    "key": "Attack_Drones",
+    "zh": "猎蜂",
+    "en": "Hunter Wasp",
+    "description_zh": "飞向附近敌人并射击。",
+    "description_en": "Fires at nearby enemies.",
+    "turrets": [],
+    "atlas": "c",
+    "cell": 6,
+    "region": [
+      21,
+      802,
+      403,
+      407
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "repair_drone": {
+    "key": "Engineer_Drones",
+    "zh": "缝蚁",
+    "en": "Mender Ant",
+    "description_zh": "为受损体节提供修复。",
+    "description_en": "Repairs damaged segments.",
+    "turrets": [],
+    "atlas": "c",
+    "cell": 7,
+    "region": [
+      491,
+      803,
+      272,
+      403
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "scrap_drone": {
+    "key": "Scrapper_Drones",
+    "zh": "拾蚁",
+    "en": "Forager Ant",
+    "description_zh": "收集散落的资源。",
+    "description_en": "Collects scattered scrap.",
+    "turrets": [],
+    "atlas": "c",
+    "cell": 8,
+    "region": [
+      893,
+      801,
+      279,
+      407
+    ],
+    "sheet_size": [
+      1254,
+      1254
+    ]
+  },
+  "chip_shrapnel": {
+    "key": "Chip_Shrapnel",
+    "zh": "裂刺囊",
+    "en": "Splinter Sac",
+    "description_zh": "使弹体爆裂成细小碎刺。",
+    "description_en": "Causes projectiles to burst into small fragments.",
+    "turrets": [],
+    "atlas": "d",
+    "cell": 0,
+    "columns": 3,
+    "rows": 2,
+    "region": [
+      76,
+      34,
+      437,
+      461
+    ],
+    "sheet_size": [
+      1536,
+      1024
+    ]
+  },
+  "chip_exploding": {
+    "key": "Chip_Exploding",
+    "zh": "爆腺",
+    "en": "Blast Gland",
+    "description_zh": "使弹体命中后爆炸，对周围目标造成伤害。",
+    "description_en": "Makes projectiles explode and damage nearby targets.",
+    "turrets": [],
+    "atlas": "d",
+    "cell": 1,
+    "columns": 3,
+    "rows": 2,
+    "region": [
+      563,
+      57,
+      443,
+      423
+    ],
+    "sheet_size": [
+      1536,
+      1024
+    ]
+  },
+  "chip_piercing": {
+    "key": "Chip_Piercing",
+    "zh": "贯针",
+    "en": "Through-Stinger",
+    "description_zh": "使弹体穿透敌人。",
+    "description_en": "Allows projectiles to pierce through enemies.",
+    "turrets": [],
+    "atlas": "d",
+    "cell": 2,
+    "columns": 3,
+    "rows": 2,
+    "region": [
+      1145,
+      10,
+      233,
+      487
+    ],
+    "sheet_size": [
+      1536,
+      1024
+    ]
+  },
+  "chip_chain": {
+    "key": "Chip_Chain",
+    "zh": "跃电脉",
+    "en": "Leaping Nerve",
+    "description_zh": "使弹体在敌人之间跳跃。",
+    "description_en": "Allows projectiles to jump between enemies.",
+    "turrets": [],
+    "atlas": "d",
+    "cell": 3,
+    "columns": 3,
+    "rows": 2,
+    "region": [
+      149,
+      499,
+      297,
+      493
+    ],
+    "sheet_size": [
+      1536,
+      1024
+    ]
+  },
+  "chip_mammoth": {
+    "key": "Chip_Mammoth",
+    "zh": "巨腹",
+    "en": "Giant Abdomen",
+    "description_zh": "增大弹体、伤害及伤害范围。",
+    "description_en": "Increases projectile size, damage and damage area.",
+    "turrets": [],
+    "atlas": "d",
+    "cell": 4,
+    "columns": 3,
+    "rows": 2,
+    "region": [
+      556,
+      507,
+      452,
+      478
+    ],
+    "sheet_size": [
+      1536,
+      1024
+    ]
+  },
+  "chip_control": {
+    "key": "Chip_HQ",
+    "zh": "统御触角",
+    "en": "Command Antennae",
+    "description_zh": "允许手动瞄准前后相邻体节上的武装。",
+    "description_en": "Allows manual aiming for weapons on adjacent segments.",
+    "turrets": [],
+    "atlas": "d",
+    "cell": 5,
+    "columns": 3,
+    "rows": 2,
+    "region": [
+      1057,
+      507,
+      401,
+      483
+    ],
+    "sheet_size": [
+      1536,
+      1024
+    ]
+  }
+}

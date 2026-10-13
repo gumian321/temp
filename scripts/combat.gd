@@ -3,9 +3,13 @@ extends RefCounted
 const SpecialSystems = preload("res://scripts/special_systems.gd")
 const SoftInsect = preload("res://scripts/soft_insect.gd")
 const Feedback = preload("res://scripts/weapon_feedback.gd")
+const InsectControls = preload("res://scripts/insect_controls.gd")
+var insect_control_system = InsectControls.new()
+var insect_controls: Array = insect_control_system.active
 const SegmentFeedback = preload("res://scripts/segment_feedback.gd")
 var segment_sound_cooldown = 0.0
 var shot_serial = 0
+var next_control_source_token = 1
 var special
 var barrages: Array = []
 var db
@@ -40,6 +44,8 @@ var mission_target = Vector2.ZERO
 func _init(source, centipede):
 	db = source
 	player = centipede
+	for part in player.parts:
+		next_control_source_token=maxi(next_control_source_token,int(part.get("insect_source_token",0))+1)
 	rng.seed = 20261012
 	loot_rng.seed=20321
 	special = SpecialSystems.new(self)
@@ -206,11 +212,20 @@ func target_for(core: Dictionary, at: Vector2, reach: float) -> Dictionary:
 		if (value>best if radar in ["BiggestTargetRadarConfiguration","FurthestRadarConfiguration"] else value<best):best=value;result=e
 	return result
 
-func fire(core: Dictionary, at: Vector2, direction: Vector2, friendly: bool, chips: Dictionary = {}, damage_boost: float = 0.0, single: bool = false, barrel_index: int = 0, visual_scale: float = 1.0):
+func fire(core: Dictionary, at: Vector2, direction: Vector2, friendly: bool, chips: Dictionary = {}, damage_boost: float = 0.0, single: bool = false, barrel_index: int = 0, visual_scale: float = 1.0, control_source: String = ""):
 	var sound = db.asset(core.get("coreTurret", "")).get("fireAudioClipType",0)
 	var projectile: Dictionary = db.asset(core.get("coreProjectile", ""))
 	if projectile.is_empty():
 		return
+	var source_token = 0
+	if control_source.begins_with("player:"):
+		var source_index = int(control_source.get_slice(":",1))
+		if source_index >= 0 and source_index < player.parts.size():
+			var source_part: Dictionary = player.parts[source_index]
+			if not source_part.has("insect_source_token"):
+				source_part.insect_source_token=next_control_source_token
+				next_control_source_token+=1
+			source_token=int(source_part.insect_source_token)
 	var family = Feedback.family(projectile)
 	shot_serial += 1
 	var sound_event = Feedback.shot_sound(family,shot_serial)
@@ -218,7 +233,7 @@ func fire(core: Dictionary, at: Vector2, direction: Vector2, friendly: bool, chi
 	audio_events.append(sound_event)
 	var count = int(core.get("barrageProjectileCount", 1)) if not single else 1
 	if count>1 and float(core.get("barrageInterval",0))>0:
-		barrages.append({"core":core,"at":at,"direction":direction,"friendly":friendly,"chips":chips,"boost":damage_boost,"count":count-1,"barrel_index":1,"timer":float(core.barrageInterval),"visual_scale":visual_scale})
+		barrages.append({"core":core,"at":at,"direction":direction,"friendly":friendly,"chips":chips,"boost":damage_boost,"count":count-1,"barrel_index":1,"timer":float(core.barrageInterval),"visual_scale":visual_scale,"control_source":control_source})
 		count=1
 	var barrel_prefab: String = db.asset(core.get("coreTurret", "")).get("turretsBarrels", "")
 	var barrel_refs: Array = db.component(barrel_prefab,"TurretBarrelsController").get("barrels",[])
@@ -234,6 +249,9 @@ func fire(core: Dictionary, at: Vector2, direction: Vector2, friendly: bool, chi
 		var multiplier = (1.0 + damage_boost) * (1.0 + special.chip("MammothDamagePercentBoost", int(chips.get(5,0))))
 		var b = {"position": muzzle, "previous": muzzle, "velocity": dir * float(projectile.get("projectileSpeed", 20)) * 48.0, "life": maxf(0.1, float(projectile.get("projectileLifeTime", 2))), "data": projectile, "friendly": friendly, "damage": float(damage.hullDamage) * multiplier, "shield_damage": float(damage.shieldDamage) * multiplier, "pierce": int(projectile.get("targetPiercingCount", 1)) + int(special.chip("PiercingTargetCount",int(chips.get(3,0)))), "chips": chips, "hit": [], "age":0.0, "direction":dir, "homing_speed":0.0,"rot_speed":0.0, "radius": 4.0 * (1.0 + float(chips.get(5, 0)) * 0.5)}
 		b.fx_family = family; b.origin = muzzle
+		b.insect_attack = InsectControls.attack_for(db.asset(core.get("coreTurret","")))
+		b.control_source = control_source
+		b.control_source_token = source_token
 		if int(projectile.get("projectilePrefab",0)) in [45,46]:
 			var target = nearest(at,db.range_units(core.get("turretRange",4))*48) if friendly else {}
 			if not target.is_empty():
@@ -267,7 +285,7 @@ func step(dt: float, aim: Vector2, shooting: bool):
 	for salvo in barrages.duplicate():
 		salvo.timer -= dt
 		if salvo.timer<=0:
-			fire(salvo.core,salvo.at,salvo.direction,salvo.friendly,salvo.chips,salvo.boost,true,salvo.barrel_index,float(salvo.get("visual_scale",1)))
+			fire(salvo.core,salvo.at,salvo.direction,salvo.friendly,salvo.chips,salvo.boost,true,salvo.barrel_index,float(salvo.get("visual_scale",1)),str(salvo.get("control_source","")))
 			salvo.barrel_index+=1
 			salvo.count-=1
 			salvo.timer+=float(salvo.core.barrageInterval)
@@ -275,6 +293,7 @@ func step(dt: float, aim: Vector2, shooting: bool):
 	rebuild_grid(target_grid,false);target_grid_active=true
 	for i in range(player.parts.size()):
 		var p: Dictionary = player.parts[i]
+		p.organ_pulse=maxf(0,float(p.get("organ_pulse",0))-dt)
 		p.recoil=maxf(0.0,float(p.get("recoil",0))-dt*42.0)
 		p.impact_left=maxf(0.0,float(p.get("impact_left",0))-dt)
 		p.cooldown -= dt
@@ -293,12 +312,15 @@ func step(dt: float, aim: Vector2, shooting: bool):
 				dir = (target.position - emitter).normalized()
 			p.angle = rotate_toward(p.angle,dir.angle(),deg_to_rad(float(c.get("turretRotateSpeed",360)))*dt)
 			if db.asset(c.coreProjectile).get("class")=="ContinuousProjectile":
-				if (manual and shooting) or (not manual and not target.is_empty()): special.continuous(c,emitter,Vector2.from_angle(p.angle),true,chips,player.stats.get("15",0.0),dt,"player:"+str(i))
+				if (manual and shooting) or (not manual and not target.is_empty()):
+					p.organ_pulse=0.18
+					special.continuous(c,emitter,Vector2.from_angle(p.angle),true,chips,player.stats.get("15",0.0),dt,"player:"+str(i))
 				continue
 			if p.cooldown <= 0 and ((manual and shooting) or (not manual and not target.is_empty())) and absf(angle_difference(p.angle,dir.angle()))<deg_to_rad(float(c.get("turretErrorAngle",2))):
 				var rate = float(c.get("turretRateOfFire", 1)) * (1.0 + player.stats.get("13" if i == 0 else "2", 0.0) + player.upgrade_bonus(c.id, "RateOfFirePercent"))
 				p.cooldown = 1.0 / maxf(rate, 0.01)
-				fire(c, emitter, dir, true, chips, player.stats.get("14" if i == 0 else "15", 0.0) + player.upgrade_bonus(c.id, "DamagePercent"), false, int(p.get("barrel_index",0)),player.weapon_visual_scale(i))
+				fire(c, emitter, dir, true, chips, player.stats.get("14" if i == 0 else "15", 0.0) + player.upgrade_bonus(c.id, "DamagePercent"), false, int(p.get("barrel_index",0)),player.weapon_visual_scale(i),"player:"+str(i))
+				p.organ_pulse=0.18
 				p.barrel_index=int(p.get("barrel_index",0))+1
 				p.recoil=float(Feedback.profile(Feedback.family(c)).recoil)
 		elif c["class"] == "ShieldCore":
@@ -318,6 +340,7 @@ func step(dt: float, aim: Vector2, shooting: bool):
 	target_grid_active=false
 	measured=mark_phase("player_weapons",measured)
 	for e in enemies:
+		for gun in e.guns: gun.organ_pulse=maxf(0,float(gun.get("organ_pulse",0))-dt)
 		e.feedback_left=maxf(0,float(e.get("feedback_left",0))-dt)
 		e.fx_cooldown=maxf(0,float(e.get("fx_cooldown",0))-dt)
 		if e.kind == "AIBossUnit":
@@ -332,6 +355,7 @@ func step(dt: float, aim: Vector2, shooting: bool):
 		e.stun = maxf(0, e.stun - dt)
 		if e.stun > 0 or e.warp > 0:
 			continue
+		var movement_start: Vector2 = e.position
 		var target: Vector2 = player.head if not e.get("target_mission", false) else mission_target
 		if e.role == "friendly":
 			var foe = nearest(e.position, 1400)
@@ -389,6 +413,7 @@ func step(dt: float, aim: Vector2, shooting: bool):
 				var rotation_speed=float(e.movement.get("enginePower",2))*float(e.movement.get("rotEngineModifier",12))
 				if e.kind=="AIBossUnit" and e.heat_speed:rotation_speed*=maxf(1,heat) if e.active else heat
 				e.angle=rotate_toward(e.angle,delta.angle(),deg_to_rad(rotation_speed)*dt)
+		e.position = movement_start + (Vector2(e.position)-movement_start)*insect_control_system.movement_factor(e,dt)
 		var kamikaze=source_component(e.components,"KamikazeTrigger")
 		if not kamikaze.is_empty():
 			for i in range(player.parts.size()):
@@ -410,13 +435,17 @@ func step(dt: float, aim: Vector2, shooting: bool):
 				continue
 			if absf(angle_difference(gun.angle,delta.angle()))>=deg_to_rad(float(core.get("turretErrorAngle",2))):continue
 			if db.asset(core.get("coreProjectile","")).get("class")=="ContinuousProjectile":
-				if delta.length()<db.range_units(core.get("turretRange",1))*48: special.continuous(core,e.position,delta.normalized(),e.role=="friendly",{},e.damage_modifier-1,dt,"enemy:"+str(e.uid)+":"+str(e.guns.find(gun)))
+				if delta.length()<db.range_units(core.get("turretRange",1))*48:
+					gun.organ_pulse=0.18
+					special.continuous(core,e.position,delta.normalized(),e.role=="friendly",{},e.damage_modifier-1,dt,"enemy:"+str(e.uid)+":"+str(e.guns.find(gun)))
 				continue
 			if gun.cooldown <= 0 and e.position.distance_to(target) < db.range_units(core.get("turretRange", 1)) * 48 * (1.0 + e.range_modifier):
-				fire(core, e.position + Vector2(gun.get("offset", Vector2.ZERO)).rotated(e.angle), Vector2.from_angle(gun.angle), e.role == "friendly", {}, e.damage_modifier - 1.0, false, int(gun.get("barrel_index",0)))
+				fire(core, e.position + Vector2(gun.get("offset", Vector2.ZERO)).rotated(e.angle), Vector2.from_angle(gun.angle), e.role == "friendly", {}, e.damage_modifier - 1.0, false, int(gun.get("barrel_index",0)),1.0,"enemy:"+str(e.uid)+":"+str(e.guns.find(gun)))
+				gun.organ_pulse=0.18
 				gun.barrel_index=int(gun.get("barrel_index",0))+1
 				gun.cooldown = 1.0 / maxf(0.1, float(core.get("turretRateOfFire", 1)))
 	measured=mark_phase("enemy_ai",measured)
+	insect_control_system.advance(dt,self)
 	step_drones(dt)
 	step_enemy_drones(dt)
 	measured=mark_phase("drones",measured)
@@ -564,6 +593,7 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 		return
 	impact_feedback(e,b)
 	e.hp -= b.damage
+	insect_control_system.attach(e,b)
 	SoftInsect.impact(e,Vector2(b.get("position",e.position)),Vector2(b.get("velocity",Vector2.RIGHT)),float(b.damage),str(b.get("fx_family",Feedback.family(b.data))))
 	if e.kind in ["Asteroid", "ContainerObject"]:
 		var scraps = roundi((1.0-maxf(0,e.hp)/e.max_hp)*float(e.unit.get("totalScraps",0)))
@@ -572,7 +602,7 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 		e.spawned_scraps = scraps
 	hit_count += 1
 	var typ: String = b.data["class"]
-	if typ == "EMPBasicProjectile":
+	if typ == "EMPBasicProjectile" and b.get("insect_attack", "") != "silk":
 		e.stun = float(b.data.get("stunDuration", 1.5)) if e.unit.get("canBeStunned", true) else 0.0
 		if e.stun>0:effects.append({"position":e.position,"radius":20,"life":0.1,"kind":"emp","particle_type":302,"duration":e.stun,"follow":e})
 	if typ == "SonicBasicProjectile":
@@ -624,6 +654,7 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 			clone.chips = {}
 			clone.data = shard
 			clone.fx_family = "flak"
+			clone.insect_attack = ""
 			clone.origin = e.position
 			clone.position = e.position
 			clone.previous = e.position

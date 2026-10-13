@@ -48,7 +48,9 @@ func execute():
  for dimensions in [Vector2i(1440,900),Vector2i(1280,720),Vector2i(1920,1080)]:
   root.size=dimensions;await settle();game.queue_redraw();await settle()
   var viewport=root.get_visible_rect();var good=true
-  for panel in h.cards:good=good and viewport.encloses(panel.get_global_rect()) and panel.get_global_rect().end.y<190
+  for meter_control in [h.health,h.fuel,h.danger,h.modules,h.drones]:
+   good=good and viewport.encloses(meter_control.get_global_rect()) and meter_control.get_global_rect().end.y<190
+  good=good and viewport.encloses(h.build_button.get_global_rect()) and h.build_button.size.y<=48
   good=good and viewport.encloses(h.keys.get_global_rect()) and viewport.encloses(h.radar_label.get_global_rect())
   check(good,"HUD stays at viewport edges without covering centre at "+str(dimensions))
   geometry.append({"window":[dimensions.x,dimensions.y],"passed":good})

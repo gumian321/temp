@@ -1,17 +1,18 @@
 extends SceneTree
 ## Art routing, alpha, color and unchanged sprite proportions at actual mount sizes.
+const Art=preload("res://scripts/insect_armaments.gd")
 const DB=preload("res://scripts/source_db.gd")
 const Brood=preload("res://scripts/brood_theme.gd")
 const Ink=preload("res://scripts/blue_ink.gd")
 const ITEMS=[
-	["gatling","刺管机枪","Core_Gun_Gatling"],["shotgun","双口霰弹","Core_Gun_Shotgun"],
-	["cannon","骨壳重炮","Core_Gun_Cannon"],["flak","散刺高射炮","Core_Gun_Flak"],
-	["sniper","针式轨道炮","Core_Gun_Sniper"],["tesla","分叉电角","Core_Gun_Tesla"],
-	["emp","脉冲腺","Core_Gun_EMP"],["flame","焰囊喷口","Core_Gun_Flame Thrower"],
-	["rocket","种荚火箭","Core_Gun_Rocket"],["nuke","裂变种","Core_Gun_Nuke"],
-	["sonic","鸣螺声波","Core_Gun_SonicWave"],["blackhole","引力涡眼","Core_Gun_BlackHoler"],
-	["mine","环卫孢雷巢","Core_MinesField"],["mine_spawner","后放孢雷囊","Core_MineSpawner"],
-	["drone_bay","攻击蜂巢","Core_Drones_Attack"]]
+	["gatling","蜂尾针簇","Core_Gun_Gatling"],["shotgun","裂颚","Core_Gun_Shotgun"],
+	["cannon","爆腹","Core_Gun_Cannon"],["flak","刺冠","Core_Gun_Flak"],
+	["sniper","穿喙","Core_Gun_Sniper"],["tesla","雷须","Core_Gun_Tesla"],
+	["emp","缄鸣","Core_Gun_EMP"],["flame","炽嗉","Core_Gun_Flame Thrower"],
+	["rocket","追蛹","Core_Gun_Rocket"],["nuke","王卵","Core_Gun_Nuke"],
+	["sonic","振翅","Core_Gun_SonicWave"],["blackhole","螳涡","Core_Gun_BlackHoler"],
+	["mine","卵环","Core_MinesField"],["mine_spawner","播卵","Core_MineSpawner"],
+	["drone_bay","猎蜂巢","Core_Drones_Attack"]]
 var checks:Array=[]
 class Board extends Node2D:
 	var font:Font=load("res://assets/fonts/NotoSansSC-Light.otf")
@@ -30,8 +31,8 @@ class Board extends Node2D:
 				var size=[42,56,78][j]
 				var small=Ink.fitted_size(texture,Vector2.ONE*size)
 				draw_texture_rect(texture,Rect2(cell+Vector2(55+j*71,185)-small/2,small),false)
-		draw_string(font,Vector2(34,883),"独立透明贴图 · 装配 / 奖励 / 战斗共用 · 全部等比缩放",HORIZONTAL_ALIGNMENT_LEFT,-1,18,Ink.MUTED)
-		for extra in [["mine_unit","孢雷实体",970],["drone_unit","攻击无人机",1200]]:
+		draw_string(font,Vector2(34,883),"透明图集 · 装配 / 奖励 / 战斗共用 · 全部等比缩放",HORIZONTAL_ALIGNMENT_LEFT,-1,18,Ink.MUTED)
+		for extra in [["mine_unit","孢雷实体",970],["drone_unit","猎蜂",1200]]:
 			var texture=Brood.weapon_texture(extra[0])
 			var extent=Ink.fitted_size(texture,Vector2(32,32))
 			draw_texture_rect(texture,Rect2(Vector2(extra[2],873)-extent/2,extent),false)
@@ -53,8 +54,8 @@ func execute():
 	for entry in ITEMS:
 		var texture=db.core_sprite(db.named(entry[2]))
 		var path=texture.atlas.resource_path if texture is AtlasTexture else ""
-		check(path.ends_with("weapon_v2_"+entry[0]+".png"),"Production core resolves to new art: "+entry[0])
-		distinct[path]=true
+		check(path == Art.atlas_path(entry[0]) and db.armament_variant(db.named(entry[2])) == entry[0],"Production core resolves to new art: "+entry[0])
+		distinct[path+str(texture.region)]=true
 		var fit_ok=Ink.keeps_color(texture)
 		for size in [28,36,42,44,56,96]:
 			var extent=Ink.fitted_size(texture,Vector2.ONE*size)
@@ -70,11 +71,11 @@ func execute():
 	for core in db.catalog.values():
 		if not core.has("coreProjectile"):continue
 		routed+=1
-		check("weapon_v2_" in db.core_sprite(core).atlas.resource_path,"HQ/player/enemy weapon shares current art: "+core.name)
+		check("armaments_atlas_" in db.core_sprite(core).atlas.resource_path,"HQ/player/enemy weapon shares current art: "+core.name)
 	check(routed==32,"All 32 source gun cores are themed")
 	for drone in db.kind("ProjectileDrone"):
-		check(db.sprite(drone.droneSprite).atlas.resource_path.ends_with("weapon_v2_drone_unit.png"),"Attack drone entity is themed: "+drone.name)
-	check(db.sprite(db.named("Projectile_Core_Mine").mineSprite).atlas.resource_path.ends_with("weapon_v2_mine_unit.png"),"Deployed mine entity is themed")
+		check(db.sprite(drone.droneSprite) == Art.texture("drone_unit"),"Attack drone entity is themed: "+drone.name)
+	check(db.sprite(db.named("Projectile_Core_Mine").mineSprite) == Art.texture("mine_unit"),"Deployed mine entity is themed")
 	var board=Board.new();board.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS;root.add_child(board)
 	await capture("res://artifacts/armament-v2-lineup.png")
 	board.queue_free();await process_frame

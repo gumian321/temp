@@ -2,6 +2,7 @@ extends "res://scripts/build_grid_ui.gd"
 ## Drag whole elements into gaps in the chain; every element grows one segment.
 const ChainMount = preload("res://scripts/chain_mount_control.gd")
 const ASSEMBLY_FACING = PI
+const UI=preload("res://scripts/game_ui.gd")
 var chain_scroll: ScrollContainer
 var inventory_scroll: ScrollContainer
 var insert_targets: Dictionary = {}
@@ -15,7 +16,7 @@ var scroll_remainder = 0.0
 var drag_pointer = Vector2.ZERO
 
 func setup(owner_game):
-	game=owner_game;player=game.player;db=game.db
+	game=owner_game;player=game.player;db=game.db;theme=UI.theme();UI.protect(self)
 	size=Vector2(1440,900);mouse_filter=Control.MOUSE_FILTER_IGNORE
 	selected_segment=clampi(game.build_selected_segment,0,player.segment_count())
 	if game.reward_flow_active and not player.pending.is_empty():
@@ -33,29 +34,27 @@ func rebuild():
 	var previous_inventory_scroll=inventory_scroll.scroll_vertical if is_instance_valid(inventory_scroll) else 0
 	for child in get_children():remove_child(child);child.queue_free()
 	inventory.clear();slots.clear();segment_buttons.clear();insert_targets.clear()
-	var title=text_at("长出新体节" if game.reward_flow_active else "身体装配",Vector2(65,34),Vector2(560,50),34)
-	var capacity=text_at("%02d / 60 节"%player.segment_count(),Vector2(1190,47),Vector2(175,32),20)
-	var subtitle=text_at("每节一个元素   /   拖入间隙插入   /   拖到体节中央交换",Vector2(65,97),Vector2(1220,32),17)
-	text_at("待装元素",Vector2(58,193),Vector2(190,36),23)
-	text_at(str(player.pending.size()),Vector2(268,199),Vector2(36,28),18)
-	var scroll=ScrollContainer.new();scroll.position=Vector2(58,263);scroll.size=Vector2(254,449)
+	var title=text_at("蜕变舱" if game.reward_flow_active else "虫巢武装",Vector2(65,35),Vector2(600,58),38)
+	var capacity=text_at("%02d / 60"%player.segment_count(),Vector2(1200,42),Vector2(170,36),24)
+	var subtitle=text_at("1 元素 = 1 体节    ·    拖入 + 生长",Vector2(65,106),Vector2(900,30),17)
+	text_at("待装  ·  %02d"%player.pending.size(),Vector2(65,510),Vector2(280,36),22)
+	var scroll=ScrollContainer.new();scroll.position=Vector2(65,565);scroll.size=Vector2(666,214)
 	scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;add_child(scroll)
 	inventory_scroll=scroll;scroll.set_deferred("scroll_vertical",previous_inventory_scroll)
-	var list=GridContainer.new();list.columns=2;list.add_theme_constant_override("h_separation",14);list.add_theme_constant_override("v_separation",14);scroll.add_child(list)
+	var list=GridContainer.new();list.columns=5;list.add_theme_constant_override("h_separation",17);list.add_theme_constant_override("v_separation",14);scroll.add_child(list)
 	for i in player.pending.size():
 		var core=db.asset(player.pending[i])
 		var control=chain_mount(list,Vector2(110,136),{"kind":"inventory","index":i},{"kind":"inventory","index":i,"id":core.id},db.core_sprite(core),db.title(core))
 		control.selected=selected_data.get("kind")=="inventory" and int(selected_data.get("index",-1))==i
 		inventory.append(control)
 	if player.pending.is_empty():
-		text_at("暂无新元素",Vector2(95,395),Vector2(180,32),20)
-		text_at("战斗获得奖励包\n选择新元素后，可新增一节",Vector2(70,441),Vector2(231,94),17)
-	else:text_at("一个新元素，长出一节身体",Vector2(58,735),Vector2(255,32),17)
-	reward_button=action_button("选择奖励（%d）"%game.run.packs,Vector2(58,768),Vector2(254,46),game.show_rewards,not player.pending.is_empty())
-	reward_button.visible=game.run.packs>0
-	text_at("身体序列",Vector2(402,193),Vector2(280,34),23)
-	text_at("头部 → 尾部  ·  调整不消耗次数",Vector2(1020,200),Vector2(340,30),16)
-	chain_scroll=ScrollContainer.new();chain_scroll.position=Vector2(386,249);chain_scroll.size=Vector2(972,272)
+		text_at("暂无待装元素",Vector2(250,607),Vector2(420,40),23)
+		text_at("战斗 → 奖励 → 生长",Vector2(250,655),Vector2(400,36),17)
+	reward_button=action_button("▣  %d"%game.run.packs,Vector2(590,503),Vector2(140,44),game.show_rewards,not player.pending.is_empty())
+	reward_button.tooltip_text="选择奖励";reward_button.visible=game.run.packs>0
+	text_at("身体序列",Vector2(65,157),Vector2(280,34),21)
+	text_at("头部 → 尾部",Vector2(1200,160),Vector2(170,30),16)
+	chain_scroll=ScrollContainer.new();chain_scroll.position=Vector2(48,206);chain_scroll.size=Vector2(1344,272)
 	chain_scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
 	chain_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_AUTO;add_child(chain_scroll)
 	var row=HBoxContainer.new();row.add_theme_constant_override("separation",0);chain_scroll.add_child(row)
@@ -73,13 +72,13 @@ func rebuild():
 		control.selected=(selected_data.get("kind")!="inventory" and before==selected_segment)
 		segment_buttons[before]=control
 	chain_scroll.set_deferred("scroll_horizontal",previous_scroll)
-	guidance=text_at("拖动体节：间隙插入 · 中央交换     |     右键取消选择",Vector2(403,524),Vector2(937,30),16)
-	detail=text_at("",Vector2(647,588),Vector2(645,40),25)
-	health_label=text_at("",Vector2(647,636),Vector2(645,32),19)
-	description_label=text_at("",Vector2(647,683),Vector2(655,79),17)
-	armor_button=action_button("加固体节（%d）"%player.actions.wall,Vector2(1123,757),Vector2(212,43),reinforce_selected)
-	hint=text_at("",Vector2(48,825),Vector2(1040,42),17);hint.add_theme_color_override("font_color",Color("b45846"));hint.visible=false
-	return_button=action_button("完成调整  →",Vector2(1170,812),Vector2(190,52),game.finish_building,not player.pending.is_empty())
+	guidance=text_at("+ 插入    ⇄ 交换    右键取消",Vector2(780,106),Vector2(580,30),16)
+	detail=text_at("",Vector2(1000,534),Vector2(350,65),25)
+	health_label=text_at("",Vector2(1000,608),Vector2(350,32),19)
+	description_label=text_at("",Vector2(1000,658),Vector2(350,92),17)
+	armor_button=action_button("加固  %d"%player.actions.wall,Vector2(806,724),Vector2(165,43),reinforce_selected)
+	hint=text_at("",Vector2(48,825),Vector2(1040,42),17);hint.add_theme_color_override("font_color",Color("ff8275"));hint.visible=false
+	return_button=action_button("出击  →",Vector2(1170,812),Vector2(190,52),game.finish_building,not player.pending.is_empty())
 	return_button.tooltip_text="手动返回战斗 · E / Esc"
 	if game.reward_flow_active:
 		action_button("稍后安装",Vector2(1008,812),Vector2(142,52),game.postpone_rewards)
@@ -87,18 +86,14 @@ func rebuild():
 	apply_local_styles.call_deferred(title,subtitle,capacity)
 
 func apply_local_styles(title:Label,subtitle:Label,capacity:Label):
-	# Main applies its generic paper theme deferred; this screen has its own hierarchy.
 	if not is_instance_valid(title) or not is_instance_valid(return_button):return
-	title.add_theme_color_override("font_color",Ink.PAPER)
-	title.add_theme_color_override("font_outline_color",Ink.PAPER);title.add_theme_constant_override("outline_size",1)
-	subtitle.add_theme_color_override("font_color",Color("cad8e6"))
-	capacity.add_theme_color_override("font_color",Color("edd69f"))
-	var primary=Ink.box(Ink.INK,Ink.INK,1);primary.set_corner_radius_all(12)
-	return_button.add_theme_stylebox_override("normal",primary)
-	var hover=Ink.box(Ink.BLUE,Ink.BLUE,1);hover.set_corner_radius_all(12)
-	return_button.add_theme_stylebox_override("hover",hover)
-	return_button.add_theme_color_override("font_color",Ink.PAPER)
-	return_button.add_theme_color_override("font_hover_color",Ink.PAPER)
+	title.add_theme_color_override("font_color",UI.TEXT)
+	subtitle.add_theme_color_override("font_color",UI.MUTED)
+	capacity.add_theme_color_override("font_color",UI.AMBER)
+	return_button.add_theme_stylebox_override("normal",UI.style(UI.TEAL,UI.TEAL,12))
+	return_button.add_theme_stylebox_override("hover",UI.style(UI.TEAL.lightened(.2),UI.TEAL,12))
+	return_button.add_theme_color_override("font_color",UI.BG)
+	return_button.add_theme_color_override("font_hover_color",UI.BG)
 
 func _process(dt:float):
 	super._process(dt)
@@ -150,34 +145,30 @@ func shown_data()->Dictionary:
 
 func _draw():
 	if player==null:return
-	var faint=Color(Ink.MUTED,0.24)
-	var header=Ink.box(Ink.INK,Ink.INK,0);header.set_corner_radius_all(14)
-	draw_style_box(header,Rect2(40,24,1330,120))
-	draw_line(Vector2(1117,49),Vector2(1117,115),Color("59769a"),1,true)
-	draw_line(Vector2(65,136),Vector2(189,136),Color("d4b879"),3,true)
-	draw_style_box(Ink.box(Color("eeede3"),Color("ccd4d4"),1),Rect2(40,171,292,630))
-	draw_style_box(Ink.box(Color("f1f3ec"),Color("ccd4d4"),1),Rect2(374,171,996,380))
-	draw_line(Vector2(58,238),Vector2(310,238),faint,1,true)
-	draw_line(Vector2(402,238),Vector2(1342,238),faint,1,true)
-	draw_style_box(Ink.box(Color(Ink.PAPER,0.75),Color("c6d2db"),1),Rect2(386,566,972,234))
-	draw_style_box(Ink.box(Color("ede6d5"),Color.TRANSPARENT,0),Rect2(387,567,236,232))
+	draw_rect(Rect2(0,0,1440,900),UI.BG)
+	for i in 18:
+		draw_line(Vector2(i*100,0),Vector2(i*100-300,900),Color(UI.TEAL,.028),1,true)
+	draw_line(Vector2(65,93),Vector2(1380,93),Color(UI.TEAL,.22),1,true)
+	draw_line(Vector2(65,93),Vector2(205,93),UI.TEAL,3,true)
+	draw_style_box(UI.style(UI.PANEL,Color(UI.TEAL,.24),22),Rect2(32,145,1376,344))
+	draw_style_box(UI.style(UI.PANEL,Color(UI.TEAL,.16),22),Rect2(32,501,724,292))
+	draw_style_box(UI.style(UI.PANEL,Color(UI.TEAL,.16),22),Rect2(780,501,628,292))
+	draw_arc(Vector2(886,624),74,0,TAU,64,Color(UI.TEAL,.22),2,true)
+	for i in 12:
+		var a=i*TAU/12
+		draw_line(Vector2(886,624)+Vector2.from_angle(a)*78,Vector2(886,624)+Vector2.from_angle(a)*84,Color(UI.TEAL,.36),2,true)
 	if player.pending.is_empty():
-		draw_line(Vector2(105,322),Vector2(271,322),Color(Ink.MUTED,0.4),2,true)
-		draw_head(self,Vector2(115,322),0.56)
-		Art.segment(self,Vector2(187,322),ASSEMBLY_FACING,0.56,0,false)
-		draw_circle(Vector2(264,322),22,Ink.PAPER,true,-1,true)
-		draw_arc(Vector2(264,322),22,0,TAU,40,Color("b6a273"),2,true)
-		Symbols.draw(self,"add",Vector2(264,322),0.65,Color("b6a273"))
+		draw_head(self,Vector2(154,650),1.1)
 	var data=shown_data()
 	var core=db.asset(data.get("id",data.get("part",{}).get("id","")))
 	if core.is_empty():
-		draw_head(self,Vector2(520,685),1.4)
+		draw_head(self,Vector2(886,624),1.4)
 	else:
-		if int(data.get("part",{}).get("segment",-1))==player.segment_count():Art.tail(self,Vector2(520,685),ASSEMBLY_FACING,1.7)
-		Art.segment(self,Vector2(520,685),ASSEMBLY_FACING,1.7,0,false)
+		if int(data.get("part",{}).get("segment",-1))==player.segment_count():Art.tail(self,Vector2(886,624),ASSEMBLY_FACING,1.7)
+		Art.segment(self,Vector2(886,624),ASSEMBLY_FACING,1.7,0,false)
 		var texture=db.core_sprite(core)
 		if texture!=null:
-			draw_element(self,texture,Vector2(520,678),1.7)
+			draw_element(self,texture,Vector2(886,617),1.7)
 
 func draw_head(canvas:CanvasItem,at:Vector2,scale_factor:float):
 	if player.segment_count()==0:Art.tail(canvas,at,ASSEMBLY_FACING,scale_factor,true)
@@ -205,29 +196,31 @@ func inspect(data:Dictionary):
 	var shown=shown_data()
 	var core=db.asset(shown.get("id",shown.get("part",{}).get("id","")))
 	if core.is_empty():
-		detail.text="从头部开始，逐节生长"
-		health_label.text="每节一个元素，各自拥有血量"
-		description_label.text="选到新元素后，把它拖到身体间的 + 号。\n体节被打爆时，后面的体节会自动补位。"
+		detail.text="虫群中枢"
+		health_label.text="独立甲壳 · 协同攻击"
+		description_label.text="选择元素查看性能\n拖动体节调整阵型"
 	else:
 		detail.text=db.title(core)
+		detail.tooltip_text=db.title(core)+"\n"+db.armament_description(core)
 		var part:Dictionary=shown.get("part",{})
-		health_label.text="血量 %d / %d"%[maxf(0,part.hp),part.max_hp] if not part.is_empty() else "新增一节 · 初始血量 %d"%float(core.get("CoreHealth",90))
+		health_label.text="甲壳  %d / %d"%[maxf(0,part.hp),part.max_hp] if not part.is_empty() else "甲壳  %d"%float(core.get("CoreHealth",90))
 		if core.has("coreProjectile"):
 			var projectile=db.asset(core.coreProjectile)
-			description_label.text="伤害 %.1f    射速 %.1f / 秒    射程 %.0f\n拖动整节身体可改变它的前后位置。"%[float(projectile.get("projectileDamage",{}).get("hullDamage",0)),float(core.get("turretRateOfFire",0)),db.range_units(core.get("turretRange",1))*48]
-		else:description_label.text="每节一个元素 · 与相邻体节一起协作。\n拖动整节身体可改变它的前后位置。"
+			description_label.text="伤害  %.1f    频率  %.1f/s\n射程  %.0f"%[float(projectile.get("projectileDamage",{}).get("hullDamage",0)),float(core.get("turretRateOfFire",0)),db.range_units(core.get("turretRange",1))*48]
+		else:description_label.text=db.armament_description(core)
+		description_label.max_lines_visible=3;description_label.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
 	armor_button.visible=selected_data.get("kind")=="mounted" and not game.reward_flow_active
 	armor_button.disabled=player.actions.wall<=0 or selected_data.get("part",{}).get("wall",false)
 	queue_redraw()
 
 func begin_drag(data:Dictionary):
 	drag_cancelled=false;active_drag_data=data;drag_pointer=get_global_mouse_position();inspect(data)
-	guidance.text="拖入间隙插入 · 拖到中央交换 · 移到轨道边缘滚动 · Esc 取消"
+	guidance.text="+ 插入    ⇄ 交换    边缘滚动    ESC 取消"
 	refresh_controls()
 
 func end_drag():
 	active_drag_data={};inspected_data={};hovered_target={};inspect({})
-	guidance.text="拖动体节：间隙插入 · 中央交换     |     右键取消选择"
+	guidance.text="+ 插入    ⇄ 交换    右键取消"
 	drag_cancelled=false;refresh_controls()
 
 func hover_mount(target:Dictionary):
@@ -288,3 +281,10 @@ func click(target:Dictionary,data:Dictionary):
 		selected_data=data.duplicate();refresh_controls()
 
 func show_segment_during_drag(_segment:int):pass
+
+func action_button(title: String, at: Vector2, extent: Vector2, callback: Callable, disabled: bool = false) -> Button:
+	var button=Button.new();button.text=title;button.position=at;button.size=extent;button.disabled=disabled
+	button.add_theme_font_size_override("font_size",19)
+	for state in ["normal","hover","pressed","disabled","focus"]:
+		button.add_theme_stylebox_override(state,UI.style(UI.PANEL if state=="normal" else Color("21434b"),UI.TEAL if state!="disabled" else UI.MUTED,12,8))
+	button.pressed.connect(callback);add_child(button);return button
