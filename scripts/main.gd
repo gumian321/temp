@@ -76,6 +76,7 @@ var ink_world
 var insect_layer
 var build_ui
 var mission_ui
+var battle_hud
 var build_selected_segment = 1
 
 func _ready():
@@ -147,6 +148,7 @@ func ink_style_later(reference: WeakRef):
 	var node = reference.get_ref()
 	if node == null or not is_ancestor_of(node):return
 	if screen=="menu" and is_instance_valid(mission_ui) and (node==mission_ui or mission_ui.is_ancestor_of(node)):return
+	if screen=="game" and is_instance_valid(battle_hud) and (node==battle_hud or battle_hud.is_ancestor_of(node)):return
 	Ink.style_item(node)
 
 func label_at(text: String, pos: Vector2, size: int = 22, color: Color = Color.WHITE) -> Label:
@@ -373,12 +375,9 @@ func show_game():
 	for id in ["11","90","264","408","37"]:source_ui.show_node(id,false)
 	for id in ["43","124"]:source_ui.show_node(id,true)
 	for slider in source_ui.sliders.values():slider.editable=false
-	hud=label_at("",Vector2(30,25),19)
-	run_hud=label_at("",Vector2(645,25),19,Color("e8cf9a"))
-	equipment_hud=label_at("",Vector2(1220,90),18,Color("b7d8c4"))
-	message=label_at(db.ui("WASD move · Mouse aim / fire · Shift boost · E build · Esc pause", "WASD 移动 · 鼠标瞄准 / 左键射击 · Shift 加速 · E 装塔 · Esc 暂停"),Vector2(30,855),18)
-	button(db.ui("BUILD [E]", "逐节装塔 [E]"),Vector2(1220,30),Vector2(180,45),show_build)
-	label_at(db.ui("RADAR · Tab", "战场雷达 · Tab"),Vector2(1230,632),17,Color("a9c5ba"))
+	battle_hud=preload("res://scripts/battle_hud.gd").new()
+	panel.add_child(battle_hud)
+	battle_hud.setup(self)
 	update_source_hud()
 
 func boss_timer_progress()->float:
@@ -396,6 +395,7 @@ func boss_timer_progress()->float:
 	return 1.0 if run.director.end_spawned else run.heat
 
 func update_source_hud():
+	if is_instance_valid(battle_hud) and screen=="game":battle_hud.refresh()
 	source_ui.set_fill("1889",run.heat)
 	source_ui.set_fill("1614",boss_timer_progress())
 	var timer=maxf(0,run.duration-run.elapsed) if selected_mission.get("isTimerCountingDown",false) else run.elapsed
@@ -469,8 +469,8 @@ func show_rewards():
 	label_at(db.ui("Modules go to assembly; upgrades apply immediately.", "模块领取后拖拽安装；属性升级、操作次数直接生效。"),Vector2(410,110),20)
 
 func begin_run():
+	# Tips remain available in show_loading(), but no longer interrupt deployment.
 	start_run()
-	show_loading()
 
 func show_loading():
 	screen="loading"
@@ -655,10 +655,6 @@ func _process(dt: float):
 		audio_system.sync_loops(loop_requests)
 		audio_system.change_music("boss" if combat.enemies.any(func(e):return e.kind=="AIBossUnit" and e.active) else "game")
 		camera = camera.lerp(player.head, 1.0 - exp(-8.0 * dt))
-		hud.text = db.ui("%s\nHead %d/%d · Fuel %d%% · Modules %d", "%s\n头部耐久 %d/%d · 燃料 %d%% · 已装模块 %d 个")%[db.title(selected_mission),int(player.parts[0].hp),int(player.parts[0].max_hp),int(player.fuel/maxf(1,player.max_fuel)*100),player.parts.size()-1]
-		var time_left=maxf(0,run.duration-run.elapsed) if selected_mission.get("isTimerCountingDown",false) else run.elapsed
-		run_hud.text=db.ui("%02d:%02d · Danger %d%%\nPacks %d · Scrap %d", "%02d:%02d · 危险度 %d%%\n奖励包 %d · 废料 %d")%[int(time_left)/60,int(time_left)%60,int(run.heat*100),run.packs,run.scraps]
-		equipment_hud.text=db.ui("Modules %d / %d\nDrones %d / %d", "模块 %d / %d\n无人机 %d / %d")%[player.parts.size()-1,int(db.stores.PlayerDataStore.maxBuiltCores),combat.drones.filter(func(d):return d.owner==0).size(),int(db.stores.PlayerDataStore.get("maxHQDronesCount",30))]
 		update_source_hud()
 		profile_mark("audio_hud",measured)
 		if run.packs>=6: show_build()
@@ -877,13 +873,14 @@ func _draw():
 			else:draw_line(world(b.previous),world(b.position),Color("173b70") if b.friendly else Color("6984a4"),b.radius)
 		weapon_fx.paint(self,combat,test_time,zoom)
 		# Radar uses actual world objects, including distant mission bosses.
-		draw_rect(Rect2(1230, 665, 180, 150), Color("d8e3ec"))
-		draw_rect(Rect2(1230,665,180,150),Ink.MUTED,false,1.0)
+		var radar_origin=get_viewport_rect().size-Vector2(210,235)
+		draw_rect(Rect2(radar_origin,Vector2(180,150)), Color("d8e3ec"))
+		draw_rect(Rect2(radar_origin,Vector2(180,150)),Ink.MUTED,false,1.0)
 		for e in combat.enemies:
 			var offset: Vector2 = (e.position - player.head) * 0.012
 			if offset.length() < 70:
-				draw_map_icon(e,Vector2(1320,740)+offset,8 if e.kind!="AIBossUnit" else 13)
-		draw_circle(Vector2(1320, 740), 4, Color("173b70"))
+				draw_map_icon(e,radar_origin+Vector2(90,75)+offset,8 if e.kind!="AIBossUnit" else 13)
+		draw_circle(radar_origin+Vector2(90,75), 4, Color("173b70"))
 		draw_objective_arrows()
 
 func automated_flow():

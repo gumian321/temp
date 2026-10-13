@@ -96,8 +96,8 @@ func execute():
  game.show_missions();await settle();await key(KEY_ESCAPE);check(game.screen=="home","Escape returns home from briefing")
  game.show_missions();await settle();game.mission_ui.select_mission(0);await settle()
  game.mission_ui.launch_button.grab_focus();await key(KEY_ENTER)
- check(game.screen=="loading" and game.run.mission.id==game.selected_mission.id,"Deploy opens the selected mission loading screen")
- await key(KEY_ENTER);check(game.screen=="game","Loading confirmation enters gameplay")
+ check(game.screen=="game" and game.run.mission.id==game.selected_mission.id,"Deploy directly enters the selected mission")
+ await settle();check(game.screen=="game","No extra confirmation is needed")
  game.cursor_system.shutdown();game.audio_system.shutdown();game.particle_effects.clear();game.queue_free();await settle()
  var report={"checks":checks,"geometry":geometry,"captures":captures,"raster_sizes":raster_sizes,"passed":checks.all(func(c):return c.passed),"controller":"Injected Godot events; no physical controller acceptance"}
  FileAccess.open("res://artifacts/mission-ui-test-report.json",FileAccess.WRITE).store_string(JSON.stringify(report,"\t"))
