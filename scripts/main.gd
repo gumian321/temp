@@ -2,7 +2,7 @@ extends Node2D
 
 const DB = preload("res://scripts/source_db.gd")
 const Save = preload("res://scripts/save_store.gd")
-const Body = preload("res://scripts/grid_centipede.gd")
+const Body = preload("res://scripts/chain_centipede.gd")
 const CentipedeArt = preload("res://scripts/centipede_art.gd")
 const Ink = preload("res://scripts/blue_ink.gd")
 const Brood = preload("res://scripts/brood_theme.gd")
@@ -124,7 +124,7 @@ func _ready():
 	particle_layer=CanvasLayer.new();particle_layer.layer=0;add_child(particle_layer)
 	particle_effects=load("res://scripts/particle_effects.gd").new();particle_layer.add_child(particle_effects);particle_effects.setup(db);native_visuals.setup(db,particle_effects)
 	popup_text=load("res://scripts/popup_text.gd").new();popup_text.layer=3;add_child(popup_text)
-	show_intro()
+	show_menu()
 	if "--smoke" in OS.get_cmdline_user_args():
 		test_mode = true
 		call_deferred("automated_flow")
@@ -186,11 +186,7 @@ func frame(title: String, subtitle: String):
 	label_at(subtitle, Vector2(66, 134), 18, Color("a8acae"))
 
 func show_intro():
-	screen="intro"
-	clear_ui()
-	var intro=load("res://scripts/intro_ui.gd").new();panel.add_child(intro)
-	intro.setup(db,func():
-		if screen=="intro":show_menu())
+	show_menu()
 
 func show_menu():
 	if audio_system!=null:audio_system.sync_loops([])
@@ -441,7 +437,7 @@ func show_build_ui():
 	if run == null:return
 	screen = "build"
 	clear_ui()
-	build_ui = preload("res://scripts/build_grid_ui.gd").new()
+	build_ui = preload("res://scripts/build_chain_ui.gd").new()
 	panel.add_child(build_ui)
 	build_ui.setup(self)
 	queue_redraw()
@@ -488,12 +484,17 @@ func postpone_rewards():
 	reward_snoozed=true;reward_snooze_count=run.packs
 	show_game()
 
+func finish_building():
+	if screen!="build" or not player.pending.is_empty():return
+	postpone_rewards()
+
 func reward_placement_changed():
-	if not reward_flow_active:return
-	if player.pending.is_empty():advance_reward_flow()
-	elif is_instance_valid(build_ui):
-		build_ui.selected_data={"kind":"inventory","index":0,"id":player.pending[0]}
-		build_ui.rebuild()
+	if screen!="build" or not reward_flow_active or not is_instance_valid(build_ui):return
+	if player.pending.is_empty():
+		reward_flow_active=false
+		build_ui.selected_data={}
+	else:build_ui.selected_data={"kind":"inventory","index":0,"id":player.pending[0]}
+	build_ui.rebuild()
 
 func begin_run():
 	# Tips remain available in show_loading(), but no longer interrupt deployment.
@@ -747,12 +748,11 @@ func _input(event):
 		elif screen=="reward_pool" or screen=="menu":show_missions() if screen=="reward_pool" else show_menu()
 		elif screen in ["lab","options","controls"]:show_menu()
 		elif screen=="pause":show_game()
-		elif screen=="rewards" or (screen=="build" and reward_flow_active):postpone_rewards()
-		elif screen=="build" and is_instance_valid(build_ui):build_ui.cancel_selection()
+		elif screen in ["rewards","build"]:postpone_rewards()
 		get_viewport().set_input_as_handled()
 
 func _unhandled_input(event):
-	if event.is_action_pressed("pause") and (screen=="rewards" or (screen=="build" and reward_flow_active)):
+	if event.is_action_pressed("pause") and screen in ["rewards","build"]:
 		postpone_rewards();get_viewport().set_input_as_handled();return
 	if rebind_action!="" and event is InputEventKey and event.pressed:
 		if event.physical_keycode!=KEY_ESCAPE:controls.bind(rebind_action,event.physical_keycode)
@@ -761,7 +761,7 @@ func _unhandled_input(event):
 	if event is InputEventJoypadButton and event.pressed:
 		if event.is_action_pressed("build"):
 			if screen=="game":show_build()
-			elif screen=="build" and player.pending.is_empty():show_game()
+			elif screen=="build" and player.pending.is_empty():finish_building()
 		if event.is_action_pressed("pause"):
 			if screen=="game":show_pause()
 			elif screen=="pause":show_game()
@@ -773,7 +773,7 @@ func _unhandled_input(event):
 			elif screen=="reward_pool":show_missions()
 		if event.is_action_pressed("build"):
 			if screen == "game": show_build()
-			elif screen == "build" and player.pending.is_empty(): show_game()
+			elif screen == "build" and player.pending.is_empty(): finish_building()
 
 func world(p: Vector2) -> Vector2:
 	return (p - camera) * zoom + center + camera_kick
@@ -791,6 +791,16 @@ func art(texture: Texture2D, position: Vector2, size: Vector2, rotation: float =
 func module_art(texture: Texture2D, position: Vector2, bounds: Vector2, rotation: float = 0.0, tint: Color = Color.WHITE):
 	# Mounts are square; their weapons retain the original sprite proportions.
 	art(texture, position, Ink.fitted_size(texture, bounds), rotation, tint, true)
+
+func draw_weapon_neck(anchor: Vector2, tip: Vector2, radius: float, alpha: float = 1.0):
+	var bend = (tip - anchor).orthogonal().normalized() * minf(5.0 * zoom, anchor.distance_to(tip) * 0.22)
+	var curve = PackedVector2Array()
+	for step in range(9):
+		var t = float(step) / 8.0
+		curve.append(anchor.lerp(tip, t) + bend * sin(t * PI))
+	draw_circle(anchor, radius, Color(Ink.INK, alpha * 0.7), true, -1, true)
+	draw_polyline(curve, Color(Ink.INK, alpha * 0.8), 6.0 * zoom, true)
+	draw_polyline(curve, Color(Ink.WASH, alpha), 3.0 * zoom, true)
 
 func _draw():
 	if ink_world != null: ink_world.begin_frame()
@@ -874,7 +884,7 @@ func _draw():
 					art(texture,world(drop.position),extent,RenderState.angle(renderer,test_time),RenderState.color(renderer,test_time))
 		# Continuous insect silhouette; turrets sit on the carapace of each segment.
 		var last_pose:Dictionary=player.segment_pose(player.segment_count())
-		CentipedeArt.tail(self,world(last_pose.point),Vector2(last_pose.direction).angle(),zoom)
+		CentipedeArt.tail(self,world(last_pose.point),Vector2(last_pose.direction).angle(),zoom,player.segment_count()==0)
 		for segment in range(player.segment_count(),0,-1):
 			var pose:Dictionary=player.segment_pose(segment)
 			var previous:Dictionary=player.segment_pose(segment-1)
@@ -883,15 +893,19 @@ func _draw():
 		CentipedeArt.segment(self,world(player.head),player.facing.angle(),zoom,leg_phase,true,false,false,mouth_activity,test_time)
 		for i in range(player.parts.size()-1,-1,-1):
 			var p:Dictionary=player.parts[i]
-			var pos=world(p.position)
+			var pos=world(player.weapon_origin(i))
+			if i>0:draw_weapon_neck(world(p.position),pos,4.0*zoom,0.3 if p.get("cloaked",false) else 1.0)
 			var pulse=health_pulse(p)
 			var size=Vector2.ONE*player.module_size(i)*zoom
 			if p.wall:draw_arc(pos,(player.module_size(i)*0.5+2)*zoom,0,TAU,24,Color("2f60a0"),1.5*zoom,true)
 			var c:Dictionary=db.asset(player.hq_weapon if i==0 else p.id)
 			var recoil=Vector2.from_angle(p.angle)*float(p.get("recoil",0))*zoom*minf(1,player.module_size(i)/35.0)
 			module_art(db.core_sprite(c),pos-recoil,size,p.angle+PI*0.5,Color(1,1,1,0.3) if p.get("cloaked",false) else (pulse_color(p) if pulse else Color.WHITE))
-			if p.shield>0 and p.stun<=0:draw_arc(pos,combat.shield_range(i)*zoom,0,TAU,50,Color(0.3,0.8,1.0,0.35),2)
-			if p.hp<p.max_hp:draw_rect(Rect2(pos+Vector2(-size.x/2,-size.y/2-4*zoom),Vector2(size.x*maxf(0,p.hp/p.max_hp),2*zoom)),Color("173b70"))
+			if p.shield>0 and p.stun<=0:draw_arc(world(p.position),combat.shield_range(i)*zoom,0,TAU,50,Color(0.3,0.8,1.0,0.35),2)
+			if i>0:
+				var health_at=world(p.position)+Vector2(-20,35)*zoom
+				draw_rect(Rect2(health_at,Vector2(40,3)*zoom),Ink.WASH)
+				draw_rect(Rect2(health_at,Vector2(40*clampf(p.hp/maxf(1,p.max_hp),0,1),3)*zoom),Ink.BLUE)
 		for mine in combat.special.mines:
 			module_art(db.sprite(mine.data.mineSprite),world(mine.position),Vector2(22,22)*zoom)
 		for d in combat.drones+combat.enemy_drones:

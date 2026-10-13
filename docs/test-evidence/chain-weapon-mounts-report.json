@@ -1,0 +1,208 @@
+{
+	"checks": [
+		{
+			"name": "A swaying cannon keeps its physical socket fixed",
+			"passed": true
+		},
+		{
+			"name": "Both mounted cannons fire through real combat",
+			"passed": true
+		},
+		{
+			"name": "The actual muzzle follows the visible flexible mount",
+			"passed": true
+		},
+		{
+			"name": "Each new segment displays its element at a readable large size",
+			"passed": true
+		},
+		{
+			"name": "The complete shell has a stable physical collision radius",
+			"passed": true
+		},
+		{
+			"name": "Starts, turns and stops produce bounded soft mount movement",
+			"passed": true
+		},
+		{
+			"name": "Flexible mounts preserve construction coordinates and saved blueprints",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-mounts-large.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0000.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0001.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0002.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0003.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0004.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0005.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0006.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0007.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0008.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0009.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0010.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0011.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0012.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0013.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0014.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0015.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0016.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0017.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0018.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0019.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0020.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0021.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0022.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0023.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0024.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0025.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0026.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0027.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0028.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0029.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0030.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0031.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0032.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0033.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0034.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0035.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0036.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0037.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0038.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0039.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0040.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0041.png",
+			"passed": true
+		}
+	],
+	"clip_fps": 12,
+	"clip_frames": 42,
+	"passed": true,
+	"scope": "Real production scene, one element per segment; enemies omitted to show size and sway."
+}

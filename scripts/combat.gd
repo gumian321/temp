@@ -277,20 +277,21 @@ func step(dt: float, aim: Vector2, shooting: bool):
 		var c: Dictionary = db.asset(player.hq_weapon if i == 0 else p.id)
 		if c.has("coreProjectile"):
 			var chips: Dictionary = player.chips(i)
+			var emitter: Vector2 = player.weapon_origin(i)
 			var reach = db.range_units(c.get("turretRange", 1)) * 48.0 * (1.0 + player.stats.get("17" if i == 0 else "3", 0.0) + player.upgrade_bonus(c.id, "RangePercent"))
 			var target = target_for(c, p.position, reach)
-			var dir: Vector2 = (aim - p.position).normalized()
+			var dir: Vector2 = (aim - emitter).normalized()
 			var manual: bool = i == 0 or chips.has(6)
 			if not manual and not target.is_empty():
-				dir = (target.position - p.position).normalized()
+				dir = (target.position - emitter).normalized()
 			p.angle = rotate_toward(p.angle,dir.angle(),deg_to_rad(float(c.get("turretRotateSpeed",360)))*dt)
 			if db.asset(c.coreProjectile).get("class")=="ContinuousProjectile":
-				if (manual and shooting) or (not manual and not target.is_empty()): special.continuous(c,p.position,Vector2.from_angle(p.angle),true,chips,player.stats.get("15",0.0),dt,"player:"+str(i))
+				if (manual and shooting) or (not manual and not target.is_empty()): special.continuous(c,emitter,Vector2.from_angle(p.angle),true,chips,player.stats.get("15",0.0),dt,"player:"+str(i))
 				continue
 			if p.cooldown <= 0 and ((manual and shooting) or (not manual and not target.is_empty())) and absf(angle_difference(p.angle,dir.angle()))<deg_to_rad(float(c.get("turretErrorAngle",2))):
 				var rate = float(c.get("turretRateOfFire", 1)) * (1.0 + player.stats.get("13" if i == 0 else "2", 0.0) + player.upgrade_bonus(c.id, "RateOfFirePercent"))
 				p.cooldown = 1.0 / maxf(rate, 0.01)
-				fire(c, p.position, dir, true, chips, player.stats.get("14" if i == 0 else "15", 0.0) + player.upgrade_bonus(c.id, "DamagePercent"), false, int(p.get("barrel_index",0)),player.weapon_visual_scale(i))
+				fire(c, emitter, dir, true, chips, player.stats.get("14" if i == 0 else "15", 0.0) + player.upgrade_bonus(c.id, "DamagePercent"), false, int(p.get("barrel_index",0)),player.weapon_visual_scale(i))
 				p.barrel_index=int(p.get("barrel_index",0))+1
 				p.recoil=float(Feedback.profile(Feedback.family(c)).recoil)
 		elif c["class"] == "ShieldCore":

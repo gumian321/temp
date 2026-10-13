@@ -60,8 +60,9 @@ static func segment(canvas: CanvasItem, at: Vector2, angle: float, scale_factor:
 		if selected:canvas.draw_rect(Rect2(-30,-30,60,60),Ink.BLUE,false,2.0)
 	canvas.draw_set_transform(Vector2.ZERO)
 
-static func tail(canvas: CanvasItem, at: Vector2, angle: float, scale_factor: float):
+static func tail(canvas: CanvasItem, at: Vector2, angle: float, scale_factor: float, head_only: bool = false):
 	prepare()
+	if head_only: at -= Vector2.from_angle(angle) * 14.0 * scale_factor
 	canvas.draw_set_transform(at,angle+PI/2,Vector2.ONE*scale_factor)
 	canvas.draw_texture_rect(pieces.tail,Rect2(-14,-15,28,63),false)
 	canvas.draw_set_transform(Vector2.ZERO)

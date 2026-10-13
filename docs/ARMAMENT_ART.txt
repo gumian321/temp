@@ -36,9 +36,9 @@ drone_bay 攻击蜂巢，薄荷绿巢室。
 验证：
 python tools/run_checks.py armament_art brood grid_mounts weapon_feedback --render --godot D:\godot\Godot_v4.6.3-stable_win64.exe --report armament-v2-validation.json
 python tools/run_checks.py weapon_showcase --render --timeout 60 --godot D:\godot\Godot_v4.6.3-stable_win64.exe --report armament-v2-combat-render.json
-artifacts/armament-v2-lineup.png：Godot 实际渲染图集，含 14 / 27 / 35 像素小图。
-artifacts/armament-v2-build.png：实际九宫格装配页。
-artifacts/armament-v2-mounted.png：真实场景中的九格混装与单装。
+artifacts/armament-v2-lineup.png：Godot 实际渲染图集，含头部 / 体节 / 待装图标的 42 / 56 / 78 像素小图。
+artifacts/armament-v2-build.png：实际单节单元素的装配页。
+artifacts/armament-v2-mounted.png：真实场景中的逐节武装，一节一个元素。
 上述场景为可复现的布置演示；运行测试使用隔离存档目录。
 测试报告归档于 docs/test-evidence/armament-v2-*.json。
 

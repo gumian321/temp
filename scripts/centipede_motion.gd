@@ -28,6 +28,10 @@ func reset():
 	orientations.clear()
 
 func ensure_length(body):
+	# Destruction shortens the chain; discard the old tail's solver state.
+	var length = body.segment_count()
+	if centers.size()>length:
+		spine.resize(length);route.resize(length);centers.resize(length);orientations.resize(length)
 	if centers.is_empty(): anchor = body.head
 	# Explicit teleports/reset fixtures move the whole chain; ordinary movement
 	# advances followers in advance(), rather than translating them with the head.

@@ -18,18 +18,18 @@ class Board extends Node2D:
 	func _draw():
 		draw_rect(Rect2(0,0,1440,900),Ink.PAPER)
 		draw_string(font,Vector2(32,49),"蜈蚣武装 · 蓝墨甲壳 / 彩色树脂",HORIZONTAL_ALIGNMENT_LEFT,-1,30,Ink.INK)
-		draw_string(font,Vector2(33,82),"15 种武器与装置 · 每格下方为 14 / 27 / 35 像素的实际挂载尺寸",HORIZONTAL_ALIGNMENT_LEFT,-1,18,Ink.MUTED)
+		draw_string(font,Vector2(33,82),"15 种武器与装置 · 下方为头部 / 体节 / 待装图标：42 / 56 / 78 像素",HORIZONTAL_ALIGNMENT_LEFT,-1,18,Ink.MUTED)
 		for i in ITEMS.size():
 			var cell=Vector2(30+i%5*282,110+i/5*245)
 			draw_rect(Rect2(cell,Vector2(264,224)),Color("ccd8df"),false,1)
 			draw_string(font,cell+Vector2(16,28),ITEMS[i][1],HORIZONTAL_ALIGNMENT_LEFT,-1,19,Ink.INK)
 			var texture=Brood.weapon_texture(ITEMS[i][0])
-			var extent=Ink.fitted_size(texture,Vector2(142,128))
-			draw_texture_rect(texture,Rect2(cell+Vector2(132,99)-extent/2,extent),false)
+			var extent=Ink.fitted_size(texture,Vector2(120,98))
+			draw_texture_rect(texture,Rect2(cell+Vector2(132,95)-extent/2,extent),false)
 			for j in range(3):
-				var size=[14,27,35][j]
+				var size=[42,56,78][j]
 				var small=Ink.fitted_size(texture,Vector2.ONE*size)
-				draw_texture_rect(texture,Rect2(cell+Vector2(55+j*71,188)-small/2,small),false)
+				draw_texture_rect(texture,Rect2(cell+Vector2(55+j*71,185)-small/2,small),false)
 		draw_string(font,Vector2(34,883),"独立透明贴图 · 装配 / 奖励 / 战斗共用 · 全部等比缩放",HORIZONTAL_ALIGNMENT_LEFT,-1,18,Ink.MUTED)
 		for extra in [["mine_unit","孢雷实体",970],["drone_unit","攻击无人机",1200]]:
 			var texture=Brood.weapon_texture(extra[0])
@@ -56,7 +56,7 @@ func execute():
 		check(path.ends_with("weapon_v2_"+entry[0]+".png"),"Production core resolves to new art: "+entry[0])
 		distinct[path]=true
 		var fit_ok=Ink.keeps_color(texture)
-		for size in [14,27,35,96]:
+		for size in [28,36,42,44,56,96]:
 			var extent=Ink.fitted_size(texture,Vector2.ONE*size)
 			fit_ok=fit_ok and is_equal_approx(extent.x/texture.get_width(),extent.y/texture.get_height()) and maxf(extent.x,extent.y)<=size+0.001
 		check(fit_ok,"Color and proportions survive all mount/UI sizes: "+entry[0])
@@ -85,14 +85,14 @@ func execute():
 	game.run.rewards.queue.clear();game.run.packs=0
 	game.tutorials.movement_shown=true;game.tutorials.radar_shown=true;game.tutorials.fuel_shown=true
 	for i in ITEMS.size():
-		game.player.install_module(db.named(ITEMS[i][2]).id,1 if i<9 else i-7,i if i<9 else 4)
-	check(game.player.parts_on_segment(1).size()==9,"All nine slots can show different new weapons together")
+		game.player.install_module(db.named(ITEMS[i][2]).id,i+1,4)
+	check(game.player.segment_count()==ITEMS.size() and game.player.parts_on_segment(1).size()==1,"Each weapon device occupies its own complete segment")
 	game.build_selected_segment=1;game.show_build()
 	await capture("res://artifacts/armament-v2-build.png")
-	check(game.build_ui.slots.all(func(s):return s.icon is AtlasTexture),"Assembly uses all nine generated images")
-	game.show_game();game.camera=game.player.head-Vector2(170,0);game.zoom=1.7
+	check(game.build_ui.segment_buttons.values().all(func(s):return s.icon is AtlasTexture),"Segment assembly uses every generated weapon image")
+	game.show_game();game.camera=game.player.head-Vector2(540,0);game.zoom=1.0
 	game.label_at("蓝墨蜈蚣 · 彩色生体武装",Vector2(455,145),27)
-	game.label_at("前节九格混装，后节单装 · 保持原图比例",Vector2(426,189),19)
+	game.label_at("每节一个元素 · 炮塔保持原图比例",Vector2(426,189),19)
 	game.queue_redraw();await capture("res://artifacts/armament-v2-mounted.png")
 	game.cursor_system.shutdown();game.audio_system.shutdown();game.particle_effects.clear();game.process_mode=Node.PROCESS_MODE_DISABLED
 	for i in range(12):OS.delay_msec(10);await process_frame

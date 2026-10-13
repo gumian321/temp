@@ -1,0 +1,171 @@
+{
+	"captures": [
+		"res://artifacts/reward-flow-01-choice.png",
+		"res://artifacts/reward-flow-02-place.png",
+		"res://artifacts/reward-flow-02-adjust.png",
+		"res://artifacts/reward-flow-03-full.png"
+	],
+	"checks": [
+		{
+			"name": "Use eligible real source reward definitions",
+			"passed": true
+		},
+		{
+			"name": "Rewards do not interrupt an explicit pause",
+			"passed": true
+		},
+		{
+			"name": "One earned pack automatically opens three choices",
+			"passed": true
+		},
+		{
+			"name": "Combat timer pauses for reward modal",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced reward-flow-01-choice",
+			"passed": true
+		},
+		{
+			"name": "Saved reward-flow-01-choice",
+			"passed": true
+		},
+		{
+			"name": "Duplicate click consumes exactly one reward and grants one new element",
+			"passed": true
+		},
+		{
+			"name": "Module proceeds directly to selected placement",
+			"passed": true
+		},
+		{
+			"name": "Illegal placement retains module",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced reward-flow-02-place",
+			"passed": true
+		},
+		{
+			"name": "Saved reward-flow-02-place",
+			"passed": true
+		},
+		{
+			"name": "Postpone installation retains items and resumes combat",
+			"passed": true
+		},
+		{
+			"name": "E construction resumes deferred installation",
+			"passed": true
+		},
+		{
+			"name": "Placing the final element keeps construction open for further adjustment",
+			"passed": true
+		},
+		{
+			"name": "Construction and combat remain paused until the user explicitly finishes",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced reward-flow-02-adjust",
+			"passed": true
+		},
+		{
+			"name": "Saved reward-flow-02-adjust",
+			"passed": true
+		},
+		{
+			"name": "Clicking Finish adjustment closes construction and resumes combat",
+			"passed": true
+		},
+		{
+			"name": "E still opens free construction when no reward is pending",
+			"passed": true
+		},
+		{
+			"name": "Six-pack threshold has no automatic build/return loop",
+			"passed": true
+		},
+		{
+			"name": "Postponing preserves six packs and rolled choices without reopening",
+			"passed": true
+		},
+		{
+			"name": "Queue consumes one pack per choice 0",
+			"passed": true
+		},
+		{
+			"name": "Queue consumes one pack per choice 1",
+			"passed": true
+		},
+		{
+			"name": "Queue consumes one pack per choice 2",
+			"passed": true
+		},
+		{
+			"name": "Queue consumes one pack per choice 3",
+			"passed": true
+		},
+		{
+			"name": "Queue consumes one pack per choice 4",
+			"passed": true
+		},
+		{
+			"name": "Queue consumes one pack per choice 5",
+			"passed": true
+		},
+		{
+			"name": "Non-entity rewards apply directly and queue resumes only when finished",
+			"passed": true
+		},
+		{
+			"name": "A remaining pack cannot interrupt adjustment after a new element is installed",
+			"passed": true
+		},
+		{
+			"name": "Native drag preview is active before mouse release",
+			"passed": true
+		},
+		{
+			"name": "The user can still reorder the newly placed element before closing construction",
+			"passed": true
+		},
+		{
+			"name": "Manual completion preserves the remaining pack without immediately opening another modal",
+			"passed": true
+		},
+		{
+			"name": "The postponed pack remains available through the normal explicit reward entry",
+			"passed": true
+		},
+		{
+			"name": "New pickup wakes a postponed queue",
+			"passed": true
+		},
+		{
+			"name": "Full capacity rejects stale selection without consumption",
+			"passed": true
+		},
+		{
+			"name": "No eligible choice is disabled and retained",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced reward-flow-03-full",
+			"passed": true
+		},
+		{
+			"name": "Saved reward-flow-03-full",
+			"passed": true
+		},
+		{
+			"name": "No-slot path can continue without discarding reward",
+			"passed": true
+		},
+		{
+			"name": "Death closes reward UI and cannot consume a reward",
+			"passed": true
+		}
+	],
+	"passed": true
+}

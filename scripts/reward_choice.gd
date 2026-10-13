@@ -45,7 +45,7 @@ func setup(owner_game,offers:Array,token:int):
   var name_label=label(face,game.db.title(reward),23);name_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;name_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;name_label.custom_minimum_size.y=56
   var rule=HSeparator.new();rule.mouse_filter=MOUSE_FILTER_IGNORE;face.add_child(rule)
   var effect=label(face,effect_text(reward),17);effect.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;effect.custom_minimum_size.y=72;effect.max_lines_visible=4;effect.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS;effect.add_theme_color_override("font_color",Color("516b86"));effect_labels.append(effect)
-  var action=game.db.ui("Select · choose a mount →","选择 · 安放模块 →") if reward.get("class")=="BlockReward" else game.db.ui("Select · apply immediately →","选择 · 立即生效 →")
+  var action=game.db.ui("Select · grow a segment →","选择 · 新增一节 →") if reward.get("class")=="BlockReward" else game.db.ui("Select · apply immediately →","选择 · 立即生效 →")
   if b.disabled:action=game.db.ui("Unavailable · keep for later","当前不可选 · 可暂存")
   var action_label=label(face,action,17);action_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;action_label.add_theme_color_override("font_color",accent)
   if b.disabled:face.modulate=Color(1,1,1,.55)
@@ -57,6 +57,7 @@ func setup(owner_game,offers:Array,token:int):
  recycle_button=Button.new();recycle_button.text=game.db.ui("Recycle this pack","回收此奖励包");recycle_button.pressed.connect(func():game.recycle_reward(epoch));footer.add_child(recycle_button)
  resized.connect(layout_board);layout_board.call_deferred()
 func effect_text(reward:Dictionary)->String:
+ if reward.get("class")=="BlockReward":return game.db.ui("One new element, one new segment. Drag to choose its position.","获得一个新元素，新增一节身体。拖放选择它的位置。")
  var description=""
  if reward.get("rewardDesc") is String:description=game.db.text(reward.rewardDesc)
  if description==str(reward.get("rewardDesc")):description=""

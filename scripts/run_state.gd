@@ -174,13 +174,14 @@ func percent_allowed(type: int, value: float) -> bool:
 
 func can_reward(r: Dictionary) -> bool:
 	if r.is_empty() or not save.available(r.id): return false
-	if r["class"] == "BlockReward": return player.parts.size()+player.pending.size()+int(r.coresCount)<=int(db.stores.PlayerDataStore.maxBuiltCores)+1
+	if r["class"] == "BlockReward": return player.parts.size()+player.pending.size()+player.reward_module_count(r)<=int(db.stores.PlayerDataStore.maxBuiltCores)+1
 	if "LevelUp" in str(r["class"]): return int(player.levels.get(r.id,0))<int(db.stores.PlayerDataStore.get("levelUpsAllowed",3))
 	if r["class"] == "MainCoreTurretReward": return player.hq_weapon != r.core
 	if r["class"] == "MainCoreDroneReward": return combat.drones.filter(func(d): return d.owner==0).size()+int(r.dronesCount)<=int(db.stores.PlayerDataStore.maxHQDronesCount)
 	if r["class"] == "PercentBasicReward": return percent_allowed(int(r.rewardType),float(r.percent))
 	if r["class"] == "CrusedReward": return percent_allowed(int(r.buffRewardType),float(r.buffPercent)) and percent_allowed(int(r.debuffRewardType),float(r.debuffPercent))
 	if r["class"] == "CountBasicReward":
+		if not player.uses_build_actions() and int(r.rewardType) in [8,9,20]:return false
 		match int(r.rewardType):
 			8: return player.parts.size()>=3
 			9: return player.parts.size()>=2 and player.parts.size()+int(r.rewardCount)<=61
@@ -199,7 +200,7 @@ func take_reward(r: Dictionary) -> bool:
 		return false
 	match r["class"]:
 		"BlockReward":
-			for i in range(int(r.coresCount)):
+			for i in range(player.reward_module_count(r)):
 				player.pending.append(r.blockCore)
 		"CountBasicReward":
 			var key: String = {8: "swap", 9: "duplicate", 20: "move", 21: "wall"}.get(int(r.rewardType), "")

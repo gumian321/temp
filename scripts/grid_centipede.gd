@@ -29,6 +29,7 @@ func step(dt: float, direction: Vector2, wants_boost: bool):
 		if fuel_delay <= 0.0: fuel = minf(max_fuel, fuel + 25.0 * dt)
 	motion.step(self, dt, direction, speed)
 	refresh_positions()
+	step_mount_sway(dt)
 
 func refresh_body_poses():
 	body_poses = motion.poses(self)
@@ -121,6 +122,8 @@ func set_mount(part: Dictionary, segment: int, slot: int):
 	part.segment = segment
 	part.slot = slot
 	part.cell = mount_cell(segment, slot)
+	part.erase("mount_sway")
+	part.erase("mount_velocity")
 
 func swap_piece(a: int, b: int) -> bool:
 	if a <= 0 or b <= 0 or a >= parts.size() or b >= parts.size() or a == b: return false
@@ -173,11 +176,57 @@ func adjacent_part_indices(index: int, include_self: bool = false) -> Array:
 	return result
 
 func module_size(index: int) -> float:
-	if index == 0: return 27.0
-	return 35.0 if int(parts[index].slot) == 4 and int(segment_module_counts.get(int(parts[index].segment), 0)) == 1 else 14.0
+	if index == 0: return 42.0
+	return mount_display_size(int(segment_module_counts.get(int(parts[index].segment), 0)))
+
+func mount_display_size(count: int) -> float:
+	if count <= 1: return 56.0
+	if count <= 3: return 44.0
+	if count <= 5: return 36.0
+	return 28.0
+
+func display_slot_offset(segment: int, slot: int, additional: int = 0) -> Vector2:
+	var count = int(segment_module_counts.get(segment, 0)) + additional
+	var pitch = Vector2.ONE * (16.0 if count <= 1 else 27.0)
+	if count > 3: pitch = Vector2(24.0, 30.0)
+	var offset = Vector2(slot % 3 - 1, slot / 3 - 1) * pitch
+	# A short flexible neck lifts each weapon away from its socket.
+	var outward = slot_offset(slot).normalized() if slot != 4 else Vector2(0, -1 if segment % 2 else 1)
+	return offset + outward * (8.0 if count <= 3 else 3.0)
+
+func step_mount_sway(dt: float):
+	for i in parts.size():
+		var part: Dictionary = parts[i]
+		var segment = segment_index(i)
+		var seed_phase = segment * 0.85 + float(part.get("slot", 4)) * 0.47
+		var sway: Vector2 = part.get("mount_sway", Vector2.ZERO)
+		var speed: Vector2 = part.get("mount_velocity", Vector2.ZERO)
+		var remaining = dt
+		while remaining > 0.000001:
+			var tick = minf(remaining, 1.0 / 120.0)
+			var clock = motion.elapsed - remaining + tick
+			var amplitude = 0.7 + motion.activity * 2.8
+			var target = Vector2(-motion.activity * 2.3, -motion.turn_rate * 0.8)
+			target += Vector2(sin(clock * 3.1 - seed_phase) * 0.45, sin(clock * 4.2 - seed_phase)) * amplitude
+			if i == 0: target *= 0.4
+			speed += ((target - sway) * 110.0 - speed * 14.0) * tick
+			sway = (sway + speed * tick).limit_length(6.0)
+			remaining -= tick
+		part.mount_sway = sway
+		part.mount_velocity = speed
+
+func weapon_origin(index: int) -> Vector2:
+	var part: Dictionary = parts[index]
+	var offset: Vector2 = part.get("mount_sway", Vector2.ZERO)
+	if index > 0:
+		offset += display_slot_offset(int(part.segment), int(part.slot)) - slot_offset(int(part.slot))
+	return Vector2(part.position) + offset.rotated(float(part.body_angle))
 
 func collision_radius(index: int) -> float:
-	return 30.0 if index == 0 else module_size(index) * 0.5
+	if index == 0: return 30.0
+	# Enlarged weapons and their soft necks are presentation; sockets stay physical.
+	var solo_center = int(parts[index].slot) == 4 and int(segment_module_counts.get(int(parts[index].segment), 0)) == 1
+	return 17.5 if solo_center else 7.0
 
 func weapon_visual_scale(index: int) -> float:
 	return module_size(index) / 35.0

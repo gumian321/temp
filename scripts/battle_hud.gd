@@ -43,7 +43,7 @@ func setup(owner_game):
  theme.set_color("font_color","Label",Ink.INK)
  var left=card();mission=label(left,"",19);health=meter(left,tr_text("头部耐久","Head health"));fuel=meter(left,tr_text("燃料","Fuel"))
  var middle=card();timer=label(middle,"",22);danger=meter(middle,tr_text("危险度 · 累积","Danger · cumulative"));counters=label(middle,"",16)
- var right=card();modules=meter(right,tr_text("模块","Modules"));drones=meter(right,tr_text("头部无人机","Head drones"))
+ var right=card();modules=meter(right,tr_text("体节","Segments"));drones=meter(right,tr_text("头部无人机","Head drones"))
  build_button=Button.new();build_button.text=tr_text("逐节装塔 [E]","Build [E]");build_button.custom_minimum_size.y=36;build_button.pressed.connect(game.show_build);right.add_child(build_button)
  for state in ["normal","hover","pressed","focus"]:build_button.add_theme_stylebox_override(state,Ink.box(Color("e7eeef") if state!="normal" else Ink.PAPER,Ink.BLUE,1))
  for state in ["font_color","font_hover_color","font_pressed_color","font_hover_pressed_color","font_focus_color"]:build_button.add_theme_color_override(state,Ink.INK)

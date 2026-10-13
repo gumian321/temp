@@ -397,3 +397,12 @@ func collision_radius(index: int) -> float:
 
 func weapon_visual_scale(_index: int) -> float:
 	return 1.0
+
+func weapon_origin(index: int) -> Vector2:
+	return parts[index].position
+
+func reward_module_count(reward: Dictionary) -> int:
+	return maxi(1,int(reward.get("coresCount",1)))
+
+func uses_build_actions() -> bool:
+	return true

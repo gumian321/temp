@@ -161,12 +161,13 @@ func _draw():
 	var placing = not hovered_target.is_empty() and can_drop(hovered_target,carried)
 	if placing: data = {}
 	if data.is_empty():
-		draw_segment(self,selected_segment,Vector2(1185,538),2.7)
+		var additional = 1 if placing and (carried.get("kind")!="mounted" or int(carried.get("part",{}).get("segment",-1))!=selected_segment) else 0
+		draw_segment(self,selected_segment,Vector2(1185,538),2.7,additional)
 		if placing:
 			var ghost = db.core_sprite(db.asset(carried.get("id",carried.get("part",{}).get("id",""))))
 			var slot = int(hovered_target.slot)
-			var center = Vector2(1185,538)+player.slot_offset(slot)*2.7
-			var extent = Ink.fitted_size(ghost,Vector2.ONE*(35.0 if slot==4 and player.parts_on_segment(selected_segment).is_empty() else 14.0)*2.7)
+			var center = Vector2(1185,538)+player.display_slot_offset(selected_segment,slot,additional)*2.7
+			var extent = Ink.fitted_size(ghost,Vector2.ONE*player.mount_display_size(player.parts_on_segment(selected_segment).size()+additional)*2.7)
 			if ghost!=null: draw_texture_rect(ghost,Rect2(center-extent/2,extent),false,Color(1,1,1,0.6))
 			draw_arc(center,23,0,TAU,40,Color("62a4a4"),2,true)
 		draw_string(Ink.theme().default_font,Vector2(1161,686),"%d / 9" % player.parts_on_segment(selected_segment).size(),HORIZONTAL_ALIGNMENT_LEFT,-1,20,Ink.MUTED)
@@ -188,14 +189,15 @@ func _draw():
 		else:
 			draw_segment(self,selected_segment,Vector2(1186,611),1.08)
 
-func draw_segment(canvas: CanvasItem, segment: int, at: Vector2, scale_factor: float = 0.95):
+func draw_segment(canvas: CanvasItem, segment: int, at: Vector2, scale_factor: float = 0.95, additional: int = 0):
 	Art.segment(canvas,at,0,scale_factor,0.0,false,player.parts_on_segment(segment).is_empty())
 	for index in player.parts_on_segment(segment):
 		var part: Dictionary = player.parts[index]
 		var texture = db.core_sprite(db.asset(part.id))
 		if texture==null: continue
-		var extent = Ink.fitted_size(texture,Vector2.ONE*player.module_size(index)*scale_factor)
-		var center = at+player.slot_offset(part.slot)*scale_factor
+		var extent = Ink.fitted_size(texture,Vector2.ONE*player.mount_display_size(player.parts_on_segment(segment).size()+additional)*scale_factor)
+		var center = at+player.display_slot_offset(segment,part.slot,additional)*scale_factor
+		canvas.draw_line(at+player.slot_offset(part.slot)*scale_factor,center,Ink.MUTED,3.0*scale_factor,true)
 		canvas.draw_texture_rect(texture,Rect2(center-extent/2,extent),false)
 
 func inspect(data: Dictionary):

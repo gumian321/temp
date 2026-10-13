@@ -1,0 +1,182 @@
+{
+	"captures": [
+		"res://artifacts/chain-00-startup.png",
+		"res://artifacts/chain-01-head-only.png",
+		"res://artifacts/chain-01-head-only-up.png",
+		"res://artifacts/chain-01-head-only-down.png",
+		"res://artifacts/chain-02-empty-assembly.png",
+		"res://artifacts/centipede-05-drag-preview.png",
+		"res://artifacts/chain-03-assembly.png",
+		"res://artifacts/chain-04-reordered.png",
+		"res://artifacts/chain-05-after-destruction.png",
+		"res://artifacts/chain-06-combat.png"
+	],
+	"checks": [
+		{
+			"name": "Startup goes straight to the main menu",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced chain-00-startup",
+			"passed": true
+		},
+		{
+			"name": "Saved chain-00-startup",
+			"passed": true
+		},
+		{
+			"name": "Starting a run shows only the head",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced chain-01-head-only",
+			"passed": true
+		},
+		{
+			"name": "Saved chain-01-head-only",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced chain-01-head-only-up",
+			"passed": true
+		},
+		{
+			"name": "Saved chain-01-head-only-up",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced chain-01-head-only-down",
+			"passed": true
+		},
+		{
+			"name": "Saved chain-01-head-only-down",
+			"passed": true
+		},
+		{
+			"name": "Empty construction has a growth target without a nine-slot grid",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced chain-02-empty-assembly",
+			"passed": true
+		},
+		{
+			"name": "Saved chain-02-empty-assembly",
+			"passed": true
+		},
+		{
+			"name": "Native drag preview is active before mouse release",
+			"passed": true
+		},
+		{
+			"name": "Invalid native drop keeps the reward and creates no segment",
+			"passed": true
+		},
+		{
+			"name": "Native drag preview is active before mouse release",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced centipede-05-drag-preview",
+			"passed": true
+		},
+		{
+			"name": "Saved centipede-05-drag-preview",
+			"passed": true
+		},
+		{
+			"name": "The first native drop creates one occupied segment",
+			"passed": true
+		},
+		{
+			"name": "Native drag preview is active before mouse release",
+			"passed": true
+		},
+		{
+			"name": "Dropping in front inserts a new segment and moves the previous one back",
+			"passed": true
+		},
+		{
+			"name": "Native drag preview is active before mouse release",
+			"passed": true
+		},
+		{
+			"name": "A new element can be inserted between existing segments",
+			"passed": true
+		},
+		{
+			"name": "Click placement also adds one complete segment",
+			"passed": true
+		},
+		{
+			"name": "The new assembly screen explains the one-element rule",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced chain-03-assembly",
+			"passed": true
+		},
+		{
+			"name": "Saved chain-03-assembly",
+			"passed": true
+		},
+		{
+			"name": "Native drag preview is active before mouse release",
+			"passed": true
+		},
+		{
+			"name": "Native drag reorders a whole segment without changing its combat owner index",
+			"passed": true
+		},
+		{
+			"name": "Reordering does not grow the body or spend actions",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced chain-04-reordered",
+			"passed": true
+		},
+		{
+			"name": "Saved chain-04-reordered",
+			"passed": true
+		},
+		{
+			"name": "A middle segment explosion compacts the surviving chain",
+			"passed": true
+		},
+		{
+			"name": "Independent follower and head health survive the middle-segment loss",
+			"passed": true
+		},
+		{
+			"name": "Construction redraws the shorter chain after combat destruction",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced chain-05-after-destruction",
+			"passed": true
+		},
+		{
+			"name": "Saved chain-05-after-destruction",
+			"passed": true
+		},
+		{
+			"name": "The reordered and shortened centipede still moves and fires",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced chain-06-combat",
+			"passed": true
+		},
+		{
+			"name": "Saved chain-06-combat",
+			"passed": true
+		},
+		{
+			"name": "Armor applies to one complete selected segment",
+			"passed": true
+		}
+	],
+	"passed": true,
+	"scope": "Real native dragging/clicking in the production single-element chain UI, plus a controlled combat/destruction fixture."
+}

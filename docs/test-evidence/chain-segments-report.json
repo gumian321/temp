@@ -1,0 +1,69 @@
+{
+	"checks": [
+		{
+			"name": "A fresh centipede has only its head and zero body segments",
+			"passed": true
+		},
+		{
+			"name": "Each new element creates exactly one occupied segment",
+			"passed": true
+		},
+		{
+			"name": "Dragging reorders the chain freely while preserving combat owner indices",
+			"passed": true
+		},
+		{
+			"name": "Reordering preserves every element and its relative order",
+			"passed": true
+		},
+		{
+			"name": "All reordered segments remain attached through turns",
+			"passed": true
+		},
+		{
+			"name": "A destroyed middle segment is removed without destroying the tail",
+			"passed": true
+		},
+		{
+			"name": "The following segments fill the gap and retain their independent health",
+			"passed": true
+		},
+		{
+			"name": "The shortened body drops the old tail solver state",
+			"passed": true
+		},
+		{
+			"name": "Losing all body segments leaves a living head",
+			"passed": true
+		},
+		{
+			"name": "A head-only survivor can grow a new first segment",
+			"passed": true
+		},
+		{
+			"name": "Even a source multi-element reward now grants one element, awaiting placement",
+			"passed": true
+		},
+		{
+			"name": "Placing that reward grows exactly one body segment",
+			"passed": true
+		},
+		{
+			"name": "A stat upgrade applies directly without growing a segment",
+			"passed": true
+		},
+		{
+			"name": "The chain enforces the existing 60-element capacity",
+			"passed": true
+		},
+		{
+			"name": "Startup opens the menu directly without commercial loading pages",
+			"passed": true
+		},
+		{
+			"name": "The head-only assembly screen has one growth target and no nine-slot grid",
+			"passed": true
+		}
+	],
+	"passed": true
+}
