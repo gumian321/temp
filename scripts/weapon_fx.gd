@@ -44,7 +44,37 @@ func spark_star(canvas, at: Vector2, radius: float, color: Color, alpha: float, 
 func visible(canvas, at: Vector2, margin: float = 220.0) -> bool:
 	return Rect2(-margin,-margin,1440+margin*2,900+margin*2).has_point(canvas.world(at))
 
+# Pure geometry shared with regression checks: the tail always trails velocity.
+static func gatling_geometry(bullet: Dictionary, zoom: float) -> Dictionary:
+	var axis = Vector2(bullet.velocity).normalized()
+	var travelled = Vector2(bullet.position).distance_to(bullet.get("origin",bullet.previous))
+	var length = minf(30.0,travelled)*zoom
+	return {"axis":axis,"tail":-axis*length,"tip":axis*3.5*zoom}
+
+func paint_gatling(canvas, bullet: Dictionary, zoom: float):
+	var at=canvas.world(bullet.position)
+	var geometry=gatling_geometry(bullet,zoom)
+	var axis:Vector2=geometry.axis
+	var side=axis.orthogonal()
+	var hostile=not bool(bullet.friendly)
+	var color=Color("e65a76") if hostile else Color("ffc34f")
+	# Solid bright nose, tapered rear and ink edge remain readable on paper.
+	var tail:Vector2=at+geometry.tail
+	canvas.draw_line(tail,at,Color(INK,0.85),maxf(3.0,5.5*zoom),true)
+	canvas.draw_line(tail,at,Color(color,0.95),maxf(1.5,2.8*zoom),true)
+	var tip:Vector2=at+geometry.tip
+	var nose=PackedVector2Array([tip,at-axis*5*zoom-side*3.5*zoom,at-axis*5*zoom+side*3.5*zoom])
+	canvas.draw_colored_polygon(nose,color)
+	canvas.draw_line(at-axis*4*zoom,tip,Color("fff5d9"),maxf(1.0,1.4*zoom),true)
+	if hostile:
+		# A second rear notch distinguishes incoming fire even without color.
+		canvas.draw_line(at-axis*10*zoom-side*3*zoom,at-axis*7*zoom,Color(INK),maxf(1.0,1.6*zoom),true)
+		canvas.draw_line(at-axis*10*zoom+side*3*zoom,at-axis*7*zoom,Color(INK),maxf(1.0,1.6*zoom),true)
+
 func paint_projectile(canvas, bullet: Dictionary, time: float, zoom: float):
+	if str(bullet.get("fx_family",Feedback.family(bullet.data)))=="gatling":
+		if visible(canvas,bullet.position):paint_gatling(canvas,bullet,zoom)
+		return
 	if draw_count >= MAX_PROJECTILES or not visible(canvas,bullet.position): return
 	draw_count += 1
 	var key = str(bullet.get("fx_family", Feedback.family(bullet.data)))
@@ -121,7 +151,10 @@ func paint_effect(canvas, effect: Dictionary, zoom: float):
 			if key in ["gatling","shotgun","cannon","flak"]:
 				var casing=at+axis.orthogonal()*(8+age*190)*size-axis*age*60*size
 				canvas.draw_line(casing,casing+Vector2.from_angle(age*18+seed)*5*size,Color(style.accent,fade),2.5*size,true)
-		"chain": paint_beam(canvas,effect,style,fade*alpha,zoom,key)
+		"chain":
+			# Hold the discharge briefly, then decay; no repeated damage is applied.
+			var beam_fade=1.0 if progress<0.35 else pow((1.0-progress)/0.65,0.8)
+			paint_beam(canvas,effect,style,(beam_fade if key=="tesla" else fade)*alpha,zoom,key)
 		"flame": paint_flame(canvas,effect,style,alpha,zoom)
 		"hit", "shield_hit", "emp":
 			var radius=(18+style.weight*12)*zoom
@@ -212,13 +245,18 @@ func paint_beam(canvas, effect: Dictionary, style: Dictionary, fade: float, zoom
 		var offset=sin(i*11.7+floor(clock*25)*3.7)*11*zoom*sin(t*PI)
 		points.append(start.lerp(finish,t)+side*offset)
 	points.append(finish)
-	canvas.draw_polyline(points,Color(style.accent,fade*0.28),12*zoom,true)
-	canvas.draw_polyline(points,Color(style.color,fade),4*zoom,true)
-	canvas.draw_polyline(points,Color("edfdff")*Color(1,1,1,fade),1.4*zoom,true)
+	canvas.draw_polyline(points,Color(style.accent,fade*0.30),maxf(10,16*zoom),true)
+	canvas.draw_polyline(points,Color(INK,fade*0.95),maxf(4.5,8*zoom),true)
+	canvas.draw_polyline(points,Color(style.color,fade),maxf(2.8,5*zoom),true)
+	canvas.draw_polyline(points,Color("edfdff")*Color(1,1,1,fade),maxf(1.2,2*zoom),true)
 	for i in range(2,points.size()-1,4):
 		var branch=points[i]+side*sin(i*7.0+clock*18)*22*zoom-axis*13*zoom
 		canvas.draw_line(points[i],branch,Color(style.accent,fade*0.7),1.4*zoom,true)
-	glow(canvas,finish,28*zoom,style.color,fade)
+	glow(canvas,start,23*zoom,style.accent,fade*0.8)
+	glow(canvas,finish,36*zoom,style.color,fade)
+	ring(canvas,finish,12*zoom,INK,fade*0.85,3*zoom)
+	ring(canvas,finish,12*zoom,style.color,fade,1.5*zoom)
+	spark_star(canvas,finish,17*zoom,style.color,fade,clock*5,6)
 
 func paint_flame(canvas, effect: Dictionary, style: Dictionary, alpha: float, zoom: float):
 	var start=canvas.world(effect.position)

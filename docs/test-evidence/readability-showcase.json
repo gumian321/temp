@@ -1,0 +1,163 @@
+{
+	"captures": [
+		"res://artifacts/readability-gatling.png",
+		"res://artifacts/readability-tesla.png"
+	],
+	"checks": [
+		{
+			"name": "Saved frame-0000.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0001.png",
+			"passed": true
+		},
+		{
+			"name": "Saved readability-gatling.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0002.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0003.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0004.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0005.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0006.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0007.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0008.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0009.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0010.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0011.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0012.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0013.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0014.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0015.png",
+			"passed": true
+		},
+		{
+			"name": "gatling reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "gatling keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0016.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0017.png",
+			"passed": true
+		},
+		{
+			"name": "Saved readability-tesla.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0018.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0019.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0020.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0021.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0022.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0023.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0024.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0025.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0026.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0027.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0028.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0029.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0030.png",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0031.png",
+			"passed": true
+		},
+		{
+			"name": "tesla reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "tesla keeps the production scene playable",
+			"passed": true
+		}
+	],
+	"clip_frames": 32,
+	"passed": true,
+	"scope": "Gatling outgoing gold/incoming rose and Tesla against stationary controlled targets in the production scene. Preview captures visual behavior; audio is validated separately."
+}
