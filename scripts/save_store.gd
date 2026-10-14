@@ -1,5 +1,10 @@
 extends RefCounted
 
+const CharacterRoster = preload("res://scripts/character_roster.gd")
+var _character_run_active = false
+var _character_run_id = "centipede"
+var _character_run_support = 0
+
 var path = "user://centipede-save.json"
 var state: Dictionary
 var db
@@ -12,7 +17,8 @@ func _init(source, save_path: String = "user://centipede-save.json", load_existi
 	if load_existing:load_save()
 
 func fresh():
-	state = {"version": 1, "systems": {}, "meta": 55, "unlocked": [], "disabled": [], "missions": [], "scores": {}, "achievements": [], "settings": {"volume": 0.7, "music": 0.5, "sfx": 0.8, "language": db.DEFAULT_LANGUAGE, "language_revision": 1, "skip_boss": false,"resolution":0,"screen_mode":2,"bindings":{},"invert_x":false,"invert_y":false,"left_aim":false}, "blueprint": [],"tutorials":{},"statistics":{}}
+	end_character_run()
+	state = {"version": 1, "roster_unlocked": ["centipede"], "selected_character": "centipede", "roster_progress": {"support_modules_best": 0, "boss_kills": 0}, "systems": {}, "meta": 55, "unlocked": [], "disabled": [], "missions": [], "scores": {}, "achievements": [], "settings": {"volume": 0.7, "music": 0.5, "sfx": 0.8, "language": db.DEFAULT_LANGUAGE, "language_revision": 1, "skip_boss": false,"resolution":0,"screen_mode":2,"bindings":{},"invert_x":false,"invert_y":false,"left_aim":false}, "blueprint": [],"tutorials":{},"statistics":{}}
 	for id in db.stores.get("RewardDataStore", {}).get("rewardsUnlockedList", []):
 		state.unlocked.append(id)
 
@@ -23,6 +29,7 @@ func reset_progress():
 	save()
 
 func load_save() -> bool:
+	end_character_run()
 	if not FileAccess.file_exists(path):
 		return false
 	var parsed = parse_file(path)
@@ -48,6 +55,7 @@ func load_save() -> bool:
 	if int(previous_settings.get("language_revision", 0)) < 1:
 		if state.settings.language == "English":state.settings.language = db.DEFAULT_LANGUAGE
 		state.settings.language_revision = 1
+	_normalize_roster()
 	return true
 
 func save() -> bool:
@@ -145,3 +153,79 @@ func parse_file(filename:String):
 	var parser=JSON.new()
 	if parser.parse(FileAccess.get_file_as_string(filename))!=OK:return null
 	return parser.data
+
+# Roster data is additive to save version 1, preserving all pre-roster progress.
+func _normalize_roster():
+	var unlocked: Array = [CharacterRoster.DEFAULT_ID]
+	for id in state.roster_unlocked:
+		if id is String and CharacterRoster.has_character(id) and id not in unlocked:
+			unlocked.append(id)
+	state.roster_unlocked = unlocked
+	for key in ["support_modules_best", "boss_kills"]:
+		var value = state.roster_progress.get(key, 0)
+		state.roster_progress[key] = maxi(0, int(value)) if value is int or value is float else 0
+	# combat.gd records actual boss deaths in stat_BossesKilled;
+	# achievements.finish adds that run statistic to persistent totals.
+	var historical = state.statistics.get("stat_BossesKilled", 0)
+	if (historical is int or historical is float) and historical > 0:
+		state.roster_progress.boss_kills = maxi(state.roster_progress.boss_kills, int(historical))
+	if state.roster_progress.boss_kills > 0 and "beetle" not in unlocked:
+		state.roster_unlocked.append("beetle")
+	if state.roster_progress.support_modules_best >= 3 and "spider" not in unlocked:
+		state.roster_unlocked.append("spider")
+	if not character_unlocked(state.selected_character):
+		state.selected_character = CharacterRoster.DEFAULT_ID
+
+func character_unlocked(id: String) -> bool:
+	return CharacterRoster.has_character(id) and id in state.roster_unlocked
+
+func select_character(id: String) -> bool:
+	if not character_unlocked(id):return false
+	if state.selected_character == id:return true
+	var previous: String = state.selected_character
+	state.selected_character = id
+	if save():return true
+	state.selected_character = previous
+	return false
+
+## Explicit opt-in prevents previews and test construction from tracking progress.
+func begin_character_run(track_progress: bool = false, character_id: String = ""):
+	end_character_run()
+	_character_run_id = state.selected_character if character_id.is_empty() else character_id
+	_character_run_active = track_progress and character_unlocked(_character_run_id)
+
+func end_character_run():
+	_character_run_active = false
+	_character_run_support = 0
+
+func character_run_support_count() -> int:
+	return _character_run_support
+
+## Call only for successful acquisition, not moving or reinstalling old modules.
+func record_support_module() -> Array:
+	if not _character_run_active or _character_run_id != "centipede":return []
+	_character_run_support += 1
+	if _character_run_support <= int(state.roster_progress.support_modules_best):return []
+	var previous = state.duplicate(true)
+	state.roster_progress.support_modules_best = _character_run_support
+	var unlocked: Array = []
+	if _character_run_support >= 3 and not character_unlocked("spider"):
+		state.roster_unlocked.append("spider")
+		unlocked.append("spider")
+	if not save():
+		state = previous
+		return []
+	return unlocked
+
+func record_boss_kill() -> Array:
+	if not _character_run_active:return []
+	var previous = state.duplicate(true)
+	state.roster_progress.boss_kills = int(state.roster_progress.boss_kills) + 1
+	var unlocked: Array = []
+	if not character_unlocked("beetle"):
+		state.roster_unlocked.append("beetle")
+		unlocked.append("beetle")
+	if not save():
+		state = previous
+		return []
+	return unlocked

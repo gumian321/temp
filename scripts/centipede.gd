@@ -25,6 +25,9 @@ var levels: Dictionary = {}
 var last_error = ""
 var built_count = 0
 var built_score = 0
+const RewardFeedbackState = preload("res://scripts/reward_feedback_state.gd")
+var feedback_events: Array = []
+var feedback_next_uid = 0
 
 func _init(source):
 	db = source
@@ -33,6 +36,11 @@ func _init(source):
 	reset()
 
 func reset():
+	feedback_events.clear()
+	feedback_next_uid = 0
+	hq_weapon = db.stores.PlayerDataStore.mainTurretCore
+	actions = {"move":0,"swap":0,"duplicate":0,"wall":0}
+	end_support_tick()
 	head = Vector2.ZERO
 	velocity = Vector2.ZERO
 	input_velocity = Vector2.ZERO
@@ -132,7 +140,8 @@ func move_piece_to_segment(index: int, target_segment: int) -> bool:
 func make_part(id: String, cell: Vector2i) -> Dictionary:
 	var c: Dictionary = db.asset(id)
 	var hp = float(c.get("CoreHealth", 90))
-	return {"id": id, "cell": cell, "hp": hp, "max_hp": hp, "cooldown": 0.0, "shield": float(c.get("maxShieldHealth",0)), "shield_broken":false, "shield_delay": 0.0, "wall": false, "position": head, "angle": 0.0, "body_angle":0.0, "active": true, "stun": 0.0}
+	feedback_next_uid += 1
+	return {"feedback_uid":feedback_next_uid,"feedback_pulses":{},"id": id, "cell": cell, "hp": hp, "max_hp": hp, "cooldown": 0.0, "shield": float(c.get("maxShieldHealth",0)), "shield_broken":false, "shield_delay": 0.0, "wall": false, "position": head, "angle": 0.0, "body_angle":0.0, "active": true, "stun": 0.0}
 
 func add_piece(id: String, cell: Vector2i) -> bool:
 	if parts.size() >= int(db.stores.PlayerDataStore.maxBuiltCores) + 1:
@@ -148,6 +157,8 @@ func add_piece(id: String, cell: Vector2i) -> bool:
 	refresh_upgrades()
 	refresh_positions()
 	last_error = ""
+	emit_feedback("installed", [parts[-1].feedback_uid])
+	pulse_feedback(parts.size()-1,"installed",1.2)
 	return true
 
 func occupied(cell: Vector2i, ignore: int = -1) -> bool:
@@ -220,13 +231,15 @@ func duplicate_piece(index: int, cell: Vector2i) -> bool:
 	return false
 
 func reinforce(index: int) -> bool:
-	if index <= 0 or actions.wall <= 0 or parts[index].wall:
+	if index <= 0 or index >= parts.size() or parts[index].hp <= 0 or actions.wall <= 0 or parts[index].wall:
 		return false
 	parts[index].wall = true
 	var amount = float(db.stores.CoresDataStore.walledCoreAddedHealth)
 	parts[index].max_hp += amount
 	parts[index].hp += amount
 	actions.wall -= 1
+	emit_feedback("reinforced", [parts[index].feedback_uid])
+	pulse_feedback(index,"reinforced",1.2)
 	return true
 
 func step(dt: float, direction: Vector2, wants_boost: bool):
@@ -370,7 +383,7 @@ func refresh_upgrades():
 		var c: Dictionary = db.asset(p.id)
 		var hp = float(c.get("CoreHealth", 90)) * (1.0 + upgrade_bonus(p.id, "CoreHealthPercent") + stats.get("10" if i == 0 else "16", 0.0))
 		if p.wall: hp += float(db.stores.CoresDataStore.walledCoreAddedHealth)
-		p.hp += maxf(0, hp - p.max_hp)
+		if p.hp > 0: p.hp = minf(hp, p.hp + maxf(0, hp - p.max_hp))
 		p.max_hp = hp
 
 func update_fuel_capacity():
@@ -406,3 +419,60 @@ func reward_module_count(reward: Dictionary) -> int:
 
 func uses_build_actions() -> bool:
 	return true
+
+# Stable identity survives reordering; snapshots never cache array indices.
+func effective_core(index: int) -> Dictionary:
+	return db.asset(hq_weapon if index == 0 else parts[index].id)
+
+func set_hq_weapon(id: String):
+	if hq_weapon == id: return
+	hq_weapon = id
+	var core = effective_core(0)
+	parts[0].shield = float(core.get("maxShieldHealth",0)) * (1 + upgrade_bonus(id,"ShieldHealthPercent"))
+	parts[0].shield_broken = false
+	parts[0].shield_delay = 0.0
+	parts[0].cooldown = 0.0
+	parts[0].feedback_pulses.clear()
+
+func emit_feedback(kind: String, uids: Array = [], details: Dictionary = {}):
+	feedback_events.append({"kind":kind,"part_uids":uids,"details":details,"life":2.0,"status":"active","title":"","reward_id":"","reward_class":""})
+	while feedback_events.size() > 64: feedback_events.pop_front()
+
+func reward_feedback(reward: Dictionary, drones: Array = []) -> Dictionary:
+	return RewardFeedbackState.describe(self,reward,drones)
+
+func record_reward_feedback(reward: Dictionary, drones: Array = []):
+	var event = reward_feedback(reward,drones)
+	feedback_events.append(event)
+	while feedback_events.size() > 64: feedback_events.pop_front()
+	for i in range(parts.size()):
+		if parts[i].feedback_uid in event.part_uids: pulse_feedback(i,"reward",1.2)
+
+func take_feedback_events() -> Array:
+	var result = feedback_events.duplicate(true)
+	feedback_events.clear()
+	return result
+
+func pulse_feedback(index: int, kind: String, duration: float = 0.3):
+	if index >= 0 and index < parts.size() and parts[index].hp > 0:
+		parts[index].feedback_pulses[kind] = duration
+
+func step_feedback(dt: float):
+	for event in feedback_events: event.life -= dt
+	feedback_events = feedback_events.filter(func(event): return event.life > 0)
+	for p in parts:
+		if p.hp <= 0: p.feedback_pulses.clear()
+		for kind in p.feedback_pulses.keys():
+			p.feedback_pulses[kind] -= dt
+			if p.feedback_pulses[kind] <= 0: p.feedback_pulses.erase(kind)
+
+func passive_state(index: int) -> Dictionary:
+	return RewardFeedbackState.snapshot(self,index)
+
+func pulse_chip_sources(index: int):
+	var applied = chips(index)
+	if applied.is_empty(): return
+	for source in adjacent_part_indices(index):
+		var core: Dictionary = db.asset(parts[source].id)
+		if core.has("coreChip") and parts[source].hp > 0 and applied.has(int(db.asset(core.coreChip).chipType)):
+			pulse_feedback(source,"chip_trigger",0.22)

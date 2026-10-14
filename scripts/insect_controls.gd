@@ -1,0 +1,84 @@
+extends RefCounted
+## Bounded gameplay control, independent of cosmetic weapon families and save IDs.
+const MAX_ACTIVE = 32
+const SILK_DURATION = 0.8
+const PULL_DURATION = 0.32
+const RECOVERY = 0.9
+const PULL_DISTANCE = 64.0
+const PULL_SPEED = 200.0
+var active: Array = []
+var elapsed = 0.0
+var serial = 0
+
+static func attack_for(turret: Dictionary) -> String:
+	match str(turret.get("name", "")):
+		"Turret_Gun_EMP": return "silk"
+		"Turret_Gun_Tesla": return "tendril"
+	return ""
+
+static func eligible(e: Dictionary, friendly: bool) -> bool:
+	return float(e.get("hp",0)) > 0 and float(e.get("warp",0)) <= 0 and not e.get("despawn",false) and bool(e.get("damageable",true)) and (e.get("role","") != "friendly") == friendly and int(e.get("parent",0)) == 0 and not bool(e.get("mission_controlled",false)) and str(e.get("kind","")) in ["AISwarmingUnit", "AIFollowingUnit", "AIPatrolUnit", "TraderUnit"] and bool(e.get("unit",{}).get("canBeStunned",true))
+
+func attach(e: Dictionary, b: Dictionary) -> bool:
+	var kind = str(b.get("insect_attack",""))
+	if kind not in ["silk","tendril"] or not eligible(e,bool(b.get("friendly",true))): return false
+	if active.size() >= MAX_ACTIVE or e.has("insect_control") or elapsed < float(e.get("insect_recovery_until",0)): return false
+	serial += 1
+	var duration = SILK_DURATION if kind == "silk" else PULL_DURATION
+	var control = {"kind":kind,"target":e,"origin":Vector2(b.get("origin",b.get("position",e.position))),"life":duration,"duration":duration,"friendly":bool(b.get("friendly",true)),"serial":serial,"remaining_pull":PULL_DISTANCE,"source_key":str(b.get("control_source","")),"source_token":int(b.get("control_source_token",0))}
+	active.append(control)
+	# Store only the serial on the actor: no reference cycle and no duplicated actor graphs.
+	e.insect_control = serial
+	e.insect_control_friendly = bool(b.get("friendly",true))
+	e.insect_silk_until = elapsed + duration if kind == "silk" else elapsed
+	e.insect_recovery_until = elapsed + duration + RECOVERY
+	return true
+
+func movement_factor(e: Dictionary, dt: float) -> float:
+	if dt <= 0 or not e.has("insect_control") or not eligible(e,bool(e.get("insect_control_friendly",true))): return 1.0
+	var covered = minf(dt,maxf(0,float(e.get("insect_silk_until",0))-elapsed))
+	return 1.0 - 0.65 * covered / dt
+
+func advance(dt: float, battle):
+	dt = maxf(0,dt)
+	for c in active.duplicate():
+		var e: Dictionary = c.target
+		if not eligible(e,c.friendly) or not battle.enemies.has(e):
+			release(c);continue
+		var key = str(c.source_key)
+		if key.begins_with("player:"):
+			var index = -1
+			for i in range(battle.player.parts.size()):
+				if int(c.source_token) > 0 and int(battle.player.parts[i].get("insect_source_token",0)) == int(c.source_token):
+					index=i;break
+			if index < 0 or index >= battle.player.parts.size() or battle.player.parts[index].hp <= 0:
+				release(c);continue
+			c.origin = battle.player.weapon_origin(index)
+		elif key.begins_with("enemy:"):
+			var source: Dictionary = battle.entity(int(key.get_slice(":",1)))
+			if source.is_empty() or source.hp <= 0 or (source.get("role","")=="friendly") != bool(c.friendly):
+				release(c);continue
+			c.origin = source.position
+			if key.get_slice_count(":") > 2:
+				var gun_index = int(key.get_slice(":",2))
+				if gun_index < 0 or gun_index >= source.guns.size():
+					release(c);continue
+				c.origin += Vector2(source.guns[gun_index].get("offset",Vector2.ZERO)).rotated(float(source.angle))
+		var covered = minf(dt,maxf(0,c.life))
+		if c.kind == "tendril":
+			var delta = Vector2(c.origin) - Vector2(e.position)
+			# Stop outside contact range; cumulative distance remains capped even if the source moves.
+			var distance = minf(minf(PULL_SPEED*covered,c.remaining_pull),maxf(0,delta.length()-maxf(48,float(e.get("radius",14))+24)))
+			e.position += delta.normalized()*distance
+			c.remaining_pull -= distance
+		c.life = maxf(0,c.life-dt)
+		if c.life <= 0: release(c)
+	elapsed += dt
+
+func release(c: Dictionary):
+	var e: Dictionary = c.target
+	if int(e.get("insect_control",-1)) == int(c.serial):
+		e.erase("insect_control")
+		e.erase("insect_silk_until")
+		e.erase("insect_control_friendly")
+	active.erase(c)

@@ -84,6 +84,8 @@ func install_module(id: String, segment: int, slot: int) -> bool:
 	refresh_upgrades()
 	refresh_positions()
 	last_error = ""
+	emit_feedback("installed",[part.feedback_uid])
+	pulse_feedback(parts.size()-1,"installed",1.2)
 	return true
 
 func first_free_mount() -> Vector2i:

@@ -1,5 +1,5 @@
 extends RefCounted
-const DEFAULTS={"move_left":KEY_A,"move_right":KEY_D,"move_up":KEY_W,"move_down":KEY_S,"boost":KEY_SHIFT,"build":KEY_E,"radar":KEY_TAB,"pause":KEY_ESCAPE}
+const DEFAULTS={"move_left":KEY_A,"move_right":KEY_D,"move_up":KEY_W,"move_down":KEY_S,"boost":KEY_SHIFT,"build":KEY_E,"radar":KEY_TAB,"pause":KEY_ESCAPE,"character_skill":KEY_SPACE}
 var save
 var active_joy=-1
 func observe(event):
@@ -15,7 +15,7 @@ func apply():
 		if not InputMap.has_action(action):InputMap.add_action(action)
 		InputMap.action_erase_events(action)
 		var event=InputEventKey.new();event.physical_keycode=int(save.state.settings.get("bindings",{}).get(action,DEFAULTS[action]));InputMap.action_add_event(action,event)
-	var joy_buttons={"build":JOY_BUTTON_B,"radar":JOY_BUTTON_A,"pause":JOY_BUTTON_START}
+	var joy_buttons={"build":JOY_BUTTON_B,"radar":JOY_BUTTON_A,"pause":JOY_BUTTON_START,"character_skill":JOY_BUTTON_Y}
 	var right_click=InputEventMouseButton.new();right_click.button_index=MOUSE_BUTTON_RIGHT;InputMap.action_add_event("radar",right_click)
 	var trigger=InputEventJoypadMotion.new();trigger.axis=JOY_AXIS_TRIGGER_LEFT;trigger.axis_value=1.0;InputMap.action_add_event("boost",trigger)
 	for action in joy_buttons:

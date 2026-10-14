@@ -15,13 +15,7 @@ const SPECIAL_TURRETS = {
 static var textures: Dictionary = {}
 
 static func install(db):
-	for asset in db.catalog.values():
-		var key = str(asset.get("name", "")).trim_prefix("Turret_Gun_")
-		var variant = str(WEAPONS.get(key, ""))
-		variant = str(SPECIAL_TURRETS.get(asset.get("name", ""), variant))
-		if not variant.is_empty(): replace_sprite(db, str(asset.get("turretSprite", "")), "weapon_v2_"+variant)
-		if asset.get("class", "")=="ProjectileDrone":replace_sprite(db,str(asset.get("droneSprite", "")),"weapon_v2_drone_unit")
-		if asset.get("class", "")=="Mine":replace_sprite(db,str(asset.get("mineSprite", "")),"weapon_v2_mine_unit")
+	preload("res://scripts/insect_armaments.gd").install_art(db)
 
 static func replace_sprite(db, id: String, image: String):
 	if not db.sprites.has(id):return
@@ -30,7 +24,7 @@ static func replace_sprite(db, id: String, image: String):
 	db.sprites[id]["brood"] = true
 
 static func weapon_texture(variant: String) -> Texture2D:
-	return texture("weapon_v2_"+variant)
+	return preload("res://scripts/insect_armaments.gd").texture(variant)
 
 static func texture(id: String) -> Texture2D:
 	if not textures.has(id):

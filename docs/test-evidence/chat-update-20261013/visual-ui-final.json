@@ -1,0 +1,19 @@
+{
+  "suites": [
+    {
+      "suite": "chain_ui_redesign",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 7.214,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chain_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 9.574,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

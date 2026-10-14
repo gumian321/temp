@@ -23,15 +23,18 @@ func step(dt: float):
 	for i in range(player.parts.size()):
 		var p: Dictionary = player.parts[i]
 		var c: Dictionary = db.asset(p.id)
+		var was_cloaked = bool(p.get("cloaked",false))
 		p.cloaked = false
 		if i>0 and c.get("isClockable",false):
 			for neighbor_index in player.adjacent_part_indices(i, true):
 				var neighbor: Dictionary = player.parts[neighbor_index]
 				if db.asset(neighbor.id).get("name")=="Core_Clocking" and neighbor.hp>0 and neighbor.stun<=0:
 					p.cloaked = true
+		if p.cloaked and not was_cloaked: player.pulse_feedback(i,"cloak",0.65)
 		if p.hp<=0:
 			if not p.get("destroy_processed",false):
 				p.destroy_processed = true
+				battle().segment_destroyed(i)
 				battle().spawn_scraps(p.position,int(c.get("coreScraps",0)))
 				if c["class"]=="PackCore":
 					for j in range(battle().rng.randi_range(int(c.minPacksCount),int(c.maxPacksCount))): battle().loot.append({"position":p.position,"value":0,"pack":true})
@@ -44,16 +47,19 @@ func step(dt: float):
 		if anchored:
 			var maximum = int(float(c.maxMinesCount)*(1+player.upgrade_bonus(c.id,"maxMinesCountPercent")))
 			if mines.filter(func(m): return m.owner==i and m.anchored).size()>=maximum: continue
-			p.cooldown = 1.0/maxf(0.05,float(c.minesRechargeRate)*(1+player.upgrade_bonus(c.id,"minesRechargeRatePercent")))
+			# Source rewards use negative recharge percentages, as interval reductions.
+			# Keep the original unupgraded interval and a positive high-stack floor.
+			p.cooldown = maxf(0.05,(1.0/maxf(0.05,float(c.minesRechargeRate)))*(1+player.upgrade_bonus(c.id,"minesRechargeRatePercent")))
 			for x in range(-3,4):
 				for y in range(-3,4):
 					if (abs(x)==3 or abs(y)==3) and not player.occupied(p.cell+Vector2i(x,y)): choices.append(Vector2(x,-y)*48)
 		else:
 			if player.velocity.length()<1: continue
-			p.cooldown = float(c.minesSpawnRate)*(1+player.upgrade_bonus(c.id,"minesRechargeRatePercent"))
+			p.cooldown = maxf(0.05,float(c.minesSpawnRate)*(1+player.upgrade_bonus(c.id,"minesRechargeRatePercent")))
 			count = int(c.minesCountPerSpawn)
 			for j in range(count): choices.append(Vector2((float(j)-float(count)*0.5)*8,-48))
 		if choices.is_empty(): continue
+		player.pulse_chip_sources(i)
 		for j in range(count):
 			var offset: Vector2 = choices[battle().rng.randi_range(0,choices.size()-1)]
 			mines.append({"owner":i,"anchored":anchored,"offset":offset,"position":p.position+offset,"life":INF if anchored else 7.0,"data":db.asset(c.coreMine),"chips":player.chips(i)})
@@ -86,11 +92,11 @@ func step(dt: float):
 			for i in range(player.parts.size()):
 				if player.parts[i].position.distance_to(hole.position)<hole.radius: battle().hurt_player(i,hole.damage*dt,hole.shield_damage*dt)
 	black_holes = black_holes.filter(func(h): return h.life>0)
-func continuous(core: Dictionary,at: Vector2,dir: Vector2,friendly: bool,chips: Dictionary,boost: float,dt: float,visual_owner:String=""):
+func continuous(core: Dictionary,at: Vector2,dir: Vector2,friendly: bool,chips: Dictionary,boost: float,dt: float,visual_owner:String="",range_boost:float=0.0):
 	var projectile = db.asset(core.coreProjectile)
-	var reach = db.range_units(core.get("turretRange",1))*48*(1+chip("MammothAreaPercentBoost",int(chips.get(5,0))))
-	var damage = float(projectile.projectileDamage.hullDamage)*(1+boost)*(1+chip("MammothDamagePercentBoost",int(chips.get(5,0))))*dt
-	var shield_damage = float(projectile.projectileDamage.shieldDamage)*(1+boost)*dt
+	var reach = db.range_units(core.get("turretRange",1))*48*maxf(0.0,1+range_boost)*(1+chip("MammothAreaPercentBoost",int(chips.get(5,0))))
+	var damage = float(projectile.projectileDamage.hullDamage)*maxf(0.0,1+boost)*(1+chip("MammothDamagePercentBoost",int(chips.get(5,0))))*dt
+	var shield_damage = float(projectile.projectileDamage.shieldDamage)*maxf(0.0,1+boost)*dt
 	for e in battle().enemies:
 		if e.hp<=0 or not e.damageable or (e.role=="friendly" if friendly else e.role!="friendly"): continue
 		var delta: Vector2 = e.position-at

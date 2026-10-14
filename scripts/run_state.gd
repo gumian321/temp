@@ -4,6 +4,7 @@ var notifications:Array=[]
 var recycled_packs:Array=[]
 var achievement_timer=0.0
 var collected_scraps=0
+var roster_boss_kills=0
 
 const MissionDirector = preload("res://scripts/mission_director.gd")
 const MapDirector = preload("res://scripts/map_director.gd")
@@ -67,6 +68,7 @@ func _init(source, persistence, centipede, battle, selected: Dictionary, difficu
 func step(dt: float):
 	if finished:
 		return
+	track_character_bosses()
 	step_recycled_packs(dt)
 	elapsed += dt
 	achievement_timer+=dt
@@ -172,9 +174,14 @@ func percent_allowed(type: int, value: float) -> bool:
 	var data: Dictionary = db.stores.PlayerDataStore
 	return next >= float(data.minStatsPercentage) and next <= float(data.maxStatsPercentage)
 
+func character_module_cap()->int:
+	return player.module_cap() if player.has_method("module_cap") else int(db.stores.PlayerDataStore.maxBuiltCores)
+
 func can_reward(r: Dictionary) -> bool:
 	if r.is_empty() or not save.available(r.id): return false
-	if r["class"] == "BlockReward": return player.parts.size()+player.pending.size()+player.reward_module_count(r)<=int(db.stores.PlayerDataStore.maxBuiltCores)+1
+	if r["class"] == "BlockReward":
+		if player.get("character_id")!=null and player.get("character_id")!="centipede":return player.pending.is_empty()
+		return player.parts.size()+player.pending.size()+player.reward_module_count(r)<=character_module_cap()+1
 	if "LevelUp" in str(r["class"]): return int(player.levels.get(r.id,0))<int(db.stores.PlayerDataStore.get("levelUpsAllowed",3))
 	if r["class"] == "MainCoreTurretReward": return player.hq_weapon != r.core
 	if r["class"] == "MainCoreDroneReward": return combat.drones.filter(func(d): return d.owner==0).size()+int(r.dronesCount)<=int(db.stores.PlayerDataStore.maxHQDronesCount)
@@ -184,7 +191,7 @@ func can_reward(r: Dictionary) -> bool:
 		if not player.uses_build_actions() and int(r.rewardType) in [8,9,20]:return false
 		match int(r.rewardType):
 			8: return player.parts.size()>=3
-			9: return player.parts.size()>=2 and player.parts.size()+int(r.rewardCount)<=61
+			9: return player.parts.size()>=2 and player.parts.size()+int(r.rewardCount)<=character_module_cap()+1
 			20: return player.parts.size()>=2
 			21: return player.parts.filter(func(p): return not p.wall).size()-1>=int(r.rewardCount)
 	return true
@@ -202,6 +209,8 @@ func take_reward(r: Dictionary) -> bool:
 		"BlockReward":
 			for i in range(player.reward_module_count(r)):
 				player.pending.append(r.blockCore)
+				if preload("res://scripts/character_roster.gd").is_support(db,str(r.blockCore)):
+					for id in save.record_support_module():notifications.append("虫巢解锁："+preload("res://scripts/character_roster.gd").config(id).display_name)
 		"CountBasicReward":
 			var key: String = {8: "swap", 9: "duplicate", 20: "move", 21: "wall"}.get(int(r.rewardType), "")
 			if key != "":
@@ -212,7 +221,7 @@ func take_reward(r: Dictionary) -> bool:
 			player.change_stat(int(r.buffRewardType), float(r.buffPercent))
 			player.change_stat(int(r.debuffRewardType), float(r.debuffPercent))
 		"MainCoreTurretReward":
-			player.hq_weapon = r.core
+			player.set_hq_weapon(r.core)
 		"MainCoreDroneReward":
 			for i in range(int(r.dronesCount)):
 				if combat.drones.filter(func(d): return d.owner == 0).size() < int(db.stores.PlayerDataStore.maxHQDronesCount):
@@ -220,15 +229,23 @@ func take_reward(r: Dictionary) -> bool:
 		_:
 			player.levels[r.id] = int(player.levels.get(r.id, 0)) + 1
 	player.refresh_upgrades()
-	notifications.append(db.title(r)+(" +%d%%"%int(float(r.percent)*100) if r.has("percent") else ""))
+	player.record_reward_feedback(r,combat.drones)
+	# The targeted feedback event owns the acquisition notice exactly once.
 	rewards.consume()
 	opened += 1
 	offers.clear()
 	return true
 
+func track_character_bosses():
+	while roster_boss_kills<combat.boss_kills:
+		roster_boss_kills+=1
+		for id in save.record_boss_kill():notifications.append("虫巢解锁："+preload("res://scripts/character_roster.gd").config(id).display_name)
+
 func finish(victory: bool):
 	if finished:
 		return
+	track_character_bosses()
+	save.end_character_run()
 	finished = true
 	won = victory
 	var breakdown={1:int(combat.destruction / float(db.stores.RatingDataStore.AIHealthToDestructionRate)),3:combat.boss_score,4:player.built_score,6:opened*250,9:0,10:0,5:0}

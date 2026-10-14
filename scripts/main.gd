@@ -3,11 +3,16 @@ extends Node2D
 const DB = preload("res://scripts/source_db.gd")
 const Save = preload("res://scripts/save_store.gd")
 const Body = preload("res://scripts/chain_centipede.gd")
+const CharacterArt = preload("res://scripts/character_art.gd")
 const CentipedeArt = preload("res://scripts/centipede_art.gd")
+const SegmentFeedback = preload("res://scripts/segment_feedback.gd")
+const UI = preload("res://scripts/game_ui.gd")
 const Ink = preload("res://scripts/blue_ink.gd")
 const Brood = preload("res://scripts/brood_theme.gd")
 const Battle = preload("res://scripts/combat.gd")
 const Feedback = preload("res://scripts/weapon_feedback.gd")
+const InsectAttackFX = preload("res://scripts/insect_attack_fx.gd")
+var passive_fx = preload("res://scripts/passive_feedback.gd").new()
 var weapon_fx = preload("res://scripts/weapon_fx.gd").new()
 var hit_pause_left = 0.0
 var hit_pause_cooldown = 0.0
@@ -30,6 +35,7 @@ var message: Label
 var center = Vector2(720, 450)
 var camera = Vector2.ZERO
 var aim = Vector2.RIGHT
+var weapon_mouse_blocked = false
 var zoom = 1.0
 const AudioSystem = preload("res://scripts/audio_system.gd")
 var audio_system
@@ -57,6 +63,7 @@ var background_palette:Array=[]
 var controller_pointer=Vector2(720,440)
 var tip_index=0
 var tip_video:VideoStreamPlayer
+var loading_caption:Label
 var joy_ui=false
 var controller_trigger_down=false
 var tip_stick_down=false
@@ -108,7 +115,7 @@ func _ready():
 	selected_mission = db.asset(db.stores.MissionDataStore.missionsList[0])
 	ui = CanvasLayer.new()
 	add_child(ui)
-	font = load("res://assets/fonts/NotoSansSC-Light.otf")
+	font = UI.theme().default_font
 	ThemeDB.fallback_font = font
 	audio_system=AudioSystem.new()
 	add_child(audio_system)
@@ -124,6 +131,7 @@ func _ready():
 	particle_layer=CanvasLayer.new();particle_layer.layer=0;add_child(particle_layer)
 	particle_effects=load("res://scripts/particle_effects.gd").new();particle_layer.add_child(particle_effects);particle_effects.setup(db);native_visuals.setup(db,particle_effects)
 	popup_text=load("res://scripts/popup_text.gd").new();popup_text.layer=3;add_child(popup_text)
+	passive_fx.setup(self)
 	show_menu()
 	if "--smoke" in OS.get_cmdline_user_args():
 		test_mode = true
@@ -136,6 +144,12 @@ func _ready():
 		test_mode=true;save.fresh();save.path="user://build-input-isolated.json";start_run();run.rewards.enqueue(true);show_rewards()
 
 func clear_ui():
+	if screen not in ["game","pause","build","rewards","result"]:
+		if popup_text!=null:popup_text.clear()
+		if run!=null:run.notifications.clear()
+	# A pending key capture belongs only to the currently displayed controls view.
+	# Rebuilding or leaving that view cancels it, including mouse Back/settings.
+	rebind_action=""
 	if cursor_system!=null:cursor_system.set_cursor(2 if screen=="game" else 1)
 	for child in ui.get_children():
 		child.queue_free()
@@ -154,6 +168,10 @@ func ink_node_added(node: Node):
 func ink_style_later(reference: WeakRef):
 	var node = reference.get_ref()
 	if node == null or not is_ancestor_of(node):return
+	var ancestor:Node=node
+	while ancestor!=null:
+		if ancestor.has_meta("game_ui"):return
+		ancestor=ancestor.get_parent()
 	if screen=="menu" and is_instance_valid(mission_ui) and (node==mission_ui or mission_ui.is_ancestor_of(node)):return
 	if screen=="game" and is_instance_valid(battle_hud) and (node==battle_hud or battle_hud.is_ancestor_of(node)):return
 	if screen=="rewards" and is_instance_valid(reward_ui) and (node==reward_ui or reward_ui.is_ancestor_of(node)):return
@@ -190,18 +208,27 @@ func show_intro():
 
 func show_menu():
 	if audio_system!=null:audio_system.sync_loops([])
-	screen="home"
-	audio_system.change_music("menu")
-	frame(db.ui("CENTIPEDE", "蜈蚣：逐节武装"),db.ui("Grow your body. Arm every segment. Survive together.", "长出身体，逐节装塔，带着整条蜈蚣一起战斗。"))
-	button(db.ui("PLAY", "开始游戏"),Vector2(90,290),Vector2(300,65),show_missions)
-	button(db.ui("RESEARCH", "研究与升级"),Vector2(90,375),Vector2(300,65),show_lab)
-	button(db.ui("OPTIONS", "游戏设置"),Vector2(90,460),Vector2(300,65),show_options)
-	button(db.ui("WHAT'S NEW", "更新说明"),Vector2(90,545),Vector2(300,65),show_changelog)
-	button(db.ui("EXIT", "退出游戏"),Vector2(90,630),Vector2(300,65),safe_shutdown)
-	label_at(db.ui("ONE SEGMENT · ONE MODULE", "一节身体 · 一个模块"),Vector2(675,270),30,Color("d8ebd5"))
-	label_at(db.ui("Turrets ride on the shell. Every leg follows the head.", "炮塔装在背上，身体跟着头部蜿蜒前进。"),Vector2(675,320),20,Color("a9c5ba"))
-	label_at(db.ui("WASD move · Mouse fire · E build", "WASD 移动 · 鼠标瞄准射击 · E 逐节装塔"),Vector2(90,795),20,Color("ebc584"))
-	label_at(db.ui("Research points: %d", "可用研究点：%d")%save.state.meta,Vector2(1030,795),20,Color("ebc584"))
+	reset_pending=false
+	screen="home";audio_system.change_music("menu");clear_ui();source_ui=null
+	UI.backdrop(panel,true)
+	UI.panel(panel,Rect2(48,48,440,804),UI.TEAL)
+	UI.label(panel,"C E N T I P E D E",Vector2(84,88),19,UI.TEAL)
+	UI.label(panel,db.ui("ARMORED\nINSTINCT","逐节武装"),Vector2(80,136),52)
+	UI.label(panel,"01 / "+db.ui("EXPEDITION","远征"),Vector2(84,225),17,UI.MUTED)
+	UI.button(panel,db.ui("DEPLOY","出击"),Rect2(80,308,376,102),show_missions,"play",UI.AMBER)
+	UI.button(panel,db.ui("INSECT NEST","虫巢"),Rect2(80,426,376,76),show_characters,"body")
+	UI.button(panel,db.ui("RESEARCH","进化"),Rect2(80,516,180,76),show_lab,"research")
+	UI.button(panel,db.ui("SETTINGS","设置"),Rect2(276,516,180,76),show_options,"settings")
+	var updates=UI.button(panel,"",Rect2(80,628,76,66),show_changelog,"check");updates.tooltip_text=db.ui("What's new","更新记录")
+	var exit_button=UI.button(panel,"",Rect2(380,628,76,66),safe_shutdown,"exit");exit_button.tooltip_text=db.ui("Exit","退出游戏")
+	UI.icon(panel,"meta",Vector2(82,765),38,UI.AMBER)
+	UI.label(panel,str(save.state.meta),Vector2(136,760),34,UI.AMBER)
+	UI.label(panel,db.ui("EVOLUTION","进化点"),Vector2(136,807),16,UI.MUTED)
+	UI.label(panel,"W A S D  /  "+db.ui("MOVE","移动")+"     E  /  "+db.ui("BUILD","装配"),Vector2(780,830),18,UI.TEXT)
+
+func show_characters():
+	screen="characters";clear_ui();source_ui=null
+	var nest=preload("res://scripts/character_select.gd").new();panel.add_child(nest);nest.setup(self)
 
 func source_ui_action(method:String,_id:String,_args:Dictionary):
 	if method=="HoverFeedback":audio_system.play(int(_args.get("type",72)));return
@@ -256,18 +283,12 @@ func source_ui_action(method:String,_id:String,_args:Dictionary):
 		"OpenGameButton":OS.shell_open("https://store.steampowered.com/app/2928690/Wandness/")
 
 func show_changelog():
-	screen="changelog"
-	source_screen("MainMenuScene/ChangeLogCanvas")
-	var source_label=source_ui.labels.get("17898")
-	if source_label!=null:
-		var container=source_label.get_parent()
-		source_label.hide()
-		var scroll=ScrollContainer.new();scroll.size=container.size;container.add_child(scroll)
-		scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
-		var content=RichTextLabel.new();content.bbcode_enabled=true;content.fit_content=true;content.scroll_active=false
-		content.custom_minimum_size.x=maxf(400,container.size.x-25)
-		content.text=FileAccess.get_file_as_string("res://data/changelog_zh.txt" if db.language.begins_with("Chinese") else "res://data/changelog.txt").replace("<b>","[b]").replace("</b>","[/b]").replace("<size=50>","[font_size=30]").replace("</size>","[/font_size]")
-		content.add_theme_font_size_override("normal_font_size",20);scroll.add_child(content)
+	screen="changelog";clear_ui();source_ui=null;UI.backdrop(panel);UI.header(panel,db.ui("FIELD LOG","战地记录"),show_menu)
+	UI.panel(panel,Rect2(100,140,1240,670))
+	var scroll=ScrollContainer.new();scroll.position=Vector2(136,168);scroll.size=Vector2(1172,608);scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;panel.add_child(scroll)
+	var content=RichTextLabel.new();content.bbcode_enabled=true;content.fit_content=true;content.scroll_active=false;content.custom_minimum_size.x=1132
+	content.text=FileAccess.get_file_as_string("res://data/changelog_zh.txt" if db.language.begins_with("Chinese") else "res://data/changelog.txt").replace("<b>","[b]").replace("</b>","[/b]").replace("<size=50>","[font_size=28]").replace("</size>","[/font_size]")
+	content.add_theme_color_override("default_color",UI.TEXT);content.add_theme_font_size_override("normal_font_size",20);scroll.add_child(content)
 
 func source_screen(key:String):
 	clear_ui();source_ui=SourceUI.new();panel.add_child(source_ui);source_ui.setup(db,key,source_ui_action,save.state.settings.bindings);source_ui.set_binding_labels(save.state.settings.bindings,joy_ui)
@@ -316,6 +337,47 @@ func show_options():
 		var setting={"MasterAudioSlider":"volume","MusicAudioSlider":"music","SFXAudioSlider":"sfx"}[key]
 		source_ui.set_slider(refid(config,key),options_draft[setting])
 
+	show_options_shell()
+
+func shell_from_source(title:String,back:Callable):
+	if is_instance_valid(source_ui):source_ui.hide()
+	UI.backdrop(panel);UI.header(panel,title,back)
+
+func option_step(title:String,value:String,pos:Vector2,left:String,right:String):
+	UI.label(panel,title,pos,18,UI.MUTED)
+	UI.panel(panel,Rect2(pos+Vector2(0,38),Vector2(620,68)))
+	UI.label(panel,value,pos+Vector2(80,48),26)
+	UI.button(panel,"",Rect2(pos+Vector2(8,42),Vector2(54,58)),func():source_ui_action(left,"",{}),"back")
+	UI.button(panel,"",Rect2(pos+Vector2(558,42),Vector2(54,58)),func():source_ui_action(right,"",{}),"next")
+
+func volume_control(key:String,title:String,pos:Vector2,width:float=430):
+	UI.icon(panel,"sound",pos,32)
+	UI.label(panel,title,pos+Vector2(46,-2),19,UI.MUTED)
+	var number=UI.label(panel,str(roundi(float(save.state.settings[key])*100)),pos+Vector2(width-50,-6),23)
+	var slider=HSlider.new();slider.position=pos+Vector2(0,45);slider.size=Vector2(width,35);slider.min_value=0;slider.max_value=1;slider.step=.01;slider.value=float(save.state.settings[key]);slider.focus_mode=Control.FOCUS_ALL;panel.add_child(slider)
+	slider.value_changed.connect(func(value):
+		save.state.settings[key]=value
+		if screen=="options":options_draft[key]=value
+		number.text=str(roundi(value*100));audio_system.refresh();save.save())
+
+func show_options_shell():
+	shell_from_source(db.ui("SYSTEMS","系统"),func():reset_pending=false;show_menu())
+	var config:Dictionary=db.scene_config.OptionMenuManager
+	var resolution:Dictionary=config.resolutions[int(options_draft.resolution)]
+	UI.panel(panel,Rect2(60,130,710,620));UI.panel(panel,Rect2(796,130,580,620))
+	option_step(db.ui("DISPLAY","画面"),"%d × %d"%[resolution.width,resolution.height],Vector2(100,167),"LeftResolution","RightResolution")
+	option_step(db.ui("WINDOW","窗口"),db.text(str(config.screenModesList[int(options_draft.screen_mode)].Text).strip_edges()),Vector2(100,301),"LefScreenMode","RighScreenMode")
+	option_step(db.ui("LANGUAGE","语言"),db.language_name(str(options_draft.language)),Vector2(100,435),"LeftLanguage","RightLanguage")
+	UI.button(panel,db.ui("CONTROLS","按键"),Rect2(100,598,278,80),show_controls,"settings")
+	var boss=UI.button(panel,db.ui("BOSS INTRO","首领演出")+"  "+("−" if options_draft.skip_boss else "✓"),Rect2(398,598,322,80),func():source_ui_action("DeActivateSkipBoss" if options_draft.skip_boss else "ActivateSkipBoss","",{}),"shield")
+	boss.tooltip_text=db.ui("Skip boss intro","跳过首领入场演出")
+	volume_control("volume",db.ui("MASTER","总音量"),Vector2(844,174))
+	volume_control("music",db.ui("MUSIC","音乐"),Vector2(844,315))
+	volume_control("sfx",db.ui("EFFECTS","音效"),Vector2(844,456))
+	var reset=UI.button(panel,db.ui("CONFIRM RESET" if reset_pending else "RESET SAVE","确认清空" if reset_pending else "清空存档"),Rect2(844,606,430,72),func():source_ui_action("ApplyResettButton" if reset_pending else "ResettButton","",{}),"exit",UI.RED)
+	reset.tooltip_text=db.ui("Permanently reset game progress","清空研究与任务进度。再次点击确认。")
+	UI.button(panel,db.ui("APPLY","应用"),Rect2(1070,786,306,76),apply_options,"check",UI.AMBER)
+
 func apply_options():
 	save.state.settings=options_draft.duplicate(true)
 	db.language=save.state.settings.language
@@ -327,27 +389,31 @@ func apply_options():
 	audio_system.refresh();save.save();show_options()
 
 func show_controls():
-	screen="controls"
-	frame(db.text("Option_Controls"),db.ui("Select a binding, then press a key. Esc cancels rebinding.", "点击要修改的操作，再按新按键。按 Esc 取消。"))
+	screen="controls";clear_ui();source_ui=null;UI.backdrop(panel)
+	UI.header(panel,db.ui("CONTROLS","操控"),func():options_draft=save.state.settings.duplicate(true);show_options())
+	UI.label(panel,db.ui("SELECT → PRESS KEY","选择 → 按下新键"),Vector2(100,123),18,UI.MUTED)
 	var index=0
 	for action in InputSystem.DEFAULTS:
 		var code=int(save.state.settings.bindings.get(action,InputSystem.DEFAULTS[action]))
-		button(control_title(action)+"   ["+OS.get_keycode_string(code)+"]",Vector2(80,205+index*63),Vector2(600,50),func():rebind_action=action;message.text=db.ui("Press a key for ", "请按新按键：")+control_title(action))
-		index+=1
+		var pos=Vector2(100+(index%2)*660,178+int(index/2)*92)
+		var b=UI.button(panel,control_title(action)+"    "+OS.get_keycode_string(code),Rect2(pos,Vector2(600,72)),func():rebind_action=action;message.text=db.ui("Press key · Esc cancels","按下新键 · Esc 取消")+" / "+control_title(action))
+		b.tooltip_text=control_title(action);index+=1
 	for i in range(3):
 		var key=["invert_x","invert_y","left_aim"][i]
-		button(control_title(key)+"："+db.ui("On" if save.state.settings[key] else "Off", "开启" if save.state.settings[key] else "关闭"),Vector2(800,250+i*80),Vector2(490,50),func():save.state.settings[key]=not save.state.settings[key];save.save();show_controls())
-	message=label_at("",Vector2(800,535),20)
-	button(db.ui("Reset bindings", "恢复默认按键"),Vector2(800,610),Vector2(490,50),func():save.state.settings.bindings.clear();controls.apply();save.save();show_controls())
-	button(db.text("Option_Back"),Vector2(80,810),Vector2(260,50),func():options_draft=save.state.settings.duplicate(true);show_options())
+		UI.button(panel,control_title(key)+"  "+("✓" if save.state.settings[key] else "−"),Rect2(100+i*440,650,410,65),func():save.state.settings[key]=not save.state.settings[key];save.save();show_controls())
+	message=UI.label(panel,"",Vector2(100,742),20,UI.AMBER)
+	UI.button(panel,db.ui("RESET KEYS","恢复按键"),Rect2(1060,792,300,65),func():save.state.settings.bindings.clear();controls.apply();save.save();show_controls(),"settings")
 
 func start_run():
+	passive_fx.reset()
 	reward_flow_active=false;reward_choice_busy=false;reward_snoozed=false;reward_epoch+=1
 	hit_pause_left=0.0; hit_pause_cooldown=0.0; camera_recoil=Vector2.ZERO; camera_impact=0.0
 	if popup_text!=null:popup_text.clear()
 	if particle_effects!=null:particle_effects.clear()
 	if tutorials!=null:tutorials.reset_run()
+	save.begin_character_run(true)
 	player = Body.new(db)
+	player.configure_character(str(save.state.selected_character))
 	leg_phase=0.0;player_legs.reset()
 	build_selected_segment=1
 	combat = Battle.new(db, player)
@@ -424,7 +490,7 @@ func update_source_hud():
 	source_ui.show_node("100",run.director.end_spawned or run.mode.get("class")=="EndlessModeManager")
 
 func control_title(action:String)->String:
-	var names={"move_up":"向上移动","move_down":"向下移动","move_left":"向左移动","move_right":"向右移动","boost":"加速","build":"逐节装塔","pause":"暂停","radar":"雷达","shoot":"射击","invert_x":"反转横向瞄准","invert_y":"反转纵向瞄准","left_aim":"左摇杆瞄准"}
+	var names={"move_up":"向上移动","move_down":"向下移动","move_left":"向左移动","move_right":"向右移动","boost":"加速","character_skill":"角色技能","build":"逐节装塔","pause":"暂停","radar":"雷达","shoot":"射击","invert_x":"反转横向瞄准","invert_y":"反转纵向瞄准","left_aim":"左摇杆瞄准"}
 	return db.ui(action.replace("_"," ").capitalize(),names.get(action,action))
 
 func show_build():
@@ -510,16 +576,20 @@ func show_loading():
 	for pair in [["127","337","133","LMB"],["261","373","259","D"]]:
 		source_ui.show_node(pair[0],false);source_ui.show_node(pair[1],true);source_ui.set_text(pair[2],db.ui("LMB","左键") if pair[3]=="LMB" else pair[3])
 	tip_index=randi()%config.tipsList.size()
-	var video_container=source_ui.controls.get(refid(config,"panelVideoPlayer"))
-	if video_container!=null:
-		for child in video_container.get_children():child.hide()
-		tip_video=VideoStreamPlayer.new();tip_video.expand=true;tip_video.size=video_container.size;tip_video.loop=true;video_container.add_child(tip_video)
+
+	shell_from_source(db.ui("FIELD MANUAL","作战手册"),show_game)
+	UI.panel(panel,Rect2(80,140,1280,600))
+	tip_video=VideoStreamPlayer.new();tip_video.expand=true;tip_video.position=Vector2(170,180);tip_video.size=Vector2(1100,450);tip_video.loop=true;panel.add_child(tip_video)
+	loading_caption=UI.label(panel,"",Vector2(170,658),22,UI.TEXT)
+	UI.button(panel,db.ui("NEXT","下一页"),Rect2(80,778,280,80),next_loading_tip,"next")
+	UI.button(panel,db.ui("DEPLOY","出击"),Rect2(1040,778,320,80),show_game,"play",UI.AMBER)
 	next_loading_tip()
 
 func next_loading_tip():
 	var config:Dictionary=db.scene_config.LoadingPanelContorller
 	var tip:Dictionary=db.asset(config.tipsList[tip_index])
 	source_ui.set_text(refid(config,"tipsText"),db.text(tip.name))
+	if is_instance_valid(loading_caption):loading_caption.text=db.text(tip.name)
 	var videos:Dictionary=db.read_json("videos")
 	var path=videos.get(tip.get("tipVideoClip",""),"")
 	if is_instance_valid(tip_video):
@@ -536,6 +606,16 @@ func show_pause():
 	for key in ["MasterAudioSlider","MusicAudioSlider","SFXAudioSlider"]:
 		var setting={"MasterAudioSlider":"volume","MusicAudioSlider":"music","SFXAudioSlider":"sfx"}[key]
 		source_ui.set_slider(refid(config,key),save.state.settings[setting])
+
+	shell_from_source(db.ui("PAUSED","休整"),show_game)
+	UI.panel(panel,Rect2(90,156,710,640));UI.panel(panel,Rect2(836,156,510,640))
+	UI.icon(panel,"pause",Vector2(390,200),100,UI.AMBER)
+	UI.button(panel,db.ui("RESUME","继续"),Rect2(160,360,570,104),show_game,"play",UI.AMBER)
+	UI.button(panel,db.ui("REDEPLOY","重新出击"),Rect2(160,492,570,86),begin_run,"target")
+	UI.button(panel,db.ui("BASE","返回基地"),Rect2(160,610,570,86),show_menu,"back")
+	volume_control("volume",db.ui("MASTER","总音量"),Vector2(880,234),410)
+	volume_control("music",db.ui("MUSIC","音乐"),Vector2(880,415),410)
+	volume_control("sfx",db.ui("EFFECTS","音效"),Vector2(880,596),410)
 
 func show_result():
 	screen="result"
@@ -556,6 +636,23 @@ func show_result():
 	set_score_row(refid(config,"socreScorePanelController"),db.text("GameOver_Score"),run.result.score)
 	set_score_row(refid(config,"metaScorePanelController"),db.text("GameOver_Scraps"),run.result.meta)
 
+	shell_from_source(db.ui("EXPEDITION COMPLETE" if run.won else "EXPEDITION ENDED","远征完成" if run.won else "远征结束"),show_menu)
+	UI.panel(panel,Rect2(70,160,540,580),UI.AMBER)
+	UI.icon(panel,"shield",Vector2(226,214),220,UI.AMBER)
+	UI.label(panel,str(run.result.grade),Vector2(279,276),86,UI.AMBER)
+	UI.label(panel,db.ui("RANK","评级"),Vector2(304,475),20,UI.MUTED)
+	UI.label(panel,str(run.result.score),Vector2(242,528),58)
+	UI.panel(panel,Rect2(642,160,720,580))
+	UI.icon(panel,"meta",Vector2(690,204),52,UI.AMBER)
+	UI.label(panel,"+ "+str(run.result.meta),Vector2(760,194),50,UI.AMBER)
+	for i in range(mini(rows.size(),6)):
+		var pos=Vector2(692+(i%2)*326,320+int(i/2)*122)
+		UI.label(panel,str(rows[i].value),pos,36)
+		UI.label(panel,rows[i].title,pos+Vector2(0,48),17,UI.MUTED)
+	UI.button(panel,db.ui("BASE","基地"),Rect2(70,786,290,76),show_menu,"back")
+	UI.button(panel,db.ui("EVOLVE","进化"),Rect2(670,786,320,76),show_lab,"research")
+	UI.button(panel,db.ui("AGAIN","再战"),Rect2(1020,786,342,76),begin_run,"play",UI.AMBER)
+
 func set_score_row(id:String,title:String,value:int):
 	var row:Dictionary=source_ui.components.get(id,{})
 	for key in ["scorePanelTitleText","scorePanelTitleBackground"]:source_ui.set_text(refid(row,key),title)
@@ -568,6 +665,7 @@ func profile_mark(key:String,started:int):
 		sample.microseconds+=Time.get_ticks_usec()-started;sample.calls+=1;performance_samples[key]=sample
 
 func _process(dt: float):
+	passive_fx.tick(self,dt)
 	if run!=null and screen in ["rewards","build"] and (run.finished or player.parts[0].hp<=0):
 		if not run.finished:run.finish(false)
 		reward_flow_active=false;show_result();return
@@ -578,7 +676,7 @@ func _process(dt: float):
 	camera_impact = maxf(0.0, camera_impact - dt * 22.0)
 	camera_kick = Vector2(sin(test_time * 91.0), cos(test_time * 73.0)) * camera_impact + camera_recoil
 	mouth_activity = move_toward(mouth_activity, 1.0 if screen == "game" and (controls.shooting() or test_mode) else 0.0, dt * 8.0)
-	if run!=null and popup_text!=null:
+	if run!=null and popup_text!=null and screen=="game":
 		for notification in run.notifications:popup_text.enqueue(notification)
 		run.notifications.clear()
 	if particle_effects!=null:
@@ -634,9 +732,8 @@ func _process(dt: float):
 		var dir:Vector2 = controls.movement(true)
 		if test_mode:
 			dir = Vector2.from_angle(test_time * 0.7)
-		aim = (get_global_mouse_position() - center) / zoom + camera
-		var stick:Vector2=controls.joy_aim()
-		if stick!=Vector2.ZERO:aim=player.head+stick*700
+		var weapon_input = main_weapon_input()
+		aim = weapon_input.aim
 		var measured=Time.get_ticks_usec()
 		player.step(dt, dir, Input.is_action_pressed("boost"))
 		leg_phase+=player.velocity.length()*dt*0.075
@@ -644,7 +741,7 @@ func _process(dt: float):
 		profile_mark("body",measured);measured=Time.get_ticks_usec()
 		# Confirmed heavy hits briefly hold combat motion; steering and UI remain
 		# responsive and repeated volleys cannot chain the hold indefinitely.
-		combat.step(combat_dt, aim, controls.shooting() or test_mode)
+		combat.step(combat_dt, aim, weapon_input.manual, weapon_input.enabled)
 		var particle_bursts=0
 		for effect in combat.effects:
 			if effect.get("rendered",false):continue
@@ -664,7 +761,7 @@ func _process(dt: float):
 			var type=int(effect.get("particle_type",303 if effect.kind=="explosion" else (305 if effect.kind=="hit" else 0)))
 			# The layered weapon blast already includes its flash and fragments.
 			# Stacking the old opaque ink burst on top hides its color and targets.
-			if effect.kind=="explosion" and effect.has("fx_family"):type=0
+			if effect.kind in ["hit","shield_hit"] or (effect.kind=="explosion" and effect.has("fx_family")):type=0
 			if type>0 and particle_bursts<12 and particle_effects.get_child_count()<200 and weapon_fx.visible(self,effect.position,440):
 				particle_effects.play(type,effect.position,float(effect.radius)/48 if effect.kind=="explosion" else 1,float(effect.get("duration",0)),effect.get("follow",{}))
 				particle_bursts+=1
@@ -712,13 +809,41 @@ func collect_focus_buttons(node:Node,result:Array):
 func _notification(what):
 	if what==NOTIFICATION_WM_WINDOW_FOCUS_OUT and screen=="game" and not test_mode and is_instance_valid(ui):show_pause()
 
+# Mouse motion is only a pointer update. A held fire button or an aim stick
+# outside the configured deadzone explicitly takes priority over HQ auto fire.
+func main_weapon_input() -> Dictionary:
+	var enabled = screen == "game" and camera_focus.is_empty()
+	var hovered = get_viewport().gui_get_hovered_control()
+	if hovered != null and hovered.mouse_filter != Control.MOUSE_FILTER_IGNORE:
+		enabled = false
+	var stick: Vector2 = controls.joy_aim()
+	var pointer = (get_global_mouse_position() - center) / zoom + camera
+	var mouse_held = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+	if not mouse_held:weapon_mouse_blocked = false
+	elif not enabled:weapon_mouse_blocked = true
+	if weapon_mouse_blocked:enabled = false
+	var direction_target = player.head + stick * 700 if stick != Vector2.ZERO and not mouse_held else pointer
+	return {"aim": direction_target, "manual": enabled and (controls.shooting() or stick != Vector2.ZERO or test_mode), "enabled": enabled}
+
 func _input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		var hovered = get_viewport().gui_get_hovered_control()
+		weapon_mouse_blocked = event.pressed and (screen != "game" or (hovered != null and hovered.mouse_filter != Control.MOUSE_FILTER_IGNORE))
 	if controls!=null:controls.observe(event)
+	# Capture before focused controls consume Tab, arrows, Space or Enter.
+	# Escape is always cancellation, even if the gameplay pause key was rebound.
+	if screen=="controls" and rebind_action!="" and event is InputEventKey:
+		get_viewport().set_input_as_handled()
+		if event.pressed and not event.echo:
+			var code=event.physical_keycode if event.physical_keycode!=0 else event.keycode
+			if code!=KEY_ESCAPE:controls.bind(rebind_action,code)
+			rebind_action="";show_controls()
+		return
 	var using_joy=event is InputEventJoypadButton or event is InputEventJoypadMotion
 	if (using_joy and not joy_ui) or (event is InputEventMouseMotion and joy_ui and Time.get_ticks_msec()-virtual_pointer_time>120):
 		joy_ui=using_joy
 		if is_instance_valid(source_ui):source_ui.set_binding_labels(save.state.settings.bindings,joy_ui)
-		if tutorials!=null:tutorials.view.set_binding_labels(save.state.settings.bindings,joy_ui)
+		if tutorials!=null:tutorials.refresh_bindings(joy_ui)
 	if screen=="intro" and (event is InputEventKey or event is InputEventJoypadButton or event is InputEventMouseButton) and event.is_pressed():
 		show_menu();get_viewport().set_input_as_handled();return
 	if screen=="build" and event is InputEventJoypadMotion and event.axis==JOY_AXIS_TRIGGER_RIGHT:
@@ -732,7 +857,9 @@ func _input(event):
 		if down and not tip_stick_down:next_loading_tip()
 		tip_stick_down=down;get_viewport().set_input_as_handled();return
 	if screen=="loading":
-		if event.is_action_pressed("ui_accept") or (event is InputEventMouseButton and event.pressed and event.button_index==MOUSE_BUTTON_LEFT) or (event is InputEventJoypadMotion and event.axis==JOY_AXIS_TRIGGER_RIGHT and event.axis_value>0.5):show_game();get_viewport().set_input_as_handled()
+		# Enter / controller A belongs to the focused manual button. Only the
+		# explicit trigger shortcut bypasses focus and deploys immediately.
+		if event is InputEventJoypadMotion and event.axis==JOY_AXIS_TRIGGER_RIGHT and event.axis_value>0.5:show_game();get_viewport().set_input_as_handled()
 		elif event.is_action_pressed("radar") or (event is InputEventKey and event.pressed and event.physical_keycode in [KEY_N,KEY_D]):next_loading_tip();get_viewport().set_input_as_handled()
 		return
 	if screen=="build" and event is InputEventKey and event.physical_keycode==KEY_SPACE:
@@ -746,17 +873,20 @@ func _input(event):
 	elif event.button_index==JOY_BUTTON_B and event.pressed:
 		if screen=="game":show_build()
 		elif screen=="reward_pool" or screen=="menu":show_missions() if screen=="reward_pool" else show_menu()
-		elif screen in ["lab","options","controls"]:show_menu()
+		elif screen in ["lab","options","changelog","result","characters"]:show_menu()
+		elif screen=="controls":rebind_action="";show_options()
 		elif screen=="pause":show_game()
 		elif screen in ["rewards","build"]:postpone_rewards()
 		get_viewport().set_input_as_handled()
 
 func _unhandled_input(event):
+	if event.is_action_pressed("character_skill") and not event.is_echo():
+		if screen=="game" and camera_focus.is_empty() and not run.finished:
+			var command=main_weapon_input()
+			if command.enabled:combat.request_skill(command.aim)
+		get_viewport().set_input_as_handled();return
 	if event.is_action_pressed("pause") and screen in ["rewards","build"]:
 		postpone_rewards();get_viewport().set_input_as_handled();return
-	if rebind_action!="" and event is InputEventKey and event.pressed:
-		if event.physical_keycode!=KEY_ESCAPE:controls.bind(rebind_action,event.physical_keycode)
-		rebind_action="";show_controls();return
 	if event.is_action_pressed("radar") and screen=="game":radar_mode=not radar_mode;zoom=0.25 if radar_mode else 1.0
 	if event is InputEventJoypadButton and event.pressed:
 		if event.is_action_pressed("build"):
@@ -769,8 +899,9 @@ func _unhandled_input(event):
 		if event.is_action_pressed("pause"):
 			if screen == "game": show_pause()
 			elif screen == "pause": show_game()
-			elif screen in ["menu", "lab", "options", "changelog"]: show_menu()
+			elif screen in ["menu", "lab", "options", "changelog", "characters"]: show_menu()
 			elif screen=="reward_pool":show_missions()
+			elif screen=="controls":show_options()
 		if event.is_action_pressed("build"):
 			if screen == "game": show_build()
 			elif screen == "build" and player.pending.is_empty(): finish_building()
@@ -791,6 +922,14 @@ func art(texture: Texture2D, position: Vector2, size: Vector2, rotation: float =
 func module_art(texture: Texture2D, position: Vector2, bounds: Vector2, rotation: float = 0.0, tint: Color = Color.WHITE):
 	# Mounts are square; their weapons retain the original sprite proportions.
 	art(texture, position, Ink.fitted_size(texture, bounds), rotation, tint, true)
+
+func organ_art(texture: Texture2D, position: Vector2, bounds: Vector2, rotation: float, tint: Color, family: String, pulse_left: float):
+	if texture == null: return
+	var extent = Ink.fitted_size(texture,bounds)
+	var elastic = InsectAttackFX.organ_scale(family,pulse_left,test_time)
+	# Keep the lower carapace attachment planted while the soft organ inflates/recoils.
+	var offset = Vector2(0,extent.y*0.35*(1.0-elastic.y)).rotated(rotation)
+	art(texture,position+offset,extent*elastic,rotation,tint,true)
 
 func draw_weapon_neck(anchor: Vector2, tip: Vector2, radius: float, alpha: float = 1.0):
 	var bend = (tip - anchor).orthogonal().normalized() * minf(5.0 * zoom, anchor.distance_to(tip) * 0.22)
@@ -860,13 +999,13 @@ func _draw():
 				var offset = Vector2(renderer.x, renderer.y).rotated(e.angle + PI * 0.5) * 48
 				var extent = texture.get_size() / ppu * Vector2(renderer.sx, renderer.sy) * 48 * zoom
 				var tint=RenderState.color(renderer,e.age,pulse,pulse_color(e))
-				if hit_flash>0: tint=tint.lerp(Color(2.7,2.7,2.7,tint.a),hit_flash*0.9)
+				if hit_flash>0: tint=tint.lerp(Color(1.15,1.1,1.0,tint.a),hit_flash*0.25)
 				art(texture, world(visual_position + offset), extent, e.angle + PI * 0.5 + RenderState.angle(renderer,e.age),tint)
 			draw_rect(Rect2(pos + Vector2(-22, -e.radius - 12), Vector2(44 * maxf(0, e.hp / e.max_hp), 3)), Color("173b70"))
 			for gun in e.guns:
 				var texture: Texture2D = db.core_sprite(db.asset(gun.id))
 				if texture != null:
-					module_art(texture,world(visual_position+Vector2(gun.get("offset",Vector2.ZERO)).rotated(e.angle)),Vector2(42,42)*zoom,float(gun.angle)+PI/2)
+					organ_art(texture,world(visual_position+Vector2(gun.get("offset",Vector2.ZERO)).rotated(e.angle)),Vector2(42,42)*zoom,float(gun.angle)+PI/2,Color.WHITE,Feedback.family(db.asset(gun.id)),float(gun.get("organ_pulse",0)))
 		for pack in run.recycled_packs:
 			for renderer in db.prefabs[db.pool['203']].get('render',[]):
 				var texture=db.sprite(renderer.sprite)
@@ -883,29 +1022,35 @@ func _draw():
 					var extent=texture.get_size()/float(db.sprites[renderer.sprite].get('ppu',100))*Vector2(renderer.sx,renderer.sy)*48*zoom
 					art(texture,world(drop.position),extent,RenderState.angle(renderer,test_time),RenderState.color(renderer,test_time))
 		# Continuous insect silhouette; turrets sit on the carapace of each segment.
-		var last_pose:Dictionary=player.segment_pose(player.segment_count())
-		CentipedeArt.tail(self,world(last_pose.point),Vector2(last_pose.direction).angle(),zoom,player.segment_count()==0)
-		for segment in range(player.segment_count(),0,-1):
-			var pose:Dictionary=player.segment_pose(segment)
-			var previous:Dictionary=player.segment_pose(segment-1)
-			draw_line(world(pose.point),world(previous.point),Color("173b70"),22*zoom,true)
-			CentipedeArt.segment(self,world(pose.point),Vector2(pose.direction).angle(),zoom,leg_phase-segment*0.8,false,player.parts_on_segment(segment).is_empty(),false,0,-1,player_legs.poses(segment))
-		CentipedeArt.segment(self,world(player.head),player.facing.angle(),zoom,leg_phase,true,false,false,mouth_activity,test_time)
+		if player.character_id!="centipede":
+			CharacterArt.draw_body(self,player,world(player.head),zoom,test_time)
+		else:
+			var last_pose:Dictionary=player.segment_pose(player.segment_count())
+			CentipedeArt.tail(self,world(last_pose.point),Vector2(last_pose.direction).angle(),zoom,player.segment_count()==0)
+			for segment in range(player.segment_count(),0,-1):
+				var pose:Dictionary=player.segment_pose(segment)
+				var previous:Dictionary=player.segment_pose(segment-1)
+				draw_line(world(pose.point),world(previous.point),Color("173b70"),22*zoom,true)
+				CentipedeArt.segment(self,world(pose.point),Vector2(pose.direction).angle(),zoom,leg_phase-segment*0.8,false,player.parts_on_segment(segment).is_empty(),false,0,-1,player_legs.poses(segment))
+				var hit_strength=0.0
+				for part_index in player.parts_on_segment(segment):hit_strength=maxf(hit_strength,float(player.parts[part_index].get("impact_left",0)))
+				SegmentFeedback.paint_hit(self,world(pose.point),Vector2(pose.direction).angle(),hit_strength,zoom)
+			CentipedeArt.segment(self,world(player.head),player.facing.angle(),zoom,leg_phase,true,false,false,mouth_activity,test_time)
 		for i in range(player.parts.size()-1,-1,-1):
 			var p:Dictionary=player.parts[i]
 			var pos=world(player.weapon_origin(i))
 			if i>0:draw_weapon_neck(world(p.position),pos,4.0*zoom,0.3 if p.get("cloaked",false) else 1.0)
 			var pulse=health_pulse(p)
 			var size=Vector2.ONE*player.module_size(i)*zoom
-			if p.wall:draw_arc(pos,(player.module_size(i)*0.5+2)*zoom,0,TAU,24,Color("2f60a0"),1.5*zoom,true)
 			var c:Dictionary=db.asset(player.hq_weapon if i==0 else p.id)
 			var recoil=Vector2.from_angle(p.angle)*float(p.get("recoil",0))*zoom*minf(1,player.module_size(i)/35.0)
-			module_art(db.core_sprite(c),pos-recoil,size,p.angle+PI*0.5,Color(1,1,1,0.3) if p.get("cloaked",false) else (pulse_color(p) if pulse else Color.WHITE))
-			if p.shield>0 and p.stun<=0:draw_arc(world(p.position),combat.shield_range(i)*zoom,0,TAU,50,Color(0.3,0.8,1.0,0.35),2)
+			organ_art(db.core_sprite(c),pos-recoil,size,p.angle+PI*0.5,Color(1,1,1,0.3) if p.get("cloaked",false) else (pulse_color(p) if pulse else Color.WHITE),Feedback.family(c),float(p.get("organ_pulse",float(p.get("recoil",0))/42.0)))
 			if i>0:
 				var health_at=world(p.position)+Vector2(-20,35)*zoom
 				draw_rect(Rect2(health_at,Vector2(40,3)*zoom),Ink.WASH)
 				draw_rect(Rect2(health_at,Vector2(40*clampf(p.hp/maxf(1,p.max_hp),0,1),3)*zoom),Ink.BLUE)
+		CharacterArt.draw_skill(self,player,combat.character_abilities.state(),world(player.head),zoom,test_time)
+		passive_fx.paint(self,player,combat,zoom)
 		for mine in combat.special.mines:
 			module_art(db.sprite(mine.data.mineSprite),world(mine.position),Vector2(22,22)*zoom)
 		for d in combat.drones+combat.enemy_drones:
@@ -916,12 +1061,15 @@ func _draw():
 		weapon_fx.draw_count=0
 		for b in combat.bullets:
 			weapon_fx.paint_projectile(self,b,test_time,zoom)
+			if str(b.get("fx_family",Feedback.family(b.data)))=="gatling":continue
 			var texture=db.sprite(b.data.get("projectileSprite",""))
 			if texture!=null:
 				var extent=texture.get_size()/float(db.sprites[b.data.projectileSprite].get("ppu",100))*48*zoom
 				art(texture,world(b.position),extent*maxf(1,b.radius/4),Vector2(b.velocity).angle()+PI/2)
 			else:draw_line(world(b.previous),world(b.position),Color("173b70") if b.friendly else Color("6984a4"),b.radius)
 		weapon_fx.paint(self,combat,test_time,zoom)
+		InsectAttackFX.paint(self,combat.insect_controls,zoom)
+		SegmentFeedback.paint(self,combat,zoom)
 		# Radar uses actual world objects, including distant mission bosses.
 		var radar_origin=get_viewport_rect().size-Vector2(210,235)
 		draw_rect(Rect2(radar_origin,Vector2(180,150)), Color("d8e3ec"))
