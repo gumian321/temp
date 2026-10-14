@@ -1,7 +1,8 @@
 extends RefCounted
-## Procedural colored ink VFX: transparent radial washes, ribbons, fragments,
-## beam filaments and delayed shock rings. No opaque particle billboards.
+## Organic projectile bodies, pollen trails, split husks, and directional ink VFX.
+## Presentation only; no opaque particle billboards or factory ordnance art.
 const Feedback = preload("res://scripts/weapon_feedback.gd")
+const Organic = preload("res://scripts/insect_projectiles.gd")
 const INK = Color("213b6e")
 var halo_texture: GradientTexture2D
 var clock = 0.0
@@ -44,55 +45,33 @@ static func gatling_geometry(bullet: Dictionary, zoom: float) -> Dictionary:
 	return {"axis":axis,"tail":-axis*length,"tip":axis*3.5*zoom}
 
 func paint_gatling(canvas, bullet: Dictionary, zoom: float):
-	var at=canvas.world(bullet.position)
-	var geometry=gatling_geometry(bullet,zoom)
-	var axis:Vector2=geometry.axis
-	var side=axis.orthogonal()
-	var hostile=not bool(bullet.friendly)
-	var color=Color("e65a76") if hostile else Color("ffc34f")
-	# Solid bright nose, tapered rear and ink edge remain readable on paper.
-	var tail:Vector2=at+geometry.tail
-	canvas.draw_line(tail,at,Color(INK,0.85),maxf(3.0,5.5*zoom),true)
-	canvas.draw_line(tail,at,Color(color,0.95),maxf(1.5,2.8*zoom),true)
-	var tip:Vector2=at+geometry.tip
-	var nose=PackedVector2Array([tip,at-axis*5*zoom-side*3.5*zoom,at-axis*5*zoom+side*3.5*zoom])
-	canvas.draw_colored_polygon(nose,color)
-	canvas.draw_line(at-axis*4*zoom,tip,Color("fff5d9"),maxf(1.0,1.4*zoom),true)
-	if hostile:
-		# A second rear notch distinguishes incoming fire even without color.
-		canvas.draw_line(at-axis*10*zoom-side*3*zoom,at-axis*7*zoom,Color(INK),maxf(1.0,1.6*zoom),true)
-		canvas.draw_line(at-axis*10*zoom+side*3*zoom,at-axis*7*zoom,Color(INK),maxf(1.0,1.6*zoom),true)
+	# Compatibility entrypoint shares the generated stinger route.
+	Organic.paint(canvas,bullet,zoom)
 
 func paint_projectile(canvas, bullet: Dictionary, time: float, zoom: float):
-	if str(bullet.get("fx_family",Feedback.family(bullet.data)))=="gatling":
-		if visible(canvas,bullet.position):paint_gatling(canvas,bullet,zoom)
-		return
-	if draw_count >= MAX_PROJECTILES or not visible(canvas,bullet.position): return
-	draw_count += 1
-	var key = str(bullet.get("fx_family", Feedback.family(bullet.data)))
-	var style = Feedback.profile(key)
-	var at = canvas.world(bullet.position)
-	var axis = Vector2(bullet.velocity).normalized()
-	var alpha = 0.95 if bullet.friendly else 0.52
-	var travelled = Vector2(bullet.position).distance_to(bullet.get("origin",bullet.previous))
-	var length = minf(style.trail, travelled)*zoom
-	var back = at-axis*length
-	if key == "sonic":
-		var size = maxf(12,float(bullet.radius))*zoom
-		for i in range(3):
-			ring(canvas,at-axis*i*11*zoom,size*(1-i*0.12),style.color,alpha*(1-i*0.25),2.8*zoom,axis.angle()-1.12,axis.angle()+1.12)
-		return
-	glow(canvas,at,(10+style.weight*3)*zoom,style.color,alpha*0.8)
-	ribbon(canvas,back,at,(7+style.weight*2)*zoom,style.accent,alpha*0.35)
-	canvas.draw_line(back,at,Color(style.color,alpha),maxf(1.5,(2+style.weight)*zoom),true)
-	canvas.draw_line(at-axis*minf(length,18*zoom),at,Color("fff5d9"),maxf(1,1.5*zoom),true)
-	if key in ["rocket","nuke"]:
-		for i in range(4):
-			var offset = (fposmod(time*7+i*0.25,1.0))*length
-			var ember = at-axis*offset+axis.orthogonal()*sin(i*4.3+time*16)*offset*0.08
-			glow(canvas,ember,lerpf(5,15,offset/maxf(length,1))*zoom,style.accent,(1-offset/maxf(length,1))*0.5)
-	if key in ["emp","blackhole"]:
-		ring(canvas,at,9*zoom,style.accent,alpha,1.8*zoom,time*5,time*5+4.5)
+	if not visible(canvas,bullet.position):return
+	# Body is never dropped by the embellishment budget and never uses factory sprites.
+	Organic.paint(canvas,bullet,zoom)
+	if draw_count>=MAX_PROJECTILES:return
+	draw_count+=1
+	var key=Organic.family(bullet)
+	var style=Feedback.profile(key)
+	var at=canvas.world(bullet.position)
+	var axis=Vector2.from_angle(Organic.angle(bullet))
+	var alpha=0.65 if bullet.friendly else 0.38
+	var color:Color=style.color if bullet.friendly else Color("e46a92")
+	var travelled=Vector2(bullet.position).distance_to(bullet.get("origin",bullet.get("previous",bullet.position)))
+	var length=minf(minf(style.trail,52.0),travelled)*zoom
+	# Sparse pollen droplets, not engine exhaust or a metallic tracer.
+	var count=4 if key in ["rocket","nuke","blackhole","cannon"] else 2
+	for i in range(count):
+		var t=(i+1.0)/(count+1.0)
+		var drift=sin(time*8+i*2.3)*2.3*zoom*t
+		var seed=at-axis*length*t+axis.orthogonal()*drift
+		var radius=(1.2 if key in ["gatling","shotgun"] else 2.1)*zoom*(1.0-t*0.45)
+		canvas.draw_circle(seed,radius,Color(color,alpha*(1-t)),true,-1,true)
+	if key=="sonic":
+		for i in range(2):ring(canvas,at-axis*i*9*zoom,11*zoom,color,alpha*(1-i*0.35),1.6*zoom,axis.angle()-0.9,axis.angle()+0.9)
 
 func paint(canvas, battle, time: float, zoom: float):
 	clock = time
@@ -141,8 +120,8 @@ func paint_effect(canvas, effect: Dictionary, zoom: float):
 			ribbon(canvas,at,at+axis*length*0.56,3.5*size,Color("fff8df"),fade*alpha)
 			for side in [-1,1]: ribbon(canvas,at,at+axis.rotated(side*0.7)*length*0.43,5*size,style.color,fade*alpha)
 			if key in ["gatling","shotgun","cannon","flak"]:
-				var casing=at+axis.orthogonal()*(8+age*190)*size-axis*age*60*size
-				canvas.draw_line(casing,casing+Vector2.from_angle(age*18+seed)*5*size,Color(style.accent,fade),2.5*size,true)
+				var husk=at+axis.orthogonal()*(8+age*190)*size-axis*age*60*size
+				canvas.draw_line(husk,husk+Vector2.from_angle(age*18+seed)*5*size,Color(style.accent,fade),2.5*size,true)
 		"chain":
 			# Hold the discharge briefly, then decay; no repeated damage is applied.
 			var beam_fade=1.0 if progress<0.35 else pow((1.0-progress)/0.65,0.8)
@@ -201,37 +180,25 @@ func fragments(canvas, at: Vector2, radius: float, style: Dictionary, progress: 
 		if i%3==0: canvas.draw_circle(tip,1.7*zoom,Color("fff5d7")*Color(1,1,1,fade))
 
 func paint_blast(canvas, at: Vector2, effect: Dictionary, style: Dictionary, progress: float, fade: float, seed: float, zoom: float, key: String):
-	var radius=clampf(float(effect.radius),24,430)*zoom
-	var expansion=1-pow(1-progress,3)
-	var nuclear=key=="nuke"
-	var inner=minf(radius*0.62,150*zoom)*(0.5+expansion*0.5)
-	glow(canvas,at,radius*(0.8+expansion*0.6),style.accent,fade*0.75)
-	# Delayed shock fronts make a blast unfold instead of reading as one circle.
-	for i in range(3 if nuclear else 2):
-		var t=clampf((progress-i*0.095)/(1-i*0.095),0,1)
-		if t<=0: continue
-		var r=radius*(1-pow(1-t,2.8))*(1.16-i*0.16)
-		ring(canvas,at,r,INK,(1-t)*0.3,5*zoom)
-		ring(canvas,at,r,style.color if i%2==0 else style.accent,(1-t)*0.85,2.4*zoom)
-		for shard in range(6):
-			var angle=seed+shard*TAU/6+0.08*sin(clock*5)
-			ring(canvas,at,r+4*zoom,style.accent,(1-t)*0.7,1.2*zoom,angle,angle+0.42)
-	if progress<0.48:
-		var flash=pow(1-progress/0.48,1.4)
-		for puff in range(7):
-			var puff_axis=Vector2.from_angle(seed+puff*TAU/7)
-			var puff_at=at+puff_axis*inner*(0.28+progress*0.9)
-			canvas.draw_circle(puff_at,inner*(0.24+progress*0.35),Color(style.accent,flash*0.22))
-		glow(canvas,at,minf(inner*0.3,18*zoom),style.color,flash*0.6)
-	fragments(canvas,at,radius*1.35,style,progress,fade,seed,zoom,28 if nuclear else 16)
-	# Expanding colored ink puffs and embers persist after the bright core.
-	for i in range(7):
-		var axis=Vector2.from_angle(seed+i*TAU/7)
-		var center=at+axis*inner*expansion*0.9
-		glow(canvas,center,inner*(0.2+progress*0.28),style.accent,fade*0.24)
-	if nuclear:
-		var stripe=Vector2(radius*(0.3+expansion),0)
-		canvas.draw_line(at-stripe,at+stripe,Color(style.color,fade*0.65),2*zoom,true)
+	var radius=clampf(float(effect.radius),18,180)*zoom
+	var spread=1-pow(1-progress,2)
+	var color:Color=style.color if effect.get("friendly",true) else Color("e66c98")
+	var count=13 if key=="nuke" else 9
+	# Asymmetric acid/spore droplets and torn husks; no bomb flash or shock rings.
+	for i in range(count):
+		var direction=Vector2.from_angle(seed+i*2.39996)
+		var reach=radius*(0.25+0.65*pow(sin(i*3.19+seed),2))*spread
+		var point=at+direction*reach
+		var size=(3+float(i%3)*1.6)*zoom*(1-progress*0.65)
+		canvas.draw_circle(point,size,Color(color,fade*0.7),true,-1,true)
+		if i%2==0:
+			var side=direction.orthogonal()
+			canvas.draw_polyline(PackedVector2Array([point-side*size,point+direction*size*1.7,point+side*size*0.6]),Color(INK,fade*0.8),maxf(1,1.5*zoom),true)
+	if progress<0.35:
+		var acid=1-progress/0.35
+		for i in range(4):
+			var offset=Vector2.from_angle(seed+i*2.4)*radius*0.10
+			canvas.draw_circle(at+offset,minf(13*zoom,radius*0.14),Color(style.accent,acid*0.23),true,-1,true)
 
 func paint_beam(canvas, effect: Dictionary, style: Dictionary, fade: float, zoom: float, key: String):
 	var start=canvas.world(effect.position)

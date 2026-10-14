@@ -78,7 +78,6 @@ var particle_layer:CanvasLayer
 var native_visuals=preload("res://scripts/native_visuals.gd").new()
 var popup_text
 var camera_kick = Vector2.ZERO
-var camera_impact = 0.0
 var mouth_activity = 0.0
 var ink_world
 var insect_layer
@@ -417,7 +416,7 @@ func show_controls():
 func start_run():
 	passive_fx.reset()
 	reward_flow_active=false;reward_choice_busy=false;reward_snoozed=false;reward_epoch+=1
-	hit_pause_left=0.0; hit_pause_cooldown=0.0; camera_recoil=Vector2.ZERO; camera_impact=0.0
+	hit_pause_left=0.0; hit_pause_cooldown=0.0; camera_recoil=Vector2.ZERO; camera_kick=Vector2.ZERO
 	if popup_text!=null:popup_text.clear()
 	if particle_effects!=null:particle_effects.clear()
 	if tutorials!=null:tutorials.reset_run()
@@ -429,11 +428,14 @@ func start_run():
 	combat = Battle.new(db, player)
 	run = Run.new(db, save, player, combat, selected_mission, difficulty)
 	camera_focus.clear();shown_bosses.clear()
+	# Opening objectives are already visible on radar. Never steal steering for
+	# an establishing shot, even when later boss cinematics are enabled.
+	for enemy in combat.enemies:
+		if enemy.kind=="AIBossUnit":shown_bosses[enemy.uid]=true
 	if not test_mode:run.rng.randomize();combat.rng.randomize()
 	audio_system.change_music("game")
 	camera = player.head
 	show_game()
-	if not save.state.settings.skip_boss and run.mode.get("class") in ["BHModeManager","GAModeManager","SProtectModeManager","SDestroyModeManager"]:focus_camera(run.director.fleet_position if run.mode.get("class") in ["BHModeManager","GAModeManager"] else Vector2.ZERO)
 
 func focus_camera(target:Vector2,boss:bool=false):
 	camera_focus={"target":target,"stage":0,"remaining":2.0,"boss":boss}
@@ -682,15 +684,16 @@ func _process(dt: float):
 	var combat_dt=Feedback.combat_delta(dt,hit_pause_left)
 	hit_pause_left=maxf(0,hit_pause_left-dt)
 	hit_pause_cooldown=maxf(0,hit_pause_cooldown-dt)
-	camera_recoil=camera_recoil.lerp(Vector2.ZERO,1-exp(-22*dt))
-	camera_impact = maxf(0.0, camera_impact - dt * 22.0)
-	camera_kick = Vector2(sin(test_time * 91.0), cos(test_time * 73.0)) * camera_impact + camera_recoil
+	# Combat feedback belongs to the struck body and firing organ. Rapid-fire
+	# screen oscillation made all the fine ground marks flicker together.
+	# A lost player segment retains only a slow, bounded directional nudge.
+	camera_recoil=camera_recoil.lerp(Vector2.ZERO,1-exp(-8*dt))
+	camera_kick=camera_kick.move_toward(camera_recoil.limit_length(1.0),6.0*dt)
 	mouth_activity = move_toward(mouth_activity, 1.0 if screen == "game" and (controls.shooting() or test_mode) else 0.0, dt * 8.0)
 	if run!=null and popup_text!=null and screen=="game":
 		for notification in run.notifications:popup_text.enqueue(notification)
 		run.notifications.clear()
 	if particle_effects!=null:
-		particle_layer.transform=Transform2D(Vector2(zoom,0),Vector2(0,zoom),center-camera*zoom+camera_kick)
 		particle_effects.visible=screen in ["game","pause","result"]
 		particle_effects.process_mode=Node.PROCESS_MODE_INHERIT if screen=="game" else Node.PROCESS_MODE_DISABLED
 		if screen=="game":
@@ -738,7 +741,7 @@ func _process(dt: float):
 	center = get_viewport_rect().size * 0.5
 	if screen == "game":
 		if auto_reward_ready() and not run.finished and player.parts[0].hp>0:advance_reward_flow();queue_redraw();return
-		if not camera_focus.is_empty():tick_camera_focus(dt);insect_layer.sync(self,0);queue_redraw();return
+		if not camera_focus.is_empty():tick_camera_focus(dt);sync_camera_layers();insect_layer.sync(self,0);queue_redraw();return
 		var dir:Vector2 = controls.movement(true)
 		if test_mode:
 			dir = Vector2.from_angle(test_time * 0.7)
@@ -757,17 +760,12 @@ func _process(dt: float):
 			if effect.get("rendered",false):continue
 			effect.rendered=true
 			var distance=Vector2(effect.position).distance_to(player.head)
-			var style=Feedback.profile(str(effect.get("fx_family","impact")))
 			if effect.get("friendly",true) and distance<700:
-				if effect.kind=="muzzle" and distance<180:
-					camera_recoil=(-Vector2(effect.direction)*style.kick*0.6).limit_length(3.0)
 				if float(effect.get("hit_pause",0))>0 and hit_pause_cooldown<=0:
 					hit_pause_left=float(effect.hit_pause)
 					hit_pause_cooldown=0.16
-					camera_impact=maxf(camera_impact,style.kick*clampf(1-distance/900.0,0,1))
-			if effect.kind=="explosion":
-				camera_impact=maxf(camera_impact,clampf(float(effect.radius)/48.0-0.4,0.0,7.0)*clampf(1.0-distance/900.0,0.0,1.0))
-			elif effect.get("player_hit",false):camera_impact=maxf(camera_impact,3.5)
+			if effect.get("player_hit",false):
+				camera_recoil=player.head.direction_to(Vector2(effect.position))
 			var type=int(effect.get("particle_type",303 if effect.kind=="explosion" else (305 if effect.kind=="hit" else 0)))
 			# The layered weapon blast already includes its flash and fragments.
 			# Stacking the old opaque ink burst on top hides its color and targets.
@@ -801,6 +799,7 @@ func _process(dt: float):
 			show_result()
 		elif auto_reward_ready():advance_reward_flow()
 	test_time += dt
+	sync_camera_layers()
 	insect_layer.sync(self,dt if screen=="game" else 0.0)
 	queue_redraw()
 
@@ -916,6 +915,12 @@ func _unhandled_input(event):
 			if screen == "game": show_build()
 			elif screen == "build" and player.pending.is_empty(): finish_building()
 
+func sync_camera_layers():
+	# Use the same final frame camera for particles, terrain and world art.
+	# Updating before player/camera movement left particles one frame behind.
+	if particle_layer!=null:
+		particle_layer.transform=Transform2D(Vector2(zoom,0),Vector2(0,zoom),center-camera*zoom+camera_kick)
+
 func world(p: Vector2) -> Vector2:
 	return (p - camera) * zoom + center + camera_kick
 
@@ -952,6 +957,7 @@ func draw_weapon_neck(anchor: Vector2, tip: Vector2, radius: float, alpha: float
 	draw_polyline(curve, Color(Ink.WASH, alpha), 3.0 * zoom, true)
 
 func _draw():
+	sync_camera_layers()
 	if ink_world != null: ink_world.begin_frame()
 	var background=Color("20222c")
 	if not background_palette.is_empty():
@@ -1071,12 +1077,6 @@ func _draw():
 		weapon_fx.draw_count=0
 		for b in combat.bullets:
 			weapon_fx.paint_projectile(self,b,test_time,zoom)
-			if str(b.get("fx_family",Feedback.family(b.data)))=="gatling":continue
-			var texture=db.sprite(b.data.get("projectileSprite",""))
-			if texture!=null:
-				var extent=texture.get_size()/float(db.sprites[b.data.projectileSprite].get("ppu",100))*48*zoom
-				art(texture,world(b.position),extent*maxf(1,b.radius/4),Vector2(b.velocity).angle()+PI/2)
-			else:draw_line(world(b.previous),world(b.position),Color("173b70") if b.friendly else Color("6984a4"),b.radius)
 		weapon_fx.paint(self,combat,test_time,zoom)
 		InsectAttackFX.paint(self,combat.insect_controls,zoom)
 		SegmentFeedback.paint(self,combat,zoom)

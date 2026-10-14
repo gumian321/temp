@@ -90,7 +90,7 @@ def main():
             if isinstance(value, dict) and "checks" in value:
                 records.append(value)
         if not records or not records[-1]["passed"] or not records[-1]["exported"]:
-            raise RuntimeError("Actual exported Debug/three-character UI validation did not pass")
+            raise RuntimeError("Actual exported Debug/two-character UI validation did not pass")
         report = records[-1]
         for capture in report["captures"]:
             shutil.copy2(capture, BUILD / Path(capture).name)
@@ -109,9 +109,9 @@ Windows 64 位 / 2026-10-14
 将 ZIP 解压到一个文件夹，双击 RunBuildPew.exe。
 游戏资源已装进 EXE，无需安装 Godot。
 
-体验三角色
-主菜单 → 虫巢 → 右上角「DEBUG · 解锁三角色」。
-点选蜈蚣、蜘蛛或甲虫，再点「前往远征」→「出发」。
+体验双角色
+主菜单 → 虫巢 → 右上角「DEBUG · 解锁双角色」。
+点选蜈蚣或蜘蛛，再点「前往远征」→「出发」。
 解锁与角色选择会自动保存，下一次启动仍然有效。
 设置里重置进度后，可以再次点击 Debug 按钮开放角色。
 
@@ -119,7 +119,7 @@ Windows 64 位 / 2026-10-14
 WASD：移动；鼠标：瞄准；左键：主武器射击。
 Shift：加速；空格：角色技能；E：装配；Esc：暂停。
 Tab / 鼠标右键：雷达。
-蜈蚣：蜷缩聚火；蜘蛛：织网牵引；甲虫：耗甲冲撞。
+蜈蚣：蜷缩聚火；蜘蛛：织网牵引。
 新元素奖励可以装上身体；在装配窗口拖动调整位置，手动完成后继续战斗。
 
 存档保存在 Windows 当前账户的 Godot 应用数据目录。
@@ -143,7 +143,7 @@ engine, not to the original game assets. This package is for internal playtestin
         "engine": "Godot 4.6.3.stable",
         "platform": "Windows x86_64",
         "embedded_game_data": True,
-        "debug_unlock": ["centipede", "spider", "beetle"],
+        "debug_unlock": ["centipede", "spider"],
         "files": {path.relative_to(package).as_posix(): {"bytes": path.stat().st_size, "sha256": sha256(path)}
                   for path in package.rglob("*") if path.is_file()},
         "validated_checks": len(report["checks"]),

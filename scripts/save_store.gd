@@ -180,6 +180,7 @@ func parse_file(filename:String):
 	return parser.data
 
 # Roster data is additive to save version 1, preserving all pre-roster progress.
+# Retired IDs are filtered here; only their selection falls back, never the profile.
 func _normalize_roster():
 	var unlocked: Array = [CharacterRoster.DEFAULT_ID]
 	for id in state.roster_unlocked:
@@ -194,8 +195,6 @@ func _normalize_roster():
 	var historical = state.statistics.get("stat_BossesKilled", 0)
 	if (historical is int or historical is float) and historical > 0:
 		state.roster_progress.boss_kills = maxi(state.roster_progress.boss_kills, int(historical))
-	if state.roster_progress.boss_kills > 0 and "beetle" not in unlocked:
-		state.roster_unlocked.append("beetle")
 	if state.roster_progress.support_modules_best >= 3 and "spider" not in unlocked:
 		state.roster_unlocked.append("spider")
 	if not character_unlocked(state.selected_character):
@@ -254,11 +253,8 @@ func record_boss_kill() -> Array:
 	if not _character_run_active:return []
 	var previous = state.duplicate(true)
 	state.roster_progress.boss_kills = int(state.roster_progress.boss_kills) + 1
-	var unlocked: Array = []
-	if not character_unlocked("beetle"):
-		state.roster_unlocked.append("beetle")
-		unlocked.append("beetle")
+	# Historical statistics remain compatible; bosses no longer unlock a character.
 	if not save():
 		state = previous
 		return []
-	return unlocked
+	return []

@@ -64,6 +64,21 @@ func execute():
  p.parts[1].hp=0;check(not p.passive_state(1).alive,"Dead module has no passive overlay")
  p.step_feedback(5);check(p.parts.all(func(part):return part.feedback_pulses.is_empty()),"All transient triggers expire")
  game.start_run();check(game.passive_fx.notices.is_empty() and game.passive_fx.seen_events==0,"Restart clears notice and renderer state")
+ game.screen="build"
+ check(game.player.append_segment(game.db.named("Core_Gun_Gatling").id),"Install inside direct assembly")
+ game.passive_fx.tick(game,0)
+ check(game.passive_fx.notices.is_empty() and not game.passive_fx.card.visible,"Assembly install toast cannot cover the inventory tray")
+ check(game.player.parts[1].feedback_pulses.has("installed"),"Assembly retains local installed-segment feedback")
+ check(game.player.append_segment(game.db.named("Core_Shield").id),"Two unarmored segments make the two-charge reward eligible")
+ acquire(charge)
+ check(game.passive_fx.card.visible and game.passive_fx.notices[0].event.kind=="reward","Assembly still shows reward notifications")
+ game.passive_fx.notices.clear();game.screen="game"
+ check(game.player.append_segment(game.db.named("Core_Gun_Cannon").id),"Install during combat")
+ game.passive_fx.tick(game,0)
+ check(game.passive_fx.card.visible and game.passive_fx.notices[0].event.kind=="installed","Combat installation notification remains visible")
+ game.screen="build";game.passive_fx.tick(game,0)
+ check(game.passive_fx.notices.is_empty() and not game.passive_fx.card.visible,"Entering assembly removes a queued install toast")
+ game.screen="game"
  var view=load("res://scripts/reward_choice.gd").new();view.game=game
  var classes={};var mapped=0
  for reward in game.db.catalog.values():

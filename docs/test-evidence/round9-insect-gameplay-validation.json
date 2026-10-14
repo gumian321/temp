@@ -1,0 +1,787 @@
+{
+  "round9-final-headless-report.json": {
+    "passed": true,
+    "suites": [
+      {
+        "suite": "camera_stability_scene",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 4.512,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "centipede_coil",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.419,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "centipede_coil_scene",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 2.649,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "character_selection",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 3.463,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "debug_characters",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 3.493,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "direct_body_assembly",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 3.202,
+        "isolated_user_data": true,
+        "source_report": "round9-final-changed-recheck.json"
+      },
+      {
+        "suite": "insect_projectiles",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.648,
+        "isolated_user_data": true,
+        "source_report": "round9-final-changed-recheck.json"
+      },
+      {
+        "suite": "spider_leg_modules",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.74,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "spider_rig",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.235,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "spider_segments",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.106,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "spider_visibility_scene",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 2.743,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "spider_assembly_ui",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 2.81,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "spider_motion_scene",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 3.088,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "expedition_briefing",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 4.552,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "character_roster",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.486,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "character_abilities",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.076,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "character_integration",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.847,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "character_scene",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 3.469,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "character_ui_integration",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 2.81,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "brood",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.436,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "armament_art",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 2.435,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "generated_light_ui",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.669,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "main_autofire",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.056,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "main_autofire_scene",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 3.205,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "passive_feedback_state",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.042,
+        "isolated_user_data": true,
+        "source_report": "round9-final-changed-recheck.json"
+      },
+      {
+        "suite": "passive_upgrade_effects",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.739,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "passive_visual_feedback",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 2.447,
+        "isolated_user_data": true,
+        "source_report": "round9-final-changed-recheck.json"
+      },
+      {
+        "suite": "reward_progress_badges",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 2.157,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "tooltip_theme",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 5.97,
+        "isolated_user_data": true,
+        "source_report": "round9-final-changed-recheck.json"
+      },
+      {
+        "suite": "contact_impacts",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.756,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "insect_armaments",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.589,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "insect_art_routes",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.671,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "insect_controls",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.745,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "insect_attack_fx",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.472,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "game_ui_shell",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 3.574,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "meta_ui_redesign",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 4.233,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "battle_hud",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 3.013,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "reward_cards",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 2.53,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "mission_select",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 5.891,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "core",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.829,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "missions",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.055,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "map",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.73,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "rewards",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.863,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "specials",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.642,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "regressions",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.837,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "drones",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.646,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "reward_pool",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.969,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "controller",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 3.161,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "long_body",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.32,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "shields",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.633,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "turret_tracking",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.669,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "achievements",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.646,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "fuel_tutorial",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.83,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "enemy_drones",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.659,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "radar",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.794,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "weapon_catalog",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 3.0,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "particles",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.935,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "presentation",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.133,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "loot",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.736,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "centipede_segments",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.828,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "centipede_support",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.661,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "chinese",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.231,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "chain_segments",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 2.378,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "chain_scene",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 3.47,
+        "isolated_user_data": true,
+        "source_report": "round9-final-changed-recheck.json"
+      },
+      {
+        "suite": "chain_ui_redesign",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 3.026,
+        "isolated_user_data": true,
+        "source_report": "round9-final-changed-recheck.json"
+      },
+      {
+        "suite": "segment_feedback",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.857,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "reward_flow",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 5.613,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "blue_ink",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.028,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "grid_mounts",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.037,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "centipede_motion",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.771,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "weapon_feedback",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.118,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      },
+      {
+        "suite": "weapon_readability",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.775,
+        "isolated_user_data": true,
+        "source_report": "round9-full-aggregate.json"
+      }
+    ],
+    "suite_count": 72,
+    "source_sha256": "d9de007bdc6370deb89679b3e271cd78e5ea5f47cf341f9311e14d0c35f943d2",
+    "base_commit": "1a671cb73f504fe55e6c8de7f68144c41474c70f",
+    "source_unchanged_after_checks": true,
+    "changed_files": [],
+    "completed_at_utc": "2026-10-14T06:40:14.450876+00:00",
+    "scope": "Headless integration: original 72-suite aggregate, with seven affected/focused suites replaced by final recheck. Native rendered camera/visual validation is separate.",
+    "fixture_fix": "Two-charge reward notification fixture now installs two eligible unarmored body segments; production eligibility unchanged."
+  },
+  "round9-final-native.json": {
+    "suites": [
+      {
+        "suite": "camera_stability_scene",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 7.837,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "direct_body_assembly",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 6.549,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "spider_assembly_ui",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 4.935,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "character_selection",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 7.379,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "insect_projectiles",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.122,
+        "isolated_user_data": true
+      }
+    ],
+    "passed": true
+  },
+  "round9-motion-projectile-native.json": {
+    "suites": [
+      {
+        "suite": "camera_stability_scene",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 7.102,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "centipede_coil_scene",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 8.352,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "insect_projectiles",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.286,
+        "isolated_user_data": true
+      }
+    ],
+    "passed": true
+  },
+  "camera-stability-before.json": {
+    "checks": [
+      {
+        "name": "Opening immediately follows player: Survival Mission",
+        "passed": true
+      },
+      {
+        "name": "Opening immediately follows player: Endless Mission",
+        "passed": true
+      },
+      {
+        "name": "Opening immediately follows player: Bounty Hunter Mission",
+        "passed": false
+      },
+      {
+        "name": "Opening immediately follows player: Gardian Angel Mission",
+        "passed": false
+      },
+      {
+        "name": "Opening immediately follows player: Station Hunter Mission",
+        "passed": false
+      },
+      {
+        "name": "Opening immediately follows player: Station Protector Mission",
+        "passed": false
+      },
+      {
+        "name": "Repeated player fire and explosions do not shake the viewport",
+        "passed": false
+      },
+      {
+        "name": "Untouched terrain stays pixel-stable during volleys",
+        "passed": false
+      },
+      {
+        "name": "Particles and world use the same final camera transform",
+        "passed": true
+      },
+      {
+        "name": "Later boss cinematics remain available",
+        "passed": true
+      }
+    ],
+    "modes": [
+      "SurvivalModeManager",
+      "EndlessModeManager",
+      "BHModeManager",
+      "GAModeManager",
+      "SDestroyModeManager",
+      "SProtectModeManager"
+    ],
+    "passed": false,
+    "peak_camera_offset": 3.07292580604553,
+    "peak_changed_terrain_fraction": 0.0101538461538462,
+    "peak_frame_jitter": 3.03863120079041,
+    "peak_terrain_luminance_delta": 0.00095525725829602,
+    "rendered_frames": 100
+  },
+  "camera-stability-after-native.json": {
+    "checks": [
+      {
+        "name": "Opening immediately follows player: Survival Mission",
+        "passed": true
+      },
+      {
+        "name": "Opening immediately follows player: Endless Mission",
+        "passed": true
+      },
+      {
+        "name": "Opening immediately follows player: Bounty Hunter Mission",
+        "passed": true
+      },
+      {
+        "name": "Opening immediately follows player: Gardian Angel Mission",
+        "passed": true
+      },
+      {
+        "name": "Opening immediately follows player: Station Hunter Mission",
+        "passed": true
+      },
+      {
+        "name": "Opening immediately follows player: Station Protector Mission",
+        "passed": true
+      },
+      {
+        "name": "Repeated player fire and explosions do not shake the viewport",
+        "passed": true
+      },
+      {
+        "name": "Untouched terrain stays pixel-stable during volleys",
+        "passed": true
+      },
+      {
+        "name": "Particles and world use the same final camera transform",
+        "passed": true
+      },
+      {
+        "name": "A later boss event still triggers its cinematic",
+        "passed": true
+      },
+      {
+        "name": "Cinematic motion also keeps particle transforms aligned",
+        "passed": true
+      },
+      {
+        "name": "Player damage retains a bounded smooth nudge and settles",
+        "passed": true
+      },
+      {
+        "name": "Restart clears the previous run camera feedback",
+        "passed": true
+      }
+    ],
+    "modes": [
+      "SurvivalModeManager",
+      "EndlessModeManager",
+      "BHModeManager",
+      "GAModeManager",
+      "SDestroyModeManager",
+      "SProtectModeManager"
+    ],
+    "passed": true,
+    "peak_camera_offset": 0.0,
+    "peak_changed_terrain_fraction": 0.0,
+    "peak_frame_jitter": 0.0,
+    "peak_terrain_luminance_delta": 0.0,
+    "player_damage_peak_offset": 0.5,
+    "player_damage_peak_step": 0.100000008940697,
+    "rendered_frames": 100
+  }
+}
