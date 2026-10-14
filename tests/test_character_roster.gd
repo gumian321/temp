@@ -29,10 +29,10 @@ func _initialize():
 	check(Roster.is_support(db, "shield") and Roster.is_support(db, "utility") and not Roster.is_support(db, "gun") and not Roster.is_support(db, "attack") and not Roster.is_support(db, "missing"), "Support classifier excludes offensive or missing modules")
 	check(save.state.roster_unlocked == ["centipede"] and save.state.selected_character == "centipede", "Fresh saves start with centipede only")
 	check(Roster.ids() == ["centipede", "spider", "beetle"], "Three stable character IDs")
-	check(Roster.config("centipede").slot_cap == 60 and Roster.config("spider").slot_cap == 8 and Roster.config("beetle").slot_cap == 6, "Distinct equipment caps")
+	check(Roster.config("centipede").slot_cap == 60 and Roster.config("spider").slot_cap == 32 and Roster.config("beetle").slot_cap == 6, "Distinct equipment caps")
 	var mutated = Roster.config("spider")
 	mutated.slot_cap = 999
-	check(Roster.config("spider").slot_cap == 8, "Config copies cannot mutate roster")
+	check(Roster.config("spider").slot_cap == 32, "Config copies cannot mutate roster")
 	check(Roster.config("unknown").id == "centipede", "Unknown config has safe fallback")
 	check(not save.select_character("spider") and not save.select_character("unknown"), "Locked and unknown selections rejected")
 	for i in range(3):save.record_support_module()

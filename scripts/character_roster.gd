@@ -12,10 +12,10 @@ const DEFINITIONS = {
 	},
 	"spider": {
 		"id": "spider", "display_name": "蜘蛛", "label": "控场与牵引",
-		"slot_cap": 8, "health_multiplier": 0.9, "speed_multiplier": 1.1,
-		"skill_cooldown": 7.0, "skill_name": "软丝牵引", "passive": "固定肢体挂点",
+		"slot_cap": 32, "health_multiplier": 0.9, "speed_multiplier": 1.1,
+		"skill_cooldown": 7.0, "skill_name": "软丝牵引", "passive": "八足延展",
 		"weakness": "生命较低，丝线数量和长度有限", "unlock_hint": "蜈蚣单局获得 3 个支援模块",
-		"equipment_rule": "固定 8 个挂点，武器与支援争用位置"
+		"equipment_rule": "8 条腿，每腿最多 4 个模块；安装伸长，损毁缩短"
 	},
 	"beetle": {
 		"id": "beetle", "display_name": "甲虫", "label": "冲撞与阵地",

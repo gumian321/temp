@@ -2,6 +2,11 @@ extends "res://scripts/grid_centipede.gd"
 ## One element per segment. Array indices stay stable when the chain is reordered
 ## so drones and deployed devices retain their existing combat owners.
 
+const SpiderRig = preload("res://scripts/spider_rig.gd")
+const SPIDER_LEGS = 8
+const SPIDER_LEG_CAP = 4
+var spider_rig = SpiderRig.new()
+
 const CharacterRoster = preload("res://scripts/character_roster.gd")
 var character_id = "centipede"
 var character_config: Dictionary = {}
@@ -22,8 +27,39 @@ func compact_body() -> bool:
 
 func compact_mount_offset(mount: int) -> Vector2:
 	if character_id == "spider":
-		return Vector2(36.0 - float((mount - 1) / 2) * 25.0, -43.0 if mount % 2 else 43.0)
+		spider_rig.ensure(self)
+		return (Vector2(spider_rig.mount_pose(mount).point) - head).rotated(-facing.angle())
 	return Vector2(12.0 - float((mount - 1) / 2) * 27.0, -23.0 if mount % 2 else 23.0)
+
+## Encoded mounts preserve the original first eight addresses. Parts-array
+## indices are combat owners and are never reordered by assembly operations.
+func spider_mount(leg: int, depth: int) -> int:
+	return 1 + leg + SPIDER_LEGS * depth if leg >= 0 and leg < SPIDER_LEGS and depth >= 0 and depth < SPIDER_LEG_CAP else -1
+
+func spider_leg_for_mount(mount: int) -> int:
+	return (mount - 1) % SPIDER_LEGS if mount >= 1 and mount <= SPIDER_LEGS * SPIDER_LEG_CAP else -1
+
+func spider_depth_for_mount(mount: int) -> int:
+	return (mount - 1) / SPIDER_LEGS if mount >= 1 and mount <= SPIDER_LEGS * SPIDER_LEG_CAP else -1
+
+func spider_leg_indices(leg: int) -> Array:
+	var indices: Array = []
+	if leg < 0 or leg >= SPIDER_LEGS: return indices
+	for index in range(1, parts.size()):
+		if spider_leg_for_mount(int(parts[index].segment)) == leg: indices.append(index)
+	indices.sort_custom(func(a, b): return int(parts[a].segment) < int(parts[b].segment))
+	return indices
+
+func spider_leg_count(leg: int) -> int:
+	return spider_leg_indices(leg).size()
+
+func set_spider_leg_order(leg: int, order: Array):
+	for depth in order.size():
+		parts[order[depth]].segment = spider_mount(leg, depth)
+
+func normalize_spider_legs():
+	for leg in SPIDER_LEGS:
+		set_spider_leg_order(leg, spider_leg_indices(leg))
 
 func make_part(id: String, cell: Vector2i) -> Dictionary:
 	var part = super.make_part(id, cell)
@@ -63,11 +99,17 @@ func step(dt: float, direction: Vector2, wants_boost: bool):
 	head += velocity * dt
 	motion.elapsed += dt
 	motion.activity = move_toward(motion.activity, direction.length(), dt * 4)
+	if character_id == "spider": spider_rig.step(self, dt)
 	refresh_positions()
 	step_mount_sway(dt)
 
 func refresh_body_poses():
-	if compact_body():
+	if character_id == "spider":
+		spider_rig.ensure(self)
+		body_poses = [{"point": head, "direction": facing}]
+		for mount in range(1, module_cap() + 1):
+			body_poses.append(spider_rig.mount_pose(mount))
+	elif compact_body():
 		body_poses = [{"point": head, "direction": facing}]
 		for mount in range(1, module_cap() + 1):
 			body_poses.append({"point": head + compact_mount_offset(mount).rotated(facing.angle()), "direction": facing})
@@ -81,6 +123,7 @@ func refresh_body_poses():
 		super.refresh_body_poses()
 
 func reset():
+	spider_rig.reset()
 	character_reset_serial += 1
 	coil_active = false
 	rush_active = false
@@ -115,6 +158,20 @@ func parts_on_segment(segment: int) -> Array:
 	return [index] if index>0 else []
 
 func can_mount(segment: int, _slot: int = 4, _ignore: int = -1) -> bool:
+	if character_id == "spider":
+		var leg = spider_leg_for_mount(segment)
+		var depth = spider_depth_for_mount(segment)
+		if leg < 0:
+			last_error = "请选择蜘蛛腿上的挂点。"
+			return false
+		var order = spider_leg_indices(leg)
+		if order.size() >= SPIDER_LEG_CAP and _ignore not in order:
+			last_error = "这条腿已装满 4 个模块。"
+			return false
+		if depth > order.size():
+			last_error = "请从腿根向外依次安装模块。"
+			return false
+		return true
 	if compact_body():
 		if segment < 1 or segment > module_cap(): return false
 		var occupant = part_at(segment)
@@ -129,6 +186,9 @@ func install_module(id: String, before: int, _slot: int = 4) -> bool:
 		last_error="挂点已满。"
 		return false
 	if db.asset(id).is_empty() or not can_mount(before):return false
+	if character_id == "spider":
+		for index in spider_leg_indices(spider_leg_for_mount(before)):
+			if int(parts[index].segment) >= before: parts[index].segment += SPIDER_LEGS
 	for part in parts.slice(1):
 		if not compact_body() and int(part.segment)>=before:part.segment+=1
 	var part = make_part(id,mount_cell(before))
@@ -141,6 +201,12 @@ func install_module(id: String, before: int, _slot: int = 4) -> bool:
 	return true
 
 func first_free_mount() -> Vector2i:
+	if character_id == "spider":
+		# Grow balanced legs by default; explicit installation can focus one leg.
+		for depth in SPIDER_LEG_CAP:
+			for leg in SPIDER_LEGS:
+				if spider_leg_count(leg) == depth: return Vector2i(spider_mount(leg, depth), 4)
+		return Vector2i(-1, 4)
 	if compact_body():
 		for mount in range(1, module_cap() + 1):
 			if part_at(mount) < 0: return Vector2i(mount, 4)
@@ -151,7 +217,28 @@ func append_segment(id: String) -> bool:
 	return install_module(id, first_free_mount().x)
 
 func move_to_mount(index: int, before: int, _slot: int = 4) -> bool:
-	if index<=0 or index>=parts.size() or not can_mount(before):return false
+	if index<=0 or index>=parts.size():return false
+	if character_id == "spider":
+		if not can_mount(before, 4, index): return false
+		var old_leg = spider_leg_for_mount(int(parts[index].segment))
+		var new_leg = spider_leg_for_mount(before)
+		var source = spider_leg_indices(old_leg)
+		var old_depth = source.find(index)
+		var new_depth = spider_depth_for_mount(before)
+		if old_leg == new_leg and (new_depth == old_depth or new_depth == old_depth + 1): return false
+		source.erase(index)
+		if old_leg == new_leg:
+			if new_depth > old_depth: new_depth -= 1
+			source.insert(new_depth, index)
+			set_spider_leg_order(old_leg, source)
+		else:
+			var destination = spider_leg_indices(new_leg)
+			destination.insert(new_depth, index)
+			set_spider_leg_order(old_leg, source)
+			set_spider_leg_order(new_leg, destination)
+		refresh_positions(); refresh_upgrades(); last_error = ""
+		return true
+	if not can_mount(before):return false
 	if compact_body():
 		parts[index].segment = before
 		refresh_positions()
@@ -175,6 +262,7 @@ func swap_piece(a: int,b: int) -> bool:
 	var segment=int(parts[a].segment)
 	parts[a].segment=parts[b].segment;parts[b].segment=segment
 	refresh_positions()
+	if character_id == "spider": refresh_upgrades()
 	return true
 
 func duplicate_to_mount(index: int,before: int,_slot: int = 4) -> bool:
@@ -185,6 +273,7 @@ func duplicate_to_mount(index: int,before: int,_slot: int = 4) -> bool:
 	return true
 
 func refresh_positions():
+	if character_id == "spider": normalize_spider_legs()
 	var order = body_part_indices()
 	for i in order.size():
 		var part:Dictionary=parts[order[i]]
@@ -199,7 +288,14 @@ func adjacent_part_indices(index: int,include_self: bool = false) -> Array:
 	var segment=segment_index(index)
 	if include_self:result.append(index)
 	for other in range(parts.size()):
-		if compact_body():
+		if character_id == "spider":
+			if other == index: continue
+			if index == 0 or other == 0:
+				var mount = segment_index(other if index == 0 else index)
+				if spider_depth_for_mount(mount) == 0: result.append(other)
+			elif spider_leg_for_mount(segment) == spider_leg_for_mount(segment_index(other)) and absi(spider_depth_for_mount(segment) - spider_depth_for_mount(segment_index(other))) == 1:
+				result.append(other)
+		elif compact_body():
 			if other == index: continue
 			var a = Vector2.ZERO if index == 0 else compact_mount_offset(segment)
 			var b = Vector2.ZERO if other == 0 else compact_mount_offset(segment_index(other))
@@ -232,3 +328,9 @@ func replace_module(index: int, id: String) -> bool:
 	refresh_positions(); refresh_upgrades()
 	emit_feedback("installed", [parts[index].feedback_uid])
 	return true
+
+func weapon_origin(index: int) -> Vector2:
+	# Spider sockets already move with the articulated limb. All consumers share
+	# the same authoritative world location instead of adding cosmetic sway.
+	if character_id == "spider": return parts[index].position
+	return super.weapon_origin(index)
