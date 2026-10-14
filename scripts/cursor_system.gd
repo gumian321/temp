@@ -27,3 +27,6 @@ func shutdown():
  Input.set_custom_mouse_cursor(null,Input.CURSOR_ARROW)
  Input.set_custom_mouse_cursor(null,Input.CURSOR_POINTING_HAND)
  textures.clear()
+
+func _exit_tree():
+ shutdown()

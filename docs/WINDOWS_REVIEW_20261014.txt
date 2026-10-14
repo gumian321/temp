@@ -1,0 +1,29 @@
+Windows 同事体验包 · 2026-10-14
+
+交付
+artifacts/Centipede-Review-20261014.zip
+解压运行 RunBuildPew.exe。Windows x86_64，使用 Godot 4.6.3 官方导出模板，游戏数据嵌入 EXE。
+无需 Godot 编辑器。包含简体中文操作说明、引擎及字体许可证。
+
+Debug
+主菜单 → 虫巢 → 右上角「DEBUG · 解锁三角色」。
+立即开放蜈蚣、蜘蛛、甲虫并保存；选择后在下一次远征生效。
+不修改研究点、任务、装备解锁、成就或正常挑战计数。
+保存失败时撤回解锁并显示错误；重复点击不会重复添加角色。
+
+验证
+角色存档检查通过。成品 EXE 的实际鼠标和键盘输入验证通过 45 项检查：
+直接进入主菜单、Debug 解锁与保存失败处理、保存重载、重复点击、
+1280×720 / 1440×900 按钮布局、三角色选择和出击、各角色挂点上限、空格技能。
+Windows OpenGL Compatibility / NVIDIA GeForce GTX 1050 实际渲染截图在 artifacts/windows-build。
+普通入口启动退出和从 ZIP 独立解压启动均验证。
+退出时会清理自定义光标及音频资源。
+本机证书存储读取的 Godot 平台提示保留在日志，以上本地游戏检查不使用网络。
+
+重建
+python tools/fetch_godot_windows_templates.py
+python tools/package_windows_review.py --godot D:\godot\Godot_v4.6.3-stable_win64.exe
+导出使用 Windows Review 预设。下载脚本只提取官方压缩包的 Windows x64 模板，校验 ZIP CRC 和大小。
+已有同日期交付文件夹不会被覆盖；再次构建前请保留或改名。
+所有自动验证使用临时存档目录；不读取或修改玩家的实际存档。
+验证报告、截图和日志在 artifacts/windows-build；发布包不包含私人存档或这些测试文件。

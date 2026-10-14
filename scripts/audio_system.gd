@@ -123,6 +123,9 @@ func shutdown():
 		if index>=0:AudioServer.remove_bus(index)
 		owns_bus=false
 
+func _exit_tree():
+	if is_instance_valid(music):shutdown()
+
 var loops:Dictionary={}
 func sync_loops(requests:Array):
 	var alive:Dictionary={}

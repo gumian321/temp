@@ -94,6 +94,11 @@ var reward_snooze_count=0
 var build_selected_segment = 1
 
 func _ready():
+	var review_check = OS.has_feature("review_build") and Array(OS.get_cmdline_user_args()).any(func(arg):return arg in ["--review-ui-check","--review-exit-check"])
+	if review_check and not preload("res://scripts/windows_review_probe.gd").isolated_profile():
+		printerr("ERROR: Refusing review test outside isolated user directory")
+		get_tree().quit(2)
+		return
 	texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	get_tree().node_added.connect(ink_node_added)
 	db = DB.new()
@@ -133,7 +138,12 @@ func _ready():
 	popup_text=load("res://scripts/popup_text.gd").new();popup_text.layer=3;add_child(popup_text)
 	passive_fx.setup(self)
 	show_menu()
-	if "--smoke" in OS.get_cmdline_user_args():
+	if review_check:
+		var probe=preload("res://scripts/windows_review_probe.gd").new(self)
+		get_tree().set_meta("windows_review_probe",probe)
+		if "--review-ui-check" in OS.get_cmdline_user_args():probe.start()
+		else:probe.check_exit()
+	elif "--smoke" in OS.get_cmdline_user_args():
 		test_mode = true
 		call_deferred("automated_flow")
 	elif "--operations-input-fixture" in OS.get_cmdline_user_args():

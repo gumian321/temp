@@ -6,6 +6,7 @@ var game
 var cards:Dictionary={}
 var content:Control
 var status:Label
+var debug_unlock_button:Button
 func setup(owner_game):
  game=owner_game;UI.protect(self);theme=UI.theme()
  set_anchors_and_offsets_preset(PRESET_FULL_RECT);mouse_filter=MOUSE_FILTER_STOP
@@ -19,6 +20,9 @@ func rebuild():
  cards.clear();content=Control.new();content.size=Vector2(1440,900);add_child(content);UI.backdrop(content)
  UI.header(content,game.db.ui("INSECT NEST","虫巢"),game.show_menu)
  UI.label(content,game.db.ui("CHOOSE YOUR INSTINCT","选择你的生存本能"),Vector2(72,119),22,UI.MUTED)
+ debug_unlock_button=UI.button(content,game.db.ui("DEBUG · UNLOCK 3 CHARACTERS","DEBUG · 解锁三角色"),Rect2(990,103,380,52),unlock_debug_characters,"",UI.AMBER)
+ debug_unlock_button.add_theme_font_size_override("font_size",20)
+ debug_unlock_button.tooltip_text=game.db.ui("Unlock Centipede, Spider and Beetle for this save.","一键开放蜈蚣、蜘蛛、甲虫，自动保存。")
  var selected=str(game.save.state.selected_character)
  for i in Roster.ids().size():
   var id:String=Roster.ids()[i];var data=Roster.config(id)
@@ -47,3 +51,10 @@ func choose(id:String):
  if not game.save.character_unlocked(id):status.text=unlock_text(id).replace("\n","  ·  ");return
  if game.save.select_character(id):game.audio_system.play(70);rebuild()
  else:status.text=game.db.ui("Could not save selection. Please try again.","选择未能保存，请重试。")
+
+func unlock_debug_characters():
+ if not game.save.unlock_all_characters():
+  status.text=game.db.ui("Could not save unlocks. Please try again.","解锁未能保存，请重试。")
+  return
+ game.audio_system.play(70);rebuild()
+ status.text=game.db.ui("All 3 characters unlocked. Choose one, then deploy.","三角色已解锁，选好角色后前往远征。")

@@ -99,6 +99,16 @@ func _initialize():
 	repaired.state.settings.volume = 0.31
 	repaired.reset_progress()
 	check(repaired.state.roster_unlocked == ["centipede"] and repaired.state.selected_character == "centipede" and repaired.state.settings.volume == 0.31, "Reset progress clears roster while preserving settings")
+	var before_debug = repaired.state.duplicate(true)
+	repaired.path = "user://missing-roster-test-directory/invalid.json"
+	check(not repaired.unlock_all_characters() and repaired.state == before_debug, "Failed debug unlock save rolls back roster")
+	repaired.path = TEST_PATH
+	check(repaired.unlock_all_characters() and repaired.state.roster_unlocked == Roster.ids(), "Debug unlock opens all three playable characters")
+	var debug_reloaded = Store.new(db, TEST_PATH)
+	check(debug_reloaded.state.roster_unlocked == Roster.ids(), "Debug unlock survives save reload")
+	before_debug.roster_unlocked = Roster.ids()
+	check(repaired.state == before_debug, "Debug unlock preserves currency, research, missions, selection and challenge statistics")
+	check(repaired.unlock_all_characters() and repaired.state.roster_unlocked.size() == 3, "Repeated debug unlock does not duplicate characters")
 	remove_files()
 	var passed = checks.all(func(c):return c.passed)
 	print(JSON.stringify({"passed": passed, "checks": checks}))

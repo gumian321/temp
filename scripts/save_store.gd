@@ -204,6 +204,14 @@ func _normalize_roster():
 func character_unlocked(id: String) -> bool:
 	return CharacterRoster.has_character(id) and id in state.roster_unlocked
 
+func unlock_all_characters() -> bool:
+	var previous: Array = state.roster_unlocked.duplicate()
+	for id in CharacterRoster.ids():
+		if id not in state.roster_unlocked:state.roster_unlocked.append(id)
+	if save():return true
+	state.roster_unlocked = previous
+	return false
+
 func select_character(id: String) -> bool:
 	if not character_unlocked(id):return false
 	if state.selected_character == id:return true
