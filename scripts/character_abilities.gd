@@ -27,6 +27,7 @@ func reset():
 	cooldown = 0; active = 0; armor = 100; armor_delay = 0; charge = 0
 	threads.clear(); rush_hit.clear()
 	if supported():
+		player.coil_rig.reset()
 		player.coil_active = false; player.rush_active = false
 		reset_serial = player.character_reset_serial
 
@@ -42,7 +43,7 @@ func request_skill(world_aim: Vector2) -> bool:
 	cooldown = float(player.character_config.get("skill_cooldown", 10))
 	match player.character_id:
 		"centipede":
-			active = 2.4; player.coil_active = true
+			active = 2.4; player.begin_coil()
 			player.refresh_positions()
 		"spider":
 			active = 2.0
@@ -91,13 +92,8 @@ func update(dt: float):
 func finish():
 	active = 0; charge = 0; threads.clear()
 	if supported():
-		var was_coil: bool = player.coil_active
-		player.coil_active = false; player.rush_active = false
-		if was_coil:
-			player.motion.reset()
-			player.motion.ensure_length(player)
-			for i in mini(player.motion.centers.size(), player.body_poses.size() - 1):
-				player.motion.centers[i] = player.body_poses[i + 1].point
+		player.end_coil()
+		player.rush_active = false
 		player.refresh_positions()
 
 func advance_rush(dt: float):

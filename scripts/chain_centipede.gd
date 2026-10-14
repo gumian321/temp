@@ -11,6 +11,8 @@ const CharacterRoster = preload("res://scripts/character_roster.gd")
 var character_id = "centipede"
 var character_config: Dictionary = {}
 var character_reset_serial = 0
+const CoilRig = preload("res://scripts/centipede_coil.gd")
+var coil_rig = CoilRig.new()
 var coil_active = false
 var rush_active = false
 
@@ -75,7 +77,7 @@ func refresh_upgrades():
 		parts[i].hp = minf(parts[i].max_hp, float(old[i][0]) + maxf(0, parts[i].max_hp - float(old[i][1]))) if float(old[i][0]) > 0 else float(old[i][0])
 
 func step(dt: float, direction: Vector2, wants_boost: bool):
-	if not compact_body() and not coil_active:
+	if not compact_body() and not coil_rig.engaged():
 		super.step(dt, direction, wants_boost)
 		return
 	dt = clampf(dt, 0, 0.1)
@@ -100,6 +102,7 @@ func step(dt: float, direction: Vector2, wants_boost: bool):
 	motion.elapsed += dt
 	motion.activity = move_toward(motion.activity, direction.length(), dt * 4)
 	if character_id == "spider": spider_rig.step(self, dt)
+	elif character_id == "centipede": coil_rig.advance(self, dt)
 	refresh_positions()
 	step_mount_sway(dt)
 
@@ -113,16 +116,21 @@ func refresh_body_poses():
 		body_poses = [{"point": head, "direction": facing}]
 		for mount in range(1, module_cap() + 1):
 			body_poses.append({"point": head + compact_mount_offset(mount).rotated(facing.angle()), "direction": facing})
-	elif coil_active:
-		body_poses = [{"point": head, "direction": facing}]
-		for mount in range(1, segment_count() + 1):
-			var angle = float(mount) * 0.72
-			var radius = 52.0 + 5.0 * mount
-			body_poses.append({"point": head + Vector2.from_angle(angle + facing.angle()) * radius, "direction": Vector2.from_angle(angle + facing.angle() + PI / 2)})
+	elif coil_rig.engaged():
+		body_poses = coil_rig.poses(self)
 	else:
 		super.refresh_body_poses()
 
+func begin_coil():
+	coil_rig.begin(self, true)
+	coil_active = true
+
+func end_coil():
+	if coil_active: coil_rig.begin(self, false)
+	coil_active = false
+
 func reset():
+	coil_rig.reset()
 	spider_rig.reset()
 	character_reset_serial += 1
 	coil_active = false

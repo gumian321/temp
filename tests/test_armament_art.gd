@@ -90,7 +90,7 @@ func execute():
 	check(game.player.segment_count()==ITEMS.size() and game.player.parts_on_segment(1).size()==1,"Each weapon device occupies its own complete segment")
 	game.build_selected_segment=1;game.show_build()
 	await capture("res://artifacts/armament-v2-build.png")
-	check(game.build_ui.segment_buttons.values().all(func(s):return s.icon is AtlasTexture),"Segment assembly uses every generated weapon image")
+	check(game.build_ui.segment_buttons.size()==ITEMS.size() and game.build_ui.segment_buttons.values().all(func(s):return s.get_parent()==game.build_ui.body_canvas and db.core_sprite(db.asset(s.payload.part.id)) is AtlasTexture and db.armament_variant(db.asset(s.payload.part.id)) in ITEMS.map(func(item):return item[0])),"Direct body assembly routes every mounted physical element to its generated weapon image")
 	game.show_game();game.camera=game.player.head-Vector2(540,0);game.zoom=1.0
 	game.label_at("蓝墨蜈蚣 · 彩色生体武装",Vector2(455,145),27)
 	game.label_at("每节一个元素 · 炮塔保持原图比例",Vector2(426,189),19)

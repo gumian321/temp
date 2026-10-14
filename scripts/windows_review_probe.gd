@@ -94,6 +94,8 @@ func execute():
 	await click_at(Vector2(268,464))
 	check(game.screen == "characters", "Actual home Nest button opens character screen")
 	var nest = game.panel.get_child(0)
+	check(nest.cards.keys() == Roster.ids(), "Nest displays only Centipede and Spider")
+	check(is_equal_approx(nest.cards.centipede.position.x, 1440.0 - nest.cards.spider.position.x - nest.cards.spider.size.x), "Two character cards are centered")
 	check(nest.debug_unlock_button.is_visible_in_tree(), "Debug unlock button is visible")
 	await capture("review-01-debug-button")
 	var previous = game.save.state.duplicate(true)
@@ -103,13 +105,13 @@ func execute():
 	check(game.save.state == previous and nest.status.text.contains("未能保存"), "Failed debug save keeps roster locked and displays error")
 	game.save.path = normal_path
 	await click_at(nest.debug_unlock_button.get_global_rect().get_center())
-	check(game.save.state.roster_unlocked == Roster.ids(), "Real mouse click unlocks all three characters")
+	check(game.save.state.roster_unlocked == Roster.ids(), "Real mouse click unlocks both playable characters")
 	previous.roster_unlocked = Roster.ids()
 	check(game.save.state == previous, "Button preserves all unrelated profile progress")
 	var reloaded = Store.new(game.db, normal_path)
 	check(reloaded.state.roster_unlocked == Roster.ids(), "Unlocked characters reload from saved file")
 	await click_at(nest.debug_unlock_button.get_global_rect().get_center())
-	check(game.save.state.roster_unlocked.size() == 3, "Repeated button clicks are safe")
+	check(game.save.state.roster_unlocked.size() == 2, "Repeated button clicks are safe")
 	await capture("review-02-all-unlocked")
 	for dimensions in [Vector2i(1280,720),Vector2i(1440,900)]:
 		root.size = dimensions;await settle()
@@ -133,7 +135,6 @@ func execute():
 		match id:
 			"centipede":check(game.player.coil_active, "Centipede coils")
 			"spider":check(not game.combat.character_abilities.state().threads.is_empty(), "Spider connects enemy with silk")
-			"beetle":check(game.combat.character_abilities.state().charge > 0 and game.combat.character_abilities.state().armor < 100, "Beetle charges and spends armor")
 		await capture("review-03-" + id)
 	game.cursor_system.shutdown();game.audio_system.shutdown();game.particle_effects.clear()
 	game.process_mode = Node.PROCESS_MODE_DISABLED

@@ -75,7 +75,7 @@ func execute():
 	battle.step(0.25, Vector2.RIGHT * 700, false)
 	check(body.parts[1].hp > health_before[1] and body.parts[3].hp > health_before[3] and body.parts[2].hp == health_before[2] and body.parts[0].hp == health_before[0], "Actual repair heals self and same-leg neighbor without cross-leg or remote HQ repair")
 	body.configure_character("beetle")
-	check(body.module_cap() == 6 and body.install_module(gun, 6) and body.parts[1].segment == 6 and not body.install_module(gun, 7), "Beetle fixed-mount semantics remain unchanged")
+	check(body.character_id == "centipede" and body.module_cap() == 60 and not body.compact_body() and body.append_segment(gun) and body.parts[1].segment == 1, "Legacy Beetle configuration safely uses active centipede chain semantics")
 	body.configure_character("centipede")
 	check(body.module_cap() == 60 and body.append_segment(gun) and body.append_segment(gun) and body.segment_count() == 2, "Centipede chain growth remains unchanged")
 	var report = {"checks": checks, "passed": checks.all(func(c): return c.passed)}

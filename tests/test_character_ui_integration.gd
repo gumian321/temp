@@ -7,19 +7,20 @@ func _initialize(): call_deferred("execute")
 func execute():
 	var game = load("res://main.tscn").instantiate(); root.add_child(game); await process_frame
 	game.set_process(false)
+	game.save.path = "user://character-ui-integration-isolated.json"; game.save.fresh()
 	game.save.state.settings.skip_boss = true
-	game.save.state.roster_unlocked = ["centipede", "spider", "beetle"]
-	for id in ["spider", "beetle"]:
+	game.save.state.roster_unlocked = ["centipede", "spider"]
+	for id in ["spider"]:
 		game.save.select_character(id); game.start_run(); game.set_process(false)
 		game.show_build_ui(); await process_frame
 		var cap = game.player.module_cap()
-		check((game.build_ui.segment_buttons.is_empty() and game.build_ui.insert_targets.size() == 8) if id == "spider" else (game.build_ui.segment_buttons.size() == cap and game.build_ui.insert_targets.is_empty()), id + ": armory distinguishes growing legs from fixed beetle hardpoints")
+		check(game.build_ui.segment_buttons.is_empty() and game.build_ui.insert_targets.size() == 8, id + ": armory exposes eight growing legs")
 		var reward: Dictionary = {}
 		for r in game.db.kind("BlockReward"):
 			if game.save.available(r.id): reward = r; break
 		game.player.pending = [reward.blockCore]; game.build_ui.rebuild()
 		var data = {"kind": "inventory", "index": 0, "id": reward.blockCore}
-		var first_mount = 8 if id == "spider" else cap
+		var first_mount = 8
 		check(game.build_ui.can_drop({"kind": "mount", "before": first_mount}, data), id + ": UI permits placement into an empty leg root or hardpoint")
 		game.build_ui.drop({"kind": "mount", "before": first_mount}, data); await process_frame
 		check(game.player.pending.is_empty() and game.player.part_at(first_mount) > 0 and game.player.parts.size() == 2, id + ": UI placement consumes exactly one pending module")
@@ -27,10 +28,7 @@ func execute():
 		game.player.pending = [reward.blockCore]; game.build_ui.rebuild()
 		var uid = game.player.parts[game.player.part_at(cap)].feedback_uid
 		game.build_ui.drop({"kind": "mount", "before": cap}, data); await process_frame
-		if id == "spider":
-			check(game.player.pending.size() == 1 and game.player.parts.size() == cap + 1 and game.player.parts[game.player.part_at(cap)].feedback_uid == uid, "Full spider leg rejects accidental replacement and preserves inventory")
-		else:
-			check(game.player.pending.is_empty() and game.player.parts.size() == cap + 1 and game.player.parts[game.player.part_at(cap)].feedback_uid != uid, id + ": UI full-body replacement changes one module without growing or duplicating inventory")
+		check(game.player.pending.size() == 1 and game.player.parts.size() == cap + 1 and game.player.parts[game.player.part_at(cap)].feedback_uid == uid, "Full spider leg rejects accidental replacement and preserves inventory")
 		var key = InputEventKey.new(); key.physical_keycode = KEY_SPACE; key.keycode = KEY_SPACE; key.pressed = true
 		game.show_pause(); game._unhandled_input(key)
 		check(game.combat.character_abilities.cooldown == 0, id + ": paused Space cannot activate a skill")

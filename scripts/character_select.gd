@@ -20,21 +20,23 @@ func rebuild():
  cards.clear();content=Control.new();content.size=Vector2(1440,900);add_child(content);UI.backdrop(content)
  UI.header(content,game.db.ui("INSECT NEST","虫巢"),game.show_menu)
  UI.label(content,game.db.ui("CHOOSE YOUR INSTINCT","选择你的生存本能"),Vector2(72,119),22,UI.MUTED)
- debug_unlock_button=UI.button(content,game.db.ui("DEBUG · UNLOCK 3 CHARACTERS","DEBUG · 解锁三角色"),Rect2(990,103,380,52),unlock_debug_characters,"",UI.AMBER)
+ debug_unlock_button=UI.button(content,game.db.ui("DEBUG · UNLOCK 2 CHARACTERS","DEBUG · 解锁双角色"),Rect2(990,103,380,52),unlock_debug_characters,"",UI.AMBER)
  debug_unlock_button.add_theme_font_size_override("font_size",20)
- debug_unlock_button.tooltip_text=game.db.ui("Unlock Centipede, Spider and Beetle for this save.","一键开放蜈蚣、蜘蛛、甲虫，自动保存。")
+ debug_unlock_button.tooltip_text=game.db.ui("Unlock Centipede and Spider for this save.","一键开放蜈蚣、蜘蛛，自动保存。")
  var selected=str(game.save.state.selected_character)
+ var row_width=Roster.ids().size()*424+(Roster.ids().size()-1)*18
+ var row_left=(1440.0-row_width)/2.0
  for i in Roster.ids().size():
   var id:String=Roster.ids()[i];var data=Roster.config(id)
   var unlocked=game.save.character_unlocked(id);var chosen=selected==id
-  var card=Button.new();card.position=Vector2(64+i*442,180);card.size=Vector2(424,554);card.clip_contents=true;card.mouse_default_cursor_shape=CURSOR_POINTING_HAND
+  var card=Button.new();card.position=Vector2(row_left+i*442,180);card.size=Vector2(424,554);card.clip_contents=true;card.mouse_default_cursor_shape=CURSOR_POINTING_HAND
   for state in ["normal","hover","pressed","focus"]:card.add_theme_stylebox_override(state,UI.card_style(chosen or state!="normal"))
   content.add_child(card);cards[id]=card;card.pressed.connect(func():choose(id))
   var portrait=TextureRect.new();portrait.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;portrait.texture=Art.portrait(id);portrait.position=Vector2(22,66);portrait.size=Vector2(380,244);portrait.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;portrait.mouse_filter=MOUSE_FILTER_IGNORE;portrait.modulate=Color.WHITE if unlocked else Color(.68,.75,.8,.7);card.add_child(portrait)
   UI.label(card,str(data.display_name),Vector2(28,21),34)
   UI.label(card,"✓  "+game.db.ui("SELECTED","已选择") if chosen else game.db.ui("AVAILABLE","已解锁") if unlocked else game.db.ui("LOCKED","未解锁"),Vector2(276,32),18,UI.TEAL if unlocked else UI.MUTED)
   UI.label(card,str(data.label),Vector2(28,306),25)
-  UI.label(card,str(data.skill_name)+"  ·  "+{"centipede":"蜷缩聚火","spider":"织网聚怪","beetle":"耗甲破阵"}[id],Vector2(28,349),20,UI.TEAL)
+  UI.label(card,str(data.skill_name)+"  ·  "+{"centipede":"蜷缩聚火","spider":"织网聚怪"}[id],Vector2(28,349),20,UI.TEAL)
   UI.label(card,game.db.ui("UP TO %d MOUNTS","最多 %d 个挂点")%int(data.slot_cap),Vector2(28,391),19,UI.MUTED)
   var weakness=UI.label(card,str(data.weakness),Vector2(28,421),16,UI.MUTED);weakness.size=Vector2(368,40);weakness.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
   var goal=UI.label(card,unlock_text(id) if not unlocked else str(data.equipment_rule),Vector2(28,467),18);goal.size=Vector2(368,65);goal.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
@@ -45,7 +47,6 @@ func rebuild():
 func unlock_text(id:String)->String:
  var progress:Dictionary=game.save.state.roster_progress
  if id=="spider":return game.db.ui("Centipede: acquire 3 support modules in one run\nBEST  %d / 3","蜈蚣单局获得 3 个支援模块\n最佳  %d / 3")%mini(3,int(progress.get("support_modules_best",0)))
- if id=="beetle":return game.db.ui("Defeat your first boss\nPROGRESS  %d / 1","击败第一个首领\n进度  %d / 1")%mini(1,int(progress.get("boss_kills",0)))
  return game.db.ui("Available from the start","初始角色")
 func choose(id:String):
  if not game.save.character_unlocked(id):status.text=unlock_text(id).replace("\n","  ·  ");return
@@ -57,4 +58,4 @@ func unlock_debug_characters():
   status.text=game.db.ui("Could not save unlocks. Please try again.","解锁未能保存，请重试。")
   return
  game.audio_system.play(70);rebuild()
- status.text=game.db.ui("All 3 characters unlocked. Choose one, then deploy.","三角色已解锁，选好角色后前往远征。")
+ status.text=game.db.ui("Both characters unlocked. Choose one, then deploy.","双角色已解锁，选好角色后前往远征。")

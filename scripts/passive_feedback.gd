@@ -50,6 +50,10 @@ func tick(game,dt:float):
    if str(event.get("kind","")) in ["reward","installed","reinforced"]:
     notices.append({"event":event,"left":4.2})
     if notices.size()>4:notices.pop_front()
+ # Direct assembly already highlights the installed segment. Its generic toast
+ # otherwise covers the inventory tray; retain reward and combat feedback.
+ if game.screen=="build":
+  notices=notices.filter(func(notice):return notice.event.get("kind","")!="installed")
  if game.screen in ["menu","result","intro"]:
   notices.clear()
  if game.screen=="game":clock+=dt

@@ -36,7 +36,7 @@ func execute():
 	await click_at(game.build_ui.inventory[0].get_global_rect().get_center())
 	await click_at(game.build_ui.tail_target.get_global_rect().get_center());await settle()
 	check(game.player.pending.is_empty() and game.player.segment_count()==4,"Click placement also adds one complete segment")
-	check("1 元素 = 1 体节" in visible_text(game.panel),"The assembly screen communicates one element per segment with a compact equation")
+	check("身体拼接" in visible_text(game.panel) and game.build_ui.segment_buttons.size()==4 and game.build_ui.segment_buttons.values().all(func(control):return control.get_parent()==game.build_ui.body_canvas and game.player.parts_on_segment(control.target.segment).size()==1),"Direct assembly shows one physical selectable module per occupied body segment")
 	await capture("chain-03-assembly")
 	game.player.actions.move=0;game.player.actions.swap=0
 	var repair:Dictionary=game.player.parts[game.player.part_at(4)]
