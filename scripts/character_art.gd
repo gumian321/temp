@@ -1,5 +1,6 @@
 extends RefCounted
 ## Original AI-generated cutouts; animation only transforms the painted raster.
+const SpiderArt = preload("res://scripts/spider_art.gd")
 static var textures: Dictionary = {}
 
 static func portrait(id: String) -> Texture2D:
@@ -13,6 +14,9 @@ static func portrait(id: String) -> Texture2D:
 static func draw_body(canvas: CanvasItem, player, at: Vector2, zoom: float, _clock: float):
 	var id: String = player.character_id
 	if id == "centipede": return
+	if id == "spider":
+		SpiderArt.draw_body(canvas, player, at, zoom, _clock)
+		return
 	var texture = portrait(id)
 	if texture == null: return
 	var size = Vector2(180, 180) if id == "spider" else Vector2(174, 124)

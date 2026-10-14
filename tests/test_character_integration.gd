@@ -13,10 +13,10 @@ func _initialize(): call_deferred("execute")
 func execute():
 	var db = DB.new()
 	var gun = db.named("Core_Gun_Gatling").id
-	for id in ["spider", "beetle"]:
+	for id in ["beetle"]:
 		var body = Body.new(db)
 		body.configure_character(id)
-		var cap = 8 if id == "spider" else 6
+		var cap = body.module_cap()
 		check(body.parts.size() == 1 and body.segment_count() == cap, id + ": empty fixed body starts with only its head")
 		check(body.body_poses.size() == cap + 1 and body.part_at(cap) == -1, id + ": empty mount poses exist without fake modules")
 		body.install_module(gun, 1)

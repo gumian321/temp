@@ -26,6 +26,73 @@ class CompactSlot extends Button:
 	func _notification(what):
 		if what==NOTIFICATION_DRAG_END and builder!=null:builder.end_drag()
 
+class SpiderPreview extends RefCounted:
+	var head=Vector2.ZERO
+	var facing=Vector2.UP
+	var character_reset_serial=0
+	var spider_rig=preload("res://scripts/spider_rig.gd").new()
+	var counts:Array=[]
+	func spider_leg_count(leg:int)->int:return int(counts[leg])
+
+class SpiderSlot extends Button:
+	var builder
+	var target:Dictionary
+	var payload:Dictionary
+	var selected=false
+	func setup(owner,target_data,data):
+		builder=owner;target=target_data;payload=data
+		mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
+		pressed.connect(func():builder.click(target,payload))
+		mouse_entered.connect(func():builder.hover_mount(target);builder.inspect(payload))
+		mouse_exited.connect(func():builder.hover_mount({});builder.inspect({}))
+	func _draw():
+		var carried=builder.active_drag_data if not builder.active_drag_data.is_empty() else builder.selected_data
+		var valid=not carried.is_empty() and builder.can_drop(target,carried)
+		var active=builder.hovered_target==target and valid
+		draw_style_box(UI.card_style(selected or active or has_focus()),Rect2(Vector2(2,2),size-Vector2(4,4)))
+		if payload.is_empty():
+			draw_string(UI.font(),Vector2(0,34),"+",HORIZONTAL_ALIGNMENT_CENTER,size.x,30,UI.TEAL if valid else UI.MUTED)
+			draw_string(UI.font(),Vector2(0,51),"生长",HORIZONTAL_ALIGNMENT_CENTER,size.x,12,UI.MUTED)
+		else:
+			builder.draw_segment(self,int(target.before),Vector2(size.x/2,27),0.62)
+			draw_string(UI.font(),Vector2(0,53),str(builder.player.spider_depth_for_mount(int(target.before))+1),HORIZONTAL_ALIGNMENT_CENTER,size.x,12,UI.MUTED)
+	func _get_drag_data(_at):
+		if payload.is_empty():return null
+		var preview=TextureRect.new();preview.texture=builder.db.core_sprite(builder.db.asset(payload.part.id))
+		preview.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;preview.size=Vector2(56,56)
+		set_drag_preview(preview);builder.begin_drag(payload.duplicate());return payload.duplicate()
+	func _can_drop_data(_at,data):
+		builder.hover_mount(target);queue_redraw()
+		return data is Dictionary and builder.can_drop(target,data)
+	func _drop_data(_at,data):builder.drop(target,data)
+	func _notification(what):
+		if what==NOTIFICATION_DRAG_END and is_instance_valid(builder) and not builder.active_drag_data.is_empty():builder.end_drag()
+
+var spider_preview
+func build_spider_rows():
+	spider_preview=SpiderPreview.new()
+	for leg in range(8):spider_preview.counts.append(player.spider_leg_count(leg))
+	spider_preview.spider_rig.ensure(spider_preview)
+	for leg in range(8):
+		var count=int(player.spider_leg_count(leg))
+		var x=72.0 if leg%2==0 else 864.0
+		var y=212.0+int(leg/2)*65.0
+		text_at(("左" if leg%2==0 else "右")+str(int(leg/2)+1)+"  %d/4"%count,Vector2(x,y+18),Vector2(84,30),16)
+		for depth in range(mini(count+1,4)):
+			var mount=int(player.spider_mount(leg,depth))
+			var index=int(player.part_at(mount))
+			var data={"kind":"mounted","part":player.parts[index]} if index>0 else {}
+			var control=SpiderSlot.new();control.position=Vector2(x+86+depth*99,y);control.size=Vector2(96,60)
+			add_child(control);control.setup(self,{"kind":"mount","before":mount},data)
+			control.tooltip_text="拖入此处延长腿部" if data.is_empty() else db.title(db.asset(data.part.id))+" · 拖动重排 / 交换"
+			control.selected=mount==selected_segment and selected_data.get("kind")!="inventory"
+			if index>0:segment_buttons[mount]=control
+			else:insert_targets[mount]=control
+
+func assembly_guidance()->String:
+	if player.character_id=="spider":return "+ 延长腿部    ⇄ 交换    拖到其他腿可转移"
+	return "+ 插入    ⇄ 交换    右键取消" if player.character_id=="centipede" else "拖入已占挂点将替换旧模块 · 不可撤销"
+
 var chain_scroll: ScrollContainer
 var inventory_scroll: ScrollContainer
 var insert_targets: Dictionary = {}
@@ -59,7 +126,7 @@ func rebuild():
 	inventory.clear();slots.clear();segment_buttons.clear();insert_targets.clear()
 	var title=text_at("蜕变舱" if game.reward_flow_active else "虫巢武装",Vector2(65,35),Vector2(600,58),38)
 	var capacity=text_at("%02d / %d"%[player.parts.size()-1,player.module_cap()],Vector2(1200,42),Vector2(170,36),24)
-	var subtitle=text_at("1 元素 = 1 体节    ·    拖入 + 生长" if player.character_id=="centipede" else "固定挂点    ·    拖入空位 / 覆盖旧模块",Vector2(65,106),Vector2(900,30),17)
+	var subtitle=text_at("1 元素 = 1 体节    ·    拖入 + 生长" if player.character_id=="centipede" else ("8 条腿 × 4 模块    ·    装得越多，腿越长" if player.character_id=="spider" else "固定挂点    ·    拖入空位 / 覆盖旧模块"),Vector2(65,106),Vector2(900,30),17)
 	text_at("待装  ·  %02d"%player.pending.size(),Vector2(72,527),Vector2(280,36),22)
 	var scroll=ScrollContainer.new();scroll.position=Vector2(72,579);scroll.size=Vector2(652,186)
 	scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;add_child(scroll)
@@ -75,13 +142,16 @@ func rebuild():
 		text_at("战斗 → 奖励 → 生长",Vector2(250,655),Vector2(400,36),17)
 	reward_button=action_button("奖励  %d"%game.run.packs,Vector2(582,526),Vector2(140,44),game.show_rewards,not player.pending.is_empty())
 	reward_button.tooltip_text="选择奖励";reward_button.visible=game.run.packs>0
-	text_at("身体序列" if player.character_id=="centipede" else "身体挂点",Vector2(72,174),Vector2(280,34),21)
-	text_at("头部 → 尾部" if player.character_id=="centipede" else "固定身体 · 独立装配",Vector2(1200,174),Vector2(170,30),16)
+	text_at("身体序列" if player.character_id=="centipede" else ("蛛腿装配" if player.character_id=="spider" else "身体挂点"),Vector2(72,174),Vector2(280,34),21)
+	text_at("头部 → 尾部" if player.character_id=="centipede" else ("根部 → 足端" if player.character_id=="spider" else "固定身体 · 独立装配"),Vector2(1200,174),Vector2(170,30),16)
 	chain_scroll=ScrollContainer.new();chain_scroll.position=Vector2(72,218);chain_scroll.size=Vector2(1296,256)
 	chain_scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
 	chain_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_AUTO;add_child(chain_scroll)
 	var row=HBoxContainer.new();row.add_theme_constant_override("separation",0);chain_scroll.add_child(row)
-	if player.character_id!="centipede":
+	if player.character_id=="spider":
+		chain_scroll.visible=false
+		build_spider_rows()
+	elif player.character_id!="centipede":
 		for mount in range(1,player.module_cap()+1):
 			var index=player.part_at(mount)
 			var data={"kind":"mounted","part":player.parts[index]} if index>0 else {}
@@ -103,7 +173,7 @@ func rebuild():
 			control.selected=(selected_data.get("kind")!="inventory" and before==selected_segment)
 			segment_buttons[before]=control
 	chain_scroll.set_deferred("scroll_horizontal",previous_scroll)
-	guidance=text_at("+ 插入    ⇄ 交换    右键取消" if player.character_id=="centipede" else "拖入已占挂点将替换旧模块 · 不可撤销",Vector2(780,106),Vector2(580,30),16)
+	guidance=text_at(assembly_guidance(),Vector2(780,106),Vector2(580,30),16)
 	detail=text_at("",Vector2(1000,534),Vector2(350,65),25)
 	health_label=text_at("",Vector2(1000,608),Vector2(350,32),19)
 	description_label=text_at("",Vector2(1000,658),Vector2(350,92),17)
@@ -188,6 +258,12 @@ func _draw():
 	for i in 12:
 		var a=i*TAU/12
 		draw_line(Vector2(906,624)+Vector2.from_angle(a)*78,Vector2(906,624)+Vector2.from_angle(a)*84,Color(UI.TEAL,.36),2,true)
+	if player.character_id=="spider":
+		preload("res://scripts/spider_art.gd").draw_body(self,spider_preview,Vector2(720,338),0.68,0.0)
+		for index in range(1,player.parts.size()):
+			var mount=int(player.parts[index].segment)
+			var at=Vector2(720,338)+Vector2(spider_preview.spider_rig.mount_pose(mount).point)*0.68
+			draw_element(self,db.core_sprite(db.asset(player.parts[index].id)),at,0.53)
 	if player.pending.is_empty():
 		draw_head(self,Vector2(154,650),1.1)
 	var data=shown_data()
@@ -258,12 +334,12 @@ func inspect(data:Dictionary):
 
 func begin_drag(data:Dictionary):
 	drag_cancelled=false;active_drag_data=data;drag_pointer=get_global_mouse_position();inspect(data)
-	guidance.text="+ 插入    ⇄ 交换    边缘滚动    ESC 取消" if player.character_id=="centipede" else "拖入已占挂点将替换旧模块 · ESC 取消"
+	guidance.text=assembly_guidance()+" · ESC 取消"
 	refresh_controls()
 
 func end_drag():
 	active_drag_data={};inspected_data={};hovered_target={};inspect({})
-	guidance.text="+ 插入    ⇄ 交换    右键取消" if player.character_id=="centipede" else "拖入已占挂点将替换旧模块 · 不可撤销"
+	guidance.text=assembly_guidance()
 	drag_cancelled=false;refresh_controls()
 
 func hover_mount(target:Dictionary):
@@ -279,6 +355,20 @@ func can_drop(target:Dictionary,data:Dictionary)->bool:
 	if target.get("kind")=="mount":
 		var mount=int(target.before)
 		if mount<1 or mount>player.module_cap():return false
+		if player.character_id=="spider":
+			var leg=int(player.spider_leg_for_mount(mount))
+			var depth=int(player.spider_depth_for_mount(mount))
+			var count=int(player.spider_leg_count(leg))
+			var occupied=player.part_at(mount)>0
+			if data.get("kind")=="inventory":
+				var index=int(data.get("index",-1))
+				return not occupied and depth==count and count<4 and index>=0 and index<player.pending.size() and player.pending[index]==data.get("id")
+			if data.get("kind")!="mounted":return false
+			var index=player.parts.find(data.get("part",{}))
+			if index<=0 or int(data.part.segment)==mount:return false
+			if occupied:return true
+			if depth!=count or count>=4:return false
+			return int(player.spider_leg_for_mount(int(data.part.segment)))!=leg or int(player.spider_depth_for_mount(int(data.part.segment)))<count-1
 		if data.get("kind")=="inventory":return int(data.index)>=0 and int(data.index)<player.pending.size() and player.pending[int(data.index)]==data.id
 		return data.get("kind")=="mounted" and player.parts.find(data.get("part",{}))>0 and int(data.part.segment)!=mount
 	if target.get("kind")=="swap":
@@ -305,7 +395,7 @@ func drop(target:Dictionary,data:Dictionary):
 	var changed=false
 	var part:Dictionary={}
 	if data.kind=="inventory":
-		changed=game.combat.replace_character_module(player.part_at(before),data.id) if player.character_id!="centipede" and player.part_at(before)>0 else player.install_module(data.id,before)
+		changed=game.combat.replace_character_module(player.part_at(before),data.id) if player.character_id=="beetle" and player.part_at(before)>0 else player.install_module(data.id,before)
 		if changed:
 			player.pending.remove_at(int(data.index));part=player.parts[player.part_at(before)]
 	else:
