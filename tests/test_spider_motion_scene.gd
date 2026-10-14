@@ -4,6 +4,8 @@ var planted_samples = 0
 var stepping_samples = 0
 var synchronization_ok = true
 var stance_ok = true
+var pixel_checks_run = false
+const Rig = preload("res://scripts/spider_rig.gd")
 func advance(direction: Vector2, frames: int):
 	for frame in frames:
 		var before = game.player.spider_rig.legs.duplicate(true)
@@ -20,6 +22,47 @@ func advance(direction: Vector2, frames: int):
 			synchronization_ok = synchronization_ok and part.position.distance_to(pose.point) < 0.001 and game.player.weapon_origin(index).distance_to(pose.point) < 0.001
 	game.camera = game.player.head
 	game.battle_hud.refresh()
+func opaque_pixels(image: Image, point: Vector2, radius: int) -> int:
+	var count = 0
+	for y in range(maxi(0, int(point.y) - radius), mini(image.get_height(), int(point.y) + radius + 1)):
+		for x in range(maxi(0, int(point.x) - radius), mini(image.get_width(), int(point.x) + radius + 1)):
+			if image.get_pixel(x, y).a > 0.65: count += 1
+	return count
+
+func verify_visible_anatomy(label: String, expected_segments: int):
+	var total = 0
+	for leg in game.player.spider_rig.legs: total += leg.segments.size()
+	check(total == expected_segments, label + ": actual articulated segment count is %d" % expected_segments)
+	check(game.zoom == 1.0, label + ": native scene remains at normal default zoom")
+	if DisplayServer.get_name() == "headless": return
+	pixel_checks_run = true
+	var viewport = SubViewport.new()
+	viewport.size = Vector2i(900, 900)
+	viewport.transparent_bg = true
+	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	root.add_child(viewport)
+	var probe = load("res://tests/spider_render_probe.gd").new()
+	probe.player = game.player
+	viewport.add_child(probe)
+	await process_frame
+	await process_frame
+	await RenderingServer.frame_post_draw
+	var rendered = viewport.get_texture().get_image()
+	check(opaque_pixels(rendered, probe.center, 30) > 700, label + ": actual body has opaque visible pixels at zoom 1")
+	for index in 8:
+		var leg = game.player.spider_rig.legs[index]
+		var claw_center = (Vector2(leg.claw.a) + Vector2(leg.claw.b)) * 0.5
+		var screen_claw = probe.center + claw_center - game.player.head
+		check(opaque_pixels(rendered, screen_claw, 10) > 35, label + ": terminal claw %d is visible at zoom 1" % (index + 1))
+		for depth in leg.segments.size():
+			var point = probe.center + Vector2(leg.segments[depth].point) - game.player.head
+			check(opaque_pixels(rendered, point, 10) > 65, label + ": leg %d armor segment %d is visible" % [index + 1, depth + 1])
+	var path = "res://artifacts/" + label + "-anatomy-zoom1.png"
+	check(rendered.save_png(path) == OK, label + ": saved transparent production-render anatomy")
+	captures.append(path)
+	viewport.queue_free()
+	await process_frame
+
 func record_motion_if_requested():
 	if OS.get_environment("SPIDER_MOTION_FRAMES") != "1" or DisplayServer.get_name() == "headless": return
 	var directory = "res://artifacts/spider-motion-video"
@@ -50,18 +93,27 @@ func execute():
 	game.save.state.settings.skip_boss = true
 	game.save.state.roster_unlocked = ["centipede", "spider", "beetle"]
 	game.save.select_character("spider"); game.begin_run(); game.set_process(false)
-	game.combat.enemies.clear(); game.camera_focus.clear(); game.zoom = 2.2
+	game.combat.enemies.clear(); game.camera_focus.clear(); game.zoom = 1.0
 	game.show_game(); await process_frame
 	advance(Vector2.RIGHT, 60)
 	check(game.player.parts.size() == 1 and game.player.spider_rig.legs.size() == 8 and stepping_samples > 0, "Eight empty legs walk in the actual main scene")
 	await capture("spider-motion-01-bare-walking")
+	await verify_visible_anatomy("spider-motion-01-bare-walking", 0)
 	var gun = game.db.named("Core_Gun_Gatling").id
-	for leg in 8: game.player.install_module(gun, game.player.spider_mount(leg, 0))
+	game.player.install_module(gun, game.player.spider_mount(0, 0))
 	advance(Vector2.RIGHT, 90)
-	await capture("spider-motion-02-eight-towers")
+	await capture("spider-motion-01b-one-segment")
+	await verify_visible_anatomy("spider-motion-01b-one-segment", 1)
 	for depth in range(1, 4): game.player.install_module(gun, game.player.spider_mount(0, depth))
 	advance(Vector2.RIGHT, 90)
-	check(is_equal_approx(game.player.spider_rig.legs[0].length, 200.0) and is_equal_approx(game.player.spider_rig.legs[1].length, 110.0), "Adding towers lengthens only the equipped leg")
+	check(game.player.spider_rig.legs[0].segments.size() == 4, "Four modules on one leg create four distinct physical segments")
+	await capture("spider-motion-01c-four-same-leg")
+	await verify_visible_anatomy("spider-motion-01c-four-same-leg", 4)
+	for leg in range(1, 8): game.player.install_module(gun, game.player.spider_mount(leg, 0))
+	advance(Vector2.RIGHT, 90)
+	await capture("spider-motion-02-eleven-towers")
+	advance(Vector2.RIGHT, 90)
+	check(is_equal_approx(game.player.spider_rig.legs[0].length, Rig.BASE_LENGTH + Rig.MODULE_LENGTH * 4) and is_equal_approx(game.player.spider_rig.legs[1].length, Rig.BASE_LENGTH + Rig.MODULE_LENGTH), "Adding towers lengthens only the equipped leg")
 	await capture("spider-motion-03-grown-leg")
 	advance(Vector2.DOWN, 18)
 	await capture("spider-motion-04-turning")
@@ -72,12 +124,21 @@ func execute():
 	var uid = survivor.feedback_uid
 	var hp = survivor.hp
 	var other_mounts = game.player.spider_leg_indices(1).map(func(index): return game.player.parts[index].segment)
+	var other_legs_before: Array = []
+	for leg_index in range(1, 8):
+		other_legs_before.append(game.player.spider_leg_indices(leg_index).map(func(index): return {"uid": game.player.parts[index].feedback_uid, "hp": game.player.parts[index].hp, "mount": game.player.parts[index].segment}))
+	var module_count_before = game.player.parts.size()
 	game.combat.hurt_player(game.player.part_at(9), 100000, 100000)
 	game.combat.step(0.01, game.player.head + Vector2.RIGHT * 500, false)
 	advance(Vector2.DOWN, 90)
 	check(survivor.feedback_uid == uid and survivor.hp == hp and survivor.segment == 17 and game.player.spider_leg_count(0) == 3, "Middle destruction retains outer tower identity and slides it inward on its own leg")
-	check(game.player.spider_leg_indices(1).map(func(index): return game.player.parts[index].segment) == other_mounts and is_equal_approx(game.player.spider_rig.legs[0].length, 170.0), "Damage shortens the affected leg without altering neighboring leg modules")
+	check(game.player.spider_leg_indices(1).map(func(index): return game.player.parts[index].segment) == other_mounts and is_equal_approx(game.player.spider_rig.legs[0].length, Rig.BASE_LENGTH + Rig.MODULE_LENGTH * 3), "Damage shortens the affected leg without altering neighboring leg modules")
+	var other_legs_after: Array = []
+	for leg_index in range(1, 8):
+		other_legs_after.append(game.player.spider_leg_indices(leg_index).map(func(index): return {"uid": game.player.parts[index].feedback_uid, "hp": game.player.parts[index].hp, "mount": game.player.parts[index].segment}))
+	check(game.player.parts.size() == module_count_before - 1 and other_legs_before == other_legs_after, "Middle destruction removes exactly one module and preserves all seven other legs' identities, HP and slots")
 	await capture("spider-motion-05-shortened-leg")
+	await verify_visible_anatomy("spider-motion-05-shortened-leg", 10)
 	# Use the actual combat firing path, not just a geometry accessor.
 	var firing_index = game.player.part_at(17)
 	var emitter: Vector2 = game.player.weapon_origin(firing_index)
@@ -108,11 +169,13 @@ func execute():
 	game.show_game(); game.combat.enemies.clear(); game.combat.bullets.clear(); game.combat.effects.clear()
 	while game.player.parts.size() < 33: game.player.append_segment(gun)
 	advance(Vector2.LEFT, 120)
-	check(game.player.spider_rig.legs.all(func(leg): return is_equal_approx(leg.length, 200.0)), "Maximum-load fixture extends all eight legs for 32 actual towers")
+	check(game.player.spider_rig.legs.all(func(leg): return is_equal_approx(leg.length, Rig.BASE_LENGTH + Rig.MODULE_LENGTH * 4)), "Maximum-load fixture extends all eight legs for 32 actual towers")
+	check(game.player.spider_rig.legs.all(func(leg): return leg.segments.size() == 4), "Every one of eight legs has exactly four physical armor segments")
 	await capture("spider-motion-08-full-32-towers")
+	await verify_visible_anatomy("spider-motion-08-full-32-towers", 32)
 	await record_motion_if_requested()
 	game.cursor_system.shutdown(); game.audio_system.shutdown(); game.particle_effects.clear(); game.queue_free()
 	await process_frame; await process_frame
-	var report = {"checks": checks, "captures": captures, "planted_samples": planted_samples, "stepping_samples": stepping_samples, "passed": checks.all(func(c): return c.passed)}
+	var report = {"checks": checks, "captures": captures, "planted_samples": planted_samples, "stepping_samples": stepping_samples, "zoom": 1.0, "pixel_visibility_checked": pixel_checks_run, "passed": checks.all(func(c): return c.passed)}
 	FileAccess.open("res://artifacts/spider-motion-scene-report.json", FileAccess.WRITE).store_string(JSON.stringify(report, "\t"))
 	print(JSON.stringify(report)); quit(0 if report.passed else 1)

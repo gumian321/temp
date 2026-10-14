@@ -1,0 +1,103 @@
+{
+  "image": "assets/characters/spider_segmented_parts.png",
+  "imageSize": [
+    1254,
+    1254
+  ],
+  "generatedWith": "built-in image_gen",
+  "direction": "+X (right)",
+  "regions": {
+    "body": {
+      "rect": [
+        50,
+        60,
+        1155,
+        615
+      ],
+      "anchor": [
+        650,
+        306
+      ],
+      "globalAnchor": [
+        700,
+        366
+      ],
+      "note": "Round abdomen at left, smaller head at right. Completely leg-free. Abdomen center approximately (445,367), head center (935,385). Suggested limb origin band global x 640–805."
+    },
+    "segment": {
+      "rect": [
+        35,
+        730,
+        710,
+        242
+      ],
+      "start": [
+        70,
+        121
+      ],
+      "end": [
+        653,
+        121
+      ],
+      "globalStart": [
+        105,
+        851
+      ],
+      "globalEnd": [
+        688,
+        851
+      ],
+      "note": "Sockets centered on horizontal axis. Usable length 583 px; chunky visible armor height approximately 210 px. Render width/length ratio 0.30–0.38, never flatten to hairline."
+    },
+    "claw": {
+      "rect": [
+        748,
+        700,
+        490,
+        410
+      ],
+      "start": [
+        65,
+        203
+      ],
+      "end": [
+        450,
+        205
+      ],
+      "globalStart": [
+        813,
+        903
+      ],
+      "globalEnd": [
+        1198,
+        905
+      ],
+      "note": "Two large hooked prongs open to right. Root socket centered x813,y903. Keep full height to preserve fork silhouette."
+    },
+    "hip": {
+      "rect": [
+        65,
+        990,
+        485,
+        220
+      ],
+      "start": [
+        77,
+        110
+      ],
+      "end": [
+        419,
+        110
+      ],
+      "globalStart": [
+        142,
+        1100
+      ],
+      "globalEnd": [
+        484,
+        1100
+      ],
+      "note": "Short broad connector, can be used for root/hinge attachment."
+    }
+  }
+}

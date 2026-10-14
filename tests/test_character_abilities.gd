@@ -31,8 +31,9 @@ func execute():
 	body.configure_character("spider"); battle = Battle.new(db, body)
 	for i in 32: check(body.append_segment(gun), "Spider accepts mount %d" % (i + 1))
 	check(not body.append_segment(gun) and body.segment_count() == 32, "Spider caps four modules on each of eight legs")
-	for frame in 120: body.step(1.0 / 60, Vector2.ZERO, false)
-	check(body.spider_rig.legs.all(func(leg): return is_equal_approx(leg.length, 200.0)), "Fully equipped spider grows all eight articulated legs")
+	# Four 54-unit links grow at 105 units/second; allow the complete expansion.
+	for frame in 180: body.step(1.0 / 60, Vector2.ZERO, false)
+	check(body.spider_rig.legs.all(func(leg): return is_equal_approx(leg.length, body.spider_rig.BASE_LENGTH + body.spider_rig.MODULE_LENGTH * 4)), "Fully equipped spider grows all eight articulated legs")
 	foe = actor(battle, Vector2(250, 0))
 	var boss = actor(battle, Vector2(250, 40), "AIBossPartController")
 	for i in 5: actor(battle, Vector2(260 + i, -20))

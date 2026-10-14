@@ -52,16 +52,16 @@ func _initialize():
 	check(all_planted > 20, "Each cycle includes a grounded settling interval")
 	p.counts[0] = 4
 	var length = rig.legs[0].length
-	for i in range(100):
+	for i in range(180):
 		rig.step(p, 1.0 / 60.0)
 		check(rig.legs[0].length >= length, "Adding modules grows continuously")
 		length = rig.legs[0].length
-	check(is_equal_approx(length, 200.0), "Four modules extend full reach")
+	check(is_equal_approx(length, Rig.BASE_LENGTH + Rig.MODULE_LENGTH * 4), "Four modules extend full reach")
 	p.counts[0] = 3
 	rig.step(p, 1.0 / 60.0)
-	check(rig.legs[0].length < length and rig.legs[0].length > 170.0, "One lost module retracts smoothly")
+	check(rig.legs[0].length < length and rig.legs[0].length > Rig.BASE_LENGTH + Rig.MODULE_LENGTH * 3, "One lost module retracts smoothly")
 	for i in range(120): rig.step(p, 1.0 / 60.0)
-	check(is_equal_approx(rig.legs[0].length, 170.0), "Single loss removes one length increment")
+	check(is_equal_approx(rig.legs[0].length, Rig.BASE_LENGTH + Rig.MODULE_LENGTH * 3), "Single loss removes one length increment")
 	for mount in range(1, 33):
 		var pose = rig.mount_pose(mount)
 		check(pose.point.is_finite() and pose.direction.is_finite(), "Mount poses are finite joint-path samples")

@@ -1,0 +1,588 @@
+{
+  "date": "2026-10-14",
+  "aggregate": {
+    "suites": [
+      {
+        "suite": "spider_leg_modules",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.088,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-final-focused.json"
+      },
+      {
+        "suite": "spider_rig",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.667,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-final-focused.json"
+      },
+      {
+        "suite": "spider_segments",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.629,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-final-focused.json"
+      },
+      {
+        "suite": "spider_visibility_scene",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 4.088,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-final-focused.json"
+      },
+      {
+        "suite": "spider_assembly_ui",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 4.84,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-final-focused.json"
+      },
+      {
+        "suite": "spider_motion_scene",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 4.544,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-final-focused.json"
+      },
+      {
+        "suite": "expedition_briefing",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 4.893,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "character_roster",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.694,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "character_abilities",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.381,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-final-focused.json"
+      },
+      {
+        "suite": "character_integration",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.636,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "character_scene",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 6.292,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "character_ui_integration",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 6.104,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "brood",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 2.419,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "armament_art",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 4.445,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "generated_light_ui",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.902,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "main_autofire",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.453,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "main_autofire_scene",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 4.5,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "passive_feedback_state",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.447,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "passive_upgrade_effects",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.065,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "passive_visual_feedback",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 3.853,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "reward_progress_badges",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 3.474,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "tooltip_theme",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 8.503,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "contact_impacts",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.988,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "insect_armaments",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.79,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "insect_art_routes",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.971,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "insect_controls",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.184,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "insect_attack_fx",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.826,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "game_ui_shell",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 4.991,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "meta_ui_redesign",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 5.274,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "battle_hud",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 4.061,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "reward_cards",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 3.823,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "mission_select",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 11.572,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "core",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.364,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "missions",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.695,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "map",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.061,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "rewards",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.052,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "specials",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.109,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "regressions",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.176,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "drones",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.979,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "reward_pool",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.248,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "controller",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 5.149,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "long_body",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 2.183,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "shields",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.152,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "turret_tracking",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.966,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "achievements",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.996,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "fuel_tutorial",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.154,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "enemy_drones",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.102,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "radar",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.025,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "weapon_catalog",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 4.724,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "particles",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.309,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "presentation",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.546,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "loot",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.054,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "centipede_segments",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.236,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "centipede_support",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.948,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "chinese",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.807,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "chain_segments",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 3.517,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "chain_scene",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 7.183,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "chain_ui_redesign",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 17.875,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "segment_feedback",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.865,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "reward_flow",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 12.822,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "blue_ink",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 2.468,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "grid_mounts",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.35,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "centipede_motion",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.388,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "weapon_feedback",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.797,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      },
+      {
+        "suite": "weapon_readability",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.387,
+        "isolated_user_data": true,
+        "verification_source": "spider-round8-full-regression.json"
+      }
+    ],
+    "passed": true,
+    "basis": "Full 65-suite run with all six spider suites and character_abilities rerun against final 03:27:30 equipped-leg elbow-sweep fix; original run retained.",
+    "final_runtime_sha256": {
+      "scripts/spider_rig.gd": "fa7edb3d963d93f0527951f243e9154da39b78f58de2c3150019690a7b755645",
+      "scripts/spider_art.gd": "1e8d84b351017c9aca83a5e79fa3c7e1288f6ba0babc52b0c521edcf94a69efe",
+      "assets/characters/spider_segmented_parts.png": "2e6c9c1bc2aa8f04d3e222eeef99fc32f4ae22a72542c9ea9f756f4eeb982ce7"
+    },
+    "fresh_source_probe": {
+      "source": "spider-source-import-report.json",
+      "passed": true,
+      "cases": 3
+    }
+  },
+  "native": {
+    "suites": [
+      {
+        "suite": "spider_motion_scene",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 14.063,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "spider_visibility_scene",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 8.513,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "spider_assembly_ui",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 10.024,
+        "isolated_user_data": true
+      }
+    ],
+    "passed": true
+  },
+  "fresh_source_import": {
+    "checks": [
+      {
+        "case": "fresh_source_fallback",
+        "passed": true,
+        "exit_code": 0,
+        "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nVISIBLE_ALPHA_SAMPLES body=26293\nVISIBLE_ALPHA_SAMPLES segment=7196\nVISIBLE_ALPHA_SAMPLES claw=6756\nVISIBLE_ALPHA_SAMPLES connector=4493\nSPIDER_ATLAS_VALID=true\n"
+      },
+      {
+        "case": "source_import",
+        "passed": true,
+        "exit_code": 0,
+        "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\n[   0% ] \u001b[90m\u001b[1mfirst_scan_filesystem\u001b[22m | Started Project initialization (5 steps)\u001b[39m\u001b[0m\n[   0% ] \u001b[90m\u001b[1mfirst_scan_filesystem\u001b[22m | Scanning file structure...\u001b[39m\u001b[0m\n[  16% ] \u001b[90m\u001b[1mfirst_scan_filesystem\u001b[22m | Loading global class names...\u001b[39m\u001b[0m\n[  33% ] \u001b[90m\u001b[1mfirst_scan_filesystem\u001b[22m | Verifying GDExtensions...\u001b[39m\u001b[0m\n[  50% ] \u001b[90m\u001b[1mfirst_scan_filesystem\u001b[22m | Creating autoload scripts...\u001b[39m\u001b[0m\n[  66% ] \u001b[90m\u001b[1mfirst_scan_filesystem\u001b[22m | Initializing plugins...\u001b[39m\u001b[0m\n[  83% ] \u001b[90m\u001b[1mfirst_scan_filesystem\u001b[22m | Starting file scan...\u001b[39m\u001b[0m\n\u001b[92m[ DONE ]\u001b[39m \u001b[1mfirst_scan_filesystem\u001b[22m\n\u001b[0m\n[   0% ] \u001b[90m\u001b[1mupdate_scripts_classes\u001b[22m | Started Registering global classes... (2 steps)\u001b[39m\u001b[0m\n[   0% ] \u001b[90m\u001b[1mupdate_scripts_classes\u001b[22m | \u001b[39m\u001b[0m\n[  33% ] \u001b[90m\u001b[1mupdate_scripts_classes\u001b[22m | \u001b[39m\u001b[0m\n\u001b[92m[ DONE ]\u001b[39m \u001b[1mupdate_scripts_classes\u001b[22m\n\u001b[0m\n[   0% ] \u001b[90m\u001b[1m_update_scan_actions\u001b[22m | Started Scanning actions... (3 steps)\u001b[39m\u001b[0m\n[   0% ] \u001b[90m\u001b[1m_update_scan_actions\u001b[22m | spider.png\u001b[39m\u001b[0m\n[  25% ] \u001b[90m\u001b[1m_update_scan_actions\u001b[22m | spider_parts.png\u001b[39m\u001b[0m\n[  50% ] \u001b[90m\u001b[1m_update_scan_actions\u001b[22m | spider_segmented_parts.png\u001b[39m\u001b[0m\n\u001b[92m[ DONE ]\u001b[39m \u001b[1m_update_scan_actions\u001b[22m\n\u001b[0m\n[   0% ] \u001b[90m\u001b[1mreimport\u001b[22m | Started (Re)Importing Assets (3 steps)\u001b[39m\u001b[0m\n[   0% ] \u001b[90m\u001b[1mreimport\u001b[22m | Preparing files to reimport...\u001b[39m\u001b[0m\n[  25% ] \u001b[90m\u001b[1mreimport\u001b[22m | Preparing files to reimport...\u001b[39m\u001b[0m\n[  50% ] \u001b[90m\u001b[1mreimport\u001b[22m | Preparing files to reimport...\u001b[39m\u001b[0m\n[   0% ] \u001b[90m\u001b[1mreimport\u001b[22m | Executing pre-reimport operations...\u001b[39m\u001b[0m\n[   0% ] \u001b[90m\u001b[1mreimport\u001b[22m | spider.png\u001b[39m\u001b[0m\n[  25% ] \u001b[90m\u001b[1mreimport\u001b[22m | spider_parts.png\u001b[39m\u001b[0m\n[  50% ] \u001b[90m\u001b[1mreimport\u001b[22m | spider_segmented_parts.png\u001b[39m\u001b[0m\n[  75% ] \u001b[90m\u001b[1mreimport\u001b[22m | Finalizing Asset Import...\u001b[39m\u001b[0m\n\u001b[92m[ DONE ]\u001b[39m \u001b[1mreimport\u001b[22m\n\u001b[0m\n[   0% ] \u001b[90m\u001b[1mreimport\u001b[22m | Started (Re)Importing Assets (3 steps)\u001b[39m\u001b[0m\n[   0% ] \u001b[90m\u001b[1mreimport\u001b[22m | Executing post-reimport operations...\u001b[39m\u001b[0m\n\u001b[92m[ DONE ]\u001b[39m \u001b[1mreimport\u001b[22m\n\u001b[0m\n[   0% ] \u001b[90m\u001b[1mloading_editor_layout\u001b[22m | Started Loading editor (5 steps)\u001b[39m\u001b[0m\n[   0% ] \u001b[90m\u001b[1mloading_editor_layout\u001b[22m | Loading editor layout...\u001b[39m\u001b[0m\n[  16% ] \u001b[90m\u001b[1mloading_editor_layout\u001b[22m | Loading docks...\u001b[39m\u001b[0m\n\u001b[92m[ DONE ]\u001b[39m \u001b[1mloading_editor_layout\u001b[22m\n\u001b[0m\n"
+      },
+      {
+        "case": "imported_source",
+        "passed": true,
+        "exit_code": 0,
+        "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nVISIBLE_ALPHA_SAMPLES body=26293\nVISIBLE_ALPHA_SAMPLES segment=7196\nVISIBLE_ALPHA_SAMPLES claw=6756\nVISIBLE_ALPHA_SAMPLES connector=4493\nSPIDER_ATLAS_VALID=true\n"
+      }
+    ],
+    "passed": true
+  }
+}

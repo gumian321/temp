@@ -12,7 +12,7 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SUITES = [
-    "spider_leg_modules", "spider_rig", "spider_assembly_ui", "spider_motion_scene", "expedition_briefing", "character_roster", "character_abilities", "character_integration", "character_scene", "character_ui_integration", "brood", "armament_art", "generated_light_ui", "main_autofire", "main_autofire_scene", "passive_feedback_state", "passive_upgrade_effects", "passive_visual_feedback", "reward_progress_badges", "tooltip_theme", "contact_impacts", "insect_armaments", "insect_art_routes", "insect_controls", "insect_attack_fx", "game_ui_shell", "meta_ui_redesign", "battle_hud", "reward_cards", "mission_select",
+    "spider_leg_modules", "spider_rig", "spider_segments", "spider_visibility_scene", "spider_assembly_ui", "spider_motion_scene", "expedition_briefing", "character_roster", "character_abilities", "character_integration", "character_scene", "character_ui_integration", "brood", "armament_art", "generated_light_ui", "main_autofire", "main_autofire_scene", "passive_feedback_state", "passive_upgrade_effects", "passive_visual_feedback", "reward_progress_badges", "tooltip_theme", "contact_impacts", "insect_armaments", "insect_art_routes", "insect_controls", "insect_attack_fx", "game_ui_shell", "meta_ui_redesign", "battle_hud", "reward_cards", "mission_select",
     "core", "missions", "map", "rewards", "specials", "regressions", "drones",
     "reward_pool", "controller", "long_body", "shields", "turret_tracking",
     "achievements", "fuel_tutorial", "enemy_drones", "radar", "weapon_catalog",

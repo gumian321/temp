@@ -1,18 +1,38 @@
 extends RefCounted
-## Image-generated porcelain pieces, articulated by the simulation-owned rig.
-## No painted full-spider warp: each link is one stable-width raster draw.
+## Generated raster carapace, countable armor modules, and eight permanent claws.
 static var pieces: Dictionary = {}
+const ATLAS_PATH = "res://assets/characters/spider_segmented_parts.png"
 const REGIONS = {
-	"body": Rect2(80, 65, 1080, 540),
-	"upper": Rect2(100, 625, 550, 205),
-	"lower": Rect2(100, 850, 460, 140),
-	"foot": Rect2(100, 1000, 640, 210),
-	"joint": Rect2(945, 990, 235, 220),
+	"body": Rect2(50, 60, 1155, 615),
+	"segment": Rect2(35, 730, 710, 242),
+	"claw": Rect2(748, 700, 490, 410),
+	"connector": Rect2(65, 990, 485, 220),
 }
+const ANCHORS = {
+	"segment": [Vector2(70, 121), Vector2(653, 121)],
+	"claw": [Vector2(65, 203), Vector2(450, 205)],
+	"connector": [Vector2(77, 110), Vector2(419, 110)],
+}
+const SEGMENT_WIDTH = 42.0
+const CLAW_WIDTH = 30.0
 
 static func prepare():
 	if not pieces.is_empty(): return
-	var atlas: Texture2D = load("res://assets/characters/spider_parts.png")
+	var atlas: Texture2D
+	# A fresh source-tree pull may have .import metadata without its cache.
+	# Check the remap target before ResourceLoader to avoid caching a null atlas.
+	var config = ConfigFile.new()
+	if config.load(ATLAS_PATH + ".import") == OK:
+		var imported = str(config.get_value("remap", "path", ""))
+		if not imported.is_empty() and FileAccess.file_exists(imported):
+			atlas = load(ATLAS_PATH)
+	if atlas == null and FileAccess.file_exists(ATLAS_PATH):
+		var raw = Image.load_from_file(ProjectSettings.globalize_path(ATLAS_PATH))
+		if raw != null and not raw.is_empty(): atlas = ImageTexture.create_from_image(raw)
+	if atlas == null:
+		# Exported PCKs can omit the original PNG and expose only the resource.
+		if not FileAccess.file_exists(ATLAS_PATH) and ResourceLoader.exists(ATLAS_PATH): atlas = load(ATLAS_PATH)
+	if atlas == null: return
 	for key in REGIONS:
 		var piece = AtlasTexture.new()
 		piece.atlas = atlas
@@ -20,24 +40,15 @@ static func prepare():
 		piece.filter_clip = true
 		pieces[key] = piece
 
-static func _joint(canvas: CanvasItem, point: Vector2, radius: float, tint: Color):
-	canvas.draw_set_transform(point)
-	canvas.draw_texture_rect(pieces.joint, Rect2(-radius, -radius, radius * 2, radius * 2), false, tint)
-
-static func _link(canvas: CanvasItem, a: Vector2, b: Vector2, thickness: float, key: String, tint: Color):
-	# Independently scale along/across the bone; its width never grows with reach.
+static func _link(canvas: CanvasItem, a: Vector2, b: Vector2, width: float, key: String, tint: Color):
 	var texture: Texture2D = pieces[key]
-	var source_a = Vector2(43, 107) if key == "upper" else Vector2(39, 70)
-	var source_b = Vector2(545, 107) if key == "upper" else Vector2(455, 70)
-	if key == "foot":
-		source_a = Vector2(45, 93)
-		source_b = Vector2(612, 188)
+	var source_a: Vector2 = ANCHORS[key][0]
+	var source_b: Vector2 = ANCHORS[key][1]
 	var source_axis = source_b - source_a
 	var direction = (b - a).normalized()
 	var normal = direction.orthogonal()
 	var scale_x = a.distance_to(b) / source_axis.length()
-	var scale_y = thickness / texture.get_height()
-	# The foot's painted tip is slightly curved; map its measured endpoints exactly.
+	var scale_y = width / texture.get_height()
 	var source_dir = source_axis.normalized()
 	var source_normal = source_dir.orthogonal()
 	var basis_x = direction * source_dir.x * scale_x + normal * source_normal.x * scale_y
@@ -46,35 +57,26 @@ static func _link(canvas: CanvasItem, a: Vector2, b: Vector2, thickness: float, 
 	canvas.draw_set_transform_matrix(Transform2D(basis_x, basis_y, origin))
 	canvas.draw_texture(texture, Vector2.ZERO, tint)
 
-static func _bone_chain(canvas: CanvasItem, a: Vector2, b: Vector2, zoom: float, key: String, tint: Color):
-	# A half-bone crop is broad at its socket and tapers toward its distal
-	# endpoint. One continuous femur/tibia avoids a bead-necklace silhouette.
-	# Module growth lengthens this rigid shell, never its painted width.
-	_link(canvas, a, b, (20.0 if key == "upper" else 14.0) * zoom, key, tint)
+static func _screen(point: Vector2, player, at: Vector2, zoom: float) -> Vector2:
+	return at + (point - player.head) * zoom
 
 static func draw_body(canvas: CanvasItem, player, at: Vector2, zoom: float, _clock: float):
 	prepare()
+	if pieces.is_empty(): return
 	player.spider_rig.ensure(player)
-	# Ground shadows stay at the planted world contacts as the feet lift.
 	for leg in player.spider_rig.legs:
-		var foot: Vector2 = at + (Vector2(leg.foot) - player.head) * zoom
+		var foot = _screen(leg.foot, player, at, zoom)
 		canvas.draw_set_transform(foot + Vector2(1, 3) * zoom, 0, Vector2(1, 0.48))
-		canvas.draw_circle(Vector2.ZERO, (4.0 + float(leg.lift) * 1.5) * zoom, Color(0.04, 0.08, 0.13, 0.19 - float(leg.lift) * 0.09))
+		canvas.draw_circle(Vector2.ZERO, 7.0 * zoom, Color(0.04, 0.08, 0.13, 0.19 - float(leg.lift) * 0.09))
 	for leg in player.spider_rig.legs:
-		var visual: PackedVector2Array = leg.visual_points
-		var hip: Vector2 = at + (visual[0] - player.head) * zoom
-		var knee: Vector2 = at + (visual[1] - player.head) * zoom
-		var foot: Vector2 = at + (visual[2] - player.head) * zoom
-		var lift = float(leg.lift)
-		var tint = Color.WHITE.lerp(Color(0.82, 0.88, 0.96), (1.0 - lift) * 0.12)
-		var foot_length = minf(17.0 * zoom * (1.0 + lift * 0.08), knee.distance_to(foot) * 0.45)
-		var ankle = foot - (foot - knee).normalized() * foot_length
-		_bone_chain(canvas, hip, knee, zoom, "upper", tint)
-		_bone_chain(canvas, knee, ankle, zoom, "lower", tint)
-		_link(canvas, ankle, foot, (10.0 + lift) * zoom, "foot", tint)
-		_joint(canvas, knee, 3.5 * zoom, tint)
-		_joint(canvas, ankle, 2.2 * zoom, tint)
-	# The leg-free carapace covers the eight independent hip pivots.
+		var tint = Color.WHITE.lerp(Color(0.82, 0.88, 0.96), (1.0 - float(leg.lift)) * 0.12)
+		_link(canvas, _screen(leg.connector.a, player, at, zoom), _screen(leg.connector.b, player, at, zoom), 18.0 * zoom, "connector", tint)
+		# Exactly one distinct shell per installed module. Its rim and both sockets
+		# extend beyond the 30-unit tower silhouette, even at the default zoom.
+		for segment in leg.segments:
+			_link(canvas, _screen(segment.a, player, at, zoom), _screen(segment.b, player, at, zoom), SEGMENT_WIDTH * zoom, "segment", tint)
+		_link(canvas, _screen(leg.claw.a, player, at, zoom), _screen(leg.claw.b, player, at, zoom), CLAW_WIDTH * zoom, "claw", tint)
+	# Artwork's neck aligns with the independent hips; abdomen extends behind it.
 	canvas.draw_set_transform(at, player.facing.angle(), Vector2.ONE * zoom)
-	canvas.draw_texture_rect(pieces.body, Rect2(-58, -29, 116, 58), false)
+	canvas.draw_texture_rect(pieces.body, Rect2(-65, -30.6, 115.5, 61.5), false)
 	canvas.draw_set_transform(Vector2.ZERO)
