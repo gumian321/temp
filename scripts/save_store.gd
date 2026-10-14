@@ -1,6 +1,7 @@
 extends RefCounted
 
 const CharacterRoster = preload("res://scripts/character_roster.gd")
+const FULL_UNLOCK_REQUEST = "user://unlock-all-on-next-start.request"
 var _character_run_active = false
 var _character_run_id = "centipede"
 var _character_run_support = 0
@@ -14,7 +15,31 @@ func _init(source, save_path: String = "user://centipede-save.json", load_existi
 	db = source
 	path = save_path
 	fresh()
-	if load_existing:load_save()
+	if load_existing:
+		load_save()
+		_apply_requested_unlock()
+
+func unlock_all_content() -> bool:
+	for id in CharacterRoster.ids():
+		if id not in state.roster_unlocked:state.roster_unlocked.append(id)
+	for id in db.stores.MissionDataStore.missionsList:
+		if id not in state.missions:state.missions.append(id)
+	for node in db.research:
+		for id in node.nodeRewardsList:
+			if id not in state.unlocked:state.unlocked.append(id)
+	for reward in db.catalog.values():
+		if str(reward.get("class","")).ends_with("Reward") and reward.id not in state.unlocked:
+			state.unlocked.append(reward.id)
+	state.disabled=state.disabled.filter(func(id):return id not in state.unlocked)
+	state.systems.ToggleResearches=true
+	return save()
+
+func _apply_requested_unlock():
+	# Only an explicit request for the normal player profile enables this. Other
+	# save paths, new profiles and isolated tests retain the usual unlock rules.
+	if path!="user://centipede-save.json" or not FileAccess.file_exists(FULL_UNLOCK_REQUEST):return
+	if FileAccess.get_file_as_string(FULL_UNLOCK_REQUEST).strip_edges()!="unlock-all":return
+	if unlock_all_content():DirAccess.remove_absolute(FULL_UNLOCK_REQUEST)
 
 func fresh():
 	end_character_run()
