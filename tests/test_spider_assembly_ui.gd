@@ -8,7 +8,7 @@ func execute():
 	game.save.state.roster_unlocked=["centipede","spider","beetle"]
 	game.save.select_character("spider");game.start_run();game.set_process(false)
 	var id=game.db.named("Core_Gun_Gatling").id
-	game.player.pending=[id,id,id,id,id]
+	game.player.pending=[id,game.db.named("Core_Gun_Cannon").id,id,id,id]
 	var live_rig_before=game.player.spider_rig.legs.duplicate(true)
 	game.show_build_ui();await settle()
 	check(game.player.spider_rig.legs==live_rig_before,"Opening assembly preview never mutates live planted feet")

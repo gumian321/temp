@@ -49,14 +49,14 @@ func mine_case(name:String,reward_name:String,level:int):
 	b.rng.seed=9876
 	var expected_rng=RandomNumberGenerator.new();expected_rng.state=b.rng.state
 	var count=1 if name=="Core_MinesField" else int(core.minesCountPerSpawn)
-	for i in range(count):expected_rng.randi_range(0,23 if name=="Core_MinesField" else count-1)
+	if name=="Core_MinesField":expected_rng.randi_range(0,int(float(core.maxMinesCount)*(1+float(reward.maxMinesCountPercent)*level))-1)
 	b.special.step(0.01)
 	var base=1.0/maxf(0.05,float(core.minesRechargeRate)) if name=="Core_MinesField" else float(core.minesSpawnRate)
 	var interval=maxf(0.05,base*(1+float(reward.minesRechargeRatePercent)*level))
 	check(is_equal_approx(p.parts[1].cooldown,interval),name+" level "+str(level)+" interval follows source negative percentage")
 	check(p.parts[1].cooldown>=0.05,name+" cooldown remains nonnegative")
 	check(b.special.mines.size()==count,name+" spawn count unchanged")
-	check(b.rng.state==expected_rng.state,name+" spawn retains one existing RNG draw per mine")
+	check(b.rng.state==expected_rng.state,name+" spawn consumes only its slot selection RNG")
 	if name=="Core_MinesField":
 		var cap=int(float(core.maxMinesCount)*(1+float(reward.maxMinesCountPercent)*level))
 		for i in range(cap+3):p.parts[1].cooldown=0;b.special.step(0)

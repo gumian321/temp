@@ -1,15 +1,23 @@
 extends RefCounted
 const Feedback = preload("res://scripts/weapon_feedback.gd")
+const Formation = preload("res://scripts/radial_formation.gd")
 var battle_ref: WeakRef
 var db
 var player
 var mines: Array = []
+var mine_rings:Dictionary={}
 var black_holes: Array = []
 func _init(battle):
 	battle_ref = weakref(battle)
 	db = battle.db
 	player = battle.player
 func battle(): return battle_ref.get_ref()
+func mine_capacity(core:Dictionary)->int:
+	return maxi(1,int(float(core.maxMinesCount)*(1+player.upgrade_bonus(core.id,"maxMinesCountPercent"))))
+func mine_ring(core:Dictionary)->Array[Vector2]:
+	var capacity=mine_capacity(core)
+	if not mine_rings.has(capacity):mine_rings[capacity]=Formation.ring(capacity,maxf(144.0,capacity*26.0/TAU))
+	return mine_rings[capacity]
 func chip(field: String, level: int) -> float:
 	if level<=0: return 0.0
 	var values = db.stores.ChipsDataStore[field]
@@ -18,7 +26,7 @@ func chip(field: String, level: int) -> float:
 func add_black_hole(b: Dictionary):
 	var data: Dictionary = b.data
 	battle().effects.append(Feedback.decorate({"kind":"hole_birth","position":b.position,"radius":40,"life":0.55},"blackhole",bool(b.friendly)))
-	black_holes.append({"position":b.position,"life":float(data.projectileEffectAreaDuration),"radius":float(data.projectileEffectArea)*48*(1+chip("MammothAreaPercentBoost",int(b.chips.get(5,0)))),"damage":float(data.projectileDamage.hullDamage),"shield_damage":float(data.projectileDamage.shieldDamage),"friendly":b.friendly,"force":float(db.component(data.blackHoleObject,"BlackHoleController").get("maxForce",10))*48})
+	black_holes.append({"position":b.position,"life":float(data.projectileEffectAreaDuration),"radius":float(data.projectileEffectArea)*48*(1+chip("MammothAreaPercentBoost",int(b.chips.get(5,0)))),"damage":float(b.damage),"shield_damage":float(b.shield_damage),"friendly":b.friendly,"force":float(db.component(data.blackHoleObject,"BlackHoleController").get("maxForce",10))*48})
 func step(dt: float):
 	for i in range(player.parts.size()):
 		var p: Dictionary = player.parts[i]
@@ -45,34 +53,39 @@ func step(dt: float):
 		var anchored = c["class"]=="MinesCore"
 		var choices: Array = []
 		if anchored:
-			var maximum = int(float(c.maxMinesCount)*(1+player.upgrade_bonus(c.id,"maxMinesCountPercent")))
+			var maximum = mine_capacity(c)
 			if mines.filter(func(m): return m.owner==i and m.anchored).size()>=maximum: continue
 			# Source rewards use negative recharge percentages, as interval reductions.
 			# Keep the original unupgraded interval and a positive high-stack floor.
 			p.cooldown = maxf(0.05,(1.0/maxf(0.05,float(c.minesRechargeRate)))*(1+player.upgrade_bonus(c.id,"minesRechargeRatePercent")))
-			for x in range(-3,4):
-				for y in range(-3,4):
-					if (abs(x)==3 or abs(y)==3) and not player.occupied(p.cell+Vector2i(x,y)): choices.append(Vector2(x,-y)*48)
+			var occupied=mine_slots(i)
+			for slot in maximum:
+				if slot not in occupied:choices.append(slot)
 		else:
 			if player.velocity.length()<1: continue
 			p.cooldown = maxf(0.05,float(c.minesSpawnRate)*(1+player.upgrade_bonus(c.id,"minesRechargeRatePercent")))
 			count = int(c.minesCountPerSpawn)
-			for j in range(count): choices.append(Vector2((float(j)-float(count)*0.5)*8,-48))
+			choices.assign(Formation.ring(count,float(c.get("spawnRadius",1))*48))
 		if choices.is_empty(): continue
+		p.organ_pulse=0.18
 		player.pulse_chip_sources(i)
 		for j in range(count):
-			var offset: Vector2 = choices[battle().rng.randi_range(0,choices.size()-1)]
-			mines.append({"owner":i,"anchored":anchored,"offset":offset,"position":p.position+offset,"life":INF if anchored else 7.0,"data":db.asset(c.coreMine),"chips":player.chips(i)})
-			battle().effects.append(Feedback.decorate({"kind":"mine_arm","position":p.position+offset,"radius":22,"life":0.3},"mine"))
+			var slot=int(choices[battle().rng.randi_range(0,choices.size()-1)]) if anchored else j
+			var offset:Vector2=mine_ring(c)[slot] if anchored else choices[j]
+			var position:Vector2=p.position+offset.rotated(player.facing.angle())
+			mines.append({"owner":i,"anchored":anchored,"slot":slot,"offset":offset,"position":position,"life":INF if anchored else 7.0,"data":db.asset(c.coreMine),"chips":player.chips(i),"fusion_multiplier":player.fusion_multiplier(i)})
+			battle().effects.append(Feedback.decorate({"kind":"mine_arm","position":position,"radius":22,"life":0.3},"mine"))
 	for mine in mines:
 		mine.life -= dt
 		if mine.anchored:
 			if mine.owner>=player.parts.size() or player.parts[mine.owner].hp<=0: mine.life=0; continue
+			var ring=mine_ring(db.asset(player.parts[mine.owner].id))
+			mine.offset=ring[int(mine.slot)%ring.size()]
 			mine.position = player.parts[mine.owner].position + Vector2(mine.offset).rotated(player.facing.angle())
 		var enemy = battle().nearest(mine.position,24)
 		if enemy.is_empty(): continue
 		var projectile = {"class":"BasicProjectile","projectileDamage":mine.data.mineDamage,"fx_family":"mine"}
-		var b = {"position":mine.position,"data":projectile,"damage":float(mine.data.mineDamage.hullDamage),"shield_damage":float(mine.data.mineDamage.shieldDamage),"friendly":true,"chips":mine.chips,"velocity":Vector2.RIGHT,"pierce":1,"hit":[]}
+		var b = {"position":mine.position,"data":projectile,"damage":float(mine.data.mineDamage.hullDamage)*float(mine.get("fusion_multiplier",1)),"shield_damage":float(mine.data.mineDamage.shieldDamage)*float(mine.get("fusion_multiplier",1)),"friendly":true,"chips":mine.chips,"velocity":Vector2.RIGHT,"pierce":1,"hit":[]}
 		battle().hit_enemy(enemy,b)
 		battle().explosion(mine.position,62,0.55,"mine")
 		mine.life=0
@@ -92,6 +105,8 @@ func step(dt: float):
 			for i in range(player.parts.size()):
 				if player.parts[i].position.distance_to(hole.position)<hole.radius: battle().hurt_player(i,hole.damage*dt,hole.shield_damage*dt)
 	black_holes = black_holes.filter(func(h): return h.life>0)
+func mine_slots(owner:int)->Array:
+	return mines.filter(func(m):return m.owner==owner and m.anchored and m.life>0).map(func(m):return int(m.slot))
 func continuous(core: Dictionary,at: Vector2,dir: Vector2,friendly: bool,chips: Dictionary,boost: float,dt: float,visual_owner:String="",range_boost:float=0.0):
 	var projectile = db.asset(core.coreProjectile)
 	var reach = db.range_units(core.get("turretRange",1))*48*maxf(0.0,1+range_boost)*(1+chip("MammothAreaPercentBoost",int(chips.get(5,0))))

@@ -1,5 +1,23 @@
 extends RefCounted
 
+signal parts_removing(indices: Array)
+
+func remove_parts(indices: Array):
+	var removed = indices.filter(func(i): return i > 0 and i < parts.size())
+	removed.sort()
+	if removed.is_empty(): return
+	parts_removing.emit(removed)
+	removed.reverse()
+	for i in removed: parts.remove_at(i)
+	refresh_positions()
+	refresh_upgrades()
+
+func fusion_multiplier(index: int) -> float:
+	return pow(2.2, int(parts[index].get("fusion_level", 1)) - 1)
+
+func attack_boost(index: int, core: Dictionary) -> float:
+	return (1.0 + stats.get("14" if index == 0 else "15", 0.0) + upgrade_bonus(core.id, "DamagePercent")) * fusion_multiplier(index) - 1.0
+
 var db
 var head = Vector2.ZERO
 var velocity = Vector2.ZERO
@@ -365,7 +383,7 @@ func blueprint() -> Array:
 	var result = []
 	for index in [0] + body_part_indices():
 		var p: Dictionary = parts[index]
-		result.append({"id": p.id, "x": p.cell.x, "y": p.cell.y, "wall": p.wall})
+		result.append({"id": p.id, "x": p.cell.x, "y": p.cell.y, "wall": p.wall, "fusion_level":int(p.get("fusion_level",1))})
 	return result
 
 func upgrade_bonus(id: String, field: String) -> float:

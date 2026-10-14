@@ -16,7 +16,7 @@ func _draw():
 	if texture!=null:draw_texture_rect(texture,Rect2(Vector2(10,8),Vector2(56,56)),false)
 	if selected or has_focus() or is_hovered():draw_arc(size/2,34,0,TAU,40,UI.TEAL,2,true)
 func _get_drag_data(_at):
-	var preview=TextureRect.new();preview.texture=builder.db.core_sprite(builder.db.asset(payload.id));preview.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;preview.size=Vector2(60,60);preview.position=Vector2(-30,-30)
+	var preview=preload("res://scripts/chain_drag_preview.gd").new();preview.builder=builder;preview.texture=builder.db.core_sprite(builder.db.asset(payload.id))
 	set_drag_preview(preview);builder.begin_drag(payload.duplicate());return payload.duplicate()
 func _notification(what):
 	if what==NOTIFICATION_DRAG_END and is_instance_valid(builder):builder.end_drag()

@@ -46,6 +46,7 @@ var mission_target = Vector2.ZERO
 func _init(source, centipede):
 	db = source
 	player = centipede
+	player.parts_removing.connect(remap_part_owners)
 	character_abilities = CharacterAbilities.new(self)
 	for part in player.parts:
 		next_control_source_token=maxi(next_control_source_token,int(part.get("insect_source_token",0))+1)
@@ -133,8 +134,17 @@ func spawn(prefab: String, at: Vector2, role: String = "", objective: bool = fal
 	var patrol=db.component(prefab,"AIPatrolManager")
 	if not patrol.is_empty() and not first.is_empty():
 		var members=spawned.values().filter(func(e):return e.kind=="AIPatrolUnit")
+		var offsets:Array=members.map(func(e):return Vector2(e.position)-at)
+		var outer=offsets.filter(func(offset):return offset.length()>1)
+		var radius=0.0
+		for offset in outer:radius+=offset.length()
+		if not outer.is_empty():radius/=outer.size()
+		var ring=preload("res://scripts/radial_formation.gd").ring(outer.size(),radius)
+		var ring_index=0
 		var slow=1000.0
 		for e in members:
+			if e.position.distance_to(at)>1:
+				e.position=at+ring[ring_index];e.origin=e.position;ring_index+=1
 			e.patrol=first.uid;e.patrol_offset=e.position-at
 			slow=minf(slow,float(e.movement.get("enginePower",2)))
 		patrols[first.uid]={"members":members.map(func(e):return e.uid),"position":at,"target":player.head+Vector2.from_angle(rng.randf()*TAU)*rng.randf()*patrol_radius*48,"chase":0.0,"speed":0.0,"max_speed":slow*0.5*48,"wait":0.0,"data":patrol,"movement":db.component(prefab,"AIPatrolMovement")}
@@ -220,6 +230,7 @@ func fire(core: Dictionary, at: Vector2, direction: Vector2, friendly: bool, chi
 	var projectile: Dictionary = db.asset(core.get("coreProjectile", ""))
 	if projectile.is_empty():
 		return
+	mark_organ_attack(control_source,core)
 	var source_token = 0
 	if control_source.begins_with("player:"):
 		var source_index = int(control_source.get_slice(":",1))
@@ -327,12 +338,12 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 				if player_weapons_enabled and ((manual and shooting) or (not manual and not target.is_empty())):
 					p.organ_pulse=0.18
 					player.pulse_chip_sources(i)
-					special.continuous(c,emitter,Vector2.from_angle(p.angle),true,chips,player.stats.get("14" if i == 0 else "15",0.0)+player.upgrade_bonus(c.id,"DamagePercent"),dt,"player:"+str(i),player.stats.get("17" if i == 0 else "3",0.0)+player.upgrade_bonus(c.id,"RangePercent"))
+					special.continuous(c,emitter,Vector2.from_angle(p.angle),true,chips,player.attack_boost(i,c),dt,"player:"+str(i),player.stats.get("17" if i == 0 else "3",0.0)+player.upgrade_bonus(c.id,"RangePercent"))
 				continue
 			if player_weapons_enabled and p.cooldown <= 0 and ((manual and shooting) or (not manual and not target.is_empty())) and absf(angle_difference(p.angle,dir.angle()))<deg_to_rad(float(c.get("turretErrorAngle",2))):
 				var rate = float(c.get("turretRateOfFire", 1)) * (1.0 + player.stats.get("13" if i == 0 else "2", 0.0) + player.upgrade_bonus(c.id, "RateOfFirePercent"))
 				p.cooldown = 1.0 / maxf(rate, 0.01)
-				fire(c, emitter, dir, true, chips, player.stats.get("14" if i == 0 else "15", 0.0) + player.upgrade_bonus(c.id, "DamagePercent"), false, int(p.get("barrel_index",0)),player.weapon_visual_scale(i),"player:"+str(i))
+				fire(c, emitter, dir, true, chips, player.attack_boost(i,c), false, int(p.get("barrel_index",0)),player.weapon_visual_scale(i),"player:"+str(i))
 				p.organ_pulse=0.18
 				player.pulse_chip_sources(i)
 				p.barrel_index=int(p.get("barrel_index",0))+1
@@ -556,17 +567,7 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 	var removed: Array = []
 	for i in range(1,player.parts.size()):
 		if player.parts[i].hp<=0 and player.parts[i].get("destroy_processed",false): removed.append(i)
-	if not removed.is_empty():
-		for d in drones:
-			if d.owner in removed:release_drone_target(d)
-		drones = drones.filter(func(d): return d.owner not in removed)
-		for d in drones: d.owner -= removed.filter(func(i):return i<d.owner).size()
-		special.mines = special.mines.filter(func(m): return not m.anchored or m.owner not in removed)
-		for m in special.mines: m.owner -= removed.filter(func(i):return i<m.owner).size()
-		removed.reverse()
-		for i in removed: player.parts.remove_at(i)
-		player.refresh_positions()
-		player.refresh_upgrades()
+	player.remove_parts(removed)
 
 	player.end_support_tick()
 	mark_phase("cleanup",measured)
@@ -805,6 +806,7 @@ func step_drones(dt: float):
 				candidates.sort_custom(func(a,b):return bool(a.pack) and not bool(b.pack))
 				d.mode="pickup"
 			if not candidates.is_empty():
+				if d.docked:home.organ_pulse=0.18
 				d.target=candidates[0];d.docked=false
 				if d.mode=="repair":d.target.repair_owner=d.uid
 				if d.mode=="pickup":d.target.reserved_by=d.uid
@@ -826,7 +828,7 @@ func step_drones(dt: float):
 					continue
 				"attack":
 					if d.cooldown<=0:
-						fire({"coreProjectile":data.droneProjectile},d.position,delta.normalized(),true,player.chips(d.owner),efficiency-1+float(player.stats.get("15",0)))
+						fire({"coreProjectile":data.droneProjectile},d.position,delta.normalized(),true,player.chips(d.owner),(efficiency+float(player.stats.get("15",0)))*player.fusion_multiplier(d.owner)-1)
 						d.cooldown=1/maxf(0.1,float(data.droneRateOfFire)*(efficiency+float(player.stats.get("2",0))))
 						audio_events.append({"type":int(data.droneActionAudioType),"position":d.position})
 				"return":d.docked=true;d.position=home.position;d.speed=0;continue
@@ -901,9 +903,15 @@ func step_patrols(dt:float):
 
 func spawn_scraps(at:Vector2,count:int):
 	if count<=0 or loot.filter(func(d):return not d.pack and not d.has('reserved_by')).size()>=250:return
-	for i in count:
-		var angle=loot_rng.randf_range(float(i)/count*TAU,float(i+1)/count*TAU)
-		loot.append({'position':at,'value':1,'pack':false,'scatter_left':0.5,'scatter_from':at,'scatter_to':at+Vector2.from_angle(angle)*loot_rng.randf_range(0.5,2)*48})
+	# Bundle the same reward value into readable 1/5/20-energy crystals.
+	var values:Array[int]=[]
+	var remaining=count
+	for value in [20,5,1]:
+		while remaining>=value:
+			values.append(value);remaining-=value
+	for i in values.size():
+		var angle=loot_rng.randf_range(float(i)/values.size()*TAU,float(i+1)/values.size()*TAU)
+		loot.append({'position':at,'value':values[i],'pack':false,'scatter_left':0.5,'scatter_from':at,'scatter_to':at+Vector2.from_angle(angle)*loot_rng.randf_range(0.5,2)*48})
 func step_scraps(dt:float):
 	for drop in loot:
 		if float(drop.get('scatter_left',0))>0:
@@ -945,3 +953,36 @@ func replace_character_module(index: int, id: String) -> bool:
 	drones = drones.filter(func(d): return d.owner != index)
 	special.mines = special.mines.filter(func(m): return not m.anchored or m.owner != index)
 	return player.replace_module(index, id)
+
+# Called before compaction for both destroyed and fused segments.
+func remap_part_owners(removed: Array):
+	for d in drones:
+		if d.owner in removed: release_drone_target(d)
+	drones = drones.filter(func(d): return d.owner not in removed)
+	for d in drones: d.owner -= removed.filter(func(i): return i < d.owner).size()
+	special.mines = special.mines.filter(func(m): return not m.anchored or m.owner not in removed)
+	for m in special.mines:
+		m.owner = -1 if m.owner in removed else m.owner - removed.filter(func(i): return i < m.owner).size()
+	var retained: Array = []
+	for salvo in barrages:
+		var source = str(salvo.get("control_source", ""))
+		if source.begins_with("player:"):
+			var index = int(source.get_slice(":", 1))
+			if index in removed: continue
+			salvo.control_source = "player:" + str(index - removed.filter(func(i): return i < index).size())
+		retained.append(salvo)
+	barrages = retained
+
+# Resolve every emitted shot, including delayed barrage rounds, to its organ.
+func mark_organ_attack(source:String,core:Dictionary):
+	if source.begins_with("player:"):
+		var index=int(source.get_slice(":",1))
+		if index<0 or index>=player.parts.size():return
+		var part:Dictionary=player.parts[index]
+		part.organ_pulse=0.18
+		part.organ_shots=int(part.get("organ_shots",0))+1
+		part.recoil=float(Feedback.profile(Feedback.family(core)).recoil)
+	elif source.begins_with("enemy:"):
+		var actor=entity(int(source.get_slice(":",1)))
+		var index=int(source.get_slice(":",2))
+		if not actor.is_empty() and index>=0 and index<actor.guns.size():actor.guns[index].organ_pulse=0.18

@@ -73,6 +73,15 @@ func capture(label: String):
 	check(image.save_png(path) == OK, "Saved " + label)
 	captures.append(ProjectSettings.globalize_path(path))
 
+func drag_at(from: Vector2, to: Vector2):
+	var press=InputEventMouseButton.new();press.position=from;press.global_position=from;press.button_index=MOUSE_BUTTON_LEFT;press.pressed=true
+	Input.parse_input_event(press);await process_frame
+	for i in range(1,9):
+		var motion=InputEventMouseMotion.new();motion.position=from.lerp(to,i/8.0);motion.global_position=motion.position;motion.relative=(to-from)/8;motion.button_mask=MOUSE_BUTTON_MASK_LEFT
+		Input.parse_input_event(motion);await process_frame
+	press=press.duplicate();press.position=to;press.global_position=to;press.pressed=false
+	Input.parse_input_event(press);await settle()
+
 func press_skill():
 	var focus = root.gui_get_focus_owner()
 	if focus != null:focus.release_focus()
@@ -136,6 +145,17 @@ func execute():
 			"centipede":check(game.player.coil_active, "Centipede coils")
 			"spider":check(not game.combat.character_abilities.state().threads.is_empty(), "Spider connects enemy with silk")
 		await capture("review-03-" + id)
+		var element=game.db.named("Core_Gun_Gatling").id
+		game.player.append_segment(element);game.player.append_segment(element)
+		game.show_build_ui();await settle()
+		var ui=game.build_ui
+		var mounts=ui.segment_buttons.keys();mounts.sort()
+		await drag_at(ui.segment_buttons[mounts[0]].get_global_rect().get_center(),ui.segment_buttons[mounts[1]].get_global_rect().get_center())
+		check(game.player.parts.size()==2 and int(game.player.parts[1].fusion_level)==2,"Exported native drag fuses mounted elements: "+id)
+		check(game.screen=="build" and is_equal_approx(game.player.fusion_multiplier(1),2.2),"Exported fusion increases attack and leaves assembly open: "+id)
+		for frame in 45:await process_frame
+		check(ui.body_canvas.flagella.poses(int(game.player.parts[1].feedback_uid)).size()==2,"Exported evolved segment renders two flagella: "+id)
+		await capture("review-04-fusion-"+id)
 	game.cursor_system.shutdown();game.audio_system.shutdown();game.particle_effects.clear()
 	game.process_mode = Node.PROCESS_MODE_DISABLED
 	await create_timer(0.25).timeout

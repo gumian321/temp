@@ -39,8 +39,8 @@ func execute():
 		check(not ui.body_canvas.get_rect().intersects(ui.inventory_scroll.get_rect()),"Character canvas and bottom icon tray never overlap at "+str(resolution))
 		var moving=game.player.parts[game.player.part_at(1)]
 		var before_pending=game.player.pending.size()
-		await drag_at(root.get_final_transform()*ui.segment_buttons[1].get_global_rect().get_center(),root.get_final_transform()*ui.segment_buttons[3].get_global_rect().get_center());await settle()
-		check(moving.segment==3,"Native body-space swap maps correctly at "+str(resolution))
+		await drag_at(root.get_final_transform()*ui.segment_buttons[1].get_global_rect().get_center(),root.get_final_transform()*ui.insert_targets[4].get_global_rect().get_center());await settle()
+		check(moving.segment==3,"Native body-space insertion maps correctly at "+str(resolution))
 		await drag_at(root.get_final_transform()*ui.inventory[0].get_global_rect().get_center(),root.get_final_transform()*ui.insert_targets[61].get_global_rect().get_center());await settle()
 		check(game.player.pending.size()==before_pending and game.player.segment_count()==60,"Native full-body drop cancels without inventory loss at "+str(resolution))
 		await capture("direct-body-full-"+str(resolution.x))

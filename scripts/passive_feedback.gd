@@ -201,7 +201,7 @@ func paint(canvas,player,combat,zoom:float):
   var at:Vector2=canvas.world(drone.position)
   if not canvas.get_viewport_rect().grow(30).has_point(at):continue
   var mode=str(drone.get("mode","return"))
-  if mode=="carry" and drone.get("carrying",false):
+  if mode=="carry" and drone.get("carrying",false) and drone.get("target",{}).get("pack",false):
    var diamond=PackedVector2Array([at+Vector2(0,7)*zoom,at+Vector2(3,10)*zoom,at+Vector2(0,13)*zoom,at+Vector2(-3,10)*zoom])
    canvas.draw_colored_polygon(diamond,Color(GOLD,.85))
   elif mode=="repair" and player.parts[owner].stun<=0 and not drone.get("target",{}).is_empty() and drone.target.get("feedback_pulses",{}).has("healed") and Vector2(drone.position).distance_to(drone.target.position)<=float(drone.data.get("droneActionRange",0))*48:

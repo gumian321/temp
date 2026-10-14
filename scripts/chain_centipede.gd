@@ -15,6 +15,47 @@ const CoilRig = preload("res://scripts/centipede_coil.gd")
 var coil_rig = CoilRig.new()
 var coil_active = false
 var rush_active = false
+const Flagella = preload("res://scripts/flagella.gd")
+const MAX_FUSION_LEVEL = 4
+var flagella = Flagella.new()
+
+func can_merge(source: Dictionary, target: Dictionary) -> bool:
+	return not source.is_empty() and not target.is_empty() and source != target and parts.find(target) > 0 and source.get("id") == target.get("id") and int(source.get("fusion_level", 1)) == int(target.get("fusion_level", 1)) and int(target.get("fusion_level", 1)) < MAX_FUSION_LEVEL and float(target.get("hp", 1)) > 0 and float(source.get("hp", 1)) > 0
+
+func merge_parts(source_index: int, target_index: int) -> bool:
+	if source_index <= 0 or source_index >= parts.size() or target_index <= 0 or target_index >= parts.size(): return false
+	var source: Dictionary = parts[source_index]
+	var target: Dictionary = parts[target_index]
+	if not can_merge(source, target): return false
+	target.fusion_level = int(target.get("fusion_level", 1)) + 1
+	target.hp = minf(target.max_hp, target.hp + source.hp)
+	remove_parts([source_index])
+	emit_feedback("installed", [target.feedback_uid])
+	pulse_feedback(parts.find(target), "installed", 1.5)
+	return true
+
+func merge_pending(pending_index: int, target_index: int) -> bool:
+	if pending_index < 0 or pending_index >= pending.size() or target_index <= 0 or target_index >= parts.size(): return false
+	var target: Dictionary = parts[target_index]
+	if not can_merge({"id": pending[pending_index]}, target): return false
+	target.fusion_level = 2
+	pending.remove_at(pending_index)
+	refresh_upgrades()
+	emit_feedback("installed", [target.feedback_uid])
+	pulse_feedback(target_index, "installed", 1.5)
+	return true
+
+func step_flagella(dt: float):
+	var keys: Array = []
+	for i in parts.size():
+		var part: Dictionary = parts[i]
+		var is_head = i == 0 and character_id == "centipede"
+		var level = int(part.get("fusion_level", 1))
+		if not is_head and level == 1: continue
+		var pose = segment_pose(int(part.segment)) if i > 0 else {"point": head, "direction": facing}
+		keys.append(int(part.feedback_uid))
+		flagella.step(int(part.feedback_uid), pose.point, Vector2(pose.direction).angle(), 2 if is_head else level, is_head, dt, motion.elapsed, velocity.length())
+	flagella.retain(keys)
 
 func configure_character(id: String):
 	character_config = CharacterRoster.config(id).duplicate(true)
@@ -65,6 +106,7 @@ func normalize_spider_legs():
 
 func make_part(id: String, cell: Vector2i) -> Dictionary:
 	var part = super.make_part(id, cell)
+	part.fusion_level = 1
 	part.hp *= float(character_config.get("health_multiplier", 1.0))
 	part.max_hp = part.hp
 	return part
@@ -73,12 +115,13 @@ func refresh_upgrades():
 	var old: Array = parts.map(func(p): return [p.hp, p.max_hp])
 	super.refresh_upgrades()
 	for i in parts.size():
-		parts[i].max_hp *= float(character_config.get("health_multiplier", 1.0))
+		parts[i].max_hp *= float(character_config.get("health_multiplier", 1.0)) * pow(1.6, int(parts[i].get("fusion_level", 1)) - 1)
 		parts[i].hp = minf(parts[i].max_hp, float(old[i][0]) + maxf(0, parts[i].max_hp - float(old[i][1]))) if float(old[i][0]) > 0 else float(old[i][0])
 
 func step(dt: float, direction: Vector2, wants_boost: bool):
 	if not compact_body() and not coil_rig.engaged():
 		super.step(dt, direction, wants_boost)
+		step_flagella(dt)
 		return
 	dt = clampf(dt, 0, 0.1)
 	update_fuel_capacity()
@@ -105,6 +148,7 @@ func step(dt: float, direction: Vector2, wants_boost: bool):
 	elif character_id == "centipede": coil_rig.advance(self, dt)
 	refresh_positions()
 	step_mount_sway(dt)
+	step_flagella(dt)
 
 func refresh_body_poses():
 	if character_id == "spider":
@@ -130,6 +174,7 @@ func end_coil():
 	coil_active = false
 
 func reset():
+	flagella.clear()
 	coil_rig.reset()
 	spider_rig.reset()
 	character_reset_serial += 1

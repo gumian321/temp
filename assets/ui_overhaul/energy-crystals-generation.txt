@@ -1,0 +1,16 @@
+Generated with built-in image_gen; transparent_background=true.
+Values: 1 cyan shard, 5 violet cluster, 20 amber core.
+
+energy_crystal_1.png
+Use case: stylized-concept
+Asset type: single collectible energy crystal sprite for a top-down insect action game, designed to remain unmistakable at 24-32 pixels over warm ivory parchment terrain.
+Primary request: one luminous cyan turquoise faceted crystal energy stone, compact chunky asymmetric hexagonal gemstone, a small angular crystal shard projecting at its upper edge, solid saturated teal blue facets, bright pale aqua inner energy core, strong continuous deep navy ink outline, finely hand-inked engraved details in the same style as biological insect illustrations.
+Composition: centered isolated single object filling roughly 75 percent of square image, top-down three-quarter view, crisp silhouette, no ground plane. Actual transparent background. All meaningful silhouette pixels opaque; only a restrained tiny outer cyan energy halo may be translucent.
+Constraints: one crystal only, no insects, no pedestal, no scene, no text, no labels, no watermark, no border, no UI; avoid pale nearly invisible facets, excessive sparkles or large blurry bloom. Readable at very small game sprite sizes.
+
+energy_crystal_5.png
+Create a single transparent game sprite, a MEDIUM-VALUE purple violet energy crystal cluster. Three stout pointed intergrown crystals (one central and two shorter side crystals), broad compact triangular silhouette. Hand inked engraved illustration, strong continuous deep navy outline and bold violet saturated facets, glowing lavender white energy trapped inside. Match an insect action game drawn with dark navy engraving on ivory parchment. Top-down three-quarter view, object centered in a square with 12% empty margin all sides. Must remain unmistakable at 30 pixels. Genuine transparent background, tiny restrained violet aura only. No text, no labels, no ground, no pedestal, no scene, no insects, no border, no extra detached objects.
+
+energy_crystal_20.png
+Create a single transparent game sprite, a HIGH-VALUE golden amber energy crystal core. A large broad hexagonal faceted core surrounded by four short stout angular crystal points attached in a crown-like radial cluster, very different from an ordinary single shard or a three-prong cluster. Hand inked engraved illustration, strong continuous deep navy outline, bold golden orange facets, luminous pale yellow inner energy. Match an insect action game drawn with dark navy engraving on ivory parchment. Top-down three-quarter view, object centered in a square with 12% empty margin all sides. Must remain unmistakable at 36 pixels. Genuine transparent background, tiny restrained amber aura only. No text, no labels, no ground, no pedestal, no scene, no insects, no border, no detached objects.
+

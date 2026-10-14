@@ -2,6 +2,7 @@ extends RefCounted
 ## Painted square shells plus separately pivoted mouth sprites and generated articulated leg sprites.
 const Ink = preload("res://scripts/blue_ink.gd")
 const BODY_SIZE = Vector2(54, 54)
+const Flagella=preload("res://scripts/flagella.gd")
 const Legs=preload("res://scripts/centipede_legs.gd")
 static var pieces: Dictionary = {}
 
@@ -32,16 +33,14 @@ static func outline(canvas: CanvasItem, points: PackedVector2Array, color: Color
 static func jaw_angle(clock: float, activity: float, side: int) -> float:
 	return side * (0.10 + (0.5 + 0.5 * sin(clock * lerpf(3.5, 19.0, activity))) * lerpf(0.13, 0.42, activity))
 
-static func segment(canvas: CanvasItem, at: Vector2, angle: float, scale_factor: float, phase: float, head: bool = false, empty: bool = false, selected: bool = false, activity: float = 0.0, clock: float = -1.0, leg_poses:Array=[]):
+static func segment(canvas: CanvasItem, at: Vector2, angle: float, scale_factor: float, phase: float, head: bool = false, empty: bool = false, selected: bool = false, activity: float = 0.0, clock: float = -1.0, leg_poses:Array=[], feelers:Array=[]):
 	prepare()
 	canvas.draw_set_transform(at, angle, Vector2.ONE * scale_factor)
 	if head:
 		# Antennae and mouth each have their own movement, independent of head aim.
 		var time = phase / 3.0 if clock < 0 else clock
-		for side in [-1, 1]:
-			var feeler = PackedVector2Array([Vector2(9, side*21), Vector2(24, side*32), Vector2(46, side*(39+sin(time*2)*3)), Vector2(64, side*(34+sin(time*2.6)*3)), Vector2(73, side*27)])
-			outline(canvas, feeler, Ink.INK, 3.0)
-			outline(canvas, feeler, Ink.PAPER, 0.8)
+		Flagella.paint(canvas, Flagella.resting(time) if feelers.is_empty() else feelers, at, angle, scale_factor)
+		canvas.draw_set_transform(at, angle, Vector2.ONE * scale_factor)
 		canvas.draw_texture_rect(pieces.head, Rect2(-31,-30,62,60), false)
 		for side in [-1, 1]:
 			var pivot = at + Vector2(25, side*8).rotated(angle)*scale_factor

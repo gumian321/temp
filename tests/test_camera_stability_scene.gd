@@ -68,9 +68,11 @@ func execute():
  var boss=game.combat.spawn(game.db.pool["55"],anchor+Vector2(500,0))
  boss.guns=[];boss.mission_controlled=true
  game._process(1.0/60.0)
- check(not game.camera_focus.is_empty() and game.camera_focus.boss,"A later boss event still triggers its cinematic")
+ check(game.camera_focus.is_empty() and game.camera.distance_to(anchor)<.01,"Later boss spawn keeps the camera on the player even with legacy intros enabled")
+ game.focus_camera(boss.position,true)
+ check(game.camera_focus.is_empty(),"Legacy boss focus requests cannot steal the camera")
  game._process(1.0/60.0)
- check((game.particle_layer.transform*anchor).distance_to(game.world(anchor))<0.01,"Cinematic motion also keeps particle transforms aligned")
+ check((game.particle_layer.transform*anchor).distance_to(game.world(anchor))<0.01,"Boss arrival keeps particle transforms aligned")
  game.camera_focus.clear();game.combat.enemies.clear();game.camera=anchor
  game.combat.effects.clear()
  game.combat.effects.append({"kind":"hit","position":anchor+Vector2(30,0),"direction":Vector2.RIGHT,"radius":6.0,"life":0.1,"fx_duration":0.1,"fx_family":"impact","friendly":false,"particle_type":0,"player_hit":true})

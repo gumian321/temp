@@ -1,4 +1,5 @@
 extends RefCounted
+const Formation=preload("res://scripts/radial_formation.gd")
 
 var session: WeakRef
 var db
@@ -111,7 +112,8 @@ func set_art(actor: Dictionary, sprite):
 
 func spawn_guards(node: Dictionary, ratio: float, faction: int):
 	var points = source_points(node.prefab,"AIGuardsSpawner","AIGuardSpawnPointsList")
-	for i in range(ceili(points.size()*ratio)):
+	points=Formation.circularized(points,ceili(points.size()*ratio))
+	for i in points.size():
 		var data = weighted_asset(db.stores.AIDataStore.aIGuardUnitList,"unitProbabilty")
 		if data.is_empty(): continue
 		var actor = add_actor(node,int(data.prefabType),points[i],false)
@@ -146,6 +148,7 @@ func spawn_node(pos: Vector2, type: int):
 		var faction = 1 if battle.rng.randi_range(0,99)>50 else 0
 		node.center_sprite=db.stores.AIDataStore["FederationStationCoreSprite" if faction==0 else "ASVWStationCoreSprite"]
 		var points = source_points(prefab,"AIStation","aIStationPartSpawnPointsList")
+		points=Formation.circularized(points)
 		var threat_score = 0
 		for offset in points:
 			var data = weighted_asset(db.stores.AIDataStore.aIStationPartsList,"partProbabilty")

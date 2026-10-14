@@ -269,7 +269,7 @@
     "zh": "卵环",
     "en": "Egg Ring",
     "description_zh": "在体节周围布置环形爆卵阵。",
-    "description_en": "Creates a field of explosive eggs around the segment.",
+    "description_en": "Places explosive eggs in a circular ring around the segment.",
     "turrets": [
       "Turret_Mines"
     ],
@@ -290,8 +290,8 @@
     "key": "Part_MinesSpawner",
     "zh": "播卵",
     "en": "Ovipositor",
-    "description_zh": "长产卵器持续向外释放爆卵。",
-    "description_en": "An elongated ovipositor releases waves of free-moving explosive eggs.",
+    "description_zh": "移动时向体节周围释放一圈爆卵，留在原地等待敌人触发。",
+    "description_en": "While moving, releases a circular ring of explosive eggs that remain behind for enemies to trigger.",
     "turrets": [
       "Turret_Mines Spawner"
     ],

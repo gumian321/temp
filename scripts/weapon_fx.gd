@@ -52,6 +52,8 @@ func paint_projectile(canvas, bullet: Dictionary, time: float, zoom: float):
 	if not visible(canvas,bullet.position):return
 	# Body is never dropped by the embellishment budget and never uses factory sprites.
 	Organic.paint(canvas,bullet,zoom)
+	# Hostile direction cues are opaque and mandatory, independent of FX budgets.
+	if not bool(bullet.get("friendly",true)):return
 	if draw_count>=MAX_PROJECTILES:return
 	draw_count+=1
 	var key=Organic.family(bullet)
@@ -79,7 +81,8 @@ func paint(canvas, battle, time: float, zoom: float):
 	var drawn = 0
 	var flame_owners: Dictionary = {}
 	var major=["explosion","chain","hole_birth","hole_collapse"]
-	var ordered=battle.effects.filter(func(e):return e.kind in major)+battle.effects.filter(func(e):return e.kind not in major)
+	var hazards=battle.effects.filter(func(e):return not e.get("friendly",true) and e.kind in ["chain","flame"])
+	var ordered=hazards+battle.effects.filter(func(e):return e.kind in major and e not in hazards)+battle.effects.filter(func(e):return e.kind not in major and e not in hazards)
 	for effect in ordered:
 		if drawn >= MAX_TRANSIENTS: break
 		if not visible(canvas,effect.position,440): continue
@@ -102,12 +105,14 @@ func paint(canvas, battle, time: float, zoom: float):
 func paint_effect(canvas, effect: Dictionary, zoom: float):
 	var key = str(effect.get("fx_family", "tesla" if effect.kind=="chain" else ("emp" if effect.kind in ["emp","shield_hit"] else "impact")))
 	var style = Feedback.profile(key)
+	if not effect.get("friendly",true):
+		style=style.duplicate();style.color=Organic.DANGER;style.accent=Organic.DANGER_EDGE
 	var at = canvas.world(effect.position)
 	var duration = float(effect.get("fx_duration",0.15))
 	var age = clampf(duration-float(effect.life),0,duration)
 	var progress = age/maxf(duration,0.001)
 	var fade = pow(1-progress,1.3)
-	var alpha = 1.0 if effect.get("friendly",true) else 0.6
+	var alpha = 1.0
 	var seed = effect.position.x*0.03+effect.position.y*0.017
 	match effect.kind:
 		"muzzle":

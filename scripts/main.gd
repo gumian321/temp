@@ -12,6 +12,7 @@ const Brood = preload("res://scripts/brood_theme.gd")
 const Battle = preload("res://scripts/combat.gd")
 const Feedback = preload("res://scripts/weapon_feedback.gd")
 const InsectAttackFX = preload("res://scripts/insect_attack_fx.gd")
+const CrystalLoot = preload("res://scripts/crystal_loot.gd")
 var passive_fx = preload("res://scripts/passive_feedback.gd").new()
 var weapon_fx = preload("res://scripts/weapon_fx.gd").new()
 var hit_pause_left = 0.0
@@ -338,8 +339,8 @@ func show_options():
 	source_ui.set_text(refid(config,"screenModeText"),db.text(str(config.screenModesList[int(options_draft.screen_mode)].Text).strip_edges()))
 	source_ui.set_text(refid(config,"languageText"),db.language_name(str(options_draft.language)))
 	source_ui.show_node(refid(config,"backButton"),true)
-	source_ui.show_node(refid(config,"activateSkipBossButton"),not options_draft.skip_boss)
-	source_ui.show_node(refid(config,"deactivateSkipBossButton"),options_draft.skip_boss)
+	source_ui.show_node(refid(config,"activateSkipBossButton"),false)
+	source_ui.show_node(refid(config,"deactivateSkipBossButton"),false)
 	source_ui.show_node(refid(config,"ResetButton"),not reset_pending)
 	source_ui.show_node(refid(config,"ApplyResetButton"),reset_pending)
 	for key in ["MasterAudioSlider","MusicAudioSlider","SFXAudioSlider"]:
@@ -377,9 +378,7 @@ func show_options_shell():
 	option_step(db.ui("DISPLAY","画面"),"%d × %d"%[resolution.width,resolution.height],Vector2(100,167),"LeftResolution","RightResolution")
 	option_step(db.ui("WINDOW","窗口"),db.text(str(config.screenModesList[int(options_draft.screen_mode)].Text).strip_edges()),Vector2(100,301),"LefScreenMode","RighScreenMode")
 	option_step(db.ui("LANGUAGE","语言"),db.language_name(str(options_draft.language)),Vector2(100,435),"LeftLanguage","RightLanguage")
-	UI.button(panel,db.ui("CONTROLS","按键"),Rect2(100,598,278,80),show_controls,"settings")
-	var boss=UI.button(panel,db.ui("BOSS INTRO","首领演出")+"  "+("−" if options_draft.skip_boss else "✓"),Rect2(398,598,322,80),func():source_ui_action("DeActivateSkipBoss" if options_draft.skip_boss else "ActivateSkipBoss","",{}),"shield")
-	boss.tooltip_text=db.ui("Skip boss intro","跳过首领入场演出")
+	UI.button(panel,db.ui("CONTROLS","按键"),Rect2(100,598,620,80),show_controls,"settings")
 	volume_control("volume",db.ui("MASTER","总音量"),Vector2(844,174))
 	volume_control("music",db.ui("MUSIC","音乐"),Vector2(844,315))
 	volume_control("sfx",db.ui("EFFECTS","音效"),Vector2(844,456))
@@ -428,8 +427,7 @@ func start_run():
 	combat = Battle.new(db, player)
 	run = Run.new(db, save, player, combat, selected_mission, difficulty)
 	camera_focus.clear();shown_bosses.clear()
-	# Opening objectives are already visible on radar. Never steal steering for
-	# an establishing shot, even when later boss cinematics are enabled.
+	# Boss locations are shown on radar; the camera stays with the player.
 	for enemy in combat.enemies:
 		if enemy.kind=="AIBossUnit":shown_bosses[enemy.uid]=true
 	if not test_mode:run.rng.randomize();combat.rng.randomize()
@@ -438,6 +436,7 @@ func start_run():
 	show_game()
 
 func focus_camera(target:Vector2,boss:bool=false):
+	if boss:return
 	camera_focus={"target":target,"stage":0,"remaining":2.0,"boss":boss}
 
 func tick_camera_focus(dt:float):
@@ -779,8 +778,7 @@ func _process(dt: float):
 		for enemy in combat.enemies:
 			if enemy.kind=="AIBossUnit" and not shown_bosses.has(enemy.uid):
 				shown_bosses[enemy.uid]=true
-				if not save.state.settings.skip_boss:focus_camera(enemy.position,true)
-				elif tutorials!=null:tutorials.show_tip("run")
+				if tutorials!=null:tutorials.show_tip("run")
 		audio_system.listener=player.head
 		for sound in combat.audio_events:audio_system.play_event(sound)
 		combat.audio_events.clear()
@@ -938,13 +936,10 @@ func module_art(texture: Texture2D, position: Vector2, bounds: Vector2, rotation
 	# Mounts are square; their weapons retain the original sprite proportions.
 	art(texture, position, Ink.fitted_size(texture, bounds), rotation, tint, true)
 
-func organ_art(texture: Texture2D, position: Vector2, bounds: Vector2, rotation: float, tint: Color, family: String, pulse_left: float):
-	if texture == null: return
-	var extent = Ink.fitted_size(texture,bounds)
-	var elastic = InsectAttackFX.organ_scale(family,pulse_left,test_time)
-	# Keep the lower carapace attachment planted while the soft organ inflates/recoils.
-	var offset = Vector2(0,extent.y*0.35*(1.0-elastic.y)).rotated(rotation)
-	art(texture,position+offset,extent*elastic,rotation,tint,true)
+var soft_organs=preload("res://scripts/soft_organ_art.gd").new()
+
+func organ_art(texture: Texture2D, position: Vector2, bounds: Vector2, rotation: float, tint: Color, family: String, pulse_left: float, key:String="", seed:float=0.0, activity:float=0.0, frozen:bool=false):
+	soft_organs.paint(self,key,texture,position,bounds,rotation,family,0.0 if frozen else test_time,0.0 if frozen else pulse_left,tint,seed,0.0 if frozen else activity)
 
 func draw_weapon_neck(anchor: Vector2, tip: Vector2, radius: float, alpha: float = 1.0):
 	var bend = (tip - anchor).orthogonal().normalized() * minf(5.0 * zoom, anchor.distance_to(tip) * 0.22)
@@ -957,6 +952,7 @@ func draw_weapon_neck(anchor: Vector2, tip: Vector2, radius: float, alpha: float
 	draw_polyline(curve, Color(Ink.WASH, alpha), 3.0 * zoom, true)
 
 func _draw():
+	soft_organs.begin_frame()
 	sync_camera_layers()
 	if ink_world != null: ink_world.begin_frame()
 	var background=Color("20222c")
@@ -1021,7 +1017,7 @@ func _draw():
 			for gun in e.guns:
 				var texture: Texture2D = db.core_sprite(db.asset(gun.id))
 				if texture != null:
-					organ_art(texture,world(visual_position+Vector2(gun.get("offset",Vector2.ZERO)).rotated(e.angle)),Vector2(42,42)*zoom,float(gun.angle)+PI/2,Color.WHITE,Feedback.family(db.asset(gun.id)),float(gun.get("organ_pulse",0)))
+					organ_art(texture,world(visual_position+Vector2(gun.get("offset",Vector2.ZERO)).rotated(e.angle)),Vector2(42,42)*zoom,float(gun.angle)+PI/2,Color.WHITE,db.Armaments.variant(db,db.asset(gun.id)),float(gun.get("organ_pulse",0)),"enemy:%d:%d"%[e.uid,e.guns.find(gun)],float(e.uid)+e.guns.find(gun)*0.2,0,float(e.stun)>0)
 		for pack in run.recycled_packs:
 			for renderer in db.prefabs[db.pool['203']].get('render',[]):
 				var texture=db.sprite(renderer.sprite)
@@ -1029,6 +1025,7 @@ func _draw():
 					var factor=0.75*(1-clampf((float(pack.age)-1)/0.25,0,1))
 					art(texture,world(pack.position),texture.get_size()/float(db.sprites[renderer.sprite].get('ppu',100))*48*zoom*factor,deg_to_rad(float(pack.age)*-50))
 		for drop in combat.loot:
+			if not drop.pack:continue # Energy stones are drawn above battle effects below.
 			if not drop.has('_render'):
 				var prefab=db.pool['200' if drop.pack else '21']
 				drop._render=RenderState.instantiate(db.prefabs[prefab].get('render',[]),int(drop.position.x*13+drop.position.y*17))
@@ -1037,6 +1034,10 @@ func _draw():
 				if texture!=null:
 					var extent=texture.get_size()/float(db.sprites[renderer.sprite].get('ppu',100))*Vector2(renderer.sx,renderer.sy)*48*zoom
 					art(texture,world(drop.position),extent,RenderState.angle(renderer,test_time),RenderState.color(renderer,test_time))
+		for evolved in player.parts.slice(1):
+			if int(evolved.get("fusion_level",1)) > 1:
+				var pose = player.segment_pose(int(evolved.segment))
+				CentipedeArt.Flagella.paint(self,player.flagella.poses(int(evolved.feedback_uid)),world(pose.point),Vector2(pose.direction).angle(),zoom,true)
 		# Continuous insect silhouette; turrets sit on the carapace of each segment.
 		if player.character_id!="centipede":
 			CharacterArt.draw_body(self,player,world(player.head),zoom,test_time)
@@ -1051,7 +1052,7 @@ func _draw():
 				var hit_strength=0.0
 				for part_index in player.parts_on_segment(segment):hit_strength=maxf(hit_strength,float(player.parts[part_index].get("impact_left",0)))
 				SegmentFeedback.paint_hit(self,world(pose.point),Vector2(pose.direction).angle(),hit_strength,zoom)
-			CentipedeArt.segment(self,world(player.head),player.facing.angle(),zoom,leg_phase,true,false,false,mouth_activity,test_time)
+			CentipedeArt.segment(self,world(player.head),player.facing.angle(),zoom,leg_phase,true,false,false,mouth_activity,test_time,[],player.flagella.poses(int(player.parts[0].feedback_uid)))
 		for i in range(player.parts.size()-1,-1,-1):
 			var p:Dictionary=player.parts[i]
 			var pos=world(player.weapon_origin(i))
@@ -1060,7 +1061,7 @@ func _draw():
 			var size=Vector2.ONE*player.module_size(i)*zoom
 			var c:Dictionary=db.asset(player.hq_weapon if i==0 else p.id)
 			var recoil=Vector2.from_angle(p.angle)*float(p.get("recoil",0))*zoom*minf(1,player.module_size(i)/35.0)
-			organ_art(db.core_sprite(c),pos-recoil,size,p.angle+PI*0.5,Color(1,1,1,0.3) if p.get("cloaked",false) else (pulse_color(p) if pulse else Color.WHITE),Feedback.family(c),float(p.get("organ_pulse",float(p.get("recoil",0))/42.0)))
+			organ_art(db.core_sprite(c),pos-recoil,size,p.angle+PI*0.5,Color(1,1,1,0.3) if p.get("cloaked",false) else (pulse_color(p) if pulse else Color.WHITE),db.Armaments.variant(db,c),float(p.get("organ_pulse",0)),"player:"+str(p.feedback_uid),float(p.feedback_uid),1.0 if not p.feedback_pulses.is_empty() else 0.0,p.hp<=0 or p.stun>0)
 			if i>0:
 				var health_at=world(p.position)+Vector2(-20,35)*zoom
 				draw_rect(Rect2(health_at,Vector2(40,3)*zoom),Ink.WASH)
@@ -1076,10 +1077,15 @@ func _draw():
 			module_art(db.sprite(d.data.get("droneSprite", "")), world(d.position), Vector2(18, 18)*zoom,drone_angle)
 		weapon_fx.draw_count=0
 		for b in combat.bullets:
-			weapon_fx.paint_projectile(self,b,test_time,zoom)
+			if b.friendly:weapon_fx.paint_projectile(self,b,test_time,zoom)
 		weapon_fx.paint(self,combat,test_time,zoom)
 		InsectAttackFX.paint(self,combat.insect_controls,zoom)
 		SegmentFeedback.paint(self,combat,zoom)
+		for drop in combat.loot:
+			if not drop.pack:CrystalLoot.paint(self,drop,test_time,zoom)
+		# Incoming hazards sit above friendly shots, explosions and contact sparks.
+		for b in combat.bullets:
+			if not b.friendly:weapon_fx.paint_projectile(self,b,test_time,zoom)
 		# Radar uses actual world objects, including distant mission bosses.
 		var radar_origin=get_viewport_rect().size-Vector2(210,235)
 		draw_rect(Rect2(radar_origin,Vector2(180,150)), Color("d8e3ec"))

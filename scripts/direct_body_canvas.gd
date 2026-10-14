@@ -2,6 +2,8 @@ extends Control
 ## Assembly coordinates are independent of the live simulation and camera.
 const UI=preload("res://scripts/game_ui.gd")
 const Art=preload("res://scripts/centipede_art.gd")
+const Flagella=preload("res://scripts/flagella.gd")
+const DragPreview=preload("res://scripts/chain_drag_preview.gd")
 const SpiderArt=preload("res://scripts/spider_art.gd")
 class Hotspot extends Button:
 	var builder
@@ -20,16 +22,21 @@ class Hotspot extends Button:
 		mouse_exited.connect(func():builder.hover_mount({});builder.inspect({}))
 		focus_entered.connect(func():canvas.reveal(world);canvas.queue_redraw())
 	func drop_target()->Dictionary:
-		if target.get("kind")=="segment":
-			return {"kind":"swap","segment":target.segment} if builder.active_drag_data.get("kind")=="mounted" else {"kind":"gap","before":int(target.segment)+1}
+		if not builder.active_drag_data.is_empty():
+			return canvas.target_at(canvas.local_pointer(),builder.active_drag_data)
+		var carried=builder.selected_data
+		var segment=int(target.get("segment",target.get("before",-1)))
+		var merge={"kind":"merge","segment":segment}
+		if not carried.is_empty() and not payload.is_empty() and builder.can_drop(merge,carried):return merge
+		if target.get("kind")=="segment":return {"kind":"gap","before":segment+1}
 		return target
 	func _get_drag_data(_at):
 		if payload.is_empty():return null
-		var preview=TextureRect.new();preview.texture=builder.db.core_sprite(builder.db.asset(payload.part.id));preview.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;preview.size=Vector2(56,56);preview.position=Vector2(-28,-28)
+		var preview=DragPreview.new();preview.builder=builder;preview.texture=builder.db.core_sprite(builder.db.asset(payload.part.id))
 		set_drag_preview(preview);builder.begin_drag(payload.duplicate());return payload.duplicate()
-	func _can_drop_data(_at,data):
-		builder.hover_mount(drop_target());return data is Dictionary and builder.can_drop(drop_target(),data)
-	func _drop_data(_at,data):builder.drop(drop_target(),data)
+	func _can_drop_data(at,data):
+		return canvas._can_drop_data(position+at,data)
+	func _drop_data(at,data):canvas._drop_data(position+at,data)
 	func _notification(what):
 		if what==NOTIFICATION_DRAG_END and is_instance_valid(builder):builder.end_drag()
 
@@ -43,6 +50,10 @@ var center=Vector2.ZERO
 var bounds=Rect2()
 var panning=false
 var view_adjusted=false
+var display_poses:Dictionary={}
+var flagella=Flagella.new()
+var clock=0.0
+var organs=preload("res://scripts/soft_organ_art.gd").new()
 func setup(owner):
 	builder=owner;clip_contents=true;mouse_filter=Control.MOUSE_FILTER_STOP
 	if builder.player.character_id=="spider":
@@ -84,10 +95,14 @@ func setup(owner):
 			var point=points[before-1]-Vector2.from_angle(angles[-1])*72.0 if before==count+1 else points[before-1].lerp(points[before],0.5)
 			bounds=bounds.expand(point)
 			add_hotspot({"kind":"gap","before":before},{},point,before,true)
-	bounds=bounds.grow(35 if builder.player.character_id=="spider" else 85);center=bounds.get_center();fit()
+	for control in hotspots:
+		if not control.payload.is_empty():
+			var part=control.payload.part
+			display_poses[int(part.feedback_uid)]={"point":control.world,"angle":pose_angle(int(part.segment))}
+	bounds=bounds.grow(100 if builder.player.character_id=="spider" else 175);center=bounds.get_center();fit()
 func add_hotspot(target:Dictionary,payload:Dictionary,point:Vector2,index:int,gap:bool):
 	var control=Hotspot.new();add_child(control);control.configure(builder,self,target,payload,point);hotspots.append(control)
-	control.tooltip_text="拖入这里生长" if gap else builder.db.title(builder.db.asset(payload.part.id))+" · 拖动交换"
+	control.tooltip_text="拖入这里生长" if gap else builder.db.title(builder.db.asset(payload.part.id))+" · 拖动调整顺序；同元素同阶叠放合成"
 	if gap:builder.insert_targets[index]=control;builder.tail_target=control
 	else:builder.segment_buttons[index]=control
 func world_to_view(point:Vector2)->Vector2:return (point-center)*zoom+size/2+pan
@@ -114,40 +129,134 @@ func _gui_input(event):
 	elif event is InputEventMouseMotion and panning:view_adjusted=true;pan+=event.relative;layout_hotspots();accept_event()
 func _draw():
 	if builder==null:return
+	organs.begin_frame()
 	if builder.player.character_id=="spider":
 		SpiderArt.draw_body(self,builder.spider_preview,world_to_view(Vector2.ZERO),zoom,0)
 		for part in builder.player.parts.slice(1):
-			var pose=builder.spider_preview.spider_rig.mount_pose(int(part.segment))
-			builder.draw_element(self,builder.db.core_sprite(builder.db.asset(part.id)),world_to_view(pose.point),zoom*0.62)
+			if dragging_part(part):continue
+			var pose=display_poses[int(part.feedback_uid)]
+			Flagella.paint(self,flagella.poses(int(part.feedback_uid)),world_to_view(pose.point),pose.angle,zoom*0.65,true)
+			paint_organ(part,world_to_view(pose.point),zoom*0.62)
 	else:
-		for i in range(points.size()-1,-1,-1):
-			var at=world_to_view(points[i])
-			if i==points.size()-1:Art.tail(self,at,angles[i],zoom,i==0)
-			Art.segment(self,at,angles[i],zoom,0,i==0)
-			if i>0:
-				var part=builder.player.parts[builder.player.part_at(i)]
-				builder.draw_element(self,builder.db.core_sprite(builder.db.asset(part.id)),at,zoom*0.65)
+		var last=points.size()-1
+		Art.tail(self,world_to_view(points[last]),angles[last],zoom,last==0)
+		for i in range(points.size()-1,0,-1):
+			var part=builder.player.parts[builder.player.part_at(i)]
+			if dragging_part(part):continue
+			var pose=display_poses[int(part.feedback_uid)]
+			var at=world_to_view(pose.point)
+			var level=int(part.get("fusion_level",1))
+			Flagella.paint(self,flagella.poses(int(part.feedback_uid)),at,pose.angle,zoom,true)
+			Art.segment(self,at,pose.angle,zoom,clock*3)
+			paint_organ(part,at,zoom*0.65)
+			if level>1:draw_string(UI.font(),at+Vector2(-16,37)*zoom,"%d阶"%level,HORIZONTAL_ALIGNMENT_CENTER,32*zoom,int(10*zoom),UI.TEAL)
+		Art.segment(self,world_to_view(points[0]),angles[0],zoom,clock*3,true,false,false,0,clock,[],flagella.poses(0))
 	var carried=builder.active_drag_data if not builder.active_drag_data.is_empty() else builder.selected_data
 	for control in hotspots:
-		var target=control.drop_target()
+		var gap=control.payload.is_empty()
+		var target:Dictionary=control.target
+		if not gap:
+			if dragging_part(control.payload.part):continue
+			target={"kind":"merge","segment":int(control.payload.part.segment)}
 		var valid=not carried.is_empty() and builder.can_drop(target,carried)
 		var hovered=builder.hovered_target==target and valid
-		var at=world_to_view(control.world)
-		var gap=control.payload.is_empty()
+		var point:Vector2=control.world if gap else display_poses[int(control.payload.part.feedback_uid)].point
+		var at=world_to_view(point)
 		if gap and (valid or carried.is_empty()):
-			draw_circle(at,clampf(10*zoom,9,17),Color(UI.BG,0.9));draw_arc(at,clampf(10*zoom,9,17),0,TAU,24,UI.TEAL if valid else Color(UI.MUTED,0.5),2,true)
+			draw_circle(at,clampf(10*zoom,9,17),Color(UI.BG,0.9))
+			draw_arc(at,clampf(10*zoom,9,17),0,TAU,24,UI.TEAL if valid else Color(UI.MUTED,0.5),2,true)
 			draw_line(at-Vector2(4,0),at+Vector2(4,0),UI.TEAL,2,true);draw_line(at-Vector2(0,4),at+Vector2(0,4),UI.TEAL,2,true)
-		elif not gap and (valid or hovered or control.selected or control.has_focus()):draw_arc(at,clampf(27*zoom,14,90),0,TAU,40,UI.TEAL if hovered or control.selected or control.has_focus() else Color(UI.TEAL,0.3),3 if hovered else 1.5,true)
+		elif not gap and (valid or control.selected or control.has_focus()):
+			draw_arc(at,clampf(27*zoom,14,90),0,TAU,40,UI.TEAL if hovered or control.selected or control.has_focus() else Color(UI.TEAL,0.3),3 if hovered else 1.5,true)
 		if hovered:
-			draw_arc(at,clampf(34*zoom,22,100),0,TAU,40,UI.TEAL,3,true)
-			if gap:
-				if builder.player.character_id=="centipede":
-					Art.prepare();draw_set_transform(at,PI,Vector2.ONE*zoom)
-					draw_texture_rect(Art.pieces.body,Rect2(-27,-27,54,54),false,Color(1,1,1,0.6));draw_set_transform(Vector2.ZERO)
-				else:
-					SpiderArt.prepare();draw_texture_rect(SpiderArt.pieces.segment,Rect2(at-Vector2(30,21)*zoom,Vector2(60,42)*zoom),false,Color(1,1,1,0.6))
-				var id=carried.get("id",carried.get("part",{}).get("id",""))
-				var texture=builder.db.core_sprite(builder.db.asset(id))
-				if texture!=null:
-					draw_texture_rect(texture,Rect2(at-Vector2.ONE*24*zoom,Vector2.ONE*48*zoom),false,Color(1,1,1,0.65))
-				draw_string(UI.font(),at+Vector2(-28,-39*zoom),"生长",HORIZONTAL_ALIGNMENT_CENTER,56,16,UI.TEAL)
+			draw_arc(at,clampf(32*zoom,22,100),0,TAU,40,Color("b78c3e") if not gap else UI.TEAL,3,true)
+			if gap and carried.get("kind")=="inventory":
+				var texture=builder.db.core_sprite(builder.db.asset(carried.id))
+				if texture!=null:draw_texture_rect(texture,Rect2(at-Vector2.ONE*18*zoom,Vector2.ONE*36*zoom),false,Color(1,1,1,0.35))
+		if not gap and int(control.payload.part.segment)==builder.landing_segment and builder.landing_left>0:
+			draw_arc(at,(29+(1-builder.landing_left/0.65)*14)*zoom,0,TAU,48,Color(UI.TEAL,builder.landing_left/0.65),2,true)
+
+func pose_angle(segment:int)->float:
+	return Vector2(builder.spider_preview.spider_rig.mount_pose(segment).direction).angle() if builder.player.character_id=="spider" else angles[clampi(segment,0,angles.size()-1)]
+
+func dragging_part(part:Dictionary)->bool:
+	return not builder.drag_cancelled and builder.active_drag_data.get("kind")=="mounted" and builder.active_drag_data.get("part",{})==part
+
+# Hit testing uses the fixed insertion slots, never the moving artwork, so a
+# neighbor sliding under the pointer cannot flip the target back and forth.
+func target_at(at:Vector2,data:Dictionary)->Dictionary:
+	var point=view_to_world(at)
+	var best=INF
+	var nearest=null
+	for control in hotspots:
+		var distance=point.distance_to(control.world)
+		if distance<best:best=distance;nearest=control
+	if nearest==null or best>64:return {}
+	var target:Dictionary=nearest.target
+	if not nearest.payload.is_empty():
+		var segment=int(nearest.payload.part.segment)
+		var merge={"kind":"merge","segment":segment}
+		if best<16 and builder.can_drop(merge,data):return merge
+		if builder.player.character_id=="spider":return target
+		var axis=-Vector2.from_angle(angles[segment])
+		return {"kind":"gap","before":segment+(1 if (point-nearest.world).dot(axis)>0 else 0)}
+	return target
+
+func _can_drop_data(_at,data):
+	if not data is Dictionary:return false
+	var target=target_at(local_pointer(),data)
+	builder.hover_mount(target)
+	return builder.can_drop(target,data)
+
+func _drop_data(_at,data):builder.drop(target_at(local_pointer(),data),data)
+
+func target_poses()->Dictionary:
+	var result:Dictionary={}
+	for control in hotspots:
+		if not control.payload.is_empty():
+			var part=control.payload.part
+			result[int(part.feedback_uid)]={"point":control.world,"angle":pose_angle(int(part.segment))}
+	var data:Dictionary=builder.active_drag_data
+	var target:Dictionary=builder.hovered_target
+	if builder.player.character_id!="centipede" or data.get("kind")!="mounted" or target.get("kind")!="gap" or not builder.can_drop(target,data):return result
+	var order=builder.player.body_part_indices()
+	var source=builder.player.parts.find(data.part)
+	var start=order.find(source)
+	var destination=int(target.before)-1
+	order.erase(source)
+	if destination>start:destination-=1
+	order.insert(destination,source)
+	for i in order.size():
+		var uid=int(builder.player.parts[order[i]].feedback_uid)
+		result[uid]={"point":points[i+1],"angle":angles[i+1]}
+	return result
+
+func _process(dt:float):
+	if builder==null:return
+	clock+=dt
+	if not builder.active_drag_data.is_empty():
+		builder.hover_mount(target_at(local_pointer(),builder.active_drag_data) if Rect2(Vector2.ZERO,size).has_point(local_pointer()) else {})
+	var targets=target_poses()
+	for uid in targets:
+		var pose=display_poses.get(uid,targets[uid])
+		pose.point=Vector2(pose.point).lerp(targets[uid].point,1-exp(-16*dt))
+		pose.angle=lerp_angle(pose.angle,targets[uid].angle,1-exp(-16*dt))
+		display_poses[uid]=pose
+	for part in builder.player.parts.slice(1):
+		var uid=int(part.feedback_uid)
+		var pose=display_poses.get(uid,{})
+		if not pose.is_empty() and int(part.get("fusion_level",1))>1:
+			flagella.step(uid,pose.point,pose.angle,int(part.fusion_level),false,dt,clock)
+	if not points.is_empty():flagella.step(0,points[0],angles[0],2,true,dt,clock)
+	queue_redraw()
+
+func capture_drop(part:Dictionary):
+	if builder.active_drag_data.get("kind")=="mounted" and builder.hovered_target.get("kind")!="merge":
+		display_poses[int(part.feedback_uid)]={"point":view_to_world(local_pointer()),"angle":pose_angle(int(part.segment))}
+
+func local_pointer()->Vector2:
+	return get_global_transform().affine_inverse()*builder.drag_pointer
+
+func paint_organ(part:Dictionary,at:Vector2,scale_factor:float):
+	var core=builder.db.asset(part.id)
+	organs.paint(self,str(part.feedback_uid),builder.db.core_sprite(core),at,Vector2.ONE*56*scale_factor,builder.ASSEMBLY_FACING+PI/2,builder.db.Armaments.variant(builder.db,core),clock,0.0,Color.WHITE,float(part.feedback_uid))

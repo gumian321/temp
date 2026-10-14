@@ -48,6 +48,7 @@ def sha256(path):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--godot", required=True, help="Godot 4.6.3 editor executable")
+    parser.add_argument("--label", default="", help="Optional build suffix, such as fusion")
     args = parser.parse_args()
     godot = shutil.which(args.godot)
     if not godot:
@@ -58,7 +59,10 @@ def main():
     BUILD.mkdir(parents=True, exist_ok=True)
     (ROOT / "artifacts" / ".gdignore").touch(exist_ok=True)
     stamp = date.today().strftime("%Y%m%d")
-    package = ROOT / "artifacts" / f"Centipede-Review-{stamp}"
+    if args.label and not re.fullmatch(r"[a-zA-Z0-9-]+", args.label):
+        parser.error("--label accepts only letters, digits and hyphens")
+    suffix = f"-{args.label}" if args.label else ""
+    package = ROOT / "artifacts" / f"Centipede-Review-{stamp}{suffix}"
     if package.exists():
         parser.error(f"Package directory already exists; retain or rename it before rebuilding: {package}")
     package.mkdir()
@@ -121,6 +125,10 @@ Shift：加速；空格：角色技能；E：装配；Esc：暂停。
 Tab / 鼠标右键：雷达。
 蜈蚣：蜷缩聚火；蜘蛛：织网牵引。
 新元素奖励可以装上身体；在装配窗口拖动调整位置，手动完成后继续战斗。
+拖动整节到前后侧：相邻节段平滑让位，松手插入。
+拖到同元素、同阶节段的中央：二合一进化，最高四阶。
+每次合成单节攻击 ×2.2；二/三/四阶分别有 2/3/4 条侧鞭毛。
+拖动时按 Esc 或右键取消；装配完成后手动点「出击」。
 
 存档保存在 Windows 当前账户的 Godot 应用数据目录。
 本包包含 Debug 解锁功能，供内部体验。

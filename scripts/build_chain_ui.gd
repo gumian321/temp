@@ -12,8 +12,8 @@ class SpiderPreview extends RefCounted:
 	func spider_leg_count(leg:int)->int:return int(counts[leg])
 
 func assembly_guidance()->String:
-	if player.character_id=="spider":return "+ 延长腿部    ⇄ 交换    拖到其他腿可转移"
-	return "+ 插入    ⇄ 交换    右键取消" if player.character_id=="centipede" else "拖入已占挂点将替换旧模块 · 不可撤销"
+	if player.character_id=="spider":return "拖动调整腿部 · 同元素同阶叠放合成（最高四阶）"
+	return "拖到前后侧让位 · 同元素同阶叠放合成 · 右键取消" if player.character_id=="centipede" else "拖入已占挂点将替换旧模块 · 不可撤销"
 
 var chain_scroll: ScrollContainer
 var inventory_scroll: ScrollContainer
@@ -39,19 +39,26 @@ var body_canvas
 var spider_preview
 func rebuild():
 	rebuilding=true
-	var old_zoom=body_canvas.zoom if is_instance_valid(body_canvas) and body_canvas.view_adjusted else 0.0
+	var old_poses=body_canvas.display_poses.duplicate(true) if is_instance_valid(body_canvas) else {}
+	var old_center=body_canvas.center if is_instance_valid(body_canvas) else Vector2.ZERO
+	var old_adjusted=body_canvas.view_adjusted if is_instance_valid(body_canvas) else false
+	var old_zoom=body_canvas.zoom if is_instance_valid(body_canvas) and (old_adjusted or player.parts.size()-1<=old_poses.size()) else 0.0
 	var old_pan=body_canvas.pan if is_instance_valid(body_canvas) else Vector2.ZERO
 	for child in get_children():remove_child(child);child.queue_free()
 	inventory.clear();slots.clear();segment_buttons.clear();insert_targets.clear()
 	text_at("身体拼接",Vector2(48,28),Vector2(450,55),36)
 	text_at("%02d / %d"%[player.parts.size()-1,player.module_cap()],Vector2(1210,38),Vector2(190,38),25)
-	guidance=text_at("拖动元素到身体上的 +  ·  拖动身体模块交换",Vector2(48,89),Vector2(880,34),18)
+	guidance=text_at("拖动整节调整顺序 · 同元素同阶叠放合成（最高四阶）",Vector2(48,89),Vector2(880,34),18)
 	if player.character_id=="spider":
 		spider_preview=SpiderPreview.new()
 		for leg in range(8):spider_preview.counts.append(player.spider_leg_count(leg))
 		spider_preview.spider_rig.ensure(spider_preview)
 	body_canvas=BodyCanvas.new();body_canvas.position=Vector2(36,137);body_canvas.size=Vector2(1368,492);add_child(body_canvas);body_canvas.setup(self)
-	if old_zoom>0:body_canvas.zoom=old_zoom;body_canvas.pan=old_pan;body_canvas.view_adjusted=true;body_canvas.layout_hotspots()
+	if old_zoom>0:
+		body_canvas.zoom=old_zoom;body_canvas.pan=old_pan+(body_canvas.center-old_center)*old_zoom;body_canvas.view_adjusted=old_adjusted
+		for uid in old_poses:
+			if body_canvas.display_poses.has(uid):body_canvas.display_poses[uid]=old_poses[uid]
+		body_canvas.layout_hotspots()
 	action_button("−",Vector2(1126,91),Vector2(44,38),func():body_canvas.zoom_at(1/1.2,body_canvas.size/2))
 	action_button("+",Vector2(1178,91),Vector2(44,38),func():body_canvas.zoom_at(1.2,body_canvas.size/2))
 	action_button("全身",Vector2(1232,91),Vector2(128,38),func():body_canvas.fit())
@@ -159,14 +166,16 @@ func inspect(data:Dictionary):
 		health_label.text="独立甲壳 · 协同攻击"
 		description_label.text="选择元素查看性能\n拖动体节调整阵型"
 	else:
-		detail.text=db.title(core)
+		detail.text=db.title(core)+" · %d阶"%int(shown.get("part",{}).get("fusion_level",1))
 		detail.tooltip_text=db.title(core)+"\n"+db.armament_description(core)
 		var part:Dictionary=shown.get("part",{})
 		health_label.text="甲壳  %d / %d"%[maxf(0,part.hp),part.max_hp] if not part.is_empty() else "甲壳  %d"%float(core.get("CoreHealth",90))
 		if core.has("coreProjectile"):
 			var projectile=db.asset(core.coreProjectile)
-			description_label.text="伤害  %.1f    频率  %.1f/s\n射程  %.0f"%[float(projectile.get("projectileDamage",{}).get("hullDamage",0)),float(core.get("turretRateOfFire",0)),db.range_units(core.get("turretRange",1))*48]
+			description_label.text="伤害  %.1f    频率  %.1f/s\n射程  %.0f"%[float(projectile.get("projectileDamage",{}).get("hullDamage",0))*(1+player.attack_boost(player.parts.find(part),core) if not part.is_empty() else 1),float(core.get("turretRateOfFire",0)),db.range_units(core.get("turretRange",1))*48]
 		else:description_label.text=db.armament_description(core)
+		var tier=int(part.get("fusion_level",1))
+		description_label.text += "  ·  合成攻击 ×%.2f  ·  %d条鞭毛"%[pow(2.2,tier-1),tier] if tier>1 else "  ·  同元素同阶可合成"
 		description_label.text=description_label.text.replace("\n","  ·  ")
 		description_label.max_lines_visible=1;description_label.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
 	armor_button.visible=selected_data.get("kind")=="mounted" and not game.reward_flow_active
@@ -174,7 +183,7 @@ func inspect(data:Dictionary):
 	queue_redraw()
 
 func begin_drag(data:Dictionary):
-	drag_cancelled=false;active_drag_data=data;drag_pointer=get_global_mouse_position();inspect(data)
+	drag_cancelled=false;active_drag_data=data;inspect(data)
 	guidance.text=assembly_guidance()+" · ESC 取消"
 	refresh_controls()
 
@@ -194,6 +203,13 @@ func hover_mount(target:Dictionary):
 
 func can_drop(target:Dictionary,data:Dictionary)->bool:
 	if drag_cancelled:return false
+	if target.get("kind")=="merge":
+		var other=player.part_at(int(target.get("segment",-1)))
+		if other<=0:return false
+		if data.get("kind")=="mounted":
+			return player.parts.find(data.get("part",{}))>0 and player.can_merge(data.part,player.parts[other])
+		var index=int(data.get("index",-1))
+		return data.get("kind")=="inventory" and index>=0 and index<player.pending.size() and player.pending[index]==data.get("id") and player.can_merge({"id":data.id},player.parts[other])
 	if target.get("kind")=="mount":
 		var mount=int(target.before)
 		if mount<1 or mount>player.module_cap():return false
@@ -236,7 +252,11 @@ func drop(target:Dictionary,data:Dictionary):
 	var before=int(target.get("before",-1))
 	var changed=false
 	var part:Dictionary={}
-	if data.kind=="inventory":
+	if target.get("kind")=="merge":
+		var other=player.part_at(int(target.segment))
+		part=player.parts[other]
+		changed=player.merge_pending(int(data.index),other) if data.kind=="inventory" else player.merge_parts(player.parts.find(data.part),other)
+	elif data.kind=="inventory":
 		changed=player.install_module(data.id,before)
 		if changed:
 			player.pending.remove_at(int(data.index));part=player.parts[player.part_at(before)]
@@ -246,6 +266,7 @@ func drop(target:Dictionary,data:Dictionary):
 		elif target.get("kind")=="swap":changed=player.swap_piece(player.parts.find(part),player.part_at(int(target.segment)))
 		else:changed=player.move_to_mount(player.parts.find(part),before)
 	if not changed:toast(player.last_error);return
+	if is_instance_valid(body_canvas):body_canvas.capture_drop(part)
 	selected_segment=int(part.segment);game.build_selected_segment=selected_segment
 	landing_segment=selected_segment;landing_left=0.65
 	selected_data={};inspected_data={};active_drag_data={};hovered_target={}
@@ -257,12 +278,17 @@ func drop(target:Dictionary,data:Dictionary):
 func click(target:Dictionary,data:Dictionary):
 	if target.get("kind")=="inventory":selected_data=data.duplicate();refresh_controls()
 	elif target.get("kind")=="mount":
-		if not selected_data.is_empty() and can_drop(target,selected_data):drop(target,selected_data)
+		var merge_target={"kind":"merge","segment":target.before}
+		if not selected_data.is_empty() and can_drop(merge_target,selected_data):drop(merge_target,selected_data)
+		elif not selected_data.is_empty() and can_drop(target,selected_data):drop(target,selected_data)
 		else:selected_segment=int(target.before);game.build_selected_segment=selected_segment;selected_data=data.duplicate();refresh_controls()
 	elif target.get("kind")=="gap" and not selected_data.is_empty():drop(target,selected_data)
 	elif target.get("kind")=="segment":
-		selected_segment=int(target.segment);game.build_selected_segment=selected_segment
-		selected_data=data.duplicate();refresh_controls()
+		var merge_target={"kind":"merge","segment":target.segment}
+		if not selected_data.is_empty() and can_drop(merge_target,selected_data):drop(merge_target,selected_data)
+		else:
+			selected_segment=int(target.segment);game.build_selected_segment=selected_segment
+			selected_data=data.duplicate();refresh_controls()
 
 func show_segment_during_drag(_segment:int):pass
 
