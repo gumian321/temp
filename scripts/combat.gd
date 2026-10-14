@@ -11,6 +11,8 @@ var segment_sound_cooldown = 0.0
 var shot_serial = 0
 var next_control_source_token = 1
 var special
+const CharacterAbilities = preload("res://scripts/character_abilities.gd")
+var character_abilities
 var barrages: Array = []
 var db
 var player
@@ -44,6 +46,7 @@ var mission_target = Vector2.ZERO
 func _init(source, centipede):
 	db = source
 	player = centipede
+	character_abilities = CharacterAbilities.new(self)
 	for part in player.parts:
 		next_control_source_token=maxi(next_control_source_token,int(part.get("insect_source_token",0))+1)
 	rng.seed = 20261012
@@ -274,7 +277,11 @@ func mark_phase(label:String,started:int)->int:
 	if profile_enabled:phase_times[label]=int(phase_times.get(label,0))+now-started
 	return now
 
+func request_skill(aim: Vector2) -> bool:
+	return character_abilities.request_skill(aim)
+
 func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool = true):
+	character_abilities.update(dt)
 	player.step_feedback(dt)
 	segment_sound_cooldown=maxf(0,segment_sound_cooldown-dt)
 	step_scraps(dt)
@@ -308,7 +315,7 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 			var chips: Dictionary = player.chips(i)
 			var emitter: Vector2 = player.weapon_origin(i)
 			var reach = db.range_units(c.get("turretRange", 1)) * 48.0 * (1.0 + player.stats.get("17" if i == 0 else "3", 0.0) + player.upgrade_bonus(c.id, "RangePercent"))
-			var target = target_for(c, p.position, reach)
+			var target = character_abilities.focus_target(p.position, reach, target_for(c, p.position, reach))
 			var dir: Vector2 = (aim - emitter).normalized()
 			# HQ defaults to its normal radar; held input temporarily overrides it.
 			# The manual-aim chip still requires explicit input for adjacent guns.
@@ -730,6 +737,7 @@ func hurt_player(index: int, damage: float, shield_damage: float, shot: Dictiona
 				shield.shield_delay = float(c.shieldRechargeDelay)*(1+player.upgrade_bonus(c.id,"ShieldRechargeDelayPercent"))
 				audio_events.append({"type":51,"position":shield.position})
 			return
+	damage = character_abilities.absorb_front(damage, shot)
 	p.hp -= damage
 	p.impact_left=SegmentFeedback.HIT_TIME
 	if not shot.is_empty():
@@ -929,3 +937,11 @@ func player_visual_contact(index: int, shot: Dictionary) -> Dictionary:
 		if core.get("class")=="ShieldCore" and shield.hp>0 and shield.stun<=0 and shield.shield>0 and shield.position.distance_to(p.position)<shield_range(i):
 			return Feedback.shield_contact(shield.position,shield_range(i),shot)
 	return Feedback.surface_contact(p.position,player.collision_radius(index),shot,0.0)
+
+func replace_character_module(index: int, id: String) -> bool:
+	if not player.has_method("replace_module") or not player.compact_body() or index <= 0 or index >= player.parts.size() or db.asset(id).is_empty(): return false
+	for drone in drones:
+		if drone.owner == index: release_drone_target(drone)
+	drones = drones.filter(func(d): return d.owner != index)
+	special.mines = special.mines.filter(func(m): return not m.anchored or m.owner != index)
+	return player.replace_module(index, id)

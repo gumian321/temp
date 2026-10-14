@@ -28,10 +28,16 @@ func inspect_geometry(tag: String):
  var outside=[]
  for c in controls:
   if not rect.encloses(c.get_global_rect()):outside.append(c.text)
- var labels=[view.title,view.description,view.objective_text,view.duration,view.mode_label,view.points,view.status,view.pool_summary]
+ var labels=[view.title,view.description,view.objective_text,view.duration,view.mode_label,view.points,view.status,view.pool_summary,view.reward_summary,view.risk_summary]
  for l in labels:
   if not rect.encloses(l.get_global_rect()):outside.append(l.text)
  check(outside.is_empty(),"Buttons and text inside board at "+tag)
+ check(not view.pool_button.get_global_rect().intersects(view.pool_summary.get_global_rect()),"Loot label has its own lane at "+tag)
+ check(not view.pool_summary.get_global_rect().intersects(view.reset_button.get_global_rect()),"Loot summary does not hit reset at "+tag)
+ check(not view.reward_summary.get_global_rect().intersects(view.launch_button.get_global_rect()),"Rewards separate from launch at "+tag)
+ check(not view.scene_art.get_global_rect().intersects(view.title.get_global_rect()),"Hero image separate from briefing at "+tag)
+ for b in view.difficulty_buttons:
+  check(not b.get_global_rect().intersects(view.risk_summary.get_global_rect()),"Difficulty separate from risk cue at "+tag)
  geometry.append({"case":tag,"viewport":[viewport.size.x,viewport.size.y],"board":[rect.position.x,rect.position.y,rect.size.x,rect.size.y],"center_error":center_error,"outside":outside})
 func execute():
  var original_scale=root.content_scale_size
@@ -41,6 +47,16 @@ func execute():
  game.set_process(false);game.save.fresh();game.save.state.settings.skip_boss=true;game.test_mode=true
  game.show_missions();await settle()
  check(game.mission_ui.rows.size()==6,"All six source missions present")
+ check(game.mission_ui.scene_textures.size()==6,"All six generated mission scenes present")
+ check(game.mission_ui.difficulty_buttons.map(func(b):return b.text)==["普通","困难","噩梦"],"Difficulty names readable without tooltips")
+ var expected_names=["生存","无尽","猎杀","护航","破巢","守卫"]
+ for i in 6:
+  game.mission_ui.select_mission(i);await settle()
+  check(game.mission_ui.title.text==expected_names[i],"Source mission has correct title %d"%i)
+  check(game.mission_ui.scene_art.texture==game.mission_ui.scene_textures[i],"Selected hero matches mission %d"%i)
+  check(bool(game.selected_mission.isEndless)==(i==1),"Endless label matches actual mode %d"%i)
+  await screenshot("scene-%d"%i)
+ game.mission_ui.select_mission(0);await settle()
  var selected_button=game.mission_ui.difficulty_buttons[0]
  var pressed=selected_button.get_theme_stylebox("pressed")
  var hovered=selected_button.get_theme_stylebox("hover_pressed")

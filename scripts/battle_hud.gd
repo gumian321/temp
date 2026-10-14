@@ -19,6 +19,8 @@ var counters:Label
 var build_button:Button
 var radar_label:Label
 var keys:Label
+var skill_icon:TextureRect
+var skill_label:Label
 var plaque:StyleBoxTexture
 
 class Meter extends Control:
@@ -90,6 +92,8 @@ func setup(owner_game):
  build_button.size=Vector2(60,42)
  radar_label=label(self,tr_text("扫描   TAB","SCAN   TAB"),11)
  keys=label(self,tr_text("WASD  移动    ⇧  推进    ESC  暂停","WASD  MOVE    ⇧  BOOST    ESC  PAUSE"),11)
+ skill_icon=TextureRect.new();skill_icon.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;skill_icon.texture=UI.icon_texture("evolution");skill_icon.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;skill_icon.mouse_filter=MOUSE_FILTER_IGNORE;skill_icon.size=Vector2(42,42);add_child(skill_icon)
+ skill_label=label(self,"",16)
  resized.connect(layout_hud);layout_hud.call_deferred();refresh()
 func tr_text(zh:String,en:String)->String:return game.db.ui(en,zh)
 func label(parent:Node,value:String,px:int)->Label:
@@ -105,6 +109,7 @@ func layout_hud():
  modules.position=Vector2(size.x-284,34);drones.position=Vector2(size.x-182,34)
  build_button.position=Vector2(size.x-74,28)
  radar_label.position=Vector2(size.x-202,size.y-257);radar_label.size=Vector2(170,18)
+ skill_icon.position=Vector2(456,size.y-90);skill_label.position=Vector2(506,size.y-82);skill_label.size=Vector2(360,30)
  keys.position=Vector2(24,size.y-32);keys.size=Vector2(400,20)
  queue_redraw()
 func rail_skin()->StyleBoxTexture:
@@ -134,12 +139,22 @@ func refresh():
  if game.run==null:return
  var p=game.player;var run=game.run
  mission.text=game.db.title(game.selected_mission)
+ var ability=game.combat.character_abilities.state()
+ var cooldown=float(ability.get("cooldown",0))
+ var binding="Y" if game.joy_ui else OS.get_keycode_string(int(game.save.state.settings.bindings.get("character_skill",KEY_SPACE)))
+ var ready=tr_text("就绪","READY") if cooldown<=0 else "%.1fs"%cooldown
+ if p.character_id=="beetle":ready+=tr_text("  甲 %d","  ARMOR %d")%roundi(float(ability.armor))
+ if p.character_id=="spider" and not ability.threads.is_empty():ready+=tr_text("  丝 %d","  THREADS %d")%ability.threads.size()
+ skill_label.text=binding+"  ·  "+str(p.character_config.skill_name)+"  ·  "+ready
+ skill_label.add_theme_color_override("font_color",TEAL if cooldown<=0 else QUIET)
+ skill_icon.modulate=Color.WHITE if cooldown<=0 else Color(1,1,1,.45)
+ skill_label.tooltip_text=str(p.character_config.passive)+" · "+str(p.character_config.weakness)
  health.reading(p.parts[0].hp,p.parts[0].max_hp,"%d / %d"%[maxf(0,p.parts[0].hp),maxf(0,p.parts[0].max_hp)] if p.parts[0].max_hp>0 else "—")
  var percent=roundi(maxf(0,p.fuel)/p.max_fuel*100) if p.max_fuel>0 else 0
  fuel.visible=p.max_fuel>0
  fuel.reading(p.fuel,p.max_fuel,"%d%%"%percent if p.max_fuel>0 else tr_text("未装燃料箱","NO TANK"))
  danger.reading(run.heat,1.0,"%d%%"%roundi(maxf(0,run.heat)*100))
- modules.capacity(p.parts.size()-1,int(game.db.stores.PlayerDataStore.maxBuiltCores),"∞")
+ modules.capacity(p.parts.size()-1,p.module_cap(),"∞")
  var count=game.combat.drones.filter(func(d):return d.owner==0).size()
  drones.capacity(count,int(game.db.stores.PlayerDataStore.maxHQDronesCount),"∞")
  var countdown=bool(game.selected_mission.get("isTimerCountingDown",false))

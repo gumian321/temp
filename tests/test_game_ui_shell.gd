@@ -18,9 +18,17 @@ func execute():
  game.save.path="user://ui-shell-isolated.json";game.save.fresh()
  check(game.screen=="home" and game.panel.has_meta("game_ui"),"Home uses independent game UI theme")
  var buttons=[];game.collect_focus_buttons(game.panel,buttons)
- check(buttons.size()==5 and root.gui_get_focus_owner()!=null,"Home exposes five focused navigation controls")
+ check(buttons.size()==6 and root.gui_get_focus_owner()!=null,"Home exposes six focused navigation controls")
  check(buttons[0].get_theme_color("font_color")==load("res://scripts/game_ui.gd").TEXT,"Deferred Ink styling does not overwrite new UI")
  await capture("home")
+ var nest_buttons=buttons.filter(func(b):return b.text==game.db.ui("INSECT NEST","虫巢"))
+ check(nest_buttons.size()==1,"Home includes one explicit Insect Nest entry")
+ if nest_buttons.size()==1:
+  var nest_click=InputEventMouseButton.new();nest_click.button_index=MOUSE_BUTTON_LEFT;nest_click.position=nest_buttons[0].get_global_rect().get_center();nest_click.global_position=nest_click.position;nest_click.pressed=true
+  Input.parse_input_event(nest_click);await settle()
+  nest_click=nest_click.duplicate();nest_click.pressed=false;Input.parse_input_event(nest_click);await settle()
+  check(game.screen=="characters","Clicking the home Nest entry opens character selection")
+ game.show_menu();await settle()
  game.show_options();await settle()
  check(not game.source_ui.visible,"Old option layout is hidden while backing source behavior is preserved")
  check(game.panel.has_meta("game_ui"),"Options has protected redesigned shell")

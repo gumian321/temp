@@ -3,6 +3,7 @@ extends Node2D
 const DB = preload("res://scripts/source_db.gd")
 const Save = preload("res://scripts/save_store.gd")
 const Body = preload("res://scripts/chain_centipede.gd")
+const CharacterArt = preload("res://scripts/character_art.gd")
 const CentipedeArt = preload("res://scripts/centipede_art.gd")
 const SegmentFeedback = preload("res://scripts/segment_feedback.gd")
 const UI = preload("res://scripts/game_ui.gd")
@@ -143,6 +144,9 @@ func _ready():
 		test_mode=true;save.fresh();save.path="user://build-input-isolated.json";start_run();run.rewards.enqueue(true);show_rewards()
 
 func clear_ui():
+	if screen not in ["game","pause","build","rewards","result"]:
+		if popup_text!=null:popup_text.clear()
+		if run!=null:run.notifications.clear()
 	# A pending key capture belongs only to the currently displayed controls view.
 	# Rebuilding or leaving that view cancels it, including mouse Back/settings.
 	rebind_action=""
@@ -212,14 +216,19 @@ func show_menu():
 	UI.label(panel,db.ui("ARMORED\nINSTINCT","逐节武装"),Vector2(80,136),52)
 	UI.label(panel,"01 / "+db.ui("EXPEDITION","远征"),Vector2(84,225),17,UI.MUTED)
 	UI.button(panel,db.ui("DEPLOY","出击"),Rect2(80,308,376,102),show_missions,"play",UI.AMBER)
-	UI.button(panel,db.ui("RESEARCH","进化"),Rect2(80,432,376,76),show_lab,"research")
-	UI.button(panel,db.ui("SETTINGS","设置"),Rect2(80,524,376,76),show_options,"settings")
+	UI.button(panel,db.ui("INSECT NEST","虫巢"),Rect2(80,426,376,76),show_characters,"body")
+	UI.button(panel,db.ui("RESEARCH","进化"),Rect2(80,516,180,76),show_lab,"research")
+	UI.button(panel,db.ui("SETTINGS","设置"),Rect2(276,516,180,76),show_options,"settings")
 	var updates=UI.button(panel,"",Rect2(80,628,76,66),show_changelog,"check");updates.tooltip_text=db.ui("What's new","更新记录")
 	var exit_button=UI.button(panel,"",Rect2(380,628,76,66),safe_shutdown,"exit");exit_button.tooltip_text=db.ui("Exit","退出游戏")
 	UI.icon(panel,"meta",Vector2(82,765),38,UI.AMBER)
 	UI.label(panel,str(save.state.meta),Vector2(136,760),34,UI.AMBER)
 	UI.label(panel,db.ui("EVOLUTION","进化点"),Vector2(136,807),16,UI.MUTED)
 	UI.label(panel,"W A S D  /  "+db.ui("MOVE","移动")+"     E  /  "+db.ui("BUILD","装配"),Vector2(780,830),18,UI.TEXT)
+
+func show_characters():
+	screen="characters";clear_ui();source_ui=null
+	var nest=preload("res://scripts/character_select.gd").new();panel.add_child(nest);nest.setup(self)
 
 func source_ui_action(method:String,_id:String,_args:Dictionary):
 	if method=="HoverFeedback":audio_system.play(int(_args.get("type",72)));return
@@ -402,7 +411,9 @@ func start_run():
 	if popup_text!=null:popup_text.clear()
 	if particle_effects!=null:particle_effects.clear()
 	if tutorials!=null:tutorials.reset_run()
+	save.begin_character_run(true)
 	player = Body.new(db)
+	player.configure_character(str(save.state.selected_character))
 	leg_phase=0.0;player_legs.reset()
 	build_selected_segment=1
 	combat = Battle.new(db, player)
@@ -479,7 +490,7 @@ func update_source_hud():
 	source_ui.show_node("100",run.director.end_spawned or run.mode.get("class")=="EndlessModeManager")
 
 func control_title(action:String)->String:
-	var names={"move_up":"向上移动","move_down":"向下移动","move_left":"向左移动","move_right":"向右移动","boost":"加速","build":"逐节装塔","pause":"暂停","radar":"雷达","shoot":"射击","invert_x":"反转横向瞄准","invert_y":"反转纵向瞄准","left_aim":"左摇杆瞄准"}
+	var names={"move_up":"向上移动","move_down":"向下移动","move_left":"向左移动","move_right":"向右移动","boost":"加速","character_skill":"角色技能","build":"逐节装塔","pause":"暂停","radar":"雷达","shoot":"射击","invert_x":"反转横向瞄准","invert_y":"反转纵向瞄准","left_aim":"左摇杆瞄准"}
 	return db.ui(action.replace("_"," ").capitalize(),names.get(action,action))
 
 func show_build():
@@ -665,7 +676,7 @@ func _process(dt: float):
 	camera_impact = maxf(0.0, camera_impact - dt * 22.0)
 	camera_kick = Vector2(sin(test_time * 91.0), cos(test_time * 73.0)) * camera_impact + camera_recoil
 	mouth_activity = move_toward(mouth_activity, 1.0 if screen == "game" and (controls.shooting() or test_mode) else 0.0, dt * 8.0)
-	if run!=null and popup_text!=null:
+	if run!=null and popup_text!=null and screen=="game":
 		for notification in run.notifications:popup_text.enqueue(notification)
 		run.notifications.clear()
 	if particle_effects!=null:
@@ -862,13 +873,18 @@ func _input(event):
 	elif event.button_index==JOY_BUTTON_B and event.pressed:
 		if screen=="game":show_build()
 		elif screen=="reward_pool" or screen=="menu":show_missions() if screen=="reward_pool" else show_menu()
-		elif screen in ["lab","options","changelog","result"]:show_menu()
+		elif screen in ["lab","options","changelog","result","characters"]:show_menu()
 		elif screen=="controls":rebind_action="";show_options()
 		elif screen=="pause":show_game()
 		elif screen in ["rewards","build"]:postpone_rewards()
 		get_viewport().set_input_as_handled()
 
 func _unhandled_input(event):
+	if event.is_action_pressed("character_skill") and not event.is_echo():
+		if screen=="game" and camera_focus.is_empty() and not run.finished:
+			var command=main_weapon_input()
+			if command.enabled:combat.request_skill(command.aim)
+		get_viewport().set_input_as_handled();return
 	if event.is_action_pressed("pause") and screen in ["rewards","build"]:
 		postpone_rewards();get_viewport().set_input_as_handled();return
 	if event.is_action_pressed("radar") and screen=="game":radar_mode=not radar_mode;zoom=0.25 if radar_mode else 1.0
@@ -883,7 +899,7 @@ func _unhandled_input(event):
 		if event.is_action_pressed("pause"):
 			if screen == "game": show_pause()
 			elif screen == "pause": show_game()
-			elif screen in ["menu", "lab", "options", "changelog"]: show_menu()
+			elif screen in ["menu", "lab", "options", "changelog", "characters"]: show_menu()
 			elif screen=="reward_pool":show_missions()
 			elif screen=="controls":show_options()
 		if event.is_action_pressed("build"):
@@ -1006,17 +1022,20 @@ func _draw():
 					var extent=texture.get_size()/float(db.sprites[renderer.sprite].get('ppu',100))*Vector2(renderer.sx,renderer.sy)*48*zoom
 					art(texture,world(drop.position),extent,RenderState.angle(renderer,test_time),RenderState.color(renderer,test_time))
 		# Continuous insect silhouette; turrets sit on the carapace of each segment.
-		var last_pose:Dictionary=player.segment_pose(player.segment_count())
-		CentipedeArt.tail(self,world(last_pose.point),Vector2(last_pose.direction).angle(),zoom,player.segment_count()==0)
-		for segment in range(player.segment_count(),0,-1):
-			var pose:Dictionary=player.segment_pose(segment)
-			var previous:Dictionary=player.segment_pose(segment-1)
-			draw_line(world(pose.point),world(previous.point),Color("173b70"),22*zoom,true)
-			CentipedeArt.segment(self,world(pose.point),Vector2(pose.direction).angle(),zoom,leg_phase-segment*0.8,false,player.parts_on_segment(segment).is_empty(),false,0,-1,player_legs.poses(segment))
-			var hit_strength=0.0
-			for part_index in player.parts_on_segment(segment):hit_strength=maxf(hit_strength,float(player.parts[part_index].get("impact_left",0)))
-			SegmentFeedback.paint_hit(self,world(pose.point),Vector2(pose.direction).angle(),hit_strength,zoom)
-		CentipedeArt.segment(self,world(player.head),player.facing.angle(),zoom,leg_phase,true,false,false,mouth_activity,test_time)
+		if player.character_id!="centipede":
+			CharacterArt.draw_body(self,player,world(player.head),zoom,test_time)
+		else:
+			var last_pose:Dictionary=player.segment_pose(player.segment_count())
+			CentipedeArt.tail(self,world(last_pose.point),Vector2(last_pose.direction).angle(),zoom,player.segment_count()==0)
+			for segment in range(player.segment_count(),0,-1):
+				var pose:Dictionary=player.segment_pose(segment)
+				var previous:Dictionary=player.segment_pose(segment-1)
+				draw_line(world(pose.point),world(previous.point),Color("173b70"),22*zoom,true)
+				CentipedeArt.segment(self,world(pose.point),Vector2(pose.direction).angle(),zoom,leg_phase-segment*0.8,false,player.parts_on_segment(segment).is_empty(),false,0,-1,player_legs.poses(segment))
+				var hit_strength=0.0
+				for part_index in player.parts_on_segment(segment):hit_strength=maxf(hit_strength,float(player.parts[part_index].get("impact_left",0)))
+				SegmentFeedback.paint_hit(self,world(pose.point),Vector2(pose.direction).angle(),hit_strength,zoom)
+			CentipedeArt.segment(self,world(player.head),player.facing.angle(),zoom,leg_phase,true,false,false,mouth_activity,test_time)
 		for i in range(player.parts.size()-1,-1,-1):
 			var p:Dictionary=player.parts[i]
 			var pos=world(player.weapon_origin(i))
@@ -1030,6 +1049,7 @@ func _draw():
 				var health_at=world(p.position)+Vector2(-20,35)*zoom
 				draw_rect(Rect2(health_at,Vector2(40,3)*zoom),Ink.WASH)
 				draw_rect(Rect2(health_at,Vector2(40*clampf(p.hp/maxf(1,p.max_hp),0,1),3)*zoom),Ink.BLUE)
+		CharacterArt.draw_skill(self,player,combat.character_abilities.state(),world(player.head),zoom,test_time)
 		passive_fx.paint(self,player,combat,zoom)
 		for mine in combat.special.mines:
 			module_art(db.sprite(mine.data.mineSprite),world(mine.position),Vector2(22,22)*zoom)

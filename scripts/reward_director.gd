@@ -102,7 +102,7 @@ func roll() -> Array:
 		unlocked.erase(reward)
 		unlocked = unlocked.filter(func(r): return not conflict(r,reward))
 		rarity = random_rarity(unlocked)
-	if run().rng.randf()<float(db.stores.RewardDataStore.packRewardChance) and run().player.parts.size()<61 and not chosen.is_empty():
+	if run().rng.randf()<float(db.stores.RewardDataStore.packRewardChance) and run().player.parts.size()+run().player.pending.size()<run().character_module_cap()+1 and not chosen.is_empty():
 		var bonus: String = db.stores.RewardDataStore.packReward
 		if bonus not in run().save.state.unlocked: run().save.state.unlocked.append(bonus)
 		run().save.state.disabled.erase(bonus)

@@ -72,7 +72,9 @@ func execute():
  var game=load('res://main.tscn').instantiate();root.add_child(game);await settle();game.set_process(false)
  game.save.path='user://meta-mission-render.json';game.save.fresh();game.test_mode=true
  game.show_missions();await settle()
- check(game.mission_ui.emblem is TextureRect and game.mission_ui.emblem.texture!=null,'Mission emblem is generated raster art')
+ check(game.mission_ui.scene_art is TextureRect and game.mission_ui.scene_art.texture!=null,'Mission hero is generated raster art')
+ check(game.mission_ui.scene_textures.size()==6 and game.mission_ui.scene_textures.all(func(t):return t is AtlasTexture and t.atlas.resource_path==game.mission_ui.ART_PATH),'All six mission illustrations come from generated scene atlas')
+ check(game.mission_ui.rows.all(func(b):return b.get_child(0) is TextureRect and b.get_child(0).texture!=null and b.get_child(0).size==Vector2(96,64)),'Mission thumbnails display raster illustrations at reserved sizes')
  check(game.mission_ui.rows.all(func(b):return b.get_theme_color('font_color')==load('res://scripts/game_ui.gd').TEXT),'Mission text retains navy contrast')
  var mission_id=game.selected_mission.id;var level=game.difficulty;var meta=game.save.state.meta
  for extent in [Vector2i(1440,900),Vector2i(1280,720)]:

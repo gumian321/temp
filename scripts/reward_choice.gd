@@ -65,7 +65,7 @@ func setup(owner_game,offers:Array,token:int):
  resized.connect(layout_board);layout_board.call_deferred()
 func effect_text(reward:Dictionary)->String:
  var kind=str(reward.get("class",""))
- if kind=="BlockReward":return game.db.armament_description(reward)+"\n"+game.db.ui("New segment held in reserve. Open Armory and place it to activate.","获得待装新体节。进入身体装配，放入后才会生效。")
+ if kind=="BlockReward":return game.db.armament_description(reward)+"\n"+(game.db.ui("New segment held in reserve. Open Armory and place it to activate.","获得待装新体节。进入身体装配，放入后才会生效。") if not compact_character() else game.db.ui("Module in reserve. Equip on an empty hardpoint or replace an old module.","获得待装模块。装入空挂点或替换旧模块。"))
  var description=""
  if reward.get("rewardDesc") is String:description=game.db.text(reward.rewardDesc)
  if description==str(reward.get("rewardDesc")):description=""
@@ -89,7 +89,7 @@ func focus_first():
 
 func short_effect(reward:Dictionary)->String:
  match str(reward.get("class","")):
-  "BlockReward":return game.db.ui("+1 SEGMENT","+1  体节")
+  "BlockReward":return game.db.ui("+1 SEGMENT","+1  体节") if not compact_character() else game.db.ui("+1 MODULE","+1  模块")
   "PercentBasicReward":return "%+.0f%%"%(float(reward.get("percent",0))*100)
   "CountBasicReward":return Passive.action_name(game.db,{8:"swap",9:"duplicate",20:"move",21:"wall"}.get(int(reward.rewardType),"wall"))+" ×%d"%int(reward.get("count",reward.get("rewardCount",1)))
   "CrusedReward":return "%+.0f%% / %+.0f%%"%[float(reward.buffPercent)*100,float(reward.debuffPercent)*100]
@@ -118,7 +118,7 @@ func progress_info(reward:Dictionary)->Dictionary:
   var level=int(player.levels.get(reward.id,0));var cap=int(data.get("levelUpsAllowed",3))
   return {"text":"%d/%d"%[level,cap],"tooltip":game.db.ui("Current upgrade level / maximum level: %d / %d","当前升级等级 / 等级上限：%d / %d")%[level,cap]}
  if kind=="BlockReward":
-  var occupied=player.parts.size()-1+player.pending.size();var cap=int(data.maxBuiltCores)
+  var occupied=player.parts.size()-1+player.pending.size();var cap=player.module_cap() if player.has_method("module_cap") else int(data.maxBuiltCores)
   var owned=player.parts.filter(func(p):return p.id==reward.blockCore and p.hp>0).size()+player.pending.count(reward.blockCore)
   return {"text":game.db.ui("SLOTS %d/%d","槽位 %d/%d")%[occupied,cap],"tooltip":game.db.ui("Body slots used (including reserve) / total: %d / %d. This module owned: %d.","已用体节（含待装）/ 总上限：%d / %d。此模块持有：%d。")%[occupied,cap,owned]}
  if kind=="CountBasicReward":
@@ -158,3 +158,6 @@ func reward_art(reward:Dictionary)->Texture2D:
    14,15:return game.db.core_sprite(game.db.named("Core_Gun_Cannon"))
   return UI.icon_texture("evolution")
  return game.db.reward_sprite(reward)
+
+func compact_character()->bool:
+ return game.player.get("character_id")!=null and game.player.get("character_id")!="centipede"

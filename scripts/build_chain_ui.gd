@@ -3,6 +3,29 @@ extends "res://scripts/build_grid_ui.gd"
 const ChainMount = preload("res://scripts/chain_mount_control.gd")
 const ASSEMBLY_FACING = PI
 const UI=preload("res://scripts/game_ui.gd")
+class CompactSlot extends Button:
+	var builder
+	var target:Dictionary
+	var payload:Dictionary
+	var selected=false
+	func _init():mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
+	func setup(owner,target_data,data):
+		builder=owner;target=target_data;payload=data
+		pressed.connect(func():builder.click(target,payload))
+	func _draw():
+		var slot=int(target.before)
+		draw_style_box(UI.card_style(selected or has_focus()),Rect2(Vector2(2,8),size-Vector2(4,16)))
+		draw_string(UI.font(),Vector2(20,43),"%02d"%slot,HORIZONTAL_ALIGNMENT_LEFT,-1,18,UI.MUTED)
+		builder.draw_segment(self,slot,Vector2(size.x/2,104),1.1)
+		draw_string(UI.font(),Vector2(8,190),"空挂点" if payload.is_empty() else builder.db.title(builder.db.asset(payload.part.id)),HORIZONTAL_ALIGNMENT_CENTER,size.x-16,15,UI.TEXT)
+	func _get_drag_data(_at):
+		if payload.is_empty():return null
+		builder.begin_drag(payload.duplicate());return payload.duplicate()
+	func _can_drop_data(_at,data):return data is Dictionary and builder.can_drop(target,data)
+	func _drop_data(_at,data):builder.drop(target,data)
+	func _notification(what):
+		if what==NOTIFICATION_DRAG_END and builder!=null:builder.end_drag()
+
 var chain_scroll: ScrollContainer
 var inventory_scroll: ScrollContainer
 var insert_targets: Dictionary = {}
@@ -35,8 +58,8 @@ func rebuild():
 	for child in get_children():remove_child(child);child.queue_free()
 	inventory.clear();slots.clear();segment_buttons.clear();insert_targets.clear()
 	var title=text_at("蜕变舱" if game.reward_flow_active else "虫巢武装",Vector2(65,35),Vector2(600,58),38)
-	var capacity=text_at("%02d / 60"%player.segment_count(),Vector2(1200,42),Vector2(170,36),24)
-	var subtitle=text_at("1 元素 = 1 体节    ·    拖入 + 生长",Vector2(65,106),Vector2(900,30),17)
+	var capacity=text_at("%02d / %d"%[player.parts.size()-1,player.module_cap()],Vector2(1200,42),Vector2(170,36),24)
+	var subtitle=text_at("1 元素 = 1 体节    ·    拖入 + 生长" if player.character_id=="centipede" else "固定挂点    ·    拖入空位 / 覆盖旧模块",Vector2(65,106),Vector2(900,30),17)
 	text_at("待装  ·  %02d"%player.pending.size(),Vector2(72,527),Vector2(280,36),22)
 	var scroll=ScrollContainer.new();scroll.position=Vector2(72,579);scroll.size=Vector2(652,186)
 	scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;add_child(scroll)
@@ -52,27 +75,35 @@ func rebuild():
 		text_at("战斗 → 奖励 → 生长",Vector2(250,655),Vector2(400,36),17)
 	reward_button=action_button("奖励  %d"%game.run.packs,Vector2(582,526),Vector2(140,44),game.show_rewards,not player.pending.is_empty())
 	reward_button.tooltip_text="选择奖励";reward_button.visible=game.run.packs>0
-	text_at("身体序列",Vector2(72,174),Vector2(280,34),21)
-	text_at("头部 → 尾部",Vector2(1200,174),Vector2(170,30),16)
+	text_at("身体序列" if player.character_id=="centipede" else "身体挂点",Vector2(72,174),Vector2(280,34),21)
+	text_at("头部 → 尾部" if player.character_id=="centipede" else "固定身体 · 独立装配",Vector2(1200,174),Vector2(170,30),16)
 	chain_scroll=ScrollContainer.new();chain_scroll.position=Vector2(72,218);chain_scroll.size=Vector2(1296,256)
 	chain_scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
 	chain_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_AUTO;add_child(chain_scroll)
 	var row=HBoxContainer.new();row.add_theme_constant_override("separation",0);chain_scroll.add_child(row)
-	chain_mount(row,Vector2(128,238),{"kind":"head"},{},null,"头部")
-	for before in range(1,player.segment_count()+2):
-		var tail=before==player.segment_count()+1
-		var extent=Vector2(222 if player.segment_count()==0 else (104 if tail else 44),238)
-		var gap=chain_mount(row,extent,{"kind":"gap","before":before},{},null,"新增体节" if tail else "插入此处")
-		insert_targets[before]=gap
-		if tail:tail_target=gap;continue
-		var index=player.part_at(before)
-		var part:Dictionary=player.parts[index]
-		var core=db.asset(part.id)
-		var control=chain_mount(row,Vector2(126,238),{"kind":"segment","segment":before},{"kind":"mounted","part":part},db.core_sprite(core),db.title(core))
-		control.selected=(selected_data.get("kind")!="inventory" and before==selected_segment)
-		segment_buttons[before]=control
+	if player.character_id!="centipede":
+		for mount in range(1,player.module_cap()+1):
+			var index=player.part_at(mount)
+			var data={"kind":"mounted","part":player.parts[index]} if index>0 else {}
+			var control=CompactSlot.new();control.custom_minimum_size=Vector2(154,238);row.add_child(control)
+			control.setup(self,{"kind":"mount","before":mount},data);control.selected=mount==selected_segment
+			segment_buttons[mount]=control
+	else:
+		chain_mount(row,Vector2(128,238),{"kind":"head"},{},null,"头部")
+		for before in range(1,player.segment_count()+2):
+			var tail=before==player.segment_count()+1
+			var extent=Vector2(222 if player.segment_count()==0 else (104 if tail else 44),238)
+			var gap=chain_mount(row,extent,{"kind":"gap","before":before},{},null,"新增体节" if tail else "插入此处")
+			insert_targets[before]=gap
+			if tail:tail_target=gap;continue
+			var index=player.part_at(before)
+			var part:Dictionary=player.parts[index]
+			var core=db.asset(part.id)
+			var control=chain_mount(row,Vector2(126,238),{"kind":"segment","segment":before},{"kind":"mounted","part":part},db.core_sprite(core),db.title(core))
+			control.selected=(selected_data.get("kind")!="inventory" and before==selected_segment)
+			segment_buttons[before]=control
 	chain_scroll.set_deferred("scroll_horizontal",previous_scroll)
-	guidance=text_at("+ 插入    ⇄ 交换    右键取消",Vector2(780,106),Vector2(580,30),16)
+	guidance=text_at("+ 插入    ⇄ 交换    右键取消" if player.character_id=="centipede" else "拖入已占挂点将替换旧模块 · 不可撤销",Vector2(780,106),Vector2(580,30),16)
 	detail=text_at("",Vector2(1000,534),Vector2(350,65),25)
 	health_label=text_at("",Vector2(1000,608),Vector2(350,32),19)
 	description_label=text_at("",Vector2(1000,658),Vector2(350,92),17)
@@ -164,13 +195,19 @@ func _draw():
 	if core.is_empty():
 		draw_head(self,Vector2(906,624),1.4)
 	else:
-		if int(data.get("part",{}).get("segment",-1))==player.segment_count():Art.tail(self,Vector2(906,624),ASSEMBLY_FACING,1.7)
-		Art.segment(self,Vector2(906,624),ASSEMBLY_FACING,1.7,0,false)
+		if player.character_id=="centipede":
+			if int(data.get("part",{}).get("segment",-1))==player.segment_count():Art.tail(self,Vector2(906,624),ASSEMBLY_FACING,1.7)
+			Art.segment(self,Vector2(906,624),ASSEMBLY_FACING,1.7,0,false)
+		else:draw_circle(Vector2(906,624),54,Color(UI.TEAL,.1))
 		var texture=db.core_sprite(core)
 		if texture!=null:
 			draw_element(self,texture,Vector2(906,617),1.7)
 
 func draw_head(canvas:CanvasItem,at:Vector2,scale_factor:float):
+	if player.character_id!="centipede":
+		var texture=preload("res://scripts/character_art.gd").portrait(player.character_id)
+		if texture!=null:canvas.draw_texture_rect(texture,Rect2(at-Vector2.ONE*50*scale_factor,Vector2.ONE*100*scale_factor),false)
+		return
 	if player.segment_count()==0:Art.tail(canvas,at,ASSEMBLY_FACING,scale_factor,true)
 	Art.segment(canvas,at,ASSEMBLY_FACING,scale_factor,0,true)
 
@@ -181,6 +218,12 @@ func draw_element(canvas:CanvasItem,texture:Texture2D,at:Vector2,scale_factor:fl
 	canvas.draw_set_transform(Vector2.ZERO)
 
 func draw_segment(canvas:CanvasItem,segment:int,at:Vector2,scale_factor:float=0.95,_additional:int=0):
+	if player.character_id!="centipede":
+		canvas.draw_circle(at,32*scale_factor,Color(UI.TEAL,.1))
+		var slot_index=player.part_at(segment)
+		if slot_index>0:draw_element(canvas,db.core_sprite(db.asset(player.parts[slot_index].id)),at,scale_factor)
+		else:canvas.draw_texture_rect(UI.icon_texture("body"),Rect2(at-Vector2.ONE*18,Vector2.ONE*36),false)
+		return
 	if segment==player.segment_count():Art.tail(canvas,at,ASSEMBLY_FACING,scale_factor)
 	Art.segment(canvas,at,ASSEMBLY_FACING,scale_factor,0,false)
 	var index=player.part_at(segment)
@@ -215,12 +258,12 @@ func inspect(data:Dictionary):
 
 func begin_drag(data:Dictionary):
 	drag_cancelled=false;active_drag_data=data;drag_pointer=get_global_mouse_position();inspect(data)
-	guidance.text="+ 插入    ⇄ 交换    边缘滚动    ESC 取消"
+	guidance.text="+ 插入    ⇄ 交换    边缘滚动    ESC 取消" if player.character_id=="centipede" else "拖入已占挂点将替换旧模块 · ESC 取消"
 	refresh_controls()
 
 func end_drag():
 	active_drag_data={};inspected_data={};hovered_target={};inspect({})
-	guidance.text="+ 插入    ⇄ 交换    右键取消"
+	guidance.text="+ 插入    ⇄ 交换    右键取消" if player.character_id=="centipede" else "拖入已占挂点将替换旧模块 · 不可撤销"
 	drag_cancelled=false;refresh_controls()
 
 func hover_mount(target:Dictionary):
@@ -233,6 +276,11 @@ func hover_mount(target:Dictionary):
 
 func can_drop(target:Dictionary,data:Dictionary)->bool:
 	if drag_cancelled:return false
+	if target.get("kind")=="mount":
+		var mount=int(target.before)
+		if mount<1 or mount>player.module_cap():return false
+		if data.get("kind")=="inventory":return int(data.index)>=0 and int(data.index)<player.pending.size() and player.pending[int(data.index)]==data.id
+		return data.get("kind")=="mounted" and player.parts.find(data.get("part",{}))>0 and int(data.part.segment)!=mount
 	if target.get("kind")=="swap":
 		if data.get("kind")!="mounted":return false
 		var index=player.parts.find(data.get("part",{}))
@@ -243,7 +291,7 @@ func can_drop(target:Dictionary,data:Dictionary)->bool:
 	if before<1 or before>player.segment_count()+1:return false
 	if data.get("kind")=="inventory":
 		var index=int(data.get("index",-1))
-		return index>=0 and index<player.pending.size() and player.pending[index]==data.get("id") and player.segment_count()<60
+		return index>=0 and index<player.pending.size() and player.pending[index]==data.get("id") and player.parts.size()-1<player.module_cap()
 	if data.get("kind")=="mounted":
 		var index=player.parts.find(data.get("part",{}))
 		if index<=0:return false
@@ -252,17 +300,18 @@ func can_drop(target:Dictionary,data:Dictionary)->bool:
 	return false
 
 func drop(target:Dictionary,data:Dictionary):
-	if not can_drop(target,data):toast("请选择身体间的 + 号，或拖到尾部。");return
+	if not can_drop(target,data):toast("请选择有效挂点。" if player.character_id!="centipede" else "请选择身体间的 + 号，或拖到尾部。");return
 	var before=int(target.get("before",-1))
 	var changed=false
 	var part:Dictionary={}
 	if data.kind=="inventory":
-		changed=player.install_module(data.id,before)
+		changed=game.combat.replace_character_module(player.part_at(before),data.id) if player.character_id!="centipede" and player.part_at(before)>0 else player.install_module(data.id,before)
 		if changed:
 			player.pending.remove_at(int(data.index));part=player.parts[player.part_at(before)]
 	else:
 		part=data.part
-		if target.get("kind")=="swap":changed=player.swap_piece(player.parts.find(part),player.part_at(int(target.segment)))
+		if target.get("kind")=="mount" and player.part_at(before)>0:changed=player.swap_piece(player.parts.find(part),player.part_at(before))
+		elif target.get("kind")=="swap":changed=player.swap_piece(player.parts.find(part),player.part_at(int(target.segment)))
 		else:changed=player.move_to_mount(player.parts.find(part),before)
 	if not changed:toast(player.last_error);return
 	selected_segment=int(part.segment);game.build_selected_segment=selected_segment
@@ -275,6 +324,9 @@ func drop(target:Dictionary,data:Dictionary):
 
 func click(target:Dictionary,data:Dictionary):
 	if target.get("kind")=="inventory":selected_data=data.duplicate();refresh_controls()
+	elif target.get("kind")=="mount":
+		if not selected_data.is_empty() and can_drop(target,selected_data):drop(target,selected_data)
+		else:selected_segment=int(target.before);game.build_selected_segment=selected_segment;selected_data=data.duplicate();refresh_controls()
 	elif target.get("kind")=="gap" and not selected_data.is_empty():drop(target,selected_data)
 	elif target.get("kind")=="segment":
 		selected_segment=int(target.segment);game.build_selected_segment=selected_segment

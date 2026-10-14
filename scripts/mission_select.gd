@@ -1,13 +1,13 @@
 extends Control
-## Spatial operation chart. Mission state remains owned by main/save_store.
+## Scene-led expedition briefing. Mission IDs and balance stay source-owned.
 const UI=preload("res://scripts/game_ui.gd")
-const NAMES_ZH=["生存","猎杀","护航","破巢","守卫","无尽"]
-const NAMES_EN=["SURVIVE","HUNT","ESCORT","SIEGE","DEFEND","ENDLESS"]
-const KEYS=["shield","target","wing","burst","shield","orbit"]
-const COORDS=[Vector2(100,280),Vector2(245,160),Vector2(435,205),Vector2(475,395),Vector2(280,455),Vector2(95,460)]
+const NAMES_ZH=["生存","无尽","猎杀","护航","破巢","守卫"]
+const NAMES_EN=["SURVIVE","ENDLESS","HUNT","ESCORT","SIEGE","DEFEND"]
+const ART_PATH="res://assets/ui_overhaul/expedition_scenes.png"
 var game
 var board:Panel
 var rows:Array[Button]=[]
+var row_labels:Array[Label]=[]
 var difficulty_buttons:Array[Button]=[]
 var title:Label
 var description:Label
@@ -18,62 +18,81 @@ var points:Label
 var status:Label
 var serial:Label
 var pool_summary:Label
+var reward_summary:Label
+var risk_summary:Label
 var pool_button:Button
 var reset_button:Button
 var back_button:Button
 var launch_button:Button
-var emblem:Control
-var mark:Control
-
-class RouteMap extends Control:
- var selected=0
- func _draw():
-  var center=Vector2(295,320)
-  for radius in [110,200,280]:draw_arc(center,radius,0,TAU,90,Color(UI.MUTED,.14),1,true)
-  var coords=[Vector2(100,280),Vector2(245,160),Vector2(435,205),Vector2(475,395),Vector2(280,455),Vector2(95,460)]
-  for i in 5:draw_line(coords[i],coords[i+1],Color(UI.MUTED,.32),2,true)
-  for i in coords.size():
-   draw_arc(coords[i],57,0,TAU,48,UI.TEAL if i==selected else Color(UI.MUTED,.32),3 if i==selected else 1,true)
-  draw_circle(center,5,UI.AMBER)
-
+var scene_art:TextureRect
+var scene_textures:Array[Texture2D]=[]
+func tr_text(zh:String,en:String)->String:return game.db.ui(en,zh)
+func text_line(text:String,rect:Rect2,font_size:int=20,color:Color=UI.TEXT)->Label:
+ var l=UI.label(board,text,rect.position,font_size,color);l.size=rect.size
+ l.clip_text=true;l.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+ return l
+func clean_button(text:String,rect:Rect2,callback:Callable)->Button:
+ var b=UI.button(board,text,rect,callback)
+ for state in ["normal","hover","pressed","hover_pressed","disabled","focus"]:
+  var skin=UI.card_style(state in ["hover","pressed","hover_pressed"])
+  skin.content_margin_left=12;skin.content_margin_right=12;skin.content_margin_top=8;skin.content_margin_bottom=8
+  if state=="focus":skin.draw_center=false
+  b.add_theme_stylebox_override(state,skin)
+ b.size=rect.size
+ return b
+func picture(parent:Control,texture:Texture2D,rect:Rect2)->TextureRect:
+ # Expand mode MUST precede texture and size, or intrinsic size clamps the image.
+ var t=TextureRect.new();t.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
+ t.texture=texture;t.position=rect.position;t.size=rect.size
+ t.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_COVERED;t.clip_contents=true
+ t.mouse_filter=MOUSE_FILTER_IGNORE;parent.add_child(t);return t
 func setup(owner_game):
  game=owner_game;set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);mouse_filter=MOUSE_FILTER_IGNORE;theme=UI.theme();UI.protect(self)
  UI.backdrop(self)
- board=Panel.new();board.name="MissionBoard";board.size=Vector2(1200,660);board.add_theme_stylebox_override("panel",UI.style(UI.BG,Color.TRANSPARENT));add_child(board)
- back_button=UI.button(board,"",Rect2(24,20,56,48),func():game.show_menu(),"back")
- UI.label(board,tr_text("出征","OPERATIONS"),Vector2(96,22),30)
- points=UI.label(board,"",Vector2(956,30),22,UI.AMBER)
- mark=RouteMap.new();mark.size=Vector2(620,570);mark.mouse_filter=MOUSE_FILTER_IGNORE;board.add_child(mark)
- UI.label(board,"SECTOR / 06",Vector2(26,88),16,UI.MUTED)
+ board=Panel.new();board.name="MissionBoard";board.size=Vector2(1200,660)
+ board.add_theme_stylebox_override("panel",UI.flat_style(UI.BG,Color.TRANSPARENT,0));add_child(board)
+ var atlas:Texture2D=load(ART_PATH)
+ for i in 6:
+  var tile=AtlasTexture.new();tile.atlas=atlas
+  tile.region=Rect2(Vector2(i%2,int(i/2))*Vector2(atlas.get_width()/2.0,atlas.get_height()/3.0),Vector2(atlas.get_width()/2.0,atlas.get_height()/3.0))
+  tile.filter_clip=true;scene_textures.append(tile)
+ back_button=clean_button(tr_text("返回","BACK"),Rect2(24,18,104,46),func():game.show_menu())
+ text_line(tr_text("出征","EXPEDITION"),Rect2(148,18,400,50),32)
+ points=text_line("",Rect2(940,28,236,34),22,UI.AMBER);points.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
+ scene_art=picture(board,scene_textures[0],Rect2(24,88,676,338));scene_art.name="MissionScene"
+ text_line(tr_text("选择行动","CHOOSE OPERATION"),Rect2(24,439,400,30),18,UI.MUTED)
  for i in game.db.stores.MissionDataStore.missionsList.size():
-  var b=UI.button(board,"",Rect2(COORDS[i]-Vector2(40,40),Vector2(80,80)),func():select_mission(i),KEYS[i])
-  for state in ["hover","pressed","hover_pressed"]:b.add_theme_stylebox_override(state,UI.card_style(true))
-  b.add_theme_stylebox_override("focus",UI.card_focus_style())
-  b.toggle_mode=true;b.tooltip_text=game.db.title(game.db.asset(game.db.stores.MissionDataStore.missionsList[i]));rows.append(b)
-  UI.label(board,(NAMES_ZH if game.db.language.begins_with("Chinese") else NAMES_EN)[i],COORDS[i]+Vector2(-36,58),16,UI.MUTED)
- UI.panel(board,Rect2(640,92,532,462),UI.TEAL)
- serial=UI.label(board,"",Vector2(672,114),16,UI.TEAL)
- title=UI.label(board,"",Vector2(672,148),38);title.size=Vector2(365,62)
- emblem=UI.icon(board,"target",Vector2(1058,132),70,UI.AMBER)
- objective_text=UI.label(board,"",Vector2(672,227),21);objective_text.size=Vector2(458,64);objective_text.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
- description=UI.label(board,"",Vector2(672,296),16,UI.MUTED);description.visible=false
- duration=UI.label(board,"",Vector2(672,302),27,UI.AMBER)
- mode_label=UI.label(board,"",Vector2(922,310),16,UI.MUTED)
- UI.label(board,tr_text("威胁等级","THREAT"),Vector2(672,375),16,UI.MUTED)
+  var b=clean_button("",Rect2(24+i*114,478,106,110),func():select_mission(i))
+  b.toggle_mode=true;b.clip_contents=true;rows.append(b)
+  picture(b,scene_textures[i],Rect2(5,5,96,64))
+  var strip=ColorRect.new();strip.color=UI.PANEL;strip.position=Vector2(5,69);strip.size=Vector2(96,36);strip.mouse_filter=MOUSE_FILTER_IGNORE;b.add_child(strip)
+  var l=UI.label(b,(NAMES_ZH if game.db.language.begins_with("Chinese") else NAMES_EN)[i],Vector2(4,72),19)
+  l.size=Vector2(98,30);l.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;row_labels.append(l)
+ serial=text_line("",Rect2(736,90,440,28),16,UI.TEAL)
+ title=text_line("",Rect2(736,122,440,54),38)
+ objective_text=text_line("",Rect2(736,184,440,40),23)
+ description=text_line("",Rect2(736,184,440,40),16,UI.MUTED);description.visible=false
+ duration=text_line("",Rect2(736,230,190,46),29,UI.AMBER)
+ mode_label=text_line("",Rect2(934,242,242,30),17,UI.MUTED);mode_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
+ text_line(tr_text("难度","DIFFICULTY"),Rect2(736,298,440,30),18,UI.MUTED)
  for i in 3:
-  var b=UI.button(board,"I".repeat(i+1),Rect2(672+i*152,405,136,58),func():select_difficulty(i))
-  b.toggle_mode=true;b.tooltip_text=game.db.text(game.db.stores.MissionDataStore.DifficultiesList[i].diffecultyTextID);difficulty_buttons.append(b)
- status=UI.label(board,"",Vector2(672,490),17,UI.MUTED)
- pool_button=UI.button(board,tr_text("战利品","LOOT"),Rect2(24,586,192,52),func():game.show_reward_pool(),"reward")
- pool_summary=UI.label(board,"",Vector2(232,600),16,UI.MUTED)
- reset_button=UI.button(board,tr_text("重置","RESET"),Rect2(456,586,130,52),reset_pool)
- launch_button=UI.button(board,tr_text("出发","DEPLOY"),Rect2(640,576,532,64),launch,"play",UI.AMBER)
+  var b=clean_button(((["普通","困难","噩梦"] if game.db.language.begins_with("Chinese") else ["NORMAL","HARD","NIGHTMARE"])[i]),Rect2(736+i*150,338,140,72),func():select_difficulty(i))
+  b.add_theme_font_size_override("font_size",25 if game.db.language.begins_with("Chinese") else 17)
+  b.size=Vector2(140,72);b.toggle_mode=true;difficulty_buttons.append(b)
+ risk_summary=text_line("",Rect2(736,422,440,28),17,UI.MUTED)
+ reward_summary=text_line("",Rect2(736,464,440,30),19,UI.AMBER)
+ status=text_line("",Rect2(736,504,440,30),18,UI.MUTED)
+ launch_button=clean_button(tr_text("出发","DEPLOY"),Rect2(736,550,440,64),launch)
+ launch_button.add_theme_font_size_override("font_size",28)
+ pool_button=clean_button(tr_text("战利品","LOOT POOL"),Rect2(24,608,174,42),func():game.show_reward_pool())
+ pool_button.add_theme_font_size_override("font_size",19)
+ pool_summary=text_line("",Rect2(216,614,260,30),17,UI.MUTED)
+ reset_button=clean_button(tr_text("重置","RESET"),Rect2(526,608,174,42),reset_pool);reset_button.add_theme_font_size_override("font_size",19)
  resized.connect(layout_board);refresh();layout_board.call_deferred()
-func tr_text(zh:String,en:String)->String:return game.db.ui(en,zh)
 func layout_board():
  if board==null:return
- var factor=minf((size.x-40)/1200,(size.y-40)/660)
- factor=maxf(.1,factor);board.scale=Vector2.ONE*factor;board.position=(size-board.size*factor)*.5
+ var factor=maxf(.1,minf((size.x-40)/1200,(size.y-40)/660))
+ board.scale=Vector2.ONE*factor;board.position=(size-board.size*factor)*.5
 func select_mission(index:int):game.selected_mission=game.db.asset(game.db.stores.MissionDataStore.missionsList[index]);refresh()
 func select_difficulty(index:int):game.difficulty=index;refresh()
 func refresh():
@@ -81,15 +100,19 @@ func refresh():
  var index=maxi(0,game.db.stores.MissionDataStore.missionsList.find(mission.id))
  for i in rows.size():
   var m=game.db.asset(game.db.stores.MissionDataStore.missionsList[i]);var unlocked=game.save.mission_unlocked(m)
-  rows[i].set_pressed_no_signal(i==index);rows[i].modulate=Color.WHITE if unlocked else Color(1,1,1,.65)
+  rows[i].set_pressed_no_signal(i==index)
   rows[i].add_theme_stylebox_override("normal",UI.card_style(i==index))
-  rows[i].tooltip_text=game.db.title(m)+(tr_text(" · 锁定"," · Locked") if not unlocked else "")
- for i in difficulty_buttons.size():difficulty_buttons[i].set_pressed_no_signal(i==game.difficulty)
+  rows[i].tooltip_text=game.db.title(m)+(tr_text(" · 解锁 %d RP"," · Unlock %d RP")%int(m.MissionCost) if not unlocked else "")
+  row_labels[i].add_theme_color_override("font_color",UI.TEAL if i==index else UI.TEXT)
+ for i in difficulty_buttons.size():
+  difficulty_buttons[i].set_pressed_no_signal(i==game.difficulty)
+  var config=game.db.asset(mission.MissionsObjectiveList[i].objectiveAIConfiguration)
+  difficulty_buttons[i].tooltip_text=tr_text("每波敌群 %d–%d","Enemy groups per wave: %d–%d")%[int(config.get("MinWaveCount",0)),int(config.get("MaxWaveCount",0))]
  title.text=(NAMES_ZH if game.db.language.begins_with("Chinese") else NAMES_EN)[index]
- title.tooltip_text=game.db.title(mission);serial.text="OP / %02d"%[index+1]
+ title.tooltip_text=game.db.title(mission);serial.text=tr_text("行动 %02d / 06","OPERATION %02d / 06")%[index+1]
  description.text=game.db.text(mission.MissionDescTextID);title.tooltip_text+="\n"+description.text
- var zh=["存活至追捕结束","击败目标舰队","护送商队抵达安全区","摧毁敌方空间站","守住己方空间站","迎战无限波次"]
- var en=["Survive the hunt","Eliminate the target fleet","Escort traders to safety","Destroy the enemy station","Defend your station","Survive endless waves"]
+ var zh=["击败最后一波首领","迎战无限波次","击败目标运输队","护送商队抵达安全区","摧毁敌方空间站","守住己方空间站"]
+ var en=["Defeat the final boss wave","Survive endless waves","Eliminate the target convoy","Escort the convoy to safety","Destroy the enemy station","Defend your station"]
  objective_text.text=(zh if game.db.language.begins_with("Chinese") else en)[index]
  duration.text="∞" if mission.isEndless else "%02d : 00"%int(mission.MissionsObjectiveList[game.difficulty].objectiveTime)
  mode_label.text=tr_text("无限波次","ENDLESS") if mission.isEndless else tr_text("行动时限","TIME LIMIT")
@@ -97,10 +120,17 @@ func refresh():
  var unlocked=game.save.mission_unlocked(mission)
  launch_button.text=tr_text("出发","DEPLOY") if unlocked else tr_text("解锁  %d RP","UNLOCK  %d RP")%int(mission.MissionCost)
  launch_button.disabled=not unlocked and game.save.state.meta<int(mission.MissionCost)
- status.text=tr_text("准备就绪","READY") if unlocked else (tr_text("研究点不足","MORE RP NEEDED") if launch_button.disabled else tr_text("永久解锁","PERMANENT UNLOCK"))
+ status.text=tr_text("准备就绪","READY") if unlocked else (tr_text("研究点不足","MORE RP NEEDED") if launch_button.disabled else tr_text("永久解锁 · 解锁后出发","PERMANENT UNLOCK"))
  pool_summary.text=tr_text("全部启用","ALL ACTIVE") if game.save.state.disabled.is_empty() else tr_text("排除 %d 项","%d EXCLUDED")%game.save.state.disabled.size()
- emblem.texture=UI.icon_texture(KEYS[index])
- reset_button.visible=not game.save.state.disabled.is_empty();mark.selected=index;mark.queue_redraw();connect_focus();layout_board.call_deferred()
+ var config=game.db.asset(mission.MissionsObjectiveList[game.difficulty].objectiveAIConfiguration)
+ risk_summary.text=tr_text("每波敌群 %d–%d","Enemy groups / wave  %d–%d")%[int(config.get("MinWaveCount",0)),int(config.get("MaxWaveCount",0))]
+ var mode:Dictionary={}
+ for component in game.db.prefabs.get(mission.MissionsObjectiveList[game.difficulty].objectivePrefab,{}).get("components",[]):
+  if str(component.get("class","")).ends_with("ModeManager"):mode=component;break
+ reward_summary.text=tr_text("生存积分 +%d / 秒","Survival score +%d / sec")%int(mode.get("BonusRatingPerSecSurvived",0)) if mission.isEndless else tr_text("完成积分 +%s","Completion score +%s")%str(int(mode.get("MissionRating",0)))
+ reward_summary.tooltip_text=tr_text("研究点按最终评分结算。难度不直接增加奖励倍率。","RP is awarded by final grade. Difficulty has no direct reward multiplier.")
+ scene_art.texture=scene_textures[index]
+ reset_button.visible=not game.save.state.disabled.is_empty();connect_focus();layout_board.call_deferred()
 func launch():
  if game.save.mission_unlocked(game.selected_mission):game.begin_run()
  elif game.save.unlock_mission(game.selected_mission):refresh();launch_button.grab_focus()
