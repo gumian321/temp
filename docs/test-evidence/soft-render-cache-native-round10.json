@@ -1,0 +1,117 @@
+{
+  "checks": [
+    {
+      "label": "All variants retain scalar-reference deformation at all 81 vertices",
+      "passed": true
+    },
+    {
+      "label": "Each visible organ keeps one reusable mesh",
+      "passed": true
+    },
+    {
+      "label": "Dynamic poses keep one mesh surface",
+      "passed": true
+    },
+    {
+      "label": "Pose and larger bounds reuse mesh object",
+      "passed": true
+    },
+    {
+      "label": "Larger mounts expand conservative culling bounds",
+      "passed": true
+    },
+    {
+      "label": "GL vertex buffer readback matches changed pose and extent",
+      "passed": true
+    },
+    {
+      "label": "GL screenshot exactly matches baseline after animation and resize",
+      "passed": true
+    },
+    {
+      "label": "Same key texture replacement refreshes UV/source cache",
+      "passed": true
+    },
+    {
+      "label": "Unused mesh and surface metadata are pruned together",
+      "passed": true
+    },
+    {
+      "label": "A pruned key can return with a fresh valid surface",
+      "passed": true
+    },
+    {
+      "label": "Offscreen live rigs retained but not drawn",
+      "passed": true
+    },
+    {
+      "label": "Offscreen live rigs retained but not drawn",
+      "passed": true
+    },
+    {
+      "label": "Offscreen live rigs retained but not drawn",
+      "passed": true
+    },
+    {
+      "label": "Offscreen live rigs retained but not drawn",
+      "passed": true
+    },
+    {
+      "label": "Offscreen live rigs retained but not drawn",
+      "passed": true
+    },
+    {
+      "label": "Offscreen live rigs retained but not drawn",
+      "passed": true
+    },
+    {
+      "label": "Offscreen live rigs retained but not drawn",
+      "passed": true
+    },
+    {
+      "label": "Offscreen live rigs retained but not drawn",
+      "passed": true
+    },
+    {
+      "label": "Offscreen live rigs retained but not drawn",
+      "passed": true
+    },
+    {
+      "label": "Offscreen live rigs retained but not drawn",
+      "passed": true
+    },
+    {
+      "label": "Offscreen live rigs retained but not drawn",
+      "passed": true
+    },
+    {
+      "label": "Offscreen live rigs retained but not drawn",
+      "passed": true
+    },
+    {
+      "label": "Reentry reuses each actor rig without rebuilding anatomy",
+      "passed": true
+    },
+    {
+      "label": "Visible death animation remains alive",
+      "passed": true
+    },
+    {
+      "label": "Completed death rig is released",
+      "passed": true
+    },
+    {
+      "label": "Removed actors release cached rigs",
+      "passed": true
+    }
+  ],
+  "cpu": {
+    "baseline_120_organs_ms": 52.21195,
+    "baseline_24_rigs_12_reentries_ms": 11362.905,
+    "cached_rebuild_120_organs_ms": 24.071775,
+    "optimized_120_organs_ms": 19.400825,
+    "optimized_24_rigs_12_reentries_ms": 81.509
+  },
+  "max_vertex_error_px": 0.0,
+  "passed": true
+}

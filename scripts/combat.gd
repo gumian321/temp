@@ -17,6 +17,9 @@ var barrages: Array = []
 var db
 var player
 var enemies: Array = []
+const SpatialIndex = preload("res://scripts/combat_spatial_index.gd")
+var spatial = SpatialIndex.new()
+var spatial_active = false
 var patrols: Dictionary = {}
 var despawn_radius=100.0
 var patrol_radius=75.0
@@ -62,6 +65,9 @@ func source_component(components: Array, type: String) -> Dictionary:
 	return {}
 
 func entity(uid: int) -> Dictionary:
+	if spatial_active:
+		var index: int = spatial.by_uid.get(uid, -1)
+		return enemies[index] if index >= 0 else {}
 	for e in enemies:
 		if e.uid == uid: return e
 	return {}
@@ -93,6 +99,7 @@ func spawn_actor(prefab: String, blueprint: Dictionary, at: Vector2, role: Strin
 	e.action_distance=e.stop_distance*1.5
 	if unit.get("calculateDistances",false) and not ranges.is_empty():e.stop_distance=float(ranges.min())*48*0.8;e.action_distance=float(ranges.min())*48
 	enemies.append(e)
+	if spatial_active: spatial.rebuild(enemies, db)
 	return e
 
 func spawn(prefab: String, at: Vector2, role: String = "", objective: bool = false) -> Dictionary:
@@ -148,9 +155,12 @@ func spawn(prefab: String, at: Vector2, role: String = "", objective: bool = fal
 			e.patrol=first.uid;e.patrol_offset=e.position-at
 			slow=minf(slow,float(e.movement.get("enginePower",2)))
 		patrols[first.uid]={"members":members.map(func(e):return e.uid),"position":at,"target":player.head+Vector2.from_angle(rng.randf()*TAU)*rng.randf()*patrol_radius*48,"chase":0.0,"speed":0.0,"max_speed":slow*0.5*48,"wait":0.0,"data":patrol,"movement":db.component(prefab,"AIPatrolMovement")}
+	# Boss loadouts and patrol formation positions are finalized after spawn_actor.
+	if spatial_active: spatial.rebuild(enemies, db)
 	return first
 
 func nearest(at: Vector2, reach: float = INF) -> Dictionary:
+	if spatial_active: return spatial.nearest(at, reach)
 	var result = {}
 	var best = reach * reach
 	for e in enemies:
@@ -162,37 +172,26 @@ func nearest(at: Vector2, reach: float = INF) -> Dictionary:
 			result = e
 	return result
 
-var target_grid:Dictionary={}
-var target_grid_active=false
-var projectile_grid:Dictionary={}
-var projectile_grid_active=false
-func rebuild_grid(grid:Dictionary,bounds:bool):
-	grid.clear()
-	for i in enemies.size():
-		var e:Dictionary=enemies[i]
-		if e.hp<=0 or not e.damageable or e.role=="friendly":continue
-		var radius=Vector2.ONE*float(e.radius) if bounds else Vector2.ZERO
-		var low=Vector2i(((Vector2(e.position)-radius)/256.0).floor());var high=Vector2i(((Vector2(e.position)+radius)/256.0).floor())
-		for x in range(low.x,high.x+1):
-			for y in range(low.y,high.y+1):
-				var cell=Vector2i(x,y)
-				if not grid.has(cell):grid[cell]=[]
-				grid[cell].append(i)
-func grid_candidates(grid:Dictionary,low_point:Vector2,high_point:Vector2)->Array:
-	var low=Vector2i((low_point/256.0).floor());var high=Vector2i((high_point/256.0).floor());var indices:Dictionary={}
-	for x in range(low.x,high.x+1):
-		for y in range(low.y,high.y+1):
-			for index in grid.get(Vector2i(x,y),[]):indices[index]=true
-	var sorted=indices.keys();sorted.sort();var result:Array=[]
-	for index in sorted:result.append(enemies[index])
-	return result
-func target_candidates(at:Vector2,reach:float)->Array:
-	return grid_candidates(target_grid,at-Vector2.ONE*reach,at+Vector2.ONE*reach) if target_grid_active and is_finite(reach) else enemies
-func projectile_candidates(b:Dictionary)->Array:
-	if not projectile_grid_active:return enemies
-	var low=Vector2(b.previous).min(b.position)-Vector2.ONE*float(b.radius)
-	var high=Vector2(b.previous).max(b.position)+Vector2.ONE*float(b.radius)
-	return grid_candidates(projectile_grid,low,high)
+func refresh_spatial():
+	spatial.rebuild(enemies, db)
+	spatial_active = true
+
+func spatial_moved(e: Dictionary):
+	if spatial_active: spatial.moved(e)
+
+func area_candidates(at: Vector2, reach: float) -> Array:
+	return spatial.query(at-Vector2.ONE*absf(reach), at+Vector2.ONE*absf(reach)) if spatial_active and is_finite(reach) else enemies
+
+func shield_candidates() -> Array:
+	return spatial.shield_actors if spatial_active else enemies
+
+func target_candidates(at: Vector2, reach: float) -> Array:
+	return area_candidates(at, reach)
+
+func projectile_candidates(b: Dictionary) -> Array:
+	if not spatial_active: return enemies
+	var margin = Vector2.ONE * (float(b.radius) + spatial.max_radius)
+	return spatial.query(Vector2(b.previous).min(b.position)-margin, Vector2(b.previous).max(b.position)+margin)
 
 func target_for(core: Dictionary, at: Vector2, reach: float) -> Dictionary:
 	var config:Dictionary=db.asset(core.get("radarConfiguration",""))
@@ -292,7 +291,9 @@ func request_skill(aim: Vector2) -> bool:
 	return character_abilities.request_skill(aim)
 
 func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool = true):
+	spatial_active = false
 	character_abilities.update(dt)
+	refresh_spatial()
 	player.step_feedback(dt)
 	segment_sound_cooldown=maxf(0,segment_sound_cooldown-dt)
 	step_scraps(dt)
@@ -310,7 +311,7 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 			salvo.count-=1
 			salvo.timer+=float(salvo.core.barrageInterval)
 			if salvo.count<=0: barrages.erase(salvo)
-	rebuild_grid(target_grid,false);target_grid_active=true
+	# The index is updated by special movement and remains valid for targeting.
 	for i in range(player.parts.size()):
 		var p: Dictionary = player.parts[i]
 		p.organ_pulse=maxf(0,float(p.get("organ_pulse",0))-dt)
@@ -369,7 +370,6 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 					other.hp = minf(other.max_hp, other.hp + float(c.get("repairAmountPerSec", 4)) * dt)
 		elif c["class"] == "DroneCore":
 			ensure_drones(i, c)
-	target_grid_active=false
 	measured=mark_phase("player_weapons",measured)
 	for e in enemies:
 		for gun in e.guns: gun.organ_pulse=maxf(0,float(gun.get("organ_pulse",0))-dt)
@@ -446,6 +446,7 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 				if e.kind=="AIBossUnit" and e.heat_speed:rotation_speed*=maxf(1,heat) if e.active else heat
 				e.angle=rotate_toward(e.angle,delta.angle(),deg_to_rad(rotation_speed)*dt)
 		e.position = movement_start + (Vector2(e.position)-movement_start)*insect_control_system.movement_factor(e,dt)
+		spatial_moved(e)
 		var kamikaze=source_component(e.components,"KamikazeTrigger")
 		if not kamikaze.is_empty():
 			for i in range(player.parts.size()):
@@ -477,11 +478,13 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 				gun.barrel_index=int(gun.get("barrel_index",0))+1
 				gun.cooldown = 1.0 / maxf(0.1, float(core.get("turretRateOfFire", 1)))
 	measured=mark_phase("enemy_ai",measured)
+	spatial_active = false
 	insect_control_system.advance(dt,self)
+	refresh_spatial()
 	step_drones(dt)
 	step_enemy_drones(dt)
 	measured=mark_phase("drones",measured)
-	rebuild_grid(projectile_grid,true);projectile_grid_active=true
+	# Actor positions are now stable except for indexed projectile knockback.
 	for b in bullets:
 		b.life -= dt
 		b.previous = b.position
@@ -509,7 +512,7 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 						b.life = 0
 						break
 		else:
-			for ally in enemies:
+			for ally in (spatial.allies if spatial_active else enemies):
 				if ally.role != "friendly" or ally.hp <= 0 or ally.warp > 0: continue
 				if Geometry2D.get_closest_point_to_segment(ally.position, b.previous, b.position).distance_to(ally.position) < ally.radius + b.radius:
 					hit_enemy(ally, b)
@@ -522,7 +525,7 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 					hit_player(i,b)
 					b.life = 0
 					break
-	projectile_grid_active=false
+	spatial_active=false
 	measured=mark_phase("projectiles",measured)
 	bullets = bullets.filter(func(b): return b.life > 0)
 	for e in enemies:
@@ -604,7 +607,7 @@ func impact_feedback(e: Dictionary, b: Dictionary, shielded: bool = false, conta
 
 func hit_enemy(e: Dictionary, b: Dictionary):
 	if e.has("patrol") and patrols.has(e.patrol):patrols[e.patrol].chase=float(patrols[e.patrol].data.get("ChaseDuration",3))
-	for other in enemies:
+	for other in shield_candidates():
 		if other.hp<=0 or other.stun>0 or (other.role=="friendly")!=(e.role=="friendly"): continue
 		for gun in other.guns:
 			var shield = db.asset(gun.id)
@@ -635,13 +638,13 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 		e.stun = float(b.data.get("stunDuration", 1.5)) if e.unit.get("canBeStunned", true) else 0.0
 		if e.stun>0:effects.append({"position":e.position,"radius":20,"life":0.1,"kind":"emp","particle_type":302,"duration":e.stun,"follow":e})
 	if typ == "SonicBasicProjectile":
-		projectile_grid_active=false;target_grid_active=false
 		e.position += Vector2(b.velocity).normalized() * float(b.data.get("pushBackForce", 5)) * 48.0
+		spatial_moved(e)
 	var area = float(b.data.get("projectileEffectArea", 0)) * 48.0 * (1+special.chip("MammothAreaPercentBoost",int(b.chips.get(5,0))))
 	if b.chips.has(2):
 		area = maxf(area, special.chip("ExplosionEffectArea",int(b.chips[2]))*48)
 	if area > 0:
-		for other in enemies:
+		for other in area_candidates(e.position, area):
 			if other.uid != e.uid and other.damageable and (other.role != "friendly" if b.friendly else other.role == "friendly") and other.position.distance_to(e.position) < area:
 				other.hp -= b.damage * (special.chip("ExplosionDamagePercent",int(b.chips[2])) if b.chips.has(2) and not b.data.has("projectileEffectArea") else 1.0)
 				SoftInsect.impact(other,Vector2(e.position),(Vector2(other.position)-Vector2(e.position)).normalized(),float(b.damage),str(b.get("fx_family",Feedback.family(b.data))))
@@ -655,11 +658,12 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 		for other in enemies:
 			if other.position.distance_to(e.position) < area * 2:
 				other.position = Vector2(other.position).lerp(e.position, 0.5)
+				spatial_moved(other)
 	if int(b.get("pierce",1))>1: return
 	var jumps = int(b.get("chain_remaining",special.chip("chainTargetJumpCount",int(b.chips.get(4,0)))))+int(b.get("line_jumps",0))
 	if jumps>0:
 		var reach = special.chip("chainTargetRange",maxi(1,int(b.chips.get(4,0))))*48
-		var candidates = enemies.filter(func(other): return other.hp>0 and other.damageable and other.uid!=e.uid and other.uid not in b.get("hit",[]) and (other.role!="friendly" if b.friendly else other.role=="friendly") and other.position.distance_to(e.position)<reach)
+		var candidates = area_candidates(e.position, reach).filter(func(other): return other.hp>0 and other.damageable and other.uid!=e.uid and other.uid not in b.get("hit",[]) and (other.role!="friendly" if b.friendly else other.role=="friendly") and other.position.distance_to(e.position)<reach)
 		candidates.sort_custom(func(left,right): return left.position.distance_squared_to(e.position)<right.position.distance_squared_to(e.position))
 		if not candidates.is_empty():
 			var other: Dictionary = candidates[0]
@@ -862,8 +866,8 @@ func step_enemy_drones(dt:float):
 		if not d.target.is_empty() and (d.target.get("hp",0)<=0 or d.target.position.distance_to(owner.position)>reach or d.target.get("cloaked",false)):d.target={}
 		if d.target.is_empty() and d.ping<=0:
 			d.ping=float(data.droneTargetPingDelay)
-			var candidates:Array=enemies.filter(func(e):return e.hp>0 and e.damageable and e.role!="friendly") if d.friendly else player.parts.filter(func(p):return p.hp>0 and not p.get("cloaked",false))
-			if not d.friendly:candidates.append_array(enemies.filter(func(e):return e.hp>0 and e.role=="friendly" and e.damageable))
+			var candidates:Array=area_candidates(owner.position,reach).filter(func(e):return e.hp>0 and e.damageable and e.role!="friendly") if d.friendly else player.parts.filter(func(p):return p.hp>0 and not p.get("cloaked",false))
+			if not d.friendly:candidates.append_array((spatial.allies if spatial_active else enemies).filter(func(e):return e.hp>0 and e.role=="friendly" and e.damageable))
 			candidates=candidates.filter(func(target):return target.position.distance_to(owner.position)<reach)
 			candidates.sort_custom(func(a,b):return a.position.distance_squared_to(d.position)<b.position.distance_squared_to(d.position))
 			if not candidates.is_empty():d.target=candidates[0];d.docked=false
@@ -929,7 +933,7 @@ func step_scraps(dt:float):
 
 
 func visual_contact(e: Dictionary, shot: Dictionary) -> Dictionary:
-	for other in enemies:
+	for other in shield_candidates():
 		if other.hp<=0 or other.stun>0 or (other.role=="friendly")!=(e.role=="friendly"):continue
 		for gun in other.guns:
 			var shield=db.asset(gun.id)

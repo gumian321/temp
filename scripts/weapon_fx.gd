@@ -9,6 +9,11 @@ var clock = 0.0
 var draw_count = 0
 const MAX_TRANSIENTS = 180
 const MAX_PROJECTILES = 280
+const MAJOR_EFFECTS = ["explosion","chain","hole_birth","hole_collapse"]
+var hazard_effects:Array=[]
+var major_effects:Array=[]
+var minor_effects:Array=[]
+var flame_owners:Dictionary={}
 
 func _init():
 	halo_texture = GradientTexture2D.new()
@@ -35,7 +40,7 @@ func ribbon(canvas, start: Vector2, end: Vector2, width: float, color: Color, al
 	canvas.draw_colored_polygon(points, Color(color, clampf(alpha,0,1)))
 
 func visible(canvas, at: Vector2, margin: float = 220.0) -> bool:
-	return Rect2(-margin,-margin,1440+margin*2,900+margin*2).has_point(canvas.world(at))
+	return canvas.get_viewport_rect().grow(margin).has_point(canvas.world(at))
 
 # Pure geometry shared with regression checks: the tail always trails velocity.
 static func gatling_geometry(bullet: Dictionary, zoom: float) -> Dictionary:
@@ -79,20 +84,21 @@ func paint(canvas, battle, time: float, zoom: float):
 	clock = time
 	# Culling/budget only affects embellishment; gameplay bullets are always drawn.
 	var drawn = 0
-	var flame_owners: Dictionary = {}
-	var major=["explosion","chain","hole_birth","hole_collapse"]
-	var hazards=battle.effects.filter(func(e):return not e.get("friendly",true) and e.kind in ["chain","flame"])
-	var ordered=hazards+battle.effects.filter(func(e):return e.kind in major and e not in hazards)+battle.effects.filter(func(e):return e.kind not in major and e not in hazards)
-	for effect in ordered:
-		if drawn >= MAX_TRANSIENTS: break
-		if not visible(canvas,effect.position,440): continue
-		if effect.kind not in ["muzzle","hit","shield_hit","explosion","chain","flame","emp","mine_arm","hole_birth","hole_collapse"]: continue
-		if effect.kind=="flame":
-			var owner=str(effect.get("owner",""))
-			if flame_owners.has(owner):continue
-			flame_owners[owner]=true
-		drawn += 1
-		paint_effect(canvas,effect,zoom)
+	flame_owners.clear()
+	# Stable priority order without repeated filters or Dictionary membership
+	# searches. Each effect is classified once, regardless of hostile beam count.
+	order_effects(battle.effects)
+	for bucket in [hazard_effects,major_effects,minor_effects]:
+		for effect in bucket:
+			if drawn >= MAX_TRANSIENTS: break
+			if not visible(canvas,effect.position,440): continue
+			if effect.kind not in ["muzzle","hit","shield_hit","explosion","chain","flame","emp","mine_arm","hole_birth","hole_collapse"]: continue
+			if effect.kind=="flame":
+				var owner=str(effect.get("owner",""))
+				if flame_owners.has(owner):continue
+				flame_owners[owner]=true
+			drawn += 1
+			paint_effect(canvas,effect,zoom)
 	for hole in battle.special.black_holes:
 		if visible(canvas,hole.position,300): paint_hole(canvas,hole,zoom)
 	for mine in battle.special.mines:
@@ -101,6 +107,16 @@ func paint(canvas, battle, time: float, zoom: float):
 		var pulse=0.5+0.5*sin(clock*6+mine.position.x)
 		ring(canvas,at,(15+pulse*4)*zoom,Feedback.PROFILES.mine.color,0.35+pulse*0.35,1.5*zoom)
 		glow(canvas,at,12*zoom,Feedback.PROFILES.mine.accent,0.55)
+
+func order_effects(effects:Array):
+	hazard_effects.clear();major_effects.clear();minor_effects.clear()
+	for effect in effects:
+		if not effect.get("friendly",true) and effect.kind in ["chain","flame"]:
+			hazard_effects.append(effect)
+		elif effect.kind in MAJOR_EFFECTS:
+			major_effects.append(effect)
+		else:
+			minor_effects.append(effect)
 
 func paint_effect(canvas, effect: Dictionary, zoom: float):
 	var key = str(effect.get("fx_family", "tesla" if effect.kind=="chain" else ("emp" if effect.kind in ["emp","shield_hit"] else "impact")))

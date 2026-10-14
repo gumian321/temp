@@ -59,11 +59,14 @@ class Meter extends Control:
     var x=rect.position.x+rect.size.x*i/divisions
     draw_line(Vector2(x,rect.position.y),Vector2(x,rect.end.y),PAPER,1)
  func reading(current:float,limit:float,value:String):
-  amount.text=value
+  if amount.text!=value:amount.text=value
+  var previous_fill=bar.value
+  var previous_warning=warning
   bar.value=clampf(current/limit,0,1) if is_finite(current) and is_finite(limit) and limit>0 else 0
   warning=(bar.value<=.25 if glyph in ["armor","fuel"] else current>=.8 if glyph=="threat" else false)
-  amount.add_theme_color_override("font_color",ALERT if warning else INK)
-  queue_redraw()
+  var text_color=ALERT if warning else INK
+  if amount.get_theme_color("font_color")!=text_color:amount.add_theme_color_override("font_color",text_color)
+  if bar.value!=previous_fill or warning!=previous_warning:queue_redraw()
  func capacity(current:int,limit:int,unlimited:String):
   reading(current,limit,"%d / %d"%[maxi(0,current),limit] if limit>0 else "%d / %s"%[maxi(0,current),unlimited])
 
@@ -146,7 +149,8 @@ func refresh():
  if p.character_id=="beetle":ready+=tr_text("  甲 %d","  ARMOR %d")%roundi(float(ability.armor))
  if p.character_id=="spider" and not ability.threads.is_empty():ready+=tr_text("  丝 %d","  THREADS %d")%ability.threads.size()
  skill_label.text=binding+"  ·  "+str(p.character_config.skill_name)+"  ·  "+ready
- skill_label.add_theme_color_override("font_color",TEAL if cooldown<=0 else QUIET)
+ var skill_color=TEAL if cooldown<=0 else QUIET
+ if skill_label.get_theme_color("font_color")!=skill_color:skill_label.add_theme_color_override("font_color",skill_color)
  skill_icon.modulate=Color.WHITE if cooldown<=0 else Color(1,1,1,.45)
  skill_label.tooltip_text=str(p.character_config.passive)+" · "+str(p.character_config.weakness)
  health.reading(p.parts[0].hp,p.parts[0].max_hp,"%d / %d"%[maxf(0,p.parts[0].hp),maxf(0,p.parts[0].max_hp)] if p.parts[0].max_hp>0 else "—")
@@ -155,11 +159,12 @@ func refresh():
  fuel.reading(p.fuel,p.max_fuel,"%d%%"%percent if p.max_fuel>0 else tr_text("未装燃料箱","NO TANK"))
  danger.reading(run.heat,1.0,"%d%%"%roundi(maxf(0,run.heat)*100))
  modules.capacity(p.parts.size()-1,p.module_cap(),"∞")
- var count=game.combat.drones.filter(func(d):return d.owner==0).size()
+ var count=0
+ for drone in game.combat.drones:
+  if drone.owner==0:count+=1
  drones.capacity(count,int(game.db.stores.PlayerDataStore.maxHQDronesCount),"∞")
  var countdown=bool(game.selected_mission.get("isTimerCountingDown",false))
  var seconds=maxf(0,run.duration-run.elapsed) if countdown else maxf(0,run.elapsed)
  timer.text="%02d:%02d"%[int(seconds)/60,int(seconds)%60]
  timer.tooltip_text=tr_text("剩余时间","Time remaining") if countdown else tr_text("已进行时间","Time elapsed")
  counters.text="▣  %d    ◈  %d"%[run.packs,run.scraps]
- queue_redraw()

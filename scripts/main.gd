@@ -488,11 +488,21 @@ func update_source_hud():
 	source_ui.set_text("9","%d/%d"%[player.parts.size()-1,int(db.stores.PlayerDataStore.maxBuiltCores)])
 	source_ui.set_text("293",str(run.packs))
 	source_ui.set_text("124","E · "+str(run.packs))
-	var hq_drones=combat.drones.filter(func(d):return d.owner==0)
-	source_ui.set_text("44","%d/%d"%[hq_drones.size(),int(db.stores.PlayerDataStore.get("maxHQDronesCount",30))])
-	for i in range(3):
-		var classes=["Drone","EngineerDrone","ProjectileDrone"]
-		source_ui.set_text(["263","197","198"][i],str(hq_drones.filter(func(d):return d.data.get("class")==classes[i]).size()))
+	var hq_count=0
+	var attack_count=0
+	var engineer_count=0
+	var projectile_count=0
+	for drone in combat.drones:
+		if drone.owner!=0:continue
+		hq_count+=1
+		match drone.data.get("class"):
+			"Drone":attack_count+=1
+			"EngineerDrone":engineer_count+=1
+			"ProjectileDrone":projectile_count+=1
+	source_ui.set_text("44","%d/%d"%[hq_count,int(db.stores.PlayerDataStore.get("maxHQDronesCount",30))])
+	source_ui.set_text("263",str(attack_count))
+	source_ui.set_text("197",str(engineer_count))
+	source_ui.set_text("198",str(projectile_count))
 	var cost=maxf(1,float(db.stores.RewardDataStore.ScrapsPerRewardPack)*maxi(1,player.parts.size()-1+run.packs))
 	source_ui.set_slider("1806",float(run.scraps)/cost)
 	source_ui.show_node("69",run.mode.get("class") in ["BHModeManager","GAModeManager"])
@@ -1014,10 +1024,11 @@ func _draw():
 				if hit_flash>0: tint=tint.lerp(Color(1.15,1.1,1.0,tint.a),hit_flash*0.25)
 				art(texture, world(visual_position + offset), extent, e.angle + PI * 0.5 + RenderState.angle(renderer,e.age),tint)
 			draw_rect(Rect2(pos + Vector2(-22, -e.radius - 12), Vector2(44 * maxf(0, e.hp / e.max_hp), 3)), Color("173b70"))
-			for gun in e.guns:
+			for gun_index in range(e.guns.size()):
+				var gun=e.guns[gun_index]
 				var texture: Texture2D = db.core_sprite(db.asset(gun.id))
 				if texture != null:
-					organ_art(texture,world(visual_position+Vector2(gun.get("offset",Vector2.ZERO)).rotated(e.angle)),Vector2(42,42)*zoom,float(gun.angle)+PI/2,Color.WHITE,db.Armaments.variant(db,db.asset(gun.id)),float(gun.get("organ_pulse",0)),"enemy:%d:%d"%[e.uid,e.guns.find(gun)],float(e.uid)+e.guns.find(gun)*0.2,0,float(e.stun)>0)
+					organ_art(texture,world(visual_position+Vector2(gun.get("offset",Vector2.ZERO)).rotated(e.angle)),Vector2(42,42)*zoom,float(gun.angle)+PI/2,Color.WHITE,db.Armaments.variant(db,db.asset(gun.id)),float(gun.get("organ_pulse",0)),"enemy:%d:%d"%[e.uid,gun_index],float(e.uid)+gun_index*0.2,0,float(e.stun)>0)
 		for pack in run.recycled_packs:
 			for renderer in db.prefabs[db.pool['203']].get('render',[]):
 				var texture=db.sprite(renderer.sprite)

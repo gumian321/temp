@@ -33,6 +33,12 @@ func execute():
 	check(body.adjacent_part_indices(0).size() == 2 and not body.adjacent_part_indices(body.part_at(17)).has(0), "HQ has no phantom adjacency to deeper leg modules")
 	var battle = Battle.new(db, body)
 	var dead_index = body.part_at(9)
+	# Anchored-mine cleanup uses real mine cores and ring slots, as production does.
+	var mine_core = db.named("Core_MinesField")
+	body.replace_module(dead_index, mine_core.id)
+	body.replace_module(body.part_at(17), mine_core.id)
+	body.parts[dead_index].cooldown = 100.0
+	body.parts[body.part_at(17)].cooldown = 100.0
 	var survivor: Dictionary = body.parts[body.part_at(17)]
 	var survivor_uid = survivor.feedback_uid
 	var survivor_hp = survivor.hp
@@ -41,8 +47,8 @@ func execute():
 	battle.add_drone(body.parts.find(survivor), db.asset(drone.drone))
 	var drone_uid = battle.drones[-1].uid
 	battle.special.mines = [
-		{"owner": dead_index, "anchored": true, "offset": Vector2.ZERO, "position": body.parts[dead_index].position, "life": 10.0},
-		{"owner": body.parts.find(survivor), "anchored": true, "offset": Vector2.ZERO, "position": survivor.position, "life": 10.0}
+		{"owner": dead_index, "anchored": true, "slot": 0, "data": db.asset(mine_core.coreMine), "chips": {}, "offset": Vector2.ZERO, "position": body.parts[dead_index].position, "life": 10.0},
+		{"owner": body.parts.find(survivor), "anchored": true, "slot": 0, "data": db.asset(mine_core.coreMine), "chips": {}, "offset": Vector2.ZERO, "position": survivor.position, "life": 10.0}
 	]
 	battle.hurt_player(dead_index, 100000, 100000)
 	battle.step(0.01, Vector2.RIGHT * 700, false)

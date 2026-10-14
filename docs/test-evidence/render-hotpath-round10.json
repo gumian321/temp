@@ -1,0 +1,70 @@
+{
+  "method": "Godot 4.6.3 headless stub-canvas CPU command construction, 1200 bullets/effects x 12 frames. Calls include transforms; these are NOT GPU draw calls. Same benchmark source and inputs on both revisions.",
+  "baseline_revision": "2e97923",
+  "runs": {
+    "baseline": [
+      {
+        "effects_calls": 16992,
+        "effects_us": 428847,
+        "note": "CPU draw-command construction with stub canvas; not GPU draw calls",
+        "projectile_calls": 111984,
+        "projectiles_us": 768418
+      },
+      {
+        "effects_calls": 16992,
+        "effects_us": 431392,
+        "note": "CPU draw-command construction with stub canvas; not GPU draw calls",
+        "projectile_calls": 111984,
+        "projectiles_us": 754229
+      },
+      {
+        "effects_calls": 16992,
+        "effects_us": 685624,
+        "note": "CPU draw-command construction with stub canvas; not GPU draw calls",
+        "projectile_calls": 111984,
+        "projectiles_us": 1139156
+      }
+    ],
+    "optimized": [
+      {
+        "effects_calls": 16992,
+        "effects_us": 107145,
+        "note": "CPU draw-command construction with stub canvas; not GPU draw calls",
+        "projectile_calls": 111984,
+        "projectiles_us": 428601
+      },
+      {
+        "effects_calls": 16992,
+        "effects_us": 151867,
+        "note": "CPU draw-command construction with stub canvas; not GPU draw calls",
+        "projectile_calls": 111984,
+        "projectiles_us": 546462
+      },
+      {
+        "effects_calls": 16992,
+        "effects_us": 100942,
+        "note": "CPU draw-command construction with stub canvas; not GPU draw calls",
+        "projectile_calls": 111984,
+        "projectiles_us": 393146
+      }
+    ]
+  },
+  "medians": {
+    "baseline": {
+      "projectiles_us": 768418,
+      "effects_us": 431392,
+      "projectile_calls": 111984,
+      "effects_calls": 16992
+    },
+    "optimized": {
+      "projectiles_us": 428601,
+      "effects_us": 107145,
+      "projectile_calls": 111984,
+      "effects_calls": 16992
+    }
+  },
+  "reduction_pct": {
+    "projectiles_us": 44.22,
+    "effects_us": 75.16
+  }
+}

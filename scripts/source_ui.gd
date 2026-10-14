@@ -119,7 +119,12 @@ func build(data:Dictionary,parent:Control,parent_size:Vector2,forced=null):
 		node.add_child(button);buttons[data.id]=button
 		for id in data.get("ids",[]):buttons[id]=button
 func set_text(id:String,value:String):
-	if labels.has(id):labels[id].text=value;fit_label(labels[id])
+	if not labels.has(id):return
+	var label:Label=labels[id]
+	var changed=label.text!=value
+	if changed:label.text=value
+	if changed or label.get_meta("fit_dirty",true) or label.get_meta("fit_extent",Vector2.INF)!=label.get_meta("extent") or label.get_meta("fit_wrap",-1)!=label.autowrap_mode:
+		fit_label(label)
 
 func set_fill(id:String,value:float):
 	if fills.has(id):fills[id].value=clampf(value,0,1)
@@ -175,7 +180,14 @@ func arrange(data:Dictionary,extent:Vector2)->Dictionary:
 			cursor+=size.x+spacing+(extra if not layout.get("m_ChildControlWidth",false) else 0)
 	return result
 
+func invalidate_label_fit(label:Label):
+	label.set_meta("fit_dirty",true)
+
 func fit_label(label:Label):
+	# Theme/font changes and external resizes must still refit unchanged text.
+	if not label.has_meta("fit_dirty"):
+		label.resized.connect(invalidate_label_fit.bind(label))
+		label.theme_changed.connect(invalidate_label_fit.bind(label))
 	var extent:Vector2=label.get_meta("extent")
 	var original_px=int(label.get_meta("original_px",label.get_theme_font_size("font_size")))
 	label.set_meta("original_px",original_px)
@@ -192,7 +204,10 @@ func fit_label(label:Label):
 			var measured=face.get_multiline_string_size(label.text,HORIZONTAL_ALIGNMENT_LEFT,extent.x if wrap else -1,px)
 			if measured.y<=extent.y+2 and (wrap or measured.x<=extent.x+2):break
 			px-=1
-		label.add_theme_font_size_override("font_size",px)
+		if label.get_theme_font_size("font_size")!=px:label.add_theme_font_size_override("font_size",px)
+	label.set_meta("fit_extent",extent)
+	label.set_meta("fit_wrap",label.autowrap_mode)
+	label.set_meta("fit_dirty",false)
 
 func set_binding_labels(bindings:Dictionary,joy:bool=false):
 	var references:Dictionary=db.read_json("input_references")

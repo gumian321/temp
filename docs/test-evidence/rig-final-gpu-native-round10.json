@@ -1,0 +1,72 @@
+{
+	"failures": [],
+	"native": true,
+	"passed": true,
+	"scope": "Six species: motion, turning, cannon impact, death, hidden/reentry and existing packed preview scenes; exact rigid bind vertices and weights; native original/batched same-pose image and actual draw-call comparison.",
+	"six_rig_pose_and_batch_ms": {
+		"p50": 1.678,
+		"p95": 5.836
+	},
+	"snapshots": [
+		{
+			"batched_draw_calls": 12.0,
+			"diff": {
+				"changed_channel_pct": 0.00391589506172839,
+				"max_channel_delta": 2,
+				"mean_channel_delta": 0.0000393518518518519
+			},
+			"frame": 0,
+			"original_draw_calls": 168.0
+		},
+		{
+			"batched_draw_calls": 12.0,
+			"diff": {
+				"changed_channel_pct": 0.00237268518518519,
+				"max_channel_delta": 1,
+				"mean_channel_delta": 0.0000237268518518519
+			},
+			"frame": 30,
+			"original_draw_calls": 168.0
+		},
+		{
+			"batched_draw_calls": 48.0,
+			"diff": {
+				"changed_channel_pct": 0.00208333333333333,
+				"max_channel_delta": 1,
+				"mean_channel_delta": 0.0000208333333333333
+			},
+			"frame": 36,
+			"original_draw_calls": 204.0
+		},
+		{
+			"batched_draw_calls": 12.0,
+			"diff": {
+				"changed_channel_pct": 0.00291280864197531,
+				"max_channel_delta": 1,
+				"mean_channel_delta": 0.0000291280864197531
+			},
+			"frame": 60,
+			"original_draw_calls": 168.0
+		},
+		{
+			"batched_draw_calls": 12.0,
+			"diff": {
+				"changed_channel_pct": 0.0029320987654321,
+				"max_channel_delta": 1,
+				"mean_channel_delta": 0.000029320987654321
+			},
+			"frame": 110,
+			"original_draw_calls": 168.0
+		},
+		{
+			"batched_draw_calls": 12.0,
+			"diff": {
+				"changed_channel_pct": 0.00108024691358025,
+				"max_channel_delta": 1,
+				"mean_channel_delta": 0.0000108024691358025
+			},
+			"frame": "viewport_edges",
+			"original_draw_calls": 67.0
+		}
+	]
+}

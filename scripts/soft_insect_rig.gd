@@ -5,6 +5,9 @@ const Brood=preload("res://scripts/brood_theme.gd")
 const Anatomy=preload("res://scripts/insect_anatomy.gd")
 const HitFX=preload("res://scripts/insect_hit_fx.gd")
 const HitShader=preload("res://shaders/insect_hit.gdshader")
+const AppendageBatch=preload("res://scripts/rig_appendage_batch.gd")
+var appendage_batch:Polygon2D
+var batch_appendages=true
 var entity:Dictionary
 var mesh:Polygon2D
 var skeleton:Skeleton2D
@@ -45,6 +48,7 @@ func _ready():
 	aspect=art.get_size()/maxf(art.get_width(),art.get_height())
 	for bone in skeleton.get_children():bones.append(bone)
 	_bind_appendages()
+	_setup_appendage_batch()
 
 func _process(dt:float):
 	if preview_species.is_empty():return
@@ -121,6 +125,7 @@ func setup(actor:Dictionary):
 		for wing in anatomy.wings:_build_hinge("Wing",wing.root,wing.region,anatomy.body,side)
 	hit_fx=HitFX.new();hit_fx.name="HitFX";add_child(hit_fx);hit_fx.setup(entity.soft_body)
 	_bind_appendages()
+	_setup_appendage_batch()
 
 func _flipped(p:Vector2,side:int)->Vector2:return p if side<0 else Vector2(1-p.x,p.y)
 func _flipped_polygon(p:PackedVector2Array,side:int)->PackedVector2Array:return p if side<0 else Anatomy.mirror(p)
@@ -290,3 +295,17 @@ func pose(dt:float,dying:bool=false):
 	if entity.get("role","")=="friendly":tint=tint.lerp(Color(.75,1,.9),.35)
 	mesh.modulate=tint;limb_skeleton.modulate=tint
 	modulate.a=1-clampf((death_age-.1)/.22,0,1)
+
+func _setup_appendage_batch():
+	if not batch_appendages:return
+	appendage_batch=AppendageBatch.new();appendage_batch.name="BatchedAppendages"
+	limb_skeleton.add_child(appendage_batch)
+	if not appendage_batch.setup(self):
+		appendage_batch.queue_free();appendage_batch=null
+
+func set_appendage_batch_enabled(enabled:bool):
+	# Also used by native A/B checks on the exact same animated rig.
+	batch_appendages=enabled
+	if appendage_batch==null and enabled:_setup_appendage_batch()
+	if appendage_batch==null:return
+	appendage_batch.set_enabled(enabled)

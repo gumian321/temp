@@ -1,0 +1,693 @@
+{
+  "method": "Three sequential alternating before/after processes, identical fixed-seed fixed-step CPU fixture; standalone wall-duration samples, no renderer; durable pressure-test actors. Other project heavy tests stopped. Baseline scripts frozen at 2e979236680e17349fd13aff6430d372cc97a334. Time variability remains; do not extrapolate to displayed FPS or user hardware.",
+  "source_hashes_stable": {
+    "before": true,
+    "after": true
+  },
+  "source_manifest_sha256": {
+    "before": "3ccfd8cdde386eccf451159aa7c474d5210f79d880639cba8139a428283b9c8a",
+    "after": "34b03c666e4bdc561fe3afc2e0cac6c3414d132c9d75968b5b9bb4314547f405"
+  },
+  "fixture_sha256": "a8918b2578f64c1be2a2d8f4620ab465e7e3780f5b09a99361e4d672c1f93ed8",
+  "scenarios": [
+    {
+      "config": {
+        "bullets": 64,
+        "enemies": 32,
+        "name": "low",
+        "parts": 13
+      },
+      "signatures_match_all_runs": true,
+      "entity_distributions_match_all_runs": true,
+      "entities": {
+        "bullets": {
+          "max": 68,
+          "mean": 63.7166666666667,
+          "p50": 64,
+          "p95": 67
+        },
+        "effects": {
+          "max": 42,
+          "mean": 17.9944444444444,
+          "p50": 17,
+          "p95": 34
+        },
+        "enemies": {
+          "max": 32,
+          "mean": 32.0,
+          "p50": 32,
+          "p95": 32
+        },
+        "parts": {
+          "max": 13,
+          "mean": 13.0,
+          "p50": 13,
+          "p95": 13
+        }
+      },
+      "signature": {
+        "bullets": 62,
+        "enemies": 32,
+        "enemy_hp_sum": 319999064.0,
+        "head": [
+          -311.095367431641,
+          147.90315246582
+        ],
+        "kills": 0,
+        "rng_state": "-2757143603845476530"
+      },
+      "metrics": {
+        "p50": {
+          "before_runs_ms": [
+            16.698,
+            17.011,
+            12.619
+          ],
+          "after_runs_ms": [
+            11.784,
+            8.852,
+            6.757
+          ],
+          "before_median_ms": 16.698,
+          "after_median_ms": 8.852,
+          "reduction_percent": 46.987663193196795
+        },
+        "p95": {
+          "before_runs_ms": [
+            71.632,
+            27.402,
+            23.847
+          ],
+          "after_runs_ms": [
+            22.235,
+            14.43,
+            14.446
+          ],
+          "before_median_ms": 27.402,
+          "after_median_ms": 14.446,
+          "reduction_percent": 47.28122034887965
+        },
+        "mean": {
+          "before_runs_ms": [
+            33.75555,
+            17.7410055555556,
+            14.0317444444444
+          ],
+          "after_runs_ms": [
+            12.8821388888889,
+            9.39591666666666,
+            7.70888888888889
+          ],
+          "before_median_ms": 17.7410055555556,
+          "after_median_ms": 9.39591666666666,
+          "reduction_percent": 47.038421034007705
+        },
+        "max": {
+          "before_runs_ms": [
+            1426.053,
+            41.395,
+            46.206
+          ],
+          "after_runs_ms": [
+            65.137,
+            32.674,
+            40.483
+          ],
+          "before_median_ms": 46.206,
+          "after_median_ms": 40.483,
+          "reduction_percent": 12.38583733714238
+        }
+      },
+      "phases": {
+        "cleanup": {
+          "mean": {
+            "before": 0.275397222222222,
+            "after": 0.194286111111111
+          },
+          "p50": {
+            "before": 0.11,
+            "after": 0.094
+          },
+          "p95": {
+            "before": 0.93,
+            "after": 0.707
+          },
+          "max": {
+            "before": 2.163,
+            "after": 2.331
+          }
+        },
+        "drones": {
+          "mean": {
+            "before": 0.184644444444444,
+            "after": 0.34665
+          },
+          "p50": {
+            "before": 0.072,
+            "after": 0.232
+          },
+          "p95": {
+            "before": 0.672,
+            "after": 0.908
+          },
+          "max": {
+            "before": 2.574,
+            "after": 2.943
+          }
+        },
+        "enemy_ai": {
+          "mean": {
+            "before": 10.6930027777778,
+            "after": 3.83218333333333
+          },
+          "p50": {
+            "before": 9.441,
+            "after": 3.599
+          },
+          "p95": {
+            "before": 16.774,
+            "after": 6.265
+          },
+          "max": {
+            "before": 36.108,
+            "after": 21.57
+          }
+        },
+        "patrol_special": {
+          "mean": {
+            "before": 0.244941666666667,
+            "after": 0.217980555555556
+          },
+          "p50": {
+            "before": 0.121,
+            "after": 0.107
+          },
+          "p95": {
+            "before": 0.896,
+            "after": 0.628
+          },
+          "max": {
+            "before": 2.624,
+            "after": 2.611
+          }
+        },
+        "player_weapons": {
+          "mean": {
+            "before": 3.29495555555556,
+            "after": 2.49965833333333
+          },
+          "p50": {
+            "before": 2.847,
+            "after": 2.213
+          },
+          "p95": {
+            "before": 6.343,
+            "after": 4.761
+          },
+          "max": {
+            "before": 13.041,
+            "after": 15.322
+          }
+        },
+        "projectiles": {
+          "mean": {
+            "before": 2.60934722222222,
+            "after": 1.755325
+          },
+          "p50": {
+            "before": 2.44,
+            "after": 1.552
+          },
+          "p95": {
+            "before": 4.872,
+            "after": 3.394
+          },
+          "max": {
+            "before": 12.449,
+            "after": 9.025
+          }
+        }
+      }
+    },
+    {
+      "config": {
+        "bullets": 256,
+        "enemies": 128,
+        "name": "medium",
+        "parts": 31
+      },
+      "signatures_match_all_runs": true,
+      "entity_distributions_match_all_runs": true,
+      "entities": {
+        "bullets": {
+          "max": 256,
+          "mean": 250.761111111111,
+          "p50": 251,
+          "p95": 255
+        },
+        "effects": {
+          "max": 104,
+          "mean": 68.8277777777778,
+          "p50": 69,
+          "p95": 93
+        },
+        "enemies": {
+          "max": 128,
+          "mean": 128.0,
+          "p50": 128,
+          "p95": 128
+        },
+        "parts": {
+          "max": 31,
+          "mean": 31.0,
+          "p50": 31,
+          "p95": 31
+        }
+      },
+      "signature": {
+        "bullets": 252,
+        "enemies": 128,
+        "enemy_hp_sum": 1279998239.0,
+        "head": [
+          -311.095367431641,
+          147.90315246582
+        ],
+        "kills": 0,
+        "rng_state": "2358980093853083070"
+      },
+      "metrics": {
+        "p50": {
+          "before_runs_ms": [
+            55.734,
+            48.271,
+            53.279
+          ],
+          "after_runs_ms": [
+            39.0,
+            26.367,
+            31.184
+          ],
+          "before_median_ms": 53.279,
+          "after_median_ms": 31.184,
+          "reduction_percent": 41.470372942435105
+        },
+        "p95": {
+          "before_runs_ms": [
+            114.481,
+            68.3,
+            158.35
+          ],
+          "after_runs_ms": [
+            86.477,
+            36.818,
+            55.08
+          ],
+          "before_median_ms": 114.481,
+          "after_median_ms": 55.08,
+          "reduction_percent": 51.887212725255715
+        },
+        "mean": {
+          "before_runs_ms": [
+            64.4714972222222,
+            50.6588666666667,
+            67.3663638888889
+          ],
+          "after_runs_ms": [
+            44.7041388888889,
+            27.7504444444445,
+            34.1384972222222
+          ],
+          "before_median_ms": 64.4714972222222,
+          "after_median_ms": 34.1384972222222,
+          "reduction_percent": 47.04869796252342
+        },
+        "max": {
+          "before_runs_ms": [
+            171.827,
+            122.903,
+            661.558
+          ],
+          "after_runs_ms": [
+            172.502,
+            102.387,
+            88.913
+          ],
+          "before_median_ms": 171.827,
+          "after_median_ms": 102.387,
+          "reduction_percent": 40.41274072177248
+        }
+      },
+      "phases": {
+        "cleanup": {
+          "mean": {
+            "before": 0.602836111111111,
+            "after": 0.561941666666667
+          },
+          "p50": {
+            "before": 0.45,
+            "after": 0.458
+          },
+          "p95": {
+            "before": 1.352,
+            "after": 1.297
+          },
+          "max": {
+            "before": 9.892,
+            "after": 3.204
+          }
+        },
+        "drones": {
+          "mean": {
+            "before": 0.1612,
+            "after": 0.896622222222222
+          },
+          "p50": {
+            "before": 0.07,
+            "after": 0.727
+          },
+          "p95": {
+            "before": 0.475,
+            "after": 1.861
+          },
+          "max": {
+            "before": 1.949,
+            "after": 5.126
+          }
+        },
+        "enemy_ai": {
+          "mean": {
+            "before": 32.9341027777778,
+            "after": 13.3941138888889
+          },
+          "p50": {
+            "before": 27.426,
+            "after": 11.997
+          },
+          "p95": {
+            "before": 58.099,
+            "after": 21.387
+          },
+          "max": {
+            "before": 93.797,
+            "after": 64.001
+          }
+        },
+        "patrol_special": {
+          "mean": {
+            "before": 0.38825,
+            "after": 0.367155555555556
+          },
+          "p50": {
+            "before": 0.281,
+            "after": 0.279
+          },
+          "p95": {
+            "before": 0.951,
+            "after": 0.827
+          },
+          "max": {
+            "before": 3.609,
+            "after": 3.162
+          }
+        },
+        "player_weapons": {
+          "mean": {
+            "before": 9.26823888888888,
+            "after": 6.77413611111111
+          },
+          "p50": {
+            "before": 6.959,
+            "after": 6.467
+          },
+          "p95": {
+            "before": 15.092,
+            "after": 11.24
+          },
+          "max": {
+            "before": 39.462,
+            "after": 54.203
+          }
+        },
+        "projectiles": {
+          "mean": {
+            "before": 19.7186583333333,
+            "after": 10.913525
+          },
+          "p50": {
+            "before": 14.772,
+            "after": 9.787
+          },
+          "p95": {
+            "before": 31.013,
+            "after": 20.174
+          },
+          "max": {
+            "before": 83.743,
+            "after": 35.773
+          }
+        }
+      }
+    },
+    {
+      "config": {
+        "bullets": 768,
+        "enemies": 384,
+        "name": "high",
+        "parts": 61
+      },
+      "signatures_match_all_runs": true,
+      "entity_distributions_match_all_runs": true,
+      "entities": {
+        "bullets": {
+          "max": 764,
+          "mean": 744.45,
+          "p50": 744,
+          "p95": 758
+        },
+        "effects": {
+          "max": 337,
+          "mean": 232.888888888889,
+          "p50": 251,
+          "p95": 320
+        },
+        "enemies": {
+          "max": 384,
+          "mean": 384.0,
+          "p50": 384,
+          "p95": 384
+        },
+        "parts": {
+          "max": 61,
+          "mean": 61.0,
+          "p50": 61,
+          "p95": 61
+        }
+      },
+      "signature": {
+        "bullets": 753,
+        "enemies": 384,
+        "enemy_hp_sum": 3839999664.0,
+        "head": [
+          -311.095367431641,
+          147.90315246582
+        ],
+        "kills": 0,
+        "rng_state": "6628875013794495550"
+      },
+      "metrics": {
+        "p50": {
+          "before_runs_ms": [
+            298.443,
+            230.908,
+            245.945
+          ],
+          "after_runs_ms": [
+            216.047,
+            127.05,
+            141.827
+          ],
+          "before_median_ms": 245.945,
+          "after_median_ms": 141.827,
+          "reduction_percent": 42.33385513021204
+        },
+        "p95": {
+          "before_runs_ms": [
+            993.457,
+            334.634,
+            352.613
+          ],
+          "after_runs_ms": [
+            495.645,
+            244.558,
+            190.447
+          ],
+          "before_median_ms": 352.613,
+          "after_median_ms": 244.558,
+          "reduction_percent": 30.64407721779968
+        },
+        "mean": {
+          "before_runs_ms": [
+            427.850194444445,
+            240.031430555556,
+            259.570733333333
+          ],
+          "after_runs_ms": [
+            248.703113888889,
+            149.714502777778,
+            146.252025
+          ],
+          "before_median_ms": 259.570733333333,
+          "after_median_ms": 149.714502777778,
+          "reduction_percent": 42.32227152299212
+        },
+        "max": {
+          "before_runs_ms": [
+            7255.42,
+            893.938,
+            3776.46
+          ],
+          "after_runs_ms": [
+            3465.554,
+            955.297,
+            739.863
+          ],
+          "before_median_ms": 3776.46,
+          "after_median_ms": 955.297,
+          "reduction_percent": 74.70390259661164
+        }
+      },
+      "phases": {
+        "cleanup": {
+          "mean": {
+            "before": 1.80236666666667,
+            "after": 2.05270833333333
+          },
+          "p50": {
+            "before": 1.683,
+            "after": 1.829
+          },
+          "p95": {
+            "before": 2.975,
+            "after": 3.781
+          },
+          "max": {
+            "before": 6.805,
+            "after": 9.116
+          }
+        },
+        "drones": {
+          "mean": {
+            "before": 0.145738888888889,
+            "after": 3.02575555555556
+          },
+          "p50": {
+            "before": 0.08,
+            "after": 2.542
+          },
+          "p95": {
+            "before": 0.387,
+            "after": 5.556
+          },
+          "max": {
+            "before": 4.23,
+            "after": 105.788
+          }
+        },
+        "enemy_ai": {
+          "mean": {
+            "before": 95.6800083333333,
+            "after": 36.1773805555556
+          },
+          "p50": {
+            "before": 80.823,
+            "after": 33.141
+          },
+          "p95": {
+            "before": 113.873,
+            "after": 60.099
+          },
+          "max": {
+            "before": 2456.663,
+            "after": 670.252
+          }
+        },
+        "patrol_special": {
+          "mean": {
+            "before": 0.700008333333333,
+            "after": 0.779805555555556
+          },
+          "p50": {
+            "before": 0.592,
+            "after": 0.695
+          },
+          "p95": {
+            "before": 1.311,
+            "after": 1.61
+          },
+          "max": {
+            "before": 3.805,
+            "after": 2.997
+          }
+        },
+        "player_weapons": {
+          "mean": {
+            "before": 22.43895,
+            "after": 21.9112166666667
+          },
+          "p50": {
+            "before": 21.083,
+            "after": 19.836
+          },
+          "p95": {
+            "before": 37.455,
+            "after": 38.021
+          },
+          "max": {
+            "before": 84.766,
+            "after": 165.754
+          }
+        },
+        "projectiles": {
+          "mean": {
+            "before": 137.874172222222,
+            "after": 82.5949638888889
+          },
+          "p50": {
+            "before": 143.05,
+            "after": 83.688
+          },
+          "p95": {
+            "before": 219.803,
+            "after": 137.795
+          },
+          "max": {
+            "before": 793.554,
+            "after": 683.281
+          }
+        }
+      }
+    }
+  ],
+  "whole_process_cpu": {
+    "scope": "Godot subprocess including startup, all scenarios, fixture setup, warmup, measured ticks, untimed injection and output. Pair1 before did not collect CPU usage and is excluded. Most CPU/wall totals nearly equal; before pair3 wall=184.61s vs CPU=166.71s, so some scheduling overhead exists, but CPU reductions remain measurable. Large per-tick variability is not assigned a proven cause.",
+    "pairs": [
+      {
+        "pair": 2,
+        "before_cpu_seconds": 140.182277,
+        "after_cpu_seconds": 82.81119399999999,
+        "reduction_percent": 40.926060146676036,
+        "before_wall_seconds": 140.1795537320004,
+        "after_wall_seconds": 82.84270071699939
+      },
+      {
+        "pair": 3,
+        "before_cpu_seconds": 166.711796,
+        "after_cpu_seconds": 86.86147,
+        "reduction_percent": 47.897226180683695,
+        "before_wall_seconds": 184.60719407499982,
+        "after_wall_seconds": 86.90341289499975
+      }
+    ],
+    "median_pair_reduction_percent": 44.41164316367987
+  }
+}

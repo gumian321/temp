@@ -1,0 +1,11 @@
+{
+	"cpu": {
+		"baseline_active_128_actors_ms_per_tick": 36.5786833333333,
+		"baseline_idle_128_actors_ms_per_tick": 24.1978916666667,
+		"optimized_active_128_actors_ms_per_tick": 18.0030416666667,
+		"optimized_idle_128_actors_ms_per_tick": 1.458575
+	},
+	"exact_field_comparisons": 79200,
+	"mismatches": [],
+	"passed": true
+}

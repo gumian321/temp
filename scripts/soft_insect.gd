@@ -38,7 +38,7 @@ static func prepare(e: Dictionary):
 	offset.resize(REST.size()); velocity.resize(REST.size())
 	var art:AtlasTexture=Brood.texture("enemy_"+Brood.species(e))
 	var aspect=art.atlas.get_size()/maxf(art.atlas.get_width(),art.atlas.get_height())
-	e.soft_body = {"offset":offset,"velocity":velocity,"rest":rest_points(Brood.species(e)),"aspect":aspect,"clock":0.0,"pose_clock":0.0,"flash":0.0,"hits":0,"peak":0.0,"hold":0.0,"shock":0.0,"recoil":Vector2.ZERO,"recoil_velocity":Vector2.ZERO,"lean":0.0,"lean_velocity":0.0,"direction":Vector2.RIGHT,"contact":Vector2.ZERO,"cue":0,"cue_age":10.0,"cue_strength":0.0,"cue_cooldown":0.0,"family":"impact"}
+	e.soft_body = {"offset":offset,"velocity":velocity,"lattice_active":false,"rest":rest_points(Brood.species(e)),"aspect":aspect,"clock":0.0,"pose_clock":0.0,"flash":0.0,"hits":0,"peak":0.0,"hold":0.0,"shock":0.0,"recoil":Vector2.ZERO,"recoil_velocity":Vector2.ZERO,"lean":0.0,"lean_velocity":0.0,"direction":Vector2.RIGHT,"contact":Vector2.ZERO,"cue":0,"cue_age":10.0,"cue_strength":0.0,"cue_cooldown":0.0,"family":"impact"}
 
 static func surface_point(state:Dictionary,point:Vector2,push:Vector2,species:String)->Vector2:
 	var border:PackedVector2Array=Anatomy.definition(species).body
@@ -73,6 +73,7 @@ static func impact(e: Dictionary, point: Vector2, direction: Vector2, damage: fl
 	state.hits += 1
 	# Group body impulses too, not only sparks: sustained fire must permit recovery.
 	if not fresh:return
+	state.lattice_active=true
 	for i in state.rest.size():
 		var falloff=exp(-Vector2(state.rest[i]).distance_squared_to(hit_uv)*10)
 		# An immediate dent registers on the first rendered frame, before the spring advances.
@@ -93,28 +94,33 @@ static func impact(e: Dictionary, point: Vector2, direction: Vector2, damage: fl
 	constrain_lattice(state)
 
 static func constrain_lattice(state:Dictionary):
-	# Keep neighboring rows/columns ordered under concentrated automatic fire.
-	# Deep dents can compress the skin, but may not flip its triangles inside out.
+	var constrained=_constrained_arrays(state.rest,state.offset,state.velocity)
+	state.offset=constrained[0];state.velocity=constrained[1]
+
+static func _constrained_arrays(rest:PackedVector2Array,offsets:PackedVector2Array,velocities:PackedVector2Array)->Array:
+	# Work on packed arrays directly, avoiding repeated dictionary lookups and
+	# nested property write-back for every constraint assignment.
 	for row in range(5):
 		var middle=row*3+1
-		var center:Vector2=state.rest[middle]+state.offset[middle]
+		var center:Vector2=rest[middle]+offsets[middle]
 		for side in [-1,1]:
 			var i=middle+side
-			var minimum=absf(state.rest[i].x-state.rest[middle].x)*.32
-			var p:Vector2=state.rest[i]+state.offset[i]
+			var minimum=absf(rest[i].x-rest[middle].x)*.32
+			var p:Vector2=rest[i]+offsets[i]
 			if (p.x-center.x)*side<minimum:
-				state.offset[i].x=center.x+side*minimum-state.rest[i].x
-				state.velocity[i].x*=.25
+				offsets[i].x=center.x+side*minimum-rest[i].x
+				velocities[i].x*=.25
 	for row in range(4):
 		for column in range(3):
 			var i=row*3+column;var j=i+3
-			var minimum=(state.rest[j].y-state.rest[i].y)*.38
-			var gap=(state.rest[j].y+state.offset[j].y)-(state.rest[i].y+state.offset[i].y)
+			var minimum=(rest[j].y-rest[i].y)*.38
+			var gap=(rest[j].y+offsets[j].y)-(rest[i].y+offsets[i].y)
 			if gap<minimum:
 				var correction=(minimum-gap)*.5
-				state.offset[i].y-=correction;state.offset[j].y+=correction
-				state.velocity[i].y*=.4;state.velocity[j].y*=.4
-	for i in state.offset.size():state.offset[i]=Vector2(state.offset[i]).limit_length(MAX_OFFSET)
+				offsets[i].y-=correction;offsets[j].y+=correction
+				velocities[i].y*=.4;velocities[j].y*=.4
+	for i in offsets.size():offsets[i]=offsets[i].limit_length(MAX_OFFSET)
+	return [offsets,velocities]
 
 static func step(e: Dictionary, dt: float):
 	if not Brood.eligible(e): return
@@ -125,19 +131,27 @@ static func step(e: Dictionary, dt: float):
 	while remaining > 0.00001:
 		var h = minf(remaining, 1.0/120.0)
 		var held=float(state.hold)>0
-		var previous: PackedVector2Array = state.offset.duplicate()
-		for i in state.rest.size():
-			if held:continue
-			var coupling = Vector2.ZERO
-			for j in [i-3,i+3]:
-				if j>=0 and j<REST.size(): coupling += previous[j]-previous[i]
-			var velocity: Vector2 = (state.velocity[i]+(-previous[i]*elastic.x+coupling*22.0)*h)*exp(-elastic.y*h)
-			var offset: Vector2 = previous[i]+velocity*h
-			if offset.length()>MAX_OFFSET: offset=offset.limit_length(MAX_OFFSET); velocity*=0.4
-			state.velocity[i]=velocity
-			state.offset[i]=offset
-			state.peak=maxf(float(state.peak),offset.length())
-		constrain_lattice(state)
+		# A newly prepared lattice is exactly at equilibrium. Only impact mutates
+		# it, and wakes it before writing. Never truncate a decaying nonzero pose.
+		if state.get("lattice_active",true):
+			var previous:PackedVector2Array=state.offset.duplicate()
+			var offsets:PackedVector2Array=state.offset
+			var velocities:PackedVector2Array=state.velocity
+			var rest:PackedVector2Array=state.rest
+			var peak:float=state.peak
+			if not held:
+				var damping=exp(-elastic.y*h)
+				for i in rest.size():
+					var coupling=Vector2.ZERO
+					if i>=3:coupling+=previous[i-3]-previous[i]
+					if i+3<REST.size():coupling+=previous[i+3]-previous[i]
+					var velocity:Vector2=(velocities[i]+(-previous[i]*elastic.x+coupling*22.0)*h)*damping
+					var offset:Vector2=previous[i]+velocity*h
+					if offset.length()>MAX_OFFSET:offset=offset.limit_length(MAX_OFFSET);velocity*=.4
+					velocities[i]=velocity;offsets[i]=offset
+					peak=maxf(peak,offset.length())
+			var constrained=_constrained_arrays(rest,offsets,velocities)
+			state.offset=constrained[0];state.velocity=constrained[1];state.peak=peak
 		state.clock+=h
 		state.pose_clock+=h*(.12 if held else 1.0)
 		state.hold=maxf(0,state.hold-h)
