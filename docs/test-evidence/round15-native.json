@@ -1,0 +1,196 @@
+{
+	"captures": [
+		"res://artifacts/fragment-recovery-00-intact.png",
+		"res://artifacts/fragment-recovery-01-dormant.png",
+		"res://artifacts/fragment-recovery-02-wake-start.png",
+		"res://artifacts/fragment-recovery-03-sequential-wake.png",
+		"res://artifacts/fragment-recovery-04-reattached.png",
+		"res://artifacts/fragment-recovery-05-moving-together.png",
+		"res://artifacts/fragment-recovery-06-fifty-dormant.png"
+	],
+	"checks": [
+		{
+			"name": "Renderer produced fragment-recovery-00-intact",
+			"passed": true
+		},
+		{
+			"name": "Saved fragment-recovery-00-intact",
+			"passed": true
+		},
+		{
+			"name": "Actual combat destruction leaves 3 front modules and 5 living rear modules",
+			"passed": true
+		},
+		{
+			"name": "After the one-second pickup delay, distant fragments remain dormant",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced fragment-recovery-01-dormant",
+			"passed": true
+		},
+		{
+			"name": "Saved fragment-recovery-01-dormant",
+			"passed": true
+		},
+		{
+			"name": "Returning through native movement wakes the fragment within pickup radius",
+			"passed": true
+		},
+		{
+			"name": "Native wake begins only within 96 pixels and after the one-second safety delay",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced fragment-recovery-02-wake-start",
+			"passed": true
+		},
+		{
+			"name": "Saved fragment-recovery-02-wake-start",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced fragment-recovery-03-sequential-wake",
+			"passed": true
+		},
+		{
+			"name": "Saved fragment-recovery-03-sequential-wake",
+			"passed": true
+		},
+		{
+			"name": "All 5 living rear modules physically converge and rejoin, with the destroyed module absent",
+			"passed": true
+		},
+		{
+			"name": "Dormant fragment poses remain exactly frozen while the front leaves and returns",
+			"passed": true
+		},
+		{
+			"name": "Front and rear activation differ during the sequential wake wave",
+			"passed": true
+		},
+		{
+			"name": "Detached modules do not enter player.parts before physical convergence",
+			"passed": true
+		},
+		{
+			"name": "Every detached center moves at most 12 pixels per 60 Hz simulation step",
+			"passed": true
+		},
+		{
+			"name": "Final attachment has less than 4 pixels of single-frame center displacement",
+			"passed": true
+		},
+		{
+			"name": "Recovered module 1 retains its dictionary identity, weapon, fusion level and damage",
+			"passed": true
+		},
+		{
+			"name": "Recovered module 2 retains its dictionary identity, weapon, fusion level and damage",
+			"passed": true
+		},
+		{
+			"name": "Recovered module 3 retains its dictionary identity, weapon, fusion level and damage",
+			"passed": true
+		},
+		{
+			"name": "Recovered module 4 retains its dictionary identity, weapon, fusion level and damage",
+			"passed": true
+		},
+		{
+			"name": "Recovered module 5 retains its dictionary identity, weapon, fusion level and damage",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced fragment-recovery-04-reattached",
+			"passed": true
+		},
+		{
+			"name": "Saved fragment-recovery-04-reattached",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced fragment-recovery-05-moving-together",
+			"passed": true
+		},
+		{
+			"name": "Saved fragment-recovery-05-moving-together",
+			"passed": true
+		},
+		{
+			"name": "Dense scene contains exactly 50 dormant modules and 9 connected modules",
+			"passed": true
+		},
+		{
+			"name": "Live scene respects 60 modules including the 50 detached modules",
+			"passed": true
+		},
+		{
+			"name": "All 50 dormant modules are inside the actual render viewport",
+			"passed": true
+		},
+		{
+			"name": "Fragment renderer uses a fixed budget of 14 materials and 15 batches",
+			"passed": true
+		},
+		{
+			"name": "Dense dormant mesh cache remains bounded to the 50 visible modules",
+			"passed": true
+		},
+		{
+			"name": "Renderer produced fragment-recovery-06-fifty-dormant",
+			"passed": true
+		},
+		{
+			"name": "Saved fragment-recovery-06-fifty-dormant",
+			"passed": true
+		},
+		{
+			"name": "Reset clears all dormant visibility and cached fragment meshes",
+			"passed": true
+		}
+	],
+	"clip_fps": 30,
+	"clip_frames": 269,
+	"dense_frame_max_ms": 56.418,
+	"dense_frame_median_ms": 31.08,
+	"dense_stats": {
+		"active_snapshots": 10,
+		"batches": 15,
+		"frozen_snapshots": 50,
+		"materials": 14,
+		"max_visible_parts": 60,
+		"meshes": 50,
+		"visible_parts": 50
+	},
+	"max_attach_step_px": 0.0685988217592239,
+	"max_fragment_step_px": 12.0000085830688,
+	"passed": true,
+	"renderer": "X11",
+	"scope": "Actual main scene and combat path; staged loadout, clear arena and fixed camera for readable recovery.",
+	"timeline": [
+		{
+			"connected": 3,
+			"detached": 5,
+			"frame": 120,
+			"seconds": 2.0,
+			"state": "dormant"
+		},
+		{
+			"connected": 3,
+			"detached": 5,
+			"frame": 443,
+			"seconds": 7.38333333333333,
+			"state": "waking"
+		},
+		{
+			"connected": 8,
+			"detached": 0,
+			"frame": 508,
+			"seconds": 8.46666666666667,
+			"state": "reattached"
+		}
+	],
+	"wake_trigger_age_seconds": 5.39999999999999,
+	"wake_trigger_distance_px": 94.1678466796875
+}

@@ -27,6 +27,17 @@ func add_black_hole(b: Dictionary):
 	var data: Dictionary = b.data
 	battle().effects.append(Feedback.decorate({"kind":"hole_birth","position":b.position,"radius":40,"life":0.55},"blackhole",bool(b.friendly)))
 	black_holes.append({"position":b.position,"life":float(data.projectileEffectAreaDuration),"radius":float(data.projectileEffectArea)*48*(1+chip("MammothAreaPercentBoost",int(b.chips.get(5,0)))),"damage":float(b.damage),"shield_damage":float(b.shield_damage),"friendly":b.friendly,"force":float(db.component(data.blackHoleObject,"BlackHoleController").get("maxForce",10))*48})
+func process_destroyed_part(index: int):
+	var part: Dictionary = player.parts[index]
+	if part.hp > 0 or part.get("destroy_processed",false): return
+	part.destroy_processed = true
+	var core: Dictionary = db.asset(part.id)
+	battle().segment_destroyed(index)
+	battle().spawn_scraps(part.position,int(core.get("coreScraps",0)))
+	if core["class"]=="PackCore":
+		for j in range(battle().rng.randi_range(int(core.minPacksCount),int(core.maxPacksCount))):
+			battle().loot.append({"position":part.position,"value":0,"pack":true})
+
 func step(dt: float):
 	for i in range(player.parts.size()):
 		var p: Dictionary = player.parts[i]
@@ -40,12 +51,7 @@ func step(dt: float):
 					p.cloaked = true
 		if p.cloaked and not was_cloaked: player.pulse_feedback(i,"cloak",0.65)
 		if p.hp<=0:
-			if not p.get("destroy_processed",false):
-				p.destroy_processed = true
-				battle().segment_destroyed(i)
-				battle().spawn_scraps(p.position,int(c.get("coreScraps",0)))
-				if c["class"]=="PackCore":
-					for j in range(battle().rng.randi_range(int(c.minPacksCount),int(c.maxPacksCount))): battle().loot.append({"position":p.position,"value":0,"pack":true})
+			process_destroyed_part(i)
 			continue
 		if p.stun>0 or c["class"] not in ["MinesCore","MineSpawnerCore"]: continue
 		if p.cooldown>0: continue

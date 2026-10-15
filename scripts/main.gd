@@ -15,6 +15,7 @@ const Feedback = preload("res://scripts/weapon_feedback.gd")
 const AttackShaders = preload("res://scripts/attack_shader_layer.gd")
 var attack_shader_layer = AttackShaders.new()
 var segment_damage_layer = preload("res://scripts/segment_damage_layer.gd").new()
+var fragment_art = preload("res://scripts/centipede_fragments_art.gd").new()
 const InsectAttackFX = preload("res://scripts/insect_attack_fx.gd")
 const CrystalLoot = preload("res://scripts/crystal_loot.gd")
 var passive_fx = preload("res://scripts/passive_feedback.gd").new()
@@ -145,6 +146,7 @@ func _ready():
 	particle_effects=load("res://scripts/particle_effects.gd").new();particle_layer.add_child(particle_effects);particle_effects.setup(db);native_visuals.setup(db,particle_effects)
 	popup_text=load("res://scripts/popup_text.gd").new();popup_text.layer=3;add_child(popup_text)
 	attack_shader_layer.attach(self)
+	fragment_art.attach(self)
 	encounter_feedback = preload("res://scripts/encounter_feedback.gd").new()
 	add_child(encounter_feedback); encounter_feedback.setup(self)
 	segment_damage_layer.game=self
@@ -1001,6 +1003,7 @@ func draw_weapon_neck(anchor: Vector2, tip: Vector2, radius: float, alpha: float
 	draw_polyline(curve, Color(Ink.WASH, alpha), 3.0 * zoom, true)
 
 func _draw():
+	fragment_art.paint(self)
 	if encounter_feedback != null: encounter_feedback.queue_redraw()
 	# Any early-return screen (including tactical radar) starts without old FX.
 	segment_damage_layer.queue_redraw()

@@ -1,0 +1,74 @@
+{
+	"checks": [
+		{
+			"name": "Normally spaced segments retain their substantial body connection",
+			"passed": true
+		},
+		{
+			"name": "Stretched recovery links thin, fade and curve instead of forming a rigid bar",
+			"passed": true
+		},
+		{
+			"name": "Both severed surviving bodies render",
+			"passed": true
+		},
+		{
+			"name": "Dormant body is drawn at its actual world position",
+			"passed": true
+		},
+		{
+			"name": "Fused dormant modules retain level-dependent body feelers",
+			"passed": true
+		},
+		{
+			"name": "Drawing leaves fragment simulation dictionaries unchanged",
+			"passed": true
+		},
+		{
+			"name": "Fixed shader/material batch budget",
+			"passed": true
+		},
+		{
+			"name": "Organ phase freezes at previous live frame",
+			"passed": true
+		},
+		{
+			"name": "Actual planted leg pose survives severance",
+			"passed": true
+		},
+		{
+			"name": "Dormant visual snapshots stay frozen as global time advances",
+			"passed": true
+		},
+		{
+			"name": "Hidden assembly screen retains frozen visuals and hides fragment renderer",
+			"passed": true
+		},
+		{
+			"name": "Offscreen fragments release drawing meshes",
+			"passed": true
+		},
+		{
+			"name": "Offscreen culling retains the frozen limb pose",
+			"passed": true
+		},
+		{
+			"name": "Separate segments select sequential wake material stages",
+			"passed": true
+		},
+		{
+			"name": "One cached organ mesh per detached module across stage changes",
+			"passed": true
+		},
+		{
+			"name": "New-run reset clears stale identities and organ meshes",
+			"passed": true
+		},
+		{
+			"name": "Empty renderer stays hidden",
+			"passed": true
+		}
+	],
+	"passed": true,
+	"scope": "Production renderer state and resource lifetime; visible shader pixels are checked separately by the native fragment-recovery scene."
+}

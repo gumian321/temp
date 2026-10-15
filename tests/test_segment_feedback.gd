@@ -30,7 +30,7 @@ func execute():
 	battle.hurt_player(index,100000,100000);battle.segment_destroyed(index)
 	check(battle.effects.filter(func(e):return e.kind=="segment_break").size()==1,"Repeated lethal hits and cleanup cannot duplicate feedback")
 	battle.step(.01,body.head+Vector2.RIGHT*500,false)
-	check(body.segment_count()==2 and follower.segment==2 and follower.hp==follower_hp,"Death compacts the living chain without damage to followers")
+	check(body.segment_count()==1 and body.detached_fragments.size()==1 and body.detached_fragments[0].parts==[follower] and follower.hp==follower_hp,"Death detaches the living follower without damaging its independent health")
 	check(visual.position==point and visual.life>0.8,"Detached animation survives gameplay removal at its original world position")
 	check(battle.audio_events.any(func(e):return e.get("feedback","")=="segment_break"),"Destruction emits a dedicated audible cue")
 	var first=Feedback.debris_position(visual,0)

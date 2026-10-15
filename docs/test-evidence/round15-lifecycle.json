@@ -1,0 +1,337 @@
+{
+	"checks": [
+		{
+			"name": "Severing follows physical chain order after assembly reorder, not array indices",
+			"passed": true
+		},
+		{
+			"name": "Detached survivors retain their exact world positions at the break",
+			"passed": true
+		},
+		{
+			"name": "Fragment holds the original dictionary, identity, damage, fusion, cooldown and shield",
+			"passed": true
+		},
+		{
+			"name": "Active body and solver contain only the head-connected prefix",
+			"passed": true
+		},
+		{
+			"name": "No module is simultaneously active and detached",
+			"passed": true
+		},
+		{
+			"name": "Three simultaneous breaks create separate living groups in physical order",
+			"passed": true
+		},
+		{
+			"name": "Every survivor belongs to exactly one fragment and destroyed modules are absent",
+			"passed": true
+		},
+		{
+			"name": "Fragment groups have distinct identities",
+			"passed": true
+		},
+		{
+			"name": "A later break preserves all earlier unrecovered groups",
+			"passed": true
+		},
+		{
+			"name": "Overlapping eligible fragments start at most one recovery at a time",
+			"passed": true
+		},
+		{
+			"name": "Multiple groups recover serially without loss, duplicate ownership or starvation",
+			"passed": true
+		},
+		{
+			"name": "Successive recovered groups enter normal follower motion without a next-frame snap",
+			"passed": true
+		},
+		{
+			"name": "Detached and destroyed modules lose all owned active drones",
+			"passed": true
+		},
+		{
+			"name": "Surviving drone owner remaps correctly when its array index shifts",
+			"passed": true
+		},
+		{
+			"name": "Removal releases loot reservations and surviving engineer targets on detached modules",
+			"passed": true
+		},
+		{
+			"name": "Enemy drones release detached module targets",
+			"passed": true
+		},
+		{
+			"name": "Detached anchored mines disappear while surviving owners remap and free mines lose stale owners",
+			"passed": true
+		},
+		{
+			"name": "Detached delayed volleys disappear and surviving volleys retain the correct organ",
+			"passed": true
+		},
+		{
+			"name": "Eligible fragments remain dormant and motionless when the head is far away",
+			"passed": true
+		},
+		{
+			"name": "Redraws and zero-delta steps cannot wake or move fragments",
+			"passed": true
+		},
+		{
+			"name": "Head proximity starts a visible wake-up before any module rejoins",
+			"passed": true
+		},
+		{
+			"name": "Wake activation begins at the fragment front and leaves later legs asleep",
+			"passed": true
+		},
+		{
+			"name": "Sequential wake, movement and final attachment stay continuous and never duplicate modules",
+			"passed": true
+		},
+		{
+			"name": "Recovered groups append to the surviving tail in their original internal order",
+			"passed": true
+		},
+		{
+			"name": "Recovery preserves damage and upgrades without free healing or cooldown reset",
+			"passed": true
+		},
+		{
+			"name": "Recovery does not count as a newly built or newly rewarded module",
+			"passed": true
+		},
+		{
+			"name": "Continuing over the recovered location cannot award the same modules again",
+			"passed": true
+		},
+		{
+			"name": "Immediate overlap cannot bypass the one-second pickup delay",
+			"passed": true
+		},
+		{
+			"name": "Coiling blocks pickup even after the fragment is eligible and nearby",
+			"passed": true
+		},
+		{
+			"name": "Recovery resumes safely after the coil exit finishes",
+			"passed": true
+		},
+		{
+			"name": "Mid-recovery coil fixture starts with an already waking group",
+			"passed": true
+		},
+		{
+			"name": "A new coil cannot attach a fragment already in its recovery transition",
+			"passed": true
+		},
+		{
+			"name": "A paused in-progress recovery resumes after uncurling",
+			"passed": true
+		},
+		{
+			"name": "Damage during a fully coiled body preserves detached world poses and pauses recovery",
+			"passed": true
+		},
+		{
+			"name": "Fragments severed during coiling recover safely after the coil solver releases",
+			"passed": true
+		},
+		{
+			"name": "Genuine health upgrades reach sleeping fused and reinforced modules exactly once",
+			"passed": true
+		},
+		{
+			"name": "Repeated refresh and pickup preserve the post-upgrade damage amount",
+			"passed": true
+		},
+		{
+			"name": "2-module chain recovers smoothly while steering and boosting at 30 FPS",
+			"passed": true
+		},
+		{
+			"name": "2-module recovered chain stays continuous and exactly linked during subsequent normal motion at 30 FPS",
+			"passed": true
+		},
+		{
+			"name": "12-module chain recovers smoothly while steering and boosting at 30 FPS",
+			"passed": true
+		},
+		{
+			"name": "12-module recovered chain stays continuous and exactly linked during subsequent normal motion at 30 FPS",
+			"passed": true
+		},
+		{
+			"name": "60-module chain recovers smoothly while steering and boosting at 30 FPS",
+			"passed": true
+		},
+		{
+			"name": "60-module recovered chain stays continuous and exactly linked during subsequent normal motion at 30 FPS",
+			"passed": true
+		},
+		{
+			"name": "2-module chain recovers smoothly while steering and boosting at 60 FPS",
+			"passed": true
+		},
+		{
+			"name": "2-module recovered chain stays continuous and exactly linked during subsequent normal motion at 60 FPS",
+			"passed": true
+		},
+		{
+			"name": "12-module chain recovers smoothly while steering and boosting at 60 FPS",
+			"passed": true
+		},
+		{
+			"name": "12-module recovered chain stays continuous and exactly linked during subsequent normal motion at 60 FPS",
+			"passed": true
+		},
+		{
+			"name": "60-module chain recovers smoothly while steering and boosting at 60 FPS",
+			"passed": true
+		},
+		{
+			"name": "60-module recovered chain stays continuous and exactly linked during subsequent normal motion at 60 FPS",
+			"passed": true
+		},
+		{
+			"name": "2-module chain recovers smoothly while steering and boosting at 120 FPS",
+			"passed": true
+		},
+		{
+			"name": "2-module recovered chain stays continuous and exactly linked during subsequent normal motion at 120 FPS",
+			"passed": true
+		},
+		{
+			"name": "12-module chain recovers smoothly while steering and boosting at 120 FPS",
+			"passed": true
+		},
+		{
+			"name": "12-module recovered chain stays continuous and exactly linked during subsequent normal motion at 120 FPS",
+			"passed": true
+		},
+		{
+			"name": "60-module chain recovers smoothly while steering and boosting at 120 FPS",
+			"passed": true
+		},
+		{
+			"name": "60-module recovered chain stays continuous and exactly linked during subsequent normal motion at 120 FPS",
+			"passed": true
+		},
+		{
+			"name": "Actual combat death cleanup severs the living tail",
+			"passed": true
+		},
+		{
+			"name": "Combat alone cannot tick, heal, fire or recover inactive fragment modules",
+			"passed": true
+		},
+		{
+			"name": "Destroying the last segment only removes that segment",
+			"passed": true
+		},
+		{
+			"name": "Destroying the first body segment leaves a living head and recoverable tail",
+			"passed": true
+		},
+		{
+			"name": "Invalid and head indices cannot remove the head or duplicate existing fragments",
+			"passed": true
+		},
+		{
+			"name": "A dead head cannot trigger recovery",
+			"passed": true
+		},
+		{
+			"name": "Reset removes all fragments and wake state",
+			"passed": true
+		},
+		{
+			"name": "Fusion keeps ordinary compaction behavior and never creates salvage",
+			"passed": true
+		},
+		{
+			"name": "Spider damage retains its existing same-leg compaction and never spawns centipede fragments",
+			"passed": true
+		},
+		{
+			"name": "Mixed-phase simultaneous deaths preserve both surviving groups (gun)",
+			"passed": true
+		},
+		{
+			"name": "Every destroyed module awards its source scraps and packs exactly once before severing (gun)",
+			"passed": true
+		},
+		{
+			"name": "Mixed early and projectile deaths produce one break snapshot each (gun)",
+			"passed": true
+		},
+		{
+			"name": "Following cleanup frames cannot duplicate destruction rewards or feedback (gun)",
+			"passed": true
+		},
+		{
+			"name": "Mixed-phase simultaneous deaths preserve both surviving groups (pack)",
+			"passed": true
+		},
+		{
+			"name": "Every destroyed module awards its source scraps and packs exactly once before severing (pack)",
+			"passed": true
+		},
+		{
+			"name": "Mixed early and projectile deaths produce one break snapshot each (pack)",
+			"passed": true
+		},
+		{
+			"name": "Following cleanup frames cannot duplicate destruction rewards or feedback (pack)",
+			"passed": true
+		},
+		{
+			"name": "Detached modules reserve capacity while only the destroyed slot can be replaced",
+			"passed": true
+		},
+		{
+			"name": "Rewards respect detached reservations instead of creating unplaceable excess modules",
+			"passed": true
+		},
+		{
+			"name": "Duplication cannot exceed total active plus detached module capacity",
+			"passed": true
+		},
+		{
+			"name": "A full-capacity recovered chain retains every surviving identity without exceeding 60 modules",
+			"passed": true
+		},
+		{
+			"name": "Real pause screen freezes fragment age, wake state and positions",
+			"passed": true
+		},
+		{
+			"name": "Real assembly screen cannot advance fragment recovery",
+			"passed": true
+		},
+		{
+			"name": "Real reward-choice screen cannot advance fragment recovery",
+			"passed": true
+		},
+		{
+			"name": "Returning to normal gameplay resumes fragment age",
+			"passed": true
+		},
+		{
+			"name": "Run results freeze remaining fragments",
+			"passed": true
+		},
+		{
+			"name": "Encounter-only fragment state is not serialized into persistent profile saves",
+			"passed": true
+		},
+		{
+			"name": "Leaving and starting a new run never carries salvage into another encounter",
+			"passed": true
+		}
+	],
+	"passed": true
+}

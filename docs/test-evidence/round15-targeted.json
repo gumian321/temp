@@ -1,0 +1,33 @@
+{
+  "suites": [
+    {
+      "suite": "fragment_recovery",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 4.71,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "fragment_recovery_budget",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.888,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "fragment_art",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.273,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "fragment_recovery_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.35,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

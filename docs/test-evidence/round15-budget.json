@@ -1,0 +1,10 @@
+{
+  "dormant_positions_unchanged": true,
+  "groups": 30,
+  "mean_step_usec": 15.5469,
+  "modules": 30,
+  "passed": true,
+  "scope": "CPU fragment bookkeeping only; not renderer or FPS. 30 simultaneous groups is maximum from a 60-module alternating cut.",
+  "steps": 10000,
+  "total_usec": 155469
+}

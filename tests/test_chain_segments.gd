@@ -34,9 +34,9 @@ func execute():
 	var next_hp=float(next.hp)
 	battle.hurt_player(dead_index,100000,100000)
 	battle.step(0.01,body.head+Vector2.RIGHT*600,false)
-	check(body.segment_count()==3 and body.parts.size()==4,"A destroyed middle segment is removed without destroying the tail")
-	check(next.segment==2 and tail.segment==3 and next.hp==next_hp,"The following segments fill the gap and retain their independent health")
-	check(body.motion.centers.size()==3 and body.body_poses.size()==4,"The shortened body drops the old tail solver state")
+	check(body.segment_count()==1 and body.parts.size()==2 and body.detached_module_count()==2,"A destroyed middle segment severs the living tail into recoverable fragments")
+	check(body.detached_fragments.size()==1 and body.detached_fragments[0].parts==[next,tail] and next.hp==next_hp,"The following segments retain their order and independent health while detached")
+	check(body.motion.centers.size()==1 and body.body_poses.size()==2,"The shortened active body drops the detached tail solver state")
 	while body.parts.size()>1:
 		battle.hurt_player(1,100000,100000);battle.step(0.01,Vector2.RIGHT*600,false)
 	check(body.segment_count()==0 and body.parts[0].hp>0,"Losing all body segments leaves a living head")
