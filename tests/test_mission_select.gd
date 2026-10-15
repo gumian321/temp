@@ -60,8 +60,8 @@ func execute():
  var selected_button=game.mission_ui.difficulty_buttons[0]
  var pressed=selected_button.get_theme_stylebox("pressed")
  var hovered=selected_button.get_theme_stylebox("hover_pressed")
- check(selected_button.button_pressed and pressed is StyleBoxTexture and hovered is StyleBoxTexture and pressed.texture==hovered.texture,"Selected difficulty retains generated active skin while hovered")
- check(selected_button.get_theme_color("font_hover_pressed_color")==preload("res://scripts/game_ui.gd").TEXT,"Selected hovered difficulty retains dark navy text contrast")
+ check(selected_button.button_pressed and pressed is StyleBoxFlat and hovered is StyleBoxFlat and pressed.bg_color==hovered.bg_color and pressed.border_color==hovered.border_color,"Selected difficulty retains Neon active skin while hovered")
+ check(selected_button.get_theme_color("font_hover_pressed_color")==preload("res://scripts/game_ui.gd").TEXT,"Selected hovered difficulty retains bright text contrast")
  check(root.gui_get_focus_owner()==game.mission_ui.rows[0],"Initial focus follows selected mission")
  for size_value in [Vector2i(1440,900),Vector2i(1280,720),Vector2i(1920,1080),Vector2i(1100,820),Vector2i(1440,900)]:
   root.size=size_value;await settle()

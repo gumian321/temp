@@ -30,9 +30,10 @@ func rebuild():
   var id:String=Roster.ids()[i];var data=Roster.config(id)
   var unlocked=game.save.character_unlocked(id);var chosen=selected==id
   var card=Button.new();card.position=Vector2(row_left+i*442,180);card.size=Vector2(424,554);card.clip_contents=true;card.mouse_default_cursor_shape=CURSOR_POINTING_HAND
-  for state in ["normal","hover","pressed","focus"]:card.add_theme_stylebox_override(state,UI.card_style(chosen or state!="normal"))
+  for state in ["normal","hover","pressed","hover_pressed"]:card.add_theme_stylebox_override(state,UI.card_style(chosen or state!="normal"))
+  card.add_theme_stylebox_override("focus",UI.card_focus_style())
   content.add_child(card);cards[id]=card;card.pressed.connect(func():choose(id))
-  var portrait=TextureRect.new();portrait.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;portrait.texture=Art.portrait(id);portrait.position=Vector2(22,66);portrait.size=Vector2(380,244);portrait.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;portrait.mouse_filter=MOUSE_FILTER_IGNORE;portrait.modulate=Color.WHITE if unlocked else Color(.68,.75,.8,.7);card.add_child(portrait)
+  var portrait=TextureRect.new();portrait.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;portrait.texture=Art.portrait(id);portrait.position=Vector2(22,66);portrait.size=Vector2(380,244);portrait.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;portrait.mouse_filter=MOUSE_FILTER_IGNORE;portrait.modulate=Color.WHITE if unlocked else Color(.72,.65,.8,.72);card.add_child(portrait)
   UI.label(card,str(data.display_name),Vector2(28,21),34)
   UI.label(card,"✓  "+game.db.ui("SELECTED","已选择") if chosen else game.db.ui("AVAILABLE","已解锁") if unlocked else game.db.ui("LOCKED","未解锁"),Vector2(276,32),18,UI.TEAL if unlocked else UI.MUTED)
   UI.label(card,str(data.label),Vector2(28,306),25)

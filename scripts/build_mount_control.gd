@@ -1,5 +1,6 @@
 extends Control
 ## Native drag source/drop target. Names live in tooltips, not on every card.
+const Neon = preload("res://scripts/game_ui.gd")
 const Ink = preload("res://scripts/blue_ink.gd")
 const Symbols = preload("res://scripts/build_symbols.gd")
 var builder
@@ -25,23 +26,23 @@ func _draw():
 	var kind = target.get("kind","")
 	var data = builder.active_drag_data if not builder.active_drag_data.is_empty() else builder.selected_data
 	var candidate = not data.is_empty() and builder.can_drop(target,data)
-	var edge = Color("b45846") if hovering and not drop_valid else (Ink.BLUE if selected or hovering else (Color("6b9ea3") if candidate else Color("bfccd7")))
-	var fill = Color(Ink.WASH,0.92) if selected or hovering else Color(Ink.PAPER,0.86)
-	if candidate: fill = Color("e3efeb")
-	var style = Ink.box(fill,edge,2 if selected or hovering or candidate else 1)
-	style.set_corner_radius_all(10)
+	var edge = Neon.RED if hovering and not drop_valid else (Neon.TEAL if selected or hovering else (Color(Neon.TEAL,0.65) if candidate else Color(Neon.TEAL,0.28)))
+	var fill = Color(Neon.PANEL,0.92) if selected or hovering else Color(Neon.BG,0.86)
+	if candidate: fill = Color("39203d",0.85)
+	var style = Neon.flat_style(fill,edge,26)
+	style.set_border_width_all(2 if selected or hovering else 1)
 	if kind!="segment" or selected or hovering: draw_style_box(style,Rect2(Vector2.ZERO,size))
 	if kind=="segment":
 		builder.draw_segment(self,int(target.segment),Vector2(size.x*0.5,62))
-		draw_string(Ink.theme().default_font,Vector2(size.x*0.5-8,19),"%02d" % int(target.segment),HORIZONTAL_ALIGNMENT_LEFT,-1,14,Ink.INK if selected else Ink.MUTED)
+		draw_string(Neon.font(),Vector2(size.x*0.5-8,19),"%02d" % int(target.segment),HORIZONTAL_ALIGNMENT_LEFT,-1,14,Neon.TEXT if selected else Neon.MUTED)
 		for slot in 9:
 			var occupied = builder.player.part_at(int(target.segment),slot)>0
-			draw_circle(Vector2(size.x*0.5-5+slot%3*5,106+slot/3*3),1.1,Ink.BLUE if occupied else Color(Ink.MUTED,0.2),true,-1,true)
+			draw_circle(Vector2(size.x*0.5-5+slot%3*5,106+slot/3*3),1.1,Neon.TEAL if occupied else Color(Neon.MUTED,0.2),true,-1,true)
 		return
 	if icon!=null:
 		var extent = Ink.fitted_size(icon,Vector2.ONE*(84 if kind=="slot" else 78))
 		draw_texture_rect(icon,Rect2(size*0.5-extent*0.5,extent),false)
-		if payload.get("part",{}).get("wall",false): Symbols.draw(self,"armor",size-Vector2(15,15),0.43,Ink.BLUE)
+		if payload.get("part",{}).get("wall",false): Symbols.draw(self,"armor",size-Vector2(15,15),0.43,Neon.TEAL)
 	elif kind in ["slot","tail"]:
 		Symbols.draw(self,"add",size*0.5,0.65 if kind=="slot" else 1.4,edge)
 		if kind=="slot" and candidate:
@@ -62,7 +63,7 @@ func _draw():
 			var at: Vector2 = Vector2(pose.point)+builder.player.slot_offset(int(target.slot)).rotated(Vector2(pose.direction).angle())
 			linked = at.distance_to(part.position)<float(source.get("ShieldRange",0))*48
 		if linked:
-			draw_style_box(Ink.box(Color(0.2,0.6,0.6,0.12),Color("62a4a4"),2),Rect2(Vector2(5,5),size-Vector2(10,10)))
+			draw_style_box(Neon.flat_style(Color(Neon.TEAL,0.12),Neon.TEAL,26),Rect2(Vector2(5,5),size-Vector2(10,10)))
 
 func _get_drag_data(_at: Vector2):
 	if payload.is_empty(): return null

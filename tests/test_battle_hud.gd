@@ -69,10 +69,13 @@ func execute():
   for rect in h.instrument_backings():
    good=good and viewport.encloses(rect) and rect.end.y<=100
    backing_area+=rect.get_area()
-  good=good and backing_area<viewport.get_area()*.03
+  good=good and backing_area<=viewport.get_area()*.12
+  var central_battlefield=Rect2(viewport.size*Vector2(.2,.2),viewport.size*Vector2(.6,.6))
+  for rect in h.instrument_backings():
+   good=good and not rect.intersects(central_battlefield)
   good=good and h.build_button.size.y<=44
   good=good and viewport.encloses(h.keys.get_global_rect()) and viewport.encloses(h.radar_label.get_global_rect())
-  check(good,"Actual controls stay within 100px edge band, do not overlap and occupy under 6% at "+str(dimensions))
+  check(good,"Controls stay within 100px edge band and under 6%; dark backing stays under 12% and clears central combat at "+str(dimensions))
   geometry.append({"window":[dimensions.x,dimensions.y],"passed":good,"occupied_area":area,"fraction":area/viewport.get_area()})
   await shot("%dx%d"%[dimensions.x,dimensions.y])
  for fraction in [1.0,.1,0.0]:

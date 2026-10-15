@@ -1,12 +1,12 @@
 extends Control
-## Field instruments: ivory paper, ink silhouettes and quiet edge-aligned readouts.
+## Edge-aligned neon glass instruments. Cached local plates keep the field clear.
 const UI=preload("res://scripts/game_ui.gd")
-const INK=Color("173b55")
-const QUIET=Color("647d86")
-const PAPER=Color("f4f1e6")
-const TEAL=Color("267f80")
-const AMBER=Color("b58132")
-const ALERT=Color("b94c3d")
+const INK=Color("f5efff")
+const QUIET=Color("b1a5c4")
+const PAPER=Color("160b1e")
+const TEAL=Color("ff2d95")
+const AMBER=Color("ffbe85")
+const ALERT=Color("ff6c89")
 var game
 var health
 var fuel
@@ -21,7 +21,7 @@ var radar_label:Label
 var keys:Label
 var skill_icon:TextureRect
 var skill_label:Label
-var plaque:StyleBoxTexture
+var plaque:StyleBoxFlat
 
 class Meter extends Control:
  var amount:Label
@@ -40,7 +40,7 @@ class Meter extends Control:
   else:amount.position=Vector2(30,2);amount.size=Vector2(size.x-30,24)
   amount.size.y=0
   icon=TextureRect.new();icon.mouse_filter=MOUSE_FILTER_IGNORE;icon.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;icon.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-  icon.texture=UI.icon_texture(glyph)
+  icon.texture=UI.icon_texture(glyph);icon.material=UI.icon_material()
   if glyph=="armor":icon.position=Vector2(0,0);icon.size=Vector2(40,38)
   elif glyph in ["fuel","threat"]:icon.position=Vector2(0,0);icon.size=Vector2(16,16)
   else:icon.position=Vector2(0,1);icon.size=Vector2(26,26)
@@ -72,7 +72,7 @@ class Meter extends Control:
 
 class ArmoryButton extends Button:
  func _ready():
-  var icon=TextureRect.new();icon.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;icon.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;icon.texture=UI.icon_texture("gear");icon.position=Vector2(7,8);icon.size=Vector2(26,26);icon.mouse_filter=MOUSE_FILTER_IGNORE;add_child(icon)
+  var icon=TextureRect.new();icon.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;icon.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;icon.texture=UI.icon_texture("gear");icon.material=UI.icon_material();icon.position=Vector2(7,8);icon.size=Vector2(26,26);icon.mouse_filter=MOUSE_FILTER_IGNORE;add_child(icon)
   var key=Label.new();key.text="E";key.position=Vector2(39,10);key.add_theme_font_size_override("font_size",15);key.add_theme_color_override("font_color",INK);key.mouse_filter=MOUSE_FILTER_IGNORE;add_child(key)
 
 func setup(owner_game):
@@ -89,13 +89,14 @@ func setup(owner_game):
  build_button=ArmoryButton.new();add_child(build_button);build_button.size=Vector2(60,42);build_button.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND;build_button.pressed.connect(game.show_build);build_button.tooltip_text=tr_text("武装 [E]","Armory [E]")
  for state in ["normal","hover","pressed","focus","disabled","hover_pressed"]:
   var style=compact_skin()
-  style.modulate_color=Color.WHITE if state=="normal" else Color("d6ede7")
+  style.bg_color=Color("160b1e",0.90) if state=="normal" else Color("48203e",0.96)
+  style.border_color=Color(TEAL,0.6 if state=="normal" else 1.0)
   style.content_margin_left=0;style.content_margin_right=0;style.content_margin_top=0;style.content_margin_bottom=0
   build_button.add_theme_stylebox_override(state,style)
  build_button.size=Vector2(60,42)
  radar_label=label(self,tr_text("扫描   TAB","SCAN   TAB"),11)
  keys=label(self,tr_text("WASD  移动    ⇧  推进    ESC  暂停","WASD  MOVE    ⇧  BOOST    ESC  PAUSE"),11)
- skill_icon=TextureRect.new();skill_icon.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;skill_icon.texture=UI.icon_texture("evolution");skill_icon.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;skill_icon.mouse_filter=MOUSE_FILTER_IGNORE;skill_icon.size=Vector2(42,42);add_child(skill_icon)
+ skill_icon=TextureRect.new();skill_icon.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;skill_icon.texture=UI.icon_texture("evolution");skill_icon.material=UI.icon_material();skill_icon.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;skill_icon.mouse_filter=MOUSE_FILTER_IGNORE;skill_icon.size=Vector2(42,42);add_child(skill_icon)
  skill_label=label(self,"",16)
  resized.connect(layout_hud);layout_hud.call_deferred();refresh()
 func tr_text(zh:String,en:String)->String:return game.db.ui(en,zh)
@@ -115,27 +116,22 @@ func layout_hud():
  skill_icon.position=Vector2(456,size.y-90);skill_label.position=Vector2(506,size.y-82);skill_label.size=Vector2(360,30)
  keys.position=Vector2(24,size.y-32);keys.size=Vector2(400,20)
  queue_redraw()
-func rail_skin()->StyleBoxTexture:
- var atlas=AtlasTexture.new();atlas.atlas=load("res://assets/ui_overhaul/light_hud_rail.png");atlas.region=Rect2(62,257,2048,196);atlas.filter_clip=true
- var image=atlas.get_image();image.resize(320,31,Image.INTERPOLATE_LANCZOS)
- var skin=StyleBoxTexture.new();skin.texture=ImageTexture.create_from_image(image)
- skin.texture_margin_left=17;skin.texture_margin_right=17;skin.texture_margin_top=6;skin.texture_margin_bottom=6
+func rail_skin()->StyleBoxFlat:
+ var skin=UI.flat_style(Color("160b1e",0.90),Color(TEAL,0.52),26)
+ skin.shadow_color=Color("090510",0.28);skin.shadow_size=4;skin.shadow_offset=Vector2(0,2)
  return skin
-func compact_skin()->StyleBoxTexture:
- # Scale the generated square plaque first, so corner art is never stretched
- # into long spikes. The 18px slices preserve its small organic frame.
- var image=UI.Art.panel_texture("panel").get_image()
- image.resize(112,100,Image.INTERPOLATE_LANCZOS)
- var skin=StyleBoxTexture.new();skin.texture=ImageTexture.create_from_image(image)
- skin.texture_margin_left=18;skin.texture_margin_right=18;skin.texture_margin_top=18;skin.texture_margin_bottom=18
- return skin
+func compact_skin()->StyleBoxFlat:
+ return UI.flat_style(Color("160b1e",0.90),Color(TEAL,0.6),18)
 func plate(rect:Rect2):
  draw_style_box(plaque,rect)
 func instrument_backings()->Array[Rect2]:
- return [Rect2(58,58,220,20),Rect2(size.x/2-84,52,168,25),Rect2(size.x-306,28,226,42)]
+ return [Rect2(12,10,270,88),Rect2(size.x/2-109,10,218,88),Rect2(size.x-306,22,296,56)]
 func _draw():
  if not is_instance_valid(fuel):return
  for rect in instrument_backings():plate(rect)
+ plate(Rect2(444,size.y-98,432,64))
+ plate(Rect2(12,size.y-39,414,32))
+ plate(Rect2(size.x-212,size.y-261,192,28))
 
 
 func refresh():

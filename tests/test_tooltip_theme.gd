@@ -33,7 +33,7 @@ func hover(control:Control,tag:String):
   check(panel is PopupPanel,"Tooltip is engine-generated popup: "+tag)
   if panel is PopupPanel:
    var box=panel.get_theme_stylebox("panel","TooltipPanel")
-   check(box is StyleBoxFlat and box.bg_color==UI.TOOLTIP_BG,"Actual tooltip panel is opaque ivory: "+tag)
+   check(box is StyleBoxFlat and box.bg_color==UI.TOOLTIP_BG,"Actual tooltip panel is opaque dark purple: "+tag)
    check(box.content_margin_left>=12 and box.content_margin_top>=8,"Actual tooltip has readable padding: "+tag)
   check(root.gui_get_focus_owner()==focus,"Hover preserves keyboard focus: "+tag)
   if DisplayServer.get_name()!="headless":
@@ -47,8 +47,8 @@ func execute():
  game=load("res://main.tscn").instantiate();root.add_child(game);await settle();game.set_process(false)
  game.save.fresh();game.test_mode=true;game.save.state.settings.skip_boss=true
  for skin in [UI.theme(),load("res://scripts/blue_ink.gd").theme()]:
-  check(skin.get_stylebox("panel","TooltipPanel").bg_color==UI.TOOLTIP_BG,"Both theme paths explicitly use ivory tooltips")
-  check(skin.get_color("font_color","TooltipLabel")==UI.TOOLTIP_TEXT,"Both theme paths explicitly use navy tooltip text")
+  check(skin.get_stylebox("panel","TooltipPanel").bg_color==UI.TOOLTIP_BG,"Both theme paths explicitly use dark purple tooltips")
+  check(skin.get_color("font_color","TooltipLabel")==UI.TOOLTIP_TEXT,"Both theme paths explicitly use white tooltip text")
  game.start_run();game.show_build_ui();await settle()
  game.build_ui.return_button.grab_focus()
  await hover(game.build_ui.return_button,"launch")

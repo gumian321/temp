@@ -1,6 +1,5 @@
 extends Control
 const Passive=preload("res://scripts/passive_feedback.gd")
-const Ink=preload("res://scripts/blue_ink.gd")
 const UI=preload("res://scripts/game_ui.gd")
 var game
 var board:PanelContainer
@@ -11,14 +10,14 @@ var progress_labels:Array[Label]=[]
 var postpone_button:Button
 var recycle_button:Button
 var epoch=0
-const RARITY_COLORS=[UI.TEAL,Color("235d94"),Color("735294"),UI.AMBER]
+const RARITY_COLORS=[UI.MUTED,Color("c6a7ff"),Color("ff83c8"),UI.AMBER]
 func setup(owner_game,offers:Array,token:int):
  game=owner_game;epoch=token
  set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);mouse_filter=MOUSE_FILTER_STOP
  theme=UI.theme();UI.protect(self)
  queue_redraw()
  board=PanelContainer.new();add_child(board)
- var paper=UI.style(Color(UI.BG,.97),Color(UI.MUTED,.4),24)
+ var paper=UI.style(Color(UI.BG,.97),Color(UI.TEAL,.5),26)
  paper.content_margin_left=28;paper.content_margin_right=28;paper.content_margin_top=24;paper.content_margin_bottom=24
  board.add_theme_stylebox_override("panel",paper)
  var stack=VBoxContainer.new();stack.add_theme_constant_override("separation",16);board.add_child(stack)
@@ -34,7 +33,9 @@ func setup(owner_game,offers:Array,token:int):
   b.tooltip_text=reward_title(reward)+"\n"+effect_text(reward)
   for key in ["normal","hover","pressed","disabled","focus"]:
    var style=UI.card_style(key not in ["normal","disabled"])
-   if key=="focus":style.draw_center=false
+   if key=="disabled":
+    style.bg_color=Color(UI.PANEL,.65);style.border_color=Color(UI.MUTED,.2);style.shadow_size=0
+   if key=="focus":style=UI.card_focus_style()
    b.add_theme_stylebox_override(key,style)
   b.pressed.connect(func():game.choose_reward(reward,epoch));buttons.append(b)
   var face=VBoxContainer.new();face.set_anchors_and_offsets_preset(PRESET_FULL_RECT);face.offset_left=28;face.offset_right=-28;face.offset_top=26;face.offset_bottom=-26;face.add_theme_constant_override("separation",10);face.mouse_filter=MOUSE_FILTER_IGNORE;b.add_child(face);faces.append(face)
@@ -55,7 +56,7 @@ func setup(owner_game,offers:Array,token:int):
   var progress=progress_info(reward)
   var badge=label(bottom,progress.text,21 if "LevelUp" in str(reward.get("class","")) else 15);badge.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT;badge.add_theme_color_override("font_color",UI.TEXT);badge.tooltip_text=progress.tooltip;progress_labels.append(badge)
   b.tooltip_text+="\n"+progress.tooltip
-  if b.disabled:face.modulate=Color(1,1,1,.55)
+  if b.disabled:face.modulate=Color(1,1,1,.72)
  if not offers.any(func(r):return game.run.can_reward(r)):
   subtitle.text=game.db.ui("NO AVAILABLE MUTATION · KEEP FOR LATER","暂无可用进化 · 奖励可暂存")
  var footer=HBoxContainer.new();footer.add_theme_constant_override("separation",16);stack.add_child(footer)
@@ -100,9 +101,9 @@ func short_effect(reward:Dictionary)->String:
  return game.db.ui("MUTATION","变异强化")
 func _draw():
  draw_rect(Rect2(Vector2.ZERO,size),Color(UI.BG,.84))
- for i in 16:
-  var x=size.x*.5+(i-8)*90
-  draw_line(Vector2(x,0),Vector2(x-240,size.y),Color(UI.TEAL,.035),1,true)
+ # Broad, quiet pools of color keep the modal distinct from combat.
+ draw_circle(Vector2(size.x*.24,size.y*.25),size.y*.4,Color(UI.TEAL,.035))
+ draw_circle(Vector2(size.x*.78,size.y*.76),size.y*.48,Color(Color("b192ef"),.025))
 
 func _unhandled_key_input(event:InputEvent):
  if event is InputEventKey and event.pressed and not event.echo:

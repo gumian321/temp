@@ -1,4 +1,5 @@
 extends Control
+const Neon = preload("res://scripts/game_ui.gd")
 const Ink = preload("res://scripts/blue_ink.gd")
 const Art = preload("res://scripts/centipede_art.gd")
 const Mount = preload("res://scripts/build_mount_control.gd")
@@ -32,6 +33,7 @@ var rebuilding = false
 
 func setup(owner_game):
 	game = owner_game
+	theme = Neon.theme(); Neon.protect(self)
 	player = game.player
 	db = game.db
 	size = Vector2(1440,900)
@@ -124,7 +126,7 @@ func rebuild():
 	copy_button.active = copying
 	armor_button = icon_button("armor",int(player.actions.wall),Vector2(1170,697),reinforce_selected,"加固所选模块")
 	hint = text_at("",Vector2(48,823),Vector2(1040,42),17)
-	hint.add_theme_color_override("font_color",Color("b45846")); hint.visible = false
+	hint.add_theme_color_override("font_color",Neon.RED); hint.visible = false
 	return_button = action_button("出战  →",Vector2(1170,812),Vector2(190,52),game.show_game,not player.pending.is_empty())
 	if game.reward_flow_active:
 		action_button("稍后安装",Vector2(1008,812),Vector2(142,52),game.postpone_rewards)
@@ -141,21 +143,22 @@ func _process(dt: float):
 
 func _draw():
 	if player == null: return
-	var faint = Color(Ink.MUTED,0.24)
+	draw_rect(Rect2(Vector2.ZERO,size),Neon.BG)
+	var faint = Color(Neon.TEAL,0.24)
 	draw_line(Vector2(48,111),Vector2(1360,111),faint,1.0,true)
 	draw_line(Vector2(336,220),Vector2(336,779),faint,1.0,true)
-	Symbols.draw(self,"grid",Vector2(1143,62),0.85,Ink.MUTED)
-	draw_line(Vector2(420,260),Vector2(tail_target.position.x+45,260),Color(Ink.MUTED,0.45),3.0,true)
+	Symbols.draw(self,"grid",Vector2(1143,62),0.85,Neon.MUTED)
+	draw_line(Vector2(420,260),Vector2(tail_target.position.x+45,260),Color(Neon.MUTED,0.45),3.0,true)
 	Art.segment(self,Vector2(414,260),PI,0.67,0.0,true)
 	if segment_buttons.has(selected_segment):
 		var from: Vector2 = segment_buttons[selected_segment].position+Vector2(47,121)
-		draw_polyline(PackedVector2Array([from,Vector2(from.x,329),Vector2(720,329),Vector2(720,337)]),Color(Ink.BLUE,0.6),1.5,true)
+		draw_polyline(PackedVector2Array([from,Vector2(from.x,329),Vector2(720,329),Vector2(720,337)]),Color(Neon.TEAL,0.6),1.5,true)
 	Art.prepare()
 	draw_texture_rect(Art.pieces.body,Rect2(515,369,410,410),false,Color(1,1,1,0.14))
 	if player.pending.is_empty():
-		Symbols.draw(self,"grid",Vector2(180,425),2.8,Color(Ink.MUTED,0.3))
+		Symbols.draw(self,"grid",Vector2(180,425),2.8,Color(Neon.MUTED,0.3))
 	else:
-		Symbols.draw(self,"arrow",Vector2(329,548),1.0,Ink.MUTED)
+		Symbols.draw(self,"arrow",Vector2(329,548),1.0,Neon.MUTED)
 	var data = inspected_data if not inspected_data.is_empty() else selected_data
 	var carried = active_drag_data if not active_drag_data.is_empty() else selected_data
 	var placing = not hovered_target.is_empty() and can_drop(hovered_target,carried)
@@ -169,8 +172,8 @@ func _draw():
 			var center = Vector2(1185,538)+player.display_slot_offset(selected_segment,slot,additional)*2.7
 			var extent = Ink.fitted_size(ghost,Vector2.ONE*player.mount_display_size(player.parts_on_segment(selected_segment).size()+additional)*2.7)
 			if ghost!=null: draw_texture_rect(ghost,Rect2(center-extent/2,extent),false,Color(1,1,1,0.6))
-			draw_arc(center,23,0,TAU,40,Color("62a4a4"),2,true)
-		draw_string(Ink.theme().default_font,Vector2(1161,686),"%d / 9" % player.parts_on_segment(selected_segment).size(),HORIZONTAL_ALIGNMENT_LEFT,-1,20,Ink.MUTED)
+			draw_arc(center,23,0,TAU,40,Neon.TEAL,2,true)
+		draw_string(Neon.font(),Vector2(1161,686),"%d / 9" % player.parts_on_segment(selected_segment).size(),HORIZONTAL_ALIGNMENT_LEFT,-1,20,Neon.MUTED)
 	else:
 		var core: Dictionary = db.asset(data.get("id",data.get("part",{}).get("id","")))
 		var texture = db.core_sprite(core)
@@ -183,9 +186,9 @@ func _draw():
 			var values = [float(damage.get("hullDamage",0)),float(core.get("turretRateOfFire",0)),db.range_units(core.get("turretRange",1))*48.0]
 			var limits = [200.0,12.0,1200.0]
 			for i in 3:
-				Symbols.draw(self,["damage","rate","range"][i],Vector2(1056,590+i*29),0.7,Ink.MUTED)
-				draw_line(Vector2(1086,590+i*29),Vector2(1298,590+i*29),Ink.WASH,5,true)
-				draw_line(Vector2(1086,590+i*29),Vector2(1086+212*clampf(values[i]/limits[i],0.02,1),590+i*29),Ink.BLUE,5,true)
+				Symbols.draw(self,["damage","rate","range"][i],Vector2(1056,590+i*29),0.7,Neon.MUTED)
+				draw_line(Vector2(1086,590+i*29),Vector2(1298,590+i*29),Neon.PANEL,5,true)
+				draw_line(Vector2(1086,590+i*29),Vector2(1086+212*clampf(values[i]/limits[i],0.02,1),590+i*29),Neon.TEAL,5,true)
 		else:
 			draw_segment(self,selected_segment,Vector2(1186,611),1.08)
 
@@ -197,7 +200,7 @@ func draw_segment(canvas: CanvasItem, segment: int, at: Vector2, scale_factor: f
 		if texture==null: continue
 		var extent = Ink.fitted_size(texture,Vector2.ONE*player.mount_display_size(player.parts_on_segment(segment).size()+additional)*scale_factor)
 		var center = at+player.display_slot_offset(segment,part.slot,additional)*scale_factor
-		canvas.draw_line(at+player.slot_offset(part.slot)*scale_factor,center,Ink.MUTED,3.0*scale_factor,true)
+		canvas.draw_line(at+player.slot_offset(part.slot)*scale_factor,center,Neon.MUTED,3.0*scale_factor,true)
 		canvas.draw_texture_rect(texture,Rect2(center-extent/2,extent),false)
 
 func inspect(data: Dictionary):

@@ -8,6 +8,7 @@ const CentipedeArt = preload("res://scripts/centipede_art.gd")
 const SegmentFeedback = preload("res://scripts/segment_feedback.gd")
 const UI = preload("res://scripts/game_ui.gd")
 const Ink = preload("res://scripts/blue_ink.gd")
+var neon_radar_skin:StyleBoxFlat
 const Brood = preload("res://scripts/brood_theme.gd")
 const Battle = preload("res://scripts/combat.gd")
 const Feedback = preload("res://scripts/weapon_feedback.gd")
@@ -192,7 +193,7 @@ func label_at(text: String, pos: Vector2, size: int = 22, color: Color = Color.W
 	label.text = text
 	label.position = pos
 	label.add_theme_font_size_override("font_size", size)
-	label.add_theme_color_override("font_color", Color(Ink.INK, color.a))
+	label.add_theme_color_override("font_color", Color(UI.TEXT, color.a))
 	panel.add_child(label)
 	return label
 
@@ -234,6 +235,7 @@ func show_menu():
 	UI.icon(panel,"meta",Vector2(82,765),38,UI.AMBER)
 	UI.label(panel,str(save.state.meta),Vector2(136,760),34,UI.AMBER)
 	UI.label(panel,db.ui("EVOLUTION","进化点"),Vector2(136,807),16,UI.MUTED)
+	UI.panel(panel,Rect2(760,818,480,45))
 	UI.label(panel,"W A S D  /  "+db.ui("MOVE","移动")+"     E  /  "+db.ui("BUILD","装配"),Vector2(780,830),18,UI.TEXT)
 
 func show_characters():
@@ -1099,13 +1101,14 @@ func _draw():
 			if not b.friendly:weapon_fx.paint_projectile(self,b,test_time,zoom)
 		# Radar uses actual world objects, including distant mission bosses.
 		var radar_origin=get_viewport_rect().size-Vector2(210,235)
-		draw_rect(Rect2(radar_origin,Vector2(180,150)), Color("d8e3ec"))
-		draw_rect(Rect2(radar_origin,Vector2(180,150)),Ink.MUTED,false,1.0)
+		if neon_radar_skin==null:neon_radar_skin=UI.hud_style()
+		draw_style_box(neon_radar_skin,Rect2(radar_origin,Vector2(180,150)))
+		draw_rect(Rect2(radar_origin+Vector2(12,12),Vector2(156,126)),Color(UI.MUTED,.12),false,1.0)
 		for e in combat.enemies:
 			var offset: Vector2 = (e.position - player.head) * 0.012
 			if offset.length() < 70:
-				draw_map_icon(e,radar_origin+Vector2(90,75)+offset,8 if e.kind!="AIBossUnit" else 13)
-		draw_circle(radar_origin+Vector2(90,75), 4, Color("173b70"))
+				draw_map_icon(e,radar_origin+Vector2(90,75)+offset,8 if e.kind!="AIBossUnit" else 13,true)
+		draw_circle(radar_origin+Vector2(90,75), 4, UI.TEAL)
 		draw_objective_arrows()
 
 func automated_flow():
@@ -1177,7 +1180,7 @@ func collect_buttons(node:Node,result:Array):
 		result.append({"name":str(node.get_parent().name),"text":node.text,"x":rect.get_center().x,"y":rect.get_center().y})
 	for child in node.get_children():collect_buttons(child,result)
 
-func draw_map_icon(enemy:Dictionary,at:Vector2,pixels:float):
+func draw_map_icon(enemy:Dictionary,at:Vector2,pixels:float,neon:bool=false):
 	if Brood.eligible(enemy):
 		var insect=Brood.texture("enemy_"+Brood.species(enemy))
 		art(insect,at,Ink.fitted_size(insect,Vector2.ONE*pixels),0,Color.WHITE,true)
@@ -1185,7 +1188,7 @@ func draw_map_icon(enemy:Dictionary,at:Vector2,pixels:float):
 	var threat=int(enemy.unit.get("aIThreatLevel",0))
 	var sprites:Array=db.stores.AIDataStore.threatsLevelSprites
 	var texture=db.sprite(sprites[clampi(threat,0,sprites.size()-1)])
-	art(texture,at,Ink.fitted_size(texture,Vector2.ONE*pixels),0,Ink.MUTED if enemy.role=="friendly" else Ink.INK,true)
+	art(texture,at,Ink.fitted_size(texture,Vector2.ONE*pixels),0,(UI.AMBER if enemy.role=="friendly" else UI.TEXT) if neon else (Ink.MUTED if enemy.role=="friendly" else Ink.INK),true)
 
 func draw_objective_arrows():
 	for enemy in combat.enemies:

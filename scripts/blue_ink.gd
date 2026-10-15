@@ -58,13 +58,13 @@ static func style_item(node: Node):
 		if ancestor.has_meta("game_ui"):return
 		ancestor=ancestor.get_parent()
 	if node is Label or node is RichTextLabel:
-		node.add_theme_color_override("font_color", INK)
-		node.add_theme_color_override("default_color", INK)
+		node.add_theme_color_override("font_color", preload("res://scripts/game_ui.gd").TEXT)
+		node.add_theme_color_override("default_color", preload("res://scripts/game_ui.gd").TEXT)
 		node.add_theme_color_override("font_outline_color", PAPER)
 		node.add_theme_constant_override("outline_size", 0)
 	elif node is TextureRect:
 		if node.texture is AtlasTexture: node.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
-		node.material = null if keeps_color(node.texture) else illustration()
+		node.material = null if keeps_color(node.texture) else preload("res://scripts/game_ui.gd").icon_material()
 		if keeps_color(node.texture): node.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		node.modulate = Color(1, 1, 1, node.modulate.a)
 	elif node is TextureProgressBar:

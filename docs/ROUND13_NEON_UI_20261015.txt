@@ -1,0 +1,36 @@
+第十三轮：Plasma UI Neon 风格界面试版
+
+参考与实际观察
+https://cruxgarden.github.io/plasma-ui/#playground
+2026-10-15 在云端 Chrome 打开页面，点击 Neon 后查看 Playground 与当前控件值。
+真实预设：tint #160b1e，rimColor #ff2d95，opacity 0.75，frost 0.2，radius 26，elevation 0.55，viscosity 0.15，stretch 1.2，dispersion 2，rim 1.6，rimWidth 1.3，highlight 0.6，edgeLine 1.4，shimmer/glow 1.4。
+参考截图保存在本轮本地测试 artifacts/neon-reference-playground.png。
+
+实现范围
+- 主页：生成新的 Neon 虫巢背景，左侧暗紫控制台，右侧象牙蜈蚣与蜘蛛。
+- 出征：暗紫面板、圆角难度按钮、玫红选中/焦点，保留地图实景图、普通/困难/噩梦和所有任务行为。
+- 虫巢：角色选择、解锁与禁用状态统一，角色生成美术保留。
+- 战斗：顶部状态仪表、底部技能/按键、雷达均有局部暗底；亮白数字、玫红状态条、珊瑚资源色。
+- 进化研究、三选一、图鉴：统一面板、稀有度与禁用文字对比；原成长/进度/点击行为不变。
+- 身体装配：直接角色操作保留，工作区与待装托盘换暗玻璃，选中和插入反馈换玫红。
+- 设置、按键、暂停、帮助、结算、战地记录、教程、悬浮提示、浮动通知同步主题。
+- 源UI遗留交互区不再使用白色hover矩形；改半透明玫红边，文字使用粗体。
+
+美术与性能边界
+基础圆角、边框、局部光晕用 Godot StyleBoxFlat；不把网页整个 WebGL 液体融合/折射渲染器移植到战斗。
+保留 Neon 深色染色材质、彩色边与柔和光晕的视觉方向；这版不声称实现网页面板互相融合或物理折射。
+复杂主页背景由 imagegen 生成；原生成图标通过共享UI专用材质适配，器官/角色/地图插画不替换成程序绘图。
+没有全屏 blur/refraction pass，没有新的每帧纹理上传或额外持续UI重绘。HUD暗底资源和雷达皮肤缓存复用。
+战斗场景、世界墨线材质、武器弹道和第12轮死亡爆浆不改。
+
+验证
+- 90组唯一功能回归通过：89组默认回归 + enemy_motion。
+- 默认初跑两个失败均为已被本轮明确替代的StyleBoxTexture旧皮肤断言；更新为Neon StyleBoxFlat与对应选中状态验证后重跑通过，未删除功能断言。
+- Native X11 + Mesa llvmpipe 9组UI截图/交互suite通过，覆盖1440×900、1280×720、1920×1080及出征1100×820，中英文本、鼠标/手柄、hover/focus/disabled、长标题、角色与装配。
+- 文字检查采用真正sRGB线性化WCAG对比度，主要/辅助/禁用按钮/tooltip至少4.5。
+- HUD暗底总面积预算≤12%，中央60%战区不被暗板侵占。
+- HUD10,000次稳定刷新和源UI重复文本缓存测试通过。
+- 游戏主页/出征/设置/研究/奖励/战斗/直接装配实际截图已人工目视检查。
+
+上一轮基线：7afdad1dbd9a3841055bb65552b2f980955b019a。
+测试摘要和源码SHA256见 docs/test-evidence/neon-ui-round13.json。

@@ -44,7 +44,7 @@ func _draw():
 		var source=not builder.active_drag_data.is_empty() and builder.active_drag_data.get("part",{})==payload.get("part",{})
 		var style=UI.card_style(swap or selected or has_focus())
 		draw_style_box(style,Rect2(Vector2(2,13-hover_amount*3),Vector2(size.x-4,218)))
-		draw_string(Ink.theme().default_font,Vector2(20,49-hover_amount*3),"%02d"%int(target.segment),HORIZONTAL_ALIGNMENT_LEFT,-1,16,UI.TEXT if selected or swap else UI.MUTED)
+		draw_string(UI.font(),Vector2(20,49-hover_amount*3),"%02d"%int(target.segment),HORIZONTAL_ALIGNMENT_LEFT,-1,16,UI.TEXT if selected or swap else UI.MUTED)
 		if selected:draw_circle(Vector2(size.x-23,39-hover_amount*3),3,UI.AMBER,true,-1,true)
 		if payload.get("part",{}).get("wall",false):draw_texture_rect(UI.icon_texture("armor"),Rect2(size.x-42,27,28,28),false)
 		var pulse=builder.landing_left if int(target.segment)==builder.landing_segment else 0.0
@@ -58,7 +58,7 @@ func _draw():
 		var part:Dictionary=payload.get("part",{})
 		if not part.is_empty():
 			var hp=clampf(float(part.hp)/maxf(1,part.max_hp),0,1)
-			draw_rect(Rect2(16,191,size.x-32,4),Color("dce4df"))
+			draw_rect(Rect2(16,191,size.x-32,4),Color(UI.MUTED,0.18))
 			draw_rect(Rect2(16,191,(size.x-32)*hp,4),TEAL if hp>0.3 else UI.RED)
 			label_at("%d / %d"%[maxf(0,part.hp),part.max_hp],216,16,UI.MUTED)
 		if destination.get("kind")=="gap" and int(destination.get("before",-1)) in [int(target.segment),int(target.segment)+1] and builder.can_drop(destination,carried):

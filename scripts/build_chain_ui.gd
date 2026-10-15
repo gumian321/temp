@@ -29,12 +29,16 @@ var drag_pointer = Vector2.ZERO
 
 func setup(owner_game):
 	game=owner_game;player=game.player;db=game.db;theme=UI.theme();UI.protect(self)
+	assembly_glass=UI.flat_style(Color("160b1e",0.75),Color(UI.TEAL,0.30),26)
+	tray_glass=UI.flat_style(Color("21162e",0.75),Color(UI.TEAL,0.42),26)
 	size=Vector2(1440,900);mouse_filter=Control.MOUSE_FILTER_IGNORE
 	selected_segment=clampi(game.build_selected_segment,0,player.segment_count())
 	if game.reward_flow_active and not player.pending.is_empty():
 		selected_data={"kind":"inventory","index":0,"id":player.pending[0]}
 	rebuild()
 
+var assembly_glass:StyleBoxFlat
+var tray_glass:StyleBoxFlat
 var body_canvas
 var spider_preview
 func rebuild():
@@ -123,8 +127,9 @@ func shown_data()->Dictionary:
 
 func _draw():
 	draw_rect(Rect2(0,0,1440,900),UI.BG)
-	draw_line(Vector2(48,124),Vector2(1392,124),Color(UI.MUTED,0.2),1,true)
-	draw_line(Vector2(48,690),Vector2(1392,690),Color(UI.MUTED,0.3),1,true)
+	if assembly_glass!=null:draw_style_box(assembly_glass,Rect2(36,137,1368,492))
+	if tray_glass!=null:draw_style_box(tray_glass,Rect2(36,694,1340,102))
+	draw_line(Vector2(48,124),Vector2(1392,124),Color(UI.TEAL,0.32),1,true)
 
 func draw_head(canvas:CanvasItem,at:Vector2,scale_factor:float):
 	if player.character_id!="centipede":
@@ -296,5 +301,5 @@ func action_button(title: String, at: Vector2, extent: Vector2, callback: Callab
 	var button=Button.new();button.text=title;button.position=at;button.size=extent;button.disabled=disabled
 	button.add_theme_font_size_override("font_size",19)
 	for state in ["normal","hover","pressed","disabled","focus"]:
-		button.add_theme_stylebox_override(state,UI.focus_style() if state=="focus" else UI.flat_style(Color(UI.TEAL,0.12) if state in ["hover","pressed"] else Color(UI.BG,0),Color(UI.MUTED,0.32),8))
+		button.add_theme_stylebox_override(state,UI.focus_style() if state=="focus" else UI.flat_style(Color("48203e",0.9) if state in ["hover","pressed"] else Color("21162e",0.75),Color(UI.TEAL,0.85 if state in ["hover","pressed"] else 0.45),26))
 	button.pressed.connect(callback);add_child(button);return button
