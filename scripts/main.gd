@@ -691,21 +691,7 @@ func show_result():
 	set_score_row(refid(config,"metaScorePanelController"),db.text("GameOver_Scraps"),run.result.meta)
 
 	shell_from_source(db.ui("EXPEDITION COMPLETE" if run.won else "EXPEDITION ENDED","远征完成" if run.won else "远征结束"),show_menu)
-	UI.panel(panel,Rect2(70,160,540,580),UI.AMBER)
-	UI.icon(panel,"shield",Vector2(226,214),220,UI.AMBER)
-	UI.label(panel,str(run.result.grade),Vector2(279,276),86,UI.AMBER)
-	UI.label(panel,db.ui("RANK","评级"),Vector2(304,475),20,UI.MUTED)
-	UI.label(panel,str(run.result.score),Vector2(242,528),58)
-	UI.panel(panel,Rect2(642,160,720,580))
-	UI.icon(panel,"meta",Vector2(690,204),52,UI.AMBER)
-	UI.label(panel,"+ "+str(run.result.meta),Vector2(760,194),50,UI.AMBER)
-	for i in range(mini(rows.size(),6)):
-		var pos=Vector2(692+(i%2)*326,320+int(i/2)*122)
-		UI.label(panel,str(rows[i].value),pos,36)
-		UI.label(panel,rows[i].title,pos+Vector2(0,48),17,UI.MUTED)
-	UI.button(panel,db.ui("BASE","基地"),Rect2(70,786,290,76),show_menu,"back")
-	UI.button(panel,db.ui("EVOLVE","进化"),Rect2(670,786,320,76),show_lab,"research")
-	UI.button(panel,db.ui("AGAIN","再战"),Rect2(1020,786,342,76),begin_run,"play",UI.AMBER)
+	preload("res://scripts/result_screen.gd").build(self,rows)
 
 func set_score_row(id:String,title:String,value:int):
 	var row:Dictionary=source_ui.components.get(id,{})
@@ -949,7 +935,7 @@ func _unhandled_input(event):
 		if event.is_action_pressed("pause"):
 			if screen == "game": show_pause()
 			elif screen == "pause": show_game()
-			elif screen in ["menu", "lab", "options", "changelog", "characters"]: show_menu()
+			elif screen in ["menu", "lab", "options", "changelog", "characters", "result"]: show_menu()
 			elif screen=="reward_pool":show_missions()
 			elif screen=="controls":show_options()
 		if event.is_action_pressed("build"):

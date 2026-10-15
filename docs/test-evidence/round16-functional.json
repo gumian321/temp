@@ -1,0 +1,5459 @@
+{
+	"captures": [],
+	"cases": 68,
+	"checks": [
+		{
+			"name": "All 17 source rating tiers present",
+			"passed": true
+		},
+		{
+			"name": "Actual run body is centipede",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede SSS+ false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained SSS+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 250000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 250",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SSS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SSS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SSS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SSS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SSS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SSS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SSS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SSS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier SSS+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede SS+ false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained SS+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 175000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 200",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier SS+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede S+ false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained S+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 122500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 150",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads S+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card S+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads S+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card S+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier S+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede S false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained S",
+			"passed": true
+		},
+		{
+			"name": "Exact score 115000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 140",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads S",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card S",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier S",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede A+ false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained A+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 107500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 130",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier A+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede A false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained A",
+			"passed": true
+		},
+		{
+			"name": "Exact score 100000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 120",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier A",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede A- false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained A-",
+			"passed": true
+		},
+		{
+			"name": "Exact score 92500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 110",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier A-",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede B+ false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained B+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 85000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 100",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier B+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede B false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained B",
+			"passed": true
+		},
+		{
+			"name": "Exact score 77500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 90",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier B",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede B- false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained B-",
+			"passed": true
+		},
+		{
+			"name": "Exact score 70000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 80",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier B-",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede C+ false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained C+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 62500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 70",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier C+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede C false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained C",
+			"passed": true
+		},
+		{
+			"name": "Exact score 55000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 60",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier C",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede C- false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained C-",
+			"passed": true
+		},
+		{
+			"name": "Exact score 47500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 50",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier C-",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede D+ false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained D+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 35000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 40",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier D+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede D false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained D",
+			"passed": true
+		},
+		{
+			"name": "Exact score 25000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 35",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier D",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede D- false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained D-",
+			"passed": true
+		},
+		{
+			"name": "Exact score 15000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 25",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier D-",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede F false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained F",
+			"passed": true
+		},
+		{
+			"name": "Exact score 0",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 5",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads F",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card F",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier F",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede SSS+ true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained SSS+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 250000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 250",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SSS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SSS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SSS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SSS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SSS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SSS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SSS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SSS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier SSS+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede SS+ true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained SS+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 175000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 200",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier SS+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede S+ true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained S+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 122500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 150",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads S+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card S+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads S+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card S+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier S+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede S true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained S",
+			"passed": true
+		},
+		{
+			"name": "Exact score 115000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 140",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads S",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card S",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier S",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede A+ true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained A+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 107500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 130",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier A+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede A true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained A",
+			"passed": true
+		},
+		{
+			"name": "Exact score 100000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 120",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier A",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede A- true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained A-",
+			"passed": true
+		},
+		{
+			"name": "Exact score 92500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 110",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier A-",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede B+ true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained B+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 85000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 100",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier B+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede B true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained B",
+			"passed": true
+		},
+		{
+			"name": "Exact score 77500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 90",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier B",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede B- true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained B-",
+			"passed": true
+		},
+		{
+			"name": "Exact score 70000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 80",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier B-",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede C+ true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained C+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 62500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 70",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier C+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede C true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained C",
+			"passed": true
+		},
+		{
+			"name": "Exact score 55000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 60",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier C",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede C- true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained C-",
+			"passed": true
+		},
+		{
+			"name": "Exact score 47500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 50",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier C-",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede D+ true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained D+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 35000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 40",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier D+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede D true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained D",
+			"passed": true
+		},
+		{
+			"name": "Exact score 25000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 35",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier D",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede D- true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained D-",
+			"passed": true
+		},
+		{
+			"name": "Exact score 15000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 25",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier D-",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists centipede F true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained F",
+			"passed": true
+		},
+		{
+			"name": "Exact score 0",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 5",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads F",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card F",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier F",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Actual run body is spider",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider SSS+ false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained SSS+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 250000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 250",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SSS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SSS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SSS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SSS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SSS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SSS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SSS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SSS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier SSS+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider SS+ false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained SS+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 175000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 200",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier SS+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider S+ false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained S+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 122500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 150",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads S+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card S+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads S+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card S+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier S+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider S false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained S",
+			"passed": true
+		},
+		{
+			"name": "Exact score 115000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 140",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads S",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card S",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier S",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider A+ false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained A+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 107500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 130",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier A+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider A false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained A",
+			"passed": true
+		},
+		{
+			"name": "Exact score 100000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 120",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier A",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider A- false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained A-",
+			"passed": true
+		},
+		{
+			"name": "Exact score 92500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 110",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier A-",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider B+ false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained B+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 85000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 100",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier B+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider B false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained B",
+			"passed": true
+		},
+		{
+			"name": "Exact score 77500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 90",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier B",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider B- false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained B-",
+			"passed": true
+		},
+		{
+			"name": "Exact score 70000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 80",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier B-",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider C+ false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained C+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 62500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 70",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier C+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider C false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained C",
+			"passed": true
+		},
+		{
+			"name": "Exact score 55000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 60",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier C",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider C- false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained C-",
+			"passed": true
+		},
+		{
+			"name": "Exact score 47500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 50",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier C-",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider D+ false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained D+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 35000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 40",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier D+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider D false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained D",
+			"passed": true
+		},
+		{
+			"name": "Exact score 25000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 35",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier D",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider D- false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained D-",
+			"passed": true
+		},
+		{
+			"name": "Exact score 15000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 25",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier D-",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider F false",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained F",
+			"passed": true
+		},
+		{
+			"name": "Exact score 0",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 5",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads F",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card F",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier F",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider SSS+ true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained SSS+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 250000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 250",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SSS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SSS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SSS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SSS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SSS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SSS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SSS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SSS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier SSS+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider SS+ true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained SS+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 175000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 200",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads SS+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card SS+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier SS+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider S+ true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained S+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 122500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 150",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads S+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card S+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads S+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card S+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier S+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider S true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained S",
+			"passed": true
+		},
+		{
+			"name": "Exact score 115000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 140",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads S",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card S",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier S",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider A+ true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained A+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 107500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 130",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier A+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider A true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained A",
+			"passed": true
+		},
+		{
+			"name": "Exact score 100000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 120",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier A",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider A- true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained A-",
+			"passed": true
+		},
+		{
+			"name": "Exact score 92500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 110",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads A-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card A-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier A-",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider B+ true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained B+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 85000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 100",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier B+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider B true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained B",
+			"passed": true
+		},
+		{
+			"name": "Exact score 77500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 90",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier B",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider B- true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained B-",
+			"passed": true
+		},
+		{
+			"name": "Exact score 70000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 80",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads B-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card B-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier B-",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider C+ true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained C+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 62500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 70",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier C+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider C true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained C",
+			"passed": true
+		},
+		{
+			"name": "Exact score 55000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 60",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier C",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider C- true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained C-",
+			"passed": true
+		},
+		{
+			"name": "Exact score 47500",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 50",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads C-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card C-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier C-",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider D+ true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained D+",
+			"passed": true
+		},
+		{
+			"name": "Exact score 35000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 40",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D+",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D+",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier D+",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider D true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained D",
+			"passed": true
+		},
+		{
+			"name": "Exact score 25000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 35",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier D",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider D- true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained D-",
+			"passed": true
+		},
+		{
+			"name": "Exact score 15000",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 25",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads D-",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card D-",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier D-",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Result root exists spider F true",
+			"passed": true
+		},
+		{
+			"name": "Original tier retained F",
+			"passed": true
+		},
+		{
+			"name": "Exact score 0",
+			"passed": true
+		},
+		{
+			"name": "Exact awarded research 5",
+			"passed": true
+		},
+		{
+			"name": "Exact time and kills",
+			"passed": true
+		},
+		{
+			"name": "Generated glyph texture loads F",
+			"passed": true
+		},
+		{
+			"name": "Glyph fits rank card F",
+			"passed": true
+		},
+		{
+			"name": "Generated glyphs preserve full tier F",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "Exact breakdown values",
+			"passed": true
+		},
+		{
+			"name": "No nonzero breakdown row dropped",
+			"passed": true
+		},
+		{
+			"name": "Rendering never awards currency or mutates save",
+			"passed": true
+		},
+		{
+			"name": "Outcome header matches win/loss",
+			"passed": true
+		},
+		{
+			"name": "Covered 17 tiers × 2 characters × 2 outcomes",
+			"passed": true
+		},
+		{
+			"name": "Zero breakdown rows omitted",
+			"passed": true
+		},
+		{
+			"name": "Zero score readable",
+			"passed": true
+		},
+		{
+			"name": "Large total retained exactly",
+			"passed": true
+		},
+		{
+			"name": "Negative source value retained exactly",
+			"passed": true
+		},
+		{
+			"name": "Result fits logical project canvas (1440, 900)",
+			"passed": true
+		},
+		{
+			"name": "Result fits logical project canvas (1440, 900)",
+			"passed": true
+		},
+		{
+			"name": "Result fits logical project canvas (1280, 720)",
+			"passed": true
+		},
+		{
+			"name": "Result fits logical project canvas (1280, 720)",
+			"passed": true
+		},
+		{
+			"name": "Result fits logical project canvas (1024, 768)",
+			"passed": true
+		},
+		{
+			"name": "Result fits logical project canvas (1024, 768)",
+			"passed": true
+		},
+		{
+			"name": "Focusable action BaseButton",
+			"passed": true
+		},
+		{
+			"name": "Keyboard activates BaseButton",
+			"passed": true
+		},
+		{
+			"name": "Old result freed after BaseButton",
+			"passed": true
+		},
+		{
+			"name": "Focusable action EvolveButton",
+			"passed": true
+		},
+		{
+			"name": "Keyboard activates EvolveButton",
+			"passed": true
+		},
+		{
+			"name": "Old result freed after EvolveButton",
+			"passed": true
+		},
+		{
+			"name": "Focusable action AgainButton",
+			"passed": true
+		},
+		{
+			"name": "Keyboard activates AgainButton",
+			"passed": true
+		},
+		{
+			"name": "Old result freed after AgainButton",
+			"passed": true
+		},
+		{
+			"name": "Repeated Escape dismisses result 0",
+			"passed": true
+		},
+		{
+			"name": "Repeated Escape dismisses result 1",
+			"passed": true
+		},
+		{
+			"name": "Repeated Escape dismisses result 2",
+			"passed": true
+		},
+		{
+			"name": "Controller B dismisses result",
+			"passed": true
+		}
+	],
+	"passed": true
+}

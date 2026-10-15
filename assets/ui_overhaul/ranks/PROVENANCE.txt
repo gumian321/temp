@@ -1,0 +1,11 @@
+Neon result rank glyph atlas — 2026-10-15
+Generated with the built-in image_gen imagegen tool. True RGBA transparent PNG.
+Original output: exec-6a0b5702-8c24-4109-a44b-059086d74c13.png
+The committed PNG is a byte-for-byte copy; no programmatically drawn replacement artwork.
+Atlas reading order: S A B C / D F + −. All glyphs visually inspected.
+Runtime AtlasTextures assemble the exact 17 grades from RatingDataStore:
+SSS+, SS+, S+, S, A+, A, A-, B+, B, B-, C+, C, C-, D+, D, D-, F.
+Typography is generated artwork; score, rewards and breakdown remain live font-rendered text.
+
+Prompt:
+Create one production-ready transparent PNG game UI typography sprite atlas, 4 columns by 2 rows of 8 isolated glyphs, each centered in an equal square cell with generous transparent gutters. Exact glyphs left to right: top row S, A, B, C; bottom row D, F, +, −. No other text, no grid, no background, no badges behind letters. These are collectible performance rank glyphs for a polished insect action game with Plasma Neon dark purple and hot pink interface. Huge ultra-bold slightly italic dimensional letters with broad solid ivory/rose front faces, strong dark plum outline, restrained hot-pink emissive bevels, clean peach highlights, subtle smooth material gradients. Readability first: S curved, A obvious triangular hole and crossbar, B two clear counters, C clearly open, D one counter, F straight stem and two arms. Plus and minus thick and obvious. Shape occupies 65% of each cell. Consistent baseline, optical scale and material. Premium videogame result screen artwork, not flat text; no tiny details, no starbursts, no sparks obscuring silhouette, no excessive bloom, no shadows crossing cell gutters. True alpha transparent background.
