@@ -2,6 +2,7 @@ extends RefCounted
 ## Original AI-generated cutouts; animation only transforms the painted raster.
 const AttackShaders = preload("res://scripts/attack_shader_layer.gd")
 const SpiderArt = preload("res://scripts/spider_art.gd")
+const TetherFX = preload("res://scripts/insect_attack_fx.gd")
 static var textures: Dictionary = {}
 
 static func portrait(id: String) -> Texture2D:
@@ -12,11 +13,11 @@ static func portrait(id: String) -> Texture2D:
 	textures[id] = load(path)
 	return textures[id]
 
-static func draw_body(canvas: CanvasItem, player, at: Vector2, zoom: float, _clock: float):
+static func draw_body(canvas: CanvasItem, player, at: Vector2, zoom: float, _clock: float, tension:Dictionary={}):
 	var id: String = player.character_id
 	if id == "centipede": return
 	if id == "spider":
-		SpiderArt.draw_body(canvas, player, at, zoom, _clock)
+		SpiderArt.draw_body(canvas, player, at, zoom, _clock,tension)
 		return
 	var texture = portrait(id)
 	if texture == null: return
@@ -48,20 +49,10 @@ static func draw_body(canvas: CanvasItem, player, at: Vector2, zoom: float, _clo
 static func draw_skill(canvas: CanvasItem, player, state: Dictionary, at: Vector2, zoom: float, clock: float):
 	clock = float(player.motion.elapsed)
 	var active = float(state.get("active", 0.0))
-	if player.character_id == "spider" and active > 0:
-		var silk_canvas=AttackShaders.route(canvas,"silk")
+	if player.character_id == "spider":
 		for thread in state.get("threads", []):
-			var target: Vector2 = at + (Vector2(thread.position) - player.head) * zoom
-			var axis = target - at
-			var normal = axis.orthogonal().normalized()
-			var points = PackedVector2Array()
-			for step in range(19):
-				var t = float(step) / 18.0
-				var sag = sin(t * PI) * minf(15.0, axis.length() * 0.07) * (0.3 + active * 0.35)
-				var wave = sin(clock * 13.0 + t * 9.0 + float(thread.uid)) * sin(t * PI) * 2.0 * zoom
-				points.append(at.lerp(target, t) + normal * (sag + wave))
-			silk_canvas.draw_polyline(points, Color(0.10, 0.24, 0.40, 0.85), 3.6 * zoom, true)
-			silk_canvas.draw_polyline(points, Color(0.86, 0.96, 1.0, 0.95), 1.5 * zoom, true)
+			TetherFX.paint_rope(canvas,thread.tether,zoom,"silk")
+		TetherFX.paint_released(canvas,state.get("released_threads",[]),zoom)
 	elif player.character_id == "beetle":
 		canvas.draw_set_transform(at, player.facing.angle(), Vector2.ONE * zoom)
 		var armor = clampf(float(state.get("armor", 0)) / 100.0, 0, 1)

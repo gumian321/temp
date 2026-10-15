@@ -1,6 +1,7 @@
 extends RefCounted
 ## Bounded visual elasticity only: never writes simulation positions or consumes RNG.
 const AttackShaders = preload("res://scripts/attack_shader_layer.gd")
+const Tether = preload("res://scripts/tether_motion.gd")
 const MAX_CONTROLS = 32
 const CURVE_SEGMENTS = 18
 const INK = Color("173b70")
@@ -42,6 +43,29 @@ static func ownership_color(kind: String, friendly: bool) -> Color:
 	if not friendly: return Color("f06888")
 	return Color("72e8dc") if kind == "tendril" else Color("b8e5ee")
 
+static func paint_rope(canvas,motion:Dictionary,zoom:float,kind:String,friendly:bool=true,strands:int=1):
+	var curve=Tether.points(motion)
+	var alpha=Tether.alpha(motion)
+	if curve.is_empty() or alpha<=0:return
+	var bounds=Rect2(canvas.world(curve[0]),Vector2.ZERO)
+	for i in curve.size():
+		curve[i]=canvas.world(curve[i])
+		bounds=bounds.expand(curve[i])
+	if not bounds.grow(12*zoom).intersects(canvas.get_viewport_rect()):return
+	var painter=AttackShaders.route(canvas,kind,not friendly)
+	var color=ownership_color(kind,friendly)
+	var width=(1.0-float(motion.tension)*.14)*zoom
+	for strand in strands:
+		var line=curve.duplicate()
+		var side=curve[0].direction_to(curve[-1]).orthogonal()
+		for i in line.size():line[i]+=side*sin(float(i)/Tether.SEGMENTS*PI)*(strand-(strands-1)*.5)*2.5*zoom*alpha
+		painter.draw_polyline(line,Color(INK,alpha*.88),(3.7 if kind=="silk" else 6.0)*width,true)
+		painter.draw_polyline(line,Color(color,alpha),(1.5 if kind=="silk" else 3.0)*width,true)
+		if kind=="tendril":painter.draw_polyline(line,Color(PAPER,alpha*.85),.9*width,true)
+
+static func paint_released(canvas,released:Array,zoom:float):
+	for motion in released:paint_rope(canvas,motion,zoom,motion.kind,motion.friendly)
+
 static func paint(canvas, controls: Array, zoom: float):
 	var source_canvas=canvas
 	var count = mini(MAX_CONTROLS,controls.size())
@@ -49,9 +73,9 @@ static func paint(canvas, controls: Array, zoom: float):
 		canvas=source_canvas
 		var effect: Dictionary = controls[i]
 		var target: Dictionary = effect.get("target",{})
-		var alpha = control_alpha(effect)
+		var alpha = 1.0 if effect.has("tether") else control_alpha(effect)
 		if target.is_empty() or float(target.get("hp",0))<=0 or alpha<=0: continue
-		var start: Vector2 = canvas.world(effect.origin)
+		var start: Vector2 = canvas.world(Vector2(effect.origin)+Vector2(effect.get("tether",{}).get("emitter_offset",Vector2.ZERO)))
 		var end: Vector2 = canvas.world(target.position)
 		if not start.is_finite() or not end.is_finite(): continue
 		var bounds = Rect2(start,Vector2.ZERO).expand(end).grow(60.0)
@@ -62,7 +86,8 @@ static func paint(canvas, controls: Array, zoom: float):
 		var color = ownership_color(kind,friendly)
 		var age = maxf(0,float(effect.duration)-float(effect.life))
 		var radius = clampf(float(target.get("radius",18)),12,34)*zoom
-		for strand in range(3 if kind=="silk" else 1):
+		if effect.has("tether"):paint_rope(source_canvas,effect.tether,zoom,kind,friendly,3 if kind=="silk" else 1)
+		for strand in range(0 if effect.has("tether") else (3 if kind=="silk" else 1)):
 			var curve = curve_points(start,end,age,kind,strand)
 			if curve.is_empty(): continue
 			canvas.draw_polyline(curve,Color(INK,alpha*0.88),(3.7 if kind=="silk" else 6.0)*zoom,true)

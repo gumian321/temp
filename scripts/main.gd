@@ -987,8 +987,8 @@ func skill_module_art(family:String,texture:Texture2D,position:Vector2,bounds:Ve
 
 var soft_organs=preload("res://scripts/soft_organ_art.gd").new()
 
-func organ_art(texture: Texture2D, position: Vector2, bounds: Vector2, rotation: float, tint: Color, family: String, pulse_left: float, key:String="", seed:float=0.0, activity:float=0.0, frozen:bool=false):
-	soft_organs.paint(self,key,texture,position,bounds,rotation,family,0.0 if frozen else test_time,0.0 if frozen else pulse_left,tint,seed,0.0 if frozen else activity)
+func organ_art(texture: Texture2D, position: Vector2, bounds: Vector2, rotation: float, tint: Color, family: String, pulse_left: float, key:String="", seed:float=0.0, activity:float=0.0, frozen:bool=false,tension:Dictionary={}):
+	soft_organs.paint(self,key,texture,position,bounds,rotation,family,0.0 if frozen else test_time,0.0 if frozen else pulse_left,tint,seed,0.0 if frozen else activity,Vector2(tension.get("axis",Vector2.ZERO)).rotated(-rotation),float(tension.get("stretch",0)))
 
 func draw_weapon_neck(anchor: Vector2, tip: Vector2, radius: float, alpha: float = 1.0):
 	var bend = (tip - anchor).orthogonal().normalized() * minf(5.0 * zoom, anchor.distance_to(tip) * 0.22)
@@ -1073,7 +1073,8 @@ func _draw():
 				var gun=e.guns[gun_index]
 				var texture: Texture2D = db.core_sprite(db.asset(gun.id))
 				if texture != null:
-					organ_art(texture,world(visual_position+Vector2(gun.get("offset",Vector2.ZERO)).rotated(e.angle)),Vector2(42,42)*zoom,float(gun.angle)+PI/2,Color.WHITE,db.Armaments.variant(db,db.asset(gun.id)),float(gun.get("organ_pulse",0)),"enemy:%d:%d"%[e.uid,gun_index],float(e.uid)+gun_index*0.2,0,float(e.stun)>0)
+					var tension=combat.insect_control_system.emitter_pose("enemy:%d:%d"%[e.uid,gun_index])
+					organ_art(texture,world(visual_position+Vector2(gun.get("offset",Vector2.ZERO)).rotated(e.angle)+Vector2(tension.get("offset",Vector2.ZERO))),Vector2(42,42)*zoom,float(gun.angle)+PI/2+float(tension.get("twist",0)),Color.WHITE,db.Armaments.variant(db,db.asset(gun.id)),float(gun.get("organ_pulse",0)),"enemy:%d:%d"%[e.uid,gun_index],float(e.uid)+gun_index*0.2,0,float(e.stun)>0,tension)
 		for pack in run.recycled_packs:
 			for renderer in db.prefabs[db.pool['203']].get('render',[]):
 				var texture=db.sprite(renderer.sprite)
@@ -1096,7 +1097,7 @@ func _draw():
 				CentipedeArt.Flagella.paint(self,player.flagella.poses(int(evolved.feedback_uid)),world(pose.point),Vector2(pose.direction).angle(),zoom,true)
 		# Continuous insect silhouette; turrets sit on the carapace of each segment.
 		if player.character_id!="centipede":
-			CharacterArt.draw_body(self,player,world(player.head),zoom,test_time)
+			CharacterArt.draw_body(self,player,world(player.head),zoom,test_time,combat.character_abilities.emitter_pose)
 		else:
 			var last_pose:Dictionary=player.segment_pose(player.segment_count())
 			CentipedeArt.tail(self,world(last_pose.point),Vector2(last_pose.direction).angle(),zoom,player.segment_count()==0)
@@ -1111,14 +1112,16 @@ func _draw():
 		for i in range(player.parts.size()-1,-1,-1):
 			var p:Dictionary=player.parts[i]
 			var kick=SegmentFeedback.offset(p)
+			var tension= combat.insect_control_system.emitter_pose("player:"+str(i),int(p.get("insect_source_token",0)))
+			kick+=Vector2(tension.get("offset",Vector2.ZERO))
 			var pos=world(player.weapon_origin(i)+kick)
-			if i>0:draw_weapon_neck(world(Vector2(p.position)+kick),pos,4.0*zoom,0.3 if p.get("cloaked",false) else 1.0)
+			if i>0:draw_weapon_neck(world(Vector2(p.position)+SegmentFeedback.offset(p)),pos,4.0*zoom,0.3 if p.get("cloaked",false) else 1.0)
 			var pulse=health_pulse(p)
 			var size=Vector2.ONE*player.module_size(i)*zoom
 			var c:Dictionary=db.asset(player.hq_weapon if i==0 else p.id)
 			var recoil=Vector2.from_angle(p.angle)*float(p.get("recoil",0))*zoom*minf(1,player.module_size(i)/35.0)
 			var tint=Color(1,1,1,0.3) if p.get("cloaked",false) else (pulse_color(p) if pulse else Color.WHITE)
-			organ_art(db.core_sprite(c),pos-recoil,size,p.angle+PI*0.5,SegmentFeedback.tint(p,tint),db.Armaments.variant(db,c),float(p.get("organ_pulse",0)),"player:"+str(p.feedback_uid),float(p.feedback_uid),1.0 if not p.feedback_pulses.is_empty() else 0.0,p.hp<=0 or p.stun>0)
+			organ_art(db.core_sprite(c),pos-recoil,size,p.angle+PI*0.5+float(tension.get("twist",0)),SegmentFeedback.tint(p,tint),db.Armaments.variant(db,c),float(p.get("organ_pulse",0)),"player:"+str(p.feedback_uid),float(p.feedback_uid),1.0 if not p.feedback_pulses.is_empty() else 0.0,p.hp<=0 or p.stun>0,tension)
 		CharacterArt.draw_skill(self,player,combat.character_abilities.state(),world(player.head),zoom,test_time)
 		passive_fx.paint(self,player,combat,zoom)
 		for mine in combat.special.mines:
@@ -1133,6 +1136,7 @@ func _draw():
 			if b.friendly:weapon_fx.paint_projectile(self,b,test_time,zoom)
 		weapon_fx.paint(self,combat,test_time,zoom)
 		InsectAttackFX.paint(self,combat.insect_controls,zoom)
+		InsectAttackFX.paint_released(self,combat.insect_control_system.released,zoom)
 		SegmentFeedback.paint(self,combat,zoom)
 		for drop in combat.loot:
 			if not drop.pack:

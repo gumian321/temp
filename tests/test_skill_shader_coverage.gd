@@ -173,7 +173,11 @@ func control_checks(db):
 	check(submitted("silk",false),"Actual spider target threads submit silk shader")
 	battle.character_abilities.finish();layer.begin_frame(.4)
 	load("res://scripts/character_art.gd").draw_skill(board,body,battle.character_abilities.state(),board.world(body.head),1,.4)
-	check(not submitted("silk",false),"Finished spider skill leaves no shader threads")
+	check(submitted("silk",false),"Finished spider skill renders its released recoil thread")
+	for frame in 8:battle.character_abilities.update(.1)
+	layer.begin_frame(1.2)
+	load("res://scripts/character_art.gd").draw_skill(board,body,battle.character_abilities.state(),board.world(body.head),1,1.2)
+	check(not submitted("silk",false),"Recoil completion removes all spider thread geometry")
 	for kind in ["silk","tendril"]:
 		var controls=load("res://scripts/insect_controls.gd").new()
 		enemy.erase("insect_control");enemy.erase("insect_recovery_until")

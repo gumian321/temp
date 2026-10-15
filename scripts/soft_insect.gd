@@ -160,17 +160,17 @@ static func step_pull(state:Dictionary,h:float):
 	var power=float(state.pull_power) if state.pull_left>0 else 0.0
 	var angle=lerp_angle(Vector2(state.pull_direction).angle(),Vector2(state.pull_target_direction).angle(),1-exp(-14*h))
 	state.pull_direction=Vector2.from_angle(angle)
-	state.pull_velocity=(state.pull_velocity+(power*0.38-state.pull_strain)*150*h)*exp(-8*h)
-	state.pull_strain=clampf(state.pull_strain+state.pull_velocity*h,-0.12,0.44)
+	state.pull_velocity=(state.pull_velocity+(power*0.58-state.pull_strain)*125*h)*exp(-5.8*h)
+	state.pull_strain=clampf(state.pull_strain+state.pull_velocity*h,-0.28,0.70)
 	state.pull_age+=h
 	# Opposing waves travel down the abdomen while tension is maintained.
-	var bend=sin(state.pull_age*15)*power*0.13
+	var bend=sin(state.pull_age*15)*power*0.20
 	state.pull_bend=lerpf(state.pull_bend,bend,1-exp(-18*h))
 	if power==0 and absf(state.pull_strain)<0.001 and absf(state.pull_velocity)<0.01 and absf(state.pull_bend)<0.001:
 		for key in ["pull_direction","pull_target_direction","pull_strain","pull_velocity","pull_bend","pull_age","pull_softness","pull_power","pull_left"]:state.erase(key)
 
 static func struggle(state:Dictionary,phase:float=0.0)->float:
-	return sin(float(state.get("pull_age",0))*15+phase)*clampf(absf(float(state.get("pull_strain",0)))/0.38,0,1)*float(state.get("pull_softness",1))
+	return sin(float(state.get("pull_age",0))*15+phase)*clampf(absf(float(state.get("pull_strain",0)))/0.58,0,1)*float(state.get("pull_softness",1))
 
 static func pull_deform(state:Dictionary,point:Vector2,center:Vector2,softness:float,heading:float)->Vector2:
 	if not state.has("pull_strain"):return point
@@ -181,8 +181,8 @@ static func pull_deform(state:Dictionary,point:Vector2,center:Vector2,softness:f
 	var strain=float(state.pull_strain)*float(state.pull_softness)
 	var deformation=(axis*along*strain-normal*delta.dot(normal)*strain*0.38)*lerpf(0.6,1.0,softness)
 	# The leading edge reaches toward the tether, the rear lags and writhes against it.
-	deformation+=normal*sin(along*4.5-state.pull_age*15)*absf(strain)*0.23*softness
-	return point+deformation.limit_length(0.28)
+	deformation+=normal*sin(along*4.5-state.pull_age*15)*absf(strain)*0.30*softness
+	return point+deformation.limit_length(0.42)
 
 static func constrain_lattice(state:Dictionary):
 	var constrained=_constrained_arrays(state.rest,state.offset,state.velocity)

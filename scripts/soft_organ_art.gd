@@ -112,7 +112,15 @@ static func deformed_vertices(variant:String,clock:float,pulse:float,seed:float,
 		p*=extent;vertices[i]=Vector3(p.x,p.y,0)
 	return vertices
 
-func paint(canvas:CanvasItem,key:String,texture:Texture2D,at:Vector2,bounds:Vector2,angle:float,variant:String,clock:float,pulse:float=0.0,tint:Color=Color.WHITE,seed:float=0.0,activity:float=0.0):
+static func traction_point(point:Vector2,axis:Vector2,strain:float)->Vector2:
+	if axis.is_zero_approx() or is_zero_approx(strain):return point
+	axis=axis.normalized()
+	strain=clampf(strain,-.24,.36)
+	var normal=axis.orthogonal()
+	# Stretch toward the tether, then squash on recoil, with the emission center fixed.
+	return point+axis*point.dot(axis)*strain-normal*point.dot(normal)*strain*.42
+
+func paint(canvas:CanvasItem,key:String,texture:Texture2D,at:Vector2,bounds:Vector2,angle:float,variant:String,clock:float,pulse:float=0.0,tint:Color=Color.WHITE,seed:float=0.0,activity:float=0.0,strain_axis:Vector2=Vector2.ZERO,strain:float=0.0):
 	if texture==null:return
 	used[key]=true
 	var extent=Ink.fitted_size(texture,bounds)
@@ -121,6 +129,10 @@ func paint(canvas:CanvasItem,key:String,texture:Texture2D,at:Vector2,bounds:Vect
 	if texture is AtlasTexture:
 		source=texture.atlas;region=texture.region
 	var vertices=deformed_vertices(variant,clock,pulse,seed,activity,extent)
+	if not is_zero_approx(strain):
+		for i in vertices.size():
+			var p=traction_point(Vector2(vertices[i].x,vertices[i].y),strain_axis,strain)
+			vertices[i]=Vector3(p.x,p.y,0)
 	var rebuild=not surfaces.has(key)
 	if not rebuild:
 		var cached:Dictionary=surfaces[key]

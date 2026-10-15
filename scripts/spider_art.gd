@@ -61,7 +61,7 @@ static func _link(canvas: CanvasItem, a: Vector2, b: Vector2, width: float, key:
 static func _screen(point: Vector2, player, at: Vector2, zoom: float) -> Vector2:
 	return at + (point - player.head) * zoom
 
-static func draw_body(canvas: CanvasItem, player, at: Vector2, zoom: float, _clock: float):
+static func draw_body(canvas: CanvasItem, player, at: Vector2, zoom: float, _clock: float,tension:Dictionary={}):
 	prepare()
 	if pieces.is_empty(): return
 	player.spider_rig.ensure(player)
@@ -83,5 +83,23 @@ static func draw_body(canvas: CanvasItem, player, at: Vector2, zoom: float, _clo
 		_link(canvas, _screen(leg.claw.a, player, at, zoom), _screen(leg.claw.b, player, at, zoom), CLAW_WIDTH * zoom, "claw", tint)
 	# Artwork's neck aligns with the independent hips; abdomen extends behind it.
 	canvas.draw_set_transform(at+Feedback.offset(player.parts[0])*zoom, player.facing.angle(), Vector2.ONE * zoom)
-	canvas.draw_texture_rect(pieces.body, Rect2(-65, -30.6, 115.5, 61.5), false,Feedback.tint(player.parts[0]))
+	if tension.is_empty() or Vector2(tension.get("offset",Vector2.ZERO)).length_squared()<.0001:
+		canvas.draw_texture_rect(pieces.body, Rect2(-65, -30.6, 115.5, 61.5), false,Feedback.tint(player.parts[0]))
+	else:
+		var local_offset=Vector2(tension.offset).rotated(-player.facing.angle())
+		var texture:AtlasTexture=pieces.body
+		# Keep the abdomen planted; neck and silk-emitting forebody lean under load.
+		for row in 2:
+			for column in 6:
+				var points=PackedVector2Array();var uvs=PackedVector2Array()
+				for corner in [Vector2.ZERO,Vector2.RIGHT,Vector2.ONE,Vector2.DOWN]:
+					var uv=(Vector2(column,row)+corner)/Vector2(6,2)
+					var point=Vector2(-65,-30.6)+uv*Vector2(115.5,61.5)
+					points.append(tension_point(point,local_offset,float(tension.twist)))
+					uvs.append((texture.region.position+uv*texture.region.size)/texture.atlas.get_size())
+				canvas.draw_polygon(points,PackedColorArray([Feedback.tint(player.parts[0])]),uvs,texture.atlas)
 	canvas.draw_set_transform(Vector2.ZERO)
+
+static func tension_point(point:Vector2,offset:Vector2,twist:float)->Vector2:
+	var weight=smoothstep(-42,-4,point.x)
+	return point.lerp(point.rotated(twist)+offset,weight)

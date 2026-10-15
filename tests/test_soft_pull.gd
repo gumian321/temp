@@ -14,8 +14,8 @@ func execute():
 			var da=Soft.pull_deform(state,a,Vector2.ZERO,1,0)
 			var dbp=Soft.pull_deform(state,b,Vector2.ZERO,1,0)
 			peak=maxf(peak,(da-dbp).dot(Vector2.RIGHT)-1.2)
-			bounded=bounded and da.is_finite() and da.distance_to(a)<=.281
-		check(peak>.15 and signs.has(-1.0) and signs.has(1.0),"Sustained axial stretch and alternating struggle: "+species)
+			bounded=bounded and da.is_finite() and da.distance_to(a)<=.421
+		check(peak>.3 and signs.has(-1.0) and signs.has(1.0),"Pronounced axial stretch and alternating struggle: "+species)
 		check(bounded and e.position==Vector2.ZERO and e.hp==100,"Visual tension is bounded and never moves collisions: "+species)
 		var frozen=e.soft_body.duplicate(true)
 		Soft.pull(e,Vector2.UP,200,0);Soft.step(e,0)
@@ -23,7 +23,7 @@ func execute():
 		var rebound=false
 		for frame in 240:
 			Soft.step(e,1.0/60)
-			rebound=rebound or float(e.soft_body.get("pull_strain",0))<-.01
+			rebound=rebound or float(e.soft_body.get("pull_strain",0))<-.12
 		check(rebound and not e.soft_body.has("pull_strain"),"Release rebounds then fully settles: "+species)
 		peaks[species]=peak
 	check(peaks.beetle<peaks.grub*.6,"Shells resist stretching more than soft bodies")

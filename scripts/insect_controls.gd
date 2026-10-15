@@ -7,7 +7,10 @@ const RECOVERY = 0.9
 const PULL_DISTANCE = 64.0
 const PULL_SPEED = 200.0
 const Knockback=preload("res://scripts/knockback.gd")
+const Tether=preload("res://scripts/tether_motion.gd")
 var active: Array = []
+var released: Array = []
+var emitter_poses:Dictionary={}
 var elapsed = 0.0
 var serial = 0
 
@@ -28,6 +31,7 @@ func attach(e: Dictionary, b: Dictionary) -> bool:
 	var duration = SILK_DURATION if kind == "silk" else PULL_DURATION
 	var control = {"kind":kind,"target":e,"origin":Vector2(b.get("origin",b.get("position",e.position))),"life":duration,"duration":duration,"friendly":bool(b.get("friendly",true)),"serial":serial,"remaining_pull":PULL_DISTANCE,"source_key":str(b.get("control_source","")),"source_token":int(b.get("control_source_token",0))}
 	active.append(control)
+	control.tether=Tether.create(control.origin,e.position,serial)
 	# Store only the serial on the actor: no reference cycle and no duplicated actor graphs.
 	e.insect_control = serial
 	e.insect_control_friendly = bool(b.get("friendly",true))
@@ -43,6 +47,8 @@ func movement_factor(e: Dictionary, dt: float) -> float:
 
 func advance(dt: float, battle):
 	dt = maxf(0,dt)
+	Tether.advance_released(released,dt)
+	if dt>0:follow_released_origins(battle)
 	for c in active.duplicate():
 		var e: Dictionary = c.target
 		if not eligible(e,c.friendly) or not battle.enemies.has(e):
@@ -74,14 +80,58 @@ func advance(dt: float, battle):
 			e.position += delta.normalized()*distance
 			if distance>0:preload("res://scripts/soft_insect.gd").pull(e,delta,distance/covered,covered)
 			c.remaining_pull -= distance
+		var struggle=preload("res://scripts/soft_insect.gd").struggle(e.get("soft_body",{}))
+		Tether.step(c.tether,c.origin,e.position,.98 if c.kind=="tendril" else .75,struggle,covered)
 		c.life = maxf(0,c.life-dt)
 		if c.life <= 0: release(c)
 	elapsed += dt
+	if dt>0:rebuild_emitter_poses()
+
+static func emitter_key(source:String,token:int=0)->String:
+	return "player:"+str(token) if source.begins_with("player:") and token>0 else source
+
+func emitter_pose(source:String,token:int=0)->Dictionary:
+	if source.begins_with("player:") and token<=0:return {}
+	return emitter_poses.get(emitter_key(source,token),{})
+
+func rebuild_emitter_poses():
+	emitter_poses.clear()
+	var groups={}
+	for c in active+released:
+		var key=emitter_key(str(c.get("source_key","")),int(c.get("source_token",0)))
+		if key.is_empty():continue
+		if not groups.has(key):groups[key]=[]
+		groups[key].append(c.get("tether",c))
+	for key in groups:
+		var pose=Tether.combine_reactions(groups[key])
+		emitter_poses[key]=pose
+		for motion in groups[key]:motion.emitter_offset=pose.offset
 
 func release(c: Dictionary):
+	if not active.has(c):return
+	Tether.append_release(released,c.tether,c.kind,c.friendly)
+	released[-1].source_key=c.source_key
+	released[-1].source_token=c.source_token
 	var e: Dictionary = c.target
 	if int(e.get("insect_control",-1)) == int(c.serial):
 		e.erase("insect_control")
 		e.erase("insect_silk_until")
 		e.erase("insect_control_friendly")
 	active.erase(c)
+
+func follow_released_origins(battle):
+	for motion in released:
+		var key=str(motion.get("source_key",""))
+		if key.begins_with("player:"):
+			for i in battle.player.parts.size():
+				if int(motion.source_token)>0 and int(battle.player.parts[i].get("insect_source_token",0))==int(motion.source_token) and battle.player.parts[i].hp>0:
+					motion.release_origin=battle.player.weapon_origin(i);break
+		elif key.begins_with("enemy:"):
+			var source:Dictionary=battle.entity(int(key.get_slice(":",1)))
+			if source.is_empty() or source.hp<=0:continue
+			var origin=Vector2(source.position)
+			if key.get_slice_count(":")>2:
+				var index=int(key.get_slice(":",2))
+				if index<0 or index>=source.guns.size():continue
+				origin+=Vector2(source.guns[index].get("offset",Vector2.ZERO)).rotated(float(source.angle))
+			motion.release_origin=origin

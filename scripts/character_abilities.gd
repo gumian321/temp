@@ -1,4 +1,5 @@
 extends RefCounted
+const Tether=preload("res://scripts/tether_motion.gd")
 ## Run-owned abilities. Only Combat.step advances timers; menus cannot tick skills.
 var battle_ref: WeakRef
 var combat:
@@ -9,6 +10,8 @@ var active = 0.0
 var armor = 100.0
 var armor_delay = 0.0
 var threads: Array = []
+var released_threads: Array = []
+var emitter_pose:Dictionary={}
 var rush_hit: Dictionary = {}
 var aim = Vector2.ZERO
 var rush_direction = Vector2.RIGHT
@@ -25,14 +28,15 @@ func supported() -> bool:
 
 func reset():
 	cooldown = 0; active = 0; armor = 100; armor_delay = 0; charge = 0
-	threads.clear(); rush_hit.clear()
+	threads.clear(); released_threads.clear(); rush_hit.clear()
+	emitter_pose.clear()
 	if supported():
 		player.coil_rig.reset()
 		player.coil_active = false; player.rush_active = false
 		reset_serial = player.character_reset_serial
 
 func state() -> Dictionary:
-	return {"cooldown": cooldown, "cooldown_max": float(player.character_config.get("skill_cooldown", 10)) if supported() else 10.0, "active": active, "armor": armor, "armor_max": 100.0, "threads": threads, "charge": charge}
+	return {"cooldown": cooldown, "cooldown_max": float(player.character_config.get("skill_cooldown", 10)) if supported() else 10.0, "active": active, "armor": armor, "armor_max": 100.0, "threads": threads, "released_threads":released_threads, "charge": charge}
 
 func request_skill(world_aim: Vector2) -> bool:
 	if not supported(): return false
@@ -49,7 +53,7 @@ func request_skill(world_aim: Vector2) -> bool:
 			active = 2.0
 			var candidates: Array = combat.enemies.filter(func(e): return e.hp > 0 and e.damageable and e.role != "friendly" and float(e.get("warp", 0)) <= 0 and not e.get("cloaked", false) and not e.get("despawn", false) and player.head.distance_to(e.position) <= 360)
 			candidates.sort_custom(func(a,b): return Vector2(a.position).distance_squared_to(aim) < Vector2(b.position).distance_squared_to(aim))
-			for e in candidates.slice(0, 4): threads.append({"uid": e.uid, "position": e.position})
+			for e in candidates.slice(0, 4): threads.append({"uid": e.uid, "position": e.position,"tether":Tether.create(player.head,e.position,e.uid)})
 		"beetle":
 			armor -= 35; armor_delay = 4; active = 0.95; charge = 0.3
 			rush_direction = player.head.direction_to(aim)
@@ -66,6 +70,10 @@ func update(dt: float):
 	if not supported(): return
 	if reset_serial != player.character_reset_serial: reset()
 	dt = clampf(dt, 0, 0.1)
+	Tether.advance_released(released_threads,dt)
+	if dt>0:
+		for thread in released_threads:thread.release_origin=player.head
+		update_emitter_pose()
 	if player.parts[0].hp <= 0:
 		finish(); return
 	cooldown = maxf(0, cooldown - dt)
@@ -78,6 +86,7 @@ func update(dt: float):
 			for thread in threads.duplicate():
 				var e: Dictionary = combat.entity(int(thread.uid))
 				if e.is_empty() or e.hp <= 0 or e.role == "friendly" or float(e.get("warp", 0)) > 0 or e.get("cloaked", false) or e.get("despawn", false) or player.head.distance_to(e.position) > 420:
+					Tether.append_release(released_threads,thread.tether,"silk")
 					threads.erase(thread); continue
 				if not boss(e) and combat.insect_control_system.eligible(e, true):
 					e.stun = maxf(float(e.get("stun", 0)), dt + 0.03)
@@ -86,13 +95,23 @@ func update(dt: float):
 					preload("res://scripts/soft_insect.gd").pull(e,player.head-Vector2(e.position),125.0 if distance>90 else 75.0,dt)
 					if distance > 90: e.position = Vector2(e.position).move_toward(player.head, minf(125 * dt, distance - 90))
 				thread.position = e.position
+				var struggle=preload("res://scripts/soft_insect.gd").struggle(e.get("soft_body",{}))
+				Tether.step(thread.tether,player.head,e.position,.95,struggle,dt)
 		"beetle":
 			if charge > 0: charge = maxf(0, charge - dt)
 			else: advance_rush(dt)
 	if active <= 0: finish()
+	if dt>0:update_emitter_pose()
+
+func update_emitter_pose():
+	var motions:Array=threads.map(func(thread):return thread.tether)+released_threads
+	emitter_pose=Tether.combine_reactions(motions) if not motions.is_empty() else {}
+	for motion in motions:motion.emitter_offset=emitter_pose.offset
 
 func finish():
+	for thread in threads:Tether.append_release(released_threads,thread.tether,"silk")
 	active = 0; charge = 0; threads.clear()
+	update_emitter_pose()
 	if supported():
 		player.end_coil()
 		player.rush_active = false
