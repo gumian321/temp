@@ -1,6 +1,7 @@
 extends RefCounted
 ## Read-only passive presentation. Identity comes from stable part UIDs, never slots.
 const UI=preload("res://scripts/game_ui.gd")
+const AttackShaders=preload("res://scripts/attack_shader_layer.gd")
 const INK=Color("24475c")
 const TEAL=Color("4caeac")
 const GOLD=Color("d6a54b")
@@ -226,11 +227,29 @@ func paint(canvas,player,combat,zoom:float):
    var diamond=PackedVector2Array([at+Vector2(0,7)*zoom,at+Vector2(3,10)*zoom,at+Vector2(0,13)*zoom,at+Vector2(-3,10)*zoom])
    canvas.draw_colored_polygon(diamond,Color(GOLD,.85))
   elif mode=="repair" and player.parts[owner].stun<=0 and not drone.get("target",{}).is_empty() and drone.target.get("feedback_pulses",{}).has("healed") and Vector2(drone.position).distance_to(drone.target.position)<=float(drone.data.get("droneActionRange",0))*48:
-   canvas.draw_line(at,canvas.world(drone.target.position),Color(REPAIR,.3),zoom,true)
+   paint_repair_tether(canvas,drone,zoom)
   var level=0
   for id in player.levels:
    if drone.data.id in player.db.asset(id).get("dronesList",[]):level+=int(player.levels[id])
   for pip in mini(3,level):canvas.draw_circle(at+Vector2((pip-1)*4,-12)*zoom,1.3*zoom,Color(TEAL,.85),true,-1,true)
+
+func paint_repair_tether(canvas,drone:Dictionary,zoom:float):
+ var start:Vector2=canvas.world(drone.position)
+ var end:Vector2=canvas.world(drone.target.position)
+ var axis=start.direction_to(end)
+ # Working repairers sit on the wound; retain a short feeding neck at contact.
+ if start.distance_squared_to(end)<1.0:
+  axis=Vector2.from_angle(float(drone.get("angle",0)))
+  start=end-axis*9.0*zoom
+ var side=axis.orthogonal()
+ var points=PackedVector2Array()
+ for i in 9:
+  var t=float(i)/8.0
+  points.append(start.lerp(end,t)+side*sin(t*PI)*sin(clock*7.0-t*5.0)*2.0*zoom)
+ var painter=AttackShaders.route(canvas,"repair_drone",not bool(drone.get("friendly",true)))
+ painter.draw_polyline(points,Color(INK,.8),3.2*zoom,true)
+ painter.draw_polyline(points,Color(REPAIR,.9),1.7*zoom,true)
+ painter.draw_circle(end,2.2*zoom,Color(REPAIR,.75),true,-1,true)
 
 func update_transitions(player,dt:float):
  var live:Dictionary={}

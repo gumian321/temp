@@ -6,6 +6,7 @@ const PULL_DURATION = 0.32
 const RECOVERY = 0.9
 const PULL_DISTANCE = 64.0
 const PULL_SPEED = 200.0
+const Knockback=preload("res://scripts/knockback.gd")
 var active: Array = []
 var elapsed = 0.0
 var serial = 0
@@ -35,9 +36,10 @@ func attach(e: Dictionary, b: Dictionary) -> bool:
 	return true
 
 func movement_factor(e: Dictionary, dt: float) -> float:
-	if dt <= 0 or not e.has("insect_control") or not eligible(e,bool(e.get("insect_control_friendly",true))): return 1.0
+	var recovery=Knockback.drive_factor(e)
+	if dt <= 0 or not e.has("insect_control") or not eligible(e,bool(e.get("insect_control_friendly",true))): return recovery
 	var covered = minf(dt,maxf(0,float(e.get("insect_silk_until",0))-elapsed))
-	return 1.0 - 0.65 * covered / dt
+	return (1.0 - 0.65 * covered / dt)*recovery
 
 func advance(dt: float, battle):
 	dt = maxf(0,dt)
@@ -70,6 +72,7 @@ func advance(dt: float, battle):
 			# Stop outside contact range; cumulative distance remains capped even if the source moves.
 			var distance = minf(minf(PULL_SPEED*covered,c.remaining_pull),maxf(0,delta.length()-maxf(48,float(e.get("radius",14))+24)))
 			e.position += delta.normalized()*distance
+			if distance>0:preload("res://scripts/soft_insect.gd").pull(e,delta,distance/covered,covered)
 			c.remaining_pull -= distance
 		c.life = maxf(0,c.life-dt)
 		if c.life <= 0: release(c)

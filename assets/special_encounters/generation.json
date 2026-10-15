@@ -1,0 +1,51 @@
+{
+  "tool": "Built-in image_gen (ImageGen), transparent_background=true",
+  "date": "2026-10-15",
+  "assets": [
+    {
+      "name": "charger",
+      "source": "mantis",
+      "prompt": "Use case: precise-object-edit. Asset type: production top-down 2D game enemy sprite, edit target is the attached mantis. Create an elite LANCER insect by repainting its existing shell: deep cobalt blue ink, ivory enamel edges, vivid crimson coral resin blades and red-orange fluid chambers inside its abdomen. Menacing, beautiful hand-painted porcelain and wet organic texture, crisp silhouette readable at 90 pixels. ABSOLUTE invariants: preserve the exact original top-down pose, vertical head-up orientation, bilateral symmetry, all leg joints and antenna locations, body contours, canvas aspect ratio, scale and position. The existing image is a rigged UV source: do NOT move or reshape ANY limb, body edge or feature; only repaint interior shell surfaces. Keep insect fully visible. Remove backdrop, glow and shadows to true transparent alpha outside the original creature, no new geometry outside its silhouette, no text, no border, no symbols. This is the final actual sprite, not a mockup.",
+      "file": "charger.png",
+      "generated_file": "exec-983b93cf-fb24-4852-8330-38360950a412.png",
+      "intent": "Edit existing rig texture; preserve pose and UV registration"
+    },
+    {
+      "name": "broodmother",
+      "source": "sac",
+      "prompt": "Use case: precise-object-edit. Asset type: production top-down 2D game enemy sprite. Edit target is the attached blue ink sac insect. Repaint as an elite BROODMOTHER: preserve cobalt ink and ivory porcelain shell, but make the three large EXISTING internal abdominal sacs translucent luminous violet amethyst jelly, each with visible tiny curled larva silhouettes sealed within. Violet organic veins inside existing shell panels, lustrous moist painted surfaces. ABSOLUTE invariants: exact same top-down pose, head-up orientation, bilateral symmetry, outer silhouette, all leg joint positions, antenna curls, canvas aspect ratio, creature scale and location. This texture is cut up by an existing skeletal rig, so DO NOT shift any outline or limb; paint changes only within existing shell regions. True transparent background, no floor, no shadow, no aura, no text, no border. Hand-painted detailed game sprite readable when reduced to 110px.",
+      "file": "broodmother.png",
+      "generated_file": "exec-d16555fa-18b0-4642-8470-a02acb1d5fad.png",
+      "intent": "Edit existing rig texture; preserve pose and UV registration"
+    },
+    {
+      "name": "treasure",
+      "source": "beetle",
+      "prompt": "Use case: precise-object-edit. Asset type: production top-down 2D game enemy sprite. Edit target is attached blue ink beetle. Repaint as a TREASURE CARRIER insect: keep cobalt ink outlines and ivory porcelain, transform existing wing-shell panels into lustrous amber-gold resin faceted like precious mineral, glowing honey-colored crystal chambers inside its abdomen, gold vein inlays in existing horns. Color should clearly read golden at tiny scale while preserving original hand-painted style. ABSOLUTE invariants: exact same pose, top-down head-up view, body silhouette, joint locations, antenna and horn contours, leg positions, bilateral symmetry, canvas aspect ratio, scale and centered location. The texture uses a rig with fixed UV cuts: absolutely do NOT add protrusions, coins, bags, wings or change geometry. Only repaint interior surfaces. True transparent background, no floor, no cast shadow, no glow outside silhouette, no text, no border. Final actual game texture, not a concept page.",
+      "file": "treasure.png",
+      "generated_file": "exec-8d587afe-2cd6-48b4-a148-31efcf495593.png",
+      "intent": "Edit existing rig texture; preserve pose and UV registration"
+    },
+    {
+      "name": "warning_seal",
+      "prompt": "Use case: stylized-concept. Asset type: one transparent PNG ground warning decal for a top-down insect action game. Create a single perfectly circular thin organic chitin sigil centered on a square canvas. Pearl-white and silver translucent resin, sculptural hand-painted ivory shell slivers and luminous filaments forming a broken ring with four small claw-like inward points. Keep the entire central 70 percent diameter fully TRANSPARENT so creatures and ground remain visible. Thin low-profile rim, edge clearly visible at 70 pixel size, delicate moist highlights, NO opaque disc, no background, no floor, no shadow, no text, no lettering, no grid, no UI panel. Neutral white and gray material only, no saturated color: the game will tint this image red, purple or gold. Symmetric top-down orthographic, complete uncut ring with 5 percent transparent padding. High-quality painted raster game VFX, not vector geometry.",
+      "file": "warning_seal.png",
+      "generated_file": "exec-438bb0a2-f63e-47c4-aa11-8deae71154c1.png",
+      "intent": "Generate new transparent raster art"
+    },
+    {
+      "name": "charge_lane",
+      "prompt": "Use case: stylized-concept. Asset type: one transparent PNG directional ground danger decal for an insect game. One horizontally elongated tapered charging trail pointing RIGHT, centered in a wide 3:1 landscape image. Hand-painted viscous crimson bioluminescent resin with pale ivory pink ridged chitin edges and faint wet strands. Shape: straight parallel upper and lower thin rails enclosing a very translucent mostly empty corridor, converging in a clear large pointed spearhead at the RIGHT. Entire LEFT end is broad open trail mouth, direction unmistakably left to right. Outer art bounding box about 90 percent width and 28 percent image height (very long narrow shape). Top-down orthographic, no perspective. Actual transparent alpha in background and corridor interior, delicate low-opacity colored membrane inside at most. No filled opaque rectangle, no floor, no frame, no text, no labels, no multiple elements, no bugs. This image will be stretched along the true 352px charge corridor; clear painted edges essential.",
+      "file": "charge_lane.png",
+      "generated_file": "exec-511f0e80-2c88-4e17-98be-e7839db02ede.png",
+      "intent": "Generate new transparent raster art"
+    },
+    {
+      "name": "hud_plate",
+      "prompt": "Use case: ui-mockup. Asset type: single reusable transparent PNG blank horizontal HUD plate for an insect action game, not a full mockup. One wide 3:1 rounded rectangular plaque centered, covering 94 percent width and 80 percent height. Dark plum-black smoked enamel interior with subtly translucent center and plenty of completely empty space for live labels. Beautiful hand-painted fine pink luminous resin seam around the border, thin pearly chitin frame and tiny organic etched ridges at the two far ends only. Minimal low-profile bevel, soft restrained shadow, sophisticated game illustration, strong readability. Interior is uniform near-black plum, absolutely no decoration inside central 85 percent, absolutely no text, digits, icons, symbols or typography. Transparent background outside the plate. Do not draw a device, no other UI elements. Should resize gracefully into a compact 300x70 or 470x62 overlay. Neutral frontal view, symmetric.",
+      "file": "hud_plate.png",
+      "generated_file": "exec-70e492a5-a009-4e64-b96b-4cbaec19d873.png",
+      "intent": "Generate new transparent raster art"
+    }
+  ]
+}

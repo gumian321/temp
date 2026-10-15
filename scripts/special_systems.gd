@@ -86,6 +86,8 @@ func step(dt: float):
 		if enemy.is_empty(): continue
 		var projectile = {"class":"BasicProjectile","projectileDamage":mine.data.mineDamage,"fx_family":"mine"}
 		var b = {"position":mine.position,"data":projectile,"damage":float(mine.data.mineDamage.hullDamage)*float(mine.get("fusion_multiplier",1)),"shield_damage":float(mine.data.mineDamage.shieldDamage)*float(mine.get("fusion_multiplier",1)),"friendly":true,"chips":mine.chips,"velocity":Vector2.RIGHT,"pierce":1,"hit":[]}
+		b.damage *= battle().momentum.damage_multiplier()
+		b.shield_damage *= battle().momentum.damage_multiplier()
 		battle().hit_enemy(enemy,b)
 		battle().explosion(mine.position,62,0.55,"mine")
 		mine.life=0
@@ -102,6 +104,8 @@ func step(dt: float):
 				e.last_fx="blackhole"; e.last_friendly=hole.friendly
 				e.last_death_direction=Vector2(e.position).direction_to(hole.position)
 				if not e.mission_controlled and e.parent==0:
+					var pull_delta=Vector2(hole.position)-Vector2(e.position)
+					if dt>0:preload("res://scripts/soft_insect.gd").pull(e,pull_delta,minf(hole.force,pull_delta.length()/dt),dt)
 					e.position = Vector2(e.position).move_toward(hole.position,hole.force*dt)
 					battle().spatial_moved(e)
 		if not hole.friendly:
@@ -115,6 +119,11 @@ func continuous(core: Dictionary,at: Vector2,dir: Vector2,friendly: bool,chips: 
 	var reach = db.range_units(core.get("turretRange",1))*48*maxf(0.0,1+range_boost)*(1+chip("MammothAreaPercentBoost",int(chips.get(5,0))))
 	var damage = float(projectile.projectileDamage.hullDamage)*maxf(0.0,1+boost)*(1+chip("MammothDamagePercentBoost",int(chips.get(5,0))))*dt
 	var shield_damage = float(projectile.projectileDamage.shieldDamage)*maxf(0.0,1+boost)*dt
+	if friendly and not visual_owner.begins_with("enemy:"):
+		# Continuous weapons receive the equivalent throughput of faster reloads.
+		var multiplier = battle().momentum.damage_multiplier() * battle().momentum.rate_multiplier()
+		damage *= multiplier
+		shield_damage *= multiplier
 	for e in battle().area_candidates(at, reach):
 		if e.hp<=0 or not e.damageable or (e.role=="friendly" if friendly else e.role!="friendly"): continue
 		var delta: Vector2 = e.position-at

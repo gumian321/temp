@@ -33,7 +33,7 @@ static func outline(canvas: CanvasItem, points: PackedVector2Array, color: Color
 static func jaw_angle(clock: float, activity: float, side: int) -> float:
 	return side * (0.10 + (0.5 + 0.5 * sin(clock * lerpf(3.5, 19.0, activity))) * lerpf(0.13, 0.42, activity))
 
-static func segment(canvas: CanvasItem, at: Vector2, angle: float, scale_factor: float, phase: float, head: bool = false, empty: bool = false, selected: bool = false, activity: float = 0.0, clock: float = -1.0, leg_poses:Array=[], feelers:Array=[]):
+static func segment(canvas: CanvasItem, at: Vector2, angle: float, scale_factor: float, phase: float, head: bool = false, empty: bool = false, selected: bool = false, activity: float = 0.0, clock: float = -1.0, leg_poses:Array=[], feelers:Array=[], tint:Color=Color.WHITE):
 	prepare()
 	canvas.draw_set_transform(at, angle, Vector2.ONE * scale_factor)
 	if head:
@@ -41,18 +41,18 @@ static func segment(canvas: CanvasItem, at: Vector2, angle: float, scale_factor:
 		var time = phase / 3.0 if clock < 0 else clock
 		Flagella.paint(canvas, Flagella.resting(time) if feelers.is_empty() else feelers, at, angle, scale_factor)
 		canvas.draw_set_transform(at, angle, Vector2.ONE * scale_factor)
-		canvas.draw_texture_rect(pieces.head, Rect2(-31,-30,62,60), false)
+		canvas.draw_texture_rect(pieces.head, Rect2(-31,-30,62,60), false,tint)
 		for side in [-1, 1]:
 			var pivot = at + Vector2(25, side*8).rotated(angle)*scale_factor
 			canvas.draw_set_transform(pivot, angle+jaw_angle(time,activity,side), Vector2.ONE*scale_factor)
 			var rect = Rect2(-3,-8,34,23) if side == -1 else Rect2(-4,-14,34,23)
-			canvas.draw_texture_rect(pieces.upper_jaw if side == -1 else pieces.lower_jaw, rect, false)
+			canvas.draw_texture_rect(pieces.upper_jaw if side == -1 else pieces.lower_jaw, rect, false,tint)
 	else:
 		for leg in (Legs.resting(phase) if leg_poses.is_empty() else leg_poses):
 			draw_link(canvas,at,angle,scale_factor,leg.root,leg.knee,leg.side,true)
 			draw_link(canvas,at,angle,scale_factor,leg.knee,leg.foot,leg.side,false)
 		canvas.draw_set_transform(at,angle,Vector2.ONE*scale_factor)
-		canvas.draw_texture_rect(pieces.body,Rect2(-BODY_SIZE/2,BODY_SIZE),false)
+		canvas.draw_texture_rect(pieces.body,Rect2(-BODY_SIZE/2,BODY_SIZE),false,tint)
 		if empty:
 			canvas.draw_line(Vector2(-5,0),Vector2(5,0),Ink.PAPER,1.3,true)
 			canvas.draw_line(Vector2(0,-5),Vector2(0,5),Ink.PAPER,1.3,true)

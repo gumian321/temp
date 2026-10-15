@@ -7,6 +7,7 @@ const DeathSplatter = preload("res://scripts/enemy_death_splatter.gd")
 var death_splatters:Array=[]
 const ViscousMotion = preload("res://scripts/viscous_projectile_motion.gd")
 const InsectControls = preload("res://scripts/insect_controls.gd")
+const Knockback = preload("res://scripts/knockback.gd")
 var insect_control_system = InsectControls.new()
 var insect_controls: Array = insect_control_system.active
 const SegmentFeedback = preload("res://scripts/segment_feedback.gd")
@@ -49,6 +50,8 @@ var audio_events: Array = []
 var destroyed: Array = []
 var heat = 0.0
 var mission_target = Vector2.ZERO
+var momentum = preload("res://scripts/combat_momentum.gd").new()
+var encounters
 
 func _init(source, centipede):
 	db = source
@@ -264,6 +267,7 @@ func fire(core: Dictionary, at: Vector2, direction: Vector2, friendly: bool, chi
 		effects.append(Feedback.decorate({"position":muzzle,"direction":dir,"radius":clampf(float(projectile.get("projectileDamage",{}).get("hullDamage",1))*0.15,2,10),"life":0.14,"kind":"muzzle","visual_scale":visual_scale},family,friendly))
 		var damage: Dictionary = projectile.get("projectileDamage", {"hullDamage": 1, "shieldDamage": 1})
 		var multiplier = (1.0 + damage_boost) * (1.0 + special.chip("MammothDamagePercentBoost", int(chips.get(5,0))))
+		if friendly and not control_source.begins_with("enemy:"): multiplier *= momentum.damage_multiplier()
 		var b = {"position": muzzle, "previous": muzzle, "velocity": dir * float(projectile.get("projectileSpeed", 20)) * 48.0, "life": maxf(0.1, float(projectile.get("projectileLifeTime", 2))), "data": projectile, "friendly": friendly, "damage": float(damage.hullDamage) * multiplier, "shield_damage": float(damage.shieldDamage) * multiplier, "pierce": int(projectile.get("targetPiercingCount", 1)) + int(special.chip("PiercingTargetCount",int(chips.get(3,0)))), "chips": chips, "hit": [], "age":0.0, "direction":dir, "homing_speed":0.0,"rot_speed":0.0, "radius": 4.0 * (1.0 + float(chips.get(5, 0)) * 0.5)}
 		b.fx_family = family; b.origin = muzzle
 		ViscousMotion.initialize(b, shot_serial + i)
@@ -297,7 +301,12 @@ func request_skill(aim: Vector2) -> bool:
 
 func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool = true):
 	spatial_active = false
+	momentum.step(dt)
 	character_abilities.update(dt)
+	var player_push=Knockback.take_displacement(player.parts[0],dt)
+	if not player_push.is_zero_approx():
+		player.head+=player_push
+		player.refresh_positions()
 	refresh_spatial()
 	player.step_feedback(dt)
 	segment_sound_cooldown=maxf(0,segment_sound_cooldown-dt)
@@ -321,9 +330,9 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 		var p: Dictionary = player.parts[i]
 		p.organ_pulse=maxf(0,float(p.get("organ_pulse",0))-dt)
 		p.recoil=maxf(0.0,float(p.get("recoil",0))-dt*42.0)
-		p.impact_left=maxf(0.0,float(p.get("impact_left",0))-dt)
+		SegmentFeedback.step_hit(p,dt)
 		p.fx_cooldown=maxf(0.0,float(p.get("fx_cooldown",0))-dt)
-		p.cooldown -= dt
+		p.cooldown -= dt * momentum.rate_multiplier()
 		p.stun = maxf(0, p.stun - dt)
 		if p.hp <= 0 or p.stun > 0:
 			continue
@@ -390,8 +399,16 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 		SoftInsect.step(e,dt)
 		e.warp = maxf(0, e.warp - dt)
 		e.stun = maxf(0, e.stun - dt)
+		if Knockback.movable(e):
+			var push=Knockback.take_displacement(e,dt)
+			if not push.is_zero_approx():
+				e.position+=push
+				spatial_moved(e)
+		else:e.erase("knockback_velocity")
 		if e.stun > 0 or e.warp > 0:
 			continue
+		if e.get("despawn", false): continue
+		if encounters != null and encounters.move_actor(e, dt): continue
 		var movement_start: Vector2 = e.position
 		var target: Vector2 = player.head if not e.get("target_mission", false) else mission_target
 		if e.role == "friendly":
@@ -456,7 +473,7 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 		if not kamikaze.is_empty():
 			for i in range(player.parts.size()):
 				if player.parts[i].hp>0 and not player.parts[i].get("cloaked",false) and e.position.distance_to(player.parts[i].position)<e.radius+player.collision_radius(i):
-					hurt_player(i,float(kamikaze.explosionDamage.hullDamage),float(kamikaze.explosionDamage.shieldDamage));e.hp=0;break
+					hurt_player(i,float(kamikaze.explosionDamage.hullDamage),float(kamikaze.explosionDamage.shieldDamage));e.hp=0;e.self_destructed=true;break
 		if e.unit.get("UseActionDistance",false) and e.position.distance_to(target)>e.action_distance:continue
 
 		for gun in e.guns:
@@ -489,7 +506,7 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 	step_drones(dt)
 	step_enemy_drones(dt)
 	measured=mark_phase("drones",measured)
-	# Actor positions are now stable except for indexed projectile knockback.
+	# Projectile hits queue impulses; displacement resumes on the next combat tick.
 	for b in bullets:
 		b.life -= dt
 		b.previous = b.position
@@ -535,6 +552,8 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 	bullets = bullets.filter(func(b): return b.life > 0)
 	for e in enemies:
 		if e.hp <= 0:
+			momentum.on_kill(e, self)
+			if encounters != null: encounters.on_death(e)
 			var kamikaze=source_component(e.components,"KamikazeTrigger")
 			if not kamikaze.is_empty():
 				for i in range(player.parts.size()):
@@ -661,10 +680,9 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 	var typ: String = b.data["class"]
 	if typ == "EMPBasicProjectile" and b.get("insect_attack", "") != "silk":
 		e.stun = float(b.data.get("stunDuration", 1.5)) if e.unit.get("canBeStunned", true) else 0.0
-		if e.stun>0:effects.append({"position":e.position,"radius":20,"life":0.1,"kind":"emp","particle_type":302,"duration":e.stun,"follow":e})
+		if e.stun>0:effects.append(Feedback.decorate({"position":e.position,"radius":20,"life":0.1,"kind":"emp","particle_type":302,"duration":e.stun,"follow":e},"emp",bool(b.friendly)))
 	if typ == "SonicBasicProjectile":
-		e.position += Vector2(b.velocity).normalized() * float(b.data.get("pushBackForce", 5)) * 48.0
-		spatial_moved(e)
+		push_enemy(e,Vector2(b.velocity),float(b.data.get("pushBackForce",5)))
 	var area = float(b.data.get("projectileEffectArea", 0)) * 48.0 * (1+special.chip("MammothAreaPercentBoost",int(b.chips.get(5,0))))
 	if b.chips.has(2):
 		area = maxf(area, special.chip("ExplosionEffectArea",int(b.chips[2]))*48)
@@ -734,12 +752,19 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 			ViscousMotion.initialize(clone, shot_serial)
 			bullets.append(clone)
 
+func push_enemy(enemy: Dictionary, direction: Vector2, force: float):
+	if Knockback.movable(enemy):
+		Knockback.add_impulse(enemy,direction,force)
+		SoftInsect.begin_push(enemy)
+
 func hit_player(index:int,b:Dictionary):
 	var p:Dictionary=player.parts[index]
 	if b.data["class"]=="BlackHoleProjectile":special.add_black_hole(b);return
+	var previous_hp=float(p.hp)
 	hurt_player(index,b.damage,b.shield_damage,b)
 	if b.data["class"]=="EMPBasicProjectile":p.stun=maxf(p.stun,float(b.data.stunDuration))
-	if b.data["class"]=="SonicBasicProjectile" and index==0:player.head+=Vector2(b.velocity).normalized()*float(b.data.pushBackForce)*48
+	if b.data["class"]=="SonicBasicProjectile" and index==0 and p.hp<previous_hp:
+		Knockback.add_impulse(p,Vector2(b.velocity),float(b.data.get("pushBackForce",5)))
 	var radius=float(b.data.get("projectileEffectArea",0))*48
 	if radius>0:
 		for i in range(player.parts.size()):
@@ -782,8 +807,14 @@ func hurt_player(index: int, damage: float, shield_damage: float, shot: Dictiona
 				audio_events.append({"type":51,"position":shield.position})
 			return
 	damage = character_abilities.absorb_front(damage, shot)
+	if damage<=0:return
+	var previous_hp=float(p.hp)
 	p.hp -= damage
-	p.impact_left=SegmentFeedback.HIT_TIME
+	var hit_direction=Vector2(shot.get("velocity",Vector2.ZERO))
+	if hit_direction.length_squared()<0.0001:
+		hit_direction=Vector2(shot.get("position",p.position)).direction_to(p.position)
+	if hit_direction.length_squared()<0.0001:hit_direction=-Vector2.from_angle(float(p.get("body_angle",p.angle)))
+	SegmentFeedback.record_hit(p,previous_hp,hit_direction)
 	if not shot.is_empty():
 		var contact_shot=shot.duplicate()
 		contact_shot.radius=0.0 # Player collision tests use the hull radius without bullet expansion.
@@ -827,7 +858,7 @@ func step_drones(dt: float):
 		var data:Dictionary=d.data
 		var reach=db.range_units(data.get("droneRange",1))*48*(1+player.upgrade_bonus(data.id,"rangePercent"))
 		var efficiency=1+player.upgrade_bonus(data.id,"efficiencyPercent")
-		d.ping-=dt;d.cooldown-=dt
+		d.ping-=dt;d.cooldown-=dt*momentum.rate_multiplier()
 		if not d.target.is_empty():
 			var valid=loot.has(d.target) if d.mode in ["pickup","carry"] else float(d.target.get("hp",0))>0
 			if d.mode=="repair":valid=valid and d.target.hp<d.target.max_hp

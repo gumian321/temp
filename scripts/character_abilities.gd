@@ -82,6 +82,8 @@ func update(dt: float):
 				if not boss(e) and combat.insect_control_system.eligible(e, true):
 					e.stun = maxf(float(e.get("stun", 0)), dt + 0.03)
 					var distance = player.head.distance_to(e.position)
+					# Silk remains taut at the hold distance: legs keep struggling against it.
+					preload("res://scripts/soft_insect.gd").pull(e,player.head-Vector2(e.position),125.0 if distance>90 else 75.0,dt)
 					if distance > 90: e.position = Vector2(e.position).move_toward(player.head, minf(125 * dt, distance - 90))
 				thread.position = e.position
 		"beetle":
@@ -108,7 +110,7 @@ func advance_rush(dt: float):
 			rush_hit[e.uid] = true
 			combat.hit_enemy(e, {"data": {"class": "BasicProjectile"}, "damage": 85.0, "shield_damage": 85.0, "chips": {}, "friendly": true, "position": contact, "previous": start, "origin": start, "velocity": rush_direction * 620, "radius": 0.0, "fx_family": "impact", "pierce": 1})
 			if not boss(e) and combat.insect_control_system.eligible(e, true):
-				e.position += rush_direction * 35
+				combat.push_enemy(e,rush_direction,2.0)
 				e.stun = maxf(float(e.get("stun", 0)), 0.25)
 		if boss(e):
 			end = start

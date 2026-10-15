@@ -138,7 +138,7 @@ func _draw():
 			# A module can change before the old assembly canvas is retired.
 			if pose.is_empty():continue
 			Flagella.paint(self,flagella.poses(int(part.feedback_uid)),world_to_view(pose.point),pose.angle,zoom*0.65,true)
-			paint_organ(part,world_to_view(pose.point),zoom*0.62)
+			paint_organ(part,world_to_view(pose.point),zoom)
 	else:
 		var last=points.size()-1
 		Art.tail(self,world_to_view(points[last]),angles[last],zoom,last==0)
@@ -152,7 +152,7 @@ func _draw():
 			var level=int(part.get("fusion_level",1))
 			Flagella.paint(self,flagella.poses(int(part.feedback_uid)),at,pose.angle,zoom,true)
 			Art.segment(self,at,pose.angle,zoom,clock*3)
-			paint_organ(part,at,zoom*0.65)
+			paint_organ(part,at,zoom)
 			if level>1:draw_string(UI.font(),at+Vector2(-16,37)*zoom,"%d阶"%level,HORIZONTAL_ALIGNMENT_CENTER,32*zoom,int(10*zoom),UI.TEAL)
 		Art.segment(self,world_to_view(points[0]),angles[0],zoom,clock*3,true,false,false,0,clock,[],flagella.poses(0))
 	var carried=builder.active_drag_data if not builder.active_drag_data.is_empty() else builder.selected_data
@@ -176,7 +176,8 @@ func _draw():
 			draw_arc(at,clampf(32*zoom,22,100),0,TAU,40,UI.AMBER if not gap else UI.TEAL,3,true)
 			if gap and carried.get("kind")=="inventory":
 				var texture=builder.db.core_sprite(builder.db.asset(carried.id))
-				if texture!=null:draw_texture_rect(texture,Rect2(at-Vector2.ONE*18*zoom,Vector2.ONE*36*zoom),false,Color(1,1,1,0.35))
+				if texture!=null:
+					builder.draw_element(self,texture,at,zoom,{},Color(1,1,1,0.35))
 		if not gap and int(control.payload.part.segment)==builder.landing_segment and builder.landing_left>0:
 			draw_arc(at,(29+(1-builder.landing_left/0.65)*14)*zoom,0,TAU,48,Color(UI.TEAL,builder.landing_left/0.65),2,true)
 
@@ -263,4 +264,4 @@ func local_pointer()->Vector2:
 
 func paint_organ(part:Dictionary,at:Vector2,scale_factor:float):
 	var core=builder.db.asset(part.id)
-	organs.paint(self,str(part.feedback_uid),builder.db.core_sprite(core),at,Vector2.ONE*56*scale_factor,builder.ASSEMBLY_FACING+PI/2,builder.db.Armaments.variant(builder.db,core),clock,0.0,Color.WHITE,float(part.feedback_uid))
+	organs.paint(self,str(part.feedback_uid),builder.db.core_sprite(core),at,builder.element_bounds(scale_factor,part),builder.ASSEMBLY_FACING+PI/2,builder.db.Armaments.variant(builder.db,core),clock,0.0,Color.WHITE,float(part.feedback_uid))

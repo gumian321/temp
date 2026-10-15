@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "suites": [
+    {
+      "suite": "direct_body_assembly",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.861,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chain_ui_redesign",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.051,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "spider_assembly_ui",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.745,
+      "isolated_user_data": true
+    }
+  ],
+  "change": "Assembly modules and drag/drop previews use the live character module size. Centipede mounted art increases from 65% to 100% of combat proportion. Native assembly and drag tests at 1280/1440/1920 viewport widths."
+}

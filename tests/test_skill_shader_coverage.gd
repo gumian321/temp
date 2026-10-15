@@ -79,6 +79,7 @@ func execute():
 	check(layer.materials.values().all(func(m):return is_equal_approx(float(m.get_shader_parameter("clock")),3.0)),"Explicit simulation clock supports pause")
 	await passive_checks(db)
 	await control_checks(db)
+	await support_route_checks(db)
 	var roster=load("res://scripts/character_roster.gd")
 	check(roster.ids()==["centipede","spider"],"Retired beetle remains excluded")
 	var report={"checks":checks,"passed":checks.all(func(c):return c.passed),"core_count":count,"families":families.keys(),"renderer":DisplayServer.get_name(),"scope":"Actual production combat and shader command submission. Does not certify GPU compilation or visual quality."}
@@ -183,3 +184,39 @@ func control_checks(db):
 		controls.advance(2,battle);layer.begin_frame(.7)
 		load("res://scripts/insect_attack_fx.gd").paint(board,controls.active,1)
 		check(not submitted(kind,false),kind+" expiry removes shader geometry")
+
+func support_route_checks(db):
+	var body=Body.new(db);body.append_segment(db.named("Core_Drones_Engineer").id)
+	var battle=Battle.new(db,body);battle.drones.clear()
+	body.parts[0].hp-=10.0
+	battle.add_drone(1,db.named("Drones_Core_Engineer"))
+	var drone=battle.drones[0];drone.ping=0;drone.position=body.parts[0].position
+	battle.step_drones(.01)
+	check(drone.mode=="repair" and body.parts[0].feedback_pulses.has("healed"),"Repair tether fixture follows actual healing event")
+	var passive=load("res://scripts/passive_feedback.gd").new();passive.setup(board)
+	layer.begin_frame(.4);await paint_passive(passive,body,battle)
+	check(submitted("repair_drone",false),"Active healing at zero-distance contact submits repair shader")
+	body.parts[0].hp=body.parts[0].max_hp;battle.step_drones(.01)
+	layer.begin_frame(.5);await paint_passive(passive,body,battle)
+	check(not submitted("repair_drone",false),"Finished repair removes feeding tether")
+	var native=load("res://scripts/native_visuals.gd").new()
+	var particles=load("res://scripts/particle_effects.gd").new();native.setup(db,particles)
+	for friendly in [true,false]:
+		layer.begin_frame(.6)
+		var data=db.named("Drones_Core_Attack" if friendly else "Drones_AI_Attack")
+		var actor={"position":Vector2.ZERO}
+		native.trail(board,actor,data.dronePrefab,.1,1.0,not friendly)
+		actor.position=Vector2(35,0)
+		native.trail(board,actor,data.dronePrefab,.12,1.0,not friendly)
+		check(submitted("drone",not friendly),"Actual native drone trail preserves shader ownership "+str(friendly))
+		var enemy=battle.spawn(db.pool["250"],Vector2(150,0));enemy.hp=10000;enemy.max_hp=10000;enemy.guns=[];enemy.unit={"canBeStunned":true}
+		enemy.role="hostile" if friendly else "friendly"
+		var projectile=db.asset(db.named("Core_Gun_EMP").coreProjectile)
+		var shot={"data":projectile,"origin":Vector2.ZERO,"position":enemy.position,"velocity":Vector2.RIGHT*400,"radius":4,"friendly":friendly,"damage":1,"shield_damage":1,"chips":{},"pierce":1,"fx_family":"emp"}
+		battle.effects.clear();battle.hit_enemy(enemy,shot)
+		var statuses=battle.effects.filter(func(effect):return effect.kind=="emp")
+		check(statuses.size()==1 and statuses[0].friendly==friendly and statuses[0].fx_family=="emp" and statuses[0].fx_duration==statuses[0].life,"Actual EMP stun preserves source ownership and visual lifetime "+str(friendly))
+		layer.begin_frame(.7)
+		for effect in statuses:fx.paint_effect(board,effect,1.0)
+		check(submitted("emp",not friendly),"EMP status submits correct shader batch "+str(friendly))
+	particles.free()

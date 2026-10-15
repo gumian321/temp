@@ -9,7 +9,13 @@ class SpiderPreview extends RefCounted:
 	var character_reset_serial=0
 	var spider_rig=preload("res://scripts/spider_rig.gd").new()
 	var counts:Array=[]
+	var parts:Array=[]
 	func spider_leg_count(leg:int)->int:return int(counts[leg])
+	func spider_mount(leg:int,depth:int)->int:return depth*8+leg+1
+	func part_at(mount:int)->int:
+		for i in range(1,parts.size()):
+			if int(parts[i].segment)==mount:return i
+		return -1
 
 func assembly_guidance()->String:
 	if player.character_id=="spider":return "拖动调整腿部 · 同元素同阶叠放合成（最高四阶）"
@@ -55,6 +61,7 @@ func rebuild():
 	guidance=text_at("拖动整节调整顺序 · 同元素同阶叠放合成（最高四阶）",Vector2(48,89),Vector2(880,34),18)
 	if player.character_id=="spider":
 		spider_preview=SpiderPreview.new()
+		spider_preview.parts=player.parts.duplicate(true)
 		for leg in range(8):spider_preview.counts.append(player.spider_leg_count(leg))
 		spider_preview.spider_rig.ensure(spider_preview)
 	body_canvas=BodyCanvas.new();body_canvas.position=Vector2(36,137);body_canvas.size=Vector2(1368,492);add_child(body_canvas);body_canvas.setup(self)
@@ -139,17 +146,21 @@ func draw_head(canvas:CanvasItem,at:Vector2,scale_factor:float):
 	if player.segment_count()==0:Art.tail(canvas,at,ASSEMBLY_FACING,scale_factor,true)
 	Art.segment(canvas,at,ASSEMBLY_FACING,scale_factor,0,true)
 
-func draw_element(canvas:CanvasItem,texture:Texture2D,at:Vector2,scale_factor:float):
-	var extent=Ink.fitted_size(texture,Vector2.ONE*56*scale_factor)
+func element_bounds(scale_factor:float,part:Dictionary={})->Vector2:
+	var index=player.parts.find(part)
+	return Vector2.ONE*player.module_size(index if index>=0 else 1)*scale_factor
+
+func draw_element(canvas:CanvasItem,texture:Texture2D,at:Vector2,scale_factor:float,part:Dictionary={},tint:Color=Color.WHITE):
+	var extent=Ink.fitted_size(texture,element_bounds(scale_factor,part))
 	canvas.draw_set_transform(at,ASSEMBLY_FACING+PI/2)
-	canvas.draw_texture_rect(texture,Rect2(-extent/2,extent),false)
+	canvas.draw_texture_rect(texture,Rect2(-extent/2,extent),false,tint)
 	canvas.draw_set_transform(Vector2.ZERO)
 
 func draw_segment(canvas:CanvasItem,segment:int,at:Vector2,scale_factor:float=0.95,_additional:int=0):
 	if player.character_id!="centipede":
 		canvas.draw_circle(at,32*scale_factor,Color(UI.TEAL,.1))
 		var slot_index=player.part_at(segment)
-		if slot_index>0:draw_element(canvas,db.core_sprite(db.asset(player.parts[slot_index].id)),at,scale_factor)
+		if slot_index>0:draw_element(canvas,db.core_sprite(db.asset(player.parts[slot_index].id)),at,scale_factor,player.parts[slot_index])
 		else:canvas.draw_texture_rect(UI.icon_texture("body"),Rect2(at-Vector2.ONE*18,Vector2.ONE*36),false)
 		return
 	if segment==player.segment_count():Art.tail(canvas,at,ASSEMBLY_FACING,scale_factor)
@@ -159,7 +170,7 @@ func draw_segment(canvas:CanvasItem,segment:int,at:Vector2,scale_factor:float=0.
 	var texture=db.core_sprite(db.asset(player.parts[index].id))
 	if texture==null:return
 	var center=at+player.display_slot_offset(segment).rotated(ASSEMBLY_FACING)*scale_factor
-	draw_element(canvas,texture,center,scale_factor)
+	draw_element(canvas,texture,center,scale_factor,player.parts[index])
 
 func inspect(data:Dictionary):
 	if rebuilding:return

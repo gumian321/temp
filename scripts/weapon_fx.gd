@@ -251,7 +251,8 @@ func paint_beam(canvas, effect: Dictionary, style: Dictionary, fade: float, zoom
 	var axis=start.direction_to(finish)
 	var side=axis.orthogonal()
 	if key=="rail":
-		canvas.draw_line(start,finish,Color(style.accent,fade*0.25),18*zoom,true)
+		canvas.draw_line(start,finish,Color(Organic.SEPARATION,fade*.90),11*zoom,true)
+		canvas.draw_line(start,finish,Color(style.accent,fade*.95),8.5*zoom,true)
 		canvas.draw_line(start,finish,Color(style.color,fade*0.7),7*zoom,true)
 		canvas.draw_line(start,finish,Color("fffbed")*Color(1,1,1,fade),2.5*zoom,true)
 		for i in range(1,6):
@@ -264,9 +265,11 @@ func paint_beam(canvas, effect: Dictionary, style: Dictionary, fade: float, zoom
 	var points=PackedVector2Array([start])
 	for i in range(1,count):
 		var t=float(i)/count
-		var offset=sin(i*11.7+floor(clock*25)*3.7)*11*zoom*sin(t*PI)
+		# A continuous contracting nerve, with a stable danger edge and slow sap flow.
+		var offset=sin(t*PI*5-clock*7.0)*7*zoom*sin(t*PI)
 		points.append(start.lerp(finish,t)+side*offset)
 	points.append(finish)
+	canvas.draw_polyline(points,Color(Organic.SEPARATION,fade*.88),maxf(7,10*zoom),true)
 	canvas.draw_polyline(points,Color(style.accent,fade*0.30),maxf(10,16*zoom),true)
 	canvas.draw_polyline(points,Color(INK,fade*0.95),maxf(4.5,8*zoom),true)
 	canvas.draw_polyline(points,Color(style.color,fade),maxf(2.8,5*zoom),true)
@@ -274,6 +277,11 @@ func paint_beam(canvas, effect: Dictionary, style: Dictionary, fade: float, zoom
 	for i in range(2,points.size()-1,4):
 		var branch=points[i]+side*sin(i*7.0+clock*18)*22*zoom-axis*13*zoom
 		canvas.draw_line(points[i],branch,Color(style.accent,fade*0.7),1.4*zoom,true)
+	for i in 3:
+		var t=fposmod(clock*.65+i/3.0,1.0)
+		var lump=start.lerp(finish,t)+side*sin(t*PI*5-clock*7.0)*7*zoom*sin(t*PI)
+		canvas.draw_circle(lump,3.8*zoom,Color(style.accent,fade),true,-1,true)
+		canvas.draw_circle(lump+Vector2(-.6,-.8)*zoom,1.7*zoom,Color("f6bdcc",fade*.8),true,-1,true)
 	glow(canvas,start,23*zoom,style.accent,fade*0.8)
 	canvas.draw_circle(finish,2*zoom,Color(style.color,fade))
 
@@ -309,7 +317,8 @@ func paint_hostile_flame(canvas, effect: Dictionary, style: Dictionary, alpha: f
 	var axis=start.direction_to(finish)
 	var side=axis.orthogonal()
 	if start.distance_squared_to(finish)<0.01:return
-	# A continuous, rippling jet gives the moving tongues a shared hot core.
+	# Hostile secretion keeps its damage corridor, with folded wet flesh and
+	# a crimson edge instead of an orange fire plume.
 	for layer in range(3):
 		var outline=PackedVector2Array()
 		var length_scale=1.0-layer*0.11
@@ -317,18 +326,21 @@ func paint_hostile_flame(canvas, effect: Dictionary, style: Dictionary, alpha: f
 			for index in range(49):
 				var t=float(index if bank==1 else 48-index)/48.0
 				var width=(3+22*pow(sin(t*PI),0.85))*(1.0-layer*0.30)*zoom
-				var sway=sin(t*21-clock*16)*8*t*zoom
-				var edge=sin(t*53-clock*21+bank)*3.5*t*zoom
+				var sway=sin(t*17-clock*7)*5*t*zoom
+				var edge=sin(t*39-clock*9+bank)*2.5*t*zoom
 				outline.append(start.lerp(finish,t*length_scale)+side*(sway+bank*maxf(0.7*zoom,width+edge)))
-		canvas.draw_colored_polygon(outline,Color([Color("f45d38"),Color("ffb13c"),Color("fff0ae")][layer],alpha*[0.62,0.82,0.9][layer]))
+		canvas.draw_colored_polygon(outline,Color([Organic.DANGER_EDGE,Organic.DANGER,Color("f2a2a8")][layer],alpha*[0.85,0.86,0.82][layer]))
+		if layer==0:
+			outline.append(outline[0])
+			canvas.draw_polyline(outline,Color(Organic.SEPARATION,alpha*.9),2.3*zoom,true)
 	for i in range(13):
 		var t=fposmod(clock*2.5+i/13.0,1.0)
 		var at=start.lerp(finish,t)+side*sin(i*3.7+clock*8)*t*14*zoom
 		var radius=(5+20*t)*zoom
-		glow(canvas,at,radius*1.5,style.accent,(1-t)*alpha*0.7)
+		glow(canvas,at,radius*.85,style.accent,(1-t)*alpha*0.30)
 		var ember=at+side*sin(i*5+clock*12)*t*24*zoom
 		canvas.draw_line(ember-axis*radius*0.4,ember,Color(style.color,(1-t)*alpha),2.2*zoom,true)
-		if t<0.65:glow(canvas,at,radius*0.55,Color("fff4cb"),(1-t)*alpha)
+		if t<0.65:glow(canvas,at,radius*0.32,Color("f7ccd0"),(1-t)*alpha*.6)
 
 func paint_hole(canvas, hole: Dictionary, zoom: float):
 	canvas=AttackShaders.route(canvas,"blackhole",not bool(hole.get("friendly",true)))
@@ -337,8 +349,10 @@ func paint_hole(canvas, hole: Dictionary, zoom: float):
 	at=Vector2.ZERO
 	var radius=float(hole.radius)*zoom
 	var style=Feedback.PROFILES.blackhole
+	if not bool(hole.get("friendly",true)):
+		style=style.duplicate();style.color=Organic.DANGER;style.accent=Color("ef94b5")
 	glow(canvas,at,radius*1.4,style.color,0.7)
-	canvas.draw_circle(at,radius*0.46,Color("253360"))
+	canvas.draw_circle(at,radius*0.46,Color("381c39") if not bool(hole.get("friendly",true)) else Color("253360"))
 	ring(canvas,at,radius*0.40,Color("48518c"),0.7,5*zoom)
 	ring(canvas,at,radius*0.46,style.color,0.55,12*zoom)
 	ring(canvas,at,radius*0.49,style.accent,0.9,3*zoom)

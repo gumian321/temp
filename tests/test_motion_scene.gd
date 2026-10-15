@@ -55,6 +55,7 @@ func execute():
 	game.combat.enemies.clear()
 	game.combat.drones.clear()
 	game.run.timers = {"swarm": 999.0, "wave": 999.0, "patrol": 999.0}
+	game.run.encounters.enabled = false
 	game.run.rewards.queue.clear(); game.run.packs = 0
 	# Keep the in-game instructional overlay out of this isolated motion preview.
 	game.tutorials.movement_shown = true

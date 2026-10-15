@@ -42,6 +42,7 @@ func refresh_bindings(using_joy:bool=false):
   if joystick:binding={'move':'L','shoot':'R / RT','boost':'LT','radar':'A','build':'B','run':'RT'}[key]
   keys[key].text=binding
   prompts[key].text=db.text({'move':'Tutorial_Move','shoot':'Tutorial_Shoot','boost':'Tutorial_Boost','radar':'Tutorial_Radar','build':'Tutorial_Build','run':'Tutorial_Run'}[key])
+  if key=='build':prompts[key].text=db.ui("Assemble body / resume postponed rewards","身体装配 / 领取暂存奖励")
 func refresh_language():
  # Change existing labels in place so visible tips, tweens and counters survive.
  refresh_localized_labels(view.layouts['GameScene/Tutorial Canvas'])

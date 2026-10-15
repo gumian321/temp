@@ -1,0 +1,55 @@
+连杀狂热与特殊遭遇（2026-10-15）
+
+战斗规则
+有效击杀在 4.5 秒窗口内续连杀。5 / 10 连杀各返还 1 / 1.5 秒角色技能冷却。
+18 连杀触发 6 秒狂热，额外返还 2 秒技能冷却，武器伤害 +25%、装填进度 +35%。
+持续武器获得相同的吞吐提升；攻击无人机和孢雷也受益。敌方与护送友军不获得玩家增益。
+狂热从触发起有 18 秒恢复时间，同一连续连杀每次至少再击杀 18 个才可再次触发；不能无限续期。
+只计有我方伤害归因的战斗单位：石块、箱子、友军、自爆、脱离场景和无伤害归因的死亡不计。
+暂停、三选一领奖及装配冻结连杀和狂热时间；临时增益不写入角色永久属性或存档。
+
+特殊敌人
+冲锋虫：接近后蓄力 0.85 秒并锁定方向，生图轨迹显示方向和冲锋范围。
+随后以 640 像素/秒直冲 0.55 秒，一次冲锋最多伤害一个体节一次，结束后僵直 1.4 秒。
+碰撞使用路径扫掠，低帧率不会穿过玩家而漏判；眩晕仍可阻止特殊行动。
+裂殖母虫：缓慢接近并喷射三向弹，击杀后产生四只低血量幼虫，供玩家继续收割。
+幼虫不再分裂，出生在死亡迭代结束后的安全阶段，避免重复结算与递归增殖。
+藏宝虫：逃离玩家，14 秒内击杀额外掉落一箱优先史诗品质的补给与 35 能量，正常死亡能量另计。
+补给经过原有无人机收集、真实奖励队列和可用奖励降级机制；追猎过期不发额外奖励。
+
+遭遇节奏
+开局至少 18 秒宽限，再预警 1.6 秒。后续遭遇结束后等待 24–34 秒，洗牌轮换三类，不连续重复。
+玩家走入出生区域时，出生点重新定位并重新计时预警。
+头部低于 35% 血量、近距离 Boss、Boss 清除后的恢复期或敌群过密时推迟新遭遇。
+同时最多 8 个特殊单位，移动敌人预算 70，全地图实体保护上限 256。
+石块、箱子与固定设施不算追击压力，防止正常地图让遭遇永远无法出现。
+遭遇不计入既有任务目标或 Boss 波次，离开太远或超过事件时限会撤出，不产生击杀奖励。
+
+奖励与操作
+按用户的最终偏好恢复原来的自动三选一：获得奖励后自动暂停战斗并弹出选择。
+选到新模块后进入装配，属性奖励立即生效；积存多箱时按原来的队列继续领取。
+主动暂停时不抢先弹出；连杀、狂热和特殊遭遇计时在领奖期间冻结。
+暂存后继续战斗，不反复弹出；新奖励到达时恢复自动提示，也可按装配键（默认 E，手柄 B）继续领取。
+安装元素、调整身体、延后领取和防止重复点击的流程保留。
+
+ImageGen 素材
+本轮使用内置 image_gen，共六张透明 PNG，未使用 CLI 或代码绘制替代品。
+charger.png：赤红刃肢与橙红树脂腔体；broodmother.png：腹内紫色幼虫囊；treasure.png：金色结晶甲壳。
+warning_seal.png：甲壳与树脂预警印记；charge_lane.png：定向冲锋轨迹；hud_plate.png：深紫树脂 HUD 底板。
+素材原图位于 assets/special_encounters/，完整生成提示词及输出来源记录在 generation.json。
+敌人使用原有 UV 骨骼结构、软体网格、六足和受击动画。原始 PNG 不裁改；贴图图集只裁掉透明留白。
+所有新贴图启用 mipmap，小尺寸显示使用线性过滤。预警位置、染色、缩放和动画由运行逻辑驱动。
+文字、倒计时和原有数值仪表仍是实时界面，游戏内既有其他美术系统未整体重做。
+
+验证范围
+首轮汇总 26 套针对性检查全部通过，记录于 docs/test-evidence/surprise-gameplay-20261015.json。
+恢复自动三选一后，reward_flow、encounter_scene、fuel_tutorial 三套相关检查再次通过，记录于 docs/test-evidence/automatic-reward-restored-20261015.json。
+新增 combat_momentum、special_encounters、encounter_art、encounter_scene、encounter_pacing 测试。
+覆盖真实死亡结算、非战斗目标排除、临时伤害/持续火力/装填恢复、冷却、冲锋锁定与扫掠、分裂上限、藏宝掉落与过期。
+原有 missions、map、rewards、specials、regressions、drones、enemy_drones、shields、character_abilities、character_integration、insect_controls、combat_spatial、reward_flow、battle_hud、hud_refresh_cache、main_autofire_scene、enemy_death_splatter、soft_solver_regressions、soft_render_cache、weapon_feedback 回归通过。
+实际 Windows 渲染检查 1280×720、1440×900、1920×1080 的提示布局、生成贴图接入、软体网格与六足结构。
+180 秒无尽模式模拟：使用默认武器与耐久测试头部，不注入敌人/击杀/遭遇计时器，观察到约 19.7、76.9、121.3、165.1 秒出现四次特殊遭遇。
+该模拟用于验证出现频率和实体上限，不代表新手难度平衡、人类完整试玩或独立 EXE 验收。
+本轮测试隔离存档。可复现命令：
+python tools/run_checks.py combat_momentum special_encounters encounter_art encounter_pacing reward_flow missions map --godot "D:\godot\Godot_v4.6.3-stable_win64.exe"
+python tools/run_checks.py encounter_scene --render --godot "D:\godot\Godot_v4.6.3-stable_win64.exe"

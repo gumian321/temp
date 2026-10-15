@@ -4,7 +4,47 @@ const Art = preload("res://scripts/centipede_art.gd")
 const Ink = preload("res://scripts/blue_ink.gd")
 const LIFETIME = 0.95
 const MAX_DEBRIS = 24
-const HIT_TIME = 0.20
+const HIT_TIME = 0.42
+const KICK_TIME = 0.24
+const TRAIL_TIME = 1.25
+const NUMBER_TIME = 0.85
+const HURT = Color("ff635b")
+const HURT_INK = Color("9b263f")
+
+static func record_hit(part: Dictionary, previous_hp: float, direction: Vector2):
+	var lost = minf(previous_hp, previous_hp-float(part.hp))
+	if lost<=0:return
+	part.impact_left=HIT_TIME
+	part.impact_direction=direction.normalized() if direction.length_squared()>0.0001 else Vector2.LEFT
+	part.impact_force=lerpf(3.0,6.0,clampf(lost/maxf(1,part.max_hp)*4.0,0,1))
+	part.damage_trail_hp=maxf(previous_hp,float(part.get("damage_trail_hp",previous_hp)) if float(part.get("damage_trail_left",0))>0 else previous_hp)
+	part.damage_trail_left=TRAIL_TIME
+	# One number per live part, including continuous damage; no per-hit nodes.
+	if float(part.get("damage_number_left",0))<=0:
+		part.damage_number=0.0
+		part.damage_number_left=NUMBER_TIME
+	part.damage_number=float(part.get("damage_number",0))+lost
+
+static func step_hit(part: Dictionary, dt: float):
+	part.impact_left=maxf(0,float(part.get("impact_left",0))-dt)
+	part.damage_number_left=maxf(0,float(part.get("damage_number_left",0))-dt)
+	part.damage_trail_left=maxf(0,float(part.get("damage_trail_left",0))-dt)
+	if float(part.damage_trail_left)<TRAIL_TIME-0.25:
+		part.damage_trail_hp=move_toward(float(part.get("damage_trail_hp",part.hp)),float(part.hp),maxf(1,part.max_hp)*dt*1.3)
+
+static func hit_amount(part: Dictionary) -> float:
+	return smoothstep(0.0,HIT_TIME,float(part.get("impact_left",0)))
+
+static func tint(part: Dictionary, base: Color = Color.WHITE) -> Color:
+	var color=base.lerp(HURT,hit_amount(part)*0.85)
+	color.a=base.a
+	return color
+
+static func offset(part: Dictionary) -> Vector2:
+	var age=HIT_TIME-float(part.get("impact_left",0))
+	if age<0 or age>=KICK_TIME:return Vector2.ZERO
+	var envelope=pow(1.0-age/KICK_TIME,2)
+	return Vector2(part.get("impact_direction",Vector2.ZERO))*float(part.get("impact_force",0))*envelope*cos(age/KICK_TIME*PI*1.5)
 
 static func snapshot(player, index: int) -> Dictionary:
 	var part: Dictionary = player.parts[index]
@@ -25,14 +65,43 @@ static func debris_position(effect: Dictionary, piece: int) -> Vector2:
 	var direction = Vector2.from_angle(float(effect.angle))
 	return Vector2(effect.position)+Vector2(effect.velocity)*t*LIFETIME+direction.orthogonal()*side*(12+55*t)+direction*(piece/2.0-0.75)*38*t
 
-static func paint_hit(canvas, at: Vector2, angle: float, strength: float, zoom: float):
+static func paint_hit(canvas, at: Vector2, angle: float, strength: float, zoom: float, radius: float = 32.0):
 	if strength<=0:return
 	var alpha = clampf(strength/HIT_TIME,0,1)
-	canvas.draw_arc(at,(32+(1-alpha)*12)*zoom,0,TAU,32,Color("c8754d",alpha),2.8*zoom,true)
-	canvas.draw_set_transform(at,angle,Vector2.ONE*zoom)
-	canvas.draw_colored_polygon(PackedVector2Array([Vector2(-23,-20),Vector2(20,-22),Vector2(24,20),Vector2(-21,23)]),Color(1,0.88,0.67,alpha*0.43))
-	canvas.draw_polyline(PackedVector2Array([Vector2(-17,-14),Vector2(-4,-5),Vector2(-9,3),Vector2(10,13)]),Color("fff2ce",alpha),2.4,true)
-	canvas.draw_set_transform(Vector2.ZERO)
+	var reach=(radius+(1-alpha)*10)*zoom
+	canvas.draw_arc(at,reach,0,TAU,40,Color(Ink.PAPER,alpha*0.95),5.6*zoom,true)
+	canvas.draw_arc(at,reach,0,TAU,40,Color(HURT_INK,alpha),3.3*zoom,true)
+	canvas.draw_arc(at,reach,angle-0.7,angle+0.7,12,Color(HURT,alpha),3.5*zoom,true)
+	for side in range(4):
+		var axis=Vector2.from_angle(angle+PI*0.25+side*PI*0.5)
+		canvas.draw_line(at+axis*(reach+3*zoom),at+axis*(reach+9*zoom),Color(HURT_INK,alpha),2.2*zoom,true)
+
+static func paint_health(canvas, part: Dictionary, at: Vector2, zoom: float, radius: float, head: bool = false):
+	var hp=clampf(float(part.hp)/maxf(1,part.max_hp),0,1)
+	var hit=hit_amount(part)
+	if not head or hp<0.999 or hit>0:
+		var scale_factor=maxf(0.85,zoom)
+		var size=Vector2(48*zoom,5*scale_factor)
+		var position=at+Vector2(-size.x*0.5,(radius+8)*zoom)
+		canvas.draw_rect(Rect2(position-Vector2.ONE, size+Vector2.ONE*2),Ink.INK)
+		canvas.draw_rect(Rect2(position,size),Ink.PAPER)
+		if float(part.get("damage_trail_left",0))>0:
+			var trail=clampf(float(part.get("damage_trail_hp",part.hp))/maxf(1,part.max_hp),hp,1)
+			canvas.draw_rect(Rect2(position,Vector2(size.x*trail,size.y)),Color("f6b34f"))
+		var color=HURT if hit>0 or hp<0.3 else Ink.BLUE
+		canvas.draw_rect(Rect2(position,Vector2(size.x*hp,size.y)),color)
+	var left=float(part.get("damage_number_left",0))
+	if left<=0:return
+	var age=1.0-left/NUMBER_TIME
+	var alpha=1.0-smoothstep(0.65,1.0,age)
+	var damage=float(part.get("damage_number",0))
+	var label="-%d"%roundi(damage) if damage>=1 else "-%.1f"%damage
+	if damage<0.1:label="-<0.1"
+	var font=Ink.theme().default_font
+	var font_size=roundi(20*maxf(0.9,zoom))
+	var position=at+Vector2(-42*zoom,-(radius+14+age*20)*zoom)
+	canvas.draw_string_outline(font,position,label,HORIZONTAL_ALIGNMENT_CENTER,84*zoom,font_size,4,Color(Ink.PAPER,alpha))
+	canvas.draw_string(font,position,label,HORIZONTAL_ALIGNMENT_CENTER,84*zoom,font_size,Color(HURT_INK,alpha))
 
 static func paint(canvas, battle, zoom: float):
 	Art.prepare()

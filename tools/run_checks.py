@@ -12,6 +12,9 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SUITES = [
+    "debug_points",
+    "knockback", "soft_knockback", "soft_pull",
+    "combat_momentum", "special_encounters", "encounter_art", "encounter_scene", "encounter_pacing",
     "attack_shader_materials", "skill_shader_coverage",
     "enemy_death_splatter", "projectile_trajectory_continuity",
     "viscous_projectile_motion", "viscous_renderer", "viscous_integration",

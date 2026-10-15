@@ -31,7 +31,7 @@ func _draw():
 	var data:Dictionary=builder.active_drag_data
 	var core=builder.db.asset(data.get("id",data.get("part",{}).get("id","")))
 	organs.begin_frame()
-	organs.paint(self,"preview",texture,at,Vector2.ONE*56*scale_factor*0.65,PI*1.5,builder.db.Armaments.variant(builder.db,core),clock,0,Color.WHITE,float(data.get("part",{}).get("feedback_uid",0)))
+	organs.paint(self,"preview",texture,at,builder.element_bounds(scale_factor,data.get("part",{})),PI*1.5,builder.db.Armaments.variant(builder.db,core),clock,0,Color.WHITE,float(data.get("part",{}).get("feedback_uid",0)))
 	var target:Dictionary=builder.hovered_target
 	var valid=builder.can_drop(target,builder.active_drag_data)
 	var caption="松开取消"

@@ -2,6 +2,7 @@ extends RefCounted
 ## Generated raster carapace, countable armor modules, and eight permanent claws.
 static var pieces: Dictionary = {}
 const ATLAS_PATH = "res://assets/characters/spider_segmented_parts.png"
+const Feedback=preload("res://scripts/segment_feedback.gd")
 const REGIONS = {
 	"body": Rect2(50, 60, 1155, 615),
 	"segment": Rect2(35, 730, 710, 242),
@@ -68,15 +69,19 @@ static func draw_body(canvas: CanvasItem, player, at: Vector2, zoom: float, _clo
 		var foot = _screen(leg.foot, player, at, zoom)
 		canvas.draw_set_transform(foot + Vector2(1, 3) * zoom, 0, Vector2(1, 0.48))
 		canvas.draw_circle(Vector2.ZERO, 7.0 * zoom, Color(0.04, 0.08, 0.13, 0.19 - float(leg.lift) * 0.09))
-	for leg in player.spider_rig.legs:
+	for leg_index in player.spider_rig.legs.size():
+		var leg:Dictionary=player.spider_rig.legs[leg_index]
 		var tint = Color.WHITE.lerp(Color(0.82, 0.88, 0.96), (1.0 - float(leg.lift)) * 0.12)
 		_link(canvas, _screen(leg.connector.a, player, at, zoom), _screen(leg.connector.b, player, at, zoom), 18.0 * zoom, "connector", tint)
 		# Exactly one distinct shell per installed module. Its rim and both sockets
 		# extend beyond the 30-unit tower silhouette, even at the default zoom.
 		for segment in leg.segments:
-			_link(canvas, _screen(segment.a, player, at, zoom), _screen(segment.b, player, at, zoom), SEGMENT_WIDTH * zoom, "segment", tint)
+			var index=player.part_at(player.spider_mount(leg_index,int(segment.depth)))
+			var part:Dictionary=player.parts[index] if index>0 else {}
+			var kick=Feedback.offset(part)*zoom
+			_link(canvas, _screen(segment.a, player, at, zoom)+kick, _screen(segment.b, player, at, zoom)+kick, SEGMENT_WIDTH * zoom, "segment", Feedback.tint(part,tint))
 		_link(canvas, _screen(leg.claw.a, player, at, zoom), _screen(leg.claw.b, player, at, zoom), CLAW_WIDTH * zoom, "claw", tint)
 	# Artwork's neck aligns with the independent hips; abdomen extends behind it.
-	canvas.draw_set_transform(at, player.facing.angle(), Vector2.ONE * zoom)
-	canvas.draw_texture_rect(pieces.body, Rect2(-65, -30.6, 115.5, 61.5), false)
+	canvas.draw_set_transform(at+Feedback.offset(player.parts[0])*zoom, player.facing.angle(), Vector2.ONE * zoom)
+	canvas.draw_texture_rect(pieces.body, Rect2(-65, -30.6, 115.5, 61.5), false,Feedback.tint(player.parts[0]))
 	canvas.draw_set_transform(Vector2.ZERO)

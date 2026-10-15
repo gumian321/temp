@@ -1,6 +1,7 @@
 extends Control
 ## Edge-aligned neon glass instruments. Cached local plates keep the field clear.
 const UI=preload("res://scripts/game_ui.gd")
+const EncounterArt=preload("res://scripts/encounter_art.gd")
 const INK=Color("f5efff")
 const QUIET=Color("b1a5c4")
 const PAPER=Color("160b1e")
@@ -22,6 +23,12 @@ var keys:Label
 var skill_icon:TextureRect
 var skill_label:Label
 var plaque:StyleBoxFlat
+var streak_label:Label
+var streak_detail:Label
+var encounter_label:Label
+var encounter_hint:Label
+var supplies:Label
+var streak_fill=0.0
 
 class Meter extends Control:
  var amount:Label
@@ -77,6 +84,7 @@ class ArmoryButton extends Button:
 
 func setup(owner_game):
  game=owner_game;UI.protect(self);theme=UI.theme();plaque=rail_skin()
+ texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
  set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);mouse_filter=MOUSE_FILTER_IGNORE
  mission=label(self,game.db.title(game.selected_mission),13);mission.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
  health=meter("armor",TEAL,Vector2(244,38));health.tooltip_text=tr_text("甲壳耐久","Carapace integrity")
@@ -98,6 +106,11 @@ func setup(owner_game):
  keys=label(self,tr_text("WASD  移动    ⇧  推进    ESC  暂停","WASD  MOVE    ⇧  BOOST    ESC  PAUSE"),11)
  skill_icon=TextureRect.new();skill_icon.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;skill_icon.texture=UI.icon_texture("evolution");skill_icon.material=UI.icon_material();skill_icon.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;skill_icon.mouse_filter=MOUSE_FILTER_IGNORE;skill_icon.size=Vector2(42,42);add_child(skill_icon)
  skill_label=label(self,"",16)
+ streak_label=label(self,"",20);streak_detail=label(self,"",12)
+ encounter_label=label(self,"",17);encounter_hint=label(self,"",13)
+ encounter_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;encounter_hint.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+ supplies=label(self,"",14);supplies.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
+ for field in [streak_label,streak_detail,encounter_label,encounter_hint,supplies]:field.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
  resized.connect(layout_hud);layout_hud.call_deferred();refresh()
 func tr_text(zh:String,en:String)->String:return game.db.ui(en,zh)
 func label(parent:Node,value:String,px:int)->Label:
@@ -115,6 +128,11 @@ func layout_hud():
  radar_label.position=Vector2(size.x-202,size.y-257);radar_label.size=Vector2(170,18)
  skill_icon.position=Vector2(456,size.y-90);skill_label.position=Vector2(506,size.y-82);skill_label.size=Vector2(360,30)
  keys.position=Vector2(24,size.y-32);keys.size=Vector2(400,20)
+ streak_label.position=Vector2(24,114);streak_label.size=Vector2(284,28)
+ streak_detail.position=Vector2(24,147);streak_detail.size=Vector2(284,20)
+ encounter_label.position=Vector2(size.x/2-224,113);encounter_label.size=Vector2(448,25)
+ encounter_hint.position=Vector2(size.x/2-224,141);encounter_hint.size=Vector2(448,20)
+ supplies.position=Vector2(size.x-310,89);supplies.size=Vector2(292,24)
  queue_redraw()
 func rail_skin()->StyleBoxFlat:
  var skin=UI.flat_style(Color("160b1e",0.90),Color(TEAL,0.52),26)
@@ -123,7 +141,7 @@ func rail_skin()->StyleBoxFlat:
 func compact_skin()->StyleBoxFlat:
  return UI.flat_style(Color("160b1e",0.90),Color(TEAL,0.6),18)
 func plate(rect:Rect2):
- draw_style_box(plaque,rect)
+ draw_texture_rect(EncounterArt.decal("hud_plate"),rect,false)
 func instrument_backings()->Array[Rect2]:
  return [Rect2(12,10,270,88),Rect2(size.x/2-109,10,218,88),Rect2(size.x-306,22,296,56)]
 func _draw():
@@ -132,6 +150,11 @@ func _draw():
  plate(Rect2(444,size.y-98,432,64))
  plate(Rect2(12,size.y-39,414,32))
  plate(Rect2(size.x-212,size.y-261,192,28))
+ if is_instance_valid(streak_label) and streak_label.visible:
+  plate(Rect2(12,106,308,68))
+  if streak_fill>0:draw_texture_rect(EncounterArt.decal("charge_lane"),Rect2(24,141,284*streak_fill,5),false,AMBER)
+ if is_instance_valid(encounter_label) and encounter_label.visible:plate(Rect2(size.x/2-236,106,472,62))
+ if is_instance_valid(supplies) and supplies.visible:plate(Rect2(size.x-316,84,304,32))
 
 
 func refresh():
@@ -164,3 +187,27 @@ func refresh():
  timer.text="%02d:%02d"%[int(seconds)/60,int(seconds)%60]
  timer.tooltip_text=tr_text("剩余时间","Time remaining") if countdown else tr_text("已进行时间","Time elapsed")
  counters.text="▣  %d    ◈  %d"%[run.packs,run.scraps]
+ var momentum=game.combat.momentum
+ var old_status=[streak_label.visible,encounter_label.visible,supplies.visible,streak_fill]
+ streak_label.visible=momentum.chain>=2 or momentum.burst_left>0
+ streak_detail.visible=streak_label.visible
+ if momentum.burst_left>0:
+  streak_label.text=tr_text("狂热爆发  %.1f秒  ·  %d连杀","OVERDRIVE  %.1fs  ·  %d CHAIN")%[momentum.burst_left,momentum.chain]
+  if momentum.chain==0:streak_label.text=tr_text("狂热爆发  %.1f秒","OVERDRIVE  %.1fs")%momentum.burst_left
+  streak_detail.text=tr_text("伤害 +25%  ·  装填 +35%","Damage +25%  ·  Reload +35%")
+  streak_fill=momentum.burst_left/momentum.BURST_DURATION
+ else:
+  streak_label.text=tr_text("%d 连杀","%d CHAIN")%momentum.chain
+  streak_detail.text=momentum.notice if momentum.notice_left>0 else (tr_text("再击杀 %d 触发狂热","%d more kills to overdrive")%maxi(0,momentum.next_burst-momentum.chain) if momentum.recovery<=0 else tr_text("狂热恢复  %.1f秒","Overdrive recharging  %.1fs")%momentum.recovery)
+  streak_fill=momentum.remaining/momentum.CHAIN_WINDOW
+ var encounter=run.encounters
+ encounter_label.visible=encounter.phase!="quiet" or encounter.notice_left>0
+ encounter_hint.visible=encounter_label.visible
+ encounter_label.text=encounter.title(encounter.event_type)
+ encounter_hint.text=encounter.notice if encounter.notice_left>0 else encounter.hint(encounter.event_type)
+ if encounter.phase=="warning":encounter_label.text+=tr_text(" · 即将出现"," · INCOMING")
+ supplies.visible=run.packs>0 or not p.pending.is_empty()
+ var build_key="B" if game.joy_ui else OS.get_keycode_string(int(game.save.state.settings.bindings.get("build",KEY_E)))
+ supplies.text=tr_text("补给 ×%d · 待装 %d  [%s]","Supply ×%d · Pending %d  [%s]")%[run.packs,p.pending.size(),build_key]
+ build_button.tooltip_text=tr_text("领取补给 / 身体装配 [%s]","Claim supplies / Armory [%s]")%build_key
+ if old_status!=[streak_label.visible,encounter_label.visible,supplies.visible,streak_fill]:queue_redraw()

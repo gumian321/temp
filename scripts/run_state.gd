@@ -12,6 +12,7 @@ const RewardDirector = preload("res://scripts/reward_director.gd")
 var rewards
 var map_director
 var director
+var encounters
 var db
 var save
 var player
@@ -63,6 +64,9 @@ func _init(source, persistence, centipede, battle, selected: Dictionary, difficu
 	director = MissionDirector.new(self)
 	map_director = MapDirector.new(self)
 	rewards = RewardDirector.new(self)
+	combat.momentum.enabled = true
+	encounters = preload("res://scripts/encounter_director.gd").new(self)
+	combat.encounters = encounters
 	achievements=preload("res://scripts/achievements.gd").new(db,save,player,combat)
 
 func step(dt: float):
@@ -82,6 +86,7 @@ func step(dt: float):
 	step_local_spawners(dt)
 	map_director.step(dt)
 	director.step(dt)
+	encounters.step(dt)
 	for drop in combat.loot.duplicate():
 		if drop.has("reserved_by"):continue
 		if drop.get("delivered",false):

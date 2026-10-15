@@ -2,6 +2,8 @@ extends RefCounted
 ## Lightweight damped bone lattice. It affects the mesh, never combat collisions.
 const Brood = preload("res://scripts/brood_theme.gd")
 const Anatomy = preload("res://scripts/insect_anatomy.gd")
+const Knockback = preload("res://scripts/knockback.gd")
+const PUSH_SOFTNESS = {"grub":1.0,"beetle":0.42,"moth":0.85,"sac":1.1,"mantis":0.65,"queen":0.7}
 const REST = [
 	Vector2(-0.68,-0.82), Vector2(0,-0.82), Vector2(0.68,-0.82),
 	Vector2(-0.68,-0.4), Vector2(0,-0.4), Vector2(0.68,-0.4),
@@ -93,6 +95,95 @@ static func impact(e: Dictionary, point: Vector2, direction: Vector2, damage: fl
 		state.flash=.07
 	constrain_lattice(state)
 
+static func begin_push(e:Dictionary):
+	if not Brood.eligible(e):return
+	var velocity=Vector2(e.get("knockback_velocity",Vector2.ZERO))
+	if velocity.length()<Knockback.STOP_SPEED:return
+	prepare(e)
+	var state:Dictionary=e.soft_body
+	var power=clampf(velocity.length()/Knockback.MAX_SPEED,0.0,1.0)
+	state.push_direction=velocity.normalized()
+	state.push_softness=PUSH_SOFTNESS[Brood.species(e)]
+	if state.has("push_strain") and float(state.push_age)<0.14:return
+	var side=-1.0 if int(e.get("uid",0))%2==0 else 1.0
+	# The struck side compresses immediately. Momentum then stretches it out;
+	# a separate underdamped bend keeps the abdomen and appendages wobbling.
+	state.push_strain=clampf(float(state.get("push_strain",0))-0.22*power,-0.24,0.26)
+	state.push_strain_velocity=0.0
+	state.push_bend=clampf(float(state.get("push_bend",0))+side*0.14*power,-0.22,0.22)
+	state.push_bend_velocity=side*0.9*power
+	state.push_age=0.0
+
+static func step_push(e:Dictionary,state:Dictionary,h:float,elapsed:float):
+	if not state.has("push_strain"):return
+	var speed=Vector2(e.get("knockback_velocity",Vector2.ZERO)).length()*exp(-Knockback.DRAG*elapsed)
+	var target=clampf(speed/Knockback.MAX_SPEED,0,1)*0.24
+	state.push_strain_velocity=(state.push_strain_velocity+(target-state.push_strain)*190*h)*exp(-7*h)
+	state.push_strain=clampf(state.push_strain+state.push_strain_velocity*h,-0.24,0.28)
+	state.push_bend_velocity=(state.push_bend_velocity-state.push_bend*135*h)*exp(-5.5*h)
+	state.push_bend=clampf(state.push_bend+state.push_bend_velocity*h,-0.22,0.22)
+	state.push_age+=h
+	if speed<Knockback.STOP_SPEED and absf(state.push_strain)<0.001 and absf(state.push_strain_velocity)<0.01 and absf(state.push_bend)<0.001 and absf(state.push_bend_velocity)<0.01:
+		for key in ["push_direction","push_softness","push_strain","push_strain_velocity","push_bend","push_bend_velocity","push_age"]:state.erase(key)
+
+static func push_deform(state:Dictionary,point:Vector2,center:Vector2,softness:float,heading:float)->Vector2:
+	if not state.has("push_strain"):return point
+	var axis=Vector2(state.push_direction).rotated(-heading)
+	var normal=axis.orthogonal()
+	var delta=point-center
+	var along=delta.dot(axis)
+	var across=delta.dot(normal)
+	var strain=float(state.push_strain)*float(state.push_softness)
+	var bend=float(state.push_bend)*float(state.push_softness)
+	var deformation=(axis*along*strain-normal*across*strain*0.45)*lerpf(0.55,1.0,softness)
+	deformation+=normal*(sin(along*4.0-float(state.push_age)*10.0)*bend+along*bend*0.55)*softness
+	return point+deformation.limit_length(0.24)
+
+static func pull(e:Dictionary,direction:Vector2,speed:float,dt:float):
+	if dt<=0 or speed<=0 or direction.is_zero_approx() or not Brood.eligible(e):return
+	prepare(e)
+	var state:Dictionary=e.soft_body
+	if not state.has("pull_strain"):
+		state.pull_direction=direction.normalized()
+		state.pull_strain=0.0;state.pull_velocity=0.0;state.pull_bend=0.0
+		state.pull_age=float(int(e.get("uid",0))%17)*0.37
+		state.pull_softness=PUSH_SOFTNESS[Brood.species(e)]
+	state.pull_target_direction=direction.normalized()
+	state.pull_power=clampf(speed/200.0,0.0,1.0)
+	# A short lease bridges callers before/after Soft.step without owning actors or sources.
+	# Missing sources stop refreshing it, then the spring releases naturally.
+	state.pull_left=minf(0.18,dt+0.06)
+
+static func step_pull(state:Dictionary,h:float):
+	if not state.has("pull_strain"):return
+	state.pull_left=maxf(0,state.pull_left-h)
+	var power=float(state.pull_power) if state.pull_left>0 else 0.0
+	var angle=lerp_angle(Vector2(state.pull_direction).angle(),Vector2(state.pull_target_direction).angle(),1-exp(-14*h))
+	state.pull_direction=Vector2.from_angle(angle)
+	state.pull_velocity=(state.pull_velocity+(power*0.38-state.pull_strain)*150*h)*exp(-8*h)
+	state.pull_strain=clampf(state.pull_strain+state.pull_velocity*h,-0.12,0.44)
+	state.pull_age+=h
+	# Opposing waves travel down the abdomen while tension is maintained.
+	var bend=sin(state.pull_age*15)*power*0.13
+	state.pull_bend=lerpf(state.pull_bend,bend,1-exp(-18*h))
+	if power==0 and absf(state.pull_strain)<0.001 and absf(state.pull_velocity)<0.01 and absf(state.pull_bend)<0.001:
+		for key in ["pull_direction","pull_target_direction","pull_strain","pull_velocity","pull_bend","pull_age","pull_softness","pull_power","pull_left"]:state.erase(key)
+
+static func struggle(state:Dictionary,phase:float=0.0)->float:
+	return sin(float(state.get("pull_age",0))*15+phase)*clampf(absf(float(state.get("pull_strain",0)))/0.38,0,1)*float(state.get("pull_softness",1))
+
+static func pull_deform(state:Dictionary,point:Vector2,center:Vector2,softness:float,heading:float)->Vector2:
+	if not state.has("pull_strain"):return point
+	var axis=Vector2(state.pull_direction).rotated(-heading)
+	var normal=axis.orthogonal()
+	var delta=point-center
+	var along=delta.dot(axis)
+	var strain=float(state.pull_strain)*float(state.pull_softness)
+	var deformation=(axis*along*strain-normal*delta.dot(normal)*strain*0.38)*lerpf(0.6,1.0,softness)
+	# The leading edge reaches toward the tether, the rear lags and writhes against it.
+	deformation+=normal*sin(along*4.5-state.pull_age*15)*absf(strain)*0.23*softness
+	return point+deformation.limit_length(0.28)
+
 static func constrain_lattice(state:Dictionary):
 	var constrained=_constrained_arrays(state.rest,state.offset,state.velocity)
 	state.offset=constrained[0];state.velocity=constrained[1]
@@ -127,9 +218,13 @@ static func step(e: Dictionary, dt: float):
 	prepare(e)
 	var state: Dictionary = e.soft_body
 	var remaining = clampf(dt,0,0.15)
+	var push_elapsed=0.0
 	var elastic: Vector2 = ELASTICITY[Brood.species(e)]
 	while remaining > 0.00001:
 		var h = minf(remaining, 1.0/120.0)
+		step_push(e,state,h,push_elapsed)
+		step_pull(state,h)
+		push_elapsed+=h
 		var held=float(state.hold)>0
 		# A newly prepared lattice is exactly at equilibrium. Only impact mutates
 		# it, and wakes it before writing. Never truncate a decaying nonzero pose.

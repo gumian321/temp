@@ -14,6 +14,7 @@ const Battle = preload("res://scripts/combat.gd")
 const Feedback = preload("res://scripts/weapon_feedback.gd")
 const AttackShaders = preload("res://scripts/attack_shader_layer.gd")
 var attack_shader_layer = AttackShaders.new()
+var segment_damage_layer = preload("res://scripts/segment_damage_layer.gd").new()
 const InsectAttackFX = preload("res://scripts/insect_attack_fx.gd")
 const CrystalLoot = preload("res://scripts/crystal_loot.gd")
 var passive_fx = preload("res://scripts/passive_feedback.gd").new()
@@ -54,6 +55,9 @@ var controls
 var rebind_action=""
 var radar_mode=false
 var reset_pending=false
+const DEBUG_EVOLUTION_GRANT = 1000
+var debug_points_button:Button
+var home_points_label:Label
 var options_draft:Dictionary={}
 const SourceUI=preload("res://scripts/source_ui.gd")
 var source_ui
@@ -88,6 +92,7 @@ var insect_layer
 var build_ui
 var mission_ui
 var battle_hud
+var encounter_feedback
 var reward_ui
 var reward_flow_active=false
 var reward_epoch=0
@@ -140,6 +145,11 @@ func _ready():
 	particle_effects=load("res://scripts/particle_effects.gd").new();particle_layer.add_child(particle_effects);particle_effects.setup(db);native_visuals.setup(db,particle_effects)
 	popup_text=load("res://scripts/popup_text.gd").new();popup_text.layer=3;add_child(popup_text)
 	attack_shader_layer.attach(self)
+	encounter_feedback = preload("res://scripts/encounter_feedback.gd").new()
+	add_child(encounter_feedback); encounter_feedback.setup(self)
+	segment_damage_layer.game=self
+	segment_damage_layer.z_index=4
+	add_child(segment_damage_layer)
 	passive_fx.setup(self)
 	show_menu()
 	if review_check:
@@ -235,11 +245,27 @@ func show_menu():
 	UI.button(panel,db.ui("SETTINGS","设置"),Rect2(276,516,180,76),show_options,"settings")
 	var updates=UI.button(panel,"",Rect2(80,628,76,66),show_changelog,"check");updates.tooltip_text=db.ui("What's new","更新记录")
 	var exit_button=UI.button(panel,"",Rect2(380,628,76,66),safe_shutdown,"exit");exit_button.tooltip_text=db.ui("Exit","退出游戏")
+	debug_points_button=UI.button(panel,db.ui("DEBUG · +1000 RP","DEBUG · +1000 进化点"),Rect2(80,706,376,46),debug_add_evolution_points,"meta",UI.AMBER)
+	debug_points_button.name="DebugEvolutionPoints"
+	debug_points_button.add_theme_font_size_override("font_size",18)
+	debug_points_button.tooltip_text=db.ui("Add 1000 evolution points and save. Repeat as needed.","每次增加 1000 进化点并保存，可重复点击。")
 	UI.icon(panel,"meta",Vector2(82,765),38,UI.AMBER)
-	UI.label(panel,str(save.state.meta),Vector2(136,760),34,UI.AMBER)
+	home_points_label=UI.label(panel,str(save.state.meta),Vector2(136,760),34,UI.AMBER)
 	UI.label(panel,db.ui("EVOLUTION","进化点"),Vector2(136,807),16,UI.MUTED)
 	UI.panel(panel,Rect2(760,818,480,45))
 	UI.label(panel,"W A S D  /  "+db.ui("MOVE","移动")+"     E  /  "+db.ui("BUILD","装配"),Vector2(780,830),18,UI.TEXT)
+
+func debug_add_evolution_points():
+	if screen!="home" or save==null:return
+	var previous=int(save.state.meta)
+	save.state.meta=previous+DEBUG_EVOLUTION_GRANT
+	if not save.save():
+		save.state.meta=previous
+		if is_instance_valid(debug_points_button):debug_points_button.text=db.ui("SAVE FAILED · TRY AGAIN","保存失败 · 请重试")
+		return
+	if is_instance_valid(home_points_label):home_points_label.text=str(save.state.meta)
+	if is_instance_valid(debug_points_button):debug_points_button.text=db.ui("DEBUG · +1000 RP","DEBUG · +1000 进化点")
+	audio_system.play(70)
 
 func show_characters():
 	screen="characters";clear_ui();source_ui=null
@@ -435,7 +461,7 @@ func start_run():
 	# Boss locations are shown on radar; the camera stays with the player.
 	for enemy in combat.enemies:
 		if enemy.kind=="AIBossUnit":shown_bosses[enemy.uid]=true
-	if not test_mode:run.rng.randomize();combat.rng.randomize()
+	if not test_mode:run.rng.randomize();combat.rng.randomize();run.encounters.rng.randomize()
 	audio_system.change_music("game")
 	camera = player.head
 	show_game()
@@ -975,7 +1001,9 @@ func draw_weapon_neck(anchor: Vector2, tip: Vector2, radius: float, alpha: float
 	draw_polyline(curve, Color(Ink.WASH, alpha), 3.0 * zoom, true)
 
 func _draw():
+	if encounter_feedback != null: encounter_feedback.queue_redraw()
 	# Any early-return screen (including tactical radar) starts without old FX.
+	segment_damage_layer.queue_redraw()
 	passive_fx.living.hide()
 	attack_shader_layer.begin_frame(float(player.motion.elapsed) if player!=null else 0.0)
 	attack_shader_layer.set_occlusion(Rect2(get_viewport_rect().size-Vector2(210,235),Vector2(180,150)) if screen in ["game","pause","rewards","result"] else Rect2())
@@ -1076,31 +1104,28 @@ func _draw():
 				var pose:Dictionary=player.segment_pose(segment)
 				var previous:Dictionary=player.segment_pose(segment-1)
 				draw_line(world(pose.point),world(previous.point),Color("173b70"),22*zoom,true)
-				CentipedeArt.segment(self,world(pose.point),Vector2(pose.direction).angle(),zoom,leg_phase-segment*0.8,false,player.parts_on_segment(segment).is_empty(),false,0,-1,player_legs.poses(segment))
-				var hit_strength=0.0
-				for part_index in player.parts_on_segment(segment):hit_strength=maxf(hit_strength,float(player.parts[part_index].get("impact_left",0)))
-				SegmentFeedback.paint_hit(self,world(pose.point),Vector2(pose.direction).angle(),hit_strength,zoom)
-			CentipedeArt.segment(self,world(player.head),player.facing.angle(),zoom,leg_phase,true,false,false,mouth_activity,test_time,[],player.flagella.poses(int(player.parts[0].feedback_uid)))
+				var index=player.part_at(segment)
+				var shell:Dictionary=player.parts[index] if index>0 else {}
+				CentipedeArt.segment(self,world(Vector2(pose.point)+SegmentFeedback.offset(shell)),Vector2(pose.direction).angle(),zoom,leg_phase-segment*0.8,false,player.parts_on_segment(segment).is_empty(),false,0,-1,player_legs.poses(segment),[],SegmentFeedback.tint(shell))
+			CentipedeArt.segment(self,world(player.head+SegmentFeedback.offset(player.parts[0])),player.facing.angle(),zoom,leg_phase,true,false,false,mouth_activity,test_time,[],player.flagella.poses(int(player.parts[0].feedback_uid)),SegmentFeedback.tint(player.parts[0]))
 		for i in range(player.parts.size()-1,-1,-1):
 			var p:Dictionary=player.parts[i]
-			var pos=world(player.weapon_origin(i))
-			if i>0:draw_weapon_neck(world(p.position),pos,4.0*zoom,0.3 if p.get("cloaked",false) else 1.0)
+			var kick=SegmentFeedback.offset(p)
+			var pos=world(player.weapon_origin(i)+kick)
+			if i>0:draw_weapon_neck(world(Vector2(p.position)+kick),pos,4.0*zoom,0.3 if p.get("cloaked",false) else 1.0)
 			var pulse=health_pulse(p)
 			var size=Vector2.ONE*player.module_size(i)*zoom
 			var c:Dictionary=db.asset(player.hq_weapon if i==0 else p.id)
 			var recoil=Vector2.from_angle(p.angle)*float(p.get("recoil",0))*zoom*minf(1,player.module_size(i)/35.0)
-			organ_art(db.core_sprite(c),pos-recoil,size,p.angle+PI*0.5,Color(1,1,1,0.3) if p.get("cloaked",false) else (pulse_color(p) if pulse else Color.WHITE),db.Armaments.variant(db,c),float(p.get("organ_pulse",0)),"player:"+str(p.feedback_uid),float(p.feedback_uid),1.0 if not p.feedback_pulses.is_empty() else 0.0,p.hp<=0 or p.stun>0)
-			if i>0:
-				var health_at=world(p.position)+Vector2(-20,35)*zoom
-				draw_rect(Rect2(health_at,Vector2(40,3)*zoom),Ink.WASH)
-				draw_rect(Rect2(health_at,Vector2(40*clampf(p.hp/maxf(1,p.max_hp),0,1),3)*zoom),Ink.BLUE)
+			var tint=Color(1,1,1,0.3) if p.get("cloaked",false) else (pulse_color(p) if pulse else Color.WHITE)
+			organ_art(db.core_sprite(c),pos-recoil,size,p.angle+PI*0.5,SegmentFeedback.tint(p,tint),db.Armaments.variant(db,c),float(p.get("organ_pulse",0)),"player:"+str(p.feedback_uid),float(p.feedback_uid),1.0 if not p.feedback_pulses.is_empty() else 0.0,p.hp<=0 or p.stun>0)
 		CharacterArt.draw_skill(self,player,combat.character_abilities.state(),world(player.head),zoom,test_time)
 		passive_fx.paint(self,player,combat,zoom)
 		for mine in combat.special.mines:
 			skill_module_art("mine",db.sprite(mine.data.mineSprite),world(mine.position),Vector2(22,22)*zoom,0.0,not bool(mine.get("friendly",true)))
 		for d in combat.drones+combat.enemy_drones:
 			if d.get("docked",false):continue
-			native_visuals.trail(self,d,d.data.get("dronePrefab",0),test_time,zoom)
+			native_visuals.trail(self,d,d.data.get("dronePrefab",0),test_time,zoom,not bool(d.get("friendly",true)))
 			var drone_angle=float(d.get("angle",0))+PI/2 if d.data.get("class","")=="ProjectileDrone" else 0.0
 			skill_module_art("repair_drone" if d.data.get("class","")=="EngineerDrone" else ("drone" if d.data.get("class","")=="ProjectileDrone" else "scrap_drone"),db.sprite(d.data.get("droneSprite", "")), world(d.position), Vector2(18, 18)*zoom,drone_angle,not bool(d.get("friendly",true)))
 		weapon_fx.draw_count=0

@@ -1,4 +1,5 @@
 extends RefCounted
+const AttackShaders=preload("res://scripts/attack_shader_layer.gd")
 var db
 var definitions:Dictionary={}
 var textures:Dictionary={}
@@ -12,8 +13,9 @@ func setup(source,fx):
    for path in definition.frames+[definition.texture]:
     if path!='' and not textures.has(path):textures[path]=load(path)
    if 'Projectile_Line_Tesla' in db.prefabs[id].source:tesla=definition
-func trail(canvas,entity:Dictionary,prefab,elapsed:float,zoom:float):
- var id:String=db.pool.get(str(prefab),'')
+func trail(canvas,entity:Dictionary,prefab,elapsed:float,zoom:float,hostile:bool=false):
+ var painter=AttackShaders.route(canvas,"drone",hostile)
+ var id:String=db.pool.get(str(int(prefab)),'')
  for definition in definitions.get(id,[]):
   if definition.kind!='TrailRenderer':continue
   var duration=float(definition.duration)
@@ -27,8 +29,12 @@ func trail(canvas,entity:Dictionary,prefab,elapsed:float,zoom:float):
    var color=definition._gradient.sample(normalized)
    var texture=textures.get(definition.texture)
    var start=canvas.world(points[i-1].position);var end=canvas.world(points[i].position)
-   if texture!=null:canvas.art(texture,(start+end)*.5,Vector2(start.distance_to(end),maxf(.1,width)),(end-start).angle(),color,true)
-   else:canvas.draw_line(start,end,color,maxf(0.1,width),true)
+   if texture!=null:
+    var extent=Vector2(start.distance_to(end),maxf(.1,width))
+    painter.draw_set_transform((start+end)*.5,(end-start).angle())
+    painter.draw_texture_rect(texture,Rect2(-extent*.5,extent),false,color)
+    painter.draw_set_transform(Vector2.ZERO)
+   else:painter.draw_line(start,end,color,maxf(0.1,width),true)
 func beam(canvas,effect:Dictionary,elapsed:float,zoom:float):
  if tesla.is_empty():return
  if not effect.has('_visual_birth'):effect._visual_birth=elapsed

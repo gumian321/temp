@@ -101,7 +101,8 @@ func setup(actor:Dictionary):
 	entity=actor;Soft.prepare(entity)
 	rest_points=entity.soft_body.rest
 	var species=Brood.species(entity)
-	art=Brood.texture("enemy_"+species).atlas
+	art=preload("res://scripts/encounter_art.gd").actor_texture(entity)
+	if art==null:art=Brood.texture("enemy_"+species).atlas
 	aspect=art.get_size()/maxf(art.get_width(),art.get_height())
 	var anatomy:Dictionary=Anatomy.definition(species)
 	hit_material=ShaderMaterial.new();hit_material.shader=HitShader;hit_material.resource_local_to_scene=true
@@ -205,6 +206,7 @@ func _pose_leg(item:Dictionary,moving:bool,travel:Vector2,dt:float):
 		var fold=clampf(death_age/.28,0,1)
 		var stride=sin(gait+group*PI)*.43*walk_amount+sin(float(entity.soft_body.pose_clock)*3.5+group*PI)*.085*(1-walk_amount)
 		stride+=float(entity.soft_body.shock)*.18
+		stride+=Soft.struggle(entity.soft_body,item.row*1.7+item.side)*.24
 		upper.rotation=upper.rest.get_rotation()+item.side*(stride+fold*.55)
 		lower.rotation=lower.rest.get_rotation()+item.side*(-stride*1.8+fold*.8)
 		if item.wrist!=null:item.wrist.rotation=item.wrist.rest.get_rotation()+item.side*(stride*1.3+fold*.3)
@@ -223,6 +225,8 @@ func _pose_leg(item:Dictionary,moving:bool,travel:Vector2,dt:float):
 		item.world_foot=item.swing_end;item.swing=false
 	# Keep stance feet on the ground; solve angles with fixed segment lengths.
 	var target=_from_world(item.world_foot)-upper.position
+	var struggle=Soft.struggle(entity.soft_body,item.row*1.7+item.side)
+	target+=Vector2(item.side*.08,-.10)*struggle
 	var distance=clampf(target.length(),absf(item.l1-item.l2)+.001,item.l1+item.l2-.001)
 	var along=target.angle()
 	var bend=acos(clampf((item.l1*item.l1+distance*distance-item.l2*item.l2)/(2*item.l1*distance),-1,1))
@@ -249,6 +253,8 @@ func pose(dt:float,dying:bool=false):
 	var relocated=travel.length()>span*4.0
 	var measured=(travel.length()+absf(turn)*span*.12)/maxf(dt,.0001) if dt>0 and not relocated else 0.0
 	var target_rate=clampf(measured/(span*STRIDE[species]),0.0,2.8)
+	target_rate*=Soft.Knockback.drive_factor(entity)
+	target_rate*=1.0-clampf(absf(float(state.get("pull_strain",0)))*2,0,0.8)
 	var held=dying or float(state.hold)>0
 	if held:target_rate=0.0
 	var response=1.0-exp(-12.0*maxf(dt,0))
@@ -260,6 +266,10 @@ func pose(dt:float,dying:bool=false):
 	display_heading=lerp_angle(display_heading,float(entity.angle)+PI/2,1.0-exp(-14.0*maxf(dt,0)))
 	visual_offset=Vector2(state.recoil)+Vector2(sin(gait)*.009,cos(gait*2)*.014)*walk_amount
 	visual_angle=float(state.lean)+sin(gait)*.018*walk_amount
+	var push_bend=float(state.get("push_bend",0))*float(state.get("push_softness",1))
+	visual_angle+=push_bend*0.55
+	var pull_bend=float(state.get("pull_bend",0))*float(state.get("pull_softness",1))
+	visual_angle+=pull_bend*.4
 	if relocated:
 		for item in legs:item.world_foot=_to_world(item.rest_tip);item.swing=false;item.swing_u=0.0
 	mesh.position=visual_offset;limb_skeleton.position=visual_offset;hit_fx.position=visual_offset
@@ -279,17 +289,27 @@ func pose(dt:float,dying:bool=false):
 		var p=(rest+Vector2(state.offset[i])*softness+sway+collapse)*aspect
 		var delta=p-center
 		bones[i].position=p-push*delta.dot(push)*squeeze*softness+side*delta.dot(side)*squeeze*.30*softness
+		var base_position=bones[i].position
+		var deformed=Soft.push_deform(state,base_position,center,softness,display_heading+visual_angle)
+		deformed=Soft.pull_deform(state,deformed,center,softness,display_heading+visual_angle)
+		bones[i].position=base_position+(deformed-base_position).limit_length(.32)
 		bones[i].rotation=(sin(t*4.5-rest.y*3.5)*.032+sin(gait-rest.y*3.5)*.025*walk_amount+float(state.offset[i].x)*.25)*softness
+		bones[i].rotation+=push_bend*softness*0.6
+		bones[i].rotation+=pull_bend*softness*sin(rest.y*3)*.7
 	for item in legs:_pose_leg(item,moving,travel,dt)
 	for item in wings:
 		item.node.position=_attachment(item)
 		var flap=sin(t*27)
 		item.node.rotation=item.side*(.40*flap+float(state.shock)*.16+clampf(death_age/.28,0,1)*.55)
+		item.node.rotation+=push_bend*0.85
+		item.node.rotation+=Soft.struggle(state,item.side)*.24
 		# Foreshortening of one rigid wing plane, with no soft vertex weights.
 		item.node.scale=Vector2(.57+.43*cos(t*27),1)
 	for item in feelers:
 		item.node.position=_attachment(item)
 		item.node.rotation=item.side*(sin(t*3.3+item.side*.6)*.14+float(state.shock)*.21)
+		item.node.rotation+=push_bend*1.4
+		item.node.rotation+=Soft.struggle(state,item.side*1.5)*.32
 	previous_position=entity.position;previous_angle=float(entity.angle)+PI/2
 	var flash=clampf(float(state.flash)/.16,0,1)
 	hit_material.set_shader_parameter("hit_flash",flash*flash)
