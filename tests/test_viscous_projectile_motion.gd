@@ -18,11 +18,11 @@ func _initialize():
 			for frame in range(hz):
 				b.previous=b.position;b.age+=1.0/hz;Motion.advance(b,1.0/hz)
 				max_sway=maxf(max_sway,absf(b.position.y))
-			check(max_sway>0.2 and max_sway<=Motion.MAX_SWAY,"%s %dHz restrained organic trajectory"%[weapon,hz])
+			check(max_sway==0.0 and max_sway<=Motion.MAX_SWAY,"%s %dHz no cosmetic lateral deviation"%[weapon,hz])
 			check(absf(b.position.x-480)<0.001 and b.velocity==Vector2(480,0),"%s %dHz forward speed unchanged"%[weapon,hz])
 			check(b.damage==17.0 and b.shield_damage==9.0 and b.pierce==1 and b.life==2.0 and b.radius==4.0,"%s motion cannot alter damage/collision budget"%weapon)
 			endpoints.append(b.position)
-		check(endpoints[0].distance_to(endpoints[2])<0.001,"%s frame-independent bounded offset"%weapon)
+		check(endpoints[0].distance_to(endpoints[2])<0.001,"%s frame-independent straight centerline"%weapon)
 	for weapon in ["rocket","gatling","nuke","rail","tesla","sonic","unknown"]:
 		for friendly in [true,false]:
 			for speed in [0.0,900.0,960.0,3000.0]:

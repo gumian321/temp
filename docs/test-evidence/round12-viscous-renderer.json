@@ -1,0 +1,225 @@
+{
+	"checks": [
+		{
+			"name": "Imported viscous atlas enables mipmaps for small projectile stability",
+			"passed": true
+		},
+		{
+			"name": "Runtime viscous atlas retains mip chain after import",
+			"passed": true
+		},
+		{
+			"name": "Generated transparent asset resolves: mucus",
+			"passed": true
+		},
+		{
+			"name": "Generated silhouette has transparent crop margin: mucus",
+			"passed": true
+		},
+		{
+			"name": "Generated transparent asset resolves: egg",
+			"passed": true
+		},
+		{
+			"name": "Generated silhouette has transparent crop margin: egg",
+			"passed": true
+		},
+		{
+			"name": "Generated transparent asset resolves: larva",
+			"passed": true
+		},
+		{
+			"name": "Generated silhouette has transparent crop margin: larva",
+			"passed": true
+		},
+		{
+			"name": "Generated transparent asset resolves: tongue",
+			"passed": true
+		},
+		{
+			"name": "Generated silhouette has transparent crop margin: tongue",
+			"passed": true
+		},
+		{
+			"name": "Generated transparent asset resolves: mucus_splat",
+			"passed": true
+		},
+		{
+			"name": "Generated silhouette has transparent crop margin: mucus_splat",
+			"passed": true
+		},
+		{
+			"name": "Generated transparent asset resolves: egg_burst",
+			"passed": true
+		},
+		{
+			"name": "Generated silhouette has transparent crop margin: egg_burst",
+			"passed": true
+		},
+		{
+			"name": "Generated transparent asset resolves: goo_bead",
+			"passed": true
+		},
+		{
+			"name": "Generated silhouette has transparent crop margin: goo_bead",
+			"passed": true
+		},
+		{
+			"name": "Generated transparent asset resolves: wet_trail",
+			"passed": true
+		},
+		{
+			"name": "Generated silhouette has transparent crop margin: wet_trail",
+			"passed": true
+		},
+		{
+			"name": "Generated transparent asset resolves: larva_contact",
+			"passed": true
+		},
+		{
+			"name": "Generated silhouette has transparent crop margin: larva_contact",
+			"passed": true
+		},
+		{
+			"name": "Fallback mappings match initialized combat families",
+			"passed": true
+		},
+		{
+			"name": "Special spore families keep their original art",
+			"passed": true
+		},
+		{
+			"name": "Cheap deterministic body deformation remains finite and restrained",
+			"passed": true
+		},
+		{
+			"name": "Friendly projectile has one body plus at most two generated wet decorations",
+			"passed": true
+		},
+		{
+			"name": "Actual friendly projectile uses new mucus atlas",
+			"passed": true
+		},
+		{
+			"name": "Visual squish never changes gameplay state",
+			"passed": true
+		},
+		{
+			"name": "Exhausted embellishment budget preserves generated body",
+			"passed": true
+		},
+		{
+			"name": "Hostile cue and old contrast shell survive exhausted budget and zoom out",
+			"passed": true
+		},
+		{
+			"name": "Offscreen shots are culled before atlas rendering",
+			"passed": true
+		},
+		{
+			"name": "Attached egg swells using generated egg without flash",
+			"passed": true
+		},
+		{
+			"name": "Egg detonation uses generated wet burst",
+			"passed": true
+		},
+		{
+			"name": "Friendly tongue uses one continuous generated filament and a retracting tip",
+			"passed": true
+		},
+		{
+			"name": "rail tongue remains collinear through contact hold and smooth retraction without a V joint",
+			"passed": true
+		},
+		{
+			"name": "tesla tongue remains collinear through contact hold and smooth retraction without a V joint",
+			"passed": true
+		},
+		{
+			"name": "sonic tongue remains collinear through contact hold and smooth retraction without a V joint",
+			"passed": true
+		},
+		{
+			"name": "Friendly stream 0.00s uses seven generated stamps without orange polygons or glow",
+			"passed": true
+		},
+		{
+			"name": "Friendly stream 0.00s is axial and stays within original endpoints without mutating damage state",
+			"passed": true
+		},
+		{
+			"name": "Hostile flame 0.00s retains existing three-layer cone and danger glow",
+			"passed": true
+		},
+		{
+			"name": "Friendly stream 0.10s uses seven generated stamps without orange polygons or glow",
+			"passed": true
+		},
+		{
+			"name": "Friendly stream 0.10s is axial and stays within original endpoints without mutating damage state",
+			"passed": true
+		},
+		{
+			"name": "Hostile flame 0.10s retains existing three-layer cone and danger glow",
+			"passed": true
+		},
+		{
+			"name": "Friendly stream 0.25s uses seven generated stamps without orange polygons or glow",
+			"passed": true
+		},
+		{
+			"name": "Friendly stream 0.25s is axial and stays within original endpoints without mutating damage state",
+			"passed": true
+		},
+		{
+			"name": "Hostile flame 0.25s retains existing three-layer cone and danger glow",
+			"passed": true
+		},
+		{
+			"name": "Friendly stream 0.57s uses seven generated stamps without orange polygons or glow",
+			"passed": true
+		},
+		{
+			"name": "Friendly stream 0.57s is axial and stays within original endpoints without mutating damage state",
+			"passed": true
+		},
+		{
+			"name": "Hostile flame 0.57s retains existing three-layer cone and danger glow",
+			"passed": true
+		},
+		{
+			"name": "Friendly stream 0.77s uses seven generated stamps without orange polygons or glow",
+			"passed": true
+		},
+		{
+			"name": "Friendly stream 0.77s is axial and stays within original endpoints without mutating damage state",
+			"passed": true
+		},
+		{
+			"name": "Hostile flame 0.77s retains existing three-layer cone and danger glow",
+			"passed": true
+		},
+		{
+			"name": "Friendly stream 1.00s uses seven generated stamps without orange polygons or glow",
+			"passed": true
+		},
+		{
+			"name": "Friendly stream 1.00s is axial and stays within original endpoints without mutating damage state",
+			"passed": true
+		},
+		{
+			"name": "Hostile flame 1.00s retains existing three-layer cone and danger glow",
+			"passed": true
+		},
+		{
+			"name": "Original atlas API retains exact legacy contract",
+			"passed": true
+		},
+		{
+			"name": "Contact rendering respects existing global transient cap",
+			"passed": true
+		}
+	],
+	"passed": true
+}

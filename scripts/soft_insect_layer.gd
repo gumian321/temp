@@ -47,7 +47,7 @@ func sync(game,dt:float):
 		if rig.visible and float(rig.entity.hp)<=0 and not rig.entity.get("despawn",false):
 			rig.position=game.world(rig.entity.position)
 			rig.pose(dt,true)
-			if rig.death_age<0.34:continue
+			if rig.death_age<0.16:continue
 		rig.queue_free();rigs.erase(uid);hidden_rigs.erase(uid)
 	if hidden_rigs.size()>MAX_HIDDEN_RIGS:
 		# Snapshot keys only on overflow, never for the normal cache-hit path.

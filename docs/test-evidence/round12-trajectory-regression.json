@@ -1,0 +1,54 @@
+{
+  "suites": [
+    {
+      "suite": "projectile_trajectory_continuity",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.19,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "viscous_renderer",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.572,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "viscous_projectile_motion",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.772,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "viscous_integration",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.751,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "weapon_catalog",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.748,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "insect_projectiles",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.744,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "hostile_readability",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.381,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

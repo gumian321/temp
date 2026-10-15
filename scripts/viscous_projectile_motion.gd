@@ -1,8 +1,7 @@
 extends RefCounted
-## Bounded organic motion and contact presentation. No damage, RNG or actor searches.
+## Ballistic integration and organic contact presentation. No damage, RNG or actor searches.
 const MAX_CONTACTS = 24
-const FAST_SPEED = 900.0
-const MAX_SWAY = 3.0
+const MAX_SWAY = 0.0
 const EGG_LIFE = 0.72
 const EGG_BURST = 0.18
 
@@ -15,34 +14,17 @@ static func family(weapon: String) -> String:
 
 static func initialize(shot: Dictionary, serial: int = 0):
 	shot.organic_family = family(str(shot.get("fx_family", "")))
-	shot.organic_motion_enabled = bool(shot.get("friendly", false)) and shot.organic_family in ["mucus", "egg", "larva"]
+	shot.organic_motion_enabled = false
 	shot.organic_phase = float(serial % 17) * 0.37
 	shot.organic_offset = Vector2.ZERO
 
 static func advance(shot: Dictionary, dt: float):
-	# Velocity is the original simulation velocity, never modified by cosmetics.
-	# Difference of bounded offsets avoids accumulating lateral drift over time.
-	if not bool(shot.get("friendly", false)):
-		shot.position += Vector2(shot.velocity) * dt
-		return
-	if not shot.has("organic_family"): initialize(shot)
-	if not bool(shot.get("organic_motion_enabled", false)):
-		shot.position += Vector2(shot.velocity) * dt
-		return
-	var previous_offset = Vector2(shot.get("organic_offset", Vector2.ZERO))
-	var offset = Vector2.ZERO
-	var speed = Vector2(shot.velocity).length()
-	var organic = str(shot.organic_family)
-	if speed > 12.0 and speed < FAST_SPEED:
-		var age = float(shot.get("age", 0.0))
-		var phase = float(shot.get("organic_phase", 0.0))
-		var amplitude = 2.6 if organic == "larva" else (2.1 if organic == "egg" else 1.4)
-		var frequency = 15.0 if organic == "larva" else 8.0
-		var swell = minf(1.0, age * 8.0)
-		var wave = sin(age * frequency + phase) * swell
-		offset = Vector2(shot.velocity).normalized().orthogonal() * amplitude * wave
-	shot.position += Vector2(shot.velocity) * dt + offset - previous_offset
-	shot.organic_offset = offset
+	# A projectile center must follow its gameplay velocity exactly. Formerly a
+	# sine offset entered collision position, rotated with homing, and snapped to
+	# zero at 900 units/s. Those cosmetic corrections produced visible corners.
+	# Wetness belongs to the generated sprite's axial stretch, never its path.
+	# Homing already changes velocity with the source weapon's bounded turn rate.
+	shot.position += Vector2(shot.velocity) * dt
 
 static func add_contact(effects: Array, target: Dictionary, contact: Dictionary, weapon: String, friendly: bool, radius: float, remaining_slots: int) -> bool:
 	var organic = family(weapon)

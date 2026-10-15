@@ -47,7 +47,7 @@ func execute():
 	check(effects.size()==1,"Expired contact slots become available for subsequent impacts")
 	target.hp=0;Motion.advance_contact(effects[0],0.01)
 	check(not effects[0].has("follow"),"Destroyed target releases attachment reference")
-	# Hostile and fast paths retain original travel; friendly sway never accumulates.
+	# Every projectile center follows velocity; deformation is rendering only.
 	for speed in [600.0,1200.0]:
 		for friendly in [true,false]:
 			var shot={"position":Vector2.ZERO,"velocity":Vector2(speed,0),"age":0.0,"friendly":friendly,"fx_family":"rocket"}
@@ -56,8 +56,8 @@ func execute():
 			for i in 1200:
 				shot.age+=1.0/600.0;Motion.advance(shot,1.0/600.0)
 				bounded=bounded and absf(shot.position.y)<=Motion.MAX_SWAY and shot.velocity==Vector2(speed,0)
-			check(bounded and absf(shot.position.x-speed*2.0)<0.1,"Sway remains bounded and preserves speed/velocity: "+str(speed)+" friendly="+str(friendly))
-			if not friendly or speed>=Motion.FAST_SPEED:check(shot.position.y==0.0,"Hostile/fast shot retains exact straight trajectory")
+			check(bounded and absf(shot.position.x-speed*2.0)<0.1,"Exact centerline preserves speed/velocity: "+str(speed)+" friendly="+str(friendly))
+			check(shot.position.y==0.0,"All projectile speeds and factions retain exact straight trajectory")
 	var report={"passed":checks.all(func(c):return c.passed),"checks":checks}
 	FileAccess.open("res://artifacts/viscous-integration-report.json",FileAccess.WRITE).store_string(JSON.stringify(report,"\t"))
 	print(JSON.stringify(report));quit(0 if report.passed else 1)

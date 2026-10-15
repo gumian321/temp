@@ -65,10 +65,11 @@ static func paint(canvas, bullet: Dictionary, zoom: float, time: float = 0.0):
 		paint_hostile_cue(canvas,at,heading,cue)
 	if not hostile:
 		var kind=Viscous.family(bullet,key)
-		var wet_size=size*Viscous.pose(bullet,kind,time)
-		var wet_heading=heading
-		if kind=="larva":wet_heading+=sin(time*18.0+float(bullet.get("organic_phase",0.0)))*0.12
-		if not kind.is_empty() and Viscous.stamp(canvas,kind,at,wet_size,wet_heading):return
+		var wet_size=size*wet_pose(bullet,kind,time)
+		# The generated atlas has its heavy droplet at the front and thin ligaments
+		# behind. Stretch that silhouette axially, keeping body and tail on the same
+		# heading. A separate larva heading wobble formerly made a crooked joint.
+		if not kind.is_empty() and Viscous.stamp(canvas,kind,at,wet_size,heading):return
 	var source=texture(key)
 	canvas.draw_set_transform(at,heading)
 	if source!=null:
@@ -80,6 +81,17 @@ static func paint(canvas, bullet: Dictionary, zoom: float, time: float = 0.0):
 		# Missing atlas stays biological: tapered chitin splinter, never old factory art.
 		canvas.draw_colored_polygon(PackedVector2Array([Vector2(size.x*0.5,0),Vector2(-size.x*0.35,-size.y*0.35),Vector2(-size.x*0.15,0),Vector2(-size.x*0.35,size.y*0.35)]),Color("ef7594") if hostile else Color("efbd55"))
 	canvas.draw_set_transform(Vector2.ZERO)
+
+static func wet_pose(bullet:Dictionary,kind:String,time:float)->Vector2:
+	var pose=Viscous.pose(bullet,kind,time)
+	var speed=Vector2(bullet.get("velocity",Vector2.ZERO)).length()
+	# Smooth speed response has no start/stop threshold or state to reset.
+	# High-speed mucus forms a narrow jet; eggs and larvae retain their anatomy.
+	var strain=speed/(speed+320.0)
+	if kind=="mucus":return pose*Vector2(1.0+strain*0.88,1.0-strain*0.31)
+	if kind=="egg":return pose*Vector2(1.0+strain*0.20,1.0-strain*0.10)
+	if kind=="larva":return pose*Vector2(1.0+strain*0.15,1.0-strain*0.07)
+	return pose
 
 static func hostile_geometry(bullet:Dictionary,zoom:float)->Dictionary:
 	var native:Vector2=SIZES.get(family(bullet),Vector2(22,13))

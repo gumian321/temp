@@ -18,6 +18,7 @@ var wings:Array=[]
 var feelers:Array=[]
 var aspect=Vector2.ONE
 var death_age=0.0
+var death_rest_scale=Vector2.ONE
 var gait=0.0
 var previous_position=Vector2.ZERO
 var previous_angle=0.0
@@ -233,7 +234,11 @@ func _pose_leg(item:Dictionary,moving:bool,travel:Vector2,dt:float):
 func pose(dt:float,dying:bool=false):
 	if mesh==null:return
 	var state:Dictionary=entity.soft_body
-	if dying:death_age+=dt;Soft.step(entity,dt)
+	if dying:
+		if death_age==0.0:death_rest_scale=scale
+		death_age+=dt;Soft.step(entity,dt)
+		# Brief pressure swell followed by a quick rupture, without a white flash.
+		scale=death_rest_scale*(1.0+0.24*sin(clampf(death_age/0.09,0,1)*PI))
 	var t=float(state.pose_clock)+int(entity.get("uid",0))*1.37
 	var species=Brood.species(entity)
 	var travel:Vector2=Vector2(entity.position)-previous_position
@@ -294,7 +299,7 @@ func pose(dt:float,dying:bool=false):
 	var tint=Color.WHITE
 	if entity.get("role","")=="friendly":tint=tint.lerp(Color(.75,1,.9),.35)
 	mesh.modulate=tint;limb_skeleton.modulate=tint
-	modulate.a=1-clampf((death_age-.1)/.22,0,1)
+	modulate.a=1-clampf((death_age-.055)/.095,0,1)
 
 func _setup_appendage_batch():
 	if not batch_appendages:return
