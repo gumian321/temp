@@ -87,7 +87,7 @@ func build(data:Dictionary,parent:Control,parent_size:Vector2,forced=null):
 			label.add_theme_color_override("font_outline_color",color(material.outline))
 			label.add_theme_constant_override("outline_size",roundi(float(material.width)*20))
 		var font_path="res://assets/fonts/Perfect DOS VGA 437.ttf" if "Perfect" in str(data.text.font) and db.language=="English" else ("res://assets/fonts/LiberationSans.ttf" if db.language=="English" else "res://assets/fonts/NotoSansSC-Light.otf")
-		label.add_theme_font_override("font",load(font_path));node.add_child(label);fit_label(label);labels[data.id]=label
+		label.add_theme_font_override("font",preload("res://scripts/game_ui.gd").font());node.add_child(label);fit_label(label);labels[data.id]=label
 		for id in data.get("ids",[]):labels[id]=label
 	var arranged:Dictionary=arrange(data,extent)
 	for child in data.children:build(child,node,extent,arranged.get(child.id))
@@ -102,7 +102,9 @@ func build(data:Dictionary,parent:Control,parent_size:Vector2,forced=null):
 	if data.has("button"):
 		var button=Button.new();button.flat=true;button.size=extent;button.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
 		button.add_theme_stylebox_override("normal",StyleBoxEmpty.new())
-		var hover=StyleBoxFlat.new();hover.bg_color=Color(1,1,1,0.15);button.add_theme_stylebox_override("hover",hover)
+		var hover=preload("res://scripts/game_ui.gd").flat_style(Color(1.0,0.18,0.58,0.08),Color(1.0,0.18,0.58,0.5),16);button.add_theme_stylebox_override("hover",hover)
+		button.add_theme_stylebox_override("pressed",hover)
+		button.add_theme_stylebox_override("focus",preload("res://scripts/game_ui.gd").focus_style())
 		button.pressed.connect(func():
 			for call in data.button:
 				if str(call.get("m_MethodName",""))!="set_interactable":action.call(call.get("m_MethodName",""),data.id,call.get("m_Arguments",{})))

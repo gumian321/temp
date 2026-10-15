@@ -3,6 +3,7 @@ extends RefCounted
 ## Presentation only; no opaque particle billboards or factory ordnance art.
 const Feedback = preload("res://scripts/weapon_feedback.gd")
 const Organic = preload("res://scripts/insect_projectiles.gd")
+const DeathSplatter=preload("res://scripts/enemy_death_splatter.gd")
 const Viscous = preload("res://scripts/viscous_projectiles.gd")
 const INK = Color("213b6e")
 var halo_texture: GradientTexture2D
@@ -80,12 +81,22 @@ func paint_projectile(canvas, bullet: Dictionary, time: float, zoom: float):
 	canvas.draw_texture_rect(filament,Rect2(Vector2(-length*0.98,-width*0.5),Vector2(length,width)),false,Color(1,1,1,0.62))
 	if length>12.0*zoom:
 		var bead=Viscous.texture("goo_bead")
-		var drift=sin(time*10.0+float(bullet.position.x)*0.03)*1.5*zoom
-		if bead!=null:canvas.draw_texture_rect(bead,Rect2(Vector2(-length-2.5*zoom,drift-1.5*zoom),Vector2(5,3)*zoom),false,Color(1,1,1,0.38))
+		var separation=(2.5+2.0*sin(float(bullet.get("age",0))*10.0+float(bullet.get("organic_phase",0))))*zoom
+		if bead!=null:canvas.draw_texture_rect(bead,Rect2(Vector2(-length-separation,-1.5*zoom),Vector2(5,3)*zoom),false,Color(1,1,1,0.38))
 	canvas.draw_set_transform(Vector2.ZERO)
 
 func paint(canvas, battle, time: float, zoom: float):
 	clock = time
+	if "death_splatters" in battle:
+		var visible_deaths=0
+		for burst in battle.death_splatters:
+			if visible(canvas,burst.position,float(burst.radius)*4.0*zoom):visible_deaths+=1
+		# Older ground stains first; newest pressure jets must not be painted over
+		# by old puddles. Offscreen deaths never spend the detail budget.
+		for burst in battle.death_splatters:
+			if not visible(canvas,burst.position,float(burst.radius)*4.0*zoom):continue
+			DeathSplatter.paint(canvas,burst,zoom,visible_deaths<=DeathSplatter.MAX_DETAILED)
+			visible_deaths-=1
 	# Culling/budget only affects embellishment; gameplay bullets are always drawn.
 	var drawn = 0
 	flame_owners.clear()
@@ -263,6 +274,32 @@ func paint_beam(canvas, effect: Dictionary, style: Dictionary, fade: float, zoom
 	canvas.draw_circle(finish,2*zoom,Color(style.color,fade))
 
 func paint_flame(canvas, effect: Dictionary, style: Dictionary, alpha: float, zoom: float):
+	if not effect.get("friendly",true):
+		paint_hostile_flame(canvas,effect,style,alpha,zoom)
+		return
+	var start=canvas.world(effect.position)
+	var finish=canvas.world(effect.end)
+	var axis=start.direction_to(finish)
+	var length=start.distance_to(finish)
+	if length<0.01:return
+	var side=axis.orthogonal()
+	# A continuous secretion jet with a thick leading mass and thin wet neck.
+	# All animation is presentation inside the original flame damage corridor.
+	var pressure=1.0+sin(clock*14.0+start.x*0.003)*0.08
+	Viscous.stamp(canvas,"wet_trail",start.lerp(finish,0.5),Vector2(length,22.0*zoom*pressure),axis.angle(),alpha*0.90)
+	for i in 3:
+		var phase=fposmod(clock*3.8+float(i)/3.0,1.0)
+		var drop_length=minf(29.0*zoom,length)
+		var distance=clampf(length*phase,drop_length*0.5,length-drop_length*0.5)
+		var point=start+axis*distance
+		var width=(5.0+phase*10.0)*zoom
+		Viscous.stamp(canvas,"mucus",point,Vector2(drop_length,width),axis.angle(),alpha*(1.0-phase*0.3))
+		var bead_length=minf(7.0*zoom,length)
+		var bead_distance=clampf(distance-16.0*zoom,bead_length*0.5,length-bead_length*0.5)
+		var bead=start+axis*bead_distance+side*(float(i)-1.0)*phase*6.0*zoom
+		Viscous.stamp(canvas,"goo_bead",bead,Vector2(bead_length,4.0*zoom),axis.angle(),alpha*(1.0-phase)*0.75)
+
+func paint_hostile_flame(canvas, effect: Dictionary, style: Dictionary, alpha: float, zoom: float):
 	var start=canvas.world(effect.position)
 	var finish=canvas.world(effect.end)
 	var axis=start.direction_to(finish)
@@ -344,10 +381,8 @@ func paint_tongue(canvas,effect:Dictionary,zoom:float):
 	# Full contact endpoint holds first; the final third visibly reels into the organ.
 	var reach=1.0 if progress<0.64 else pow((1.0-progress)/0.36,0.75)
 	var finish=start.lerp(target,reach)
-	var side=start.direction_to(target).orthogonal()
-	var midpoint=start.lerp(finish,0.52)+side*sin(progress*PI)*minf(15.0*zoom,start.distance_to(finish)*0.10)
-	var points=[start,midpoint,finish]
-	for i in 2:
-		var a:Vector2=points[i];var b:Vector2=points[i+1]
-		Viscous.stamp(canvas,"wet_trail",a.lerp(b,0.5),Vector2(a.distance_to(b)+1.0,7.0*zoom),a.direction_to(b).angle(),0.96)
+	# One continuous stretched filament; two displaced straight spans formed a
+	# visible V corner. Axial contraction preserves the exact contact endpoint.
+	var width=(6.0+sin(progress*PI)*1.5)*zoom
+	Viscous.stamp(canvas,"wet_trail",start.lerp(finish,0.5),Vector2(start.distance_to(finish)+1.0,width),start.direction_to(finish).angle(),0.96)
 	Viscous.stamp(canvas,"tongue",finish,Vector2(21,11)*zoom,start.direction_to(target).angle(),clampf(float(effect.life)/0.04,0.0,1.0))

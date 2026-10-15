@@ -1,0 +1,3871 @@
+{
+	"auxiliary_source_count": 4,
+	"checks": [
+		{
+			"name": "gatling friendly=true: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "gatling friendly=false: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "shotgun friendly=true: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "shotgun friendly=false: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "cannon friendly=true: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "cannon friendly=false: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "flame friendly=true: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "flame friendly=false: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "flak friendly=true: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "flak friendly=false: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "nuke friendly=true: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "nuke friendly=false: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "mine friendly=true: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "mine friendly=false: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "rocket friendly=true: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "rocket friendly=false: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "drone friendly=true: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "drone friendly=false: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "rail friendly=true: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "rail friendly=false: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "tesla friendly=true: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "tesla friendly=false: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "sonic friendly=true: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "sonic friendly=false: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "emp friendly=true: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "emp friendly=false: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "blackhole friendly=true: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "blackhole friendly=false: 17 phases and variable timesteps have no lateral correction or heading jump",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Gatling 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Gatling 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Gatling 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Gatling 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Gatling 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Gatling 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_SonicWave 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_SonicWave 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_SonicWave 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_SonicWave 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_SonicWave 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_SonicWave 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Sniper 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Sniper 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Sniper 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Sniper 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Sniper 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Sniper 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_EMP 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_EMP 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_EMP 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_EMP 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_EMP 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_EMP 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Cannon 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Cannon 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Cannon 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Cannon 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Cannon 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Cannon 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Tesla 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Tesla 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Tesla 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Tesla 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Tesla 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Tesla 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Flak 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Flak 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Flak 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Flak 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Flak 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Flak 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Rocket 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Rocket 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Rocket 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Rocket 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Rocket 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Rocket 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shotgun 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shotgun 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shotgun 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shotgun 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shotgun 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shotgun 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Nuke 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Nuke 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Nuke 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Nuke 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Nuke 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Nuke 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_BlackHoler 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_BlackHoler 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_BlackHoler 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_BlackHoler 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_BlackHoler 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_BlackHoler 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Cannon 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Cannon 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Cannon 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Cannon 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Cannon 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Cannon 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flak 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flak 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flak 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flak 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flak 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flak 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_BlackHoler 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_BlackHoler 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_BlackHoler 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_BlackHoler 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_BlackHoler 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_BlackHoler 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Tesla 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Tesla 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Tesla 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Tesla 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Tesla 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Tesla 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_EMP 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_EMP 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_EMP 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_EMP 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_EMP 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_EMP 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Gatling 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Gatling 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Gatling 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Gatling 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Gatling 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Gatling 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Nuke 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Nuke 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Nuke 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Nuke 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Nuke 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Nuke 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flame Thrower 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flame Thrower 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flame Thrower 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flame Thrower 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flame Thrower 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flame Thrower 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Rocket 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Rocket 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Rocket 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Rocket 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Rocket 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Rocket 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Shotgun 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Shotgun 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Shotgun 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Shotgun 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Shotgun 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Shotgun 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_SonicWave 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_SonicWave 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_SonicWave 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_SonicWave 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_SonicWave 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_SonicWave 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Sniper 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Sniper 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Sniper 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Sniper 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Sniper 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Sniper 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Tesla 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Tesla 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Tesla 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Tesla 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Tesla 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Tesla 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Cannon 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Cannon 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Cannon 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Cannon 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Cannon 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Cannon 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_EMP 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_EMP 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_EMP 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_EMP 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_EMP 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_EMP 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Sniper 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Sniper 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Sniper 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Sniper 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Sniper 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Sniper 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Gatling 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Gatling 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Gatling 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Gatling 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Gatling 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Gatling 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Rocket 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Rocket 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Rocket 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Rocket 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Rocket 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Rocket 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flame Thrower 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flame Thrower 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flame Thrower 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flame Thrower 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flame Thrower 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flame Thrower 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flak 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flak 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flak 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flak 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flak 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flak 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Shotgun 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Shotgun 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Shotgun 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Shotgun 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Shotgun 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Shotgun 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_Chip_Shrapnel 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_Chip_Shrapnel 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_Chip_Shrapnel 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_Chip_Shrapnel 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_Chip_Shrapnel 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_Chip_Shrapnel 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_HQ_AttackDrones 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_HQ_AttackDrones 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_HQ_AttackDrones 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_HQ_AttackDrones 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_HQ_AttackDrones 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_HQ_AttackDrones 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_AI_AttackDrone 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_AI_AttackDrone 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_AI_AttackDrone 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_AI_AttackDrone 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_AI_AttackDrone 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_AI_AttackDrone 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_Core_AttackDrone 30Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_Core_AttackDrone 30Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_Core_AttackDrone 60Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_Core_AttackDrone 60Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_Core_AttackDrone 120Hz friendly=true uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "Projectile_Core_AttackDrone 120Hz friendly=false uses continuous source trajectory",
+			"passed": true
+		},
+		{
+			"name": "gatling body stays on velocity heading with one generated-texture draw",
+			"passed": true
+		},
+		{
+			"name": "shotgun body stays on velocity heading with one generated-texture draw",
+			"passed": true
+		},
+		{
+			"name": "cannon body stays on velocity heading with one generated-texture draw",
+			"passed": true
+		},
+		{
+			"name": "flame body stays on velocity heading with one generated-texture draw",
+			"passed": true
+		},
+		{
+			"name": "flak body stays on velocity heading with one generated-texture draw",
+			"passed": true
+		},
+		{
+			"name": "nuke body stays on velocity heading with one generated-texture draw",
+			"passed": true
+		},
+		{
+			"name": "mine body stays on velocity heading with one generated-texture draw",
+			"passed": true
+		},
+		{
+			"name": "rocket body stays on velocity heading with one generated-texture draw",
+			"passed": true
+		},
+		{
+			"name": "drone body stays on velocity heading with one generated-texture draw",
+			"passed": true
+		},
+		{
+			"name": "rail body stays on velocity heading with one generated-texture draw",
+			"passed": true
+		},
+		{
+			"name": "tesla body stays on velocity heading with one generated-texture draw",
+			"passed": true
+		},
+		{
+			"name": "sonic body stays on velocity heading with one generated-texture draw",
+			"passed": true
+		},
+		{
+			"name": "emp body stays on velocity heading with one generated-texture draw",
+			"passed": true
+		},
+		{
+			"name": "blackhole body stays on velocity heading with one generated-texture draw",
+			"passed": true
+		},
+		{
+			"name": "mucus body deformation has no speed-threshold discontinuity",
+			"passed": true
+		},
+		{
+			"name": "egg body deformation has no speed-threshold discontinuity",
+			"passed": true
+		},
+		{
+			"name": "larva body deformation has no speed-threshold discontinuity",
+			"passed": true
+		},
+		{
+			"name": "tongue body deformation has no speed-threshold discontinuity",
+			"passed": true
+		},
+		{
+			"name": "Fast mucus uses a front-heavy stretched jet silhouette",
+			"passed": true
+		}
+	],
+	"core_count": 32,
+	"passed": true,
+	"scenario_count": 216,
+	"scenarios": [
+		{
+			"ballistic_samples": 27,
+			"core": "HQ_Gun_Gatling",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Gatling",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "HQ_Gun_Gatling",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Gatling",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "HQ_Gun_Gatling",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Gatling",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "HQ_Gun_Gatling",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Gatling",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "HQ_Gun_Gatling",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Gatling",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "HQ_Gun_Gatling",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Gatling",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "HQ_Gun_SonicWave",
+			"emitted": true,
+			"family": "sonic",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0000152587890625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_SonicWave",
+			"projectile_class": "SonicBasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "HQ_Gun_SonicWave",
+			"emitted": true,
+			"family": "sonic",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_SonicWave",
+			"projectile_class": "SonicBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "HQ_Gun_SonicWave",
+			"emitted": true,
+			"family": "sonic",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.0000152587890625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_SonicWave",
+			"projectile_class": "SonicBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "HQ_Gun_SonicWave",
+			"emitted": true,
+			"family": "sonic",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_SonicWave",
+			"projectile_class": "SonicBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "HQ_Gun_SonicWave",
+			"emitted": true,
+			"family": "sonic",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0000152587890625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_SonicWave",
+			"projectile_class": "SonicBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "HQ_Gun_SonicWave",
+			"emitted": true,
+			"family": "sonic",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_SonicWave",
+			"projectile_class": "SonicBasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "HQ_Gun_Sniper",
+			"emitted": true,
+			"family": "rail",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Sniper",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "HQ_Gun_Sniper",
+			"emitted": true,
+			"family": "rail",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Sniper",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "HQ_Gun_Sniper",
+			"emitted": true,
+			"family": "rail",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Sniper",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "HQ_Gun_Sniper",
+			"emitted": true,
+			"family": "rail",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Sniper",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "HQ_Gun_Sniper",
+			"emitted": true,
+			"family": "rail",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Sniper",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "HQ_Gun_Sniper",
+			"emitted": true,
+			"family": "rail",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Sniper",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "HQ_Gun_EMP",
+			"emitted": true,
+			"family": "emp",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0000152587890625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_EMP",
+			"projectile_class": "EMPBasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "HQ_Gun_EMP",
+			"emitted": true,
+			"family": "emp",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_EMP",
+			"projectile_class": "EMPBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "HQ_Gun_EMP",
+			"emitted": true,
+			"family": "emp",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.0000152587890625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_EMP",
+			"projectile_class": "EMPBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "HQ_Gun_EMP",
+			"emitted": true,
+			"family": "emp",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_EMP",
+			"projectile_class": "EMPBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "HQ_Gun_EMP",
+			"emitted": true,
+			"family": "emp",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0000152587890625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_EMP",
+			"projectile_class": "EMPBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "HQ_Gun_EMP",
+			"emitted": true,
+			"family": "emp",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_EMP",
+			"projectile_class": "EMPBasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "HQ_Gun_Cannon",
+			"emitted": true,
+			"family": "cannon",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.000003814697265625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Cannon",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "HQ_Gun_Cannon",
+			"emitted": true,
+			"family": "cannon",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Cannon",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "HQ_Gun_Cannon",
+			"emitted": true,
+			"family": "cannon",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.000003814697265625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Cannon",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "HQ_Gun_Cannon",
+			"emitted": true,
+			"family": "cannon",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Cannon",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "HQ_Gun_Cannon",
+			"emitted": true,
+			"family": "cannon",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.000003814697265625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Cannon",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "HQ_Gun_Cannon",
+			"emitted": true,
+			"family": "cannon",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Cannon",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "HQ_Gun_Tesla",
+			"emitted": true,
+			"family": "tesla",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Tesla",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "HQ_Gun_Tesla",
+			"emitted": true,
+			"family": "tesla",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Tesla",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "HQ_Gun_Tesla",
+			"emitted": true,
+			"family": "tesla",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Tesla",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "HQ_Gun_Tesla",
+			"emitted": true,
+			"family": "tesla",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Tesla",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "HQ_Gun_Tesla",
+			"emitted": true,
+			"family": "tesla",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Tesla",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "HQ_Gun_Tesla",
+			"emitted": true,
+			"family": "tesla",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Tesla",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "HQ_Core_Flak",
+			"emitted": true,
+			"family": "flak",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.000030517578125,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Flak",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "HQ_Core_Flak",
+			"emitted": true,
+			"family": "flak",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Flak",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "HQ_Core_Flak",
+			"emitted": true,
+			"family": "flak",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.000030517578125,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Flak",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "HQ_Core_Flak",
+			"emitted": true,
+			"family": "flak",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Flak",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "HQ_Core_Flak",
+			"emitted": true,
+			"family": "flak",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.000030517578125,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Flak",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "HQ_Core_Flak",
+			"emitted": true,
+			"family": "flak",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Flak",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 127,
+			"core": "HQ_Gun_Rocket",
+			"emitted": true,
+			"family": "rocket",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.00000439622135672835,
+			"max_turn_degrees": 2.7852920197062,
+			"passed": true,
+			"projectile": "Projectile_HQ_Rocket",
+			"projectile_class": "HomingProjectile"
+		},
+		{
+			"ballistic_samples": 127,
+			"core": "HQ_Gun_Rocket",
+			"emitted": true,
+			"family": "rocket",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0000772726343711838,
+			"max_turn_degrees": 2.7852920197062,
+			"passed": true,
+			"projectile": "Projectile_HQ_Rocket",
+			"projectile_class": "HomingProjectile"
+		},
+		{
+			"ballistic_samples": 262,
+			"core": "HQ_Gun_Rocket",
+			"emitted": true,
+			"family": "rocket",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.00000462925163446926,
+			"max_turn_degrees": 1.38306496199486,
+			"passed": true,
+			"projectile": "Projectile_HQ_Rocket",
+			"projectile_class": "HomingProjectile"
+		},
+		{
+			"ballistic_samples": 262,
+			"core": "HQ_Gun_Rocket",
+			"emitted": true,
+			"family": "rocket",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0000801707938080654,
+			"max_turn_degrees": 1.38306496199486,
+			"passed": true,
+			"projectile": "Projectile_HQ_Rocket",
+			"projectile_class": "HomingProjectile"
+		},
+		{
+			"ballistic_samples": 532,
+			"core": "HQ_Gun_Rocket",
+			"emitted": true,
+			"family": "rocket",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.00000433436844105017,
+			"max_turn_degrees": 0.700791442747619,
+			"passed": true,
+			"projectile": "Projectile_HQ_Rocket",
+			"projectile_class": "HomingProjectile"
+		},
+		{
+			"ballistic_samples": 532,
+			"core": "HQ_Gun_Rocket",
+			"emitted": true,
+			"family": "rocket",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0000822018046164885,
+			"max_turn_degrees": 0.700791442747619,
+			"passed": true,
+			"projectile": "Projectile_HQ_Rocket",
+			"projectile_class": "HomingProjectile"
+		},
+		{
+			"ballistic_samples": 345,
+			"core": "HQ_Core_Shotgun",
+			"emitted": true,
+			"family": "shotgun",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0000324619395541959,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Shotgun",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 345,
+			"core": "HQ_Core_Shotgun",
+			"emitted": true,
+			"family": "shotgun",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0000644252068013884,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Shotgun",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 675,
+			"core": "HQ_Core_Shotgun",
+			"emitted": true,
+			"family": "shotgun",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.000030517578125,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Shotgun",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 675,
+			"core": "HQ_Core_Shotgun",
+			"emitted": true,
+			"family": "shotgun",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0000527625015820377,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Shotgun",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 1365,
+			"core": "HQ_Core_Shotgun",
+			"emitted": true,
+			"family": "shotgun",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.000030517578125,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Shotgun",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 1365,
+			"core": "HQ_Core_Shotgun",
+			"emitted": true,
+			"family": "shotgun",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0000559171821805649,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_Shotgun",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "HQ_Core_Nuke",
+			"emitted": true,
+			"family": "nuke",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.00000574187970414641,
+			"max_turn_degrees": 8.29475333656638,
+			"passed": true,
+			"projectile": "Projectile_HQ_Nuke",
+			"projectile_class": "AreaHomingProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "HQ_Core_Nuke",
+			"emitted": true,
+			"family": "nuke",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0000578468534513377,
+			"max_turn_degrees": 8.29475333656638,
+			"passed": true,
+			"projectile": "Projectile_HQ_Nuke",
+			"projectile_class": "AreaHomingProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "HQ_Core_Nuke",
+			"emitted": true,
+			"family": "nuke",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.00000682726931700017,
+			"max_turn_degrees": 4.11080570103283,
+			"passed": true,
+			"projectile": "Projectile_HQ_Nuke",
+			"projectile_class": "AreaHomingProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "HQ_Core_Nuke",
+			"emitted": true,
+			"family": "nuke",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0000661068988847546,
+			"max_turn_degrees": 4.11080570103283,
+			"passed": true,
+			"projectile": "Projectile_HQ_Nuke",
+			"projectile_class": "AreaHomingProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "HQ_Core_Nuke",
+			"emitted": true,
+			"family": "nuke",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.00000715355054126121,
+			"max_turn_degrees": 2.04407071290972,
+			"passed": true,
+			"projectile": "Projectile_HQ_Nuke",
+			"projectile_class": "AreaHomingProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "HQ_Core_Nuke",
+			"emitted": true,
+			"family": "nuke",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0000649063658784144,
+			"max_turn_degrees": 2.05225327953539,
+			"passed": true,
+			"projectile": "Projectile_HQ_Nuke",
+			"projectile_class": "AreaHomingProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "HQ_Gun_BlackHoler",
+			"emitted": true,
+			"family": "blackhole",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.000003814697265625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_BlackHoler",
+			"projectile_class": "BlackHoleProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "HQ_Gun_BlackHoler",
+			"emitted": true,
+			"family": "blackhole",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_BlackHoler",
+			"projectile_class": "BlackHoleProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "HQ_Gun_BlackHoler",
+			"emitted": true,
+			"family": "blackhole",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.000003814697265625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_BlackHoler",
+			"projectile_class": "BlackHoleProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "HQ_Gun_BlackHoler",
+			"emitted": true,
+			"family": "blackhole",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_BlackHoler",
+			"projectile_class": "BlackHoleProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "HQ_Gun_BlackHoler",
+			"emitted": true,
+			"family": "blackhole",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.000003814697265625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_BlackHoler",
+			"projectile_class": "BlackHoleProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "HQ_Gun_BlackHoler",
+			"emitted": true,
+			"family": "blackhole",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_BlackHoler",
+			"projectile_class": "BlackHoleProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_Gun_Cannon",
+			"emitted": true,
+			"family": "cannon",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.000003814697265625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Cannon",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_Gun_Cannon",
+			"emitted": true,
+			"family": "cannon",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Cannon",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_Gun_Cannon",
+			"emitted": true,
+			"family": "cannon",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.000003814697265625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Cannon",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_Gun_Cannon",
+			"emitted": true,
+			"family": "cannon",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Cannon",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_Gun_Cannon",
+			"emitted": true,
+			"family": "cannon",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.000003814697265625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Cannon",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_Gun_Cannon",
+			"emitted": true,
+			"family": "cannon",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Cannon",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_Gun_Flak",
+			"emitted": true,
+			"family": "flak",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.000030517578125,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Flak",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_Gun_Flak",
+			"emitted": true,
+			"family": "flak",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Flak",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_Gun_Flak",
+			"emitted": true,
+			"family": "flak",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.000030517578125,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Flak",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_Gun_Flak",
+			"emitted": true,
+			"family": "flak",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Flak",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_Gun_Flak",
+			"emitted": true,
+			"family": "flak",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.000030517578125,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Flak",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_Gun_Flak",
+			"emitted": true,
+			"family": "flak",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Flak",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_Gun_BlackHoler",
+			"emitted": true,
+			"family": "blackhole",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.000003814697265625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_BlackHoler",
+			"projectile_class": "BlackHoleProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_Gun_BlackHoler",
+			"emitted": true,
+			"family": "blackhole",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_BlackHoler",
+			"projectile_class": "BlackHoleProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_Gun_BlackHoler",
+			"emitted": true,
+			"family": "blackhole",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.000003814697265625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_BlackHoler",
+			"projectile_class": "BlackHoleProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_Gun_BlackHoler",
+			"emitted": true,
+			"family": "blackhole",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_BlackHoler",
+			"projectile_class": "BlackHoleProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_Gun_BlackHoler",
+			"emitted": true,
+			"family": "blackhole",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.000003814697265625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_BlackHoler",
+			"projectile_class": "BlackHoleProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_Gun_BlackHoler",
+			"emitted": true,
+			"family": "blackhole",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_BlackHoler",
+			"projectile_class": "BlackHoleProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_Gun_Tesla",
+			"emitted": true,
+			"family": "tesla",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Tesla",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_Gun_Tesla",
+			"emitted": true,
+			"family": "tesla",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Tesla",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_Gun_Tesla",
+			"emitted": true,
+			"family": "tesla",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Tesla",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_Gun_Tesla",
+			"emitted": true,
+			"family": "tesla",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Tesla",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_Gun_Tesla",
+			"emitted": true,
+			"family": "tesla",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Tesla",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_Gun_Tesla",
+			"emitted": true,
+			"family": "tesla",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Tesla",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_Gun_EMP",
+			"emitted": true,
+			"family": "emp",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0000152587890625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_EMP",
+			"projectile_class": "EMPBasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_Gun_EMP",
+			"emitted": true,
+			"family": "emp",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_EMP",
+			"projectile_class": "EMPBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_Gun_EMP",
+			"emitted": true,
+			"family": "emp",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.0000152587890625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_EMP",
+			"projectile_class": "EMPBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_Gun_EMP",
+			"emitted": true,
+			"family": "emp",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_EMP",
+			"projectile_class": "EMPBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_Gun_EMP",
+			"emitted": true,
+			"family": "emp",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0000152587890625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_EMP",
+			"projectile_class": "EMPBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_Gun_EMP",
+			"emitted": true,
+			"family": "emp",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_EMP",
+			"projectile_class": "EMPBasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_Gun_Gatling",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Gatling",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_Gun_Gatling",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Gatling",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_Gun_Gatling",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Gatling",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_Gun_Gatling",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Gatling",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_Gun_Gatling",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Gatling",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_Gun_Gatling",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Gatling",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_Gun_Nuke",
+			"emitted": true,
+			"family": "nuke",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.00000574187970414641,
+			"max_turn_degrees": 8.29475333656638,
+			"passed": true,
+			"projectile": "Projectile_Core_Nuke",
+			"projectile_class": "AreaHomingProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_Gun_Nuke",
+			"emitted": true,
+			"family": "nuke",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0000578468534513377,
+			"max_turn_degrees": 8.29475333656638,
+			"passed": true,
+			"projectile": "Projectile_Core_Nuke",
+			"projectile_class": "AreaHomingProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_Gun_Nuke",
+			"emitted": true,
+			"family": "nuke",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.00000682726931700017,
+			"max_turn_degrees": 4.11080570103283,
+			"passed": true,
+			"projectile": "Projectile_Core_Nuke",
+			"projectile_class": "AreaHomingProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_Gun_Nuke",
+			"emitted": true,
+			"family": "nuke",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0000661068988847546,
+			"max_turn_degrees": 4.11080570103283,
+			"passed": true,
+			"projectile": "Projectile_Core_Nuke",
+			"projectile_class": "AreaHomingProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_Gun_Nuke",
+			"emitted": true,
+			"family": "nuke",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.00000715355054126121,
+			"max_turn_degrees": 2.04407071290972,
+			"passed": true,
+			"projectile": "Projectile_Core_Nuke",
+			"projectile_class": "AreaHomingProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_Gun_Nuke",
+			"emitted": true,
+			"family": "nuke",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0000649063658784144,
+			"max_turn_degrees": 2.05225327953539,
+			"passed": true,
+			"projectile": "Projectile_Core_Nuke",
+			"projectile_class": "AreaHomingProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_Gun_Flame Thrower",
+			"emitted": true,
+			"family": "flame",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Flame",
+			"projectile_class": "ContinuousProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_Gun_Flame Thrower",
+			"emitted": true,
+			"family": "flame",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Flame",
+			"projectile_class": "ContinuousProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_Gun_Flame Thrower",
+			"emitted": true,
+			"family": "flame",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Flame",
+			"projectile_class": "ContinuousProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_Gun_Flame Thrower",
+			"emitted": true,
+			"family": "flame",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Flame",
+			"projectile_class": "ContinuousProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_Gun_Flame Thrower",
+			"emitted": true,
+			"family": "flame",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Flame",
+			"projectile_class": "ContinuousProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_Gun_Flame Thrower",
+			"emitted": true,
+			"family": "flame",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Flame",
+			"projectile_class": "ContinuousProjectile"
+		},
+		{
+			"ballistic_samples": 71,
+			"core": "Core_Gun_Rocket",
+			"emitted": true,
+			"family": "rocket",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.00000589814999329974,
+			"max_turn_degrees": 8.3333336600932,
+			"passed": true,
+			"projectile": "Projectile_Core_Rocket",
+			"projectile_class": "HomingProjectile"
+		},
+		{
+			"ballistic_samples": 71,
+			"core": "Core_Gun_Rocket",
+			"emitted": true,
+			"family": "rocket",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0000755391956772655,
+			"max_turn_degrees": 8.3333336600932,
+			"passed": true,
+			"projectile": "Projectile_Core_Rocket",
+			"projectile_class": "HomingProjectile"
+		},
+		{
+			"ballistic_samples": 146,
+			"core": "Core_Gun_Rocket",
+			"emitted": true,
+			"family": "rocket",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.00000652173957860214,
+			"max_turn_degrees": 4.16664975457367,
+			"passed": true,
+			"projectile": "Projectile_Core_Rocket",
+			"projectile_class": "HomingProjectile"
+		},
+		{
+			"ballistic_samples": 146,
+			"core": "Core_Gun_Rocket",
+			"emitted": true,
+			"family": "rocket",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0000809282719274051,
+			"max_turn_degrees": 4.16664975457367,
+			"passed": true,
+			"projectile": "Projectile_Core_Rocket",
+			"projectile_class": "HomingProjectile"
+		},
+		{
+			"ballistic_samples": 296,
+			"core": "Core_Gun_Rocket",
+			"emitted": true,
+			"family": "rocket",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.00000829018972581252,
+			"max_turn_degrees": 2.08329606242628,
+			"passed": true,
+			"projectile": "Projectile_Core_Rocket",
+			"projectile_class": "HomingProjectile"
+		},
+		{
+			"ballistic_samples": 296,
+			"core": "Core_Gun_Rocket",
+			"emitted": true,
+			"family": "rocket",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0000808003533165902,
+			"max_turn_degrees": 2.08330801525732,
+			"passed": true,
+			"projectile": "Projectile_Core_Rocket",
+			"projectile_class": "HomingProjectile"
+		},
+		{
+			"ballistic_samples": 240,
+			"core": "Core_Gun_Shotgun",
+			"emitted": true,
+			"family": "shotgun",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.000030517578125,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Shotgun",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 240,
+			"core": "Core_Gun_Shotgun",
+			"emitted": true,
+			"family": "shotgun",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0000644252068013884,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Shotgun",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 465,
+			"core": "Core_Gun_Shotgun",
+			"emitted": true,
+			"family": "shotgun",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.000030517578125,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Shotgun",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 465,
+			"core": "Core_Gun_Shotgun",
+			"emitted": true,
+			"family": "shotgun",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0000527625015820377,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Shotgun",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 900,
+			"core": "Core_Gun_Shotgun",
+			"emitted": true,
+			"family": "shotgun",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0000290944553853478,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Shotgun",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 900,
+			"core": "Core_Gun_Shotgun",
+			"emitted": true,
+			"family": "shotgun",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0000559171821805649,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Shotgun",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_Gun_SonicWave",
+			"emitted": true,
+			"family": "sonic",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0000152587890625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_SonicWave",
+			"projectile_class": "SonicBasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_Gun_SonicWave",
+			"emitted": true,
+			"family": "sonic",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_SonicWave",
+			"projectile_class": "SonicBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_Gun_SonicWave",
+			"emitted": true,
+			"family": "sonic",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.0000152587890625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_SonicWave",
+			"projectile_class": "SonicBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_Gun_SonicWave",
+			"emitted": true,
+			"family": "sonic",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_SonicWave",
+			"projectile_class": "SonicBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_Gun_SonicWave",
+			"emitted": true,
+			"family": "sonic",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0000152587890625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_SonicWave",
+			"projectile_class": "SonicBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_Gun_SonicWave",
+			"emitted": true,
+			"family": "sonic",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_SonicWave",
+			"projectile_class": "SonicBasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_Gun_Sniper",
+			"emitted": true,
+			"family": "rail",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Sniper",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_Gun_Sniper",
+			"emitted": true,
+			"family": "rail",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Sniper",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_Gun_Sniper",
+			"emitted": true,
+			"family": "rail",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Sniper",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_Gun_Sniper",
+			"emitted": true,
+			"family": "rail",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Sniper",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_Gun_Sniper",
+			"emitted": true,
+			"family": "rail",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Sniper",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_Gun_Sniper",
+			"emitted": true,
+			"family": "rail",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_Sniper",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_AI_Gun_Tesla",
+			"emitted": true,
+			"family": "tesla",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Tesla",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_AI_Gun_Tesla",
+			"emitted": true,
+			"family": "tesla",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Tesla",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_AI_Gun_Tesla",
+			"emitted": true,
+			"family": "tesla",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Tesla",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_AI_Gun_Tesla",
+			"emitted": true,
+			"family": "tesla",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Tesla",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_AI_Gun_Tesla",
+			"emitted": true,
+			"family": "tesla",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Tesla",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_AI_Gun_Tesla",
+			"emitted": true,
+			"family": "tesla",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Tesla",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_AI_Gun_Cannon",
+			"emitted": true,
+			"family": "cannon",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.000003814697265625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Cannon",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_AI_Gun_Cannon",
+			"emitted": true,
+			"family": "cannon",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Cannon",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_AI_Gun_Cannon",
+			"emitted": true,
+			"family": "cannon",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.000003814697265625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Cannon",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_AI_Gun_Cannon",
+			"emitted": true,
+			"family": "cannon",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Cannon",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_AI_Gun_Cannon",
+			"emitted": true,
+			"family": "cannon",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.000003814697265625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Cannon",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_AI_Gun_Cannon",
+			"emitted": true,
+			"family": "cannon",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Cannon",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_AI_Gun_EMP",
+			"emitted": true,
+			"family": "emp",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0000152587890625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_EMP",
+			"projectile_class": "EMPBasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_AI_Gun_EMP",
+			"emitted": true,
+			"family": "emp",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_EMP",
+			"projectile_class": "EMPBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_AI_Gun_EMP",
+			"emitted": true,
+			"family": "emp",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.0000152587890625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_EMP",
+			"projectile_class": "EMPBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_AI_Gun_EMP",
+			"emitted": true,
+			"family": "emp",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_EMP",
+			"projectile_class": "EMPBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_AI_Gun_EMP",
+			"emitted": true,
+			"family": "emp",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0000152587890625,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_EMP",
+			"projectile_class": "EMPBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_AI_Gun_EMP",
+			"emitted": true,
+			"family": "emp",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_EMP",
+			"projectile_class": "EMPBasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_AI_Gun_Sniper",
+			"emitted": true,
+			"family": "rail",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Sniper",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_AI_Gun_Sniper",
+			"emitted": true,
+			"family": "rail",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Sniper",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_AI_Gun_Sniper",
+			"emitted": true,
+			"family": "rail",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Sniper",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_AI_Gun_Sniper",
+			"emitted": true,
+			"family": "rail",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Sniper",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_AI_Gun_Sniper",
+			"emitted": true,
+			"family": "rail",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Sniper",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_AI_Gun_Sniper",
+			"emitted": true,
+			"family": "rail",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Sniper",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_AI_Gun_Gatling",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Gatling",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_AI_Gun_Gatling",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Gatling",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_AI_Gun_Gatling",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Gatling",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_AI_Gun_Gatling",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Gatling",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_AI_Gun_Gatling",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Gatling",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_AI_Gun_Gatling",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Gatling",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 87,
+			"core": "Core_AI_Gun_Rocket",
+			"emitted": true,
+			"family": "rocket",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.00000764428114052862,
+			"max_turn_degrees": 8.33333195254591,
+			"passed": true,
+			"projectile": "Projectile_AI_Rocket",
+			"projectile_class": "HomingProjectile"
+		},
+		{
+			"ballistic_samples": 87,
+			"core": "Core_AI_Gun_Rocket",
+			"emitted": true,
+			"family": "rocket",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0000794992811279371,
+			"max_turn_degrees": 8.33333280631955,
+			"passed": true,
+			"projectile": "Projectile_AI_Rocket",
+			"projectile_class": "HomingProjectile"
+		},
+		{
+			"ballistic_samples": 177,
+			"core": "Core_AI_Gun_Rocket",
+			"emitted": true,
+			"family": "rocket",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.00000832760269986466,
+			"max_turn_degrees": 4.16657931824786,
+			"passed": true,
+			"projectile": "Projectile_AI_Rocket",
+			"projectile_class": "HomingProjectile"
+		},
+		{
+			"ballistic_samples": 177,
+			"core": "Core_AI_Gun_Rocket",
+			"emitted": true,
+			"family": "rocket",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0000750443068682216,
+			"max_turn_degrees": 4.16661688428829,
+			"passed": true,
+			"projectile": "Projectile_AI_Rocket",
+			"projectile_class": "HomingProjectile"
+		},
+		{
+			"ballistic_samples": 357,
+			"core": "Core_AI_Gun_Rocket",
+			"emitted": true,
+			"family": "rocket",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.00000821074263512855,
+			"max_turn_degrees": 2.08321751525082,
+			"passed": true,
+			"projectile": "Projectile_AI_Rocket",
+			"projectile_class": "HomingProjectile"
+		},
+		{
+			"ballistic_samples": 357,
+			"core": "Core_AI_Gun_Rocket",
+			"emitted": true,
+			"family": "rocket",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0000786922391853295,
+			"max_turn_degrees": 2.08324142091292,
+			"passed": true,
+			"projectile": "Projectile_AI_Rocket",
+			"projectile_class": "HomingProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_AI_Gun_Flame Thrower",
+			"emitted": true,
+			"family": "flame",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Flame",
+			"projectile_class": "ContinuousProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_AI_Gun_Flame Thrower",
+			"emitted": true,
+			"family": "flame",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Flame",
+			"projectile_class": "ContinuousProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_AI_Gun_Flame Thrower",
+			"emitted": true,
+			"family": "flame",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Flame",
+			"projectile_class": "ContinuousProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_AI_Gun_Flame Thrower",
+			"emitted": true,
+			"family": "flame",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Flame",
+			"projectile_class": "ContinuousProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_AI_Gun_Flame Thrower",
+			"emitted": true,
+			"family": "flame",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Flame",
+			"projectile_class": "ContinuousProjectile"
+		},
+		{
+			"ballistic_samples": 0,
+			"core": "Core_AI_Gun_Flame Thrower",
+			"emitted": true,
+			"family": "flame",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Flame",
+			"projectile_class": "ContinuousProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_AI_Gun_Flak",
+			"emitted": true,
+			"family": "flak",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.000030517578125,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Flak",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Core_AI_Gun_Flak",
+			"emitted": true,
+			"family": "flak",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Flak",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_AI_Gun_Flak",
+			"emitted": true,
+			"family": "flak",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.000030517578125,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Flak",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Core_AI_Gun_Flak",
+			"emitted": true,
+			"family": "flak",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Flak",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_AI_Gun_Flak",
+			"emitted": true,
+			"family": "flak",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.000030517578125,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Flak",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Core_AI_Gun_Flak",
+			"emitted": true,
+			"family": "flak",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Flak",
+			"projectile_class": "AreaBasicProjectile"
+		},
+		{
+			"ballistic_samples": 80,
+			"core": "Core_AI_Gun_Shotgun",
+			"emitted": true,
+			"family": "shotgun",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.000030517578125,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Shotgun",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 80,
+			"core": "Core_AI_Gun_Shotgun",
+			"emitted": true,
+			"family": "shotgun",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0000644252068013884,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Shotgun",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 155,
+			"core": "Core_AI_Gun_Shotgun",
+			"emitted": true,
+			"family": "shotgun",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.000030517578125,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Shotgun",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 155,
+			"core": "Core_AI_Gun_Shotgun",
+			"emitted": true,
+			"family": "shotgun",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0000527625015820377,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Shotgun",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 300,
+			"core": "Core_AI_Gun_Shotgun",
+			"emitted": true,
+			"family": "shotgun",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0000252724094025325,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Shotgun",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 300,
+			"core": "Core_AI_Gun_Shotgun",
+			"emitted": true,
+			"family": "shotgun",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0000559171821805649,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_Shotgun",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 7,
+			"core": "Projectile_Chip_Shrapnel",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.00000762939453125,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Chip_Shrapnel",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 7,
+			"core": "Projectile_Chip_Shrapnel",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Chip_Shrapnel",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 13,
+			"core": "Projectile_Chip_Shrapnel",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.00000762939453125,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Chip_Shrapnel",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 13,
+			"core": "Projectile_Chip_Shrapnel",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Chip_Shrapnel",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 25,
+			"core": "Projectile_Chip_Shrapnel",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.00000762939453125,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Chip_Shrapnel",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 25,
+			"core": "Projectile_Chip_Shrapnel",
+			"emitted": true,
+			"family": "gatling",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Chip_Shrapnel",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Projectile_HQ_AttackDrones",
+			"emitted": true,
+			"family": "drone",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_AttackDrones",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Projectile_HQ_AttackDrones",
+			"emitted": true,
+			"family": "drone",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_AttackDrones",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Projectile_HQ_AttackDrones",
+			"emitted": true,
+			"family": "drone",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_AttackDrones",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Projectile_HQ_AttackDrones",
+			"emitted": true,
+			"family": "drone",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_AttackDrones",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Projectile_HQ_AttackDrones",
+			"emitted": true,
+			"family": "drone",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_AttackDrones",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Projectile_HQ_AttackDrones",
+			"emitted": true,
+			"family": "drone",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_HQ_AttackDrones",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Projectile_AI_AttackDrone",
+			"emitted": true,
+			"family": "drone",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_AttackDrone",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Projectile_AI_AttackDrone",
+			"emitted": true,
+			"family": "drone",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_AttackDrone",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Projectile_AI_AttackDrone",
+			"emitted": true,
+			"family": "drone",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_AttackDrone",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Projectile_AI_AttackDrone",
+			"emitted": true,
+			"family": "drone",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_AttackDrone",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Projectile_AI_AttackDrone",
+			"emitted": true,
+			"family": "drone",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_AttackDrone",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Projectile_AI_AttackDrone",
+			"emitted": true,
+			"family": "drone",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_AI_AttackDrone",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Projectile_Core_AttackDrone",
+			"emitted": true,
+			"family": "drone",
+			"friendly": true,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_AttackDrone",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 27,
+			"core": "Projectile_Core_AttackDrone",
+			"emitted": true,
+			"family": "drone",
+			"friendly": false,
+			"hz": 30,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_AttackDrone",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Projectile_Core_AttackDrone",
+			"emitted": true,
+			"family": "drone",
+			"friendly": true,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_AttackDrone",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 54,
+			"core": "Projectile_Core_AttackDrone",
+			"emitted": true,
+			"family": "drone",
+			"friendly": false,
+			"hz": 60,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_AttackDrone",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Projectile_Core_AttackDrone",
+			"emitted": true,
+			"family": "drone",
+			"friendly": true,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_AttackDrone",
+			"projectile_class": "BasicProjectile"
+		},
+		{
+			"ballistic_samples": 108,
+			"core": "Projectile_Core_AttackDrone",
+			"emitted": true,
+			"family": "drone",
+			"friendly": false,
+			"hz": 120,
+			"max_position_error": 0.0,
+			"max_turn_degrees": 0.0,
+			"passed": true,
+			"projectile": "Projectile_Core_AttackDrone",
+			"projectile_class": "BasicProjectile"
+		}
+	],
+	"scope": "14 art families, 17 deterministic phases and variable timesteps; actual fire/step of every catalog projectile core plus drone/shrapnel source data for both factions at 30/60/120 Hz. No-contact fixture isolates trajectory; collision and chip damage covered by viscous_integration and weapon_catalog."
+}

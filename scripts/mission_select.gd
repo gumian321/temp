@@ -36,7 +36,9 @@ func clean_button(text:String,rect:Rect2,callback:Callable)->Button:
  for state in ["normal","hover","pressed","hover_pressed","disabled","focus"]:
   var skin=UI.card_style(state in ["hover","pressed","hover_pressed"])
   skin.content_margin_left=12;skin.content_margin_right=12;skin.content_margin_top=8;skin.content_margin_bottom=8
-  if state=="focus":skin.draw_center=false
+  if state=="disabled":
+   skin.bg_color=Color(UI.PANEL,.65);skin.border_color=Color(UI.MUTED,.22);skin.shadow_size=0
+  if state=="focus":skin=UI.card_focus_style()
   b.add_theme_stylebox_override(state,skin)
  b.size=rect.size
  return b
@@ -50,7 +52,7 @@ func setup(owner_game):
  game=owner_game;set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);mouse_filter=MOUSE_FILTER_IGNORE;theme=UI.theme();UI.protect(self)
  UI.backdrop(self)
  board=Panel.new();board.name="MissionBoard";board.size=Vector2(1200,660)
- board.add_theme_stylebox_override("panel",UI.flat_style(UI.BG,Color.TRANSPARENT,0));add_child(board)
+ board.add_theme_stylebox_override("panel",UI.style(Color(UI.BG,.96),Color(UI.TEAL,.26),26));add_child(board)
  var atlas:Texture2D=load(ART_PATH)
  for i in 6:
   var tile=AtlasTexture.new();tile.atlas=atlas
@@ -103,7 +105,7 @@ func refresh():
   rows[i].set_pressed_no_signal(i==index)
   rows[i].add_theme_stylebox_override("normal",UI.card_style(i==index))
   rows[i].tooltip_text=game.db.title(m)+(tr_text(" · 解锁 %d RP"," · Unlock %d RP")%int(m.MissionCost) if not unlocked else "")
-  row_labels[i].add_theme_color_override("font_color",UI.TEAL if i==index else UI.TEXT)
+  row_labels[i].add_theme_color_override("font_color",UI.TEXT if i==index else UI.MUTED)
  for i in difficulty_buttons.size():
   difficulty_buttons[i].set_pressed_no_signal(i==game.difficulty)
   var config=game.db.asset(mission.MissionsObjectiveList[i].objectiveAIConfiguration)

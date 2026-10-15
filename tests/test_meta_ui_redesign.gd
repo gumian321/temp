@@ -31,7 +31,7 @@ func execute():
  var lab=load('res://scripts/research_ui.gd').new();root.add_child(lab);lab.setup(db,save,func():pass,func():pass)
  await process_frame
  check(lab.theme.default_font.resource_path.ends_with('NotoSansCJKsc-Bold.otf'),'Research uses bold Chinese typography')
- check(lab.node_buttons.values().all(func(b):return b.get_theme_stylebox('normal') is StyleBoxTexture),'Research nodes render generated raster panel skins')
+ check(lab.node_buttons.values().all(func(b):return b.get_theme_stylebox('normal') is StyleBoxFlat),'Research nodes render rounded Neon panel skins')
  check(lab.node_buttons.size()==db.research.size(),'Every research branch represented in pictorial constellation')
  check(lab.canvas.get_child(0).lines.size()>0,'Prerequisite links shown as constellation paths')
  for b in lab.node_buttons.values():check(b.text.is_empty() and b.icon!=null,'Research node uses actual reward art with tooltip')
@@ -51,7 +51,7 @@ func execute():
  lab.queue_free();await process_frame
  var pool=load('res://scripts/reward_pool_ui.gd').new();root.add_child(pool);pool.setup(db,save,func():pass,func():pass)
  await process_frame
- check(pool.cards.all(func(b):return b.get_theme_stylebox('normal') is StyleBoxTexture),'Codex entries render generated raster skins')
+ check(pool.cards.all(func(b):return b.get_theme_stylebox('normal') is StyleBoxFlat),'Codex entries render rounded Neon panel skins')
  check(pool.cards.size()==pool.groups.size(),'Every original reward group appears in codex')
  check(pool.cards.all(func(b):return b.icon!=null),'Codex cards use reward illustrations')
  check(pool.unlock_button.visible and not pool.apply_button.visible,'Filter purchase is separate from codex browsing')
@@ -75,7 +75,7 @@ func execute():
  check(game.mission_ui.scene_art is TextureRect and game.mission_ui.scene_art.texture!=null,'Mission hero is generated raster art')
  check(game.mission_ui.scene_textures.size()==6 and game.mission_ui.scene_textures.all(func(t):return t is AtlasTexture and t.atlas.resource_path==game.mission_ui.ART_PATH),'All six mission illustrations come from generated scene atlas')
  check(game.mission_ui.rows.all(func(b):return b.get_child(0) is TextureRect and b.get_child(0).texture!=null and b.get_child(0).size==Vector2(96,64)),'Mission thumbnails display raster illustrations at reserved sizes')
- check(game.mission_ui.rows.all(func(b):return b.get_theme_color('font_color')==load('res://scripts/game_ui.gd').TEXT),'Mission text retains navy contrast')
+ check(game.mission_ui.rows.all(func(b):return b.get_theme_color('font_color')==load('res://scripts/game_ui.gd').TEXT),'Mission text retains bright Neon contrast')
  var mission_id=game.selected_mission.id;var level=game.difficulty;var meta=game.save.state.meta
  for extent in [Vector2i(1440,900),Vector2i(1280,720)]:
   root.size=extent;await settle();game.mission_ui.layout_board();await settle()

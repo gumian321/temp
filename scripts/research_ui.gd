@@ -26,8 +26,8 @@ class Veins extends Control:
   for pair in lines:
    var a:Vector2=pair[0];var b:Vector2=pair[1]
    var mid=(a+b)*.5
-   draw_polyline(PackedVector2Array([a,Vector2(mid.x,a.y),Vector2(mid.x,b.y),b]),Color(UI.MUTED,.38),3,true)
-   draw_circle(mid,4,UI.TEAL)
+   draw_polyline(PackedVector2Array([a,Vector2(mid.x,a.y),Vector2(mid.x,b.y),b]),Color(UI.MUTED,.32),2,true)
+   draw_circle(mid,3,Color(UI.TEAL,.7))
 
 func setup(source,store,on_close:Callable,on_change:Callable):
  db=source;save=store;close=on_close;changed=on_change
@@ -66,7 +66,7 @@ func rebuild():
   b.icon=icon(db.asset(n.nodeRewardsList[0]));b.expand_icon=true;b.icon_alignment=HORIZONTAL_ALIGNMENT_CENTER;b.add_theme_constant_override('icon_max_width',62)
   var unlocked=n.nodeRewardsList.filter(func(id):return id in save.state.unlocked).size()
   b.add_theme_stylebox_override('normal',UI.card_style(unlocked>0))
-  b.modulate=Color.WHITE if unlocked>0 else Color(1,1,1,.72)
+  b.add_theme_color_override("icon_normal_color",Color.WHITE if unlocked>0 else Color(UI.MUTED,.82))
   b.tooltip_text=db.title(db.asset(n.nodeRewardsList[0]))+' · %d / %d'%[unlocked,n.nodeRewardsList.size()]
   for i in n.nodeRewardsList.size():
    var pip=ColorRect.new();pip.position=Vector2(15+i*13,83);pip.size=Vector2(8,3);pip.color=UI.AMBER if i<unlocked else UI.MUTED;pip.mouse_filter=MOUSE_FILTER_IGNORE;b.add_child(pip)
@@ -115,9 +115,9 @@ func show_detail(n:Dictionary,index:int):
  selected_node=n;selected_index=index;dragging=false
  if is_instance_valid(detail):remove_child(detail);detail.queue_free()
  if not is_instance_valid(modal_blocker):
-  modal_blocker=Control.new();modal_blocker.mouse_filter=MOUSE_FILTER_STOP;add_child(modal_blocker)
+  modal_blocker=ColorRect.new();modal_blocker.color=Color(UI.BG,.78);modal_blocker.mouse_filter=MOUSE_FILTER_STOP;add_child(modal_blocker)
   modal_blocker.position=-position/scale;modal_blocker.size=get_viewport_rect().size/scale
- detail=Panel.new();detail.position=Vector2(170,125);detail.size=Vector2(1100,620);detail.add_theme_stylebox_override('panel',UI.style(UI.BG,UI.TEAL,24));add_child(detail)
+ detail=Panel.new();detail.position=Vector2(170,125);detail.size=Vector2(1100,620);detail.add_theme_stylebox_override('panel',UI.style(Color(UI.PANEL,.98),Color(UI.TEAL,.7),26));add_child(detail)
  var r:Dictionary=db.asset(n.nodeRewardsList[index])
  UI.panel(detail,Rect2(24,24,420,465),Color(UI.MUTED,.35))
  var art=TextureRect.new();art.texture=icon(r);art.position=Vector2(64,72);art.size=Vector2(340,340);art.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;art.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;art.mouse_filter=MOUSE_FILTER_IGNORE;detail.add_child(art)
@@ -132,12 +132,12 @@ func show_detail(n:Dictionary,index:int):
   if value<=0:continue
   label(detail,db.text(names[i]),Vector2(480,282+row*32),Vector2(190,30),16)
   for j in range(6):
-   var bar=ColorRect.new();bar.position=Vector2(700+j*48,289+row*32);bar.size=Vector2(36,10);bar.color=UI.TEAL if j<value else (UI.AMBER if j<value+added else Color('d9e0df'));bar.mouse_filter=MOUSE_FILTER_IGNORE;detail.add_child(bar)
+   var bar=ColorRect.new();bar.position=Vector2(700+j*48,289+row*32);bar.size=Vector2(36,10);bar.color=UI.TEAL if j<value else (UI.AMBER if j<value+added else Color(UI.MUTED,.2));bar.mouse_filter=MOUSE_FILTER_IGNORE;detail.add_child(bar)
   row+=1
  for i in range(n.nodeRewardsList.size()):
   var reward:Dictionary=db.asset(n.nodeRewardsList[i])
   var b=button(detail,str(i+1),Vector2(40+i*75,420),Vector2(64,54),func():show_detail(n,i));b.tooltip_text=db.title(reward)
-  b.add_theme_stylebox_override('normal',UI.Art.skin("active" if i==index else "normal"))
+  b.add_theme_stylebox_override('normal',UI.card_style(i==index))
   if i==index:b.call_deferred('grab_focus')
  var unlocked=r.id in save.state.unlocked;var cost=save.research_price(n,index);var allowed=save.state.meta>=cost
  for i in range(index):allowed=allowed and n.nodeRewardsList[i] in save.state.unlocked

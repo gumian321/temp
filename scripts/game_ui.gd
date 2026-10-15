@@ -1,18 +1,25 @@
 extends RefCounted
-## Ivory paper, bold navy type and generated blue-ink raster artwork.
+## Plasma UI Neon-inspired dark glass, rose rims, and readable bold type.
+## No full-screen refraction, blur pass, or continuously redrawing controls.
 const Art=preload("res://scripts/generated_ui_art.gd")
 const FONT_PATH="res://assets/fonts/NotoSansCJKsc-Bold.otf"
-const BG = Color("f6f2e7")
-const PANEL = Color("fffaf0")
-const TEAL = Color("17685f")
-const AMBER = Color("946017")
-const TEXT = Color("173b70")
-const MUTED = Color("536b88")
-const RED = Color("9d3f36")
-const TOOLTIP_BG = Color("f6f2e7")
-const TOOLTIP_TEXT = Color("173b70")
+const BG = Color("100b19")
+const PANEL = Color("21162e")
+const TEAL = Color("ff2d95")
+const AMBER = Color("ffbe85")
+const TEXT = Color("f5efff")
+const MUTED = Color("b1a5c4")
+const RED = Color("ff6c89")
+const TOOLTIP_BG = Color("100b19")
+const TOOLTIP_TEXT = Color("f5efff")
 
 static var shared_font:FontFile
+static var shared_icon_material:ShaderMaterial
+
+static func icon_material()->ShaderMaterial:
+	if shared_icon_material==null:
+		shared_icon_material=ShaderMaterial.new();shared_icon_material.shader=load("res://shaders/neon_ui_icon.gdshader")
+	return shared_icon_material
 
 static func font()->FontFile:
 	if shared_font==null:
@@ -23,23 +30,31 @@ static func font()->FontFile:
 static func protect(node:Node):
 	node.set_meta("game_ui",true)
 
-static func style(fill:Color=PANEL,_border:Color=TEAL,_radius:int=16,margin:int=0)->StyleBoxTexture:
-	return Art.skin("active" if fill.get_luminance()<0.45 else "panel",margin)
-
-static func card_style(active:bool=false)->StyleBoxTexture:
-	var box=Art.skin("panel",12)
-	if active:box.modulate_color=Color("dcf0e9")
+static func style(fill:Color=PANEL,border:Color=TEAL,radius:int=26,margin:int=0)->StyleBoxFlat:
+	# Rounded tinted glass with a restrained baked-in shadow; no blur framebuffer.
+	var box=flat_style(fill,border,radius,margin)
+	box.bg_color=Color(PANEL.lerp(fill,0.16),0.96)
+	box.border_color=Color(border,0.48)
+	box.shadow_color=Color(TEAL,0.09);box.shadow_size=8
+	box.border_width_top=2
 	return box
 
-static func card_focus_style()->StyleBoxTexture:
+static func card_style(active:bool=false)->StyleBoxFlat:
+	var box=style(PANEL,TEAL if active else Color("70557f"),26,12)
+	if active:
+		box.bg_color=Color("39203d");box.border_color=TEAL;box.shadow_color=Color(TEAL,0.2)
+	return box
+
+static func card_focus_style()->StyleBoxFlat:
 	var box=card_style(true);box.draw_center=false
 	return box
 
-static func hud_style()->StyleBoxTexture:
-	return Art.skin("hud",8)
+static func hud_style()->StyleBoxFlat:
+	return style(PANEL,Color("9d588b"),22,8)
 
-static func focus_style()->StyleBoxTexture:
-	var box=Art.skin("active",0);box.draw_center=false
+static func focus_style()->StyleBoxFlat:
+	var box=style(PANEL,Color("ffb6df"),22,0);box.draw_center=false
+	box.set_border_width_all(2);box.border_color=Color("ffb6df");box.shadow_size=5
 	return box
 
 static func flat_style(fill:Color=PANEL,border:Color=TEAL,radius:int=16,margin:int=0)->StyleBoxFlat:
@@ -49,15 +64,19 @@ static func flat_style(fill:Color=PANEL,border:Color=TEAL,radius:int=16,margin:i
 	box.content_margin_left=margin;box.content_margin_right=margin;box.content_margin_top=margin;box.content_margin_bottom=margin
 	return box
 
-static func button_style(fill:Color=PANEL,_border:Color=TEAL)->StyleBoxTexture:
-	var box=Art.skin("active" if fill.get_luminance()<0.45 else "normal",44)
+static func button_style(fill:Color=PANEL,border:Color=TEAL)->StyleBoxFlat:
+	var active=fill==TEAL
+	var box=style(Color("48223f") if active else PANEL,border,22,44)
+	box.bg_color=Color("48223f") if active else Color("25192f")
+	box.border_color=Color(TEAL,0.85) if active else Color(border,0.36)
+	box.shadow_color=Color(TEAL,0.18 if active else 0.06)
 	box.content_margin_top=6;box.content_margin_bottom=6
 	return box
 
 static func apply_tooltip_theme(t:Theme):
 	# Define the pair together: missing TooltipPanel used to inherit cream paper
 	# while TooltipLabel inherited the expedition's nearly white Label color.
-	var tooltip=flat_style(TOOLTIP_BG,Color("6984a4"),8)
+	var tooltip=flat_style(TOOLTIP_BG,Color("64506f"),8)
 	tooltip.content_margin_left=14;tooltip.content_margin_right=14
 	tooltip.content_margin_top=9;tooltip.content_margin_bottom=9
 	t.set_stylebox("panel","TooltipPanel",tooltip)
@@ -76,7 +95,7 @@ static func theme()->Theme:
 		t.set_color("font_hover_color",kind,TEXT)
 		t.set_color("font_pressed_color",kind,TEXT)
 		t.set_color("font_focus_color",kind,TEXT)
-	t.set_stylebox("normal","Button",button_style(PANEL,Color("31515d")))
+	t.set_stylebox("normal","Button",button_style(PANEL,Color("68506f")))
 	t.set_stylebox("hover","Button",button_style(TEAL))
 	t.set_stylebox("pressed","Button",button_style(TEAL))
 	t.set_stylebox("hover_pressed","Button",button_style(TEAL))
@@ -94,9 +113,9 @@ static func theme()->Theme:
 			t.set_stylebox(state,kind,t.get_stylebox(state,"Button"))
 	for state in ["normal","focus","read_only"]:
 		t.set_stylebox(state,"LineEdit",button_style())
-	t.set_stylebox("background","ProgressBar",flat_style(Color("d8e3ec"),Color("6984a4"),5))
+	t.set_stylebox("background","ProgressBar",flat_style(Color("342640"),Color("64506f"),5))
 	t.set_stylebox("fill","ProgressBar",flat_style(TEAL,TEAL,5))
-	var track=flat_style(Color("d8e3ec"),Color("6984a4"),4)
+	var track=flat_style(Color("342640"),Color("64506f"),4)
 	track.content_margin_top=4;track.content_margin_bottom=4
 	var fill=flat_style(TEAL,TEAL,4)
 	fill.content_margin_top=4;fill.content_margin_bottom=4
@@ -126,8 +145,8 @@ static func backdrop(parent:Control,hero:bool=false):
 	var bg=Backdrop.new();bg.hero=hero;bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);parent.add_child(bg)
 	bg.mouse_filter=Control.MOUSE_FILTER_IGNORE
 
-	if hero and ResourceLoader.exists("res://assets/ui_overhaul/menu_hero_light.png"):
-		var art=TextureRect.new();art.texture=load("res://assets/ui_overhaul/menu_hero_light.png")
+	if hero and ResourceLoader.exists("res://assets/ui_overhaul/menu_hero_neon.png"):
+		var art=TextureRect.new();art.texture=load("res://assets/ui_overhaul/menu_hero_neon.png")
 		art.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);art.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
 		art.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_COVERED;art.mouse_filter=Control.MOUSE_FILTER_IGNORE
 		parent.add_child(art)
@@ -149,7 +168,8 @@ static func button(parent:Control,text:String,rect:Rect2,callback:Callable,icon_
 		b.alignment=HORIZONTAL_ALIGNMENT_CENTER
 		if text.is_empty():
 			for state in ["normal","hover","pressed","disabled","focus"]:
-				var compact=Art.skin("active" if state in ["hover","pressed"] else "normal",0)
+				var compact=button_style(TEAL if state in ["hover","pressed"] else PANEL)
+				compact.content_margin_left=0;compact.content_margin_right=0;compact.content_margin_top=0;compact.content_margin_bottom=0
 				if state=="focus":compact.draw_center=false
 				b.add_theme_stylebox_override(state,compact)
 			b.size=rect.size
@@ -168,6 +188,7 @@ static func button(parent:Control,text:String,rect:Rect2,callback:Callable,icon_
 static func icon(parent:Control,key:String,pos:Vector2,extent:float=40,_color:Color=TEAL)->Control:
 	var g=TextureRect.new();g.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
 	g.texture=Art.icon(key);g.position=pos;g.size=Vector2.ONE*extent
+	g.material=icon_material()
 	g.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	g.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS;g.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	protect(g);parent.add_child(g);return g
@@ -175,7 +196,7 @@ static func icon(parent:Control,key:String,pos:Vector2,extent:float=40,_color:Co
 static func header(parent:Control,title:String,back_callback:Callable):
 	button(parent,"",Rect2(40,34,60,60),back_callback,"back")
 	label(parent,title,Vector2(120,36),32)
-	label(parent,"C / 0 1",Vector2(1260,52),16,MUTED)
+	label(parent,"N E O N / 0 1",Vector2(1210,52),16,MUTED)
 
 class Backdrop extends Control:
 	var hero=false

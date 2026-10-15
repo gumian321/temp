@@ -12,6 +12,7 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SUITES = [
+    "enemy_death_splatter", "projectile_trajectory_continuity",
     "viscous_projectile_motion", "viscous_renderer", "viscous_integration",
     "combat_spatial", "hud_refresh_cache", "particle_resource_cache", "render_hotpath_regressions", "soft_render_cache", "soft_solver_regressions", "rig_batch_dynamic",
     "radial_formations", "crystal_loot_scene", "hostile_readability", "soft_organs", "fusion_flagella", "camera_stability_scene", "centipede_coil", "centipede_coil_scene", "character_selection", "debug_characters", "direct_body_assembly", "insect_projectiles",

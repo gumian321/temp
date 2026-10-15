@@ -1,0 +1,263 @@
+{
+	"checks": [
+		{
+			"name": "Nonlethal hull impact never creates a death burst",
+			"passed": true
+		},
+		{
+			"name": "Lethal hit waits for the centralized one-shot cleanup",
+			"passed": true
+		},
+		{
+			"name": "Repeated lethal hits resolve to one burst and remove the corpse",
+			"passed": true
+		},
+		{
+			"name": "Death preserves kill, destruction, objective and ship-stat accounting exactly once",
+			"passed": true
+		},
+		{
+			"name": "Organic death retains the source scrap reward value",
+			"passed": true
+		},
+		{
+			"name": "Organic death replaces the generic explosion rather than layering it over the slime",
+			"passed": true
+		},
+		{
+			"name": "Death burst is an independent world-space snapshot",
+			"passed": true
+		},
+		{
+			"name": "Later ticks cannot award the same corpse twice",
+			"passed": true
+		},
+		{
+			"name": "Swept lethal projectile creates exactly one death at dt=0.1",
+			"passed": true
+		},
+		{
+			"name": "Swept lethal projectile creates exactly one death at dt=0.01666666666667",
+			"passed": true
+		},
+		{
+			"name": "Swept lethal projectile creates exactly one death at dt=0.00166666666667",
+			"passed": true
+		},
+		{
+			"name": "Area-damage deaths each enter the centralized burst path",
+			"passed": true
+		},
+		{
+			"name": "Instant chain jumps produce one burst per distinct killed target",
+			"passed": true
+		},
+		{
+			"name": "Black-hole tick damage produces a burst without direct-hit callbacks",
+			"passed": true
+		},
+		{
+			"name": "Mine-triggered death produces one burst and consumes the mine",
+			"passed": true
+		},
+		{
+			"name": "Continuous flame death reaches the same one-shot cleanup",
+			"passed": true
+		},
+		{
+			"name": "Kamikaze self-destruction creates a death burst",
+			"passed": true
+		},
+		{
+			"name": "Destroying one boss part preserves the root and creates only the part burst",
+			"passed": true
+		},
+		{
+			"name": "Final part killed during projectile phase preserves existing next-tick root resolution",
+			"passed": true
+		},
+		{
+			"name": "Boss root resolves once after its last part without losing per-part deaths",
+			"passed": true
+		},
+		{
+			"name": "Boss part destruction, scrap totals and root reward packs remain unchanged",
+			"passed": true
+		},
+		{
+			"name": "Boss statistics still credit the original threat category once",
+			"passed": true
+		},
+		{
+			"name": "Only the boss root uses the larger boss splatter",
+			"passed": true
+		},
+		{
+			"name": "Boss part-loss warp and surviving-part state remain unchanged",
+			"passed": true
+		},
+		{
+			"name": "Part death splatter stays at the corpse while the surviving boss warps away",
+			"passed": true
+		},
+		{
+			"name": "Organic eligibility creates a burst: AISwarmingUnit",
+			"passed": true
+		},
+		{
+			"name": "Organic eligibility creates a burst: AIFollowingUnit",
+			"passed": true
+		},
+		{
+			"name": "Organic eligibility creates a burst: AIPatrolUnit",
+			"passed": true
+		},
+		{
+			"name": "Organic eligibility creates a burst: AIStation",
+			"passed": true
+		},
+		{
+			"name": "Organic eligibility creates a burst: AIStationPartController",
+			"passed": true
+		},
+		{
+			"name": "Organic eligibility creates a burst: AIGuardUnitController",
+			"passed": true
+		},
+		{
+			"name": "Organic eligibility creates a burst: AIBossPartController",
+			"passed": true
+		},
+		{
+			"name": "Organic eligibility creates a burst: SpawnerStation",
+			"passed": true
+		},
+		{
+			"name": "Organic eligibility creates a burst: MineController",
+			"passed": true
+		},
+		{
+			"name": "Organic eligibility creates a burst: TraderUnit",
+			"passed": true
+		},
+		{
+			"name": "Nonorganic destruction retains the original explosion: Asteroid",
+			"passed": true
+		},
+		{
+			"name": "Nonorganic destruction retains the original explosion: ContainerObject",
+			"passed": true
+		},
+		{
+			"name": "Container death retains its reward pack",
+			"passed": true
+		},
+		{
+			"name": "Distance despawn has no splatter, kill or loot",
+			"passed": true
+		},
+		{
+			"name": "Patrol group despawn has no splatter or kill",
+			"passed": true
+		},
+		{
+			"name": "A despawn-flagged corpse suppresses presentation without rewriting existing reward semantics",
+			"passed": true
+		},
+		{
+			"name": "Map cell unload does not manufacture death bursts or rewards",
+			"passed": true
+		},
+		{
+			"name": "Zero-loot death presentation consumes neither gameplay random stream",
+			"passed": true
+		},
+		{
+			"name": "Seeded organic death exactly preserves the original scrap payload, scatter and both RNG states",
+			"passed": true
+		},
+		{
+			"name": "Fatal shot direction updates even while the prior hit's visual cooldown is active",
+			"passed": true
+		},
+		{
+			"name": "Zero-speed impact cannot erase the last meaningful death direction",
+			"passed": true
+		},
+		{
+			"name": "Mine death sprays away from the mine rather than using its placeholder rightward velocity",
+			"passed": true
+		},
+		{
+			"name": "Black-hole death points toward the hole while preserving the original pull displacement",
+			"passed": true
+		},
+		{
+			"name": "Degenerate stored direction falls back to actor facing without mutating it: (0.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Degenerate stored direction falls back to actor facing without mutating it: (0.001, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Overflowing visual budget cannot suppress kills, destruction or objective events",
+			"passed": true
+		},
+		{
+			"name": "Simultaneous death bursts obey the fixed presentation cap",
+			"passed": true
+		},
+		{
+			"name": "Presentation overflow keeps the newest death visible",
+			"passed": true
+		},
+		{
+			"name": "Death snapshots have finite lifetime and retain no live actor references",
+			"passed": true
+		},
+		{
+			"name": "All capped death bursts expire under a large update",
+			"passed": true
+		},
+		{
+			"name": "Expired presentation capacity is reusable by subsequent deaths",
+			"passed": true
+		},
+		{
+			"name": "Renderer paints every visible death exactly once, oldest to newest",
+			"passed": true
+		},
+		{
+			"name": "Older deaths retain their mandatory ground stain when detail is exhausted",
+			"passed": true
+		},
+		{
+			"name": "Only the newest 32 visible deaths receive detailed jets; offscreen deaths consume no slots",
+			"passed": true
+		},
+		{
+			"name": "Renderer command count is bounded by one stain per corpse plus the fixed detail budget",
+			"passed": true
+		},
+		{
+			"name": "Newest corpse jets and beads remain above all older stains",
+			"passed": true
+		},
+		{
+			"name": "Death renderer uses wet jets and beads without egg-shell or flower-burst textures",
+			"passed": true
+		},
+		{
+			"name": "Rendering leaves burst state unchanged and restores the canvas transform",
+			"passed": true
+		},
+		{
+			"name": "Entirely offscreen death batches issue no draw or transform commands",
+			"passed": true
+		}
+	],
+	"max_bursts": 512,
+	"max_detailed": 32,
+	"passed": true
+}

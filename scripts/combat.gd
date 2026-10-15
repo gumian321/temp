@@ -3,6 +3,8 @@ extends RefCounted
 const SpecialSystems = preload("res://scripts/special_systems.gd")
 const SoftInsect = preload("res://scripts/soft_insect.gd")
 const Feedback = preload("res://scripts/weapon_feedback.gd")
+const DeathSplatter = preload("res://scripts/enemy_death_splatter.gd")
+var death_splatters:Array=[]
 const ViscousMotion = preload("res://scripts/viscous_projectile_motion.gd")
 const InsectControls = preload("res://scripts/insect_controls.gd")
 var insect_control_system = InsectControls.new()
@@ -564,8 +566,16 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 			if e.kind == "ContainerObject": loot.append({"position": e.position,"value":0,"pack":true,"rarity":int(e.unit.containerRarity)})
 			if e.kind == "SpawnerStation":
 				for i in range(int(e.unit.packsDropCount)): loot.append({"position":e.position,"value":0,"pack":true,"pack_ids":e.unit.stationRewardPacksList})
-			explosion(e.position,float(e.unit.get("explosionSize",e.radius/24.0))*48.0,0.65,str(e.get("last_fx","impact")),bool(e.get("last_friendly",true)))
+			if DeathSplatter.eligible(e):
+				death_splatters.append(DeathSplatter.make_effect(e))
+				audio_events.append({"type":-1,"position":e.position,"feedback":"impact","strength":1.5,"flesh":true,"flesh_strength":1.3})
+			else:
+				explosion(e.position,float(e.unit.get("explosionSize",e.radius/24.0))*48.0,0.65,str(e.get("last_fx","impact")),bool(e.get("last_friendly",true)))
 	enemies = enemies.filter(func(e): return e.hp > 0 and not e.get("despawn",false))
+	for burst in death_splatters:burst.life-=dt
+	death_splatters=death_splatters.filter(func(burst):return burst.life>0)
+	if death_splatters.size()>DeathSplatter.MAX_BURSTS:
+		death_splatters=death_splatters.slice(death_splatters.size()-DeathSplatter.MAX_BURSTS)
 	viscous_contact_count = 0
 	for effect in effects:
 		effect.life -= dt
@@ -590,6 +600,10 @@ func explosion(at: Vector2, radius: float, lifetime: float = 0.35, family: Strin
 
 func impact_feedback(e: Dictionary, b: Dictionary, shielded: bool = false, contact_center: Variant = null, contact_radius: float = -1.0):
 	var family = str(b.get("fx_family",Feedback.family(b.data)))
+	if not shielded:
+		var death_direction=Vector2(b.get("velocity",b.get("direction",Vector2.RIGHT)))
+		if family=="mine":death_direction=Vector2(b.position).direction_to(e.position)
+		if death_direction.length_squared()>0.0001:e.last_death_direction=death_direction.normalized()
 	e.last_fx=family; e.last_friendly=bool(b.get("friendly",true))
 	var power=maxf(0.0,float(b.get("shield_damage",0) if shielded else b.get("damage",0)))
 	# Group repeated weak hits only. A stronger hit still gets its own readable cue.

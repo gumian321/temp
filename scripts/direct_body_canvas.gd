@@ -173,7 +173,7 @@ func _draw():
 		elif not gap and (valid or control.selected or control.has_focus()):
 			draw_arc(at,clampf(27*zoom,14,90),0,TAU,40,UI.TEAL if hovered or control.selected or control.has_focus() else Color(UI.TEAL,0.3),3 if hovered else 1.5,true)
 		if hovered:
-			draw_arc(at,clampf(32*zoom,22,100),0,TAU,40,Color("b78c3e") if not gap else UI.TEAL,3,true)
+			draw_arc(at,clampf(32*zoom,22,100),0,TAU,40,UI.AMBER if not gap else UI.TEAL,3,true)
 			if gap and carried.get("kind")=="inventory":
 				var texture=builder.db.core_sprite(builder.db.asset(carried.id))
 				if texture!=null:draw_texture_rect(texture,Rect2(at-Vector2.ONE*18*zoom,Vector2.ONE*36*zoom),false,Color(1,1,1,0.35))

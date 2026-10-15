@@ -1,0 +1,128 @@
+{
+  "passed": true,
+  "renderer": "Godot 4.6.3 / X11 / llvmpipe (LLVM 19.1.7, 256 bits)",
+  "death_stages_s": [
+    0.02,
+    0.09,
+    0.2,
+    0.4,
+    0.8
+  ],
+  "sizes_world_radius": [
+    18,
+    36,
+    60
+  ],
+  "death_visual_review": [
+    "Fresh native production-atlas captures show initial compact green pressure body; three forward coherent jets at 0.09/0.20 s; detached smooth beads and wet persistent puddles at 0.40/0.80 s.",
+    "No orange egg-burst flower remains in enemy death presentation. Stable directional spray distinguishes rupture from a radial flash.",
+    "Real grub/beetle/queen dying rigs remain centered on the effect, visibly swell at 0.02 s, fade by 0.09 s, and are gone by 0.20 s.",
+    "Dense 384-death scene retains puddle for every visible corpse and limits detailed spray to newest 32; all stages captured.",
+    "Fixture uses production LINEAR_WITH_MIPMAPS filtering; first exploratory unfiltered aliasing was corrected before final evidence."
+  ],
+  "projectile_visual_review": [
+    "Six real fire/step/draw snapshots cover all twelve gun families at 0.10, 0.20, 0.367, 0.567, 0.767 and 1.00 s.",
+    "Mucus/egg bodies and short wet trails remain aligned with fixed physical centerline. Rocket/queen-egg homing curves are smooth in late stages.",
+    "Rail/tesla now use one straight axial wet filament with terminal tip; no V-shaped intermediate joint.",
+    "The fixture explicitly labels scaled trajectories and separately enlarged body art; grey sample paths are diagnostic and are not in-game trails.",
+    "Final fixture has 44-pixel origin padding and 0.7 flame-path scale; all twelve families fit the panels. Friendly flame is now a coherent generated green secretion jet with a thick leading mucus mass and thin wet neck, contained in the original damage corridor."
+  ],
+  "native_suites": {
+    "death_benchmark_all_six_runs_passed": true,
+    "projectile_trajectory": {
+      "suites": [
+        {
+          "suite": "projectile_trajectory_scene",
+          "exit_code": 0,
+          "passed": true,
+          "seconds": 2.639,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    }
+  },
+  "retry_note": "First projectile native run produced all images and exit 0 but its harness caught XServer BadValue errors; a fresh retry passed without ERROR. First-run log retained as artifacts/projectile-trajectory-native-first.log. No error filters were weakened.",
+  "screenshots": [
+    {
+      "path": "artifacts/death-splatter-round12-stages.png",
+      "bytes": 266931,
+      "sha256": "c87c2e3227aa2ea4cc56593029380a6ea9fcbbf4490b284656cf689b6197a3cf"
+    },
+    {
+      "path": "artifacts/death-splatter-round12-rig-stages.png",
+      "bytes": 279166,
+      "sha256": "b7d0179324b51151402f4bb25b6966b56f6f1ea7448a53c783cd8b71f3faf0e2"
+    },
+    {
+      "path": "artifacts/death-splatter-round12-dense-020.png",
+      "bytes": 1889713,
+      "sha256": "acbb06b80ace1a2653f871a33108d671962bb276dfb1a9ae6beb1283a05614cd"
+    },
+    {
+      "path": "artifacts/death-splatter-round12-dense-090.png",
+      "bytes": 3128186,
+      "sha256": "ad1628634ca6bce37050d8d32617766b3182ba81f0ca89ac11fb1cb27a5a8edb"
+    },
+    {
+      "path": "artifacts/death-splatter-round12-dense-200.png",
+      "bytes": 3156084,
+      "sha256": "61463cba107848cdd5c0d4369a5818dbd8835a9c99f9ac353d4fdbe63c9a2a19"
+    },
+    {
+      "path": "artifacts/death-splatter-round12-dense-400.png",
+      "bytes": 3131588,
+      "sha256": "a92beb6e69718b76bd9663c1da3a4cf2b9db502cc533c1339bec58ddb9d24b5b"
+    },
+    {
+      "path": "artifacts/death-splatter-round12-dense-800.png",
+      "bytes": 3131589,
+      "sha256": "5102bd00f4e0e11bb379e84a8e9a27f4dbfa3cc69edd77ddeba6e5834bdbace1"
+    },
+    {
+      "path": "artifacts/projectile-continuity-100.png",
+      "bytes": 115025,
+      "sha256": "b729f48f95c833d79a57900488d33053fbf3e40f76b5104a35db5496c7ed0a53"
+    },
+    {
+      "path": "artifacts/projectile-continuity-200.png",
+      "bytes": 110734,
+      "sha256": "360d869f477b7beea809bc622de1e699dc332e075c10d7af6d079d5c59248fe3"
+    },
+    {
+      "path": "artifacts/projectile-continuity-367.png",
+      "bytes": 141131,
+      "sha256": "f4a1221d902122e4c15e49265d08c9efd285f66f8e49e5836a8dd1ccfbe962a3"
+    },
+    {
+      "path": "artifacts/projectile-continuity-567.png",
+      "bytes": 130776,
+      "sha256": "49f97e42c4fb8f78efc28e588c1308ded0efdbe28aa65b975253b96f52412900"
+    },
+    {
+      "path": "artifacts/projectile-continuity-767.png",
+      "bytes": 157466,
+      "sha256": "3403224afef979685ecfb89d8dd0c62051058991c5ff86280c4566e084f93ff1"
+    },
+    {
+      "path": "artifacts/projectile-continuity-1000.png",
+      "bytes": 186123,
+      "sha256": "8dbaf1a3bc94f8c749eba7092f020eb6e6fbabeeacff0bdeec00185215368232"
+    }
+  ],
+  "atlas": {
+    "path": "assets/ui_overhaul/viscous_projectiles_atlas.png",
+    "sha256": "4be2f71331e93b80a9f99fc48f0893c0ca24bbc6eb1d602d670a1b92054c3732",
+    "note": "Reuses previously generated real alpha atlas. No new generated art was substituted during QA."
+  },
+  "performance_report": "docs/test-evidence/round12-death-native-performance.json",
+  "final_source_sha256": {
+    "scripts/weapon_fx.gd": "a11be12efca6c3bcedc5b039736f4512cd9df931c07873487825e04bd504bba5",
+    "scripts/insect_projectiles.gd": "4977ae10d795bc381f178aee1d423cf16025ff56b0acc60b333c5957a4b7bd15",
+    "scripts/viscous_projectile_motion.gd": "916fb57cd2b01630e145a1be765df45269bf1f1c881e4e675e4a3667b6f1d733",
+    "scripts/special_systems.gd": "3bee350d57ce51cac1aa4e0f3124fb5724d7813f5289231711a51ea880459111",
+    "tests/test_projectile_trajectory_scene.gd": "3610699a228ab3f5fd10f975fc9b7b172d903301c0e2dfc159e3c84fd131d905",
+    "tests/test_death_splatter_scene.gd": "08a1c760c896d74ec02c689e6df81bdbac92f97eb366f3184353a825b9d477c4"
+  },
+  "final_capture_note": "Final native trajectory run completed at 2026-10-15 02:26:47 UTC after the 02:26:27 friendly flame bounds update and 02:26:32 fixture padding update. Exit 0, harness passed, no ERROR lines. Source and screenshots frozen after review."
+}

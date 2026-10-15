@@ -100,6 +100,7 @@ func step(dt: float):
 				e.hp-=hole.damage*dt
 				preload("res://scripts/soft_insect.gd").impact(e,Vector2(hole.position),Vector2(e.position)-Vector2(hole.position),hole.damage*dt,"blackhole")
 				e.last_fx="blackhole"; e.last_friendly=hole.friendly
+				e.last_death_direction=Vector2(e.position).direction_to(hole.position)
 				if not e.mission_controlled and e.parent==0:
 					e.position = Vector2(e.position).move_toward(hole.position,hole.force*dt)
 					battle().spatial_moved(e)

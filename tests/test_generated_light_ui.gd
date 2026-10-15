@@ -5,6 +5,10 @@ var checks=[]
 func check(ok:bool,label:String):
  checks.append({"name":label,"passed":ok})
  if not ok:push_error(label)
+func contrast(foreground:Color,background:Color)->float:
+ var a=background.blend(foreground).srgb_to_linear().get_luminance()
+ var b=background.srgb_to_linear().get_luminance()
+ return (maxf(a,b)+.05)/(minf(a,b)+.05)
 func _initialize():call_deferred("execute")
 func execute():
  var parent=Control.new();root.add_child(parent)
@@ -34,10 +38,24 @@ func execute():
   check(Art.skin(key) is StyleBoxTexture and Art.skin(key).texture is AtlasTexture,"Generated raster skin: "+key)
  for state in ["font_color","font_hover_color","font_pressed_color","font_focus_color","font_hover_pressed_color"]:
   var color=theme.get_color(state,"Button")
-  check(color.get_luminance()<0.3 and color.a>0.99,"Dark opaque text in button "+state)
- check(UI.BG.get_luminance()>0.8 and UI.PANEL.get_luminance()>0.85,"All shell backgrounds stay ivory")
- check(theme.get_color("font_color","TooltipLabel")==UI.TOOLTIP_TEXT,"Tooltip navy text remains explicit")
- check(theme.get_stylebox("panel","TooltipPanel").bg_color==UI.TOOLTIP_BG,"Tooltip ivory remains explicit")
+  check(color.get_luminance()>.8 and color.a>0.99,"Opaque near-white text in button "+state)
+ check(UI.BG.get_luminance()<.1 and UI.PANEL.get_luminance()<.15,"Shell backgrounds stay dark purple")
+ for state in ["normal","hover","pressed","hover_pressed","disabled","focus"]:
+  var box=theme.get_stylebox(state,"Button")
+  check(box is StyleBoxFlat,"Neon button uses flat rounded glass: "+state)
+  if box is StyleBoxFlat:
+   var fill=UI.BG.blend(box.bg_color)
+   var text_color=theme.get_color("font_disabled_color" if state=="disabled" else "font_color","Button")
+   check(contrast(text_color,fill)>=4.5,"Button text meets WCAG 4.5 contrast: "+state)
+   check(box.corner_radius_top_left>=20 and box.border_width_top<=2,"Button has rounded corners and restrained rim: "+state)
+ check(not theme.get_stylebox("focus","Button").draw_center,"Focus ring does not repaint button content")
+ var active=UI.card_style(true)
+ check(active is StyleBoxFlat and active.corner_radius_top_left==26 and active.border_color==UI.TEAL,"Selected card uses 26px rose rim")
+ check(UI.TEAL==Color("ff2d95"),"Neon primary accent is rose pink")
+ check(contrast(UI.TEXT,UI.PANEL)>=4.5 and contrast(UI.MUTED,UI.PANEL)>=4.5,"Primary and secondary panel text meet WCAG 4.5")
+ check(contrast(UI.TOOLTIP_TEXT,UI.TOOLTIP_BG)>=4.5,"Tooltip text meets WCAG 4.5")
+ check(theme.get_color("font_color","TooltipLabel")==UI.TOOLTIP_TEXT,"Tooltip white text remains explicit")
+ check(theme.get_stylebox("panel","TooltipPanel").bg_color==UI.TOOLTIP_BG,"Tooltip dark purple remains explicit")
  var label=Label.new();UI.protect(label);label.add_theme_color_override("font_color",UI.TEAL)
  preload("res://scripts/blue_ink.gd").style_item(label)
  check(label.get_theme_color("font_color")==UI.TEAL,"Legacy deferred ink styling respects protected UI")

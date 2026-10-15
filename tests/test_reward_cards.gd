@@ -12,8 +12,8 @@ func inspect_layout(tag:String):
  check(board.get_center().distance_to(viewport.get_center())<1,"Panel centred: "+tag)
  for i in view.buttons.size():
   var button=view.buttons[i];var face=view.faces[i]
-  check(button.get_theme_stylebox("normal") is StyleBoxTexture,"Reward card uses generated raster skin: "+tag+str(i))
-  check(button.get_theme_color("font_color")==load("res://scripts/game_ui.gd").TEXT,"Reward text stays navy: "+tag+str(i))
+  check(button.get_theme_stylebox("normal") is StyleBoxFlat,"Reward card uses Neon glass skin: "+tag+str(i))
+  check(button.get_theme_color("font_color")==load("res://scripts/game_ui.gd").TEXT,"Reward text stays bright: "+tag+str(i))
   check(board.encloses(button.get_global_rect()),"Card inside panel: "+tag+str(i))
   for child in face.get_children():
    check(button.get_global_rect().encloses(child.get_global_rect()),"Card content inside card: "+tag+str(i)+str(child.get_index()))

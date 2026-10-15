@@ -68,7 +68,8 @@ func refresh():
   if known:available+=1
   if known and draft[first]:count+=1
   cards[i].text=db.ui('ACTIVE','启用') if known and draft[first] else (db.ui('OFF','排除') if known else db.ui('LOCKED','未发现'))
-  cards[i].modulate=Color.WHITE if known else Color(1,1,1,.58)
+  cards[i].add_theme_color_override("icon_normal_color",Color.WHITE if known else Color(UI.MUTED,.7))
+  cards[i].add_theme_color_override("font_color",UI.TEXT if known and draft[first] else UI.MUTED)
   cards[i].add_theme_stylebox_override('normal',UI.card_style(known and draft[first]))
   cards[i].tooltip_text=db.title(db.asset(first))+" · "+(db.ui("Active","已启用") if known and draft[first] else (db.ui("Excluded","已排除") if known else db.ui("Undiscovered","未发现")))
  count_label.text='%02d / %02d'%[count,available]+db.ui(' ACTIVE',' 已启用')
