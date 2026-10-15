@@ -17,7 +17,10 @@ var heading:Label
 var detail:Label
 var stat_readout:Label
 var draw_count=0
+var enemy_shield_states:Dictionary={}
+var transitions:Dictionary={}
 var seen_events=0
+var living=preload("res://scripts/living_passive_layer.gd").new()
 
 func setup(owner:Node):
  layer=CanvasLayer.new();layer.layer=6;owner.add_child(layer)
@@ -26,10 +29,10 @@ func setup(owner:Node):
  skin.content_margin_left=18;skin.content_margin_right=18;skin.content_margin_top=10;skin.content_margin_bottom=10
  card.add_theme_stylebox_override("panel",skin)
  var box=VBoxContainer.new();box.mouse_filter=Control.MOUSE_FILTER_IGNORE;box.add_theme_constant_override("separation",3);card.add_child(box)
- heading=Label.new();heading.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS;heading.add_theme_font_size_override("font_size",18);heading.add_theme_color_override("font_color",INK);heading.mouse_filter=Control.MOUSE_FILTER_IGNORE;box.add_child(heading)
+ heading=Label.new();heading.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS;heading.add_theme_font_size_override("font_size",18);heading.add_theme_color_override("font_color",UI.TEXT);heading.mouse_filter=Control.MOUSE_FILTER_IGNORE;box.add_child(heading)
  detail=Label.new();detail.add_theme_font_size_override("font_size",14);detail.add_theme_color_override("font_color",UI.MUTED);detail.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;detail.custom_minimum_size.x=350;detail.max_lines_visible=4;detail.mouse_filter=Control.MOUSE_FILTER_IGNORE;box.add_child(detail)
  card.hide()
- stat_readout=Label.new();stat_readout.theme=UI.theme();stat_readout.add_theme_font_size_override("font_size",12);stat_readout.add_theme_color_override("font_color",INK);stat_readout.mouse_filter=Control.MOUSE_FILTER_IGNORE;layer.add_child(stat_readout)
+ stat_readout=Label.new();stat_readout.theme=UI.theme();stat_readout.add_theme_font_size_override("font_size",12);stat_readout.add_theme_color_override("font_color",UI.TEXT);stat_readout.mouse_filter=Control.MOUSE_FILTER_IGNORE;layer.add_child(stat_readout)
  var atlas_path="res://assets/ui_overhaul/passive_effects_atlas.png"
  if ResourceLoader.exists(atlas_path):
   var sheet=load(atlas_path)
@@ -37,12 +40,17 @@ func setup(owner:Node):
   var keys=["shield","armor","repair","chip","boost","cloak"]
   for i in keys.size():
    var texture=AtlasTexture.new();texture.atlas=sheet;texture.region=regions[i];texture.filter_clip=true;textures[keys[i]]=texture
+ living.setup(owner,textures)
 
 func reset():
  notices.clear();clock=0;seen_events=0
+ living.hide()
+ enemy_shield_states.clear()
+ transitions.clear()
  if is_instance_valid(card):card.hide()
 
 func tick(game,dt:float):
+ if game.screen!="game":living.hide()
  if game.player==null:return
  if game.player.has_method("take_feedback_events"):
   for event in game.player.take_feedback_events():
@@ -56,7 +64,9 @@ func tick(game,dt:float):
   notices=notices.filter(func(notice):return notice.event.get("kind","")!="installed")
  if game.screen in ["menu","result","intro"]:
   notices.clear()
- if game.screen=="game":clock+=dt
+ if game.screen=="game":
+  clock+=dt
+  update_transitions(game.player,dt)
  if not notices.is_empty() and game.screen!="pause":
   notices[0].left-=dt
   if notices[0].left<=0:notices.pop_front()
@@ -82,7 +92,7 @@ func tick(game,dt:float):
  if str(event.get("reward_class","")).ends_with("LevelUpReward"):
   description+="\n"+upgrade_summary(game.db,game.db.asset(event.reward_id))
  detail.text=description
- heading.add_theme_color_override("font_color",GOLD if status in ["pending_module","pending_charge","dormant"] else INK)
+ heading.add_theme_color_override("font_color",UI.AMBER if status in ["pending_module","pending_charge","dormant"] else UI.TEXT)
  card.size=Vector2(400,0)
  card.position=Vector2(24,game.get_viewport_rect().size.y-maxf(70,card.get_combined_minimum_size().y)-72)
  card.modulate.a=minf(1,float(notices[0].left)*3)
@@ -103,19 +113,23 @@ func overlay(canvas,key:String,at:Vector2,extent:Vector2,angle:float,alpha:float
 func paint(canvas,player,combat,zoom:float):
  if not player.has_method("passive_state"):return
  draw_count=0
+ living.begin(clock)
+ living.set_viewport(canvas.get_viewport_rect().size)
  var links=0
  for i in player.parts.size():
   var state:Dictionary=player.passive_state(i)
   if not state.get("alive",false):continue
   var at:Vector2=canvas.world(state.position)
-  if not canvas.get_viewport_rect().grow(240).has_point(at):continue
+  var cull_margin=maxf(240.0,combat.shield_range(i)*zoom if float(state.get("shield_capacity",0))>0 else 0.0)
+  if not canvas.get_viewport_rect().grow(cull_margin).has_point(at):continue
   var origin:Vector2=canvas.world(player.weapon_origin(i))
   var radius=maxf(18,player.module_size(i)*.5+5)*zoom
   var pulses:Dictionary=state.get("pulses",{})
   var angle=float(player.parts[i].angle)
-  if state.get("reinforced",false):
+  var core:Dictionary=player.effective_core(i)
+  if state.get("reinforced",false) or core.get("class")=="WallCore":
    # Two inset flanks leave the weapon face unobscured, unlike a generic ring.
-   overlay(canvas,"armor",origin,Vector2.ONE*radius*2.25,angle,.56)
+   living.add(1,origin,Vector2.ONE*radius*2.25,angle,Color(1,0,1,.85))
    for side in [-1,1]:
     var points=PackedVector2Array()
     for v in [Vector2(-.65,side*.8),Vector2(-.3,side*1.04),Vector2(.38,side*1.04),Vector2(.7,side*.75)]:points.append(origin+v.rotated(angle)*radius)
@@ -123,28 +137,22 @@ func paint(canvas,player,combat,zoom:float):
     canvas.draw_polyline(points,Color(GOLD,.86),1.3*zoom,true)
   if float(state.get("shield_capacity",0))>0:
    var reach:float=combat.shield_range(i)*zoom
-   if float(state.get("shield",0))>0 and state.get("active",false):
-    var strength=clampf(float(state.shield)/maxf(1,float(state.shield_capacity)),0,1)
-    overlay(canvas,"shield",at,Vector2.ONE*reach*2,0,.10+strength*.10)
-    for sector in 6:canvas.draw_arc(at,reach,sector*TAU/6+.025,(sector+1)*TAU/6-.025,14,Color(TEAL,.18+strength*.25),1.3*zoom,true)
-    canvas.draw_arc(at,reach,-PI/2,-PI/2+TAU*strength,64,Color(TEAL,.55),1.8*zoom,true)
-   elif state.get("shield_broken",false):
-    for sector in 4:canvas.draw_arc(at,reach,sector*PI/2+.25,sector*PI/2+.55,5,Color(INK,.15),zoom,true)
-   if float(pulses.get("shield_break",0))>0 and draw_count<MAX_PULSES:
-    draw_count+=1
-    var fade=minf(1,float(pulses.shield_break)*2)
-    for sector in 8:
-     var a=sector*TAU/8
-     canvas.draw_line(at+Vector2.from_angle(a)*reach,at+Vector2.from_angle(a+.05)*(reach+12*zoom*(1-fade)),Color(GOLD,fade*.85),2*zoom,true)
-   if float(pulses.get("shield_hit",0))>0 and state.get("active",false):
-    canvas.draw_arc(at,reach,-PI*.25,PI*.75,32,Color(TEAL,minf(.75,pulses.shield_hit*4)),2.8*zoom,true)
-   if float(pulses.get("shield_recharge",0))>0:
-    canvas.draw_arc(at,reach*.96,clock*2,clock*2+PI*1.4,40,Color(TEAL,minf(1,pulses.shield_recharge)),2.5*zoom,true)
-  if state.get("cloaked",false):
-   overlay(canvas,"cloak",origin,Vector2.ONE*radius*2.4,angle,.35)
+   var strength=clampf(float(state.shield)/maxf(1,float(state.shield_capacity)),0,1)
+   var breaking=float(pulses.get("shield_break",0))
+   if (strength>0 and state.get("active",false)) or breaking>0:
+    var contact:Vector2=player.parts[i].get("feedback_shield_contact",state.position+Vector2.RIGHT*combat.shield_range(i))
+    var contact_uv=(canvas.world(contact)-at)/maxf(1,reach)*.94
+    shield_instance(canvas,at,reach,Color(strength,clampf(float(pulses.get("shield_recharge",0)),0,1),0,1),Color(contact_uv.x,contact_uv.y,float(pulses.get("shield_hit",0)),breaking))
+  var transition:Dictionary=transitions.get(int(state.uid),{"cloak":0.0,"boost":0.0})
+  var cloak_blend=float(transition.cloak)
+  if cloak_blend>0:
+   living.add(5,origin,Vector2.ONE*radius*2.4,angle,Color(1,0,1,.9*cloak_blend))
    for strand in 3:
     var offset=(strand-1)*radius*.7
-    canvas.draw_line(origin+Vector2(-radius,offset+sin(clock*2+strand)*3*zoom),origin+Vector2(radius,offset),Color(PURPLE,.24),1.5*zoom,true)
+    canvas.draw_line(origin+Vector2(-radius,offset+sin(clock*2+strand)*3*zoom),origin+Vector2(radius,offset),Color(PURPLE,.24*cloak_blend),1.5*zoom,true)
+  if core.has("coreChip"):
+   var chip_type=int(player.db.asset(core.coreChip).get("chipType",0))
+   living.add(3,origin,Vector2.ONE*radius*2.2,angle,Color(1,0,clampf(float(pulses.get("chip_trigger",0))*4.5,0,1),.8 if state.active else .25),Color(chip_type,0,0,0))
   for target in state.get("chip_links",[]):
    if links>=MAX_LINKS or int(target)<0 or int(target)>=player.parts.size():break
    links+=1
@@ -154,7 +162,7 @@ func paint(canvas,player,combat,zoom:float):
    canvas.draw_circle(end,2.1*zoom,Color(GOLD,strength),true,-1,true)
   if float(pulses.get("healed",0))>0 and draw_count<MAX_PULSES:
    draw_count+=1
-   overlay(canvas,"repair",origin,Vector2.ONE*radius*2.5,0,minf(.7,pulses.healed))
+   living.add(2,origin,Vector2.ONE*radius*2.5,0,Color(1,0,minf(1,pulses.healed*2),1),Color(float(i)*.13,0,0,0))
    for stitch in 3:
     var p=origin+Vector2((stitch-1)*8,-radius-4)*zoom
     canvas.draw_line(p-Vector2(0,4)*zoom,p+Vector2(0,4)*zoom,Color(REPAIR,minf(1,pulses.healed*2)),2*zoom,true)
@@ -165,7 +173,9 @@ func paint(canvas,player,combat,zoom:float):
    draw_count+=1
    var color=GOLD if kind in ["reinforced","chip_trigger"] else TEAL
    var fade=minf(1,remaining*2)
-   if kind=="chip_trigger":overlay(canvas,"chip",origin,Vector2.ONE*radius*2.6,0,fade*.7)
+   if kind in ["upgrade","reward","installed"]:
+    living.add(3,origin,Vector2.ONE*radius*2.45,angle,Color(1,0,fade,fade*.8),Color(6,0,0,0))
+   # Chip source uses the instanced circuit-packet shader above.
    # Four compact acquisition brackets, only on the actual affected module.
    for corner in 4:
     var a=PI/4+corner*PI/2
@@ -178,9 +188,17 @@ func paint(canvas,player,combat,zoom:float):
    for level in mini(3,total_level):
     var mark=origin+Vector2((level-1)*6,radius/zoom+6)*zoom
     canvas.draw_polyline(PackedVector2Array([mark+Vector2(-2,2)*zoom,mark,mark+Vector2(2,2)*zoom]),Color(TEAL,.68),1.5*zoom,true)
-  var core:Dictionary=player.effective_core(i)
+  if core.get("class")=="RepairCore" and state.active:
+   living.add(2,origin,Vector2.ONE*radius*2.2,angle,Color(1,0,.35 if state.repair_targets.is_empty() else .8,.8),Color(float(i)*.13,0,0,0))
+  if core.get("class")=="PackCore":
+   living.add(1,origin,Vector2.ONE*radius*2.1,angle,Color(1,0,1,.65),Color(1,0,0,0))
+  if player.get("coil_rig")!=null and player.coil_rig.engaged():
+   var blend=clampf(player.coil_rig.elapsed/player.coil_rig.duration(),0,1)
+   if player.coil_rig.phase=="exit":blend=1-blend
+   living.add(1,origin,Vector2.ONE*radius*2.4,angle,Color(1,0,1,blend),Color(2,0,0,0))
   if core.get("class")=="FuelCore" and state.get("active",false):
    var fill=clampf(player.fuel/maxf(1,player.max_fuel),0,1)
+   living.add(4,origin,Vector2.ONE*radius*2.25,angle,Color(fill,0,.15+.85*float(transition.boost),.7))
    var base=origin+Vector2(-12,radius/zoom+12)*zoom
    for pip in 5:
     canvas.draw_line(base+Vector2(pip*6,0)*zoom,base+Vector2(pip*6,4)*zoom,Color(GOLD if player.boost else TEAL,.7 if fill>pip*.2 else .15),2*zoom,true)
@@ -190,8 +208,11 @@ func paint(canvas,player,combat,zoom:float):
    for seed in 3:
     var spot=origin+Vector2.from_angle(angle+PI+(seed-1)*.4)*(radius+8*zoom*(1-fade))
     canvas.draw_circle(spot,2.4*zoom,Color(GOLD,fade),true,-1,true)
-  if i==0 and player.boost:
-   overlay(canvas,"boost",at,Vector2(90,62)*zoom,player.facing.angle(),.35)
+  if i==0 and float(transition.boost)>0:
+   living.add(4,at,Vector2(90,62)*zoom,player.facing.angle(),Color(1,0,float(transition.boost),float(transition.boost)))
+
+ paint_enemy_shields(canvas,combat,zoom)
+ living.finish()
 
  # Actual drone modes, carried salvage and source-linked upgrade ranks.
  for drone in combat.drones:
@@ -210,6 +231,59 @@ func paint(canvas,player,combat,zoom:float):
   for id in player.levels:
    if drone.data.id in player.db.asset(id).get("dronesList",[]):level+=int(player.levels[id])
   for pip in mini(3,level):canvas.draw_circle(at+Vector2((pip-1)*4,-12)*zoom,1.3*zoom,Color(TEAL,.85),true,-1,true)
+
+func update_transitions(player,dt:float):
+ var live:Dictionary={}
+ for part in player.parts:
+  if part.hp<=0:continue
+  var uid=int(part.feedback_uid)
+  live[uid]=true
+  if not transitions.has(uid):transitions[uid]={"cloak":0.0,"boost":0.0}
+  var state:Dictionary=transitions[uid]
+  state.cloak=move_toward(float(state.cloak),1.0 if part.get("cloaked",false) else 0.0,dt/.18)
+  state.boost=move_toward(float(state.boost),1.0 if player.boost else 0.0,dt/.14)
+ for uid in transitions.keys():
+  if not live.has(uid):transitions.erase(uid)
+
+func shield_instance(canvas,at:Vector2,reach:float,state:Color,event:Color):
+ if living.add(0,at,Vector2.ONE*reach*2.12,0,state,event):return
+ # Budget overflow retains truthful protection silhouettes, never invisible shields.
+ var tint=TEAL if state.b<.5 else Color("ba466b")
+ canvas.draw_arc(at,reach,0,TAU,40,Color(tint,.22+state.r*.17),1.2,true)
+ canvas.draw_arc(at,reach,clock*.7,clock*.7+.6,12,Color(tint,.55),2,true)
+ if event.b>0:
+  var angle=Vector2(event.r,event.g).angle()
+  canvas.draw_arc(at,reach,angle-.2,angle+.2,10,Color(tint,event.b*3),3,true)
+
+func paint_enemy_shields(canvas,combat,zoom:float):
+ var active_keys:Dictionary={}
+ for enemy in combat.enemies:
+  if enemy.hp<=0:continue
+  for index in enemy.get("guns",[]).size():
+   var gun:Dictionary=enemy.guns[index]
+   var core:Dictionary=combat.db.asset(gun.id)
+   if core.get("class")!="ShieldCore":continue
+   var key=str(enemy.uid)+":"+str(index)
+   active_keys[key]=true
+   var capacity=float(core.maxShieldHealth)
+   var strength=clampf(float(gun.get("shield",capacity))/maxf(1,capacity),0,1)
+   var serial=int(gun.get("feedback_shield_hit_serial",0))
+   if not enemy_shield_states.has(key):enemy_shield_states[key]={"serial":0,"hit":-10.0,"break":-10.0,"recharge":-10.0,"strength":strength}
+   var history:Dictionary=enemy_shield_states[key]
+   if serial!=history.serial:history.hit=clock;history.serial=serial
+   if strength<=0 and history.strength>0:history["break"]=clock
+   if strength>history.strength:history.recharge=clock
+   history.strength=strength
+   var breaking=maxf(0,.7-(clock-float(history["break"])))
+   if (strength<=0 or enemy.stun>0) and breaking<=0:continue
+   var at:Vector2=canvas.world(enemy.position)
+   var reach=float(core.ShieldRange)*48*zoom
+   if not canvas.get_viewport_rect().grow(reach).has_point(at):continue
+   var contact:Vector2=gun.get("feedback_shield_contact",enemy.position+Vector2.RIGHT*reach/maxf(.01,zoom))
+   var contact_uv=(canvas.world(contact)-at)/maxf(1,reach)*.94
+   shield_instance(canvas,at,reach,Color(strength,maxf(0,.7-(clock-float(history.recharge))),0 if enemy.get("role","")=="friendly" else 1,1),Color(contact_uv.x,contact_uv.y,maxf(0,.25-(clock-float(history.hit))),breaking))
+ for key in enemy_shield_states.keys():
+  if not active_keys.has(key):enemy_shield_states.erase(key)
 
 static func stat_name(db,key:String)->String:
  if key.is_valid_float():key=str(int(key.to_float()))

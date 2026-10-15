@@ -1,6 +1,7 @@
 extends RefCounted
 ## Organic projectile bodies, pollen trails, split husks, and directional ink VFX.
 ## Presentation only; no opaque particle billboards or factory ordnance art.
+const AttackShaders = preload("res://scripts/attack_shader_layer.gd")
 const Feedback = preload("res://scripts/weapon_feedback.gd")
 const Organic = preload("res://scripts/insect_projectiles.gd")
 const DeathSplatter=preload("res://scripts/enemy_death_splatter.gd")
@@ -57,6 +58,7 @@ func paint_gatling(canvas, bullet: Dictionary, zoom: float):
 
 func paint_projectile(canvas, bullet: Dictionary, time: float, zoom: float):
 	if not visible(canvas,bullet.position):return
+	canvas=AttackShaders.route(canvas,Organic.family(bullet),not bool(bullet.get("friendly",true)))
 	# Body is never dropped by the embellishment budget and never uses factory sprites.
 	Organic.paint(canvas,bullet,zoom,time)
 	# Hostile direction cues are opaque and mandatory, independent of FX budgets.
@@ -120,8 +122,9 @@ func paint(canvas, battle, time: float, zoom: float):
 		if not visible(canvas,mine.position): continue
 		var at=canvas.world(mine.position)
 		var pulse=0.5+0.5*sin(clock*6+mine.position.x)
-		ring(canvas,at,(15+pulse*4)*zoom,Feedback.PROFILES.mine.color,0.35+pulse*0.35,1.5*zoom)
-		glow(canvas,at,12*zoom,Feedback.PROFILES.mine.accent,0.55)
+		var mine_canvas=AttackShaders.route(canvas,"mine",not bool(mine.get("friendly",true)))
+		ring(mine_canvas,at,(15+pulse*4)*zoom,Feedback.PROFILES.mine.color,0.35+pulse*0.35,1.5*zoom)
+		glow(mine_canvas,at,12*zoom,Feedback.PROFILES.mine.accent,0.55)
 
 func order_effects(effects:Array):
 	hazard_effects.clear();major_effects.clear();minor_effects.clear()
@@ -134,6 +137,7 @@ func order_effects(effects:Array):
 			minor_effects.append(effect)
 
 func paint_effect(canvas, effect: Dictionary, zoom: float):
+	canvas=AttackShaders.route(canvas,str(effect.get("fx_family","tesla" if effect.kind=="chain" else ("emp" if effect.kind in ["emp","shield_hit"] else "impact"))),not bool(effect.get("friendly",true)))
 	var key = str(effect.get("fx_family", "tesla" if effect.kind=="chain" else ("emp" if effect.kind in ["emp","shield_hit"] else "impact")))
 	var style = Feedback.profile(key)
 	if not effect.get("friendly",true):
@@ -327,7 +331,10 @@ func paint_hostile_flame(canvas, effect: Dictionary, style: Dictionary, alpha: f
 		if t<0.65:glow(canvas,at,radius*0.55,Color("fff4cb"),(1-t)*alpha)
 
 func paint_hole(canvas, hole: Dictionary, zoom: float):
+	canvas=AttackShaders.route(canvas,"blackhole",not bool(hole.get("friendly",true)))
 	var at=canvas.world(hole.position)
+	canvas.draw_set_transform(at)
+	at=Vector2.ZERO
 	var radius=float(hole.radius)*zoom
 	var style=Feedback.PROFILES.blackhole
 	glow(canvas,at,radius*1.4,style.color,0.7)
@@ -356,6 +363,8 @@ func paint_hole(canvas, hole: Dictionary, zoom: float):
 		var axis=Vector2.from_angle(i*2.4+t*3)
 		var point=at+axis*radius*lerpf(1.35,0.48,t)
 		canvas.draw_line(point,point-axis*9*zoom,Color(style.color,0.9),1.6*zoom,true)
+
+	canvas.draw_set_transform(Vector2.ZERO)
 
 func paint_viscous_contact(canvas,at:Vector2,effect:Dictionary,progress:float,zoom:float):
 	var kind=str(effect.get("organic_family","mucus"))
@@ -386,3 +395,38 @@ func paint_tongue(canvas,effect:Dictionary,zoom:float):
 	var width=(6.0+sin(progress*PI)*1.5)*zoom
 	Viscous.stamp(canvas,"wet_trail",start.lerp(finish,0.5),Vector2(start.distance_to(finish)+1.0,width),start.direction_to(finish).angle(),0.96)
 	Viscous.stamp(canvas,"tongue",finish,Vector2(21,11)*zoom,start.direction_to(target).angle(),clampf(float(effect.life)/0.04,0.0,1.0))
+	# Distinct bioelectric structures run on the family shader batch, over the
+	# generated tongue. All endpoints and retraction still use the same contact.
+	var family=str(effect.get("fx_family","rail"))
+	var axis=start.direction_to(finish)
+	var side=axis.orthogonal()
+	var alpha=clampf(float(effect.life)/0.045,0.0,1.0)
+	if family=="tesla":
+		var arc=PackedVector2Array([start])
+		var steps=clampi(int(start.distance_to(finish)/(12.0*zoom)),5,30)
+		for i in range(1,steps):
+			var t=float(i)/steps
+			var offset=sin(i*9.7+floor(clock*24.0)*2.7)*4.0*zoom*sin(t*PI)
+			arc.append(start.lerp(finish,t)+side*offset)
+		arc.append(finish)
+		canvas.draw_polyline(arc,Color("537df9")*Color(1,1,1,alpha*0.38),6.0*zoom,true)
+		canvas.draw_polyline(arc,Color("72e9ff")*Color(1,1,1,alpha),2.1*zoom,true)
+		canvas.draw_polyline(arc,Color("f1fdff")*Color(1,1,1,alpha),0.8*zoom,true)
+		for i in range(2,arc.size()-1,4):
+			var tip=arc[i]+side*sin(clock*29.0+i)*8.0*zoom-axis*3.0*zoom
+			canvas.draw_polyline(PackedVector2Array([arc[i],tip,tip+axis*5.0*zoom]),Color("a1dfff")*Color(1,1,1,alpha*0.85),1.0*zoom,true)
+	elif family=="sonic":
+		canvas.draw_line(start,finish,Color("a596ff")*Color(1,1,1,alpha*0.7),2.0*zoom,true)
+		for i in range(4):
+			var phase=fposmod(clock*2.6+i*0.25,1.0)
+			var center=start.lerp(finish,phase)
+			var band=PackedVector2Array()
+			var radius=(3.0+phase*7.0)*zoom
+			for j in range(17):
+				var angle=float(j)/16.0*TAU
+				band.append(center+axis*cos(angle)*radius*0.27+side*sin(angle)*radius)
+			canvas.draw_polyline(band,Color("8ce7e9" if i%2==0 else "d5a2ff")*Color(1,1,1,alpha*sin(phase*PI)*0.85),1.35*zoom,true)
+	elif family=="rail":
+		canvas.draw_line(start,finish,Color("657bf2")*Color(1,1,1,alpha*0.62),3.5*zoom,true)
+		var pressure=clampf(progress/0.32,0.0,1.0)
+		canvas.draw_line(start.lerp(finish,maxf(0.0,pressure-0.38)),start.lerp(finish,pressure),Color("d3ffff")*Color(1,1,1,alpha),1.9*zoom,true)

@@ -1,0 +1,12 @@
+{
+  "suites": [
+    {
+      "suite": "enemy_motion",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.64,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

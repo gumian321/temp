@@ -1,0 +1,504 @@
+{
+	"checks": [
+		{
+			"name": "gatling production route populated",
+			"passed": true
+		},
+		{
+			"name": "shotgun production route populated",
+			"passed": true
+		},
+		{
+			"name": "cannon production route populated",
+			"passed": true
+		},
+		{
+			"name": "flame production route populated",
+			"passed": true
+		},
+		{
+			"name": "flak production route populated",
+			"passed": true
+		},
+		{
+			"name": "nuke production route populated",
+			"passed": true
+		},
+		{
+			"name": "mine production route populated",
+			"passed": true
+		},
+		{
+			"name": "rocket production route populated",
+			"passed": true
+		},
+		{
+			"name": "drone production route populated",
+			"passed": true
+		},
+		{
+			"name": "rail production route populated",
+			"passed": true
+		},
+		{
+			"name": "tesla production route populated",
+			"passed": true
+		},
+		{
+			"name": "emp production route populated",
+			"passed": true
+		},
+		{
+			"name": "sonic production route populated",
+			"passed": true
+		},
+		{
+			"name": "blackhole production route populated",
+			"passed": true
+		},
+		{
+			"name": "impact production route populated",
+			"passed": true
+		},
+		{
+			"name": "silk production route populated",
+			"passed": true
+		},
+		{
+			"name": "tendril production route populated",
+			"passed": true
+		},
+		{
+			"name": "repair_drone production route populated",
+			"passed": true
+		},
+		{
+			"name": "scrap_drone production route populated",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 0",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 1",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 2",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 3",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 4",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 5",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 6",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 7",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 8",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 9",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 10",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 11",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 12",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 13",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 14",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 15",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 16",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 17",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 18",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 19",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 20",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 21",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 22",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 23",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 24",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 25",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 26",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 27",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 28",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 29",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 30",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 31",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 32",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 33",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 34",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 35",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 36",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 37",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 38",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 39",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 40",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 41",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 42",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 43",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 44",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 45",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 46",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 47",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 48",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 49",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 50",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 51",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 52",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 53",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 54",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 55",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 56",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 57",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 58",
+			"passed": true
+		},
+		{
+			"name": "Captured shader-only frame 59",
+			"passed": true
+		},
+		{
+			"name": "No geometry rebuild or motion across shader-only movie",
+			"passed": true
+		},
+		{
+			"name": "gatling native pixels change when ONLY shader clock changes",
+			"passed": true
+		},
+		{
+			"name": "shotgun native pixels change when ONLY shader clock changes",
+			"passed": true
+		},
+		{
+			"name": "cannon native pixels change when ONLY shader clock changes",
+			"passed": true
+		},
+		{
+			"name": "flame native pixels change when ONLY shader clock changes",
+			"passed": true
+		},
+		{
+			"name": "flak native pixels change when ONLY shader clock changes",
+			"passed": true
+		},
+		{
+			"name": "nuke native pixels change when ONLY shader clock changes",
+			"passed": true
+		},
+		{
+			"name": "mine native pixels change when ONLY shader clock changes",
+			"passed": true
+		},
+		{
+			"name": "rocket native pixels change when ONLY shader clock changes",
+			"passed": true
+		},
+		{
+			"name": "drone native pixels change when ONLY shader clock changes",
+			"passed": true
+		},
+		{
+			"name": "rail native pixels change when ONLY shader clock changes",
+			"passed": true
+		},
+		{
+			"name": "tesla native pixels change when ONLY shader clock changes",
+			"passed": true
+		},
+		{
+			"name": "emp native pixels change when ONLY shader clock changes",
+			"passed": true
+		},
+		{
+			"name": "sonic native pixels change when ONLY shader clock changes",
+			"passed": true
+		},
+		{
+			"name": "blackhole native pixels change when ONLY shader clock changes",
+			"passed": true
+		},
+		{
+			"name": "impact native pixels change when ONLY shader clock changes",
+			"passed": true
+		},
+		{
+			"name": "silk native pixels change when ONLY shader clock changes",
+			"passed": true
+		},
+		{
+			"name": "tendril native pixels change when ONLY shader clock changes",
+			"passed": true
+		},
+		{
+			"name": "repair_drone native pixels change when ONLY shader clock changes",
+			"passed": true
+		},
+		{
+			"name": "scrap_drone native pixels change when ONLY shader clock changes",
+			"passed": true
+		}
+	],
+	"display": "X11",
+	"fps": 15,
+	"frames": 60,
+	"frozen_geometry_commands": 185,
+	"passed": true,
+	"per_family": [
+		{
+			"changed_pixels": 2203,
+			"family": "gatling",
+			"sample_pixels": 24750
+		},
+		{
+			"changed_pixels": 3747,
+			"family": "shotgun",
+			"sample_pixels": 24750
+		},
+		{
+			"changed_pixels": 6667,
+			"family": "cannon",
+			"sample_pixels": 24750
+		},
+		{
+			"changed_pixels": 2031,
+			"family": "flame",
+			"sample_pixels": 24750
+		},
+		{
+			"changed_pixels": 5287,
+			"family": "flak",
+			"sample_pixels": 24750
+		},
+		{
+			"changed_pixels": 12340,
+			"family": "nuke",
+			"sample_pixels": 24750
+		},
+		{
+			"changed_pixels": 2870,
+			"family": "mine",
+			"sample_pixels": 24750
+		},
+		{
+			"changed_pixels": 7984,
+			"family": "rocket",
+			"sample_pixels": 24750
+		},
+		{
+			"changed_pixels": 2668,
+			"family": "drone",
+			"sample_pixels": 24750
+		},
+		{
+			"changed_pixels": 1164,
+			"family": "rail",
+			"sample_pixels": 24750
+		},
+		{
+			"changed_pixels": 1019,
+			"family": "tesla",
+			"sample_pixels": 24750
+		},
+		{
+			"changed_pixels": 2257,
+			"family": "emp",
+			"sample_pixels": 24750
+		},
+		{
+			"changed_pixels": 819,
+			"family": "sonic",
+			"sample_pixels": 24750
+		},
+		{
+			"changed_pixels": 4126,
+			"family": "blackhole",
+			"sample_pixels": 24750
+		},
+		{
+			"changed_pixels": 528,
+			"family": "impact",
+			"sample_pixels": 24750
+		},
+		{
+			"changed_pixels": 1524,
+			"family": "silk",
+			"sample_pixels": 24750
+		},
+		{
+			"changed_pixels": 1054,
+			"family": "tendril",
+			"sample_pixels": 24750
+		},
+		{
+			"changed_pixels": 1088,
+			"family": "repair_drone",
+			"sample_pixels": 24750
+		},
+		{
+			"changed_pixels": 1292,
+			"family": "scrap_drone",
+			"sample_pixels": 24750
+		}
+	],
+	"renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+	"scope": "Production material batches and production drawing entrypoints, fixed geometry/lifetimes/textures. Only uniform clock changes. Native OpenGL, no headless fallback."
+}

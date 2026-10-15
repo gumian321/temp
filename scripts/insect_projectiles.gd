@@ -1,5 +1,6 @@
 extends RefCounted
 ## Generated organic bodies. Internal source weapon IDs remain compatible with saves.
+const AttackShaders = preload("res://scripts/attack_shader_layer.gd")
 const ATLAS_PATH = "res://assets/ui_overhaul/insect_projectiles_atlas.png"
 const Viscous = preload("res://scripts/viscous_projectiles.gd")
 const Feedback = preload("res://scripts/weapon_feedback.gd")
@@ -54,6 +55,7 @@ static func texture(key: String) -> Texture2D:
 
 static func paint(canvas, bullet: Dictionary, zoom: float, time: float = 0.0):
 	var key=family(bullet)
+	canvas=AttackShaders.route(canvas,key,not bool(bullet.get("friendly",true)))
 	var at:Vector2=canvas.world(bullet.position)
 	var heading=angle(bullet)
 	var hostile=not bool(bullet.get("friendly",true))

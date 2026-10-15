@@ -1,0 +1,628 @@
+{
+	"checks": [
+		{
+			"name": "Install Core_Gun_Gatling",
+			"passed": true
+		},
+		{
+			"name": "Install Core_Chip_Mammoth",
+			"passed": true
+		},
+		{
+			"name": "Install Core_Shield",
+			"passed": true
+		},
+		{
+			"name": "Install Core_Repair",
+			"passed": true
+		},
+		{
+			"name": "Install Core_Gun_Cannon",
+			"passed": true
+		},
+		{
+			"name": "Install Core_Clocking",
+			"passed": true
+		},
+		{
+			"name": "Install Core_FuelTank",
+			"passed": true
+		},
+		{
+			"name": "Six fixed MultiMesh ShaderMaterial batches",
+			"passed": true
+		},
+		{
+			"name": "Native passive material attached",
+			"passed": true
+		},
+		{
+			"name": "Native passive material attached",
+			"passed": true
+		},
+		{
+			"name": "Native passive material attached",
+			"passed": true
+		},
+		{
+			"name": "Native passive material attached",
+			"passed": true
+		},
+		{
+			"name": "Native passive material attached",
+			"passed": true
+		},
+		{
+			"name": "Native passive material attached",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 0",
+			"passed": true
+		},
+		{
+			"name": "State capture sustain",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 1",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 2",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 3",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 4",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 5",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 6",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 7",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 8",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 9",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 10",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 11",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 12",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 13",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 14",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 15",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 16",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 17",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 18",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 19",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 20",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 21",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 22",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 23",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 24",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 25",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 26",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 27",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 28",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 29",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 30",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 31",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 32",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 33",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 34",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 35",
+			"passed": true
+		},
+		{
+			"name": "Real damage event emits local shield impact",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 36",
+			"passed": true
+		},
+		{
+			"name": "State capture hit",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 37",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 38",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 39",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 40",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 41",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 42",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 43",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 44",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 45",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 46",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 47",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 48",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 49",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 50",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 51",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 52",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 53",
+			"passed": true
+		},
+		{
+			"name": "Real shield break state",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 54",
+			"passed": true
+		},
+		{
+			"name": "State capture break",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 55",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 56",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 57",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 58",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 59",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 60",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 61",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 62",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 63",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 64",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 65",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 66",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 67",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 68",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 69",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 70",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 71",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 72",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 73",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 74",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 75",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 76",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 77",
+			"passed": true
+		},
+		{
+			"name": "Real recharge state",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 78",
+			"passed": true
+		},
+		{
+			"name": "State capture recover",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 79",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 80",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 81",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 82",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 83",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 84",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 85",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 86",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 87",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 88",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 89",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 90",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 91",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 92",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 93",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 94",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 95",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 96",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 97",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 98",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 99",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 100",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 101",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 102",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 103",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 104",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 105",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 106",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 107",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 108",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 109",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 110",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 111",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 112",
+			"passed": true
+		},
+		{
+			"name": "Native shield frame 113",
+			"passed": true
+		},
+		{
+			"name": "Shield shader instances visible after recovery",
+			"passed": true
+		},
+		{
+			"name": "Radar early return clears all passive instances",
+			"passed": true
+		},
+		{
+			"name": "Leaving radar reconstructs shield",
+			"passed": true
+		},
+		{
+			"name": "Pause preserves shield with frozen shader time",
+			"passed": true
+		},
+		{
+			"name": "Menu clears all passive instances",
+			"passed": true
+		},
+		{
+			"name": "Reset leaves no old passive instances",
+			"passed": true
+		}
+	],
+	"display": "X11",
+	"fps": 30,
+	"frames": 114,
+	"passed": true,
+	"renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+	"scope": "Production main renderer. Sustain, hit, break and recovery originate from real combat/player state. Fixed isolated save. No gameplay clock advancement during visual segments.",
+	"states": [
+		{
+			"counts": [
+				1,
+				0,
+				2,
+				8,
+				2,
+				2
+			],
+			"frame": 0,
+			"shield": 150.0,
+			"state": "sustain"
+		},
+		{
+			"counts": [
+				1,
+				0,
+				1,
+				1,
+				2,
+				2
+			],
+			"frame": 36,
+			"shield": 149.0,
+			"state": "hit"
+		},
+		{
+			"counts": [
+				1,
+				0,
+				1,
+				1,
+				2,
+				2
+			],
+			"frame": 54,
+			"shield": 0.0,
+			"state": "break"
+		},
+		{
+			"counts": [
+				1,
+				0,
+				2,
+				1,
+				2,
+				2
+			],
+			"frame": 78,
+			"shield": 75.0,
+			"state": "recover"
+		}
+	]
+}

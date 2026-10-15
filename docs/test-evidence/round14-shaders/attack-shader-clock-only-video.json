@@ -1,0 +1,18 @@
+{
+  "programs": [],
+  "stream_groups": [],
+  "streams": [
+    {
+      "width": 1440,
+      "height": 900,
+      "avg_frame_rate": "15/1",
+      "nb_frames": "60"
+    }
+  ],
+  "format": {
+    "duration": "4.000000",
+    "size": "558037"
+  },
+  "source_native_frames": 60,
+  "scope": "Exact native OpenGL Godot viewport captures. Encoded at simulation sampling rate; not a performance recording or user GPU FPS measurement."
+}

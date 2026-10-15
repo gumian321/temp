@@ -1,0 +1,206 @@
+{
+	"checks": [
+		{
+			"name": "One shared ordered material per family",
+			"passed": true
+		},
+		{
+			"name": "Fixed friendly/hostile ordered batches plus foreground",
+			"passed": true
+		},
+		{
+			"name": "Bound runtime shader: gatling",
+			"passed": true
+		},
+		{
+			"name": "Actual family drawing enqueued: gatling",
+			"passed": true
+		},
+		{
+			"name": "Bound runtime shader: shotgun",
+			"passed": true
+		},
+		{
+			"name": "Actual family drawing enqueued: shotgun",
+			"passed": true
+		},
+		{
+			"name": "Bound runtime shader: cannon",
+			"passed": true
+		},
+		{
+			"name": "Actual family drawing enqueued: cannon",
+			"passed": true
+		},
+		{
+			"name": "Bound runtime shader: flame",
+			"passed": true
+		},
+		{
+			"name": "Actual family drawing enqueued: flame",
+			"passed": true
+		},
+		{
+			"name": "Bound runtime shader: flak",
+			"passed": true
+		},
+		{
+			"name": "Actual family drawing enqueued: flak",
+			"passed": true
+		},
+		{
+			"name": "Bound runtime shader: nuke",
+			"passed": true
+		},
+		{
+			"name": "Actual family drawing enqueued: nuke",
+			"passed": true
+		},
+		{
+			"name": "Bound runtime shader: mine",
+			"passed": true
+		},
+		{
+			"name": "Actual family drawing enqueued: mine",
+			"passed": true
+		},
+		{
+			"name": "Bound runtime shader: rocket",
+			"passed": true
+		},
+		{
+			"name": "Actual family drawing enqueued: rocket",
+			"passed": true
+		},
+		{
+			"name": "Bound runtime shader: drone",
+			"passed": true
+		},
+		{
+			"name": "Actual family drawing enqueued: drone",
+			"passed": true
+		},
+		{
+			"name": "Bound runtime shader: rail",
+			"passed": true
+		},
+		{
+			"name": "Actual family drawing enqueued: rail",
+			"passed": true
+		},
+		{
+			"name": "Bound runtime shader: tesla",
+			"passed": true
+		},
+		{
+			"name": "Actual family drawing enqueued: tesla",
+			"passed": true
+		},
+		{
+			"name": "Bound runtime shader: emp",
+			"passed": true
+		},
+		{
+			"name": "Actual family drawing enqueued: emp",
+			"passed": true
+		},
+		{
+			"name": "Bound runtime shader: sonic",
+			"passed": true
+		},
+		{
+			"name": "Actual family drawing enqueued: sonic",
+			"passed": true
+		},
+		{
+			"name": "Bound runtime shader: blackhole",
+			"passed": true
+		},
+		{
+			"name": "Actual family drawing enqueued: blackhole",
+			"passed": true
+		},
+		{
+			"name": "Bound runtime shader: impact",
+			"passed": true
+		},
+		{
+			"name": "Actual family drawing enqueued: impact",
+			"passed": true
+		},
+		{
+			"name": "Bound runtime shader: silk",
+			"passed": true
+		},
+		{
+			"name": "Actual family drawing enqueued: silk",
+			"passed": true
+		},
+		{
+			"name": "Bound runtime shader: tendril",
+			"passed": true
+		},
+		{
+			"name": "Actual family drawing enqueued: tendril",
+			"passed": true
+		},
+		{
+			"name": "Bound runtime shader: repair_drone",
+			"passed": true
+		},
+		{
+			"name": "Actual family drawing enqueued: repair_drone",
+			"passed": true
+		},
+		{
+			"name": "Bound runtime shader: scrap_drone",
+			"passed": true
+		},
+		{
+			"name": "Actual family drawing enqueued: scrap_drone",
+			"passed": true
+		},
+		{
+			"name": "Geometry and art preserve caller order in the same batch",
+			"passed": true
+		},
+		{
+			"name": "Friendly tongue early-return uses electric texture shader",
+			"passed": true
+		},
+		{
+			"name": "Rendering preserves all attack lifecycle/simulation data",
+			"passed": true
+		},
+		{
+			"name": "Twelve frames never allocate new materials or nodes",
+			"passed": true
+		},
+		{
+			"name": "Every frame clears all old attack commands",
+			"passed": true
+		},
+		{
+			"name": "Incoming hazards render over friendly effects",
+			"passed": true
+		},
+		{
+			"name": "Loot remains above friendly effects and below incoming hazards",
+			"passed": true
+		},
+		{
+			"name": "Production submits native commands without allocating replay arrays",
+			"passed": true
+		},
+		{
+			"name": "Native command counts clear on the next frame",
+			"passed": true
+		}
+	],
+	"passed": true,
+	"stats": {
+		"batches": 39,
+		"commands": 0,
+		"materials": 19
+	}
+}

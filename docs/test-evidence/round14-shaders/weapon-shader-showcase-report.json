@@ -1,0 +1,2095 @@
+{
+	"captures": [
+		"res://artifacts/round14/weapon-gatling.png",
+		"res://artifacts/round14/weapon-shotgun.png",
+		"res://artifacts/round14/weapon-cannon.png",
+		"res://artifacts/round14/weapon-flak.png",
+		"res://artifacts/round14/weapon-rail.png",
+		"res://artifacts/round14/weapon-tesla.png",
+		"res://artifacts/round14/weapon-emp.png",
+		"res://artifacts/round14/weapon-flame.png",
+		"res://artifacts/round14/weapon-rocket.png",
+		"res://artifacts/round14/weapon-nuke.png",
+		"res://artifacts/round14/weapon-sonic.png",
+		"res://artifacts/round14/weapon-blackhole.png",
+		"res://artifacts/round14/weapon-mine.png",
+		"res://artifacts/round14/weapon-drone.png"
+	],
+	"checks": [
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0000.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0001.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-gatling.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0002.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0003.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0004.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0005.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0006.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0007.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0008.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0009.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0010.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0011.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0012.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0013.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0014.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0015.png",
+			"passed": true
+		},
+		{
+			"name": "gatling production shader batches draw during lifetime",
+			"passed": true
+		},
+		{
+			"name": "gatling reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "gatling keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0016.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0017.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-shotgun.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0018.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0019.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0020.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0021.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0022.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0023.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0024.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0025.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0026.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0027.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0028.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0029.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0030.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0031.png",
+			"passed": true
+		},
+		{
+			"name": "shotgun production shader batches draw during lifetime",
+			"passed": true
+		},
+		{
+			"name": "shotgun reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "shotgun keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0032.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0033.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-cannon.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0034.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0035.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0036.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0037.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0038.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0039.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0040.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0041.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0042.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0043.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0044.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0045.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0046.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0047.png",
+			"passed": true
+		},
+		{
+			"name": "cannon production shader batches draw during lifetime",
+			"passed": true
+		},
+		{
+			"name": "cannon reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "cannon keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0048.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0049.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-flak.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0050.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0051.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0052.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0053.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0054.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0055.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0056.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0057.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0058.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0059.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0060.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0061.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0062.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0063.png",
+			"passed": true
+		},
+		{
+			"name": "flak production shader batches draw during lifetime",
+			"passed": true
+		},
+		{
+			"name": "flak reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "flak keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0064.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0065.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-rail.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0066.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0067.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0068.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0069.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0070.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0071.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0072.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0073.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0074.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0075.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0076.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0077.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0078.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0079.png",
+			"passed": true
+		},
+		{
+			"name": "rail production shader batches draw during lifetime",
+			"passed": true
+		},
+		{
+			"name": "rail reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "rail keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0080.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0081.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-tesla.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0082.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0083.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0084.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0085.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0086.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0087.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0088.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0089.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0090.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0091.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0092.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0093.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0094.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0095.png",
+			"passed": true
+		},
+		{
+			"name": "tesla production shader batches draw during lifetime",
+			"passed": true
+		},
+		{
+			"name": "tesla reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "tesla keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0096.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0097.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-emp.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0098.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0099.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0100.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0101.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0102.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0103.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0104.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0105.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0106.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0107.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0108.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0109.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0110.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0111.png",
+			"passed": true
+		},
+		{
+			"name": "emp production shader batches draw during lifetime",
+			"passed": true
+		},
+		{
+			"name": "emp reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "emp keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0112.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0113.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-flame.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0114.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0115.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0116.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0117.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0118.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0119.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0120.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0121.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0122.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0123.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0124.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0125.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0126.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0127.png",
+			"passed": true
+		},
+		{
+			"name": "flame production shader batches draw during lifetime",
+			"passed": true
+		},
+		{
+			"name": "flame reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "flame keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0128.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0129.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-rocket.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0130.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0131.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0132.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0133.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0134.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0135.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0136.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0137.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0138.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0139.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0140.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0141.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0142.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0143.png",
+			"passed": true
+		},
+		{
+			"name": "rocket production shader batches draw during lifetime",
+			"passed": true
+		},
+		{
+			"name": "rocket reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "rocket keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0144.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0145.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-nuke.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0146.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0147.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0148.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0149.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0150.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0151.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0152.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0153.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0154.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0155.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0156.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0157.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0158.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0159.png",
+			"passed": true
+		},
+		{
+			"name": "nuke production shader batches draw during lifetime",
+			"passed": true
+		},
+		{
+			"name": "nuke reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "nuke keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0160.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0161.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-sonic.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0162.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0163.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0164.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0165.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0166.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0167.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0168.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0169.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0170.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0171.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0172.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0173.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0174.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0175.png",
+			"passed": true
+		},
+		{
+			"name": "sonic production shader batches draw during lifetime",
+			"passed": true
+		},
+		{
+			"name": "sonic reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "sonic keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0176.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0177.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-blackhole.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0178.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0179.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0180.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0181.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0182.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0183.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0184.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0185.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0186.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0187.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0188.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0189.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0190.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0191.png",
+			"passed": true
+		},
+		{
+			"name": "blackhole production shader batches draw during lifetime",
+			"passed": true
+		},
+		{
+			"name": "blackhole reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "blackhole keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0192.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0193.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-mine.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0194.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0195.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0196.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0197.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0198.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0199.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0200.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0201.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0202.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0203.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0204.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0205.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0206.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0207.png",
+			"passed": true
+		},
+		{
+			"name": "mine production shader batches draw during lifetime",
+			"passed": true
+		},
+		{
+			"name": "mine reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "mine keeps the production scene playable",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0208.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0209.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved weapon-drone.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0210.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0211.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0212.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0213.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0214.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0215.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0216.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0217.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0218.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0219.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0220.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0221.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0222.png",
+			"passed": true
+		},
+		{
+			"name": "All attack ShaderMaterials attached",
+			"passed": true
+		},
+		{
+			"name": "Saved frame-0223.png",
+			"passed": true
+		},
+		{
+			"name": "drone production shader batches draw during lifetime",
+			"passed": true
+		},
+		{
+			"name": "drone reaches a target through real combat and renders its feedback",
+			"passed": true
+		},
+		{
+			"name": "drone keeps the production scene playable",
+			"passed": true
+		}
+	],
+	"clip_frames": 224,
+	"passed": true,
+	"scope": "Fourteen real weapon families against stationary controlled targets in the production scene. Preview captures visual behavior; audio is validated separately."
+}

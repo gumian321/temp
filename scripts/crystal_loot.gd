@@ -10,7 +10,7 @@ static func extent(value:int,zoom:float,carried:bool=false)->float:
 	var base=[30.0,36.0,44.0][tier(value)]
 	return clampf(base*zoom,base*.8,base*1.5)*(0.72 if carried else 1.0)
 
-static func paint(canvas:CanvasItem,drop:Dictionary,clock:float,zoom:float):
+static func paint(canvas,drop:Dictionary,clock:float,zoom:float):
 	if drop.get("delivered",false):return
 	var rank=tier(int(drop.get("value",1)))
 	var carried=bool(drop.get("carried",false))
