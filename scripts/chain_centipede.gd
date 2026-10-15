@@ -18,6 +18,17 @@ var rush_active = false
 const Flagella = preload("res://scripts/flagella.gd")
 const MAX_FUSION_LEVEL = 4
 var flagella = Flagella.new()
+const Fragments = preload("res://scripts/centipede_fragments.gd")
+var fragment_recovery = Fragments.new()
+var detached_fragments: Array:
+	get: return fragment_recovery.groups
+
+func detached_module_count() -> int:
+	return fragment_recovery.count()
+
+func remove_destroyed_parts(indices: Array):
+	fragment_recovery.sever(self, indices)
+
 
 func can_merge(source: Dictionary, target: Dictionary) -> bool:
 	return not source.is_empty() and not target.is_empty() and source != target and parts.find(target) > 0 and source.get("id") == target.get("id") and int(source.get("fusion_level", 1)) == int(target.get("fusion_level", 1)) and int(target.get("fusion_level", 1)) < MAX_FUSION_LEVEL and float(target.get("hp", 1)) > 0 and float(source.get("hp", 1)) > 0
@@ -118,10 +129,21 @@ func refresh_upgrades():
 		parts[i].max_hp *= float(character_config.get("health_multiplier", 1.0)) * pow(1.6, int(parts[i].get("fusion_level", 1)) - 1)
 		parts[i].hp = minf(parts[i].max_hp, float(old[i][0]) + maxf(0, parts[i].max_hp - float(old[i][1]))) if float(old[i][0]) > 0 else float(old[i][0])
 
+	# Upgrades collected while a fragment sleeps still apply to its original modules.
+	for group in detached_fragments:
+		for part in group.parts:
+			var core: Dictionary = db.asset(part.id)
+			var maximum = float(core.get("CoreHealth",90))*(1.0+upgrade_bonus(part.id,"CoreHealthPercent")+stats.get("16",0.0))
+			if part.wall: maximum+=float(db.stores.CoresDataStore.walledCoreAddedHealth)
+			maximum*=float(character_config.get("health_multiplier",1.0))*pow(1.6,int(part.get("fusion_level",1))-1)
+			part.hp=minf(maximum,float(part.hp)+maxf(0.0,maximum-float(part.max_hp)))
+			part.max_hp=maximum
+
 func step(dt: float, direction: Vector2, wants_boost: bool):
 	if not compact_body() and not coil_rig.engaged():
 		super.step(dt, direction, wants_boost)
 		step_flagella(dt)
+		fragment_recovery.step(self, dt)
 		return
 	dt = clampf(dt, 0, 0.1)
 	update_fuel_capacity()
@@ -149,6 +171,7 @@ func step(dt: float, direction: Vector2, wants_boost: bool):
 	refresh_positions()
 	step_mount_sway(dt)
 	step_flagella(dt)
+	fragment_recovery.step(self, dt)
 
 func refresh_body_poses():
 	if character_id == "spider":
@@ -174,6 +197,7 @@ func end_coil():
 	coil_active = false
 
 func reset():
+	fragment_recovery.clear()
 	flagella.clear()
 	coil_rig.reset()
 	spider_rig.reset()
@@ -235,7 +259,7 @@ func can_mount(segment: int, _slot: int = 4, _ignore: int = -1) -> bool:
 	return true
 
 func install_module(id: String, before: int, _slot: int = 4) -> bool:
-	if parts.size() - 1 >= module_cap():
+	if parts.size() - 1 + fragment_recovery.count() >= module_cap():
 		last_error="挂点已满。"
 		return false
 	if db.asset(id).is_empty() or not can_mount(before):return false
@@ -320,7 +344,7 @@ func swap_piece(a: int,b: int) -> bool:
 
 func duplicate_to_mount(index: int,before: int,_slot: int = 4) -> bool:
 	if index<=0 or index>=parts.size() or actions.duplicate<=0:return false
-	if parts.size()-1+pending.size()>=module_cap():return false
+	if parts.size()-1+pending.size()+detached_module_count()>=module_cap():return false
 	if not install_module(parts[index].id,before):return false
 	actions.duplicate-=1
 	return true

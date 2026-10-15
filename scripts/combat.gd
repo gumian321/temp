@@ -602,11 +602,14 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 			ViscousMotion.advance_contact(effect, dt)
 			if effect.life > 0: viscous_contact_count += 1
 	effects = effects.filter(func(e): return e.life > 0)
-	# Remove destroyed mounts without severing the living body; remap owners.
+	# Destruction severs the centipede; fusion still uses normal remove_parts.
 	var removed: Array = []
 	for i in range(1,player.parts.size()):
-		if player.parts[i].hp<=0 and player.parts[i].get("destroy_processed",false): removed.append(i)
-	player.remove_parts(removed)
+		if player.parts[i].hp<=0:
+			special.process_destroyed_part(i)
+			removed.append(i)
+	if player.has_method("remove_destroyed_parts"): player.remove_destroyed_parts(removed)
+	else: player.remove_parts(removed)
 
 	player.end_support_tick()
 	mark_phase("cleanup",measured)
@@ -1030,6 +1033,11 @@ func replace_character_module(index: int, id: String) -> bool:
 
 # Called before compaction for both destroyed and fused segments.
 func remap_part_owners(removed: Array):
+	var lost: Array = removed.map(func(i): return player.parts[i])
+	for drone in drones:
+		if drone.get("target",{}) in lost: release_drone_target(drone)
+	for drone in enemy_drones:
+		if drone.get("target",{}) in lost: drone.target={}
 	for d in drones:
 		if d.owner in removed: release_drone_target(d)
 	drones = drones.filter(func(d): return d.owner not in removed)

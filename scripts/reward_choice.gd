@@ -119,7 +119,7 @@ func progress_info(reward:Dictionary)->Dictionary:
   var level=int(player.levels.get(reward.id,0));var cap=int(data.get("levelUpsAllowed",3))
   return {"text":"%d/%d"%[level,cap],"tooltip":game.db.ui("Current upgrade level / maximum level: %d / %d","当前升级等级 / 等级上限：%d / %d")%[level,cap]}
  if kind=="BlockReward":
-  var occupied=player.parts.size()-1+player.pending.size();var cap=player.module_cap() if player.has_method("module_cap") else int(data.maxBuiltCores)
+  var occupied=player.parts.size()-1+player.pending.size()+(player.detached_module_count() if player.has_method("detached_module_count") else 0);var cap=player.module_cap() if player.has_method("module_cap") else int(data.maxBuiltCores)
   var owned=player.parts.filter(func(p):return p.id==reward.blockCore and p.hp>0).size()+player.pending.count(reward.blockCore)
   return {"text":game.db.ui("SLOTS %d/%d","槽位 %d/%d")%[occupied,cap],"tooltip":game.db.ui("Body slots used (including reserve) / total: %d / %d. This module owned: %d.","已用体节（含待装）/ 总上限：%d / %d。此模块持有：%d。")%[occupied,cap,owned]}
  if kind=="CountBasicReward":

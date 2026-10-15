@@ -1,0 +1,33 @@
+{
+  "suites": [
+    {
+      "suite": "result_rank_ui",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 21.418,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "controller",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.39,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "game_ui_shell",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 4.258,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "meta_ui_redesign",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 4.786,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

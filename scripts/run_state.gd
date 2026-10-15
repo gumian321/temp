@@ -186,7 +186,7 @@ func can_reward(r: Dictionary) -> bool:
 	if r.is_empty() or not save.available(r.id): return false
 	if r["class"] == "BlockReward":
 		if player.get("character_id")!=null and player.get("character_id")!="centipede":return player.pending.is_empty()
-		return player.parts.size()+player.pending.size()+player.reward_module_count(r)<=character_module_cap()+1
+		return player.parts.size()+player.pending.size()+(player.detached_module_count() if player.has_method("detached_module_count") else 0)+player.reward_module_count(r)<=character_module_cap()+1
 	if "LevelUp" in str(r["class"]): return int(player.levels.get(r.id,0))<int(db.stores.PlayerDataStore.get("levelUpsAllowed",3))
 	if r["class"] == "MainCoreTurretReward": return player.hq_weapon != r.core
 	if r["class"] == "MainCoreDroneReward": return combat.drones.filter(func(d): return d.owner==0).size()+int(r.dronesCount)<=int(db.stores.PlayerDataStore.maxHQDronesCount)

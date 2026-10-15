@@ -15,6 +15,7 @@ const Feedback = preload("res://scripts/weapon_feedback.gd")
 const AttackShaders = preload("res://scripts/attack_shader_layer.gd")
 var attack_shader_layer = AttackShaders.new()
 var segment_damage_layer = preload("res://scripts/segment_damage_layer.gd").new()
+var fragment_art = preload("res://scripts/centipede_fragments_art.gd").new()
 const InsectAttackFX = preload("res://scripts/insect_attack_fx.gd")
 const CrystalLoot = preload("res://scripts/crystal_loot.gd")
 var passive_fx = preload("res://scripts/passive_feedback.gd").new()
@@ -145,6 +146,7 @@ func _ready():
 	particle_effects=load("res://scripts/particle_effects.gd").new();particle_layer.add_child(particle_effects);particle_effects.setup(db);native_visuals.setup(db,particle_effects)
 	popup_text=load("res://scripts/popup_text.gd").new();popup_text.layer=3;add_child(popup_text)
 	attack_shader_layer.attach(self)
+	fragment_art.attach(self)
 	encounter_feedback = preload("res://scripts/encounter_feedback.gd").new()
 	add_child(encounter_feedback); encounter_feedback.setup(self)
 	segment_damage_layer.game=self
@@ -689,21 +691,7 @@ func show_result():
 	set_score_row(refid(config,"metaScorePanelController"),db.text("GameOver_Scraps"),run.result.meta)
 
 	shell_from_source(db.ui("EXPEDITION COMPLETE" if run.won else "EXPEDITION ENDED","远征完成" if run.won else "远征结束"),show_menu)
-	UI.panel(panel,Rect2(70,160,540,580),UI.AMBER)
-	UI.icon(panel,"shield",Vector2(226,214),220,UI.AMBER)
-	UI.label(panel,str(run.result.grade),Vector2(279,276),86,UI.AMBER)
-	UI.label(panel,db.ui("RANK","评级"),Vector2(304,475),20,UI.MUTED)
-	UI.label(panel,str(run.result.score),Vector2(242,528),58)
-	UI.panel(panel,Rect2(642,160,720,580))
-	UI.icon(panel,"meta",Vector2(690,204),52,UI.AMBER)
-	UI.label(panel,"+ "+str(run.result.meta),Vector2(760,194),50,UI.AMBER)
-	for i in range(mini(rows.size(),6)):
-		var pos=Vector2(692+(i%2)*326,320+int(i/2)*122)
-		UI.label(panel,str(rows[i].value),pos,36)
-		UI.label(panel,rows[i].title,pos+Vector2(0,48),17,UI.MUTED)
-	UI.button(panel,db.ui("BASE","基地"),Rect2(70,786,290,76),show_menu,"back")
-	UI.button(panel,db.ui("EVOLVE","进化"),Rect2(670,786,320,76),show_lab,"research")
-	UI.button(panel,db.ui("AGAIN","再战"),Rect2(1020,786,342,76),begin_run,"play",UI.AMBER)
+	preload("res://scripts/result_screen.gd").build(self,rows)
 
 func set_score_row(id:String,title:String,value:int):
 	var row:Dictionary=source_ui.components.get(id,{})
@@ -947,7 +935,7 @@ func _unhandled_input(event):
 		if event.is_action_pressed("pause"):
 			if screen == "game": show_pause()
 			elif screen == "pause": show_game()
-			elif screen in ["menu", "lab", "options", "changelog", "characters"]: show_menu()
+			elif screen in ["menu", "lab", "options", "changelog", "characters", "result"]: show_menu()
 			elif screen=="reward_pool":show_missions()
 			elif screen=="controls":show_options()
 		if event.is_action_pressed("build"):
@@ -1001,6 +989,7 @@ func draw_weapon_neck(anchor: Vector2, tip: Vector2, radius: float, alpha: float
 	draw_polyline(curve, Color(Ink.WASH, alpha), 3.0 * zoom, true)
 
 func _draw():
+	fragment_art.paint(self)
 	if encounter_feedback != null: encounter_feedback.queue_redraw()
 	# Any early-return screen (including tactical radar) starts without old FX.
 	segment_damage_layer.queue_redraw()

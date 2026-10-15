@@ -53,10 +53,10 @@ func execute():
 		if game.db.asset(part.id).get("class")=="ShieldCore":part.shield=0;part.stun=10.0
 	game.combat.hurt_player(dead,100000,100000)
 	game.combat.step(.01,game.player.head+Vector2.RIGHT*400,false)
-	check(game.player.segment_count()==3 and follower.segment==2 and tail.segment==3,"A middle segment explosion compacts the surviving chain")
+	check(game.player.segment_count()==1 and game.player.detached_fragments.size()==1 and game.player.detached_fragments[0].parts==[follower,tail],"A middle segment explosion leaves the living tail as a recoverable fragment")
 	check(follower.hp==follower_hp and game.player.parts[0].hp>0,"Independent follower and head health survive the middle-segment loss")
 	game.show_build_ui();await settle()
-	check(game.build_ui.segment_buttons.size()==3 and game.build_ui.insert_targets.size()==4,"Construction redraws the shorter chain after combat destruction")
+	check(game.build_ui.segment_buttons.size()==1 and game.build_ui.insert_targets.size()==2,"Construction redraws only the head-connected chain after combat destruction")
 	await capture("chain-05-after-destruction")
 	game.show_game()
 	game.run.timers={"swarm":999.0,"wave":999.0,"patrol":999.0}
