@@ -12,6 +12,8 @@ var neon_radar_skin:StyleBoxFlat
 const Brood = preload("res://scripts/brood_theme.gd")
 const Battle = preload("res://scripts/combat.gd")
 const Feedback = preload("res://scripts/weapon_feedback.gd")
+const AttackShaders = preload("res://scripts/attack_shader_layer.gd")
+var attack_shader_layer = AttackShaders.new()
 const InsectAttackFX = preload("res://scripts/insect_attack_fx.gd")
 const CrystalLoot = preload("res://scripts/crystal_loot.gd")
 var passive_fx = preload("res://scripts/passive_feedback.gd").new()
@@ -137,6 +139,7 @@ func _ready():
 	particle_layer=CanvasLayer.new();particle_layer.layer=0;add_child(particle_layer)
 	particle_effects=load("res://scripts/particle_effects.gd").new();particle_layer.add_child(particle_effects);particle_effects.setup(db);native_visuals.setup(db,particle_effects)
 	popup_text=load("res://scripts/popup_text.gd").new();popup_text.layer=3;add_child(popup_text)
+	attack_shader_layer.attach(self)
 	passive_fx.setup(self)
 	show_menu()
 	if review_check:
@@ -948,6 +951,14 @@ func module_art(texture: Texture2D, position: Vector2, bounds: Vector2, rotation
 	# Mounts are square; their weapons retain the original sprite proportions.
 	art(texture, position, Ink.fitted_size(texture, bounds), rotation, tint, true)
 
+func skill_module_art(family:String,texture:Texture2D,position:Vector2,bounds:Vector2,rotation:float=0.0,hostile:bool=false):
+	if texture==null:return
+	var painter=AttackShaders.route(self,family,hostile)
+	var size=Ink.fitted_size(texture,bounds)
+	painter.draw_set_transform(position,rotation)
+	painter.draw_texture_rect(texture,Rect2(-size*.5,size),false,Color.WHITE)
+	painter.draw_set_transform(Vector2.ZERO)
+
 var soft_organs=preload("res://scripts/soft_organ_art.gd").new()
 
 func organ_art(texture: Texture2D, position: Vector2, bounds: Vector2, rotation: float, tint: Color, family: String, pulse_left: float, key:String="", seed:float=0.0, activity:float=0.0, frozen:bool=false):
@@ -964,6 +975,10 @@ func draw_weapon_neck(anchor: Vector2, tip: Vector2, radius: float, alpha: float
 	draw_polyline(curve, Color(Ink.WASH, alpha), 3.0 * zoom, true)
 
 func _draw():
+	# Any early-return screen (including tactical radar) starts without old FX.
+	passive_fx.living.hide()
+	attack_shader_layer.begin_frame(float(player.motion.elapsed) if player!=null else 0.0)
+	attack_shader_layer.set_occlusion(Rect2(get_viewport_rect().size-Vector2(210,235),Vector2(180,150)) if screen in ["game","pause","rewards","result"] else Rect2())
 	soft_organs.begin_frame()
 	sync_camera_layers()
 	if ink_world != null: ink_world.begin_frame()
@@ -1082,12 +1097,12 @@ func _draw():
 		CharacterArt.draw_skill(self,player,combat.character_abilities.state(),world(player.head),zoom,test_time)
 		passive_fx.paint(self,player,combat,zoom)
 		for mine in combat.special.mines:
-			module_art(db.sprite(mine.data.mineSprite),world(mine.position),Vector2(22,22)*zoom)
+			skill_module_art("mine",db.sprite(mine.data.mineSprite),world(mine.position),Vector2(22,22)*zoom,0.0,not bool(mine.get("friendly",true)))
 		for d in combat.drones+combat.enemy_drones:
 			if d.get("docked",false):continue
 			native_visuals.trail(self,d,d.data.get("dronePrefab",0),test_time,zoom)
 			var drone_angle=float(d.get("angle",0))+PI/2 if d.data.get("class","")=="ProjectileDrone" else 0.0
-			module_art(db.sprite(d.data.get("droneSprite", "")), world(d.position), Vector2(18, 18)*zoom,drone_angle)
+			skill_module_art("repair_drone" if d.data.get("class","")=="EngineerDrone" else ("drone" if d.data.get("class","")=="ProjectileDrone" else "scrap_drone"),db.sprite(d.data.get("droneSprite", "")), world(d.position), Vector2(18, 18)*zoom,drone_angle,not bool(d.get("friendly",true)))
 		weapon_fx.draw_count=0
 		for b in combat.bullets:
 			if b.friendly:weapon_fx.paint_projectile(self,b,test_time,zoom)
@@ -1095,7 +1110,11 @@ func _draw():
 		InsectAttackFX.paint(self,combat.insect_controls,zoom)
 		SegmentFeedback.paint(self,combat,zoom)
 		for drop in combat.loot:
-			if not drop.pack:CrystalLoot.paint(self,drop,test_time,zoom)
+			if not drop.pack:
+				# The unshaded pickup batch sits above world effects but below hazards.
+				# Do not let its independent CanvasItem paint over the tactical HUD.
+				var radar_cover=Rect2(get_viewport_rect().size-Vector2(210,235),Vector2(180,150)).grow(35.0)
+				if not radar_cover.has_point(world(drop.position)):CrystalLoot.paint(AttackShaders.foreground(self),drop,test_time,zoom)
 		# Incoming hazards sit above friendly shots, explosions and contact sparks.
 		for b in combat.bullets:
 			if not b.friendly:weapon_fx.paint_projectile(self,b,test_time,zoom)

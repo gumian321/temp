@@ -1,0 +1,41 @@
+Round 14: Runtime attack materials
+
+Architecture
+- scripts/attack_shader_layer.gd attaches to main once, with 19 family materials, 38 fixed ordered draw batches and one unshaded foreground batch.
+- No per-projectile node/material allocation, screen texture, offscreen target, or fullscreen post-process. Existing visibility tests, 280 projectile embellishment budget, 180 transient budget and 32 control budget remain authoritative; core projectile bodies remain visible.
+- WeaponFX routes friendly/hostile separately. Friendly batches sit at z=1; loot uses an unshaded z=2 foreground; hostile batches sit at z=3. Radar is excluded in normalized viewport coordinates; main excludes foreground loot there.
+- Generated atlas UVs are untouched. Texture rectangles are recentered before submission, preserving original transforms. Geometry and atlas texture commands share one ordered batch, so tongue overlays and muzzle glow preserve original painter order. No shader vertex displacement or UV warp is used; moving membrane opacity, caustics, interference and electric cores are fragment-driven. Tongues/streams retain their contact endpoints.
+
+Physical materials / runtime coverage
+- gatling / shotgun / cannon / flame: advecting wet-film caustics and variable membrane translucency, each with its existing tint and a different rate.
+- flak / nuke / mine: pulsing shell seams / cellular shell patterns.
+- rocket / drone: segmented peristaltic larva surface.
+- rail: fast axial pressure packets; generated tongue plus a pale axial short sweep.
+- tesla: irregular discharge shader and visible blue-white branching electric core over the tongue.
+- emp: broken interference bands.
+- sonic: travelling phase interference plus purple/cyan propagating elliptical bands.
+- blackhole: accretion streak modulation on the existing vortex geometry and projectile.
+- impact: cooling fracture grain.
+- silk / tendril: moving pearl glints / contracting sap channels on all control strands and wraps.
+- repair_drone / scrap_drone: renewal cells / segmented mineral scanning facets; main selects using drone class.
+
+Entrypoints
+- WeaponFX.paint_projectile, paint_effect, paint_hole, active mine ring/glow.
+- Organic.paint and Viscous.stamp compatibility paths also route; an already routed Painter retains its weapon family, so wet-body/tongue early returns do not lose electric/sonic identity.
+- InsectAttackFX.paint selects silk/tendril per control without carrying the previous control's route.
+- Main separately routes mine/drone art and CharacterArt spider silk; those integrations are owned by the parent task.
+- Effect kinds: muzzle, hit, shield_hit, explosion, chain, flame, emp, mine_arm, hole_birth, hole_collapse, viscous_contact, egg_burst; ongoing black holes and mine pulsing also route.
+
+Lifecycles / mechanics
+- Existing effect.life-driven opacity, impact spreading, egg contact swell/burst, tongue hold/retraction, flame stream position and expiry remain intact.
+- Shader alpha multiplies source alpha; it never revives expired effects. begin_frame clears every batch, including foreground.
+- No Combat state, velocity, position, collision, hit RNG or damage code changed by these files.
+
+Targeted verification
+- tests/test_attack_shader_materials.gd: shared resources, live routing, early-return electric tongue, fixed 12-frame allocation counts, clearing, friendly/hostile/foreground priority; report artifacts/attack-shader-materials-report.json.
+- Existing insect_projectiles, viscous_projectile_motion, projectile_trajectory_continuity, insect_attack_fx and projectile_render_perf scripts pass headless.
+- GPU shader compile, native frozen-geometry/clock-only pixel differences and live performance comparisons are run separately by the visual/performance QA task. Headless tests do not claim GPU validation.
+
+Review correction: The first implementation separated texture and geometry batches; that reversed some same-family painter order. Final implementation combines them, keeps texture_batch as an alias only, restores transforms after centred texture stamps, and adds an explicit line/texture/line ordering regression. Final resource counts are 19 materials and 39 batches, including the foreground.
+
+Performance refinement: Fixed CanvasItem RIDs submit ordered commands directly to RenderingServer. Texture2D.draw_rect retains native AtlasTexture handling. Production trace is disabled: no per-draw nested arrays or callv replay, no batch Nodes. Only used RIDs clear each frame; unchanged occlusion uniforms are cached. All 39 RIDs are released on tree exit. Transparent art margins are discarded before material shading; filtered grain uses an arithmetic hash and only relevant families evaluate it. Native performance measurements must use this final implementation, not the archived pre-optimization version.

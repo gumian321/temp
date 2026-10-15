@@ -1,0 +1,81 @@
+{
+  "bullets": {
+    "max": 256,
+    "mean": 250.066666666667,
+    "p50": 250,
+    "p95": 255
+  },
+  "display": "X11",
+  "draw_calls": {
+    "max": 2288.0,
+    "mean": 1859.72222222222,
+    "p50": 1864.0,
+    "p95": 2184.0
+  },
+  "effects": {
+    "max": 125,
+    "mean": 92.3611111111111,
+    "p50": 97,
+    "p95": 116
+  },
+  "fixture_version": 1,
+  "frame_ms": {
+    "max": 120.897,
+    "mean": 98.9552277777778,
+    "p50": 98.145,
+    "p95": 113.466
+  },
+  "main_draw_build_ms": {
+    "max": 35.303,
+    "mean": 18.0730611111111,
+    "p50": 17.961,
+    "p95": 21.826
+  },
+  "measured_frames": 180,
+  "particle_emitters": {
+    "max": 0,
+    "mean": 0.0,
+    "p50": 0,
+    "p95": 0
+  },
+  "render_objects": {
+    "max": 20379.0,
+    "mean": 14740.8722222222,
+    "p50": 14635.0,
+    "p95": 19132.0
+  },
+  "renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+  "revision": "8204a755181b9b2d9f2f622c9745c24c727145cb",
+  "scope": "Native rendered fixed-step dense battle: 31 modules, 64 durable tank/shield enemies, production projectile floor 256; real drawing, soft actors, weapon FX, HUD, background retained. Mission spawning/audio excluded. Wall frame time includes CPU and renderer; not user hardware FPS.",
+  "signature": {
+    "bullets": 254,
+    "enemies": 64,
+    "head": [
+      120.28889465332,
+      402.302917480469
+    ],
+    "hp_sum": 639999226.0,
+    "parts": 31,
+    "rng": "3982730367952883469"
+  },
+  "simulation_prepare_ms": {
+    "max": 39.963,
+    "mean": 21.36095,
+    "p50": 20.946,
+    "p95": 25.613
+  },
+  "viewport": [
+    1440,
+    900
+  ],
+  "vsync_note": "Driver may reject vsync changes; inspect native log for warnings. Reported enum alone does not guarantee compositor behavior.",
+  "vsync_reported_mode": 0,
+  "vsync_requested": "disabled",
+  "warmup_frames": 60,
+  "process_timing": {
+    "wall_seconds": 30.065866932000063,
+    "user_cpu_seconds": 53.242874,
+    "system_cpu_seconds": 1.098253,
+    "scope": "Entire Godot subprocess: startup, fixture setup, warmup, measured steps, projectile replenishment and output. CPU counters use POSIX child resource usage; unavailable on Windows is null."
+  }
+}

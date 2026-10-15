@@ -1,5 +1,6 @@
 extends RefCounted
 ## Generated wet-body atlas, isolated from the original armament compatibility API.
+const AttackShaders = preload("res://scripts/attack_shader_layer.gd")
 const ATLAS_PATH="res://assets/ui_overhaul/viscous_projectiles_atlas.png"
 const CELLS={"mucus":0,"egg":1,"larva":2,"tongue":3,"mucus_splat":4,"egg_burst":5,"goo_bead":6,"wet_trail":7,"larva_contact":2}
 const REGIONS=[Rect2(58,133,338,203),Rect2(514,132,322,207),Rect2(946,124,328,221),Rect2(1388,154,331,164),Rect2(74,517,315,279),Rect2(502,520,327,268),Rect2(994,547,227,224),Rect2(1370,600,369,138)]
@@ -41,6 +42,7 @@ static func pose(shot:Dictionary,kind:String,time:float)->Vector2:
 	return Vector2(1.10+wave*0.12,0.94-wave*0.12)
 
 static func stamp(canvas,key:String,at:Vector2,size:Vector2,heading:float=0.0,alpha:float=1.0)->bool:
+	canvas=AttackShaders.route(canvas,{"egg":"nuke","egg_burst":"nuke","larva":"rocket","larva_contact":"rocket","tongue":"rail"}.get(key,"gatling"))
 	var source=texture(key)
 	if source==null:return false
 	canvas.draw_set_transform(at,heading)

@@ -1,0 +1,33 @@
+{
+  "suites": [
+    {
+      "suite": "skill_shader_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 6.557,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "passive_shader_pixels",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 7.44,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "living_shader_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 68.522,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "skill_shader_showcase",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 103.955,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

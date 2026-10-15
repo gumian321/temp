@@ -1,0 +1,2698 @@
+{
+	"checks": [
+		{
+			"name": "HQ_Gun_Gatling rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Gatling rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Gatling rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Gatling rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Gatling rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Gatling rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_SonicWave rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_SonicWave rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_SonicWave rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_SonicWave rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_SonicWave rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_SonicWave rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Sniper rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Sniper rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Sniper rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Sniper rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Sniper rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Sniper rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_EMP rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_EMP rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_EMP rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_EMP rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_EMP rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_EMP rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Cannon rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Cannon rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Cannon rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Cannon rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Cannon rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Cannon rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Tesla rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Tesla rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Tesla rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Tesla rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Tesla rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Tesla rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Flak rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Flak rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Flak rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Flak rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Flak rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Flak rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Rocket rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Rocket rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Rocket rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Rocket rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Rocket rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_Rocket rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shotgun rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shotgun rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shotgun rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shotgun rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shotgun rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shotgun rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Nuke rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Nuke rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Nuke rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Nuke rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Nuke rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Nuke rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_BlackHoler rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_BlackHoler rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_BlackHoler rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_BlackHoler rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_BlackHoler rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "HQ_Gun_BlackHoler rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Cannon rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Cannon rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Cannon rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Cannon rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Cannon rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Cannon rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flak rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flak rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flak rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flak rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flak rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flak rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_BlackHoler rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_BlackHoler rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_BlackHoler rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_BlackHoler rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_BlackHoler rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_BlackHoler rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Tesla rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Tesla rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Tesla rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Tesla rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Tesla rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Tesla rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_EMP rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_EMP rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_EMP rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_EMP rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_EMP rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_EMP rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Gatling rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Gatling rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Gatling rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Gatling rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Gatling rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Gatling rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Nuke rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Nuke rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Nuke rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Nuke rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Nuke rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Nuke rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flame Thrower rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flame Thrower rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flame Thrower rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flame Thrower rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flame Thrower rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Flame Thrower rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Rocket rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Rocket rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Rocket rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Rocket rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Rocket rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Rocket rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Shotgun rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Shotgun rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Shotgun rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Shotgun rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Shotgun rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Shotgun rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_SonicWave rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_SonicWave rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_SonicWave rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_SonicWave rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_SonicWave rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_SonicWave rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Sniper rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Sniper rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Sniper rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Sniper rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Sniper rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_Gun_Sniper rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Tesla rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Tesla rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Tesla rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Tesla rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Tesla rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Tesla rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Cannon rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Cannon rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Cannon rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Cannon rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Cannon rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Cannon rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_EMP rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_EMP rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_EMP rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_EMP rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_EMP rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_EMP rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Sniper rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Sniper rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Sniper rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Sniper rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Sniper rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Sniper rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Gatling rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Gatling rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Gatling rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Gatling rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Gatling rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Gatling rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Rocket rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Rocket rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Rocket rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Rocket rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Rocket rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Rocket rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flame Thrower rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flame Thrower rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flame Thrower rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flame Thrower rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flame Thrower rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flame Thrower rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flak rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flak rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flak rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flak rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flak rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Flak rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Shotgun rank0 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Shotgun rank1 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Shotgun rank5 friendly submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Shotgun rank0 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Shotgun rank1 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Gun_Shotgun rank5 hostile submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "All 32 HQ/player/AI gun cores and 12 families enumerated",
+			"passed": true
+		},
+		{
+			"name": "gatling/muzzle/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/shield_hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/explosion/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/chain/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/flame/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/emp/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/mine_arm/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/hole_birth/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/hole_collapse/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/viscous_contact/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/egg_burst/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/muzzle/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/shield_hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/explosion/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/chain/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/flame/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/emp/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/mine_arm/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/hole_birth/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/hole_collapse/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/viscous_contact/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "gatling/egg_burst/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/muzzle/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/shield_hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/explosion/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/chain/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/flame/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/emp/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/mine_arm/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/hole_birth/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/hole_collapse/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/viscous_contact/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/egg_burst/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/muzzle/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/shield_hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/explosion/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/chain/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/flame/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/emp/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/mine_arm/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/hole_birth/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/hole_collapse/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/viscous_contact/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "shotgun/egg_burst/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/muzzle/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/shield_hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/explosion/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/chain/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/flame/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/emp/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/mine_arm/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/hole_birth/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/hole_collapse/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/viscous_contact/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/egg_burst/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/muzzle/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/shield_hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/explosion/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/chain/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/flame/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/emp/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/mine_arm/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/hole_birth/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/hole_collapse/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/viscous_contact/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "cannon/egg_burst/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/muzzle/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/shield_hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/explosion/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/chain/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/flame/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/emp/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/mine_arm/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/hole_birth/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/hole_collapse/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/viscous_contact/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/egg_burst/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/muzzle/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/shield_hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/explosion/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/chain/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/flame/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/emp/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/mine_arm/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/hole_birth/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/hole_collapse/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/viscous_contact/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flak/egg_burst/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/muzzle/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/shield_hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/explosion/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/chain/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/flame/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/emp/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/mine_arm/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/hole_birth/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/hole_collapse/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/viscous_contact/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/egg_burst/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/muzzle/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/shield_hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/explosion/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/chain/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/flame/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/emp/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/mine_arm/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/hole_birth/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/hole_collapse/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/viscous_contact/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rail/egg_burst/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/muzzle/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/shield_hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/explosion/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/chain/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/flame/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/emp/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/mine_arm/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/hole_birth/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/hole_collapse/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/viscous_contact/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/egg_burst/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/muzzle/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/shield_hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/explosion/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/chain/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/flame/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/emp/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/mine_arm/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/hole_birth/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/hole_collapse/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/viscous_contact/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "tesla/egg_burst/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/muzzle/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/shield_hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/explosion/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/chain/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/flame/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/emp/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/mine_arm/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/hole_birth/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/hole_collapse/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/viscous_contact/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/egg_burst/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/muzzle/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/shield_hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/explosion/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/chain/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/flame/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/emp/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/mine_arm/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/hole_birth/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/hole_collapse/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/viscous_contact/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "emp/egg_burst/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/muzzle/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/shield_hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/explosion/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/chain/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/flame/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/emp/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/mine_arm/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/hole_birth/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/hole_collapse/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/viscous_contact/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/egg_burst/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/muzzle/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/shield_hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/explosion/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/chain/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/flame/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/emp/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/mine_arm/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/hole_birth/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/hole_collapse/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/viscous_contact/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "flame/egg_burst/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/muzzle/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/shield_hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/explosion/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/chain/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/flame/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/emp/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/mine_arm/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/hole_birth/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/hole_collapse/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/viscous_contact/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/egg_burst/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/muzzle/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/shield_hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/explosion/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/chain/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/flame/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/emp/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/mine_arm/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/hole_birth/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/hole_collapse/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/viscous_contact/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "rocket/egg_burst/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/muzzle/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/shield_hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/explosion/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/chain/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/flame/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/emp/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/mine_arm/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/hole_birth/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/hole_collapse/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/viscous_contact/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/egg_burst/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/muzzle/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/shield_hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/explosion/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/chain/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/flame/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/emp/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/mine_arm/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/hole_birth/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/hole_collapse/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/viscous_contact/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "nuke/egg_burst/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/muzzle/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/shield_hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/explosion/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/chain/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/flame/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/emp/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/mine_arm/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/hole_birth/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/hole_collapse/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/viscous_contact/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/egg_burst/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/muzzle/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/shield_hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/explosion/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/chain/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/flame/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/emp/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/mine_arm/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/hole_birth/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/hole_collapse/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/viscous_contact/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "sonic/egg_burst/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/muzzle/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/shield_hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/explosion/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/chain/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/flame/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/emp/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/mine_arm/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/hole_birth/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/hole_collapse/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/viscous_contact/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/egg_burst/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/muzzle/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/shield_hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/explosion/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/chain/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/flame/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/emp/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/mine_arm/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/hole_birth/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/hole_collapse/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/viscous_contact/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "blackhole/egg_burst/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/muzzle/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/shield_hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/explosion/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/chain/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/flame/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/emp/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/mine_arm/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/hole_birth/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/hole_collapse/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/viscous_contact/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/egg_burst/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/muzzle/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/shield_hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/explosion/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/chain/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/flame/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/emp/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/mine_arm/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/hole_birth/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/hole_collapse/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/viscous_contact/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "mine/egg_burst/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/muzzle/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/shield_hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/explosion/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/chain/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/flame/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/emp/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/mine_arm/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/hole_birth/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/hole_collapse/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/viscous_contact/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/egg_burst/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/muzzle/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/shield_hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/explosion/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/chain/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/flame/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/emp/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/mine_arm/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/hole_birth/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/hole_collapse/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/viscous_contact/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "drone/egg_burst/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/muzzle/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/shield_hit/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/explosion/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/chain/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/flame/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/emp/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/mine_arm/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/hole_birth/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/hole_collapse/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/viscous_contact/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/egg_burst/true routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/muzzle/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/shield_hit/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/explosion/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/chain/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/flame/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/emp/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/mine_arm/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/hole_birth/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/hole_collapse/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/viscous_contact/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "impact/egg_burst/false routes lifecycle shader",
+			"passed": true
+		},
+		{
+			"name": "Persistent black hole shader true",
+			"passed": true
+		},
+		{
+			"name": "Persistent black hole shader false",
+			"passed": true
+		},
+		{
+			"name": "120 frames reuse the fixed shader materials",
+			"passed": true
+		},
+		{
+			"name": "New frame clears stale geometry",
+			"passed": true
+		},
+		{
+			"name": "Explicit simulation clock supports pause",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shield live shield submits MultiMesh instance",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shield real visible ShaderMaterial batch",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shield directional hit ripple (1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shield directional hit ripple (-1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shield directional hit ripple (0.0, -1.0)",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shield directional hit ripple (0.0, 1.0)",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shield depleted shield submits breaking phase",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shield exhausted break removes membrane",
+			"passed": true
+		},
+		{
+			"name": "HQ_Core_Shield actual recharge drives shader",
+			"passed": true
+		},
+		{
+			"name": "Core_Shield live shield submits MultiMesh instance",
+			"passed": true
+		},
+		{
+			"name": "Core_Shield real visible ShaderMaterial batch",
+			"passed": true
+		},
+		{
+			"name": "Core_Shield directional hit ripple (1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_Shield directional hit ripple (-1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_Shield directional hit ripple (0.0, -1.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_Shield directional hit ripple (0.0, 1.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_Shield depleted shield submits breaking phase",
+			"passed": true
+		},
+		{
+			"name": "Core_Shield exhausted break removes membrane",
+			"passed": true
+		},
+		{
+			"name": "Core_Shield actual recharge drives shader",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Large live shield submits MultiMesh instance",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Large real visible ShaderMaterial batch",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Large directional hit ripple (1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Large directional hit ripple (-1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Large directional hit ripple (0.0, -1.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Large directional hit ripple (0.0, 1.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Large depleted shield submits breaking phase",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Large exhausted break removes membrane",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Large actual recharge drives shader",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Small live shield submits MultiMesh instance",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Small real visible ShaderMaterial batch",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Small directional hit ripple (1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Small directional hit ripple (-1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Small directional hit ripple (0.0, -1.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Small directional hit ripple (0.0, 1.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Small depleted shield submits breaking phase",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Small exhausted break removes membrane",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Small actual recharge drives shader",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Mid live shield submits MultiMesh instance",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Mid real visible ShaderMaterial batch",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Mid directional hit ripple (1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Mid directional hit ripple (-1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Mid directional hit ripple (0.0, -1.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Mid directional hit ripple (0.0, 1.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Mid depleted shield submits breaking phase",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Mid exhausted break removes membrane",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Mid actual recharge drives shader",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Huge live shield submits MultiMesh instance",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Huge real visible ShaderMaterial batch",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Huge directional hit ripple (1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Huge directional hit ripple (-1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Huge directional hit ripple (0.0, -1.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Huge directional hit ripple (0.0, 1.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Huge depleted shield submits breaking phase",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Huge exhausted break removes membrane",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Huge actual recharge drives shader",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Large enemy membrane uses hostile shader state",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Large enemy real hit direction (1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Large enemy real hit direction (-1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Large enemy real hit direction (0.0, -1.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Large enemy real hit direction (0.0, 1.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Large enemy break history submits dissolve",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Large enemy break expires",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Large enemy refill submits recharge front",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Small enemy membrane uses hostile shader state",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Small enemy real hit direction (1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Small enemy real hit direction (-1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Small enemy real hit direction (0.0, -1.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Small enemy real hit direction (0.0, 1.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Small enemy break history submits dissolve",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Small enemy break expires",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Small enemy refill submits recharge front",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Mid enemy membrane uses hostile shader state",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Mid enemy real hit direction (1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Mid enemy real hit direction (-1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Mid enemy real hit direction (0.0, -1.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Mid enemy real hit direction (0.0, 1.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Mid enemy break history submits dissolve",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Mid enemy break expires",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Mid enemy refill submits recharge front",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Huge enemy membrane uses hostile shader state",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Huge enemy real hit direction (1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Huge enemy real hit direction (-1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Huge enemy real hit direction (0.0, -1.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Huge enemy real hit direction (0.0, 1.0)",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Huge enemy break history submits dissolve",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Huge enemy break expires",
+			"passed": true
+		},
+		{
+			"name": "Core_AI_Shield_Huge enemy refill submits recharge front",
+			"passed": true
+		},
+		{
+			"name": "Core_PackCore installed passive submits expected shader mode",
+			"passed": true
+		},
+		{
+			"name": "Core_Chip_Piercing installed passive submits expected shader mode",
+			"passed": true
+		},
+		{
+			"name": "Core_Chip_HQControl installed passive submits expected shader mode",
+			"passed": true
+		},
+		{
+			"name": "Core_Chip_Exploding installed passive submits expected shader mode",
+			"passed": true
+		},
+		{
+			"name": "Core_Chip_Shrapnel installed passive submits expected shader mode",
+			"passed": true
+		},
+		{
+			"name": "Core_Chip_Chain installed passive submits expected shader mode",
+			"passed": true
+		},
+		{
+			"name": "Core_Chip_Mammoth installed passive submits expected shader mode",
+			"passed": true
+		},
+		{
+			"name": "Core_FuelTank installed passive submits expected shader mode",
+			"passed": true
+		},
+		{
+			"name": "Core_Wall installed passive submits expected shader mode",
+			"passed": true
+		},
+		{
+			"name": "Core_Repair installed passive submits expected shader mode",
+			"passed": true
+		},
+		{
+			"name": "Actual cloak coverage drives interference shader",
+			"passed": true
+		},
+		{
+			"name": "Destroyed cloak source removes interference",
+			"passed": true
+		},
+		{
+			"name": "Centipede coil enters shader-backed armor state",
+			"passed": true
+		},
+		{
+			"name": "Passive resources remain six fixed batches",
+			"passed": true
+		},
+		{
+			"name": "Reset removes all stale passive geometry",
+			"passed": true
+		},
+		{
+			"name": "Spider skill activates through actual combat",
+			"passed": true
+		},
+		{
+			"name": "Actual spider target threads submit silk shader",
+			"passed": true
+		},
+		{
+			"name": "Finished spider skill leaves no shader threads",
+			"passed": true
+		},
+		{
+			"name": "silk actual control attaches",
+			"passed": true
+		},
+		{
+			"name": "silk active control submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "silk expiry removes shader geometry",
+			"passed": true
+		},
+		{
+			"name": "tendril actual control attaches",
+			"passed": true
+		},
+		{
+			"name": "tendril active control submits shader geometry",
+			"passed": true
+		},
+		{
+			"name": "tendril expiry removes shader geometry",
+			"passed": true
+		},
+		{
+			"name": "Retired beetle remains excluded",
+			"passed": true
+		}
+	],
+	"core_count": 32,
+	"families": [
+		"gatling",
+		"sonic",
+		"rail",
+		"emp",
+		"cannon",
+		"tesla",
+		"flak",
+		"rocket",
+		"shotgun",
+		"nuke",
+		"blackhole",
+		"flame"
+	],
+	"passed": true,
+	"renderer": "headless",
+	"scope": "Actual production combat and shader command submission. Does not certify GPU compilation or visual quality."
+}

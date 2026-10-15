@@ -1,0 +1,241 @@
+{
+  "baseline_revision": "8204a755181b9b2d9f2f622c9745c24c727145cb",
+  "after_revision": "same git HEAD plus uncommitted frozen shader implementation; exact scripts/shaders in final-source-hashes.json",
+  "frozen_sources_unchanged": true,
+  "same_simulation_signatures": true,
+  "repeats_each": 3,
+  "metrics_median_across_runs": {
+    "frame_ms": {
+      "p50": {
+        "before": 80.531,
+        "after": 97.025,
+        "change_percent": 20.481553687399877
+      },
+      "p95": {
+        "before": 95.203,
+        "after": 113.466,
+        "change_percent": 19.183219016207453
+      },
+      "mean": {
+        "before": 81.2978666666667,
+        "after": 98.4244555555556,
+        "change_percent": 21.066467782125752
+      }
+    },
+    "simulation_prepare_ms": {
+      "p50": {
+        "before": 20.439,
+        "after": 20.727,
+        "change_percent": 1.4090708938793606
+      },
+      "p95": {
+        "before": 25.211,
+        "after": 25.613,
+        "change_percent": 1.594542064971649
+      },
+      "mean": {
+        "before": 20.8931722222222,
+        "after": 21.36095,
+        "change_percent": 2.2389026080025465
+      }
+    },
+    "main_draw_build_ms": {
+      "p50": {
+        "before": 13.053,
+        "after": 17.746,
+        "change_percent": 35.95342066957785
+      },
+      "p95": {
+        "before": 16.63,
+        "after": 21.826,
+        "change_percent": 31.244738424533992
+      },
+      "mean": {
+        "before": 13.2481333333333,
+        "after": 18.0730611111111,
+        "change_percent": 36.41968008910297
+      }
+    },
+    "draw_calls": {
+      "p50": {
+        "before": 1862.0,
+        "after": 1864.0,
+        "change_percent": 0.10741138560688146
+      },
+      "p95": {
+        "before": 2183.0,
+        "after": 2184.0,
+        "change_percent": 0.04580852038478245
+      },
+      "mean": {
+        "before": 1858.1,
+        "after": 1859.72222222222,
+        "change_percent": 0.08730543147408287
+      }
+    },
+    "render_objects": {
+      "p50": {
+        "before": 14634.0,
+        "after": 14635.0,
+        "change_percent": 0.0068334016673610165
+      },
+      "p95": {
+        "before": 19130.0,
+        "after": 19132.0,
+        "change_percent": 0.01045478306325176
+      },
+      "mean": {
+        "before": 14739.8111111111,
+        "after": 14740.8722222222,
+        "change_percent": 0.007198946466147049
+      }
+    },
+    "bullets": {
+      "p50": {
+        "before": 250,
+        "after": 250,
+        "change_percent": 0.0
+      },
+      "p95": {
+        "before": 255,
+        "after": 255,
+        "change_percent": 0.0
+      },
+      "mean": {
+        "before": 250.066666666667,
+        "after": 250.066666666667,
+        "change_percent": 0.0
+      }
+    },
+    "effects": {
+      "p50": {
+        "before": 97,
+        "after": 97,
+        "change_percent": 0.0
+      },
+      "p95": {
+        "before": 116,
+        "after": 116,
+        "change_percent": 0.0
+      },
+      "mean": {
+        "before": 92.3611111111111,
+        "after": 92.3611111111111,
+        "change_percent": 0.0
+      }
+    },
+    "particle_emitters": {
+      "p50": {
+        "before": 0,
+        "after": 0,
+        "change_percent": null
+      },
+      "p95": {
+        "before": 0,
+        "after": 0,
+        "change_percent": null
+      },
+      "mean": {
+        "before": 0.0,
+        "after": 0.0,
+        "change_percent": null
+      }
+    }
+  },
+  "renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+  "viewport": [
+    1440,
+    900
+  ],
+  "conditions": "Interleaved before1/after1/before2/after2/before3/after3 in the same time window. Isolated native X11/OpenGL Godot 4.6.3, LP_NUM_THREADS=3, identical 60 warmup + 180 measured fixed-step frames, 31 modules / 64 durable enemies / production projectile floor256. No concurrent heavy test during paired runs.",
+  "caveats": [
+    "llvmpipe is CPU software rasterization, not a physical user GPU. Native shader execution is real but timings are cloud-host-only.",
+    "Driver warned VSync mode cannot be changed; reported mode alone does not guarantee compositor behavior.",
+    "Frame wall time includes game script, draw construction, renderer, window/compositor pacing. It is not an isolated GPU timer.",
+    "simulation_prepare_ms excludes most deferred rendering; main_draw_build_ms is main _draw command construction, not every child draw/GPU operation.",
+    "The optimized direct-RID path moves command submission from deferred child _draw callbacks into main _draw. Its main_draw_build_ms scope therefore grows; compare end-to-end frame_ms rather than interpreting that stage delta alone as net CPU cost.",
+    "No reduced enemy/projectile density, no disabling effects; matched deterministic signatures and populations checked.",
+    "Movie frame sampling is fixed simulation time, not a benchmark screen recording.",
+    "Intermediate two-lane implementation measurements are discarded and stored separately."
+  ],
+  "validation": {
+    "round14-full-regression.json": {
+      "current_frozen_build": true,
+      "passed": true
+    },
+    "round14-enemy-motion.json": {
+      "current_frozen_build": true,
+      "passed": true
+    },
+    "round14-native-shaders-final.json": {
+      "current_frozen_build": true,
+      "passed": true
+    },
+    "round14-native-foreground.json": {
+      "current_frozen_build": true,
+      "passed": true
+    }
+  },
+  "release_validation_complete": true,
+  "paired_frame_changes": [
+    {
+      "pair": 1,
+      "p50": {
+        "before_ms": 79.652,
+        "after_ms": 97.025,
+        "change_percent": 21.811128408577307
+      },
+      "p95": {
+        "before_ms": 95.203,
+        "after_ms": 120.39,
+        "change_percent": 26.45609907250821
+      },
+      "mean": {
+        "before_ms": 81.2978666666667,
+        "after_ms": 98.4244555555556,
+        "change_percent": 21.066467782125752
+      }
+    },
+    {
+      "pair": 2,
+      "p50": {
+        "before_ms": 86.877,
+        "after_ms": 95.879,
+        "change_percent": 10.361775844009369
+      },
+      "p95": {
+        "before_ms": 100.799,
+        "after_ms": 110.015,
+        "change_percent": 9.142947846704818
+      },
+      "mean": {
+        "before_ms": 88.0675333333333,
+        "after_ms": 96.4848388888889,
+        "change_percent": 9.557785073525693
+      }
+    },
+    {
+      "pair": 3,
+      "p50": {
+        "before_ms": 80.531,
+        "after_ms": 98.145,
+        "change_percent": 21.8723224596739
+      },
+      "p95": {
+        "before_ms": 93.775,
+        "after_ms": 113.466,
+        "change_percent": 20.998133830978393
+      },
+      "mean": {
+        "before_ms": 81.0726611111111,
+        "after_ms": 98.9552277777778,
+        "change_percent": 22.05745614068151
+      }
+    }
+  ],
+  "median_paired_frame_change_percent": {
+    "p50": 21.811128408577307,
+    "p95": 20.998133830978393,
+    "mean": 21.066467782125752
+  }
+}

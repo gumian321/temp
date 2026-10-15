@@ -1,0 +1,173 @@
+{
+  "label": "round14-optimized",
+  "revision": "8204a755181b9b2d9f2f622c9745c24c727145cb",
+  "source_hashes": {
+    "scripts/achievements.gd": "b0553bb55184cf13cab8fb430e24dae8ce30adf1145e2ecb3da75c4f3020f02d",
+    "scripts/assembly_tray_icon.gd": "936b57d7fd9faa83dcc5bae183449c9cbe78b7e0db4387a5f53a5423134590a8",
+    "scripts/attack_shader_layer.gd": "2dc88bf9218d02464c5d9169b8c6555b2256f5d86597c0b3bd45a2f81c3db05e",
+    "scripts/audio_system.gd": "d47e2179f7f8c7ad56a28b6ba779ec562b232e837833e6f5099b43ac7e8356e6",
+    "scripts/background_layers.gd": "43b06291e870ad05de9bf1ffcf3b148b428dfc2dd59a68fe28c0e570ffaaf41f",
+    "scripts/battle_hud.gd": "91959367c11c2186565a962adb728eec0d6f250d34b6f4e3fd6e096b59164984",
+    "scripts/blue_ink.gd": "5ccff30d61c03c705b1b4f69998f73e5758308fffe233b2335174af6547ac135",
+    "scripts/blue_ink_layer.gd": "84adbcb52deef147d13dfdec066853c0dad61f9f3ae06b981177d41156490c13",
+    "scripts/brood_theme.gd": "0c7549396218ee26153e972b384835b7a76cd53aa097f9fa4d816da2ede6a720",
+    "scripts/build_chain_ui.gd": "878837ad403d360ed3899d692f0e70512993d8e12db87c3d93e66f140a9533ae",
+    "scripts/build_grid_ui.gd": "426b18b5e8b81fd1b0a3274c3fdcec9e8dd0100aca9a8ed0e5b3a2872c894fbe",
+    "scripts/build_icon_button.gd": "d4d587b0ed0cf36753739a1696d3583c21596ad84c383f98d58b6653a9d5ffa5",
+    "scripts/build_mount_control.gd": "8e4fd52c4cd4334a7d7c5fb3a39788cdd3de5e25ead38b7300be74cc4f3e616f",
+    "scripts/build_symbols.gd": "fae29cd8004efa57485d72538aaeaba8778397e518d3e477b722a11a6c2d58ed",
+    "scripts/centipede.gd": "3a25e6b16cbbd0eae0e03f06409c02ab3ab7181894dbe722b6254847a44f6bb6",
+    "scripts/centipede_art.gd": "797e0614204195032992757a34e41049acc6a8cce24b1acbe19a969d4176f594",
+    "scripts/centipede_coil.gd": "7a8bb06138fee406a2bf7013bb4d1408ba90566a75611cf7124b8d86967d6cf8",
+    "scripts/centipede_legs.gd": "1c084d93b53b28ef71f591bd91aea1e329bb9d9b261c52159219e1aca4eb4646",
+    "scripts/centipede_motion.gd": "9a98e2e62c4b73915f4e3ea389be2e3db04b5ff0c029bf1ea26729777486d88d",
+    "scripts/chain_centipede.gd": "75cf16135996c92c0e38c462a276663cfcea70e45287195d17cfc6b08df14e6b",
+    "scripts/chain_drag_preview.gd": "b9eeb37e0a0a647adf9da5bca16bf8b0f7b07bb2675d2445f99571cf4cc6fef1",
+    "scripts/chain_mount_control.gd": "7f4b3576cfecad393431d3dd79d58118755e9a305c52d0dcf9e3132afbc4468b",
+    "scripts/character_abilities.gd": "7ab80bb366ffe51d97bd8bccfae92d1ffb4354e07e7f257042f9fd7d582ebe81",
+    "scripts/character_art.gd": "5c95d1bbbd9c1a9aebca7544d766867f1ea31a954cf249a329bd3852f7f65d2a",
+    "scripts/character_roster.gd": "637c9f18ddd71250f791ec8685a0a5f1393d54ad8d3b82caa066e08211e9f687",
+    "scripts/character_select.gd": "3f0c894768f8c386c526595ebe33799b81d14b03ae4d88a7ad798696cfa3bddd",
+    "scripts/combat.gd": "c5e6a5ffe3f48018d3bcec28b7b7526bca0852e8a7382929bf32edbed6ca8299",
+    "scripts/combat_spatial_index.gd": "74009496b5378d2a701c860efe816e9a89ccdc07531db8f3e5ed90e1c419a66d",
+    "scripts/crystal_loot.gd": "078b8685ebdaec382ac2dbdb4aee05d633beaf3e34c53892f6b460036d516f3d",
+    "scripts/cursor_system.gd": "c7a8f97978bda936803f580d9c6f27686a0b794397fb868da93d3b6506ec26f7",
+    "scripts/direct_body_canvas.gd": "65742268fc174eedbb45be5d3d8d9cca9a2adb9f079e60a22ec416f8b2e2b2e6",
+    "scripts/enemy_death_splatter.gd": "39c0e65ec1495f4f55824505088ffb3ee0291f9af67c9faf799d1ddd692cc253",
+    "scripts/flagella.gd": "13dd2bc696708400afdde4cbb38b9ee95d742746aa9ff1d23a913cbb934029e2",
+    "scripts/game_ui.gd": "974b2e87d8679069b48a7cd50d2a8d858d5904ca9622643e69c07ba8ac9daf35",
+    "scripts/generated_ui_art.gd": "950547456adbc01804bb9dc9b7e2b4d06edeea3f9d61349cd836b457445427a7",
+    "scripts/grid_centipede.gd": "76dd0dc71db01ecd247260227d6eecf4c8eb41075bc6726eb2d4030ea2c4216a",
+    "scripts/input_system.gd": "803344a252f2731af6047948e7583c922d40a1649fc7add6b1c042ba984f4e86",
+    "scripts/insect_anatomy.gd": "c8f4332ad7e9762095c2ffddfd956b3e27928c445b5f4e9bd4f1a9ed1f16cd32",
+    "scripts/insect_armaments.gd": "d22dd1175acb1168597d259b3968270454b02275b2ea8994bc86d2fd78dff06b",
+    "scripts/insect_attack_fx.gd": "037d46baa2c273b185dac132341df07dbcaf78b3044204a3f42da7d9728ee720",
+    "scripts/insect_controls.gd": "61dabd360fb1610107f2ac82abbabddcd9008b9d788270d64796184401be9fbf",
+    "scripts/insect_hit_audio.gd": "beb206dcd97b653f149b1967454fe858b850711add916dedac836971ec92f513",
+    "scripts/insect_hit_fx.gd": "9d6d9b23346438ca4c6c326454dd027655f8cc67a2efe95b7b926f0d258bb86b",
+    "scripts/insect_projectiles.gd": "6c8c7b2d45f99ceb2ebdad03bc64df0a3501aad90b59c8de4c954ed80fc39df5",
+    "scripts/intro_ui.gd": "999ff7b80d45aa2cc11d6b6306dce21babdcc1e49d546dddc56923e44b1734db",
+    "scripts/living_passive_layer.gd": "89128517ea4b92c5153e329ee00948e7f425a9ad287fa60081226531dde4218f",
+    "scripts/main.gd": "98b132197494141ae3016709829f0f5b15f8726efb4b4e6d94b809a248d66240",
+    "scripts/map_director.gd": "f715ad4708e3428d89ecc03e808dfaa1a7d22a75e73c8dfa488ee4ff61fae72f",
+    "scripts/menu_background.gd": "fb7a4975353d0de82578eb8fb3690bcb8db2b8a66b204622d0b67e2d4030ea31",
+    "scripts/mission_director.gd": "9fdfbae989c57590c92ef2100073d06f78e26a50db11c660d5e2d7643d16b03c",
+    "scripts/mission_select.gd": "e208f220005fa2ec2945d3e78bff084cb388f508f2b0d4763aa42518270eb0fd",
+    "scripts/native_visuals.gd": "b6dfc84776f6c2b8bfe549881daf878c289bf6881e5449d7b189af393066baef",
+    "scripts/particle_effects.gd": "7ca8ea19a15537d5a40fd45bf9dc8cd4538ad4ed7fb46067284922a283c4bbe0",
+    "scripts/passive_feedback.gd": "6ddd00fff8a48bf3b75d239abfcdfc2de32cdd0d47e53b22071a258d24ce113d",
+    "scripts/player_decorations.gd": "7501b82f014a816826fa8b0bb9ec09c246ac56b49c082cd6f3954e144f65ba48",
+    "scripts/popup_text.gd": "619b3695d931d12f28df06d1f76d79d52bdac16bc55249ac14f9317d07c33e2b",
+    "scripts/radial_formation.gd": "623a589c0f5477840dcdc99d248efd9f3658ddc8e74880f54e40a31924526143",
+    "scripts/render_state.gd": "789d5179ac1c77866b8394874a5910a5bb8cee213445d216f049502b9daabc67",
+    "scripts/research_ui.gd": "97b6b54b68587e457eb42d3ea06ea14f24ffa7bd101ec869206387ac1a17f44f",
+    "scripts/reward_choice.gd": "b8bed5495d7fa174c66251e212ee647f2eb7f3a25b9f21f721813edfbf41ba33",
+    "scripts/reward_director.gd": "41b809ae22359388e5fc32d0fe67830e975d52411ac6a27781e7d8dd2a21f5b6",
+    "scripts/reward_feedback_state.gd": "32382a230f90e326113a519d78072eaa743c5c7dc4c792569b491535aaeffe07",
+    "scripts/reward_pool_ui.gd": "23139cce0748d7991bd01de7e2d923a0ec849905b9a8375953101766a42bc1bf",
+    "scripts/rig_appendage_batch.gd": "272ae7b14c18f8d085e32b8d0b8715f56a2900cb17ad5bec7f8819a0970c9542",
+    "scripts/run_state.gd": "700c8e979a2c73e2423d96ec6a82f5f2bcece316748770057e6540a7151ac3f7",
+    "scripts/save_store.gd": "f0f6b36505462b6328ab701021ab7a50087cd2f82bac2ea42906a0fece0815b5",
+    "scripts/segment_feedback.gd": "ba6206a219773b2bca4e5cc472fe8b6aba9becb34025f390bce2f501aae5ff15",
+    "scripts/soft_insect.gd": "a46284b17c4ad2c5150892542e309bc321a0547e751752dcd7c506e21e46a413",
+    "scripts/soft_insect_layer.gd": "7ec1bbd2a860d8277f9511e3d68bd31fd8810e4b9c31e0069dcfd9c4bb955880",
+    "scripts/soft_insect_rig.gd": "7b468c86f1b343fc1f3bb69cf2e17c75cfb415003e005928923da7c8d08d30c8",
+    "scripts/soft_organ_art.gd": "d37f09c650d0857f01029486aba8d6ada211bb38dfc706953b0a7c318e4962f0",
+    "scripts/source_db.gd": "ebd6b7d136d66ab905f27bac6060965a179a04a4aac0a7640e0ae84a7a9effdb",
+    "scripts/source_ui.gd": "4c8ae79e72f05e42e7c6eefa7f59fe0c45c52d755a06aad5703d336f556a2442",
+    "scripts/special_systems.gd": "3bee350d57ce51cac1aa4e0f3124fb5724d7813f5289231711a51ea880459111",
+    "scripts/spider_art.gd": "1e8d84b351017c9aca83a5e79fa3c7e1288f6ba0babc52b0c521edcf94a69efe",
+    "scripts/spider_rig.gd": "fa7edb3d963d93f0527951f243e9154da39b78f58de2c3150019690a7b755645",
+    "scripts/tutorial_ui.gd": "f285e9cad1ec6b5ee081fef988a96435e7aba3cbb9783bcced1640af8c3a1223",
+    "scripts/viscous_projectile_motion.gd": "916fb57cd2b01630e145a1be765df45269bf1f1c881e4e675e4a3667b6f1d733",
+    "scripts/viscous_projectiles.gd": "fc97061377ca93821c137b4fff0bc2d9dd709493f2110f4d19e7970f00cc59b2",
+    "scripts/weapon_feedback.gd": "dcc08e6f4187faee9e4341d7c4c35bc736ed078c1a64c7b7647fb131630c5bab",
+    "scripts/weapon_fx.gd": "f534d8c66992f123cb426d44dc4921c03cedd3cc009a008d315acbf7dd8f1fb5",
+    "scripts/windows_review_probe.gd": "391363f5c0aae4aa07f25730d468d6db780d89dc8ebda75e305ac508b62a981b",
+    "tests/test_dense_render_benchmark.gd": "53fba5eabf314fa4b2cea89ac24bd7723a977b9bc67eb9cf9df79aa5cc000278"
+  },
+  "runs": [
+    {
+      "bullets": {
+        "max": 256,
+        "mean": 250.066666666667,
+        "p50": 250,
+        "p95": 255
+      },
+      "display": "X11",
+      "draw_calls": {
+        "max": 2288.0,
+        "mean": 1859.72222222222,
+        "p50": 1864.0,
+        "p95": 2184.0
+      },
+      "effects": {
+        "max": 125,
+        "mean": 92.3611111111111,
+        "p50": 97,
+        "p95": 116
+      },
+      "fixture_version": 1,
+      "frame_ms": {
+        "max": 143.682,
+        "mean": 98.4244555555556,
+        "p50": 97.025,
+        "p95": 120.39
+      },
+      "main_draw_build_ms": {
+        "max": 29.382,
+        "mean": 18.1006277777778,
+        "p50": 17.746,
+        "p95": 22.707
+      },
+      "measured_frames": 180,
+      "particle_emitters": {
+        "max": 0,
+        "mean": 0.0,
+        "p50": 0,
+        "p95": 0
+      },
+      "render_objects": {
+        "max": 20379.0,
+        "mean": 14740.8722222222,
+        "p50": 14635.0,
+        "p95": 19132.0
+      },
+      "renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+      "revision": "8204a755181b9b2d9f2f622c9745c24c727145cb",
+      "scope": "Native rendered fixed-step dense battle: 31 modules, 64 durable tank/shield enemies, production projectile floor 256; real drawing, soft actors, weapon FX, HUD, background retained. Mission spawning/audio excluded. Wall frame time includes CPU and renderer; not user hardware FPS.",
+      "signature": {
+        "bullets": 254,
+        "enemies": 64,
+        "head": [
+          120.28889465332,
+          402.302917480469
+        ],
+        "hp_sum": 639999226.0,
+        "parts": 31,
+        "rng": "3982730367952883469"
+      },
+      "simulation_prepare_ms": {
+        "max": 43.402,
+        "mean": 21.7116833333333,
+        "p50": 20.727,
+        "p95": 30.279
+      },
+      "viewport": [
+        1440,
+        900
+      ],
+      "vsync_note": "Driver may reject vsync changes; inspect native log for warnings. Reported enum alone does not guarantee compositor behavior.",
+      "vsync_reported_mode": 0,
+      "vsync_requested": "disabled",
+      "warmup_frames": 60,
+      "process_timing": {
+        "wall_seconds": 30.82995219700001,
+        "user_cpu_seconds": 53.30897,
+        "system_cpu_seconds": 1.515737,
+        "scope": "Entire Godot subprocess: startup, fixture setup, warmup, measured steps, projectile replenishment and output. CPU counters use POSIX child resource usage; unavailable on Windows is null."
+      }
+    }
+  ],
+  "signatures_match": true
+}

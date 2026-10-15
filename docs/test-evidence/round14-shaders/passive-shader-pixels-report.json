@@ -1,0 +1,299 @@
+{
+	"checks": [
+		{
+			"name": "Captured passive shader frame 0",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 1",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 2",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 3",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 4",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 5",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 6",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 7",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 8",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 9",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 10",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 11",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 12",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 13",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 14",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 15",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 16",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 17",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 18",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 19",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 20",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 21",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 22",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 23",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 24",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 25",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 26",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 27",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 28",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 29",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 30",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 31",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 32",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 33",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 34",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 35",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 36",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 37",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 38",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 39",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 40",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 41",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 42",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 43",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 44",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 45",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 46",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 47",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 48",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 49",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 50",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 51",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 52",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 53",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 54",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 55",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 56",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 57",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 58",
+			"passed": true
+		},
+		{
+			"name": "Captured passive shader frame 59",
+			"passed": true
+		},
+		{
+			"name": "shield frozen instance pixels change using only sim_time uniform",
+			"passed": true
+		},
+		{
+			"name": "armor frozen instance pixels change using only sim_time uniform",
+			"passed": true
+		},
+		{
+			"name": "repair frozen instance pixels change using only sim_time uniform",
+			"passed": true
+		},
+		{
+			"name": "chip frozen instance pixels change using only sim_time uniform",
+			"passed": true
+		},
+		{
+			"name": "boost frozen instance pixels change using only sim_time uniform",
+			"passed": true
+		},
+		{
+			"name": "cloak frozen instance pixels change using only sim_time uniform",
+			"passed": true
+		}
+	],
+	"fps": 15,
+	"frames": 60,
+	"passed": true,
+	"pixels": [
+		{
+			"changed_pixels": 20309,
+			"mode": "shield"
+		},
+		{
+			"changed_pixels": 23760,
+			"mode": "armor"
+		},
+		{
+			"changed_pixels": 33063,
+			"mode": "repair"
+		},
+		{
+			"changed_pixels": 24702,
+			"mode": "chip"
+		},
+		{
+			"changed_pixels": 28817,
+			"mode": "boost"
+		},
+		{
+			"changed_pixels": 24662,
+			"mode": "cloak"
+		}
+	],
+	"renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+	"scope": "Six production instanced materials, original atlas and fixed per-instance transforms/state. Only shader sim_time changes; no CPU geometry motion."
+}

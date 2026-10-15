@@ -1,0 +1,66 @@
+{
+	"captures": [
+		"res://artifacts/energy-crystals-zoom-0.6.png",
+		"res://artifacts/energy-crystals-zoom-1.0.png",
+		"res://artifacts/energy-crystals-carried.png"
+	],
+	"checks": [
+		{
+			"name": "Real enemy death creates three value-coded crystals totaling 26",
+			"passed": true
+		},
+		{
+			"name": "Captured energy-crystals-zoom-0.6",
+			"passed": true
+		},
+		{
+			"name": "Crystal 20 stays visibly colored above death effects at zoom 0.6",
+			"passed": true
+		},
+		{
+			"name": "Crystal 5 stays visibly colored above death effects at zoom 0.6",
+			"passed": true
+		},
+		{
+			"name": "Crystal 1 stays visibly colored above death effects at zoom 0.6",
+			"passed": true
+		},
+		{
+			"name": "Captured energy-crystals-zoom-1.0",
+			"passed": true
+		},
+		{
+			"name": "Crystal 20 stays visibly colored above death effects at zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Crystal 5 stays visibly colored above death effects at zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Crystal 1 stays visibly colored above death effects at zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Collector picks up a real generated crystal",
+			"passed": true
+		},
+		{
+			"name": "Captured energy-crystals-carried",
+			"passed": true
+		},
+		{
+			"name": "Carried crystal stays visible beneath the collector",
+			"passed": true
+		},
+		{
+			"name": "Collector returns crystal to the player",
+			"passed": true
+		},
+		{
+			"name": "Delivered crystal grants its energy and disappears",
+			"passed": true
+		}
+	],
+	"passed": true
+}

@@ -1,5 +1,6 @@
 extends RefCounted
 ## Bounded visual elasticity only: never writes simulation positions or consumes RNG.
+const AttackShaders = preload("res://scripts/attack_shader_layer.gd")
 const MAX_CONTROLS = 32
 const CURVE_SEGMENTS = 18
 const INK = Color("173b70")
@@ -42,8 +43,10 @@ static func ownership_color(kind: String, friendly: bool) -> Color:
 	return Color("72e8dc") if kind == "tendril" else Color("b8e5ee")
 
 static func paint(canvas, controls: Array, zoom: float):
+	var source_canvas=canvas
 	var count = mini(MAX_CONTROLS,controls.size())
 	for i in range(count):
+		canvas=source_canvas
 		var effect: Dictionary = controls[i]
 		var target: Dictionary = effect.get("target",{})
 		var alpha = control_alpha(effect)
@@ -55,6 +58,7 @@ static func paint(canvas, controls: Array, zoom: float):
 		if not bounds.intersects(canvas.get_viewport_rect()): continue
 		var kind = str(effect.get("kind","silk"))
 		var friendly = bool(effect.get("friendly",true))
+		canvas=AttackShaders.route(canvas,kind,not friendly)
 		var color = ownership_color(kind,friendly)
 		var age = maxf(0,float(effect.duration)-float(effect.life))
 		var radius = clampf(float(target.get("radius",18)),12,34)*zoom

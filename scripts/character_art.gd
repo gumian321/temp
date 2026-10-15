@@ -1,5 +1,6 @@
 extends RefCounted
 ## Original AI-generated cutouts; animation only transforms the painted raster.
+const AttackShaders = preload("res://scripts/attack_shader_layer.gd")
 const SpiderArt = preload("res://scripts/spider_art.gd")
 static var textures: Dictionary = {}
 
@@ -48,6 +49,7 @@ static func draw_skill(canvas: CanvasItem, player, state: Dictionary, at: Vector
 	clock = float(player.motion.elapsed)
 	var active = float(state.get("active", 0.0))
 	if player.character_id == "spider" and active > 0:
+		var silk_canvas=AttackShaders.route(canvas,"silk")
 		for thread in state.get("threads", []):
 			var target: Vector2 = at + (Vector2(thread.position) - player.head) * zoom
 			var axis = target - at
@@ -58,8 +60,8 @@ static func draw_skill(canvas: CanvasItem, player, state: Dictionary, at: Vector
 				var sag = sin(t * PI) * minf(15.0, axis.length() * 0.07) * (0.3 + active * 0.35)
 				var wave = sin(clock * 13.0 + t * 9.0 + float(thread.uid)) * sin(t * PI) * 2.0 * zoom
 				points.append(at.lerp(target, t) + normal * (sag + wave))
-			canvas.draw_polyline(points, Color(0.10, 0.24, 0.40, 0.85), 3.6 * zoom, true)
-			canvas.draw_polyline(points, Color(0.86, 0.96, 1.0, 0.95), 1.5 * zoom, true)
+			silk_canvas.draw_polyline(points, Color(0.10, 0.24, 0.40, 0.85), 3.6 * zoom, true)
+			silk_canvas.draw_polyline(points, Color(0.86, 0.96, 1.0, 0.95), 1.5 * zoom, true)
 	elif player.character_id == "beetle":
 		canvas.draw_set_transform(at, player.facing.angle(), Vector2.ONE * zoom)
 		var armor = clampf(float(state.get("armor", 0)) / 100.0, 0, 1)

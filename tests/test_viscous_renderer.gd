@@ -72,19 +72,22 @@ func run():
 	check(probe.textures.size()==1 and probe.textures[0]==Wet.texture("egg_burst"),"Egg detonation uses generated wet burst")
 	var chain={"position":Vector2(200,200),"end":Vector2(400,200),"kind":"chain","life":.04,"fx_duration":.22,"fx_family":"tesla","friendly":true}
 	probe=Probe.new();fx.paint_effect(probe,chain,1)
-	check(probe.textures.size()==2 and probe.lines==0 and probe.circles==0,"Friendly tongue uses one continuous generated filament and a retracting tip")
+	check(probe.textures.size()==2 and probe.lines>=3 and probe.lines<=10 and probe.circles==0,"Friendly Tesla keeps continuous generated filament and tip with bounded three-layer discharge")
 	for key in ["rail","tesla","sonic"]:
 		var aligned=true
+		var bounded=true
 		for progress in [0.0,.25,.6,.7,.9,.99]:
 			var start=Vector2(100,100);var finish=Vector2(400,300)
 			var duration=.22;var reach=1.0 if progress<.64 else pow((1.0-progress)/.36,.75)
 			chain={"position":start,"end":finish,"kind":"chain","life":duration*(1-progress),"fx_duration":duration,"fx_family":key,"friendly":true}
 			probe=Probe.new();fx.paint_effect(probe,chain,1)
 			aligned=aligned and probe.textures.size()==2 and probe.poses.size()==2
+			bounded=bounded and probe.circles==0 and probe.polygons==0 and (probe.lines==2 if key=="rail" else (probe.lines==5 if key=="sonic" else probe.lines>=3 and probe.lines<=10))
 			if probe.poses.size()==2:
 				for pose in probe.poses:
 					aligned=aligned and absf(float(pose.heading)-start.direction_to(finish).angle())<.00001 and Geometry2D.get_closest_point_to_segment(pose.position,start,finish).distance_to(pose.position)<.001
 				aligned=aligned and Vector2(probe.poses[-1].position).distance_to(start.lerp(finish,reach))<.001
+		check(bounded,key+" dynamic accents preserve fixed family draw budget through retraction")
 		check(aligned,key+" tongue remains collinear through contact hold and smooth retraction without a V joint")
 	# Production secretion stream: exact generated route, fixed seven-stamp cap,
 	# axial front masses and no visible quad escaping behind the emitter.

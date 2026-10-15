@@ -12,6 +12,7 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SUITES = [
+    "attack_shader_materials", "skill_shader_coverage",
     "enemy_death_splatter", "projectile_trajectory_continuity",
     "viscous_projectile_motion", "viscous_renderer", "viscous_integration",
     "combat_spatial", "hud_refresh_cache", "particle_resource_cache", "render_hotpath_regressions", "soft_render_cache", "soft_solver_regressions", "rig_batch_dynamic",

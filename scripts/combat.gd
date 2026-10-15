@@ -636,6 +636,8 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 			var shield = db.asset(gun.id)
 			if shield.get("class")!="ShieldCore" or float(gun.get("shield",shield.maxShieldHealth))<=0: continue
 			if other.position.distance_to(e.position)<float(shield.ShieldRange)*48:
+				gun.feedback_shield_contact=Vector2(Feedback.shield_contact(other.position,float(shield.ShieldRange)*48,b).position)
+				gun.feedback_shield_hit_serial=int(gun.get("feedback_shield_hit_serial",0))+1
 				gun.shield = maxf(0,float(gun.get("shield",shield.maxShieldHealth))-float(b.shield_damage))
 				gun.shield_delay = float(shield.shieldRechargeDelay)
 				if gun.shield<=0:gun.shield_broken=true;gun.shield_delay=float(shield.maxShieldHealth)/2/float(shield.shieldRechargeRate)
@@ -753,7 +755,19 @@ func hurt_player(index: int, damage: float, shield_damage: float, shot: Dictiona
 		var shield:Dictionary=player.parts[i]
 		var c: Dictionary = player.effective_core(i)
 		if c["class"] == "ShieldCore" and shield.hp>0 and shield.stun<=0 and shield.shield > 0 and shield.position.distance_to(p.position) < shield_range(i):
-			if not shot.is_empty():impact_feedback(p,shot,true,shield.position,shield_range(i))
+			# Presentation-only contact on the actual protecting membrane. The shader
+			# must ripple where the shot arrived, including hits on another module.
+			var shield_center=Vector2(shield.position)
+			var shield_reach=shield_range(i)
+			if not shot.is_empty():
+				var contact=Feedback.shield_contact(shield_center,shield_reach,shot)
+				shield.feedback_shield_contact=Vector2(contact.position)
+				impact_feedback(p,shot,true,shield.position,shield_reach)
+			else:
+				var outward=shield_center.direction_to(Vector2(p.position))
+				if outward.length_squared()<0.0001:outward=Vector2.RIGHT
+				shield.feedback_shield_contact=shield_center+outward*shield_reach
+			shield.feedback_shield_hit_serial=int(shield.get("feedback_shield_hit_serial",0))+1
 			player.pulse_feedback(i,"shield_hit",0.25)
 			player.pulse_chip_sources(i)
 			shield.shield = maxf(0, shield.shield - shield_damage)
