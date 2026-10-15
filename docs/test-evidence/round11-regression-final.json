@@ -1,0 +1,1789 @@
+{
+  "baseline": "9571d447c7b44141ce3cee0d20070a7888b4d286",
+  "validation_date_utc": "2026-10-15",
+  "scope": "Fresh validation of restored code and newly generated atlas; not historical pre-reset evidence.",
+  "passed": true,
+  "unique_headless_suites": 88,
+  "suites": [
+    {
+      "suite": "viscous_projectile_motion",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.754,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "viscous_renderer",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.57,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "viscous_integration",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.749,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "combat_spatial",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.129,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "hud_refresh_cache",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.648,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "particle_resource_cache",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.861,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "render_hotpath_regressions",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.562,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "soft_render_cache",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.098,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "soft_solver_regressions",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.836,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "rig_batch_dynamic",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.748,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "radial_formations",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.351,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "crystal_loot_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.351,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "hostile_readability",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.279,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "soft_organs",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.941,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "fusion_flagella",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.954,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "camera_stability_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 4.671,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_coil",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.49,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_coil_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.715,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "character_selection",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.863,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "debug_characters",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 4.522,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "direct_body_assembly",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.563,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "insect_projectiles",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.757,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "spider_leg_modules",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.854,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "spider_rig",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.216,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "spider_segments",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.221,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "spider_visibility_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.955,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "spider_assembly_ui",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.093,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "spider_motion_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.388,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "expedition_briefing",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 4.642,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "character_roster",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.478,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "character_abilities",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.14,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "character_integration",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.893,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "character_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.874,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "character_ui_integration",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.481,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "brood",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.465,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "armament_art",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.944,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "generated_light_ui",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.678,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "main_autofire",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.06,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "main_autofire_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.084,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "passive_feedback_state",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.971,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "passive_upgrade_effects",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.021,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "passive_visual_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.953,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_progress_badges",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.611,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "tooltip_theme",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 6.642,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "contact_impacts",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.929,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "insect_armaments",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.709,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "insect_art_routes",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.827,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "insect_controls",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.88,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "insect_attack_fx",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.634,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "game_ui_shell",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 4.405,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "meta_ui_redesign",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 5.075,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "battle_hud",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.638,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_cards",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.935,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "mission_select",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 6.374,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "core",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.832,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "missions",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.949,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "map",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.874,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "rewards",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.781,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "specials",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.791,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "regressions",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.973,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "drones",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.77,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_pool",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.003,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "controller",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.79,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "long_body",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.421,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "shields",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.754,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "turret_tracking",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.749,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "achievements",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.77,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "fuel_tutorial",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.857,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "enemy_drones",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.742,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "radar",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.768,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "weapon_catalog",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.718,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "particles",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.864,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "presentation",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.052,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "loot",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.75,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_segments",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.946,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_support",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.737,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chinese",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.31,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chain_segments",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.777,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chain_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.726,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chain_ui_redesign",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.275,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "segment_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.866,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_flow",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 5.93,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "blue_ink",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.135,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "grid_mounts",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.931,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_motion",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.975,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "weapon_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.141,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "weapon_readability",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.882,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "enemy_motion",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.084,
+      "isolated_user_data": true
+    }
+  ],
+  "focused_checks": {
+    "viscous-motion": {
+      "checks": [
+        {
+          "name": "gatling 30Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "gatling 30Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "gatling motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "gatling 60Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "gatling 60Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "gatling motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "gatling 120Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "gatling 120Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "gatling motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "gatling frame-independent bounded offset",
+          "passed": true
+        },
+        {
+          "name": "shotgun 30Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "shotgun 30Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "shotgun motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "shotgun 60Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "shotgun 60Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "shotgun motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "shotgun 120Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "shotgun 120Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "shotgun motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "shotgun frame-independent bounded offset",
+          "passed": true
+        },
+        {
+          "name": "cannon 30Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "cannon 30Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "cannon motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "cannon 60Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "cannon 60Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "cannon motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "cannon 120Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "cannon 120Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "cannon motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "cannon frame-independent bounded offset",
+          "passed": true
+        },
+        {
+          "name": "flame 30Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "flame 30Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "flame motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "flame 60Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "flame 60Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "flame motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "flame 120Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "flame 120Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "flame motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "flame frame-independent bounded offset",
+          "passed": true
+        },
+        {
+          "name": "flak 30Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "flak 30Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "flak motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "flak 60Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "flak 60Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "flak motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "flak 120Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "flak 120Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "flak motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "flak frame-independent bounded offset",
+          "passed": true
+        },
+        {
+          "name": "nuke 30Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "nuke 30Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "nuke motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "nuke 60Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "nuke 60Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "nuke motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "nuke 120Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "nuke 120Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "nuke motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "nuke frame-independent bounded offset",
+          "passed": true
+        },
+        {
+          "name": "mine 30Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "mine 30Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "mine motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "mine 60Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "mine 60Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "mine motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "mine 120Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "mine 120Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "mine motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "mine frame-independent bounded offset",
+          "passed": true
+        },
+        {
+          "name": "rocket 30Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "rocket 30Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "rocket motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "rocket 60Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "rocket 60Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "rocket motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "rocket 120Hz restrained organic trajectory",
+          "passed": true
+        },
+        {
+          "name": "rocket 120Hz forward speed unchanged",
+          "passed": true
+        },
+        {
+          "name": "rocket motion cannot alter damage/collision budget",
+          "passed": true
+        },
+        {
+          "name": "rocket frame-independent bounded offset",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: rocket",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: rocket",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: rocket",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: rocket",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: rocket",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: rocket",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: rocket",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: rocket",
+          "passed": true
+        },
+        {
+          "name": "Hostile readability preserves straight path: rocket",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: gatling",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: gatling",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: gatling",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: gatling",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: gatling",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: gatling",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: gatling",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: gatling",
+          "passed": true
+        },
+        {
+          "name": "Hostile readability preserves straight path: gatling",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: nuke",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: nuke",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: nuke",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: nuke",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: nuke",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: nuke",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: nuke",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: nuke",
+          "passed": true
+        },
+        {
+          "name": "Hostile readability preserves straight path: nuke",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: rail",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: rail",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: rail",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: rail",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: rail",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: rail",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: rail",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: rail",
+          "passed": true
+        },
+        {
+          "name": "Hostile readability preserves straight path: rail",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: tesla",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: tesla",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: tesla",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: tesla",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: tesla",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: tesla",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: tesla",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: tesla",
+          "passed": true
+        },
+        {
+          "name": "Hostile readability preserves straight path: tesla",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: sonic",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: sonic",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: sonic",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: sonic",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: sonic",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: sonic",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: sonic",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: sonic",
+          "passed": true
+        },
+        {
+          "name": "Hostile readability preserves straight path: sonic",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: unknown",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: unknown",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: unknown",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: unknown",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: unknown",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: unknown",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: unknown",
+          "passed": true
+        },
+        {
+          "name": "Fast, stationary, and precision trajectories untouched: unknown",
+          "passed": true
+        },
+        {
+          "name": "Hostile readability preserves straight path: unknown",
+          "passed": true
+        },
+        {
+          "name": "Slow precision and unknown families remain straight: rail",
+          "passed": true
+        },
+        {
+          "name": "Slow precision and unknown families remain straight: tesla",
+          "passed": true
+        },
+        {
+          "name": "Slow precision and unknown families remain straight: sonic",
+          "passed": true
+        },
+        {
+          "name": "Slow precision and unknown families remain straight: unknown",
+          "passed": true
+        },
+        {
+          "name": "Contact budget caps a hundred egg hits at 24",
+          "passed": true
+        },
+        {
+          "name": "Egg initially adheres at exact swept surface contact",
+          "passed": true
+        },
+        {
+          "name": "Attachment follows direct target reference and surface rotation",
+          "passed": true
+        },
+        {
+          "name": "Eggs swell then transition in-place to bounded detached visual burst",
+          "passed": true
+        },
+        {
+          "name": "Egg swelling and burst apply no extra damage",
+          "passed": true
+        },
+        {
+          "name": "Egg contacts and bursts expire without spawning extra effects",
+          "passed": true
+        },
+        {
+          "name": "Spatial broadphase sees organic swept endpoints",
+          "passed": true
+        },
+        {
+          "name": "Egg visual preserves immediate single gameplay hit",
+          "passed": true
+        },
+        {
+          "name": "Combat emits attached egg visual",
+          "passed": true
+        },
+        {
+          "name": "Visual expiry never double-damages or consumes gameplay RNG",
+          "passed": true
+        },
+        {
+          "name": "Absorbed shield hit does not attach goo to protected hull",
+          "passed": true
+        },
+        {
+          "name": "Combat admission enforces constant-time contact budget",
+          "passed": true
+        },
+        {
+          "name": "Dead attachment target is released without an actor scan",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    "viscous-renderer": {
+      "checks": [
+        {
+          "name": "Imported viscous atlas enables mipmaps for small projectile stability",
+          "passed": true
+        },
+        {
+          "name": "Runtime viscous atlas retains mip chain after import",
+          "passed": true
+        },
+        {
+          "name": "Generated transparent asset resolves: mucus",
+          "passed": true
+        },
+        {
+          "name": "Generated silhouette has transparent crop margin: mucus",
+          "passed": true
+        },
+        {
+          "name": "Generated transparent asset resolves: egg",
+          "passed": true
+        },
+        {
+          "name": "Generated silhouette has transparent crop margin: egg",
+          "passed": true
+        },
+        {
+          "name": "Generated transparent asset resolves: larva",
+          "passed": true
+        },
+        {
+          "name": "Generated silhouette has transparent crop margin: larva",
+          "passed": true
+        },
+        {
+          "name": "Generated transparent asset resolves: tongue",
+          "passed": true
+        },
+        {
+          "name": "Generated silhouette has transparent crop margin: tongue",
+          "passed": true
+        },
+        {
+          "name": "Generated transparent asset resolves: mucus_splat",
+          "passed": true
+        },
+        {
+          "name": "Generated silhouette has transparent crop margin: mucus_splat",
+          "passed": true
+        },
+        {
+          "name": "Generated transparent asset resolves: egg_burst",
+          "passed": true
+        },
+        {
+          "name": "Generated silhouette has transparent crop margin: egg_burst",
+          "passed": true
+        },
+        {
+          "name": "Generated transparent asset resolves: goo_bead",
+          "passed": true
+        },
+        {
+          "name": "Generated silhouette has transparent crop margin: goo_bead",
+          "passed": true
+        },
+        {
+          "name": "Generated transparent asset resolves: wet_trail",
+          "passed": true
+        },
+        {
+          "name": "Generated silhouette has transparent crop margin: wet_trail",
+          "passed": true
+        },
+        {
+          "name": "Generated transparent asset resolves: larva_contact",
+          "passed": true
+        },
+        {
+          "name": "Generated silhouette has transparent crop margin: larva_contact",
+          "passed": true
+        },
+        {
+          "name": "Fallback mappings match initialized combat families",
+          "passed": true
+        },
+        {
+          "name": "Special spore families keep their original art",
+          "passed": true
+        },
+        {
+          "name": "Cheap deterministic body deformation remains finite and restrained",
+          "passed": true
+        },
+        {
+          "name": "Friendly projectile has one body plus at most two generated wet decorations",
+          "passed": true
+        },
+        {
+          "name": "Actual friendly projectile uses new mucus atlas",
+          "passed": true
+        },
+        {
+          "name": "Visual squish never changes gameplay state",
+          "passed": true
+        },
+        {
+          "name": "Exhausted embellishment budget preserves generated body",
+          "passed": true
+        },
+        {
+          "name": "Hostile cue and old contrast shell survive exhausted budget and zoom out",
+          "passed": true
+        },
+        {
+          "name": "Offscreen shots are culled before atlas rendering",
+          "passed": true
+        },
+        {
+          "name": "Attached egg swells using generated egg without flash",
+          "passed": true
+        },
+        {
+          "name": "Egg detonation uses generated wet burst",
+          "passed": true
+        },
+        {
+          "name": "Friendly tongue uses two generated filament spans and a retracting tip",
+          "passed": true
+        },
+        {
+          "name": "Original atlas API retains exact legacy contract",
+          "passed": true
+        },
+        {
+          "name": "Contact rendering respects existing global transient cap",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    "viscous-integration": {
+      "checks": [
+        {
+          "name": "Swept organic shot deals original damage exactly once at dt=0.00166666666667",
+          "passed": true
+        },
+        {
+          "name": "Organic impact anchors on actual target surface at dt=0.00166666666667",
+          "passed": true
+        },
+        {
+          "name": "Collided non-piercing projectile recycled at dt=0.00166666666667",
+          "passed": true
+        },
+        {
+          "name": "Swept organic shot deals original damage exactly once at dt=0.01666666666667",
+          "passed": true
+        },
+        {
+          "name": "Organic impact anchors on actual target surface at dt=0.01666666666667",
+          "passed": true
+        },
+        {
+          "name": "Collided non-piercing projectile recycled at dt=0.01666666666667",
+          "passed": true
+        },
+        {
+          "name": "Swept organic shot deals original damage exactly once at dt=0.1",
+          "passed": true
+        },
+        {
+          "name": "Organic impact anchors on actual target surface at dt=0.1",
+          "passed": true
+        },
+        {
+          "name": "Collided non-piercing projectile recycled at dt=0.1",
+          "passed": true
+        },
+        {
+          "name": "Organic contact presentation has a global hard cap",
+          "passed": true
+        },
+        {
+          "name": "Attached egg follows translated and rotated hull without actor search",
+          "passed": true
+        },
+        {
+          "name": "Egg reaches cosmetic rupture and releases retained target",
+          "passed": true
+        },
+        {
+          "name": "Released rupture remains at its actual detachment location",
+          "passed": true
+        },
+        {
+          "name": "Expired contact slots become available for subsequent impacts",
+          "passed": true
+        },
+        {
+          "name": "Destroyed target releases attachment reference",
+          "passed": true
+        },
+        {
+          "name": "Sway remains bounded and preserves speed/velocity: 600.0 friendly=true",
+          "passed": true
+        },
+        {
+          "name": "Sway remains bounded and preserves speed/velocity: 600.0 friendly=false",
+          "passed": true
+        },
+        {
+          "name": "Hostile/fast shot retains exact straight trajectory",
+          "passed": true
+        },
+        {
+          "name": "Sway remains bounded and preserves speed/velocity: 1200.0 friendly=true",
+          "passed": true
+        },
+        {
+          "name": "Hostile/fast shot retains exact straight trajectory",
+          "passed": true
+        },
+        {
+          "name": "Sway remains bounded and preserves speed/velocity: 1200.0 friendly=false",
+          "passed": true
+        },
+        {
+          "name": "Hostile/fast shot retains exact straight trajectory",
+          "passed": true
+        }
+      ],
+      "passed": true
+    }
+  },
+  "native_scene": "See round11-native-visual.json for additional native viscous_scene and hostile readability checks.",
+  "import": {
+    "errors": 0,
+    "script_errors": 0,
+    "log_sha256": "2a7c8aa8d9192190938b493768adf601a6c3877aed0772303a5b9f8c9b010f46"
+  },
+  "source_hashes": {
+    "scripts/achievements.gd": "b0553bb55184cf13cab8fb430e24dae8ce30adf1145e2ecb3da75c4f3020f02d",
+    "scripts/assembly_tray_icon.gd": "936b57d7fd9faa83dcc5bae183449c9cbe78b7e0db4387a5f53a5423134590a8",
+    "scripts/audio_system.gd": "d47e2179f7f8c7ad56a28b6ba779ec562b232e837833e6f5099b43ac7e8356e6",
+    "scripts/background_layers.gd": "43b06291e870ad05de9bf1ffcf3b148b428dfc2dd59a68fe28c0e570ffaaf41f",
+    "scripts/battle_hud.gd": "f5ab6f9a0bc660a5cfda59f4641ca3651d7ef9b4ceb0ddec80911f38c64f8f36",
+    "scripts/blue_ink.gd": "5c98e07accd49a53a705f8ffe425789c914ac42d89aeffac296efd51d161c4ec",
+    "scripts/blue_ink_layer.gd": "84adbcb52deef147d13dfdec066853c0dad61f9f3ae06b981177d41156490c13",
+    "scripts/brood_theme.gd": "0c7549396218ee26153e972b384835b7a76cd53aa097f9fa4d816da2ede6a720",
+    "scripts/build_chain_ui.gd": "3b1cbd20ea1dc348e5cc4b067f86e56f4664f8d2192e422fef48bc274cad0e0f",
+    "scripts/build_grid_ui.gd": "8773c92e7b5167c48df7190017e16a799e1155d277b8bcdb113f76b1741c7802",
+    "scripts/build_icon_button.gd": "377af882a96877a95b4613ff271e9436717f8e5a4a87b63b383234f8562feea0",
+    "scripts/build_mount_control.gd": "929be4da843d8e31b38f6665165378ea14b179d6ebc41eeea6dff866d124dd31",
+    "scripts/build_symbols.gd": "fae29cd8004efa57485d72538aaeaba8778397e518d3e477b722a11a6c2d58ed",
+    "scripts/centipede.gd": "3a25e6b16cbbd0eae0e03f06409c02ab3ab7181894dbe722b6254847a44f6bb6",
+    "scripts/centipede_art.gd": "797e0614204195032992757a34e41049acc6a8cce24b1acbe19a969d4176f594",
+    "scripts/centipede_coil.gd": "7a8bb06138fee406a2bf7013bb4d1408ba90566a75611cf7124b8d86967d6cf8",
+    "scripts/centipede_legs.gd": "1c084d93b53b28ef71f591bd91aea1e329bb9d9b261c52159219e1aca4eb4646",
+    "scripts/centipede_motion.gd": "9a98e2e62c4b73915f4e3ea389be2e3db04b5ff0c029bf1ea26729777486d88d",
+    "scripts/chain_centipede.gd": "75cf16135996c92c0e38c462a276663cfcea70e45287195d17cfc6b08df14e6b",
+    "scripts/chain_drag_preview.gd": "954a151bf39989499b08b3a4ed160f07484d9cc09dd4bf86a22e88ea0813ea3b",
+    "scripts/chain_mount_control.gd": "fbc4f9d5214928eb3e402c06a8fc902bc6160c041cf425e5f3ac8149a6b54530",
+    "scripts/character_abilities.gd": "7ab80bb366ffe51d97bd8bccfae92d1ffb4354e07e7f257042f9fd7d582ebe81",
+    "scripts/character_art.gd": "70a1d03d0745c7f870da6515aee798fc4b32012af816b4982b4fad27b07e700e",
+    "scripts/character_roster.gd": "637c9f18ddd71250f791ec8685a0a5f1393d54ad8d3b82caa066e08211e9f687",
+    "scripts/character_select.gd": "3e75da6f6a698b3c24cee05fc9ad7e133c427bd9bf2f96434249c9ea46643467",
+    "scripts/combat.gd": "33b29828a306a662bc732601a281c2f43760c6164f9e4e406475d78c0f139f98",
+    "scripts/combat_spatial_index.gd": "74009496b5378d2a701c860efe816e9a89ccdc07531db8f3e5ed90e1c419a66d",
+    "scripts/crystal_loot.gd": "d2cc60e54f7fbc1d861ede42aa160055aa58ed0e51151c9089f9f7fffc56c4dc",
+    "scripts/cursor_system.gd": "c7a8f97978bda936803f580d9c6f27686a0b794397fb868da93d3b6506ec26f7",
+    "scripts/direct_body_canvas.gd": "bfd42bb600f56e78c0dc88056d9d97a818e13783c28961028a83dc3863c847bb",
+    "scripts/flagella.gd": "13dd2bc696708400afdde4cbb38b9ee95d742746aa9ff1d23a913cbb934029e2",
+    "scripts/game_ui.gd": "a334a0375fbf08d196e13b462cf4fed20de850c8942437841925a0597109b38f",
+    "scripts/generated_ui_art.gd": "950547456adbc01804bb9dc9b7e2b4d06edeea3f9d61349cd836b457445427a7",
+    "scripts/grid_centipede.gd": "76dd0dc71db01ecd247260227d6eecf4c8eb41075bc6726eb2d4030ea2c4216a",
+    "scripts/input_system.gd": "803344a252f2731af6047948e7583c922d40a1649fc7add6b1c042ba984f4e86",
+    "scripts/insect_anatomy.gd": "c8f4332ad7e9762095c2ffddfd956b3e27928c445b5f4e9bd4f1a9ed1f16cd32",
+    "scripts/insect_armaments.gd": "d22dd1175acb1168597d259b3968270454b02275b2ea8994bc86d2fd78dff06b",
+    "scripts/insect_attack_fx.gd": "1e41980af22e78890f0b04801c1beddb832705a9922acdb7cbacf77ccf72709c",
+    "scripts/insect_controls.gd": "61dabd360fb1610107f2ac82abbabddcd9008b9d788270d64796184401be9fbf",
+    "scripts/insect_hit_audio.gd": "beb206dcd97b653f149b1967454fe858b850711add916dedac836971ec92f513",
+    "scripts/insect_hit_fx.gd": "9d6d9b23346438ca4c6c326454dd027655f8cc67a2efe95b7b926f0d258bb86b",
+    "scripts/insect_projectiles.gd": "7fde1153cf2d34d3ed22cd6435a34b93bdebaa90c66ede6594742081fb720743",
+    "scripts/intro_ui.gd": "a6059fe61efeb92de731e23787c84a3c816cbe325acd6303eb4078a9ea8b94fe",
+    "scripts/main.gd": "c3dca54abbccb94bef078eafaf7acf6a4d5597df05cd316a6cb74d124bdc3041",
+    "scripts/map_director.gd": "f715ad4708e3428d89ecc03e808dfaa1a7d22a75e73c8dfa488ee4ff61fae72f",
+    "scripts/menu_background.gd": "fb7a4975353d0de82578eb8fb3690bcb8db2b8a66b204622d0b67e2d4030ea31",
+    "scripts/mission_director.gd": "9fdfbae989c57590c92ef2100073d06f78e26a50db11c660d5e2d7643d16b03c",
+    "scripts/mission_select.gd": "8e52e08ded0e1c262cf39d44eed707a04ca35dabb01de21461fb0488c539ab68",
+    "scripts/native_visuals.gd": "b6dfc84776f6c2b8bfe549881daf878c289bf6881e5449d7b189af393066baef",
+    "scripts/particle_effects.gd": "7ca8ea19a15537d5a40fd45bf9dc8cd4538ad4ed7fb46067284922a283c4bbe0",
+    "scripts/passive_feedback.gd": "93a99132a41a64a1ca8083243bc01f6637e2c01fb0c8f16932ad242729af665f",
+    "scripts/player_decorations.gd": "7501b82f014a816826fa8b0bb9ec09c246ac56b49c082cd6f3954e144f65ba48",
+    "scripts/popup_text.gd": "989698ebdd7a2376d0e9dda3940bdbceacc63e720c4726616ca8a722388711c3",
+    "scripts/radial_formation.gd": "623a589c0f5477840dcdc99d248efd9f3658ddc8e74880f54e40a31924526143",
+    "scripts/render_state.gd": "789d5179ac1c77866b8394874a5910a5bb8cee213445d216f049502b9daabc67",
+    "scripts/research_ui.gd": "de4f6e5423b81afe97ce5d75be5e59d48491b4416cd6e4708925c9ce9c8d88db",
+    "scripts/reward_choice.gd": "aefbd92d0f0d926c6daa60b1112ed3dc5a0282b3395090d916e6e49ecd77ff9f",
+    "scripts/reward_director.gd": "41b809ae22359388e5fc32d0fe67830e975d52411ac6a27781e7d8dd2a21f5b6",
+    "scripts/reward_feedback_state.gd": "32382a230f90e326113a519d78072eaa743c5c7dc4c792569b491535aaeffe07",
+    "scripts/reward_pool_ui.gd": "0ba59c03f82b0a912217c4ccf8e31fdfb1d90cec8dd611a512239b566c2f655f",
+    "scripts/rig_appendage_batch.gd": "272ae7b14c18f8d085e32b8d0b8715f56a2900cb17ad5bec7f8819a0970c9542",
+    "scripts/run_state.gd": "700c8e979a2c73e2423d96ec6a82f5f2bcece316748770057e6540a7151ac3f7",
+    "scripts/save_store.gd": "f0f6b36505462b6328ab701021ab7a50087cd2f82bac2ea42906a0fece0815b5",
+    "scripts/segment_feedback.gd": "ba6206a219773b2bca4e5cc472fe8b6aba9becb34025f390bce2f501aae5ff15",
+    "scripts/soft_insect.gd": "a46284b17c4ad2c5150892542e309bc321a0547e751752dcd7c506e21e46a413",
+    "scripts/soft_insect_layer.gd": "08dbc9e3b72e00b7d7038b3262d47960e3dee1573067cac78d63271733727337",
+    "scripts/soft_insect_rig.gd": "2e48c771a8bbbf6978bfa0bc5fcc3ae705f1ba58050aeb4aa842c72e793aa746",
+    "scripts/soft_organ_art.gd": "d37f09c650d0857f01029486aba8d6ada211bb38dfc706953b0a7c318e4962f0",
+    "scripts/source_db.gd": "ebd6b7d136d66ab905f27bac6060965a179a04a4aac0a7640e0ae84a7a9effdb",
+    "scripts/source_ui.gd": "7ba32e3791539b10ca04d8e576756c38a7eb7c459d74bf3b4c60ec3222b80f43",
+    "scripts/special_systems.gd": "536dd310de34d34e62fdbf1fd04c0bf98029b8bcd72aacf999a6475c66a6d366",
+    "scripts/spider_art.gd": "1e8d84b351017c9aca83a5e79fa3c7e1288f6ba0babc52b0c521edcf94a69efe",
+    "scripts/spider_rig.gd": "fa7edb3d963d93f0527951f243e9154da39b78f58de2c3150019690a7b755645",
+    "scripts/tutorial_ui.gd": "f285e9cad1ec6b5ee081fef988a96435e7aba3cbb9783bcced1640af8c3a1223",
+    "scripts/viscous_projectile_motion.gd": "aa394f202894e89f54ad9499effa71868fcde30dc8a34112f13381663c79662f",
+    "scripts/viscous_projectiles.gd": "9eaaf9b7aa2eb105eeb944288fc15031123bb842473399fa1dbeb7b821327276",
+    "scripts/weapon_feedback.gd": "dcc08e6f4187faee9e4341d7c4c35bc736ed078c1a64c7b7647fb131630c5bab",
+    "scripts/weapon_fx.gd": "008289d2514dc8fcbc7df4abe73302e2431e0744b6e93714a44ba92130d07d0b",
+    "scripts/windows_review_probe.gd": "391363f5c0aae4aa07f25730d468d6db780d89dc8ebda75e305ac508b62a981b",
+    "tests/benchmark_hud_refresh.gd": "88db045028c9c0b050a6293d9ec890f1389a02aff3d2b26b8761ab8d5b8bacb2",
+    "tests/benchmark_render.gd": "2a2cf48cd1ee151294261a034488df1d59483e1f263c775e955fedf5c63b8003",
+    "tests/compare_combat.gd": "f39148d7bf6b6be158b41b8ddec6a0f2f4bb2f913f780b284c83dda1aa41d061",
+    "tests/rig_gpu_batch_probe.gd": "8b6d90bd3c280cbadaaea5834b2c330fdbf7e0fd766723a8b2f9d64ef123dd74",
+    "tests/spider_render_probe.gd": "69189c4c9bc59c06002debfff043b8a1e4e9aa029c9f3b3a602f019cb254a17a",
+    "tests/test_achievements.gd": "b72c3cd85e67766d84b0f0432d6ed24927a9ce7aa522edf90f45a9834a71c4e1",
+    "tests/test_armament_art.gd": "60cfd3da35fc96a06c477bef6956599830d52d07286359fcf07d04d72e4e1099",
+    "tests/test_battle_hud.gd": "c31c69783c8a86d059429bd19cdde719c0ba006b0815207e1a696e82a34e2a77",
+    "tests/test_blue_ink.gd": "7cdf1b55cc1f02b1a7c73b904a30bc3273e9f60995a6066cb11da8df9061ae11",
+    "tests/test_blue_ink_scene.gd": "2e029585d1d21d625b11f13a558ed6b425b935d044337b35d02a05c790ff6a98",
+    "tests/test_brood.gd": "751724959f4773e40f1083a0a710857aba08b9211ef2e0947a66c3b22d174de8",
+    "tests/test_brood_scene.gd": "2c02d42af2ce4889aef52a90de897a15cd11903ad37d82f0665c6e4222fd2db1",
+    "tests/test_camera_stability_scene.gd": "71bd2e4043a0fdf54d4780c8e6d284ec4413923433a1856eade5d276a851afa7",
+    "tests/test_campaign.gd": "5d0d35c68ab847581e08a2e641d99919611f308ebf6c7d49f3b4781c607d111a",
+    "tests/test_centipede_coil.gd": "e572dd6cef57d3f6a43678dba1d624fd25c9b8d95f3136838ae2d38844111cb7",
+    "tests/test_centipede_coil_scene.gd": "41810d4967e9d4f6ad82e8cd81336a8d92d35cba07a15a14747f8337a95a1687",
+    "tests/test_centipede_motion.gd": "0693032d158322a7c6ce769645c5ae8b5fd98ad682c95fe41b192a9ecb6e9ce8",
+    "tests/test_centipede_scene.gd": "3e4f255ac4e698696334ec17e7c8a68e349c0feff5f1f3faef07aeeb1c2adaa5",
+    "tests/test_centipede_segments.gd": "4e0ce4c563d6e25f5added10bfc9b1ccd548bc860b71bbc77451f6fa5a5cc584",
+    "tests/test_centipede_support.gd": "c5699a50725f5debf61c5ef9d395b5d5f6856a98b7136e6c157981c650d0b4b0",
+    "tests/test_chain_scene.gd": "487d2136e2de5d496086cd472357a0eaf43dab80ddc3c2d94968f12a86c8db79",
+    "tests/test_chain_segments.gd": "df8c466f04d397d3d3afcdaf137766ec2e80f6eaa5c774cc46cefcc059773fcd",
+    "tests/test_chain_ui_redesign.gd": "6a2ab8c1255c91506b69d5414713f5072b9cd8266e15eabd0e95df67c5458310",
+    "tests/test_character_abilities.gd": "d6dd293b2e9fa84e5454ff26a62a3382990c8bfb64d29d8ddb131494ade37f7b",
+    "tests/test_character_integration.gd": "0dbab4765f7a11666c29d4efb463ebcbd5b2a6e2b0aa923b3ac1468899ec8a33",
+    "tests/test_character_roster.gd": "24a0e784a214d42a70b87efef5fe0f9c3cd9800228aeb9a26afa53790071194e",
+    "tests/test_character_scene.gd": "a06c439058958cf5a225f43799432ed0499fcdb6ed3b94f84c1e9eed7899a903",
+    "tests/test_character_selection.gd": "540f02900ab3952e1d41edee803ac2f86c2dd76911b72b8a471d50cdcf9f8415",
+    "tests/test_character_ui_integration.gd": "002bbee0eebc16bead39dd54c732e4a28ad9dc73c1ecd3f0300b7792e64f0137",
+    "tests/test_chinese.gd": "8ddd9166b805ea5de7d294f8393a18e3b18e480f89ed6398e049906e0bf8ebc6",
+    "tests/test_combat_spatial.gd": "c33653a4b1021a8aeefffa73fa65236037662175bc6694445e4d620ff3d36f07",
+    "tests/test_contact_impacts.gd": "f698845e91d5d042c62196f81ec18625e8173b92d8baeb76d511942c8471dfc9",
+    "tests/test_contact_impacts_scene.gd": "3e3d1d95b9ec611d86b9c2323300c5d6878429c5d6100dbc05268cc49c46f785",
+    "tests/test_controller.gd": "18423326a8e13a43fea5149632b3d8cbeffd6db386232e9762cb8280851837ae",
+    "tests/test_core.gd": "b434226d4c9253bfaf967fcfe933f792a473b4a4dd291477c61460f3f20b3ee0",
+    "tests/test_crystal_loot_scene.gd": "bd5f94b023bf5cd98460e17979856b21c01cbd92b8c6294eefc5d75a3363e0d0",
+    "tests/test_debug_characters.gd": "44b31d238ea0c38922454a36d24d19f8fd0ab23be9c5d00a8e5cb81abc406e89",
+    "tests/test_dense_combat_benchmark.gd": "a8918b2578f64c1be2a2d8f4620ab465e7e3780f5b09a99361e4d672c1f93ed8",
+    "tests/test_dense_render_benchmark.gd": "53fba5eabf314fa4b2cea89ac24bd7723a977b9bc67eb9cf9df79aa5cc000278",
+    "tests/test_direct_body_assembly.gd": "6702aa66005a3de012177659420ec479735c5ae7f71bafbe256b8d695e06a458",
+    "tests/test_drones.gd": "cd771359e7b63215bcae079a10bb17e75fa247702dcfed15d9eb568341dd6e46",
+    "tests/test_enemy_drones.gd": "d979f2c76fb257241782a9eb72b6929c0f9df36159335e151b00534b0b8fcd1d",
+    "tests/test_enemy_motion.gd": "0962e9ab9c20d1e24474046f3e3b36b0140c898cc3d49fbd47f82c2570e78e92",
+    "tests/test_expedition_briefing.gd": "89efa08fc36336b183d899870a35a68fa6adaa09bbf19165390105de0399d0b7",
+    "tests/test_fresh_run.gd": "71e49998ee0f21f2b24d05d383fd10ae1e8b8a0b52a340a6fba01c3a153d0b72",
+    "tests/test_fuel_tutorial.gd": "31cc8e80187d9cd6bd1b8fa93bc53f3af54135752fe74d0d9563b2adc7a6f47c",
+    "tests/test_fusion_flagella.gd": "8169ec73686b2ede6211b721064a9f65c7e0bafa941a79f4ae21cd27efc93e41",
+    "tests/test_game_ui_shell.gd": "c16f78e74334f770bb8a0fa8090a64f39b42219c535519a2a6065f655aef452f",
+    "tests/test_generated_light_ui.gd": "945c361df3f714e873ab598bee054b2e78c8531341128e66ecc09948579ee5ea",
+    "tests/test_grid_mounts.gd": "20592010b337d9bad0bbb107db7e6dfa9a5b70daf022966a6d99e033f665cba3",
+    "tests/test_hostile_readability.gd": "cf3f5735d4d4051239b6081235bd9b5b955ae33c4b32aec500e3b04fac1b7edc",
+    "tests/test_hud_refresh_cache.gd": "c232db5e87326720fba6ee850715c5c6147f757021230da71e580f5656a27ae2",
+    "tests/test_insect_armament_sheet.gd": "a9563edaa91a7706dbab6da96a6068384198c3065cf9c6b82e51b1506562e899",
+    "tests/test_insect_armaments.gd": "13c17d61d9991d13a9c2f64dbb8e6a61a5d0072b9052c1bef3051f0cdd62b687",
+    "tests/test_insect_art_routes.gd": "af5b43a405e4d7873c22d9706aa57798bb385f319daf309c238b2b8e34e52e0e",
+    "tests/test_insect_attack_fx.gd": "a60304b8c1e666a33cdd9ecbbd1055f9b39b6cf9d6fae838bedcd22d66d9fb78",
+    "tests/test_insect_attack_scene.gd": "c6725441d690e86e9fd269884acdc31556ab2fd5525497bd5d3c540e8afcebd8",
+    "tests/test_insect_controls.gd": "9de27b476786d2b95b533ee0bf6fc717628fdf5b24d032a17c0a0446026eed49",
+    "tests/test_insect_projectiles.gd": "ea709312f26f9f27bd8f72af40cd2d49475de5c5221b58053393ddc48fd9cf38",
+    "tests/test_long_body.gd": "d2108b0e8c1ef93cb3a7f4be1fc84240def4caaeaab2833e70431386273447b0",
+    "tests/test_loot.gd": "e7e737d6b4f206e68d8328b4db336a3f86fa8286d7e019c73350e0f083e5e885",
+    "tests/test_main_autofire.gd": "85c2beaa02ab024a21f8521382cc4f3673f8f584d03d24bf9a660e0b3ee7026e",
+    "tests/test_main_autofire_scene.gd": "28fa10120eeca58523fd1e4c0d4bc9d2a3bf42edf23895fdfa6e07ebcf8df82e",
+    "tests/test_map.gd": "662103a510551e852c05f988c877187c24766a3cfefdecc1de1b901467af9f2c",
+    "tests/test_meta_ui_redesign.gd": "61b7c206a98d6f6c4e271e9fbf09c07e92a953f83705087e89b0c37a8322c5e1",
+    "tests/test_mission_select.gd": "8798668ab6cbfeebeb3592446c70e1a5b4f31418991b11e2e1dc90869c3f0ad7",
+    "tests/test_missions.gd": "55e577555d36a3aa76a1209a92f822ced7f9df9a2829115080e936b8fe0705b3",
+    "tests/test_motion_scene.gd": "d9b918ce4129d1498a0a4da6d0d266fbaaa01b5393a3e21cdc47b0427c65b1e7",
+    "tests/test_particle_resource_cache.gd": "4322ee0b49ddb405cd5967e3b8b021b85980fd7f50b818e1c66d8ed121267bef",
+    "tests/test_particles.gd": "eb03771b3458cf12f7d44c1c7ee53b085f25382be755a795fde881f0572e81ce",
+    "tests/test_passive_feedback_state.gd": "9d1580686578e52a80bd5adb4fccec95f404daee5a7befd0772559bf090c801b",
+    "tests/test_passive_upgrade_effects.gd": "0b39dd456007363e34800a3c66ba6710f05869d72b63c10d9f2f96ee113e8431",
+    "tests/test_passive_visual_feedback.gd": "71b408db549ce7fc4c762eb3379dfd8a8be50558b32f22b91e324fa28727e1bc",
+    "tests/test_persistence.gd": "3a098d34b662735583d57b83e3a431e7dc4862c1e19902aa2b9d7dfbe4036192",
+    "tests/test_player_legs.gd": "504256881202be978b6ac6370a7d883d65824caa7fa17980d32db1b0b8d11fd8",
+    "tests/test_player_legs_scene.gd": "1396d9400c80ec6d25bad5c7b573a47a51f1a1ab58842c59183a6cc3d8cb5678",
+    "tests/test_presentation.gd": "83ea8592711af5dae571dd47d440c522a740872492187ffc79d3c8077e3cb8a5",
+    "tests/test_projectile_render_perf.gd": "150851ba2df5f4f4603a6f80d87b1e3f2b87674429ed7d25279d4271506c6dd7",
+    "tests/test_radar.gd": "4a2bb9ecf6bf00a26f4badac6c089fe223ca663018c0401f21537b6f86cc8a54",
+    "tests/test_radial_formations.gd": "32bebb1437a8d236037d9e8d6048c7197c2740d3406f8103488ae0d47a2c030c",
+    "tests/test_regressions.gd": "2bdf27157cd85306f26b79a87e26027fd2b66e45fa38e804ed9449ec1a2836b2",
+    "tests/test_render_hotpath_regressions.gd": "513499ff2d9950396a614b6fc5d8b9381e6e870d2fd132d58ecda02556c4496b",
+    "tests/test_reward_cards.gd": "7dc286e8b6b969c3ba4cff02711020342b7a9084b233fe50b91703f9b54c09e7",
+    "tests/test_reward_flow.gd": "1f4c392642014008f929244a9b47c7622ab93a915e92291059e11eda8835dab3",
+    "tests/test_reward_pool.gd": "33667ba4f7de9ca32464418e8d32d0c23d8c0b7c5b67a7aa4e033aa940246427",
+    "tests/test_reward_progress_badges.gd": "11f64bfc6ca0a4c3848b95e05221f5e1a2b871af887c5b3ea0ab94f56af2a527",
+    "tests/test_rewards.gd": "3d1001e19d8b50c908c2811854f18df085aacf13baf35ea1e1bbe0e90cd1f9a0",
+    "tests/test_rig_appendage_batching.gd": "36f7ace743ce65c01278d5d7e37c6085faa75db6a7d3551dedadce26ec77d79d",
+    "tests/test_rig_batch_cpu.gd": "a7ce9898e2dbb07e9e44f0058420ce068853ba3d314778dad495b0b3100a9647",
+    "tests/test_rig_batch_dynamic.gd": "51bb88da566d0a02864a0cf79dbbe2c688b87633c06ef06549390b382ae91897",
+    "tests/test_rig_gpu_batch_dynamic.gd": "309e230adc028e90498829df49dc6bcd88d57924ff9b644b7256c92662c21349",
+    "tests/test_rig_material_batching.gd": "3ece6460bb2d0969a4a31e14252f69542a80c5f3c02f9a7bbe0d6fe8a8a93ffa",
+    "tests/test_rig_vertex_modes.gd": "7b15780478dfd4f842086c888e6d783e416e51ac9736c146a7fa40d5578cb66d",
+    "tests/test_segment_feedback.gd": "c41ce4235adda001bf304116be742f19fa6a5610241eb276eced5d0736a8489c",
+    "tests/test_segment_feedback_movie.gd": "1c6f380e338ca248b917668e12dbde85d12f158b165b55fa98567dbb6faf8616",
+    "tests/test_segment_feedback_scene.gd": "1810e2bbdf894c868173dda44d6b6841f9d084a9ee14156ad9df90840bf05803",
+    "tests/test_shields.gd": "e18f7a60c03fab6e025d36a1e8fa0f7524ddb7c4d88e7e4bd49c8d517d119625",
+    "tests/test_simulation.gd": "471572357a39ec624419bdaa453edf8e08b0fe2ca6de8e95f850b9a1f923af32",
+    "tests/test_soft_organs.gd": "21dd345aa9b42f98a0c626def2d7f4dd73753d4c355a039893909d43cb2aaf8e",
+    "tests/test_soft_render_cache.gd": "f7d048de002d03e580f4c86f737763c120ea28ff2fae3ff965ff1be3cc6f4958",
+    "tests/test_soft_solver_performance.gd": "62a96c6f0bf0505976927ced90254392d6b5db5b01e22b7a677b8424eb0761e0",
+    "tests/test_soft_solver_regressions.gd": "c67db4dbd1f053daf3b02de0bf28b15e59b193fdc551ae99b16909adca494cfe",
+    "tests/test_specials.gd": "219819858b93a97448b8c45df7fc4b253d88894feebc995ece9549665a646a65",
+    "tests/test_spider_assembly_ui.gd": "b26ce3290a9144f3ad0e02c91cc497923b2b665c34ae74cf8eb6de95a508cd8a",
+    "tests/test_spider_leg_modules.gd": "330c018b7ef6f099fd46f96ce3a3fe29afc924f7c36d7b38c652c4f645eef3b7",
+    "tests/test_spider_motion_scene.gd": "7077fceb93063043f3e136d444e324e079db70a0bfcc956447b57deca0bf3821",
+    "tests/test_spider_rig.gd": "bba684c84585625005b7784f254b32616a9a7097916dfb040e3fb4da7f42141d",
+    "tests/test_spider_segments.gd": "941b40a7e2c9fe54162a5b8c6a21d372fc4d1c2d4e05c3f2a840c3cb7607a9b4",
+    "tests/test_spider_visibility_scene.gd": "3fd76bda476bd4be263b8d01434e73552662ca46a82e507af0ed8b76d6bcff7e",
+    "tests/test_stress_gui.gd": "4fc4cae343fc1bc026051e77a889d723ea523dcd32509fe294d9b20ed5fc9eed",
+    "tests/test_tooltip_theme.gd": "68f8175bf245c3e7647dcc7de133794aeb52adb6b61d0c4949a32f6da959cfec",
+    "tests/test_turret_tracking.gd": "56e1e4dd519a5222c1ae0dbef9fd04ca40a088d64aac16cb84215ae86cb9df9b",
+    "tests/test_viscous_integration.gd": "10c6b2473e9688a435488d0db639e4fda1ee53ee9bf31d3a7ee05f45d1329e89",
+    "tests/test_viscous_projectile_motion.gd": "e08c976b44a77b8adb90aa87eb23e13f53456f212083ccb112d0447faf6892df",
+    "tests/test_viscous_renderer.gd": "1511c9205741c1e4fcd9fd33581ebd3e8aa0a59a280319eef7625157af17b362",
+    "tests/test_viscous_scene.gd": "44534efc48c21bb27fdbd511a75d928b53cd4eb7321820bd3831ab552dd5de3e",
+    "tests/test_weapon_catalog.gd": "310c4c11b869f438099cd55563329808cb12ba0aec7f78ac0a56fbd81e9a21cc",
+    "tests/test_weapon_feedback.gd": "0bcb2a31a4c1620b81a9ff0f354ce4865d08a5c62c8c3488a70edd204b660270",
+    "tests/test_weapon_mounts.gd": "2f48963dacc6cc487654cbad0b48e9fd0acf5260e2cd5c76f48c89e8fc07049e",
+    "tests/test_weapon_readability.gd": "639cd27b250bc4ce648d1325572e719807b31903f6cc8c4392a28b7099773105",
+    "tests/test_weapon_readability_scene.gd": "13084657f7aa234602a4cc8c3497cfb76c8508b0dc4ccef1e922cdac4f7cb75d",
+    "tests/test_weapon_showcase.gd": "3bf54694cf51c30fb9b8c440dfa6359d6d6541e173500df130dcf22e0fd5f809",
+    "tools/audit_remaining_source.py": "4bfe4a3ffe45c8cd79fd17c3491888016081145551756938ffbdca955572ff2b",
+    "tools/benchmark_dense_combat.py": "b0167a62950baaf1e1be09fd6f7f364b41b6c1cc24a96c730ab599ac9545875d",
+    "tools/benchmark_live_pair.py": "c9a60ca6dee09a2b8a9144f48a00f8f806104fb01cbd69c4b84341800ba6657a",
+    "tools/benchmark_variants.py": "2b04665bf81d532e062f9f19c4327ff6c30ae6069b20c648cb029d1cee355e35",
+    "tools/build_brood_rigs.gd": "21acce7002941833c6380474c75bfe1953dea18bd743d324e29205fe55af2d04",
+    "tools/build_inventory.py": "2949a45c2f717df0ca9b09b3756430387f2c027cf492df3ca16ee51a2650629b",
+    "tools/compare_combat.py": "c8736968e76bea98d63719c48abc745a860638a2750c1cd2451d809ecc0d3a7e",
+    "tools/compile_catalog.py": "08013e8140c60a8eb3e9d19e60b8a60ce374608959ccd7f33149d3f905a8b9d0",
+    "tools/configure_armament_imports.py": "440c2bbfc73af20312136218b26a6b46f476dbe872f7ca96f7f45c845f823bf5",
+    "tools/encode_brood_preview.py": "a3beadaddd17d24a17bb3c7635a6596a899309bada85c2b5f5fb45533cf9b6fd",
+    "tools/encode_motion_preview.py": "7abafd4bd5f8381f2a52b14c751342bd26f308b19ef8fae316bd5e1eb52553e6",
+    "tools/encode_weapon_preview.py": "510b6b3b2eb94b2cd922927466c90e930db36a046643fc9667b1b10abf4e4eb2",
+    "tools/extract_engines.py": "77287875510166f5d0a9f99928164da2b7d540bc5cbb7f854588ce4892b9a1d6",
+    "tools/extract_entities.py": "fcc5043ae1ab60e2a398fd3cc552a015a85326a90b89895678a2327055ee3d9b",
+    "tools/extract_input_bindings.py": "e86f56ddda58aa02ef074ef5d1b95ce210be9117e296c1b44f5b61231973c6d0",
+    "tools/extract_intro.py": "56a740009148284ecb793e48d0905c2a9cb28b5339c77517e9390f13291b0f4b",
+    "tools/extract_native_visuals.py": "fe11710214aff2576a7699632115c3057321bd6ca94bdc359f26ba94a9c454b0",
+    "tools/extract_particles.py": "10459022c2366afa3893194d99e2638c3184980efd80571ca6979b661a96e750",
+    "tools/extract_prefab_art.py": "7c3398eff17b08c2d9516a07e289a5639c9e8266ad188f4010b81049a4d1faf3",
+    "tools/extract_research_layout.py": "00460798e6458a15df01527a1ef63f31dbff73ac342be6323cd8a4ec61d5ddd4",
+    "tools/extract_runtime_config.py": "b791b1f891f2a7b6086447b580a61300ee7cc289fb78ef38511e9d1e69ad932b",
+    "tools/extract_ui.py": "9e87357dc6789c8aacbbe24f93fee619c385446586a094f7ea8577e7c9a5de92",
+    "tools/fetch_godot_windows_templates.py": "bf357aaf26fdb85d4d66a3474440455fbe3c13ae869e19e40d53d602d0fc10b6",
+    "tools/import_unity.py": "c2e5f3929ce94c4c1679e8cefc419e1799a11fd71018a10c274735c76490fee0",
+    "tools/inspect_scene_ui.py": "d6bbd2cd07faf9d671b8cf528d63720b04f1935e7184ae2feb20894ab4a7bbff",
+    "tools/package_checkpoint.py": "553536fd65991d894214063c833f40f71ff533affe8588b28cbced9c6aeb5cf0",
+    "tools/package_windows_review.py": "b297cfde40312964bd9a18d346eca6c25907e763a638eaaa8617ecf34447373f",
+    "tools/run_checks.py": "c4ea39ecdf8b048483b7da3f99cffb395e7068083b268d9b27f3b0b015e34acf",
+    "tools/source_render_metadata.py": "9030a263bb636061646be64616a6ca54cf7244f6df714e249c2e6a4a5961cb75",
+    "tools/subset_ui_font.py": "32a938709a0651d764701d218c807942441afad160e2d28343841bc0f02d6df0",
+    "tools/test_build_input.py": "c99dc4064af3709de6231997fdc980a03a2164a1b5eca4cc3070b4eecb74c7b9",
+    "tools/test_campaign_parallel.py": "c4ea6a40e08a980fa5281ceb897eadb3690ffdc8d27a0a615746f38376ec5a99",
+    "tools/test_navigation_input.py": "5ce60a8596a9e80167158f49a3101458cfebee9db216c924193a029c70361327",
+    "tools/test_operations_input.py": "ceafec8b4496716962332e6c12a1b1cd4a16179d7eeb3dab1a6e6302865b439a",
+    "tools/test_real_input.py": "b22ac2099e77888f06b8c446e9df16ab69c048506e88411bec67a8a6381ea27e",
+    "tools/test_spider_source_import.py": "4242238c92db14142e68f69d729639938a699c159ce73205a0f2fa6db0957f1b",
+    "tools/transcode_videos.py": "3b2c4c0224ea1455a04adcd8966223992edad59dd8229539e644ab5e61fe76dd",
+    "tools/unlock_player_profile.gd": "88fd78a9e1b1bee3de628d4b819ce18d0b9709fe67d36e69b9c4b2c4e4be7c0c",
+    "tools/update_feature_matrix.py": "505db1f78e80c571a953ed742cfb0a42b1ac55a8e1bb401e3b89db200482eb6d",
+    "tools/upgrade_actor_runtime.py": "bd2b85e63b97f63ab56fae96199614647c5aadf56470b87210b92faee3d1e0f0",
+    "tools/verify_delivery.py": "b5bf9f8baf0e63d45426fdb063a7c85f457b3ecc762de8eee2a42dd371c7ed44"
+  },
+  "final_mipmap_verification": {
+    "suites": [
+      {
+        "suite": "viscous_renderer",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.57,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "viscous_integration",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.749,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "insect_projectiles",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 0.757,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "hostile_readability",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 2.279,
+        "isolated_user_data": true
+      }
+    ],
+    "passed": true
+  }
+}

@@ -1,6 +1,7 @@
 extends RefCounted
 ## Generated organic bodies. Internal source weapon IDs remain compatible with saves.
 const ATLAS_PATH = "res://assets/ui_overhaul/insect_projectiles_atlas.png"
+const Viscous = preload("res://scripts/viscous_projectiles.gd")
 const Feedback = preload("res://scripts/weapon_feedback.gd")
 const INK = Color("213b6e")
 const DANGER = Color("d82746")
@@ -51,7 +52,7 @@ static func texture(key: String) -> Texture2D:
 	textures[cell]=result
 	return result
 
-static func paint(canvas, bullet: Dictionary, zoom: float):
+static func paint(canvas, bullet: Dictionary, zoom: float, time: float = 0.0):
 	var key=family(bullet)
 	var at:Vector2=canvas.world(bullet.position)
 	var heading=angle(bullet)
@@ -62,6 +63,12 @@ static func paint(canvas, bullet: Dictionary, zoom: float):
 		var cue=hostile_geometry(bullet,zoom)
 		size=cue.size
 		paint_hostile_cue(canvas,at,heading,cue)
+	if not hostile:
+		var kind=Viscous.family(bullet,key)
+		var wet_size=size*Viscous.pose(bullet,kind,time)
+		var wet_heading=heading
+		if kind=="larva":wet_heading+=sin(time*18.0+float(bullet.get("organic_phase",0.0)))*0.12
+		if not kind.is_empty() and Viscous.stamp(canvas,kind,at,wet_size,wet_heading):return
 	var source=texture(key)
 	canvas.draw_set_transform(at,heading)
 	if source!=null:

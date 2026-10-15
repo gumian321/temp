@@ -1,0 +1,108 @@
+{
+  "reviewed_at_utc": "2026-10-15T01:08:00Z",
+  "status": "final_post_mipmap_native_validation",
+  "project": "centipede-round11-restored",
+  "atlas": {
+    "path": "assets/ui_overhaul/viscous_projectiles_atlas.png",
+    "sha256": "4be2f71331e93b80a9f99fc48f0893c0ca24bbc6eb1d602d670a1b92054c3732",
+    "bytes": 854656
+  },
+  "renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+  "display": "X11",
+  "scene_and_hostile_suites": {
+    "suites": [
+      {
+        "suite": "viscous_scene",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 1.498,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "hostile_readability",
+        "exit_code": 0,
+        "passed": true,
+        "seconds": 4.813,
+        "isolated_user_data": true
+      }
+    ],
+    "passed": true
+  },
+  "hostile_checks": {
+    "passed": true,
+    "count": 219,
+    "failures": []
+  },
+  "reports": [
+    {
+      "path": "artifacts/hostile-readability-report.json",
+      "sha256": "d912dbcd15415d6d8da6d2644eabbe54bde2a99cd91268887bc16dc670ade00f",
+      "bytes": 19901
+    },
+    {
+      "path": "artifacts/viscous_scene-suite.log",
+      "sha256": "e587d6956edfc0607f535488d096d60a357ae54dfdf789671c49b6e14c849207",
+      "bytes": 496
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "artifacts/viscous-lineup-12.png",
+      "sha256": "21645113cb3f75f73298c3e74d9481441cd4816f3fbbd3daca70f7ae3dfe13b0",
+      "bytes": 154528
+    },
+    {
+      "path": "artifacts/viscous-lineup-50.png",
+      "sha256": "27d459a44f34694b75241734b480084ee4dc0b197d8e5ede71d98e5a313bcd01",
+      "bytes": 157761
+    },
+    {
+      "path": "artifacts/viscous-lineup-85.png",
+      "sha256": "df89de43a8fe4ebefb9beec61988ce3979dbc2ea5538842f03e05d254b4c24aa",
+      "bytes": 154254
+    },
+    {
+      "path": "artifacts/hostile-bullets-combat.png",
+      "sha256": "e5648cdb2602e7e603d831d2223b835672d06013c33af9cea4ffc3f5aa2779b5",
+      "bytes": 1419001
+    },
+    {
+      "path": "artifacts/hostile-bullets-comparison.png",
+      "sha256": "a8ed18561caf8dc5fd5aff13999678613fe30b75f1b7fb65e875fe45a85152a2",
+      "bytes": 148115
+    },
+    {
+      "path": "artifacts/dense-render-round11-restored-native-before-1.png",
+      "sha256": "2e1a6fa2300f13428b6a1c14b8dd0baa34e998e14b8f29ded6813c5fadb9857e",
+      "bytes": 1757169
+    },
+    {
+      "path": "artifacts/dense-render-round11-restored-native-mipmap-after-1.png",
+      "sha256": "29dcdc9eba218a38b00636d7f604d86ac4d1dd581d0cdba0b1d2214a4e874ee6",
+      "bytes": 1779768
+    }
+  ],
+  "findings": [
+    "Native production FX lineup inspected at multiple zoom levels: transparent wet mucus, egg, larva and tongue silhouettes remain distinct.",
+    "Final phase visibly shows fading contact residue, egg rupture and retracted tongue.",
+    "Dense after screenshot inspected: friendly wet streams remain distinct from red hostile projectiles; no opaque panels cover the battle.",
+    "Hostile-readable size floor, red body/cream separation border and directional tails preserved.",
+    "Friendly shots remain small/subtle at 0.6 zoom; no claim of equal friendly and hostile visual prominence.",
+    "Final actual dense battle PNG inspected after mipmap import fix: friendly wet streams are smooth continuous droplets/filaments; fine speckled aliasing visible in the pre-fix diagnostic capture is resolved."
+  ],
+  "limitations": [
+    "Controlled lineup is complemented by actual main-scene hostile and dense battle captures.",
+    "Native rendering used software llvmpipe, not the user GPU; appearance validation does not establish hardware FPS.",
+    "This evidence belongs to the regenerated atlas recorded above, not the lost original atlas."
+  ],
+  "import_config": {
+    "path": "assets/ui_overhaul/viscous_projectiles_atlas.png.import",
+    "sha256": "d49a798e4879a4b56db660e50847dd1008f007509dbd0a5ab5c9137d8281808f",
+    "bytes": 997
+  },
+  "mipmaps_generate": true,
+  "superseded_diagnostic": {
+    "path": "artifacts/dense-render-round11-restored-native-after-1.png",
+    "issue": "Pre-mipmap import produced fine speckling. Not the final validated appearance."
+  }
+}

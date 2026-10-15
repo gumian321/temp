@@ -3,6 +3,7 @@ extends RefCounted
 const SpecialSystems = preload("res://scripts/special_systems.gd")
 const SoftInsect = preload("res://scripts/soft_insect.gd")
 const Feedback = preload("res://scripts/weapon_feedback.gd")
+const ViscousMotion = preload("res://scripts/viscous_projectile_motion.gd")
 const InsectControls = preload("res://scripts/insect_controls.gd")
 var insect_control_system = InsectControls.new()
 var insect_controls: Array = insect_control_system.active
@@ -25,6 +26,7 @@ var despawn_radius=100.0
 var patrol_radius=75.0
 var bullets: Array = []
 var effects: Array = []
+var viscous_contact_count = 0
 var loot: Array = []
 var loot_rng=RandomNumberGenerator.new()
 var scrap_removal_timer=0.0
@@ -262,6 +264,7 @@ func fire(core: Dictionary, at: Vector2, direction: Vector2, friendly: bool, chi
 		var multiplier = (1.0 + damage_boost) * (1.0 + special.chip("MammothDamagePercentBoost", int(chips.get(5,0))))
 		var b = {"position": muzzle, "previous": muzzle, "velocity": dir * float(projectile.get("projectileSpeed", 20)) * 48.0, "life": maxf(0.1, float(projectile.get("projectileLifeTime", 2))), "data": projectile, "friendly": friendly, "damage": float(damage.hullDamage) * multiplier, "shield_damage": float(damage.shieldDamage) * multiplier, "pierce": int(projectile.get("targetPiercingCount", 1)) + int(special.chip("PiercingTargetCount",int(chips.get(3,0)))), "chips": chips, "hit": [], "age":0.0, "direction":dir, "homing_speed":0.0,"rot_speed":0.0, "radius": 4.0 * (1.0 + float(chips.get(5, 0)) * 0.5)}
 		b.fx_family = family; b.origin = muzzle
+		ViscousMotion.initialize(b, shot_serial + i)
 		b.insect_attack = InsectControls.attack_for(db.asset(core.get("coreTurret","")))
 		b.control_source = control_source
 		b.control_source_token = source_token
@@ -499,7 +502,7 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 			b.velocity = Vector2(b.direction)*b.homing_speed
 		if b.data["class"]=="SonicBasicProjectile": b.radius = minf(1,b.age)*float(b.data.sonicWaveLength)*24
 
-		b.position += b.velocity * dt
+		ViscousMotion.advance(b, dt)
 		if b.friendly:
 			for e in projectile_candidates(b):
 				if e.hp <= 0 or e.warp>0 or not e.damageable or e.role == "friendly" or e.uid in b.hit:
@@ -563,8 +566,12 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 				for i in range(int(e.unit.packsDropCount)): loot.append({"position":e.position,"value":0,"pack":true,"pack_ids":e.unit.stationRewardPacksList})
 			explosion(e.position,float(e.unit.get("explosionSize",e.radius/24.0))*48.0,0.65,str(e.get("last_fx","impact")),bool(e.get("last_friendly",true)))
 	enemies = enemies.filter(func(e): return e.hp > 0 and not e.get("despawn",false))
+	viscous_contact_count = 0
 	for effect in effects:
 		effect.life -= dt
+		if effect.kind in ["viscous_contact", "egg_burst"]:
+			ViscousMotion.advance_contact(effect, dt)
+			if effect.life > 0: viscous_contact_count += 1
 	effects = effects.filter(func(e): return e.life > 0)
 	# Remove destroyed mounts without severing the living body; remap owners.
 	var removed: Array = []
@@ -602,6 +609,8 @@ func impact_feedback(e: Dictionary, b: Dictionary, shielded: bool = false, conta
 	var count=0
 	for old in effects:
 		if old.kind in ["hit","shield_hit"]:count+=1
+	if not shielded and ViscousMotion.add_contact(effects,e,contact,family,bool(b.get("friendly",true)),size,ViscousMotion.MAX_CONTACTS-viscous_contact_count):
+		viscous_contact_count += 1
 	if count<48:effects.append(effect)
 	audio_events.append({"type":-1,"position":contact.position,"feedback":"emp" if shielded else family,"strength":clampf(size/18.0,0.3,1.0),"flesh":not shielded and SoftInsect.Brood.eligible(e),"flesh_strength":clampf(.6+style.weight*.25,.7,1.1)})
 
@@ -680,6 +689,7 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 			clone.direction = Vector2(clone.velocity).normalized()
 			clone.age = 0.0
 			clone.life = maxf(0.2,float(b.data.get("projectileLifeTime",1)))
+			ViscousMotion.initialize(clone, shot_serial)
 			if int(b.data.get("projectilePrefab",0)) in [45,46]:
 				effects.append(Feedback.decorate({"position":e.position,"end":visual_contact(other,clone).position,"life":0.28 if str(b.get("fx_family",""))=="tesla" else 0.20,"radius":0,"kind":"chain"},str(b.get("fx_family",Feedback.family(b.data))),bool(b.friendly)))
 				hit_enemy(other,clone)
@@ -705,6 +715,7 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 			clone.hit = [e.uid]
 			clone.pierce = 1
 			clone.radius = 3.0
+			ViscousMotion.initialize(clone, shot_serial)
 			bullets.append(clone)
 
 func hit_player(index:int,b:Dictionary):

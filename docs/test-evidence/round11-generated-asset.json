@@ -1,0 +1,112 @@
+{
+  "path": "assets/ui_overhaul/viscous_projectiles_atlas.png",
+  "dimensions": [
+    1774,
+    887
+  ],
+  "mode": "RGBA",
+  "sha256": "4be2f71331e93b80a9f99fc48f0893c0ca24bbc6eb1d602d670a1b92054c3732",
+  "rois": {
+    "mucus": [
+      58,
+      133,
+      338,
+      203
+    ],
+    "egg": [
+      514,
+      132,
+      322,
+      207
+    ],
+    "larva": [
+      946,
+      124,
+      328,
+      221
+    ],
+    "tongue": [
+      1388,
+      154,
+      331,
+      164
+    ],
+    "mucus_splat": [
+      74,
+      517,
+      315,
+      279
+    ],
+    "egg_burst": [
+      502,
+      520,
+      327,
+      268
+    ],
+    "goo_bead": [
+      994,
+      547,
+      227,
+      224
+    ],
+    "mucus_filament": [
+      1370,
+      600,
+      369,
+      138
+    ]
+  },
+  "edge_max_alpha_top_bottom_left_right": {
+    "mucus": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "egg": [
+      1,
+      1,
+      0,
+      1
+    ],
+    "larva": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "tongue": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "mucus_splat": [
+      1,
+      0,
+      1,
+      1
+    ],
+    "egg_burst": [
+      1,
+      0,
+      0,
+      1
+    ],
+    "goo_bead": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "mucus_filament": [
+      0,
+      0,
+      1,
+      0
+    ]
+  },
+  "generator": "Built-in image generation, followed by a transparent-gutter edit",
+  "generation_prompt": "Use case: stylized-concept. Create a production-quality transparent PNG game sprite atlas, landscape 2:1 aspect ratio, exactly FOUR columns by TWO rows of eight isolated illustrated objects, equally sized square cells. No grid lines, no labels, no text. Every object completely within its cell with a generous transparent margin. Polished top-down 2D hand-painted insect slime projectiles, readable navy outer contour, cream, pale yellow-green lime, and amber palette, intensely wet translucent goo with creamy highlights. Organic insect anatomy and tiny inner air bubbles. All four projectiles in TOP row point toward RIGHT, their slime tails trail LEFT. Top row left to right: 1 a chunky asymmetrical pale lime mucus glob, rounded heavy head on right with two sticky tapered tails on left; 2 a translucent amber insect egg sac containing three visible creamy oval eggs, stretched viscous membrane with short strands trailing left; 3 a plump curved creamy segmented wriggling insect larva, little amber face pointed right, soft body bending and wet mucus lining; 4 an elongated glossy peach-cream wet insect tongue tip, muscular rounded right tip, sticky mucus strands extending left. Bottom row left to right: 5 an irregular flattened pale lime mucus splat with several soft rounded splash lobes; 6 burst amber egg sac membrane with empty torn translucent bowl shape and broken creamy egg fragments, compact readable silhouette; 7 one fat round amber-lime goo bead with bright wet highlight; 8 one horizontal wavy viscous pale lime mucus filament, tapered left end and thicker small rounded right tip. No hard spikes, no weapons, no wings. Strong readable individual silhouettes at small game size. True transparent background, no ground, no shadows outside sprites, no backdrop.",
+  "edit_instruction": "Precise game sprite atlas layout edit. Preserve exactly these eight current sprite designs, colors, wet highlights, right-facing direction, and 4-column 2-row order. Change only layout spacing: shrink every sprite within its existing cell by approximately 25 percent, centered. Add generous fully TRANSPARENT gutters around each sprite on ALL sides. Each sprite should occupy at most 70% of its cell width and height. Keep true transparent alpha background, no shadows, no new objects, no labels, no grid. Very important: continuous broad zero-alpha empty transparent space between every adjacent sprite and the canvas edges. Retain 2:1 landscape atlas."
+}
