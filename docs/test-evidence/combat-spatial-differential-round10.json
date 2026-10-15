@@ -1,0 +1,14 @@
+{
+  "baseline_commit": "2e979236680e17349fd13aff6430d372cc97a334",
+  "baseline_project": "/workspace/shared/centipede-perf-baseline",
+  "snapshots": 24,
+  "scenarios": [
+    "Core_Gun_BlackHoler",
+    "Core_Gun_Gatling",
+    "Core_Gun_SonicWave",
+    "Core_Gun_Tesla"
+  ],
+  "equal_counts": true,
+  "differences": [],
+  "passed": true
+}

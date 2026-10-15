@@ -134,7 +134,9 @@ func _draw():
 		SpiderArt.draw_body(self,builder.spider_preview,world_to_view(Vector2.ZERO),zoom,0)
 		for part in builder.player.parts.slice(1):
 			if dragging_part(part):continue
-			var pose=display_poses[int(part.feedback_uid)]
+			var pose=display_poses.get(int(part.feedback_uid),{})
+			# A module can change before the old assembly canvas is retired.
+			if pose.is_empty():continue
 			Flagella.paint(self,flagella.poses(int(part.feedback_uid)),world_to_view(pose.point),pose.angle,zoom*0.65,true)
 			paint_organ(part,world_to_view(pose.point),zoom*0.62)
 	else:
@@ -143,7 +145,9 @@ func _draw():
 		for i in range(points.size()-1,0,-1):
 			var part=builder.player.parts[builder.player.part_at(i)]
 			if dragging_part(part):continue
-			var pose=display_poses[int(part.feedback_uid)]
+			var pose=display_poses.get(int(part.feedback_uid),{})
+			# A module can change before the old assembly canvas is retired.
+			if pose.is_empty():continue
 			var at=world_to_view(pose.point)
 			var level=int(part.get("fusion_level",1))
 			Flagella.paint(self,flagella.poses(int(part.feedback_uid)),at,pose.angle,zoom,true)

@@ -1,12 +1,17 @@
 extends Node2D
 const Brood = preload("res://scripts/brood_theme.gd")
 const Rig = preload("res://scripts/soft_insect_rig.gd")
+# Only offscreen rigs consume this reuse budget. Visible actors and their
+# death feedback are never limited. Dictionary insertion order supplies LRU
+# without sorting every frame: reappearance removes an entry before re-hiding.
+const MAX_HIDDEN_RIGS=96
 var rigs:Dictionary={}
+var hidden_rigs:Dictionary={}
 var battle_id=0
 
 func clear():
 	for rig in rigs.values():rig.queue_free()
-	rigs.clear()
+	rigs.clear();hidden_rigs.clear()
 
 func sync(game,dt:float):
 	if battle_id!=game.combat.get_instance_id():
@@ -14,23 +19,38 @@ func sync(game,dt:float):
 	visible=game.screen in ["game","pause","result","rewards"] and not game.radar_mode
 	if not visible:return
 	var active:Dictionary={}
+	var viewport_size:Vector2=game.get_viewport_rect().size
 	for e in game.combat.enemies:
 		if not Brood.eligible(e):continue
 		var point:Vector2=game.world(e.position)
 		var margin=Brood.extent(e)*game.zoom
-		if not Rect2(-Vector2.ONE*margin,game.get_viewport_rect().size+Vector2.ONE*margin*2).has_point(point):continue
+		# Keep anatomy only for actors still in this battle. Leaving the viewport
+		# hides the existing rig; cached reentry avoids rebuilding anatomy.
+		# Removed actors release it below; the hidden LRU also bounds long battles.
 		active[e.uid]=true
+		if not Rect2(-Vector2.ONE*margin,viewport_size+Vector2.ONE*margin*2).has_point(point):
+			if rigs.has(e.uid):
+				rigs[e.uid].visible=false
+				if not hidden_rigs.has(e.uid):hidden_rigs[e.uid]=true
+			continue
 		if not rigs.has(e.uid):
 			var rig=Rig.new();add_child(rig);rig.setup(e);rigs[e.uid]=rig
 		var rig=rigs[e.uid]
+		rig.visible=true
+		hidden_rigs.erase(e.uid)
 		rig.position=point
 		rig.scale=Vector2.ONE*Brood.extent(e)*0.5*game.zoom
 		rig.pose(dt)
 	for uid in rigs.keys():
 		if active.has(uid):continue
 		var rig=rigs[uid]
-		if float(rig.entity.hp)<=0 and not rig.entity.get("despawn",false):
+		if rig.visible and float(rig.entity.hp)<=0 and not rig.entity.get("despawn",false):
 			rig.position=game.world(rig.entity.position)
 			rig.pose(dt,true)
 			if rig.death_age<0.34:continue
-		rig.queue_free();rigs.erase(uid)
+		rig.queue_free();rigs.erase(uid);hidden_rigs.erase(uid)
+	if hidden_rigs.size()>MAX_HIDDEN_RIGS:
+		# Snapshot keys only on overflow, never for the normal cache-hit path.
+		for uid in hidden_rigs.keys():
+			if hidden_rigs.size()<=MAX_HIDDEN_RIGS:break
+			rigs[uid].queue_free();rigs.erase(uid);hidden_rigs.erase(uid)

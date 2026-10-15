@@ -1,0 +1,148 @@
+Dense battle performance benchmark (Godot 4.6)
+
+Use the Python runner, not a direct Godot invocation. It creates a temporary
+HOME, XDG directories, APPDATA, LOCALAPPDATA, USERPROFILE, TEMP/TMP/TMPDIR.
+A GDScript guard verifies Godot's actual user:// directory is inside that
+sandbox before any scene or save store is created. The runner refuses results
+without that successful guard. Real player saves are not used.
+
+From the repository root (Windows: use py instead of python if needed):
+
+  python tools/benchmark_dense_combat.py --label local-cpu --repeats 3
+  python tools/benchmark_dense_combat.py --mode render --label local-native --repeats 3
+
+Godot defaults to GODOT_BIN or the godot executable in PATH. For example:
+
+  py tools/benchmark_dense_combat.py --godot "C:\Tools\Godot_v4.6.3-stable_win64_console.exe" --label local-cpu --repeats 3
+  py tools/benchmark_dense_combat.py --godot "C:\Tools\Godot_v4.6.3-stable_win64_console.exe" --mode render --label local-native --repeats 3
+
+The native mode opens a real 1440x900 game window. Keep it unobscured and let
+it finish; do not run another benchmark, regression suite or heavy app in
+parallel. It requests vsync off and uncapped FPS, with no --fixed-fps limiter.
+Some drivers/compositors reject the vsync request. Check log warnings and the
+reported mode. Run on the actual Windows GPU for hardware-relevant results.
+Cloud llvmpipe software-rendering numbers are comparisons on that host only.
+
+Artifacts are written to artifacts/dense-combat-LABEL-N.json/.log or
+dense-render-LABEL-N.json/.log, with summary JSON. Native runs also save the
+last sampled frame as a same-name PNG. --output selects another directory.
+The summary includes per-script SHA256 hashes because a working tree may
+contain uncommitted changes even when its git revision string is unchanged.
+
+CPU fixture:
+- Seed 20261014, fixed 1/60 s simulation, 90 warmup + 360 measured steps.
+- Low: 13 modules / 32 enemies / 64 projectile floor.
+- Medium: 31 modules / 128 enemies / 256 projectile floor.
+- High: 61 modules / 384 enemies / 768 projectile floor.
+- Legal module placement, source tank and shield-tank prefabs, production fire,
+  AI, collisions, damage, effects, cleanup and normal motion. Durable test
+  actors prevent the workload collapsing from deaths. Injection is outside
+  the CPU step timer. Real post-step counts are recorded, not assumed.
+- Headless fixed-step wall durations measure simulation CPU work plus host
+  scheduling noise, not GPU performance or displayed FPS. p50/p95 and phase
+  means are reported separately. The mission director, UI and audio are absent.
+
+Native fixture:
+- Seed 20261014, 31 modules / 64 enemies / 256 projectile floor.
+- 60 warmup + 180 measured frames, simulation advances by exactly 1/60 s/frame.
+- Main drawing, soft enemy layer, weapon effects, background and HUD retained;
+  mission spawning and audio playback excluded. Simulation preparation timing
+  includes the projectile injection here, unlike the CPU-only step metric.
+- frame_ms includes simulation, CPU draw building and renderer/wait overhead.
+  main_draw_build_ms is only main._draw, not separate soft-layer draw methods.
+  Drawcalls and render objects are actual Godot Performance counters.
+- Native particles age with real engine frame time; their counts may differ
+  across machines/runs. Compare recorded particle/effect/bullet distributions.
+
+Before/after comparison:
+Keep a frozen baseline project with its imported assets. Copy the exact same
+benchmark GDScripts into both projects. --project chooses which project runs:
+
+  python tools/benchmark_dense_combat.py --project ../perf-round10-baseline --label before-1 --repeats 1
+  python tools/benchmark_dense_combat.py --project . --label after-1 --repeats 1
+
+Alternate before/after sequentially for at least three pairs in a quiet host
+window. For native rendering add --mode render to both commands. Compare
+matching seeds/configurations and the complete reported signatures before
+interpreting timings. The summary checks within-run determinism; compare
+before/after signatures too. Use separate combat differential/oracle tests
+for full semantic equivalence, since benchmark signatures are not exhaustive.
+Do not compare a noisy initial smoke run to a final quiet run as a speedup.
+
+On POSIX hosts the runner also records whole-subprocess user/system CPU seconds
+using child resource usage. This excludes time descheduled by the host and is a
+useful companion to noisy wall-time samples. Its scope includes startup, fixture
+construction, warmup, untimed projectile replenishment and file output, so it is
+not a per-frame CPU measurement. Windows reports null for these unavailable
+counters. Earlier artifacts made before this support do not contain the field.
+
+Validated CPU comparison, 2026-10-14 (shared Linux cloud host)
+
+Three alternating pairs against frozen source 2e97923, identical fixtures:
+- Low: median of run p50 16.698 -> 8.852 ms (47.0% lower);
+  median of run p95 27.402 -> 14.446 ms (47.3% lower).
+- Medium: p50 53.279 -> 31.184 ms (41.5% lower);
+  p95 114.481 -> 55.080 ms (51.9% lower).
+- High: p50 245.945 -> 141.827 ms (42.3% lower);
+  p95 352.613 -> 244.558 ms (30.6% lower).
+All nine paired scenarios matched signatures and complete entity count
+quantiles. Each side's source hashes were unchanged across its three runs.
+Whole-subprocess actual CPU was available for pairs 2 and 3: reductions were
+40.9% and 47.9%, respectively (median 44.4%). Pair1 baseline had no CPU counter.
+
+This is a durable-enemy pressure test, not an ordinary gameplay FPS promise.
+High pressure still has a substantial projectile hotspot: median run mean
+82.59 ms and median run p95 137.80 ms in that phase. Large time outliers vary
+between identical seeded runs; their cause is not established. Most whole-run
+CPU and wall totals were close, while before pair3 had about 18 s additional
+wall time. The data does not justify attributing all outliers to scheduling.
+The 'drones' phase also includes the new spatial-index refresh, so its increase
+must not be interpreted as drone AI alone becoming slower.
+
+Full distributions, source-manifest hashes, per-phase quantiles, CPU totals,
+and signature checks: artifacts/dense-combat-paired-final-summary.json.
+Individual reports/logs: artifacts/dense-combat-paired-before-N-1.* and
+artifacts/dense-combat-paired-after-N-1.* for N=1,2,3.
+
+Validated native-render comparison, 2026-10-14
+
+Three alternating pairs, X11 / llvmpipe (LLVM 19.1.7, 256 bits), 1440x900.
+The launch used LP_NUM_THREADS=3. Each side's source hash was stable in all
+three runs; the fixture hash, signatures and entity count distributions
+matched across all six runs. All runs sampled 64 enemies, 31 modules,
+projectiles p50=250 and weapon effects p50=77.
+
+Most reliable result: actual Godot draw-call distributions repeat exactly in
+each run. Drawcalls p50 fell from 3938 to 2285 (42.0% lower), and p95 from
+4351 to 2693 (38.1% lower). Render objects p50 fell 16465 -> 14792 (10.2%).
+Main._draw CPU-building p50 was lower in each pair; its median-of-runs fell
+54.985 -> 46.277 ms (15.8%). This excludes independent soft-layer draw methods.
+
+Wall timing is mixed, not a consistent latency guarantee:
+- Median of run frame p50: 263.725 -> 238.892 ms (9.4% lower).
+- Median of run frame p95: 697.048 -> 554.723 ms (20.4% lower).
+- Pair2 after frame p50 was 17.0% worse and p95 12.7% worse.
+- Pair3 after p95 was 41.9% worse despite improved p50.
+- Whole-process CPU medians: 145.455 -> 138.133 s (5.0% lower), but
+  pair2 CPU increased 33.7%. This includes llvmpipe rendering across threads,
+  so summed CPU can exceed wall time; it is not simulation-only CPU.
+Large unexplained timing variability remains. These results do not promise
+stable FPS, stable tail latency, or performance on a user's Windows GPU.
+
+Vsync was requested off and reported enum 0, but all six logs explicitly warn
+that the graphics driver cannot change V-Sync mode. Effective compositor/vsync
+behavior was not verified. No fixed-fps limiter was used.
+
+Coverage limitation: native particle_emitters remained ZERO in all sampled
+frames. Weapon FX and soft actors were present, but this fixture cannot prove
+native particle-emitter performance improvements. Use the independent particle
+resource-cache tests for correctness; profile emitter-heavy gameplay separately.
+
+Complete native evidence and all per-pair regressions:
+- artifacts/dense-render-paired-final-summary.json
+- docs/test-evidence/dense-render-paired-round10.json
+The parent also compared each pair's final-frame PNG with PIL/NumPy. All three
+pairs reproduced the same differences: 0.002527% changed color channels,
+mean absolute channel delta 0.00002566 on a 0..255 scale, maximum delta 2,
+and zero pixels with a channel delta above 10. This supports final-frame
+visual fidelity, not an exhaustive proof for every animation/game state.

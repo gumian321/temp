@@ -3,12 +3,18 @@ extends RefCounted
 ## Presentation only; no opaque particle billboards or factory ordnance art.
 const Feedback = preload("res://scripts/weapon_feedback.gd")
 const Organic = preload("res://scripts/insect_projectiles.gd")
+const Viscous = preload("res://scripts/viscous_projectiles.gd")
 const INK = Color("213b6e")
 var halo_texture: GradientTexture2D
 var clock = 0.0
 var draw_count = 0
 const MAX_TRANSIENTS = 180
 const MAX_PROJECTILES = 280
+const MAJOR_EFFECTS = ["explosion","chain","hole_birth","hole_collapse"]
+var hazard_effects:Array=[]
+var major_effects:Array=[]
+var minor_effects:Array=[]
+var flame_owners:Dictionary={}
 
 func _init():
 	halo_texture = GradientTexture2D.new()
@@ -35,7 +41,7 @@ func ribbon(canvas, start: Vector2, end: Vector2, width: float, color: Color, al
 	canvas.draw_colored_polygon(points, Color(color, clampf(alpha,0,1)))
 
 func visible(canvas, at: Vector2, margin: float = 220.0) -> bool:
-	return Rect2(-margin,-margin,1440+margin*2,900+margin*2).has_point(canvas.world(at))
+	return canvas.get_viewport_rect().grow(margin).has_point(canvas.world(at))
 
 # Pure geometry shared with regression checks: the tail always trails velocity.
 static func gatling_geometry(bullet: Dictionary, zoom: float) -> Dictionary:
@@ -51,7 +57,7 @@ func paint_gatling(canvas, bullet: Dictionary, zoom: float):
 func paint_projectile(canvas, bullet: Dictionary, time: float, zoom: float):
 	if not visible(canvas,bullet.position):return
 	# Body is never dropped by the embellishment budget and never uses factory sprites.
-	Organic.paint(canvas,bullet,zoom)
+	Organic.paint(canvas,bullet,zoom,time)
 	# Hostile direction cues are opaque and mandatory, independent of FX budgets.
 	if not bool(bullet.get("friendly",true)):return
 	if draw_count>=MAX_PROJECTILES:return
@@ -59,40 +65,44 @@ func paint_projectile(canvas, bullet: Dictionary, time: float, zoom: float):
 	var key=Organic.family(bullet)
 	var style=Feedback.profile(key)
 	var at=canvas.world(bullet.position)
-	var axis=Vector2.from_angle(Organic.angle(bullet))
-	var alpha=0.65 if bullet.friendly else 0.38
-	var color:Color=style.color if bullet.friendly else Color("e46a92")
+	var heading=Organic.angle(bullet)
 	var travelled=Vector2(bullet.position).distance_to(bullet.get("origin",bullet.get("previous",bullet.position)))
 	var length=minf(minf(style.trail,52.0),travelled)*zoom
-	# Sparse pollen droplets, not engine exhaust or a metallic tracer.
-	var count=4 if key in ["rocket","nuke","blackhole","cannon"] else 2
-	for i in range(count):
-		var t=(i+1.0)/(count+1.0)
-		var drift=sin(time*8+i*2.3)*2.3*zoom*t
-		var seed=at-axis*length*t+axis.orthogonal()*drift
-		var radius=(1.2 if key in ["gatling","shotgun"] else 2.1)*zoom*(1.0-t*0.45)
-		canvas.draw_circle(seed,radius,Color(color,alpha*(1-t)),true,-1,true)
-	if key=="sonic":
-		for i in range(2):ring(canvas,at-axis*i*9*zoom,11*zoom,color,alpha*(1-i*0.35),1.6*zoom,axis.angle()-0.9,axis.angle()+0.9)
+	if length<2.0:return
+	# One stretched generated wet filament, plus a small detached mucus bead.
+	# At most two textured decorations per budgeted friendly shot.
+	var kind=Viscous.family(bullet,key)
+	if kind.is_empty():return
+	var width=(5.0 if kind=="larva" else 7.0)*zoom
+	var filament=Viscous.texture("wet_trail")
+	if filament==null:return
+	canvas.draw_set_transform(at,heading)
+	canvas.draw_texture_rect(filament,Rect2(Vector2(-length*0.98,-width*0.5),Vector2(length,width)),false,Color(1,1,1,0.62))
+	if length>12.0*zoom:
+		var bead=Viscous.texture("goo_bead")
+		var drift=sin(time*10.0+float(bullet.position.x)*0.03)*1.5*zoom
+		if bead!=null:canvas.draw_texture_rect(bead,Rect2(Vector2(-length-2.5*zoom,drift-1.5*zoom),Vector2(5,3)*zoom),false,Color(1,1,1,0.38))
+	canvas.draw_set_transform(Vector2.ZERO)
 
 func paint(canvas, battle, time: float, zoom: float):
 	clock = time
 	# Culling/budget only affects embellishment; gameplay bullets are always drawn.
 	var drawn = 0
-	var flame_owners: Dictionary = {}
-	var major=["explosion","chain","hole_birth","hole_collapse"]
-	var hazards=battle.effects.filter(func(e):return not e.get("friendly",true) and e.kind in ["chain","flame"])
-	var ordered=hazards+battle.effects.filter(func(e):return e.kind in major and e not in hazards)+battle.effects.filter(func(e):return e.kind not in major and e not in hazards)
-	for effect in ordered:
-		if drawn >= MAX_TRANSIENTS: break
-		if not visible(canvas,effect.position,440): continue
-		if effect.kind not in ["muzzle","hit","shield_hit","explosion","chain","flame","emp","mine_arm","hole_birth","hole_collapse"]: continue
-		if effect.kind=="flame":
-			var owner=str(effect.get("owner",""))
-			if flame_owners.has(owner):continue
-			flame_owners[owner]=true
-		drawn += 1
-		paint_effect(canvas,effect,zoom)
+	flame_owners.clear()
+	# Stable priority order without repeated filters or Dictionary membership
+	# searches. Each effect is classified once, regardless of hostile beam count.
+	order_effects(battle.effects)
+	for bucket in [hazard_effects,major_effects,minor_effects]:
+		for effect in bucket:
+			if drawn >= MAX_TRANSIENTS: break
+			if not visible(canvas,effect.position,440): continue
+			if effect.kind not in ["muzzle","hit","shield_hit","explosion","chain","flame","emp","mine_arm","hole_birth","hole_collapse","viscous_contact","egg_burst"]: continue
+			if effect.kind=="flame":
+				var owner=str(effect.get("owner",""))
+				if flame_owners.has(owner):continue
+				flame_owners[owner]=true
+			drawn += 1
+			paint_effect(canvas,effect,zoom)
 	for hole in battle.special.black_holes:
 		if visible(canvas,hole.position,300): paint_hole(canvas,hole,zoom)
 	for mine in battle.special.mines:
@@ -101,6 +111,16 @@ func paint(canvas, battle, time: float, zoom: float):
 		var pulse=0.5+0.5*sin(clock*6+mine.position.x)
 		ring(canvas,at,(15+pulse*4)*zoom,Feedback.PROFILES.mine.color,0.35+pulse*0.35,1.5*zoom)
 		glow(canvas,at,12*zoom,Feedback.PROFILES.mine.accent,0.55)
+
+func order_effects(effects:Array):
+	hazard_effects.clear();major_effects.clear();minor_effects.clear()
+	for effect in effects:
+		if not effect.get("friendly",true) and effect.kind in ["chain","flame"]:
+			hazard_effects.append(effect)
+		elif effect.kind in MAJOR_EFFECTS:
+			major_effects.append(effect)
+		else:
+			minor_effects.append(effect)
 
 func paint_effect(canvas, effect: Dictionary, zoom: float):
 	var key = str(effect.get("fx_family", "tesla" if effect.kind=="chain" else ("emp" if effect.kind in ["emp","shield_hit"] else "impact")))
@@ -115,6 +135,8 @@ func paint_effect(canvas, effect: Dictionary, zoom: float):
 	var alpha = 1.0
 	var seed = effect.position.x*0.03+effect.position.y*0.017
 	match effect.kind:
+		"viscous_contact", "egg_burst":
+			paint_viscous_contact(canvas,at,effect,progress,zoom)
 		"muzzle":
 			var axis=Vector2(effect.direction)
 			var size=clampf(float(effect.get("visual_scale",1.0)),0.55,1.0)*zoom
@@ -206,6 +228,9 @@ func paint_blast(canvas, at: Vector2, effect: Dictionary, style: Dictionary, pro
 			canvas.draw_circle(at+offset,minf(13*zoom,radius*0.14),Color(style.accent,acid*0.23),true,-1,true)
 
 func paint_beam(canvas, effect: Dictionary, style: Dictionary, fade: float, zoom: float, key: String):
+	if bool(effect.get("friendly",true)) and (key in ["tesla","rail","sonic"] or effect.get("organic_family","")=="tongue"):
+		paint_tongue(canvas,effect,zoom)
+		return
 	var start=canvas.world(effect.position)
 	var finish=canvas.world(effect.end)
 	var axis=start.direction_to(finish)
@@ -294,3 +319,35 @@ func paint_hole(canvas, hole: Dictionary, zoom: float):
 		var axis=Vector2.from_angle(i*2.4+t*3)
 		var point=at+axis*radius*lerpf(1.35,0.48,t)
 		canvas.draw_line(point,point-axis*9*zoom,Color(style.color,0.9),1.6*zoom,true)
+
+func paint_viscous_contact(canvas,at:Vector2,effect:Dictionary,progress:float,zoom:float):
+	var kind=str(effect.get("organic_family","mucus"))
+	var heading=Vector2(effect.get("direction",Vector2.RIGHT)).angle()
+	var size=clampf(float(effect.get("radius",8.0))*2.2,14.0,34.0)*zoom
+	var fade=clampf(float(effect.life)/0.14,0.0,1.0)
+	if effect.kind=="egg_burst":
+		var burst_progress=1.0-clampf(float(effect.life)/0.18,0.0,1.0)
+		Viscous.stamp(canvas,"egg_burst",at,Vector2.ONE*size*(1.0+burst_progress*0.4),heading,fade)
+	elif kind=="egg":
+		var swell=1.0+progress*0.48
+		Viscous.stamp(canvas,"egg",at,Vector2(size*0.85,size)*swell,heading+sin(progress*18)*0.06,1.0)
+	elif kind=="larva":
+		Viscous.stamp(canvas,"larva_contact",at,Vector2(size,size*0.65),heading+sin(clock*24+at.x)*0.16,fade)
+	else:
+		Viscous.stamp(canvas,"mucus_splat",at,Vector2(size,size*0.72)*(1.0+progress*0.15),heading,fade*0.84)
+
+func paint_tongue(canvas,effect:Dictionary,zoom:float):
+	var duration=maxf(float(effect.get("fx_duration",0.22)),0.001)
+	var progress=clampf(1.0-float(effect.life)/duration,0.0,1.0)
+	var start=canvas.world(effect.position)
+	var target=canvas.world(effect.end)
+	# Full contact endpoint holds first; the final third visibly reels into the organ.
+	var reach=1.0 if progress<0.64 else pow((1.0-progress)/0.36,0.75)
+	var finish=start.lerp(target,reach)
+	var side=start.direction_to(target).orthogonal()
+	var midpoint=start.lerp(finish,0.52)+side*sin(progress*PI)*minf(15.0*zoom,start.distance_to(finish)*0.10)
+	var points=[start,midpoint,finish]
+	for i in 2:
+		var a:Vector2=points[i];var b:Vector2=points[i+1]
+		Viscous.stamp(canvas,"wet_trail",a.lerp(b,0.5),Vector2(a.distance_to(b)+1.0,7.0*zoom),a.direction_to(b).angle(),0.96)
+	Viscous.stamp(canvas,"tongue",finish,Vector2(21,11)*zoom,start.direction_to(target).angle(),clampf(float(effect.life)/0.04,0.0,1.0))

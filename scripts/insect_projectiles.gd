@@ -1,6 +1,7 @@
 extends RefCounted
 ## Generated organic bodies. Internal source weapon IDs remain compatible with saves.
 const ATLAS_PATH = "res://assets/ui_overhaul/insect_projectiles_atlas.png"
+const Viscous = preload("res://scripts/viscous_projectiles.gd")
 const Feedback = preload("res://scripts/weapon_feedback.gd")
 const INK = Color("213b6e")
 const DANGER = Color("d82746")
@@ -11,9 +12,14 @@ const CELLS = {"gatling":0,"shotgun":1,"cannon":2,"flak":3,"rocket":4,"nuke":5,"
 const SIZES = {"gatling":Vector2(19,9),"shotgun":Vector2(22,15),"cannon":Vector2(27,22),"flak":Vector2(25,21),"rocket":Vector2(34,27),"nuke":Vector2(41,34),"emp":Vector2(27,18),"blackhole":Vector2(28,25),"sonic":Vector2(30,19)}
 static var textures: Dictionary = {}
 static var atlas: Texture2D
+# Exact pixel-sized shells preserve the original constant-width outlines.
+# Keep a bounded cache because zoom transitions can produce many unique sizes.
+static var hostile_shells: Dictionary = {}
+static var unit_shell = PackedVector2Array()
+const MAX_SHELL_CACHE = 128
 
 static func family(bullet: Dictionary) -> String:
-	var key = str(bullet.get("fx_family",Feedback.family(bullet.get("data",{}))))
+	var key = str(bullet.fx_family) if bullet.has("fx_family") else Feedback.family(bullet.get("data",{}))
 	return key if CELLS.has(key) else "gatling"
 
 static func angle(bullet: Dictionary) -> float:
@@ -46,7 +52,7 @@ static func texture(key: String) -> Texture2D:
 	textures[cell]=result
 	return result
 
-static func paint(canvas, bullet: Dictionary, zoom: float):
+static func paint(canvas, bullet: Dictionary, zoom: float, time: float = 0.0):
 	var key=family(bullet)
 	var at:Vector2=canvas.world(bullet.position)
 	var heading=angle(bullet)
@@ -57,6 +63,12 @@ static func paint(canvas, bullet: Dictionary, zoom: float):
 		var cue=hostile_geometry(bullet,zoom)
 		size=cue.size
 		paint_hostile_cue(canvas,at,heading,cue)
+	if not hostile:
+		var kind=Viscous.family(bullet,key)
+		var wet_size=size*Viscous.pose(bullet,kind,time)
+		var wet_heading=heading
+		if kind=="larva":wet_heading+=sin(time*18.0+float(bullet.get("organic_phase",0.0)))*0.12
+		if not kind.is_empty() and Viscous.stamp(canvas,kind,at,wet_size,wet_heading):return
 	var source=texture(key)
 	canvas.draw_set_transform(at,heading)
 	if source!=null:
@@ -88,13 +100,24 @@ static func paint_hostile_cue(canvas,at:Vector2,heading:float,cue:Dictionary):
 		canvas.draw_line(tail,rear,DANGER_EDGE,4.0,true)
 		canvas.draw_line(tail,rear,DANGER,2.0,true)
 	# Pointed spore/chitin envelope: nose shows direction even in a still frame.
-	var anchors=PackedVector2Array([Vector2(.57,0),Vector2(.19,-.49),Vector2(-.32,-.42),Vector2(-.52,0),Vector2(-.32,.42),Vector2(.19,.49)])
-	var shell=PackedVector2Array()
-	for i in anchors.size():
-		for step in 4:
-			shell.append(anchors[i].cubic_interpolate(anchors[(i+1)%6],anchors[(i+5)%6],anchors[(i+2)%6],step/4.0)*size)
-	canvas.draw_colored_polygon(shell,DANGER)
-	var border=shell.duplicate();border.append(shell[0])
+	var shape=hostile_shell(size)
+	canvas.draw_colored_polygon(shape.shell,DANGER)
+	var border:PackedVector2Array=shape.border
 	canvas.draw_polyline(border,SEPARATION,5.5,true)
 	canvas.draw_polyline(border,DANGER_EDGE,2.2,true)
 	canvas.draw_set_transform(Vector2.ZERO)
+
+static func hostile_shell(size:Vector2)->Dictionary:
+	if hostile_shells.has(size):return hostile_shells[size]
+	if unit_shell.is_empty():
+		var anchors=PackedVector2Array([Vector2(.57,0),Vector2(.19,-.49),Vector2(-.32,-.42),Vector2(-.52,0),Vector2(-.32,.42),Vector2(.19,.49)])
+		for i in anchors.size():
+			for step in 4:
+				unit_shell.append(anchors[i].cubic_interpolate(anchors[(i+1)%6],anchors[(i+5)%6],anchors[(i+2)%6],step/4.0))
+	var shell=PackedVector2Array();shell.resize(unit_shell.size())
+	for i in unit_shell.size():shell[i]=unit_shell[i]*size
+	var border=shell.duplicate();border.append(shell[0])
+	var result={"shell":shell,"border":border}
+	if hostile_shells.size()>=MAX_SHELL_CACHE:hostile_shells.clear()
+	hostile_shells[size]=result
+	return result

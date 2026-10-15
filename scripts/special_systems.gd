@@ -94,13 +94,15 @@ func step(dt: float):
 		hole.life-=dt
 		if hole.life<=0:
 			battle().effects.append(Feedback.decorate({"kind":"hole_collapse","position":hole.position,"radius":hole.radius,"life":0.65},"blackhole",bool(hole.friendly)))
-		for e in battle().enemies:
+		for e in battle().area_candidates(hole.position, hole.radius):
 			if e.hp<=0 or not e.damageable or (e.role=="friendly" if hole.friendly else e.role!="friendly"): continue
 			if e.position.distance_to(hole.position)<hole.radius:
 				e.hp-=hole.damage*dt
 				preload("res://scripts/soft_insect.gd").impact(e,Vector2(hole.position),Vector2(e.position)-Vector2(hole.position),hole.damage*dt,"blackhole")
 				e.last_fx="blackhole"; e.last_friendly=hole.friendly
-				if not e.mission_controlled and e.parent==0: e.position = Vector2(e.position).move_toward(hole.position,hole.force*dt)
+				if not e.mission_controlled and e.parent==0:
+					e.position = Vector2(e.position).move_toward(hole.position,hole.force*dt)
+					battle().spatial_moved(e)
 		if not hole.friendly:
 			for i in range(player.parts.size()):
 				if player.parts[i].position.distance_to(hole.position)<hole.radius: battle().hurt_player(i,hole.damage*dt,hole.shield_damage*dt)
@@ -112,7 +114,7 @@ func continuous(core: Dictionary,at: Vector2,dir: Vector2,friendly: bool,chips: 
 	var reach = db.range_units(core.get("turretRange",1))*48*maxf(0.0,1+range_boost)*(1+chip("MammothAreaPercentBoost",int(chips.get(5,0))))
 	var damage = float(projectile.projectileDamage.hullDamage)*maxf(0.0,1+boost)*(1+chip("MammothDamagePercentBoost",int(chips.get(5,0))))*dt
 	var shield_damage = float(projectile.projectileDamage.shieldDamage)*maxf(0.0,1+boost)*dt
-	for e in battle().enemies:
+	for e in battle().area_candidates(at, reach):
 		if e.hp<=0 or not e.damageable or (e.role=="friendly" if friendly else e.role!="friendly"): continue
 		var delta: Vector2 = e.position-at
 		if delta.length()<reach and absf(angle_difference(dir.angle(),delta.angle()))<0.2:

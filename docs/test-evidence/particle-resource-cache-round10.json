@@ -1,0 +1,21 @@
+{
+  "baseline_median_ms": 484.372,
+  "benchmark_emissions_per_sample": 2450,
+  "cached_median_ms": 315.346,
+  "curve_baseline_median_ms": 243.135,
+  "curve_cached_median_ms": 119.389,
+  "curve_presets": [
+    "300",
+    "303",
+    "309"
+  ],
+  "curve_speedup": 2.03649414937725,
+  "emitters_checked": 245,
+  "failures": [],
+  "passed": true,
+  "preset_count": 121,
+  "shared_curves_checked": 5,
+  "speedup": 1.53600172508927,
+  "scope": "Particle creation CPU microbenchmark only; not whole-game FPS. Immutable presets/properties/curves preserved; no emitter count or duration cuts.",
+  "log_warning": "Fontconfig reported no writable cache directories in this microbenchmark. Final isolated functional particle tests passed separately."
+}

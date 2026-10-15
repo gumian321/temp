@@ -1,0 +1,537 @@
+{
+  "reviewed_at_utc": "2026-10-15T01:08:00Z",
+  "status": "final_post_mipmap_native_after_vs_earlier_unchanged_baseline",
+  "baseline": "perf-round11-restored-baseline frozen from 9571d44",
+  "after_project": "centipede-round11-restored",
+  "atlas": {
+    "path": "assets/ui_overhaul/viscous_projectiles_atlas.png",
+    "sha256": "4be2f71331e93b80a9f99fc48f0893c0ca24bbc6eb1d602d670a1b92054c3732",
+    "bytes": 854656
+  },
+  "repeats_per_version": 1,
+  "scope": "Native rendered fixed-step dense battle: 31 modules, 64 durable tank/shield enemies, production projectile floor 256; real drawing, soft actors, weapon FX, HUD, background retained. Mission spawning/audio excluded. Wall frame time includes CPU and renderer; not user hardware FPS.",
+  "warmup_frames": 60,
+  "measured_frames": 180,
+  "viewport": [
+    1440,
+    900
+  ],
+  "renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+  "display": "X11",
+  "gameplay_signatures_equal": true,
+  "before_signature": {
+    "bullets": 254,
+    "enemies": 64,
+    "head": [
+      120.28889465332,
+      402.302917480469
+    ],
+    "hp_sum": 639999226.0,
+    "parts": 31,
+    "rng": "3982730367952883469"
+  },
+  "after_signature": {
+    "bullets": 254,
+    "enemies": 64,
+    "head": [
+      120.28889465332,
+      402.302917480469
+    ],
+    "hp_sum": 639999226.0,
+    "parts": 31,
+    "rng": "3982730367952883469"
+  },
+  "metrics": {
+    "draw_calls": {
+      "before": {
+        "max": 2747.0,
+        "mean": 2297.60555555556,
+        "p50": 2285.0,
+        "p95": 2693.0
+      },
+      "after": {
+        "max": 2281.0,
+        "mean": 1853.1,
+        "p50": 1857.0,
+        "p95": 2178.0
+      }
+    },
+    "render_objects": {
+      "before": {
+        "max": 20546.0,
+        "mean": 14901.0222222222,
+        "p50": 14792.0,
+        "p95": 19307.0
+      },
+      "after": {
+        "max": 20374.0,
+        "mean": 14736.8111111111,
+        "p50": 14631.0,
+        "p95": 19127.0
+      }
+    },
+    "bullets": {
+      "before": {
+        "max": 256,
+        "mean": 250.066666666667,
+        "p50": 250,
+        "p95": 255
+      },
+      "after": {
+        "max": 256,
+        "mean": 250.066666666667,
+        "p50": 250,
+        "p95": 255
+      }
+    },
+    "effects": {
+      "before": {
+        "max": 103,
+        "mean": 73.45,
+        "p50": 77,
+        "p95": 94
+      },
+      "after": {
+        "max": 125,
+        "mean": 92.3611111111111,
+        "p50": 97,
+        "p95": 116
+      }
+    },
+    "particle_emitters": {
+      "before": {
+        "max": 0,
+        "mean": 0.0,
+        "p50": 0,
+        "p95": 0
+      },
+      "after": {
+        "max": 0,
+        "mean": 0.0,
+        "p50": 0,
+        "p95": 0
+      }
+    },
+    "frame_ms": {
+      "before": {
+        "max": 171.736,
+        "mean": 90.5968277777778,
+        "p50": 87.576,
+        "p95": 122.131
+      },
+      "after": {
+        "max": 129.981,
+        "mean": 77.5223166666667,
+        "p50": 74.6,
+        "p95": 98.102
+      }
+    },
+    "simulation_prepare_ms": {
+      "before": {
+        "max": 45.988,
+        "mean": 22.8667777777778,
+        "p50": 21.301,
+        "p95": 33.236
+      },
+      "after": {
+        "max": 55.01,
+        "mean": 22.5509,
+        "p50": 21.444,
+        "p95": 31.038
+      }
+    },
+    "main_draw_build_ms": {
+      "before": {
+        "max": 29.341,
+        "mean": 15.7834833333333,
+        "p50": 15.039,
+        "p95": 20.98
+      },
+      "after": {
+        "max": 29.834,
+        "mean": 13.9276666666667,
+        "p50": 13.416,
+        "p95": 18.611
+      }
+    },
+    "process_timing": {
+      "before": {
+        "wall_seconds": 28.024247528999695,
+        "user_cpu_seconds": 47.692631999999996,
+        "system_cpu_seconds": 1.7135690000000001,
+        "scope": "Entire Godot subprocess: startup, fixture setup, warmup, measured steps, projectile replenishment and output. CPU counters use POSIX child resource usage; unavailable on Windows is null."
+      },
+      "after": {
+        "wall_seconds": 25.06501070700051,
+        "user_cpu_seconds": 46.967166,
+        "system_cpu_seconds": 1.785362,
+        "scope": "Entire Godot subprocess: startup, fixture setup, warmup, measured steps, projectile replenishment and output. CPU counters use POSIX child resource usage; unavailable on Windows is null."
+      }
+    }
+  },
+  "derived": {
+    "draw_calls_p50_change_percent": -18.7308533916849,
+    "draw_calls_p95_change_percent": -19.123653917564056,
+    "frame_p50_change_percent": -14.816844797661455,
+    "whole_process_cpu_seconds_before": 49.406200999999996,
+    "whole_process_cpu_seconds_after": 48.752528,
+    "whole_process_cpu_change_percent": -1.3230586176824155,
+    "whole_process_wall_change_percent": -10.559558535646474
+  },
+  "interpretation": [
+    "Final post-mipmap gameplay signature matches unchanged baseline exactly.",
+    "Draw-call p50 2285 to1857 and p95 2693 to2178 are unchanged by mipmap correction.",
+    "Final native capture shows resolved fine speckling, verified visually.",
+    "Timings are non-adjacent exploratory observations, not a tightly controlled before/after pair or hardware FPS proof. Quiet simulation-only CPU comparison is separate parent-owned evidence."
+  ],
+  "caveats": [
+    "Earlier baseline ran concurrently with headless regression tests. Final mipmapped after-run occurred later, after parent reported no active CPU jobs. Different load/timing windows make these non-adjacent timing values exploratory.",
+    "One run each; no statistical speedup claim.",
+    "Mesa llvmpipe software rendering is not the user hardware GPU.",
+    "Driver rejected VSync-disable request; enum alone cannot establish compositor behavior.",
+    "Whole-process CPU includes startup, fixture setup, warmup, measured steps, projectile replenishment and output.",
+    "Pre-mipmap diagnostic values are retained separately and must not be quoted as final validation."
+  ],
+  "artifacts": [
+    {
+      "path": "artifacts/dense-render-round11-restored-native-before-1.json",
+      "sha256": "19888a9c9b74238830dcff3afd5360e8b817b341d6101a9f3e453de76b886079",
+      "bytes": 2144
+    },
+    {
+      "path": "artifacts/dense-render-round11-restored-native-before-1.log",
+      "sha256": "602a43e9235cf41522ab4a4f73331f2f0fb7c8dcb26412b4487679d2982fd60e",
+      "bytes": 2065
+    },
+    {
+      "path": "artifacts/dense-render-round11-restored-native-before-1.png",
+      "sha256": "2e1a6fa2300f13428b6a1c14b8dd0baa34e998e14b8f29ded6813c5fadb9857e",
+      "bytes": 1757169
+    },
+    {
+      "path": "artifacts/dense-render-round11-restored-native-mipmap-after-1.json",
+      "sha256": "19687ddd9e13337f37ea113736552f7c08846f17a66f856dcb13b8c8f222b702",
+      "bytes": 2117
+    },
+    {
+      "path": "artifacts/dense-render-round11-restored-native-mipmap-after-1.log",
+      "sha256": "659b6df072e6d85810e9c703c3ff10510f56856b07984d84e3d23b594cc93b9a",
+      "bytes": 2064
+    },
+    {
+      "path": "artifacts/dense-render-round11-restored-native-mipmap-after-1.png",
+      "sha256": "29dcdc9eba218a38b00636d7f604d86ac4d1dd581d0cdba0b1d2214a4e874ee6",
+      "bytes": 1779768
+    }
+  ],
+  "source_manifests": {
+    "before": {
+      "scripts/achievements.gd": "b0553bb55184cf13cab8fb430e24dae8ce30adf1145e2ecb3da75c4f3020f02d",
+      "scripts/assembly_tray_icon.gd": "936b57d7fd9faa83dcc5bae183449c9cbe78b7e0db4387a5f53a5423134590a8",
+      "scripts/audio_system.gd": "d47e2179f7f8c7ad56a28b6ba779ec562b232e837833e6f5099b43ac7e8356e6",
+      "scripts/background_layers.gd": "43b06291e870ad05de9bf1ffcf3b148b428dfc2dd59a68fe28c0e570ffaaf41f",
+      "scripts/battle_hud.gd": "f5ab6f9a0bc660a5cfda59f4641ca3651d7ef9b4ceb0ddec80911f38c64f8f36",
+      "scripts/blue_ink.gd": "5c98e07accd49a53a705f8ffe425789c914ac42d89aeffac296efd51d161c4ec",
+      "scripts/blue_ink_layer.gd": "84adbcb52deef147d13dfdec066853c0dad61f9f3ae06b981177d41156490c13",
+      "scripts/brood_theme.gd": "0c7549396218ee26153e972b384835b7a76cd53aa097f9fa4d816da2ede6a720",
+      "scripts/build_chain_ui.gd": "3b1cbd20ea1dc348e5cc4b067f86e56f4664f8d2192e422fef48bc274cad0e0f",
+      "scripts/build_grid_ui.gd": "8773c92e7b5167c48df7190017e16a799e1155d277b8bcdb113f76b1741c7802",
+      "scripts/build_icon_button.gd": "377af882a96877a95b4613ff271e9436717f8e5a4a87b63b383234f8562feea0",
+      "scripts/build_mount_control.gd": "929be4da843d8e31b38f6665165378ea14b179d6ebc41eeea6dff866d124dd31",
+      "scripts/build_symbols.gd": "fae29cd8004efa57485d72538aaeaba8778397e518d3e477b722a11a6c2d58ed",
+      "scripts/centipede.gd": "3a25e6b16cbbd0eae0e03f06409c02ab3ab7181894dbe722b6254847a44f6bb6",
+      "scripts/centipede_art.gd": "797e0614204195032992757a34e41049acc6a8cce24b1acbe19a969d4176f594",
+      "scripts/centipede_coil.gd": "7a8bb06138fee406a2bf7013bb4d1408ba90566a75611cf7124b8d86967d6cf8",
+      "scripts/centipede_legs.gd": "1c084d93b53b28ef71f591bd91aea1e329bb9d9b261c52159219e1aca4eb4646",
+      "scripts/centipede_motion.gd": "9a98e2e62c4b73915f4e3ea389be2e3db04b5ff0c029bf1ea26729777486d88d",
+      "scripts/chain_centipede.gd": "75cf16135996c92c0e38c462a276663cfcea70e45287195d17cfc6b08df14e6b",
+      "scripts/chain_drag_preview.gd": "954a151bf39989499b08b3a4ed160f07484d9cc09dd4bf86a22e88ea0813ea3b",
+      "scripts/chain_mount_control.gd": "fbc4f9d5214928eb3e402c06a8fc902bc6160c041cf425e5f3ac8149a6b54530",
+      "scripts/character_abilities.gd": "7ab80bb366ffe51d97bd8bccfae92d1ffb4354e07e7f257042f9fd7d582ebe81",
+      "scripts/character_art.gd": "70a1d03d0745c7f870da6515aee798fc4b32012af816b4982b4fad27b07e700e",
+      "scripts/character_roster.gd": "637c9f18ddd71250f791ec8685a0a5f1393d54ad8d3b82caa066e08211e9f687",
+      "scripts/character_select.gd": "3e75da6f6a698b3c24cee05fc9ad7e133c427bd9bf2f96434249c9ea46643467",
+      "scripts/combat.gd": "b6e333c80218ed284e7e671fe9982d904ecdba6634e153f377f9bcf73b6c6f7a",
+      "scripts/combat_spatial_index.gd": "74009496b5378d2a701c860efe816e9a89ccdc07531db8f3e5ed90e1c419a66d",
+      "scripts/crystal_loot.gd": "d2cc60e54f7fbc1d861ede42aa160055aa58ed0e51151c9089f9f7fffc56c4dc",
+      "scripts/cursor_system.gd": "c7a8f97978bda936803f580d9c6f27686a0b794397fb868da93d3b6506ec26f7",
+      "scripts/direct_body_canvas.gd": "bfd42bb600f56e78c0dc88056d9d97a818e13783c28961028a83dc3863c847bb",
+      "scripts/flagella.gd": "13dd2bc696708400afdde4cbb38b9ee95d742746aa9ff1d23a913cbb934029e2",
+      "scripts/game_ui.gd": "a334a0375fbf08d196e13b462cf4fed20de850c8942437841925a0597109b38f",
+      "scripts/generated_ui_art.gd": "950547456adbc01804bb9dc9b7e2b4d06edeea3f9d61349cd836b457445427a7",
+      "scripts/grid_centipede.gd": "76dd0dc71db01ecd247260227d6eecf4c8eb41075bc6726eb2d4030ea2c4216a",
+      "scripts/input_system.gd": "803344a252f2731af6047948e7583c922d40a1649fc7add6b1c042ba984f4e86",
+      "scripts/insect_anatomy.gd": "c8f4332ad7e9762095c2ffddfd956b3e27928c445b5f4e9bd4f1a9ed1f16cd32",
+      "scripts/insect_armaments.gd": "d22dd1175acb1168597d259b3968270454b02275b2ea8994bc86d2fd78dff06b",
+      "scripts/insect_attack_fx.gd": "1e41980af22e78890f0b04801c1beddb832705a9922acdb7cbacf77ccf72709c",
+      "scripts/insect_controls.gd": "61dabd360fb1610107f2ac82abbabddcd9008b9d788270d64796184401be9fbf",
+      "scripts/insect_hit_audio.gd": "beb206dcd97b653f149b1967454fe858b850711add916dedac836971ec92f513",
+      "scripts/insect_hit_fx.gd": "9d6d9b23346438ca4c6c326454dd027655f8cc67a2efe95b7b926f0d258bb86b",
+      "scripts/insect_projectiles.gd": "41c2a97ef2b6e4a978fa75168c03317b601b85901d65ce9f03bffee5d465d875",
+      "scripts/intro_ui.gd": "a6059fe61efeb92de731e23787c84a3c816cbe325acd6303eb4078a9ea8b94fe",
+      "scripts/main.gd": "c3dca54abbccb94bef078eafaf7acf6a4d5597df05cd316a6cb74d124bdc3041",
+      "scripts/map_director.gd": "f715ad4708e3428d89ecc03e808dfaa1a7d22a75e73c8dfa488ee4ff61fae72f",
+      "scripts/menu_background.gd": "fb7a4975353d0de82578eb8fb3690bcb8db2b8a66b204622d0b67e2d4030ea31",
+      "scripts/mission_director.gd": "9fdfbae989c57590c92ef2100073d06f78e26a50db11c660d5e2d7643d16b03c",
+      "scripts/mission_select.gd": "8e52e08ded0e1c262cf39d44eed707a04ca35dabb01de21461fb0488c539ab68",
+      "scripts/native_visuals.gd": "b6dfc84776f6c2b8bfe549881daf878c289bf6881e5449d7b189af393066baef",
+      "scripts/particle_effects.gd": "7ca8ea19a15537d5a40fd45bf9dc8cd4538ad4ed7fb46067284922a283c4bbe0",
+      "scripts/passive_feedback.gd": "93a99132a41a64a1ca8083243bc01f6637e2c01fb0c8f16932ad242729af665f",
+      "scripts/player_decorations.gd": "7501b82f014a816826fa8b0bb9ec09c246ac56b49c082cd6f3954e144f65ba48",
+      "scripts/popup_text.gd": "989698ebdd7a2376d0e9dda3940bdbceacc63e720c4726616ca8a722388711c3",
+      "scripts/radial_formation.gd": "623a589c0f5477840dcdc99d248efd9f3658ddc8e74880f54e40a31924526143",
+      "scripts/render_state.gd": "789d5179ac1c77866b8394874a5910a5bb8cee213445d216f049502b9daabc67",
+      "scripts/research_ui.gd": "de4f6e5423b81afe97ce5d75be5e59d48491b4416cd6e4708925c9ce9c8d88db",
+      "scripts/reward_choice.gd": "aefbd92d0f0d926c6daa60b1112ed3dc5a0282b3395090d916e6e49ecd77ff9f",
+      "scripts/reward_director.gd": "41b809ae22359388e5fc32d0fe67830e975d52411ac6a27781e7d8dd2a21f5b6",
+      "scripts/reward_feedback_state.gd": "32382a230f90e326113a519d78072eaa743c5c7dc4c792569b491535aaeffe07",
+      "scripts/reward_pool_ui.gd": "0ba59c03f82b0a912217c4ccf8e31fdfb1d90cec8dd611a512239b566c2f655f",
+      "scripts/rig_appendage_batch.gd": "272ae7b14c18f8d085e32b8d0b8715f56a2900cb17ad5bec7f8819a0970c9542",
+      "scripts/run_state.gd": "700c8e979a2c73e2423d96ec6a82f5f2bcece316748770057e6540a7151ac3f7",
+      "scripts/save_store.gd": "f0f6b36505462b6328ab701021ab7a50087cd2f82bac2ea42906a0fece0815b5",
+      "scripts/segment_feedback.gd": "ba6206a219773b2bca4e5cc472fe8b6aba9becb34025f390bce2f501aae5ff15",
+      "scripts/soft_insect.gd": "a46284b17c4ad2c5150892542e309bc321a0547e751752dcd7c506e21e46a413",
+      "scripts/soft_insect_layer.gd": "08dbc9e3b72e00b7d7038b3262d47960e3dee1573067cac78d63271733727337",
+      "scripts/soft_insect_rig.gd": "2e48c771a8bbbf6978bfa0bc5fcc3ae705f1ba58050aeb4aa842c72e793aa746",
+      "scripts/soft_organ_art.gd": "d37f09c650d0857f01029486aba8d6ada211bb38dfc706953b0a7c318e4962f0",
+      "scripts/source_db.gd": "ebd6b7d136d66ab905f27bac6060965a179a04a4aac0a7640e0ae84a7a9effdb",
+      "scripts/source_ui.gd": "7ba32e3791539b10ca04d8e576756c38a7eb7c459d74bf3b4c60ec3222b80f43",
+      "scripts/special_systems.gd": "536dd310de34d34e62fdbf1fd04c0bf98029b8bcd72aacf999a6475c66a6d366",
+      "scripts/spider_art.gd": "1e8d84b351017c9aca83a5e79fa3c7e1288f6ba0babc52b0c521edcf94a69efe",
+      "scripts/spider_rig.gd": "fa7edb3d963d93f0527951f243e9154da39b78f58de2c3150019690a7b755645",
+      "scripts/tutorial_ui.gd": "f285e9cad1ec6b5ee081fef988a96435e7aba3cbb9783bcced1640af8c3a1223",
+      "scripts/weapon_feedback.gd": "dcc08e6f4187faee9e4341d7c4c35bc736ed078c1a64c7b7647fb131630c5bab",
+      "scripts/weapon_fx.gd": "1eb620cccf7c5bc5dbb53c5a967f48f1cdb295c5fb55ed536eb779677124f33e",
+      "scripts/windows_review_probe.gd": "391363f5c0aae4aa07f25730d468d6db780d89dc8ebda75e305ac508b62a981b",
+      "tests/test_dense_render_benchmark.gd": "53fba5eabf314fa4b2cea89ac24bd7723a977b9bc67eb9cf9df79aa5cc000278"
+    },
+    "after": {
+      "scripts/achievements.gd": "b0553bb55184cf13cab8fb430e24dae8ce30adf1145e2ecb3da75c4f3020f02d",
+      "scripts/assembly_tray_icon.gd": "936b57d7fd9faa83dcc5bae183449c9cbe78b7e0db4387a5f53a5423134590a8",
+      "scripts/audio_system.gd": "d47e2179f7f8c7ad56a28b6ba779ec562b232e837833e6f5099b43ac7e8356e6",
+      "scripts/background_layers.gd": "43b06291e870ad05de9bf1ffcf3b148b428dfc2dd59a68fe28c0e570ffaaf41f",
+      "scripts/battle_hud.gd": "f5ab6f9a0bc660a5cfda59f4641ca3651d7ef9b4ceb0ddec80911f38c64f8f36",
+      "scripts/blue_ink.gd": "5c98e07accd49a53a705f8ffe425789c914ac42d89aeffac296efd51d161c4ec",
+      "scripts/blue_ink_layer.gd": "84adbcb52deef147d13dfdec066853c0dad61f9f3ae06b981177d41156490c13",
+      "scripts/brood_theme.gd": "0c7549396218ee26153e972b384835b7a76cd53aa097f9fa4d816da2ede6a720",
+      "scripts/build_chain_ui.gd": "3b1cbd20ea1dc348e5cc4b067f86e56f4664f8d2192e422fef48bc274cad0e0f",
+      "scripts/build_grid_ui.gd": "8773c92e7b5167c48df7190017e16a799e1155d277b8bcdb113f76b1741c7802",
+      "scripts/build_icon_button.gd": "377af882a96877a95b4613ff271e9436717f8e5a4a87b63b383234f8562feea0",
+      "scripts/build_mount_control.gd": "929be4da843d8e31b38f6665165378ea14b179d6ebc41eeea6dff866d124dd31",
+      "scripts/build_symbols.gd": "fae29cd8004efa57485d72538aaeaba8778397e518d3e477b722a11a6c2d58ed",
+      "scripts/centipede.gd": "3a25e6b16cbbd0eae0e03f06409c02ab3ab7181894dbe722b6254847a44f6bb6",
+      "scripts/centipede_art.gd": "797e0614204195032992757a34e41049acc6a8cce24b1acbe19a969d4176f594",
+      "scripts/centipede_coil.gd": "7a8bb06138fee406a2bf7013bb4d1408ba90566a75611cf7124b8d86967d6cf8",
+      "scripts/centipede_legs.gd": "1c084d93b53b28ef71f591bd91aea1e329bb9d9b261c52159219e1aca4eb4646",
+      "scripts/centipede_motion.gd": "9a98e2e62c4b73915f4e3ea389be2e3db04b5ff0c029bf1ea26729777486d88d",
+      "scripts/chain_centipede.gd": "75cf16135996c92c0e38c462a276663cfcea70e45287195d17cfc6b08df14e6b",
+      "scripts/chain_drag_preview.gd": "954a151bf39989499b08b3a4ed160f07484d9cc09dd4bf86a22e88ea0813ea3b",
+      "scripts/chain_mount_control.gd": "fbc4f9d5214928eb3e402c06a8fc902bc6160c041cf425e5f3ac8149a6b54530",
+      "scripts/character_abilities.gd": "7ab80bb366ffe51d97bd8bccfae92d1ffb4354e07e7f257042f9fd7d582ebe81",
+      "scripts/character_art.gd": "70a1d03d0745c7f870da6515aee798fc4b32012af816b4982b4fad27b07e700e",
+      "scripts/character_roster.gd": "637c9f18ddd71250f791ec8685a0a5f1393d54ad8d3b82caa066e08211e9f687",
+      "scripts/character_select.gd": "3e75da6f6a698b3c24cee05fc9ad7e133c427bd9bf2f96434249c9ea46643467",
+      "scripts/combat.gd": "33b29828a306a662bc732601a281c2f43760c6164f9e4e406475d78c0f139f98",
+      "scripts/combat_spatial_index.gd": "74009496b5378d2a701c860efe816e9a89ccdc07531db8f3e5ed90e1c419a66d",
+      "scripts/crystal_loot.gd": "d2cc60e54f7fbc1d861ede42aa160055aa58ed0e51151c9089f9f7fffc56c4dc",
+      "scripts/cursor_system.gd": "c7a8f97978bda936803f580d9c6f27686a0b794397fb868da93d3b6506ec26f7",
+      "scripts/direct_body_canvas.gd": "bfd42bb600f56e78c0dc88056d9d97a818e13783c28961028a83dc3863c847bb",
+      "scripts/flagella.gd": "13dd2bc696708400afdde4cbb38b9ee95d742746aa9ff1d23a913cbb934029e2",
+      "scripts/game_ui.gd": "a334a0375fbf08d196e13b462cf4fed20de850c8942437841925a0597109b38f",
+      "scripts/generated_ui_art.gd": "950547456adbc01804bb9dc9b7e2b4d06edeea3f9d61349cd836b457445427a7",
+      "scripts/grid_centipede.gd": "76dd0dc71db01ecd247260227d6eecf4c8eb41075bc6726eb2d4030ea2c4216a",
+      "scripts/input_system.gd": "803344a252f2731af6047948e7583c922d40a1649fc7add6b1c042ba984f4e86",
+      "scripts/insect_anatomy.gd": "c8f4332ad7e9762095c2ffddfd956b3e27928c445b5f4e9bd4f1a9ed1f16cd32",
+      "scripts/insect_armaments.gd": "d22dd1175acb1168597d259b3968270454b02275b2ea8994bc86d2fd78dff06b",
+      "scripts/insect_attack_fx.gd": "1e41980af22e78890f0b04801c1beddb832705a9922acdb7cbacf77ccf72709c",
+      "scripts/insect_controls.gd": "61dabd360fb1610107f2ac82abbabddcd9008b9d788270d64796184401be9fbf",
+      "scripts/insect_hit_audio.gd": "beb206dcd97b653f149b1967454fe858b850711add916dedac836971ec92f513",
+      "scripts/insect_hit_fx.gd": "9d6d9b23346438ca4c6c326454dd027655f8cc67a2efe95b7b926f0d258bb86b",
+      "scripts/insect_projectiles.gd": "7fde1153cf2d34d3ed22cd6435a34b93bdebaa90c66ede6594742081fb720743",
+      "scripts/intro_ui.gd": "a6059fe61efeb92de731e23787c84a3c816cbe325acd6303eb4078a9ea8b94fe",
+      "scripts/main.gd": "c3dca54abbccb94bef078eafaf7acf6a4d5597df05cd316a6cb74d124bdc3041",
+      "scripts/map_director.gd": "f715ad4708e3428d89ecc03e808dfaa1a7d22a75e73c8dfa488ee4ff61fae72f",
+      "scripts/menu_background.gd": "fb7a4975353d0de82578eb8fb3690bcb8db2b8a66b204622d0b67e2d4030ea31",
+      "scripts/mission_director.gd": "9fdfbae989c57590c92ef2100073d06f78e26a50db11c660d5e2d7643d16b03c",
+      "scripts/mission_select.gd": "8e52e08ded0e1c262cf39d44eed707a04ca35dabb01de21461fb0488c539ab68",
+      "scripts/native_visuals.gd": "b6dfc84776f6c2b8bfe549881daf878c289bf6881e5449d7b189af393066baef",
+      "scripts/particle_effects.gd": "7ca8ea19a15537d5a40fd45bf9dc8cd4538ad4ed7fb46067284922a283c4bbe0",
+      "scripts/passive_feedback.gd": "93a99132a41a64a1ca8083243bc01f6637e2c01fb0c8f16932ad242729af665f",
+      "scripts/player_decorations.gd": "7501b82f014a816826fa8b0bb9ec09c246ac56b49c082cd6f3954e144f65ba48",
+      "scripts/popup_text.gd": "989698ebdd7a2376d0e9dda3940bdbceacc63e720c4726616ca8a722388711c3",
+      "scripts/radial_formation.gd": "623a589c0f5477840dcdc99d248efd9f3658ddc8e74880f54e40a31924526143",
+      "scripts/render_state.gd": "789d5179ac1c77866b8394874a5910a5bb8cee213445d216f049502b9daabc67",
+      "scripts/research_ui.gd": "de4f6e5423b81afe97ce5d75be5e59d48491b4416cd6e4708925c9ce9c8d88db",
+      "scripts/reward_choice.gd": "aefbd92d0f0d926c6daa60b1112ed3dc5a0282b3395090d916e6e49ecd77ff9f",
+      "scripts/reward_director.gd": "41b809ae22359388e5fc32d0fe67830e975d52411ac6a27781e7d8dd2a21f5b6",
+      "scripts/reward_feedback_state.gd": "32382a230f90e326113a519d78072eaa743c5c7dc4c792569b491535aaeffe07",
+      "scripts/reward_pool_ui.gd": "0ba59c03f82b0a912217c4ccf8e31fdfb1d90cec8dd611a512239b566c2f655f",
+      "scripts/rig_appendage_batch.gd": "272ae7b14c18f8d085e32b8d0b8715f56a2900cb17ad5bec7f8819a0970c9542",
+      "scripts/run_state.gd": "700c8e979a2c73e2423d96ec6a82f5f2bcece316748770057e6540a7151ac3f7",
+      "scripts/save_store.gd": "f0f6b36505462b6328ab701021ab7a50087cd2f82bac2ea42906a0fece0815b5",
+      "scripts/segment_feedback.gd": "ba6206a219773b2bca4e5cc472fe8b6aba9becb34025f390bce2f501aae5ff15",
+      "scripts/soft_insect.gd": "a46284b17c4ad2c5150892542e309bc321a0547e751752dcd7c506e21e46a413",
+      "scripts/soft_insect_layer.gd": "08dbc9e3b72e00b7d7038b3262d47960e3dee1573067cac78d63271733727337",
+      "scripts/soft_insect_rig.gd": "2e48c771a8bbbf6978bfa0bc5fcc3ae705f1ba58050aeb4aa842c72e793aa746",
+      "scripts/soft_organ_art.gd": "d37f09c650d0857f01029486aba8d6ada211bb38dfc706953b0a7c318e4962f0",
+      "scripts/source_db.gd": "ebd6b7d136d66ab905f27bac6060965a179a04a4aac0a7640e0ae84a7a9effdb",
+      "scripts/source_ui.gd": "7ba32e3791539b10ca04d8e576756c38a7eb7c459d74bf3b4c60ec3222b80f43",
+      "scripts/special_systems.gd": "536dd310de34d34e62fdbf1fd04c0bf98029b8bcd72aacf999a6475c66a6d366",
+      "scripts/spider_art.gd": "1e8d84b351017c9aca83a5e79fa3c7e1288f6ba0babc52b0c521edcf94a69efe",
+      "scripts/spider_rig.gd": "fa7edb3d963d93f0527951f243e9154da39b78f58de2c3150019690a7b755645",
+      "scripts/tutorial_ui.gd": "f285e9cad1ec6b5ee081fef988a96435e7aba3cbb9783bcced1640af8c3a1223",
+      "scripts/viscous_projectile_motion.gd": "aa394f202894e89f54ad9499effa71868fcde30dc8a34112f13381663c79662f",
+      "scripts/viscous_projectiles.gd": "9eaaf9b7aa2eb105eeb944288fc15031123bb842473399fa1dbeb7b821327276",
+      "scripts/weapon_feedback.gd": "dcc08e6f4187faee9e4341d7c4c35bc736ed078c1a64c7b7647fb131630c5bab",
+      "scripts/weapon_fx.gd": "008289d2514dc8fcbc7df4abe73302e2431e0744b6e93714a44ba92130d07d0b",
+      "scripts/windows_review_probe.gd": "391363f5c0aae4aa07f25730d468d6db780d89dc8ebda75e305ac508b62a981b",
+      "tests/test_dense_render_benchmark.gd": "53fba5eabf314fa4b2cea89ac24bd7723a977b9bc67eb9cf9df79aa5cc000278"
+    }
+  },
+  "import_config": {
+    "path": "assets/ui_overhaul/viscous_projectiles_atlas.png.import",
+    "sha256": "d49a798e4879a4b56db660e50847dd1008f007509dbd0a5ab5c9137d8281808f",
+    "bytes": 997
+  },
+  "mipmaps_generate": true,
+  "premipmap_diagnostic": {
+    "metrics": {
+      "draw_calls": {
+        "before": {
+          "max": 2747.0,
+          "mean": 2297.60555555556,
+          "p50": 2285.0,
+          "p95": 2693.0
+        },
+        "after": {
+          "max": 2281.0,
+          "mean": 1853.1,
+          "p50": 1857.0,
+          "p95": 2178.0
+        }
+      },
+      "render_objects": {
+        "before": {
+          "max": 20546.0,
+          "mean": 14901.0222222222,
+          "p50": 14792.0,
+          "p95": 19307.0
+        },
+        "after": {
+          "max": 20374.0,
+          "mean": 14736.8111111111,
+          "p50": 14631.0,
+          "p95": 19127.0
+        }
+      },
+      "bullets": {
+        "before": {
+          "max": 256,
+          "mean": 250.066666666667,
+          "p50": 250,
+          "p95": 255
+        },
+        "after": {
+          "max": 256,
+          "mean": 250.066666666667,
+          "p50": 250,
+          "p95": 255
+        }
+      },
+      "effects": {
+        "before": {
+          "max": 103,
+          "mean": 73.45,
+          "p50": 77,
+          "p95": 94
+        },
+        "after": {
+          "max": 125,
+          "mean": 92.3611111111111,
+          "p50": 97,
+          "p95": 116
+        }
+      },
+      "particle_emitters": {
+        "before": {
+          "max": 0,
+          "mean": 0.0,
+          "p50": 0,
+          "p95": 0
+        },
+        "after": {
+          "max": 0,
+          "mean": 0.0,
+          "p50": 0,
+          "p95": 0
+        }
+      },
+      "frame_ms": {
+        "before": {
+          "max": 171.736,
+          "mean": 90.5968277777778,
+          "p50": 87.576,
+          "p95": 122.131
+        },
+        "after": {
+          "max": 116.589,
+          "mean": 76.6940666666666,
+          "p50": 74.493,
+          "p95": 94.904
+        }
+      },
+      "simulation_prepare_ms": {
+        "before": {
+          "max": 45.988,
+          "mean": 22.8667777777778,
+          "p50": 21.301,
+          "p95": 33.236
+        },
+        "after": {
+          "max": 51.276,
+          "mean": 22.6030833333333,
+          "p50": 21.473,
+          "p95": 29.318
+        }
+      },
+      "main_draw_build_ms": {
+        "before": {
+          "max": 29.341,
+          "mean": 15.7834833333333,
+          "p50": 15.039,
+          "p95": 20.98
+        },
+        "after": {
+          "max": 21.388,
+          "mean": 13.8744111111111,
+          "p50": 13.351,
+          "p95": 18.387
+        }
+      },
+      "process_timing": {
+        "before": {
+          "wall_seconds": 28.024247528999695,
+          "user_cpu_seconds": 47.692631999999996,
+          "system_cpu_seconds": 1.7135690000000001,
+          "scope": "Entire Godot subprocess: startup, fixture setup, warmup, measured steps, projectile replenishment and output. CPU counters use POSIX child resource usage; unavailable on Windows is null."
+        },
+        "after": {
+          "wall_seconds": 25.51717119099976,
+          "user_cpu_seconds": 44.920932,
+          "system_cpu_seconds": 1.502734,
+          "scope": "Entire Godot subprocess: startup, fixture setup, warmup, measured steps, projectile replenishment and output. CPU counters use POSIX child resource usage; unavailable on Windows is null."
+        }
+      }
+    },
+    "derived": {
+      "draw_calls_p50_change_percent": -18.7308533916849,
+      "draw_calls_p95_change_percent": -19.123653917564056,
+      "frame_p50_change_percent": -14.939024390243905,
+      "whole_process_cpu_seconds_before": 49.406200999999996,
+      "whole_process_cpu_seconds_after": 46.423666,
+      "whole_process_cpu_change_percent": -6.036762470362778,
+      "whole_process_wall_change_percent": -8.946096894860755
+    },
+    "note": "Superseded after-run before mipmap correction; retained only for traceability, not final appearance/performance."
+  }
+}

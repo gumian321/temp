@@ -12,6 +12,43 @@ func setup(db):
   for data in definitions[effect_type]:
    data['_size_curve']=source_curve(data.size.get('curve',{}))
    data['_color_ramp']=source_gradient(data.color.get('gradient',{}).get('maxGradient',{}))
+   data['_lifetime']=scalar_range(data.initial.startLifetime)
+   data['_speed']=scalar_range(data.initial.startSpeed)
+   data['_extent']=scalar_range(data.initial.startSize)
+   data['_rotation']=scalar_range(data.initial.get('startRotation',{}))
+   var bursts:Array=data.emission.get('m_Bursts',[])
+   var rate=float(data.emission.rateOverTime.scalar);var count=0
+   for burst in bursts:count+=int(burst.countCurve.scalar)
+   data['_rate']=rate
+   data['_amount']=maxi(1,mini(int(data.initial.get('maxNumParticles',1000)),maxi(count,ceili(rate*maxf(0.01,data._lifetime.y)))))
+   data['_delay']=float(data.delay.get('scalar',0))+(float(bursts[0].time) if not bursts.is_empty() else 0)
+   var color=rgba(data.initial.startColor.get('maxColor',{}))
+   if int(data.get('shader_ref',{}).get('fileID',0))==202:color*=rgba(data.material.get('m_Colors',{}).get('_TintColor',{'r':.5,'g':.5,'b':.5,'a':.5}))*2
+   var floats:Dictionary=data.material.get('m_Floats',{})
+   var hdr=lerpf(1,float(floats.get('_HdrMultiply',1)),float(floats.get('_HdrBoost',0)))
+   data['_color']=Color(color.r*hdr,color.g*hdr,color.b*hdr,color.a)
+   # These curves depend only on the source preset, never on an individual
+   # emission's radius, position, duration or target. Share the immutable resources.
+   var lifetime=maxf(0.01,scalar_range(data.initial.startLifetime).y)
+   var damping:Dictionary=data.get('clamp',{})
+   var dampen=float(damping.get('dampen',0))
+   if damping.get('enabled',false) and dampen>0 and dampen<1:
+    var decay=-log(1-dampen)*60
+    var decay_curve=Curve.new()
+    for i in 65:decay_curve.add_point(Vector2(float(i)/64,exp(-decay*lifetime*float(i)/64)))
+    data['_decay']=decay;data['_damping_curve']=decay_curve
+   if data.velocity.get('enabled',false):
+    var modifier:Dictionary=data.velocity.get('speedModifier',{})
+    var modifier_curve=source_curve(modifier)
+    data['_initial_modifier']=float(modifier.get('scalar',1))*(modifier_curve.sample(0) if int(modifier.get('minMaxState',0))==1 else 1)
+    if int(modifier.get('minMaxState',0))==1:
+     var acceleration_curve=Curve.new();acceleration_curve.min_value=-10;acceleration_curve.max_value=10
+     for i in 65:
+      var t=float(i)/64;var a=maxf(0,t-.002);var b=minf(1,t+.002)
+      acceleration_curve.add_point(Vector2(t,(modifier_curve.sample(b)-modifier_curve.sample(a))/maxf(.0001,b-a)))
+     data['_acceleration_curve']=acceleration_curve
+   if data.rotation.get('enabled',false) and int(data.rotation.get('curve',{}).get('minMaxState',0))==1:
+    data['_angular_velocity_curve']=source_curve(data.rotation.curve)
    if 'Procedural Glow' in data.get('shader',''):
     var glow=GradientTexture2D.new();glow.width=64;glow.height=64;glow.fill=GradientTexture2D.FILL_RADIAL;glow.fill_from=Vector2(0.5,0.5);glow.fill_to=Vector2(1,0.5)
     var gradient=Gradient.new();gradient.colors=PackedColorArray([Color.WHITE,Color(1,1,1,0)]);glow.gradient=gradient
@@ -75,13 +112,12 @@ func source_gradient(value:Dictionary)->Gradient:
 func play(type,at:Vector2,radius:float=1,duration:float=0,follow:Dictionary={},orientation:float=0.0,hold:bool=false)->Array:
  var created:Array=[]
  for data in definitions.get(str(type),[]):
-  var initial:Dictionary=data.initial;var emission:Dictionary=data.emission
-  var lifetime=scalar_range(initial.startLifetime);var speed=scalar_range(initial.startSpeed);var extent=scalar_range(initial.startSize)
+  var initial:Dictionary=data.initial
+  var lifetime:Vector2=data._lifetime;var speed:Vector2=data._speed;var extent:Vector2=data._extent
   var particles=CPUParticles2D.new();particles.emitting=false;particles.local_coords=bool(data.get("local_space",true));particles.one_shot=true;particles.lifetime=maxf(0.01,lifetime.y);particles.lifetime_randomness=clampf(1-lifetime.x/maxf(0.01,lifetime.y),0,1);particles.position=at;particles.rotation=orientation+float(data.get("angle",0))
-  var bursts:Array=emission.get('m_Bursts',[]);var rate=float(emission.rateOverTime.scalar);var count=0
-  for burst in bursts:count+=int(burst.countCurve.scalar)
+  var rate=float(data._rate)
   var active_duration=maxf(float(data.duration),duration)
-  particles.amount=maxi(1,mini(int(initial.get("maxNumParticles",1000)),maxi(count,ceili(rate*particles.lifetime))));particles.explosiveness=1.0 if rate<=0 else 0.0
+  particles.amount=int(data._amount);particles.explosiveness=1.0 if rate<=0 else 0.0
   particles.one_shot=rate<=0
   particles.direction=Vector2.RIGHT;particles.spread=180;particles.gravity=Vector2(0,9.81*float(initial.get('gravityModifier',{}).get('scalar',0))*48)
   particles.initial_velocity_min=speed.x*48*radius;particles.initial_velocity_max=speed.y*48*radius
@@ -91,27 +127,20 @@ func play(type,at:Vector2,radius:float=1,duration:float=0,follow:Dictionary={},o
    particles.initial_velocity_min=clampf(particles.initial_velocity_min,-limit,limit);particles.initial_velocity_max=clampf(particles.initial_velocity_max,-limit,limit)
   if clamp_data.get('enabled',false) and float(clamp_data.get('dampen',0))>0 and float(clamp_data.get('dampen',0))<1:
    var limit=float(clamp_data.get('magnitude',{}).get('scalar',0))*48*radius
-   var decay=-log(1-float(clamp_data.dampen))*60
-   var decay_curve=Curve.new()
-   for i in 65:decay_curve.add_point(Vector2(float(i)/64,exp(-decay*particles.lifetime*float(i)/64)))
-   particles.damping_curve=decay_curve
+   var decay=float(data._decay)
+   particles.damping_curve=data._damping_curve
    particles.damping_min=maxf(0,particles.initial_velocity_min-limit)*decay
    particles.damping_max=maxf(0,particles.initial_velocity_max-limit)*decay
   if data.velocity.get('enabled',false):
    var radial=float(data.velocity.get('radial',{}).get('scalar',0))*48*radius
    var modifier:Dictionary=data.velocity.get('speedModifier',{})
-   var modifier_curve=source_curve(modifier)
-   var initial_modifier=float(modifier.get('scalar',1))*(modifier_curve.sample(0) if int(modifier.get('minMaxState',0))==1 else 1)
+   var initial_modifier=float(data._initial_modifier)
    var total_min=particles.initial_velocity_min+radial;var total_max=particles.initial_velocity_max+radial
    particles.initial_velocity_min=total_min*initial_modifier;particles.initial_velocity_max=total_max*initial_modifier
    if int(modifier.get('minMaxState',0))==1:
-    var acceleration_curve=Curve.new();acceleration_curve.min_value=-10;acceleration_curve.max_value=10
-    for i in 65:
-     var t=float(i)/64;var a=maxf(0,t-.002);var b=minf(1,t+.002)
-     acceleration_curve.add_point(Vector2(t,(modifier_curve.sample(b)-modifier_curve.sample(a))/maxf(.0001,b-a)))
     particles.radial_accel_min=minf(total_min,total_max)/particles.lifetime
-    particles.radial_accel_max=maxf(total_min,total_max)/particles.lifetime;particles.radial_accel_curve=acceleration_curve
-  var rotation=scalar_range(initial.get('startRotation',{}));particles.angle_min=rad_to_deg(rotation.x);particles.angle_max=rad_to_deg(rotation.y)
+    particles.radial_accel_max=maxf(total_min,total_max)/particles.lifetime;particles.radial_accel_curve=data._acceleration_curve
+  var rotation:Vector2=data._rotation;particles.angle_min=rad_to_deg(rotation.x);particles.angle_max=rad_to_deg(rotation.y)
   var tex_size=1.0
   if data.has('_texture'):
    particles.texture=data._texture;tex_size=particles.texture.get_width()/maxi(1,int(data.uv.get('tilesX',1)))
@@ -128,15 +157,11 @@ func play(type,at:Vector2,radius:float=1,duration:float=0,follow:Dictionary={},o
    particles.position+=Vector2(float(shape.m_Position.x),-float(shape.m_Position.y))*48*radius
   if data.rotation.get('enabled',false):
    var angular=scalar_range(data.rotation.get('curve',{}));particles.angular_velocity_min=rad_to_deg(angular.x);particles.angular_velocity_max=rad_to_deg(angular.y)
-   if int(data.rotation.get('curve',{}).get('minMaxState',0))==1:particles.angular_velocity_curve=source_curve(data.rotation.curve)
+   if int(data.rotation.get('curve',{}).get('minMaxState',0))==1:particles.angular_velocity_curve=data._angular_velocity_curve
   particles.scale_amount_min=extent.x*48*radius/maxf(1,tex_size);particles.scale_amount_max=extent.y*48*radius/maxf(1,tex_size)
   if data.size.get('enabled',false):particles.scale_amount_curve=data._size_curve
-  particles.color=rgba(initial.startColor.get('maxColor',{}))
-  if int(data.get('shader_ref',{}).get('fileID',0))==202:particles.color*=rgba(data.material.get('m_Colors',{}).get('_TintColor',{'r':.5,'g':.5,'b':.5,'a':.5}))*2
+  particles.color=data._color
   if data.color.get('enabled',false):particles.color_ramp=data._color_ramp
-  var floats:Dictionary=data.material.get('m_Floats',{})
-  var hdr=lerpf(1,float(floats.get('_HdrMultiply',1)),float(floats.get('_HdrBoost',0)))
-  particles.color=Color(particles.color.r*hdr,particles.color.g*hdr,particles.color.b*hdr,particles.color.a)
   if data.uv.get('enabled',false):
    var frame:Dictionary=data.uv.get('frameOverTime',{});var state=int(frame.get('minMaxState',0))
    particles.anim_speed_min=float(frame.get('scalar',1))/particles.lifetime if state==1 else 0.0;particles.anim_speed_max=particles.anim_speed_min
@@ -149,14 +174,21 @@ func play(type,at:Vector2,radius:float=1,duration:float=0,follow:Dictionary={},o
   add_child(particles);created.append(particles)
   if not follow.is_empty():followers.append({"node":weakref(particles),"target":follow})
   if hold:particles.one_shot=false;particles.emitting=false;continue
-  var delay=float(data.delay.get('scalar',0))+(float(bursts[0].time) if not bursts.is_empty() else 0)
+  var delay=float(data._delay)
   var tween=particles.create_tween();tween.tween_interval(maxf(0.001,delay));tween.tween_callback(func():particles.emitting=true)
   if rate>0:tween.tween_interval(active_duration);tween.tween_callback(func():particles.emitting=false)
   tween.tween_interval(particles.lifetime+0.25);tween.tween_callback(particles.queue_free)
  return created
 func _process(_dt):
- followers=followers.filter(func(f):return f.node.get_ref()!=null)
- for entry in followers:entry.node.get_ref().position=entry.target.position
+ # Most frames have no followers. Compact in place instead of allocating a
+ # filtered Array and invoking a lambda for every entry on every frame.
+ var live_count=0
+ for entry in followers:
+  var node=entry.node.get_ref()
+  if node==null:continue
+  node.position=entry.target.position
+  followers[live_count]=entry;live_count+=1
+ if live_count<followers.size():followers.resize(live_count)
 func clear():
  followers.clear();engines.clear();flames.clear()
  for child in get_children():child.queue_free()

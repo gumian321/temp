@@ -1,0 +1,2677 @@
+{
+  "baseline": "9571d447c7b44141ce3cee0d20070a7888b4d286",
+  "date_utc": "2026-10-15",
+  "scope": "Three quiet serialized CPU pairs, order before/after, after/before, before/after. No native renderer or regression processes concurrent. CPU timings exclude renderer and are not player FPS.",
+  "scenarios": [
+    {
+      "scenario": {
+        "bullets": 64,
+        "enemies": 32,
+        "name": "low",
+        "parts": 13
+      },
+      "signatures_equal": true,
+      "median_run_p50_ms": {
+        "before": 2.445,
+        "after": 2.54
+      },
+      "median_run_p95_ms": {
+        "before": 3.466,
+        "after": 3.159
+      },
+      "entities": {
+        "before": [
+          {
+            "bullets": {
+              "max": 68,
+              "mean": 63.7166666666667,
+              "p50": 64,
+              "p95": 67
+            },
+            "effects": {
+              "max": 42,
+              "mean": 17.9944444444444,
+              "p50": 17,
+              "p95": 34
+            },
+            "enemies": {
+              "max": 32,
+              "mean": 32.0,
+              "p50": 32,
+              "p95": 32
+            },
+            "parts": {
+              "max": 13,
+              "mean": 13.0,
+              "p50": 13,
+              "p95": 13
+            }
+          },
+          {
+            "bullets": {
+              "max": 68,
+              "mean": 63.7166666666667,
+              "p50": 64,
+              "p95": 67
+            },
+            "effects": {
+              "max": 42,
+              "mean": 17.9944444444444,
+              "p50": 17,
+              "p95": 34
+            },
+            "enemies": {
+              "max": 32,
+              "mean": 32.0,
+              "p50": 32,
+              "p95": 32
+            },
+            "parts": {
+              "max": 13,
+              "mean": 13.0,
+              "p50": 13,
+              "p95": 13
+            }
+          },
+          {
+            "bullets": {
+              "max": 68,
+              "mean": 63.7166666666667,
+              "p50": 64,
+              "p95": 67
+            },
+            "effects": {
+              "max": 42,
+              "mean": 17.9944444444444,
+              "p50": 17,
+              "p95": 34
+            },
+            "enemies": {
+              "max": 32,
+              "mean": 32.0,
+              "p50": 32,
+              "p95": 32
+            },
+            "parts": {
+              "max": 13,
+              "mean": 13.0,
+              "p50": 13,
+              "p95": 13
+            }
+          }
+        ],
+        "after": [
+          {
+            "bullets": {
+              "max": 68,
+              "mean": 63.7166666666667,
+              "p50": 64,
+              "p95": 67
+            },
+            "effects": {
+              "max": 51,
+              "mean": 25.5111111111111,
+              "p50": 24,
+              "p95": 43
+            },
+            "enemies": {
+              "max": 32,
+              "mean": 32.0,
+              "p50": 32,
+              "p95": 32
+            },
+            "parts": {
+              "max": 13,
+              "mean": 13.0,
+              "p50": 13,
+              "p95": 13
+            }
+          },
+          {
+            "bullets": {
+              "max": 68,
+              "mean": 63.7166666666667,
+              "p50": 64,
+              "p95": 67
+            },
+            "effects": {
+              "max": 51,
+              "mean": 25.5111111111111,
+              "p50": 24,
+              "p95": 43
+            },
+            "enemies": {
+              "max": 32,
+              "mean": 32.0,
+              "p50": 32,
+              "p95": 32
+            },
+            "parts": {
+              "max": 13,
+              "mean": 13.0,
+              "p50": 13,
+              "p95": 13
+            }
+          },
+          {
+            "bullets": {
+              "max": 68,
+              "mean": 63.7166666666667,
+              "p50": 64,
+              "p95": 67
+            },
+            "effects": {
+              "max": 51,
+              "mean": 25.5111111111111,
+              "p50": 24,
+              "p95": 43
+            },
+            "enemies": {
+              "max": 32,
+              "mean": 32.0,
+              "p50": 32,
+              "p95": 32
+            },
+            "parts": {
+              "max": 13,
+              "mean": 13.0,
+              "p50": 13,
+              "p95": 13
+            }
+          }
+        ]
+      },
+      "p50_change_percent": 3.885480572597144
+    },
+    {
+      "scenario": {
+        "bullets": 256,
+        "enemies": 128,
+        "name": "medium",
+        "parts": 31
+      },
+      "signatures_equal": true,
+      "median_run_p50_ms": {
+        "before": 12.387,
+        "after": 12.301
+      },
+      "median_run_p95_ms": {
+        "before": 15.156,
+        "after": 14.184
+      },
+      "entities": {
+        "before": [
+          {
+            "bullets": {
+              "max": 256,
+              "mean": 250.761111111111,
+              "p50": 251,
+              "p95": 255
+            },
+            "effects": {
+              "max": 104,
+              "mean": 68.8277777777778,
+              "p50": 69,
+              "p95": 93
+            },
+            "enemies": {
+              "max": 128,
+              "mean": 128.0,
+              "p50": 128,
+              "p95": 128
+            },
+            "parts": {
+              "max": 31,
+              "mean": 31.0,
+              "p50": 31,
+              "p95": 31
+            }
+          },
+          {
+            "bullets": {
+              "max": 256,
+              "mean": 250.761111111111,
+              "p50": 251,
+              "p95": 255
+            },
+            "effects": {
+              "max": 104,
+              "mean": 68.8277777777778,
+              "p50": 69,
+              "p95": 93
+            },
+            "enemies": {
+              "max": 128,
+              "mean": 128.0,
+              "p50": 128,
+              "p95": 128
+            },
+            "parts": {
+              "max": 31,
+              "mean": 31.0,
+              "p50": 31,
+              "p95": 31
+            }
+          },
+          {
+            "bullets": {
+              "max": 256,
+              "mean": 250.761111111111,
+              "p50": 251,
+              "p95": 255
+            },
+            "effects": {
+              "max": 104,
+              "mean": 68.8277777777778,
+              "p50": 69,
+              "p95": 93
+            },
+            "enemies": {
+              "max": 128,
+              "mean": 128.0,
+              "p50": 128,
+              "p95": 128
+            },
+            "parts": {
+              "max": 31,
+              "mean": 31.0,
+              "p50": 31,
+              "p95": 31
+            }
+          }
+        ],
+        "after": [
+          {
+            "bullets": {
+              "max": 256,
+              "mean": 250.761111111111,
+              "p50": 251,
+              "p95": 255
+            },
+            "effects": {
+              "max": 126,
+              "mean": 87.8166666666667,
+              "p50": 89,
+              "p95": 115
+            },
+            "enemies": {
+              "max": 128,
+              "mean": 128.0,
+              "p50": 128,
+              "p95": 128
+            },
+            "parts": {
+              "max": 31,
+              "mean": 31.0,
+              "p50": 31,
+              "p95": 31
+            }
+          },
+          {
+            "bullets": {
+              "max": 256,
+              "mean": 250.761111111111,
+              "p50": 251,
+              "p95": 255
+            },
+            "effects": {
+              "max": 126,
+              "mean": 87.8166666666667,
+              "p50": 89,
+              "p95": 115
+            },
+            "enemies": {
+              "max": 128,
+              "mean": 128.0,
+              "p50": 128,
+              "p95": 128
+            },
+            "parts": {
+              "max": 31,
+              "mean": 31.0,
+              "p50": 31,
+              "p95": 31
+            }
+          },
+          {
+            "bullets": {
+              "max": 256,
+              "mean": 250.761111111111,
+              "p50": 251,
+              "p95": 255
+            },
+            "effects": {
+              "max": 126,
+              "mean": 87.8166666666667,
+              "p50": 89,
+              "p95": 115
+            },
+            "enemies": {
+              "max": 128,
+              "mean": 128.0,
+              "p50": 128,
+              "p95": 128
+            },
+            "parts": {
+              "max": 31,
+              "mean": 31.0,
+              "p50": 31,
+              "p95": 31
+            }
+          }
+        ]
+      },
+      "p50_change_percent": -0.6942762573665995
+    },
+    {
+      "scenario": {
+        "bullets": 768,
+        "enemies": 384,
+        "name": "high",
+        "parts": 61
+      },
+      "signatures_equal": true,
+      "median_run_p50_ms": {
+        "before": 52.13,
+        "after": 52.556
+      },
+      "median_run_p95_ms": {
+        "before": 61.441,
+        "after": 60.965
+      },
+      "entities": {
+        "before": [
+          {
+            "bullets": {
+              "max": 764,
+              "mean": 744.45,
+              "p50": 744,
+              "p95": 758
+            },
+            "effects": {
+              "max": 337,
+              "mean": 232.888888888889,
+              "p50": 251,
+              "p95": 320
+            },
+            "enemies": {
+              "max": 384,
+              "mean": 384.0,
+              "p50": 384,
+              "p95": 384
+            },
+            "parts": {
+              "max": 61,
+              "mean": 61.0,
+              "p50": 61,
+              "p95": 61
+            }
+          },
+          {
+            "bullets": {
+              "max": 764,
+              "mean": 744.45,
+              "p50": 744,
+              "p95": 758
+            },
+            "effects": {
+              "max": 337,
+              "mean": 232.888888888889,
+              "p50": 251,
+              "p95": 320
+            },
+            "enemies": {
+              "max": 384,
+              "mean": 384.0,
+              "p50": 384,
+              "p95": 384
+            },
+            "parts": {
+              "max": 61,
+              "mean": 61.0,
+              "p50": 61,
+              "p95": 61
+            }
+          },
+          {
+            "bullets": {
+              "max": 764,
+              "mean": 744.45,
+              "p50": 744,
+              "p95": 758
+            },
+            "effects": {
+              "max": 337,
+              "mean": 232.888888888889,
+              "p50": 251,
+              "p95": 320
+            },
+            "enemies": {
+              "max": 384,
+              "mean": 384.0,
+              "p50": 384,
+              "p95": 384
+            },
+            "parts": {
+              "max": 61,
+              "mean": 61.0,
+              "p50": 61,
+              "p95": 61
+            }
+          }
+        ],
+        "after": [
+          {
+            "bullets": {
+              "max": 764,
+              "mean": 744.45,
+              "p50": 744,
+              "p95": 758
+            },
+            "effects": {
+              "max": 360,
+              "mean": 255.308333333333,
+              "p50": 273,
+              "p95": 342
+            },
+            "enemies": {
+              "max": 384,
+              "mean": 384.0,
+              "p50": 384,
+              "p95": 384
+            },
+            "parts": {
+              "max": 61,
+              "mean": 61.0,
+              "p50": 61,
+              "p95": 61
+            }
+          },
+          {
+            "bullets": {
+              "max": 764,
+              "mean": 744.45,
+              "p50": 744,
+              "p95": 758
+            },
+            "effects": {
+              "max": 360,
+              "mean": 255.308333333333,
+              "p50": 273,
+              "p95": 342
+            },
+            "enemies": {
+              "max": 384,
+              "mean": 384.0,
+              "p50": 384,
+              "p95": 384
+            },
+            "parts": {
+              "max": 61,
+              "mean": 61.0,
+              "p50": 61,
+              "p95": 61
+            }
+          },
+          {
+            "bullets": {
+              "max": 764,
+              "mean": 744.45,
+              "p50": 744,
+              "p95": 758
+            },
+            "effects": {
+              "max": 360,
+              "mean": 255.308333333333,
+              "p50": 273,
+              "p95": 342
+            },
+            "enemies": {
+              "max": 384,
+              "mean": 384.0,
+              "p50": 384,
+              "p95": 384
+            },
+            "parts": {
+              "max": 61,
+              "mean": 61.0,
+              "p50": 61,
+              "p95": 61
+            }
+          }
+        ]
+      },
+      "p50_change_percent": 0.8171877997314336
+    }
+  ],
+  "process_cpu_seconds": {
+    "before": [
+      30.141339,
+      30.832536,
+      29.346238
+    ],
+    "after": [
+      30.43896,
+      30.732882,
+      30.554774
+    ]
+  },
+  "median_process_cpu_seconds": {
+    "before": 30.141339,
+    "after": 30.554774
+  },
+  "runs": {
+    "before": [
+      {
+        "dt": 0.0166666666666667,
+        "engine": "4.6.3-stable (official)",
+        "fixture_version": 1,
+        "measured_ticks": 360,
+        "results": [
+          {
+            "combat_ms": {
+              "max": 4.761,
+              "mean": 2.57974722222222,
+              "p50": 2.478,
+              "p95": 3.598
+            },
+            "config": {
+              "bullets": 64,
+              "enemies": 32,
+              "name": "low",
+              "parts": 13
+            },
+            "entities": {
+              "bullets": {
+                "max": 68,
+                "mean": 63.7166666666667,
+                "p50": 64,
+                "p95": 67
+              },
+              "effects": {
+                "max": 42,
+                "mean": 17.9944444444444,
+                "p50": 17,
+                "p95": 34
+              },
+              "enemies": {
+                "max": 32,
+                "mean": 32.0,
+                "p50": 32,
+                "p95": 32
+              },
+              "parts": {
+                "max": 13,
+                "mean": 13.0,
+                "p50": 13,
+                "p95": 13
+              }
+            },
+            "injected_shots": 385,
+            "phases_ms": {
+              "cleanup": {
+                "max": 0.242,
+                "mean": 0.0379638888888889,
+                "p50": 0.034,
+                "p95": 0.059
+              },
+              "drones": {
+                "max": 0.349,
+                "mean": 0.0788916666666667,
+                "p50": 0.069,
+                "p95": 0.138
+              },
+              "enemy_ai": {
+                "max": 3.22,
+                "mean": 1.14305,
+                "p50": 1.097,
+                "p95": 1.469
+              },
+              "patrol_special": {
+                "max": 0.678,
+                "mean": 0.0603305555555557,
+                "p50": 0.053,
+                "p95": 0.089
+              },
+              "player_weapons": {
+                "max": 2.393,
+                "mean": 0.717725,
+                "p50": 0.679,
+                "p95": 1.085
+              },
+              "projectiles": {
+                "max": 2.781,
+                "mean": 0.472263888888889,
+                "p50": 0.442,
+                "p95": 0.76
+              }
+            },
+            "player_ms": {
+              "max": 0.315,
+              "mean": 0.0574694444444446,
+              "p50": 0.05,
+              "p95": 0.105
+            },
+            "signature": {
+              "bullets": 62,
+              "enemies": 32,
+              "enemy_hp_sum": 319999064.0,
+              "head": [
+                -311.095367431641,
+                147.90315246582
+              ],
+              "kills": 0,
+              "rng_state": "-2757143603845476530"
+            },
+            "step_ms": {
+              "max": 4.823,
+              "mean": 2.63721666666667,
+              "p50": 2.543,
+              "p95": 3.651
+            }
+          },
+          {
+            "combat_ms": {
+              "max": 23.108,
+              "mean": 12.8079277777778,
+              "p50": 12.547,
+              "p95": 15.04
+            },
+            "config": {
+              "bullets": 256,
+              "enemies": 128,
+              "name": "medium",
+              "parts": 31
+            },
+            "entities": {
+              "bullets": {
+                "max": 256,
+                "mean": 250.761111111111,
+                "p50": 251,
+                "p95": 255
+              },
+              "effects": {
+                "max": 104,
+                "mean": 68.8277777777778,
+                "p50": 69,
+                "p95": 93
+              },
+              "enemies": {
+                "max": 128,
+                "mean": 128.0,
+                "p50": 128,
+                "p95": 128
+              },
+              "parts": {
+                "max": 31,
+                "mean": 31.0,
+                "p50": 31,
+                "p95": 31
+              }
+            },
+            "injected_shots": 2542,
+            "phases_ms": {
+              "cleanup": {
+                "max": 1.235,
+                "mean": 0.17125,
+                "p50": 0.156,
+                "p95": 0.259
+              },
+              "drones": {
+                "max": 0.681,
+                "mean": 0.252905555555555,
+                "p50": 0.231,
+                "p95": 0.389
+              },
+              "enemy_ai": {
+                "max": 9.792,
+                "mean": 5.23155277777778,
+                "p50": 5.121,
+                "p95": 6.168
+              },
+              "patrol_special": {
+                "max": 1.183,
+                "mean": 0.149841666666667,
+                "p50": 0.13,
+                "p95": 0.245
+              },
+              "player_weapons": {
+                "max": 11.694,
+                "mean": 2.71939166666667,
+                "p50": 2.569,
+                "p95": 3.867
+              },
+              "projectiles": {
+                "max": 7.402,
+                "mean": 4.03835277777778,
+                "p50": 4.02,
+                "p95": 5.249
+              }
+            },
+            "player_ms": {
+              "max": 0.387,
+              "mean": 0.146230555555556,
+              "p50": 0.136,
+              "p95": 0.233
+            },
+            "signature": {
+              "bullets": 252,
+              "enemies": 128,
+              "enemy_hp_sum": 1279998239.0,
+              "head": [
+                -311.095367431641,
+                147.90315246582
+              ],
+              "kills": 0,
+              "rng_state": "2358980093853083070"
+            },
+            "step_ms": {
+              "max": 23.249,
+              "mean": 12.9541583333333,
+              "p50": 12.678,
+              "p95": 15.215
+            }
+          },
+          {
+            "combat_ms": {
+              "max": 70.471,
+              "mean": 50.2940333333334,
+              "p50": 51.831,
+              "p95": 61.089
+            },
+            "config": {
+              "bullets": 768,
+              "enemies": 384,
+              "name": "high",
+              "parts": 61
+            },
+            "entities": {
+              "bullets": {
+                "max": 764,
+                "mean": 744.45,
+                "p50": 744,
+                "p95": 758
+              },
+              "effects": {
+                "max": 337,
+                "mean": 232.888888888889,
+                "p50": 251,
+                "p95": 320
+              },
+              "enemies": {
+                "max": 384,
+                "mean": 384.0,
+                "p50": 384,
+                "p95": 384
+              },
+              "parts": {
+                "max": 61,
+                "mean": 61.0,
+                "p50": 61,
+                "p95": 61
+              }
+            },
+            "injected_shots": 10976,
+            "phases_ms": {
+              "cleanup": {
+                "max": 2.094,
+                "mean": 0.740958333333333,
+                "p50": 0.702,
+                "p95": 1.087
+              },
+              "drones": {
+                "max": 1.314,
+                "mean": 0.734633333333334,
+                "p50": 0.703,
+                "p95": 0.951
+              },
+              "enemy_ai": {
+                "max": 18.047,
+                "mean": 12.6069833333333,
+                "p50": 12.432,
+                "p95": 14.203
+              },
+              "patrol_special": {
+                "max": 0.958,
+                "mean": 0.281886111111111,
+                "p50": 0.257,
+                "p95": 0.4
+              },
+              "player_weapons": {
+                "max": 12.696,
+                "mean": 7.08995,
+                "p50": 6.926,
+                "p95": 10.284
+              },
+              "projectiles": {
+                "max": 48.456,
+                "mean": 27.9526333333333,
+                "p50": 31.018,
+                "p95": 38.138
+              }
+            },
+            "player_ms": {
+              "max": 0.634,
+              "mean": 0.278966666666667,
+              "p50": 0.263,
+              "p95": 0.374
+            },
+            "signature": {
+              "bullets": 753,
+              "enemies": 384,
+              "enemy_hp_sum": 3839999664.0,
+              "head": [
+                -311.095367431641,
+                147.90315246582
+              ],
+              "kills": 0,
+              "rng_state": "6628875013794495550"
+            },
+            "step_ms": {
+              "max": 70.717,
+              "mean": 50.573,
+              "p50": 52.13,
+              "p95": 61.441
+            }
+          }
+        ],
+        "revision": "unversioned-source; see source_hashes",
+        "scope": "Headless fixed-step CPU only, production player/combat methods; durable actors and production-fired projectile floor; no renderer, mission director, audio playback, or UI. Sustaining injection is untimed. Effects are retained and expire normally.",
+        "seed": 20261014,
+        "warmup_ticks": 90,
+        "process_timing": {
+          "wall_seconds": 30.254547689999526,
+          "user_cpu_seconds": 30.079254,
+          "system_cpu_seconds": 0.062084999999999994,
+          "scope": "Entire Godot subprocess: startup, fixture setup, warmup, measured steps, projectile replenishment and output. CPU counters use POSIX child resource usage; unavailable on Windows is null."
+        }
+      },
+      {
+        "dt": 0.0166666666666667,
+        "engine": "4.6.3-stable (official)",
+        "fixture_version": 1,
+        "measured_ticks": 360,
+        "results": [
+          {
+            "combat_ms": {
+              "max": 4.126,
+              "mean": 2.46170833333333,
+              "p50": 2.389,
+              "p95": 3.417
+            },
+            "config": {
+              "bullets": 64,
+              "enemies": 32,
+              "name": "low",
+              "parts": 13
+            },
+            "entities": {
+              "bullets": {
+                "max": 68,
+                "mean": 63.7166666666667,
+                "p50": 64,
+                "p95": 67
+              },
+              "effects": {
+                "max": 42,
+                "mean": 17.9944444444444,
+                "p50": 17,
+                "p95": 34
+              },
+              "enemies": {
+                "max": 32,
+                "mean": 32.0,
+                "p50": 32,
+                "p95": 32
+              },
+              "parts": {
+                "max": 13,
+                "mean": 13.0,
+                "p50": 13,
+                "p95": 13
+              }
+            },
+            "injected_shots": 385,
+            "phases_ms": {
+              "cleanup": {
+                "max": 0.986,
+                "mean": 0.0407111111111111,
+                "p50": 0.033,
+                "p95": 0.052
+              },
+              "drones": {
+                "max": 1.04,
+                "mean": 0.0772500000000001,
+                "p50": 0.066,
+                "p95": 0.121
+              },
+              "enemy_ai": {
+                "max": 2.327,
+                "mean": 1.09705277777778,
+                "p50": 1.083,
+                "p95": 1.406
+              },
+              "patrol_special": {
+                "max": 0.194,
+                "mean": 0.055677777777778,
+                "p50": 0.053,
+                "p95": 0.074
+              },
+              "player_weapons": {
+                "max": 1.284,
+                "mean": 0.666686111111111,
+                "p50": 0.652,
+                "p95": 0.89
+              },
+              "projectiles": {
+                "max": 1.863,
+                "mean": 0.458052777777778,
+                "p50": 0.428,
+                "p95": 0.688
+              }
+            },
+            "player_ms": {
+              "max": 0.252,
+              "mean": 0.0525694444444443,
+              "p50": 0.048,
+              "p95": 0.083
+            },
+            "signature": {
+              "bullets": 62,
+              "enemies": 32,
+              "enemy_hp_sum": 319999064.0,
+              "head": [
+                -311.095367431641,
+                147.90315246582
+              ],
+              "kills": 0,
+              "rng_state": "-2757143603845476530"
+            },
+            "step_ms": {
+              "max": 4.178,
+              "mean": 2.51427777777778,
+              "p50": 2.445,
+              "p95": 3.466
+            }
+          },
+          {
+            "combat_ms": {
+              "max": 16.349,
+              "mean": 12.2989888888889,
+              "p50": 12.114,
+              "p95": 13.879
+            },
+            "config": {
+              "bullets": 256,
+              "enemies": 128,
+              "name": "medium",
+              "parts": 31
+            },
+            "entities": {
+              "bullets": {
+                "max": 256,
+                "mean": 250.761111111111,
+                "p50": 251,
+                "p95": 255
+              },
+              "effects": {
+                "max": 104,
+                "mean": 68.8277777777778,
+                "p50": 69,
+                "p95": 93
+              },
+              "enemies": {
+                "max": 128,
+                "mean": 128.0,
+                "p50": 128,
+                "p95": 128
+              },
+              "parts": {
+                "max": 31,
+                "mean": 31.0,
+                "p50": 31,
+                "p95": 31
+              }
+            },
+            "injected_shots": 2542,
+            "phases_ms": {
+              "cleanup": {
+                "max": 0.742,
+                "mean": 0.151661111111111,
+                "p50": 0.137,
+                "p95": 0.248
+              },
+              "drones": {
+                "max": 0.876,
+                "mean": 0.233719444444445,
+                "p50": 0.212,
+                "p95": 0.358
+              },
+              "enemy_ai": {
+                "max": 7.143,
+                "mean": 5.00339722222222,
+                "p50": 4.896,
+                "p95": 5.928
+              },
+              "patrol_special": {
+                "max": 0.927,
+                "mean": 0.138172222222222,
+                "p50": 0.125,
+                "p95": 0.184
+              },
+              "player_weapons": {
+                "max": 4.703,
+                "mean": 2.63940277777778,
+                "p50": 2.591,
+                "p95": 3.626
+              },
+              "projectiles": {
+                "max": 6.965,
+                "mean": 3.90569722222222,
+                "p50": 3.926,
+                "p95": 5.228
+              }
+            },
+            "player_ms": {
+              "max": 0.358,
+              "mean": 0.126369444444444,
+              "p50": 0.114,
+              "p95": 0.203
+            },
+            "signature": {
+              "bullets": 252,
+              "enemies": 128,
+              "enemy_hp_sum": 1279998239.0,
+              "head": [
+                -311.095367431641,
+                147.90315246582
+              ],
+              "kills": 0,
+              "rng_state": "2358980093853083070"
+            },
+            "step_ms": {
+              "max": 16.466,
+              "mean": 12.4253583333333,
+              "p50": 12.226,
+              "p95": 13.991
+            }
+          },
+          {
+            "combat_ms": {
+              "max": 85.492,
+              "mean": 52.6651305555556,
+              "p50": 53.481,
+              "p95": 66.687
+            },
+            "config": {
+              "bullets": 768,
+              "enemies": 384,
+              "name": "high",
+              "parts": 61
+            },
+            "entities": {
+              "bullets": {
+                "max": 764,
+                "mean": 744.45,
+                "p50": 744,
+                "p95": 758
+              },
+              "effects": {
+                "max": 337,
+                "mean": 232.888888888889,
+                "p50": 251,
+                "p95": 320
+              },
+              "enemies": {
+                "max": 384,
+                "mean": 384.0,
+                "p50": 384,
+                "p95": 384
+              },
+              "parts": {
+                "max": 61,
+                "mean": 61.0,
+                "p50": 61,
+                "p95": 61
+              }
+            },
+            "injected_shots": 10976,
+            "phases_ms": {
+              "cleanup": {
+                "max": 3.413,
+                "mean": 0.836477777777778,
+                "p50": 0.805,
+                "p95": 1.178
+              },
+              "drones": {
+                "max": 3.971,
+                "mean": 0.885388888888889,
+                "p50": 0.819,
+                "p95": 1.274
+              },
+              "enemy_ai": {
+                "max": 20.752,
+                "mean": 13.2480944444444,
+                "p50": 13.122,
+                "p95": 15.455
+              },
+              "patrol_special": {
+                "max": 1.408,
+                "mean": 0.290894444444445,
+                "p50": 0.26,
+                "p95": 0.425
+              },
+              "player_weapons": {
+                "max": 15.718,
+                "mean": 7.39398055555556,
+                "p50": 7.138,
+                "p95": 11.121
+              },
+              "projectiles": {
+                "max": 56.304,
+                "mean": 28.98915,
+                "p50": 30.97,
+                "p95": 40.787
+              }
+            },
+            "player_ms": {
+              "max": 0.684,
+              "mean": 0.300308333333334,
+              "p50": 0.275,
+              "p95": 0.455
+            },
+            "signature": {
+              "bullets": 753,
+              "enemies": 384,
+              "enemy_hp_sum": 3839999664.0,
+              "head": [
+                -311.095367431641,
+                147.90315246582
+              ],
+              "kills": 0,
+              "rng_state": "6628875013794495550"
+            },
+            "step_ms": {
+              "max": 85.83,
+              "mean": 52.9654388888889,
+              "p50": 53.836,
+              "p95": 67.075
+            }
+          }
+        ],
+        "revision": "unversioned-source; see source_hashes",
+        "scope": "Headless fixed-step CPU only, production player/combat methods; durable actors and production-fired projectile floor; no renderer, mission director, audio playback, or UI. Sustaining injection is untimed. Effects are retained and expire normally.",
+        "seed": 20261014,
+        "warmup_ticks": 90,
+        "process_timing": {
+          "wall_seconds": 30.915159515000596,
+          "user_cpu_seconds": 30.733561,
+          "system_cpu_seconds": 0.098975,
+          "scope": "Entire Godot subprocess: startup, fixture setup, warmup, measured steps, projectile replenishment and output. CPU counters use POSIX child resource usage; unavailable on Windows is null."
+        }
+      },
+      {
+        "dt": 0.0166666666666667,
+        "engine": "4.6.3-stable (official)",
+        "fixture_version": 1,
+        "measured_ticks": 360,
+        "results": [
+          {
+            "combat_ms": {
+              "max": 3.464,
+              "mean": 2.40286666666667,
+              "p50": 2.375,
+              "p95": 2.936
+            },
+            "config": {
+              "bullets": 64,
+              "enemies": 32,
+              "name": "low",
+              "parts": 13
+            },
+            "entities": {
+              "bullets": {
+                "max": 68,
+                "mean": 63.7166666666667,
+                "p50": 64,
+                "p95": 67
+              },
+              "effects": {
+                "max": 42,
+                "mean": 17.9944444444444,
+                "p50": 17,
+                "p95": 34
+              },
+              "enemies": {
+                "max": 32,
+                "mean": 32.0,
+                "p50": 32,
+                "p95": 32
+              },
+              "parts": {
+                "max": 13,
+                "mean": 13.0,
+                "p50": 13,
+                "p95": 13
+              }
+            },
+            "injected_shots": 385,
+            "phases_ms": {
+              "cleanup": {
+                "max": 0.151,
+                "mean": 0.0355527777777778,
+                "p50": 0.032,
+                "p95": 0.054
+              },
+              "drones": {
+                "max": 0.283,
+                "mean": 0.0712500000000002,
+                "p50": 0.067,
+                "p95": 0.097
+              },
+              "enemy_ai": {
+                "max": 1.686,
+                "mean": 1.07357777777778,
+                "p50": 1.08,
+                "p95": 1.362
+              },
+              "patrol_special": {
+                "max": 0.269,
+                "mean": 0.058138888888889,
+                "p50": 0.053,
+                "p95": 0.083
+              },
+              "player_weapons": {
+                "max": 1.424,
+                "mean": 0.6687,
+                "p50": 0.664,
+                "p95": 0.909
+              },
+              "projectiles": {
+                "max": 0.913,
+                "mean": 0.43095,
+                "p50": 0.423,
+                "p95": 0.641
+              }
+            },
+            "player_ms": {
+              "max": 0.251,
+              "mean": 0.0514916666666666,
+              "p50": 0.048,
+              "p95": 0.074
+            },
+            "signature": {
+              "bullets": 62,
+              "enemies": 32,
+              "enemy_hp_sum": 319999064.0,
+              "head": [
+                -311.095367431641,
+                147.90315246582
+              ],
+              "kills": 0,
+              "rng_state": "-2757143603845476530"
+            },
+            "step_ms": {
+              "max": 3.552,
+              "mean": 2.45435833333333,
+              "p50": 2.429,
+              "p95": 3.003
+            }
+          },
+          {
+            "combat_ms": {
+              "max": 21.547,
+              "mean": 12.5400777777778,
+              "p50": 12.262,
+              "p95": 15.034
+            },
+            "config": {
+              "bullets": 256,
+              "enemies": 128,
+              "name": "medium",
+              "parts": 31
+            },
+            "entities": {
+              "bullets": {
+                "max": 256,
+                "mean": 250.761111111111,
+                "p50": 251,
+                "p95": 255
+              },
+              "effects": {
+                "max": 104,
+                "mean": 68.8277777777778,
+                "p50": 69,
+                "p95": 93
+              },
+              "enemies": {
+                "max": 128,
+                "mean": 128.0,
+                "p50": 128,
+                "p95": 128
+              },
+              "parts": {
+                "max": 31,
+                "mean": 31.0,
+                "p50": 31,
+                "p95": 31
+              }
+            },
+            "injected_shots": 2542,
+            "phases_ms": {
+              "cleanup": {
+                "max": 1.126,
+                "mean": 0.157447222222222,
+                "p50": 0.143,
+                "p95": 0.251
+              },
+              "drones": {
+                "max": 0.756,
+                "mean": 0.231819444444444,
+                "p50": 0.214,
+                "p95": 0.325
+              },
+              "enemy_ai": {
+                "max": 11.27,
+                "mean": 5.15174444444444,
+                "p50": 4.991,
+                "p95": 6.321
+              },
+              "patrol_special": {
+                "max": 2.592,
+                "mean": 0.149488888888889,
+                "p50": 0.129,
+                "p95": 0.201
+              },
+              "player_weapons": {
+                "max": 7.206,
+                "mean": 2.66193055555556,
+                "p50": 2.597,
+                "p95": 3.855
+              },
+              "projectiles": {
+                "max": 9.063,
+                "mean": 3.95056666666667,
+                "p50": 3.947,
+                "p95": 5.397
+              }
+            },
+            "player_ms": {
+              "max": 0.374,
+              "mean": 0.129647222222222,
+              "p50": 0.122,
+              "p95": 0.177
+            },
+            "signature": {
+              "bullets": 252,
+              "enemies": 128,
+              "enemy_hp_sum": 1279998239.0,
+              "head": [
+                -311.095367431641,
+                147.90315246582
+              ],
+              "kills": 0,
+              "rng_state": "2358980093853083070"
+            },
+            "step_ms": {
+              "max": 21.676,
+              "mean": 12.669725,
+              "p50": 12.387,
+              "p95": 15.156
+            }
+          },
+          {
+            "combat_ms": {
+              "max": 73.525,
+              "mean": 48.4369611111111,
+              "p50": 49.358,
+              "p95": 56.179
+            },
+            "config": {
+              "bullets": 768,
+              "enemies": 384,
+              "name": "high",
+              "parts": 61
+            },
+            "entities": {
+              "bullets": {
+                "max": 764,
+                "mean": 744.45,
+                "p50": 744,
+                "p95": 758
+              },
+              "effects": {
+                "max": 337,
+                "mean": 232.888888888889,
+                "p50": 251,
+                "p95": 320
+              },
+              "enemies": {
+                "max": 384,
+                "mean": 384.0,
+                "p50": 384,
+                "p95": 384
+              },
+              "parts": {
+                "max": 61,
+                "mean": 61.0,
+                "p50": 61,
+                "p95": 61
+              }
+            },
+            "injected_shots": 10976,
+            "phases_ms": {
+              "cleanup": {
+                "max": 1.266,
+                "mean": 0.702361111111111,
+                "p50": 0.696,
+                "p95": 0.91
+              },
+              "drones": {
+                "max": 3.041,
+                "mean": 0.729341666666668,
+                "p50": 0.689,
+                "p95": 0.922
+              },
+              "enemy_ai": {
+                "max": 18.601,
+                "mean": 12.2188888888889,
+                "p50": 12.028,
+                "p95": 14.041
+              },
+              "patrol_special": {
+                "max": 0.475,
+                "mean": 0.274419444444445,
+                "p50": 0.263,
+                "p95": 0.325
+              },
+              "player_weapons": {
+                "max": 23.65,
+                "mean": 6.84425833333333,
+                "p50": 6.265,
+                "p95": 10.991
+              },
+              "projectiles": {
+                "max": 48.525,
+                "mean": 26.7997611111111,
+                "p50": 30.058,
+                "p95": 35.457
+              }
+            },
+            "player_ms": {
+              "max": 0.622,
+              "mean": 0.277947222222223,
+              "p50": 0.269,
+              "p95": 0.342
+            },
+            "signature": {
+              "bullets": 753,
+              "enemies": 384,
+              "enemy_hp_sum": 3839999664.0,
+              "head": [
+                -311.095367431641,
+                147.90315246582
+              ],
+              "kills": 0,
+              "rng_state": "6628875013794495550"
+            },
+            "step_ms": {
+              "max": 73.801,
+              "mean": 48.7149083333333,
+              "p50": 49.664,
+              "p95": 56.45
+            }
+          }
+        ],
+        "revision": "unversioned-source; see source_hashes",
+        "scope": "Headless fixed-step CPU only, production player/combat methods; durable actors and production-fired projectile floor; no renderer, mission director, audio playback, or UI. Sustaining injection is untimed. Effects are retained and expire normally.",
+        "seed": 20261014,
+        "warmup_ticks": 90,
+        "process_timing": {
+          "wall_seconds": 29.39928212399991,
+          "user_cpu_seconds": 29.254858,
+          "system_cpu_seconds": 0.09138,
+          "scope": "Entire Godot subprocess: startup, fixture setup, warmup, measured steps, projectile replenishment and output. CPU counters use POSIX child resource usage; unavailable on Windows is null."
+        }
+      }
+    ],
+    "after": [
+      {
+        "dt": 0.0166666666666667,
+        "engine": "4.6.3-stable (official)",
+        "fixture_version": 1,
+        "measured_ticks": 360,
+        "results": [
+          {
+            "combat_ms": {
+              "max": 5.342,
+              "mean": 2.55739444444445,
+              "p50": 2.547,
+              "p95": 3.122
+            },
+            "config": {
+              "bullets": 64,
+              "enemies": 32,
+              "name": "low",
+              "parts": 13
+            },
+            "entities": {
+              "bullets": {
+                "max": 68,
+                "mean": 63.7166666666667,
+                "p50": 64,
+                "p95": 67
+              },
+              "effects": {
+                "max": 51,
+                "mean": 25.5111111111111,
+                "p50": 24,
+                "p95": 43
+              },
+              "enemies": {
+                "max": 32,
+                "mean": 32.0,
+                "p50": 32,
+                "p95": 32
+              },
+              "parts": {
+                "max": 13,
+                "mean": 13.0,
+                "p50": 13,
+                "p95": 13
+              }
+            },
+            "injected_shots": 385,
+            "phases_ms": {
+              "cleanup": {
+                "max": 0.252,
+                "mean": 0.0594805555555555,
+                "p50": 0.055,
+                "p95": 0.085
+              },
+              "drones": {
+                "max": 0.227,
+                "mean": 0.0704694444444444,
+                "p50": 0.066,
+                "p95": 0.1
+              },
+              "enemy_ai": {
+                "max": 3.829,
+                "mean": 1.09533333333333,
+                "p50": 1.084,
+                "p95": 1.376
+              },
+              "patrol_special": {
+                "max": 0.297,
+                "mean": 0.0600305555555556,
+                "p50": 0.054,
+                "p95": 0.098
+              },
+              "player_weapons": {
+                "max": 1.921,
+                "mean": 0.699233333333333,
+                "p50": 0.684,
+                "p95": 0.976
+              },
+              "projectiles": {
+                "max": 1.039,
+                "mean": 0.508327777777778,
+                "p50": 0.498,
+                "p95": 0.742
+              }
+            },
+            "player_ms": {
+              "max": 0.3,
+              "mean": 0.0526694444444445,
+              "p50": 0.049,
+              "p95": 0.07
+            },
+            "signature": {
+              "bullets": 62,
+              "enemies": 32,
+              "enemy_hp_sum": 319999064.0,
+              "head": [
+                -311.095367431641,
+                147.90315246582
+              ],
+              "kills": 0,
+              "rng_state": "-2757143603845476530"
+            },
+            "step_ms": {
+              "max": 5.388,
+              "mean": 2.61006388888889,
+              "p50": 2.598,
+              "p95": 3.176
+            }
+          },
+          {
+            "combat_ms": {
+              "max": 15.716,
+              "mean": 12.2329194444445,
+              "p50": 12.188,
+              "p95": 13.213
+            },
+            "config": {
+              "bullets": 256,
+              "enemies": 128,
+              "name": "medium",
+              "parts": 31
+            },
+            "entities": {
+              "bullets": {
+                "max": 256,
+                "mean": 250.761111111111,
+                "p50": 251,
+                "p95": 255
+              },
+              "effects": {
+                "max": 126,
+                "mean": 87.8166666666667,
+                "p50": 89,
+                "p95": 115
+              },
+              "enemies": {
+                "max": 128,
+                "mean": 128.0,
+                "p50": 128,
+                "p95": 128
+              },
+              "parts": {
+                "max": 31,
+                "mean": 31.0,
+                "p50": 31,
+                "p95": 31
+              }
+            },
+            "injected_shots": 2542,
+            "phases_ms": {
+              "cleanup": {
+                "max": 0.46,
+                "mean": 0.207088888888889,
+                "p50": 0.2,
+                "p95": 0.291
+              },
+              "drones": {
+                "max": 0.517,
+                "mean": 0.216497222222222,
+                "p50": 0.202,
+                "p95": 0.315
+              },
+              "enemy_ai": {
+                "max": 8.348,
+                "mean": 4.82397777777778,
+                "p50": 4.77,
+                "p95": 5.22
+              },
+              "patrol_special": {
+                "max": 0.371,
+                "mean": 0.135875,
+                "p50": 0.127,
+                "p95": 0.187
+              },
+              "player_weapons": {
+                "max": 4.968,
+                "mean": 2.61359722222222,
+                "p50": 2.505,
+                "p95": 3.752
+              },
+              "projectiles": {
+                "max": 5.864,
+                "mean": 4.01823888888889,
+                "p50": 4.006,
+                "p95": 5.088
+              }
+            },
+            "player_ms": {
+              "max": 0.342,
+              "mean": 0.123269444444444,
+              "p50": 0.114,
+              "p95": 0.177
+            },
+            "signature": {
+              "bullets": 252,
+              "enemies": 128,
+              "enemy_hp_sum": 1279998239.0,
+              "head": [
+                -311.095367431641,
+                147.90315246582
+              ],
+              "kills": 0,
+              "rng_state": "2358980093853083070"
+            },
+            "step_ms": {
+              "max": 15.849,
+              "mean": 12.3561888888889,
+              "p50": 12.301,
+              "p95": 13.344
+            }
+          },
+          {
+            "combat_ms": {
+              "max": 68.098,
+              "mean": 51.3316722222222,
+              "p50": 51.865,
+              "p95": 59.554
+            },
+            "config": {
+              "bullets": 768,
+              "enemies": 384,
+              "name": "high",
+              "parts": 61
+            },
+            "entities": {
+              "bullets": {
+                "max": 764,
+                "mean": 744.45,
+                "p50": 744,
+                "p95": 758
+              },
+              "effects": {
+                "max": 360,
+                "mean": 255.308333333333,
+                "p50": 273,
+                "p95": 342
+              },
+              "enemies": {
+                "max": 384,
+                "mean": 384.0,
+                "p50": 384,
+                "p95": 384
+              },
+              "parts": {
+                "max": 61,
+                "mean": 61.0,
+                "p50": 61,
+                "p95": 61
+              }
+            },
+            "injected_shots": 10976,
+            "phases_ms": {
+              "cleanup": {
+                "max": 3.791,
+                "mean": 0.881344444444445,
+                "p50": 0.877,
+                "p95": 1.15
+              },
+              "drones": {
+                "max": 3.221,
+                "mean": 0.732369444444445,
+                "p50": 0.688,
+                "p95": 0.983
+              },
+              "enemy_ai": {
+                "max": 21.842,
+                "mean": 12.6089611111111,
+                "p50": 12.296,
+                "p95": 14.952
+              },
+              "patrol_special": {
+                "max": 1.445,
+                "mean": 0.289144444444445,
+                "p50": 0.264,
+                "p95": 0.388
+              },
+              "player_weapons": {
+                "max": 14.153,
+                "mean": 7.19354722222222,
+                "p50": 6.634,
+                "p95": 11.417
+              },
+              "projectiles": {
+                "max": 45.478,
+                "mean": 28.7276555555555,
+                "p50": 31.945,
+                "p95": 37.522
+              }
+            },
+            "player_ms": {
+              "max": 0.579,
+              "mean": 0.284705555555556,
+              "p50": 0.27,
+              "p95": 0.374
+            },
+            "signature": {
+              "bullets": 753,
+              "enemies": 384,
+              "enemy_hp_sum": 3839999664.0,
+              "head": [
+                -311.095367431641,
+                147.90315246582
+              ],
+              "kills": 0,
+              "rng_state": "6628875013794495550"
+            },
+            "step_ms": {
+              "max": 68.347,
+              "mean": 51.6163777777778,
+              "p50": 52.159,
+              "p95": 59.81
+            }
+          }
+        ],
+        "revision": "9571d447c7b44141ce3cee0d20070a7888b4d286",
+        "scope": "Headless fixed-step CPU only, production player/combat methods; durable actors and production-fired projectile floor; no renderer, mission director, audio playback, or UI. Sustaining injection is untimed. Effects are retained and expire normally.",
+        "seed": 20261014,
+        "warmup_ticks": 90,
+        "process_timing": {
+          "wall_seconds": 30.554086698999527,
+          "user_cpu_seconds": 30.325116,
+          "system_cpu_seconds": 0.113844,
+          "scope": "Entire Godot subprocess: startup, fixture setup, warmup, measured steps, projectile replenishment and output. CPU counters use POSIX child resource usage; unavailable on Windows is null."
+        }
+      },
+      {
+        "dt": 0.0166666666666667,
+        "engine": "4.6.3-stable (official)",
+        "fixture_version": 1,
+        "measured_ticks": 360,
+        "results": [
+          {
+            "combat_ms": {
+              "max": 14.666,
+              "mean": 2.57766666666667,
+              "p50": 2.484,
+              "p95": 3.109
+            },
+            "config": {
+              "bullets": 64,
+              "enemies": 32,
+              "name": "low",
+              "parts": 13
+            },
+            "entities": {
+              "bullets": {
+                "max": 68,
+                "mean": 63.7166666666667,
+                "p50": 64,
+                "p95": 67
+              },
+              "effects": {
+                "max": 51,
+                "mean": 25.5111111111111,
+                "p50": 24,
+                "p95": 43
+              },
+              "enemies": {
+                "max": 32,
+                "mean": 32.0,
+                "p50": 32,
+                "p95": 32
+              },
+              "parts": {
+                "max": 13,
+                "mean": 13.0,
+                "p50": 13,
+                "p95": 13
+              }
+            },
+            "injected_shots": 385,
+            "phases_ms": {
+              "cleanup": {
+                "max": 0.338,
+                "mean": 0.0611083333333333,
+                "p50": 0.055,
+                "p95": 0.093
+              },
+              "drones": {
+                "max": 2.482,
+                "mean": 0.0789083333333335,
+                "p50": 0.066,
+                "p95": 0.105
+              },
+              "enemy_ai": {
+                "max": 6.209,
+                "mean": 1.07966388888889,
+                "p50": 1.075,
+                "p95": 1.326
+              },
+              "patrol_special": {
+                "max": 0.126,
+                "mean": 0.0548055555555557,
+                "p50": 0.053,
+                "p95": 0.072
+              },
+              "player_weapons": {
+                "max": 6.79,
+                "mean": 0.708955555555556,
+                "p50": 0.672,
+                "p95": 0.933
+              },
+              "projectiles": {
+                "max": 6.425,
+                "mean": 0.530825,
+                "p50": 0.49,
+                "p95": 0.745
+              }
+            },
+            "player_ms": {
+              "max": 0.297,
+              "mean": 0.051586111111111,
+              "p50": 0.048,
+              "p95": 0.065
+            },
+            "signature": {
+              "bullets": 62,
+              "enemies": 32,
+              "enemy_hp_sum": 319999064.0,
+              "head": [
+                -311.095367431641,
+                147.90315246582
+              ],
+              "kills": 0,
+              "rng_state": "-2757143603845476530"
+            },
+            "step_ms": {
+              "max": 14.728,
+              "mean": 2.62925277777778,
+              "p50": 2.54,
+              "p95": 3.159
+            }
+          },
+          {
+            "combat_ms": {
+              "max": 19.137,
+              "mean": 12.2590333333333,
+              "p50": 12.012,
+              "p95": 14.599
+            },
+            "config": {
+              "bullets": 256,
+              "enemies": 128,
+              "name": "medium",
+              "parts": 31
+            },
+            "entities": {
+              "bullets": {
+                "max": 256,
+                "mean": 250.761111111111,
+                "p50": 251,
+                "p95": 255
+              },
+              "effects": {
+                "max": 126,
+                "mean": 87.8166666666667,
+                "p50": 89,
+                "p95": 115
+              },
+              "enemies": {
+                "max": 128,
+                "mean": 128.0,
+                "p50": 128,
+                "p95": 128
+              },
+              "parts": {
+                "max": 31,
+                "mean": 31.0,
+                "p50": 31,
+                "p95": 31
+              }
+            },
+            "injected_shots": 2542,
+            "phases_ms": {
+              "cleanup": {
+                "max": 2.733,
+                "mean": 0.218408333333334,
+                "p50": 0.205,
+                "p95": 0.27
+              },
+              "drones": {
+                "max": 0.522,
+                "mean": 0.223233333333334,
+                "p50": 0.207,
+                "p95": 0.329
+              },
+              "enemy_ai": {
+                "max": 7.365,
+                "mean": 4.83553055555555,
+                "p50": 4.711,
+                "p95": 5.569
+              },
+              "patrol_special": {
+                "max": 0.571,
+                "mean": 0.134283333333334,
+                "p50": 0.125,
+                "p95": 0.172
+              },
+              "player_weapons": {
+                "max": 7.742,
+                "mean": 2.60624722222222,
+                "p50": 2.363,
+                "p95": 4.228
+              },
+              "projectiles": {
+                "max": 5.463,
+                "mean": 4.01873888888889,
+                "p50": 4.036,
+                "p95": 4.968
+              }
+            },
+            "player_ms": {
+              "max": 0.299,
+              "mean": 0.123933333333333,
+              "p50": 0.116,
+              "p95": 0.174
+            },
+            "signature": {
+              "bullets": 252,
+              "enemies": 128,
+              "enemy_hp_sum": 1279998239.0,
+              "head": [
+                -311.095367431641,
+                147.90315246582
+              ],
+              "kills": 0,
+              "rng_state": "2358980093853083070"
+            },
+            "step_ms": {
+              "max": 19.263,
+              "mean": 12.3829666666667,
+              "p50": 12.133,
+              "p95": 14.719
+            }
+          },
+          {
+            "combat_ms": {
+              "max": 99.392,
+              "mean": 52.276875,
+              "p50": 53.238,
+              "p95": 61.627
+            },
+            "config": {
+              "bullets": 768,
+              "enemies": 384,
+              "name": "high",
+              "parts": 61
+            },
+            "entities": {
+              "bullets": {
+                "max": 764,
+                "mean": 744.45,
+                "p50": 744,
+                "p95": 758
+              },
+              "effects": {
+                "max": 360,
+                "mean": 255.308333333333,
+                "p50": 273,
+                "p95": 342
+              },
+              "enemies": {
+                "max": 384,
+                "mean": 384.0,
+                "p50": 384,
+                "p95": 384
+              },
+              "parts": {
+                "max": 61,
+                "mean": 61.0,
+                "p50": 61,
+                "p95": 61
+              }
+            },
+            "injected_shots": 10976,
+            "phases_ms": {
+              "cleanup": {
+                "max": 3.431,
+                "mean": 0.929780555555555,
+                "p50": 0.908,
+                "p95": 1.19
+              },
+              "drones": {
+                "max": 1.835,
+                "mean": 0.777516666666667,
+                "p50": 0.734,
+                "p95": 1.057
+              },
+              "enemy_ai": {
+                "max": 17.607,
+                "mean": 12.7818694444444,
+                "p50": 12.593,
+                "p95": 14.932
+              },
+              "patrol_special": {
+                "max": 0.829,
+                "mean": 0.284638888888889,
+                "p50": 0.26,
+                "p95": 0.402
+              },
+              "player_weapons": {
+                "max": 12.595,
+                "mean": 7.200725,
+                "p50": 6.833,
+                "p95": 10.936
+              },
+              "projectiles": {
+                "max": 76.748,
+                "mean": 29.3552111111111,
+                "p50": 32.264,
+                "p95": 38.173
+              }
+            },
+            "player_ms": {
+              "max": 2.051,
+              "mean": 0.298005555555556,
+              "p50": 0.269,
+              "p95": 0.41
+            },
+            "signature": {
+              "bullets": 753,
+              "enemies": 384,
+              "enemy_hp_sum": 3839999664.0,
+              "head": [
+                -311.095367431641,
+                147.90315246582
+              ],
+              "kills": 0,
+              "rng_state": "6628875013794495550"
+            },
+            "step_ms": {
+              "max": 99.641,
+              "mean": 52.5748805555555,
+              "p50": 53.537,
+              "p95": 62.433
+            }
+          }
+        ],
+        "revision": "9571d447c7b44141ce3cee0d20070a7888b4d286",
+        "scope": "Headless fixed-step CPU only, production player/combat methods; durable actors and production-fired projectile floor; no renderer, mission director, audio playback, or UI. Sustaining injection is untimed. Effects are retained and expire normally.",
+        "seed": 20261014,
+        "warmup_ticks": 90,
+        "process_timing": {
+          "wall_seconds": 30.797849157999735,
+          "user_cpu_seconds": 30.648941,
+          "system_cpu_seconds": 0.083941,
+          "scope": "Entire Godot subprocess: startup, fixture setup, warmup, measured steps, projectile replenishment and output. CPU counters use POSIX child resource usage; unavailable on Windows is null."
+        }
+      },
+      {
+        "dt": 0.0166666666666667,
+        "engine": "4.6.3-stable (official)",
+        "fixture_version": 1,
+        "measured_ticks": 360,
+        "results": [
+          {
+            "combat_ms": {
+              "max": 3.901,
+              "mean": 2.44965833333333,
+              "p50": 2.448,
+              "p95": 2.957
+            },
+            "config": {
+              "bullets": 64,
+              "enemies": 32,
+              "name": "low",
+              "parts": 13
+            },
+            "entities": {
+              "bullets": {
+                "max": 68,
+                "mean": 63.7166666666667,
+                "p50": 64,
+                "p95": 67
+              },
+              "effects": {
+                "max": 51,
+                "mean": 25.5111111111111,
+                "p50": 24,
+                "p95": 43
+              },
+              "enemies": {
+                "max": 32,
+                "mean": 32.0,
+                "p50": 32,
+                "p95": 32
+              },
+              "parts": {
+                "max": 13,
+                "mean": 13.0,
+                "p50": 13,
+                "p95": 13
+              }
+            },
+            "injected_shots": 385,
+            "phases_ms": {
+              "cleanup": {
+                "max": 0.176,
+                "mean": 0.0590722222222222,
+                "p50": 0.055,
+                "p95": 0.083
+              },
+              "drones": {
+                "max": 0.541,
+                "mean": 0.0701666666666667,
+                "p50": 0.065,
+                "p95": 0.082
+              },
+              "enemy_ai": {
+                "max": 2.105,
+                "mean": 1.05434722222222,
+                "p50": 1.052,
+                "p95": 1.285
+              },
+              "patrol_special": {
+                "max": 0.278,
+                "mean": 0.0557972222222224,
+                "p50": 0.053,
+                "p95": 0.071
+              },
+              "player_weapons": {
+                "max": 1.252,
+                "mean": 0.657858333333333,
+                "p50": 0.659,
+                "p95": 0.871
+              },
+              "projectiles": {
+                "max": 1.078,
+                "mean": 0.49035,
+                "p50": 0.48,
+                "p95": 0.697
+              }
+            },
+            "player_ms": {
+              "max": 0.159,
+              "mean": 0.0498166666666667,
+              "p50": 0.047,
+              "p95": 0.064
+            },
+            "signature": {
+              "bullets": 62,
+              "enemies": 32,
+              "enemy_hp_sum": 319999064.0,
+              "head": [
+                -311.095367431641,
+                147.90315246582
+              ],
+              "kills": 0,
+              "rng_state": "-2757143603845476530"
+            },
+            "step_ms": {
+              "max": 3.949,
+              "mean": 2.499475,
+              "p50": 2.497,
+              "p95": 3.012
+            }
+          },
+          {
+            "combat_ms": {
+              "max": 18.803,
+              "mean": 12.3862861111111,
+              "p50": 12.184,
+              "p95": 14.058
+            },
+            "config": {
+              "bullets": 256,
+              "enemies": 128,
+              "name": "medium",
+              "parts": 31
+            },
+            "entities": {
+              "bullets": {
+                "max": 256,
+                "mean": 250.761111111111,
+                "p50": 251,
+                "p95": 255
+              },
+              "effects": {
+                "max": 126,
+                "mean": 87.8166666666667,
+                "p50": 89,
+                "p95": 115
+              },
+              "enemies": {
+                "max": 128,
+                "mean": 128.0,
+                "p50": 128,
+                "p95": 128
+              },
+              "parts": {
+                "max": 31,
+                "mean": 31.0,
+                "p50": 31,
+                "p95": 31
+              }
+            },
+            "injected_shots": 2542,
+            "phases_ms": {
+              "cleanup": {
+                "max": 0.596,
+                "mean": 0.225983333333333,
+                "p50": 0.213,
+                "p95": 0.325
+              },
+              "drones": {
+                "max": 0.545,
+                "mean": 0.224402777777778,
+                "p50": 0.211,
+                "p95": 0.31
+              },
+              "enemy_ai": {
+                "max": 6.645,
+                "mean": 4.89165833333333,
+                "p50": 4.829,
+                "p95": 5.506
+              },
+              "patrol_special": {
+                "max": 0.381,
+                "mean": 0.137197222222222,
+                "p50": 0.128,
+                "p95": 0.192
+              },
+              "player_weapons": {
+                "max": 8.711,
+                "mean": 2.5941,
+                "p50": 2.447,
+                "p95": 3.835
+              },
+              "projectiles": {
+                "max": 9.482,
+                "mean": 4.08821944444445,
+                "p50": 4.048,
+                "p95": 5.148
+              }
+            },
+            "player_ms": {
+              "max": 0.408,
+              "mean": 0.129947222222222,
+              "p50": 0.121,
+              "p95": 0.187
+            },
+            "signature": {
+              "bullets": 252,
+              "enemies": 128,
+              "enemy_hp_sum": 1279998239.0,
+              "head": [
+                -311.095367431641,
+                147.90315246582
+              ],
+              "kills": 0,
+              "rng_state": "2358980093853083070"
+            },
+            "step_ms": {
+              "max": 18.944,
+              "mean": 12.5162333333333,
+              "p50": 12.318,
+              "p95": 14.184
+            }
+          },
+          {
+            "combat_ms": {
+              "max": 81.12,
+              "mean": 51.2775805555555,
+              "p50": 52.291,
+              "p95": 60.694
+            },
+            "config": {
+              "bullets": 768,
+              "enemies": 384,
+              "name": "high",
+              "parts": 61
+            },
+            "entities": {
+              "bullets": {
+                "max": 764,
+                "mean": 744.45,
+                "p50": 744,
+                "p95": 758
+              },
+              "effects": {
+                "max": 360,
+                "mean": 255.308333333333,
+                "p50": 273,
+                "p95": 342
+              },
+              "enemies": {
+                "max": 384,
+                "mean": 384.0,
+                "p50": 384,
+                "p95": 384
+              },
+              "parts": {
+                "max": 61,
+                "mean": 61.0,
+                "p50": 61,
+                "p95": 61
+              }
+            },
+            "injected_shots": 10976,
+            "phases_ms": {
+              "cleanup": {
+                "max": 1.593,
+                "mean": 0.891733333333334,
+                "p50": 0.891,
+                "p95": 1.178
+              },
+              "drones": {
+                "max": 1.333,
+                "mean": 0.741966666666667,
+                "p50": 0.695,
+                "p95": 1.026
+              },
+              "enemy_ai": {
+                "max": 27.703,
+                "mean": 12.6922055555556,
+                "p50": 12.464,
+                "p95": 14.796
+              },
+              "patrol_special": {
+                "max": 0.915,
+                "mean": 0.280936111111111,
+                "p50": 0.261,
+                "p95": 0.369
+              },
+              "player_weapons": {
+                "max": 14.345,
+                "mean": 7.06975555555556,
+                "p50": 6.461,
+                "p95": 10.866
+              },
+              "projectiles": {
+                "max": 46.336,
+                "mean": 28.685925,
+                "p50": 31.517,
+                "p95": 38.138
+              }
+            },
+            "player_ms": {
+              "max": 0.7,
+              "mean": 0.285016666666667,
+              "p50": 0.267,
+              "p95": 0.382
+            },
+            "signature": {
+              "bullets": 753,
+              "enemies": 384,
+              "enemy_hp_sum": 3839999664.0,
+              "head": [
+                -311.095367431641,
+                147.90315246582
+              ],
+              "kills": 0,
+              "rng_state": "6628875013794495550"
+            },
+            "step_ms": {
+              "max": 81.401,
+              "mean": 51.5625972222222,
+              "p50": 52.556,
+              "p95": 60.965
+            }
+          }
+        ],
+        "revision": "9571d447c7b44141ce3cee0d20070a7888b4d286",
+        "scope": "Headless fixed-step CPU only, production player/combat methods; durable actors and production-fired projectile floor; no renderer, mission director, audio playback, or UI. Sustaining injection is untimed. Effects are retained and expire normally.",
+        "seed": 20261014,
+        "warmup_ticks": 90,
+        "process_timing": {
+          "wall_seconds": 30.605385566000223,
+          "user_cpu_seconds": 30.465881,
+          "system_cpu_seconds": 0.088893,
+          "scope": "Entire Godot subprocess: startup, fixture setup, warmup, measured steps, projectile replenishment and output. CPU counters use POSIX child resource usage; unavailable on Windows is null."
+        }
+      }
+    ]
+  },
+  "source_hashes": {
+    "before": {
+      "scripts/achievements.gd": "b0553bb55184cf13cab8fb430e24dae8ce30adf1145e2ecb3da75c4f3020f02d",
+      "scripts/assembly_tray_icon.gd": "936b57d7fd9faa83dcc5bae183449c9cbe78b7e0db4387a5f53a5423134590a8",
+      "scripts/audio_system.gd": "d47e2179f7f8c7ad56a28b6ba779ec562b232e837833e6f5099b43ac7e8356e6",
+      "scripts/background_layers.gd": "43b06291e870ad05de9bf1ffcf3b148b428dfc2dd59a68fe28c0e570ffaaf41f",
+      "scripts/battle_hud.gd": "f5ab6f9a0bc660a5cfda59f4641ca3651d7ef9b4ceb0ddec80911f38c64f8f36",
+      "scripts/blue_ink.gd": "5c98e07accd49a53a705f8ffe425789c914ac42d89aeffac296efd51d161c4ec",
+      "scripts/blue_ink_layer.gd": "84adbcb52deef147d13dfdec066853c0dad61f9f3ae06b981177d41156490c13",
+      "scripts/brood_theme.gd": "0c7549396218ee26153e972b384835b7a76cd53aa097f9fa4d816da2ede6a720",
+      "scripts/build_chain_ui.gd": "3b1cbd20ea1dc348e5cc4b067f86e56f4664f8d2192e422fef48bc274cad0e0f",
+      "scripts/build_grid_ui.gd": "8773c92e7b5167c48df7190017e16a799e1155d277b8bcdb113f76b1741c7802",
+      "scripts/build_icon_button.gd": "377af882a96877a95b4613ff271e9436717f8e5a4a87b63b383234f8562feea0",
+      "scripts/build_mount_control.gd": "929be4da843d8e31b38f6665165378ea14b179d6ebc41eeea6dff866d124dd31",
+      "scripts/build_symbols.gd": "fae29cd8004efa57485d72538aaeaba8778397e518d3e477b722a11a6c2d58ed",
+      "scripts/centipede.gd": "3a25e6b16cbbd0eae0e03f06409c02ab3ab7181894dbe722b6254847a44f6bb6",
+      "scripts/centipede_art.gd": "797e0614204195032992757a34e41049acc6a8cce24b1acbe19a969d4176f594",
+      "scripts/centipede_coil.gd": "7a8bb06138fee406a2bf7013bb4d1408ba90566a75611cf7124b8d86967d6cf8",
+      "scripts/centipede_legs.gd": "1c084d93b53b28ef71f591bd91aea1e329bb9d9b261c52159219e1aca4eb4646",
+      "scripts/centipede_motion.gd": "9a98e2e62c4b73915f4e3ea389be2e3db04b5ff0c029bf1ea26729777486d88d",
+      "scripts/chain_centipede.gd": "75cf16135996c92c0e38c462a276663cfcea70e45287195d17cfc6b08df14e6b",
+      "scripts/chain_drag_preview.gd": "954a151bf39989499b08b3a4ed160f07484d9cc09dd4bf86a22e88ea0813ea3b",
+      "scripts/chain_mount_control.gd": "fbc4f9d5214928eb3e402c06a8fc902bc6160c041cf425e5f3ac8149a6b54530",
+      "scripts/character_abilities.gd": "7ab80bb366ffe51d97bd8bccfae92d1ffb4354e07e7f257042f9fd7d582ebe81",
+      "scripts/character_art.gd": "70a1d03d0745c7f870da6515aee798fc4b32012af816b4982b4fad27b07e700e",
+      "scripts/character_roster.gd": "637c9f18ddd71250f791ec8685a0a5f1393d54ad8d3b82caa066e08211e9f687",
+      "scripts/character_select.gd": "3e75da6f6a698b3c24cee05fc9ad7e133c427bd9bf2f96434249c9ea46643467",
+      "scripts/combat.gd": "b6e333c80218ed284e7e671fe9982d904ecdba6634e153f377f9bcf73b6c6f7a",
+      "scripts/combat_spatial_index.gd": "74009496b5378d2a701c860efe816e9a89ccdc07531db8f3e5ed90e1c419a66d",
+      "scripts/crystal_loot.gd": "d2cc60e54f7fbc1d861ede42aa160055aa58ed0e51151c9089f9f7fffc56c4dc",
+      "scripts/cursor_system.gd": "c7a8f97978bda936803f580d9c6f27686a0b794397fb868da93d3b6506ec26f7",
+      "scripts/direct_body_canvas.gd": "bfd42bb600f56e78c0dc88056d9d97a818e13783c28961028a83dc3863c847bb",
+      "scripts/flagella.gd": "13dd2bc696708400afdde4cbb38b9ee95d742746aa9ff1d23a913cbb934029e2",
+      "scripts/game_ui.gd": "a334a0375fbf08d196e13b462cf4fed20de850c8942437841925a0597109b38f",
+      "scripts/generated_ui_art.gd": "950547456adbc01804bb9dc9b7e2b4d06edeea3f9d61349cd836b457445427a7",
+      "scripts/grid_centipede.gd": "76dd0dc71db01ecd247260227d6eecf4c8eb41075bc6726eb2d4030ea2c4216a",
+      "scripts/input_system.gd": "803344a252f2731af6047948e7583c922d40a1649fc7add6b1c042ba984f4e86",
+      "scripts/insect_anatomy.gd": "c8f4332ad7e9762095c2ffddfd956b3e27928c445b5f4e9bd4f1a9ed1f16cd32",
+      "scripts/insect_armaments.gd": "d22dd1175acb1168597d259b3968270454b02275b2ea8994bc86d2fd78dff06b",
+      "scripts/insect_attack_fx.gd": "1e41980af22e78890f0b04801c1beddb832705a9922acdb7cbacf77ccf72709c",
+      "scripts/insect_controls.gd": "61dabd360fb1610107f2ac82abbabddcd9008b9d788270d64796184401be9fbf",
+      "scripts/insect_hit_audio.gd": "beb206dcd97b653f149b1967454fe858b850711add916dedac836971ec92f513",
+      "scripts/insect_hit_fx.gd": "9d6d9b23346438ca4c6c326454dd027655f8cc67a2efe95b7b926f0d258bb86b",
+      "scripts/insect_projectiles.gd": "41c2a97ef2b6e4a978fa75168c03317b601b85901d65ce9f03bffee5d465d875",
+      "scripts/intro_ui.gd": "a6059fe61efeb92de731e23787c84a3c816cbe325acd6303eb4078a9ea8b94fe",
+      "scripts/main.gd": "c3dca54abbccb94bef078eafaf7acf6a4d5597df05cd316a6cb74d124bdc3041",
+      "scripts/map_director.gd": "f715ad4708e3428d89ecc03e808dfaa1a7d22a75e73c8dfa488ee4ff61fae72f",
+      "scripts/menu_background.gd": "fb7a4975353d0de82578eb8fb3690bcb8db2b8a66b204622d0b67e2d4030ea31",
+      "scripts/mission_director.gd": "9fdfbae989c57590c92ef2100073d06f78e26a50db11c660d5e2d7643d16b03c",
+      "scripts/mission_select.gd": "8e52e08ded0e1c262cf39d44eed707a04ca35dabb01de21461fb0488c539ab68",
+      "scripts/native_visuals.gd": "b6dfc84776f6c2b8bfe549881daf878c289bf6881e5449d7b189af393066baef",
+      "scripts/particle_effects.gd": "7ca8ea19a15537d5a40fd45bf9dc8cd4538ad4ed7fb46067284922a283c4bbe0",
+      "scripts/passive_feedback.gd": "93a99132a41a64a1ca8083243bc01f6637e2c01fb0c8f16932ad242729af665f",
+      "scripts/player_decorations.gd": "7501b82f014a816826fa8b0bb9ec09c246ac56b49c082cd6f3954e144f65ba48",
+      "scripts/popup_text.gd": "989698ebdd7a2376d0e9dda3940bdbceacc63e720c4726616ca8a722388711c3",
+      "scripts/radial_formation.gd": "623a589c0f5477840dcdc99d248efd9f3658ddc8e74880f54e40a31924526143",
+      "scripts/render_state.gd": "789d5179ac1c77866b8394874a5910a5bb8cee213445d216f049502b9daabc67",
+      "scripts/research_ui.gd": "de4f6e5423b81afe97ce5d75be5e59d48491b4416cd6e4708925c9ce9c8d88db",
+      "scripts/reward_choice.gd": "aefbd92d0f0d926c6daa60b1112ed3dc5a0282b3395090d916e6e49ecd77ff9f",
+      "scripts/reward_director.gd": "41b809ae22359388e5fc32d0fe67830e975d52411ac6a27781e7d8dd2a21f5b6",
+      "scripts/reward_feedback_state.gd": "32382a230f90e326113a519d78072eaa743c5c7dc4c792569b491535aaeffe07",
+      "scripts/reward_pool_ui.gd": "0ba59c03f82b0a912217c4ccf8e31fdfb1d90cec8dd611a512239b566c2f655f",
+      "scripts/rig_appendage_batch.gd": "272ae7b14c18f8d085e32b8d0b8715f56a2900cb17ad5bec7f8819a0970c9542",
+      "scripts/run_state.gd": "700c8e979a2c73e2423d96ec6a82f5f2bcece316748770057e6540a7151ac3f7",
+      "scripts/save_store.gd": "f0f6b36505462b6328ab701021ab7a50087cd2f82bac2ea42906a0fece0815b5",
+      "scripts/segment_feedback.gd": "ba6206a219773b2bca4e5cc472fe8b6aba9becb34025f390bce2f501aae5ff15",
+      "scripts/soft_insect.gd": "a46284b17c4ad2c5150892542e309bc321a0547e751752dcd7c506e21e46a413",
+      "scripts/soft_insect_layer.gd": "08dbc9e3b72e00b7d7038b3262d47960e3dee1573067cac78d63271733727337",
+      "scripts/soft_insect_rig.gd": "2e48c771a8bbbf6978bfa0bc5fcc3ae705f1ba58050aeb4aa842c72e793aa746",
+      "scripts/soft_organ_art.gd": "d37f09c650d0857f01029486aba8d6ada211bb38dfc706953b0a7c318e4962f0",
+      "scripts/source_db.gd": "ebd6b7d136d66ab905f27bac6060965a179a04a4aac0a7640e0ae84a7a9effdb",
+      "scripts/source_ui.gd": "7ba32e3791539b10ca04d8e576756c38a7eb7c459d74bf3b4c60ec3222b80f43",
+      "scripts/special_systems.gd": "536dd310de34d34e62fdbf1fd04c0bf98029b8bcd72aacf999a6475c66a6d366",
+      "scripts/spider_art.gd": "1e8d84b351017c9aca83a5e79fa3c7e1288f6ba0babc52b0c521edcf94a69efe",
+      "scripts/spider_rig.gd": "fa7edb3d963d93f0527951f243e9154da39b78f58de2c3150019690a7b755645",
+      "scripts/tutorial_ui.gd": "f285e9cad1ec6b5ee081fef988a96435e7aba3cbb9783bcced1640af8c3a1223",
+      "scripts/weapon_feedback.gd": "dcc08e6f4187faee9e4341d7c4c35bc736ed078c1a64c7b7647fb131630c5bab",
+      "scripts/weapon_fx.gd": "1eb620cccf7c5bc5dbb53c5a967f48f1cdb295c5fb55ed536eb779677124f33e",
+      "scripts/windows_review_probe.gd": "391363f5c0aae4aa07f25730d468d6db780d89dc8ebda75e305ac508b62a981b",
+      "tests/test_dense_combat_benchmark.gd": "a8918b2578f64c1be2a2d8f4620ab465e7e3780f5b09a99361e4d672c1f93ed8"
+    },
+    "after": {
+      "scripts/achievements.gd": "b0553bb55184cf13cab8fb430e24dae8ce30adf1145e2ecb3da75c4f3020f02d",
+      "scripts/assembly_tray_icon.gd": "936b57d7fd9faa83dcc5bae183449c9cbe78b7e0db4387a5f53a5423134590a8",
+      "scripts/audio_system.gd": "d47e2179f7f8c7ad56a28b6ba779ec562b232e837833e6f5099b43ac7e8356e6",
+      "scripts/background_layers.gd": "43b06291e870ad05de9bf1ffcf3b148b428dfc2dd59a68fe28c0e570ffaaf41f",
+      "scripts/battle_hud.gd": "f5ab6f9a0bc660a5cfda59f4641ca3651d7ef9b4ceb0ddec80911f38c64f8f36",
+      "scripts/blue_ink.gd": "5c98e07accd49a53a705f8ffe425789c914ac42d89aeffac296efd51d161c4ec",
+      "scripts/blue_ink_layer.gd": "84adbcb52deef147d13dfdec066853c0dad61f9f3ae06b981177d41156490c13",
+      "scripts/brood_theme.gd": "0c7549396218ee26153e972b384835b7a76cd53aa097f9fa4d816da2ede6a720",
+      "scripts/build_chain_ui.gd": "3b1cbd20ea1dc348e5cc4b067f86e56f4664f8d2192e422fef48bc274cad0e0f",
+      "scripts/build_grid_ui.gd": "8773c92e7b5167c48df7190017e16a799e1155d277b8bcdb113f76b1741c7802",
+      "scripts/build_icon_button.gd": "377af882a96877a95b4613ff271e9436717f8e5a4a87b63b383234f8562feea0",
+      "scripts/build_mount_control.gd": "929be4da843d8e31b38f6665165378ea14b179d6ebc41eeea6dff866d124dd31",
+      "scripts/build_symbols.gd": "fae29cd8004efa57485d72538aaeaba8778397e518d3e477b722a11a6c2d58ed",
+      "scripts/centipede.gd": "3a25e6b16cbbd0eae0e03f06409c02ab3ab7181894dbe722b6254847a44f6bb6",
+      "scripts/centipede_art.gd": "797e0614204195032992757a34e41049acc6a8cce24b1acbe19a969d4176f594",
+      "scripts/centipede_coil.gd": "7a8bb06138fee406a2bf7013bb4d1408ba90566a75611cf7124b8d86967d6cf8",
+      "scripts/centipede_legs.gd": "1c084d93b53b28ef71f591bd91aea1e329bb9d9b261c52159219e1aca4eb4646",
+      "scripts/centipede_motion.gd": "9a98e2e62c4b73915f4e3ea389be2e3db04b5ff0c029bf1ea26729777486d88d",
+      "scripts/chain_centipede.gd": "75cf16135996c92c0e38c462a276663cfcea70e45287195d17cfc6b08df14e6b",
+      "scripts/chain_drag_preview.gd": "954a151bf39989499b08b3a4ed160f07484d9cc09dd4bf86a22e88ea0813ea3b",
+      "scripts/chain_mount_control.gd": "fbc4f9d5214928eb3e402c06a8fc902bc6160c041cf425e5f3ac8149a6b54530",
+      "scripts/character_abilities.gd": "7ab80bb366ffe51d97bd8bccfae92d1ffb4354e07e7f257042f9fd7d582ebe81",
+      "scripts/character_art.gd": "70a1d03d0745c7f870da6515aee798fc4b32012af816b4982b4fad27b07e700e",
+      "scripts/character_roster.gd": "637c9f18ddd71250f791ec8685a0a5f1393d54ad8d3b82caa066e08211e9f687",
+      "scripts/character_select.gd": "3e75da6f6a698b3c24cee05fc9ad7e133c427bd9bf2f96434249c9ea46643467",
+      "scripts/combat.gd": "33b29828a306a662bc732601a281c2f43760c6164f9e4e406475d78c0f139f98",
+      "scripts/combat_spatial_index.gd": "74009496b5378d2a701c860efe816e9a89ccdc07531db8f3e5ed90e1c419a66d",
+      "scripts/crystal_loot.gd": "d2cc60e54f7fbc1d861ede42aa160055aa58ed0e51151c9089f9f7fffc56c4dc",
+      "scripts/cursor_system.gd": "c7a8f97978bda936803f580d9c6f27686a0b794397fb868da93d3b6506ec26f7",
+      "scripts/direct_body_canvas.gd": "bfd42bb600f56e78c0dc88056d9d97a818e13783c28961028a83dc3863c847bb",
+      "scripts/flagella.gd": "13dd2bc696708400afdde4cbb38b9ee95d742746aa9ff1d23a913cbb934029e2",
+      "scripts/game_ui.gd": "a334a0375fbf08d196e13b462cf4fed20de850c8942437841925a0597109b38f",
+      "scripts/generated_ui_art.gd": "950547456adbc01804bb9dc9b7e2b4d06edeea3f9d61349cd836b457445427a7",
+      "scripts/grid_centipede.gd": "76dd0dc71db01ecd247260227d6eecf4c8eb41075bc6726eb2d4030ea2c4216a",
+      "scripts/input_system.gd": "803344a252f2731af6047948e7583c922d40a1649fc7add6b1c042ba984f4e86",
+      "scripts/insect_anatomy.gd": "c8f4332ad7e9762095c2ffddfd956b3e27928c445b5f4e9bd4f1a9ed1f16cd32",
+      "scripts/insect_armaments.gd": "d22dd1175acb1168597d259b3968270454b02275b2ea8994bc86d2fd78dff06b",
+      "scripts/insect_attack_fx.gd": "1e41980af22e78890f0b04801c1beddb832705a9922acdb7cbacf77ccf72709c",
+      "scripts/insect_controls.gd": "61dabd360fb1610107f2ac82abbabddcd9008b9d788270d64796184401be9fbf",
+      "scripts/insect_hit_audio.gd": "beb206dcd97b653f149b1967454fe858b850711add916dedac836971ec92f513",
+      "scripts/insect_hit_fx.gd": "9d6d9b23346438ca4c6c326454dd027655f8cc67a2efe95b7b926f0d258bb86b",
+      "scripts/insect_projectiles.gd": "7fde1153cf2d34d3ed22cd6435a34b93bdebaa90c66ede6594742081fb720743",
+      "scripts/intro_ui.gd": "a6059fe61efeb92de731e23787c84a3c816cbe325acd6303eb4078a9ea8b94fe",
+      "scripts/main.gd": "c3dca54abbccb94bef078eafaf7acf6a4d5597df05cd316a6cb74d124bdc3041",
+      "scripts/map_director.gd": "f715ad4708e3428d89ecc03e808dfaa1a7d22a75e73c8dfa488ee4ff61fae72f",
+      "scripts/menu_background.gd": "fb7a4975353d0de82578eb8fb3690bcb8db2b8a66b204622d0b67e2d4030ea31",
+      "scripts/mission_director.gd": "9fdfbae989c57590c92ef2100073d06f78e26a50db11c660d5e2d7643d16b03c",
+      "scripts/mission_select.gd": "8e52e08ded0e1c262cf39d44eed707a04ca35dabb01de21461fb0488c539ab68",
+      "scripts/native_visuals.gd": "b6dfc84776f6c2b8bfe549881daf878c289bf6881e5449d7b189af393066baef",
+      "scripts/particle_effects.gd": "7ca8ea19a15537d5a40fd45bf9dc8cd4538ad4ed7fb46067284922a283c4bbe0",
+      "scripts/passive_feedback.gd": "93a99132a41a64a1ca8083243bc01f6637e2c01fb0c8f16932ad242729af665f",
+      "scripts/player_decorations.gd": "7501b82f014a816826fa8b0bb9ec09c246ac56b49c082cd6f3954e144f65ba48",
+      "scripts/popup_text.gd": "989698ebdd7a2376d0e9dda3940bdbceacc63e720c4726616ca8a722388711c3",
+      "scripts/radial_formation.gd": "623a589c0f5477840dcdc99d248efd9f3658ddc8e74880f54e40a31924526143",
+      "scripts/render_state.gd": "789d5179ac1c77866b8394874a5910a5bb8cee213445d216f049502b9daabc67",
+      "scripts/research_ui.gd": "de4f6e5423b81afe97ce5d75be5e59d48491b4416cd6e4708925c9ce9c8d88db",
+      "scripts/reward_choice.gd": "aefbd92d0f0d926c6daa60b1112ed3dc5a0282b3395090d916e6e49ecd77ff9f",
+      "scripts/reward_director.gd": "41b809ae22359388e5fc32d0fe67830e975d52411ac6a27781e7d8dd2a21f5b6",
+      "scripts/reward_feedback_state.gd": "32382a230f90e326113a519d78072eaa743c5c7dc4c792569b491535aaeffe07",
+      "scripts/reward_pool_ui.gd": "0ba59c03f82b0a912217c4ccf8e31fdfb1d90cec8dd611a512239b566c2f655f",
+      "scripts/rig_appendage_batch.gd": "272ae7b14c18f8d085e32b8d0b8715f56a2900cb17ad5bec7f8819a0970c9542",
+      "scripts/run_state.gd": "700c8e979a2c73e2423d96ec6a82f5f2bcece316748770057e6540a7151ac3f7",
+      "scripts/save_store.gd": "f0f6b36505462b6328ab701021ab7a50087cd2f82bac2ea42906a0fece0815b5",
+      "scripts/segment_feedback.gd": "ba6206a219773b2bca4e5cc472fe8b6aba9becb34025f390bce2f501aae5ff15",
+      "scripts/soft_insect.gd": "a46284b17c4ad2c5150892542e309bc321a0547e751752dcd7c506e21e46a413",
+      "scripts/soft_insect_layer.gd": "08dbc9e3b72e00b7d7038b3262d47960e3dee1573067cac78d63271733727337",
+      "scripts/soft_insect_rig.gd": "2e48c771a8bbbf6978bfa0bc5fcc3ae705f1ba58050aeb4aa842c72e793aa746",
+      "scripts/soft_organ_art.gd": "d37f09c650d0857f01029486aba8d6ada211bb38dfc706953b0a7c318e4962f0",
+      "scripts/source_db.gd": "ebd6b7d136d66ab905f27bac6060965a179a04a4aac0a7640e0ae84a7a9effdb",
+      "scripts/source_ui.gd": "7ba32e3791539b10ca04d8e576756c38a7eb7c459d74bf3b4c60ec3222b80f43",
+      "scripts/special_systems.gd": "536dd310de34d34e62fdbf1fd04c0bf98029b8bcd72aacf999a6475c66a6d366",
+      "scripts/spider_art.gd": "1e8d84b351017c9aca83a5e79fa3c7e1288f6ba0babc52b0c521edcf94a69efe",
+      "scripts/spider_rig.gd": "fa7edb3d963d93f0527951f243e9154da39b78f58de2c3150019690a7b755645",
+      "scripts/tutorial_ui.gd": "f285e9cad1ec6b5ee081fef988a96435e7aba3cbb9783bcced1640af8c3a1223",
+      "scripts/viscous_projectile_motion.gd": "aa394f202894e89f54ad9499effa71868fcde30dc8a34112f13381663c79662f",
+      "scripts/viscous_projectiles.gd": "9eaaf9b7aa2eb105eeb944288fc15031123bb842473399fa1dbeb7b821327276",
+      "scripts/weapon_feedback.gd": "dcc08e6f4187faee9e4341d7c4c35bc736ed078c1a64c7b7647fb131630c5bab",
+      "scripts/weapon_fx.gd": "008289d2514dc8fcbc7df4abe73302e2431e0744b6e93714a44ba92130d07d0b",
+      "scripts/windows_review_probe.gd": "391363f5c0aae4aa07f25730d468d6db780d89dc8ebda75e305ac508b62a981b",
+      "tests/test_dense_combat_benchmark.gd": "a8918b2578f64c1be2a2d8f4620ab465e7e3780f5b09a99361e4d672c1f93ed8"
+    }
+  }
+}

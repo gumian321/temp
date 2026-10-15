@@ -1,0 +1,118 @@
+{
+	"fixtures": [
+		{
+			"results": [
+				{
+					"draw_calls": {
+						"p50": 1856.0,
+						"p95": 1856.0
+					},
+					"frame_ms": {
+						"p50": 52.509,
+						"p95": 61.286
+					},
+					"mode": "unique",
+					"objects": {
+						"p50": 1856.0,
+						"p95": 1856.0
+					},
+					"pixel_identical_to_unique": true,
+					"polygons": 1856
+				},
+				{
+					"draw_calls": {
+						"p50": 1856.0,
+						"p95": 1856.0
+					},
+					"frame_ms": {
+						"p50": 62.568,
+						"p95": 89.864
+					},
+					"mode": "shared_idle",
+					"objects": {
+						"p50": 1856.0,
+						"p95": 1856.0
+					},
+					"pixel_identical_to_unique": true,
+					"polygons": 1856
+				},
+				{
+					"draw_calls": {
+						"p50": 1856.0,
+						"p95": 1856.0
+					},
+					"frame_ms": {
+						"p50": 54.028,
+						"p95": 73.626
+					},
+					"mode": "no_shader_diagnostic",
+					"objects": {
+						"p50": 1856.0,
+						"p95": 1856.0
+					},
+					"pixel_identical_to_unique": true,
+					"polygons": 1856
+				}
+			],
+			"species": "beetle"
+		},
+		{
+			"results": [
+				{
+					"draw_calls": {
+						"p50": 1792.0,
+						"p95": 1792.0
+					},
+					"frame_ms": {
+						"p50": 56.948,
+						"p95": 136.109
+					},
+					"mode": "unique",
+					"objects": {
+						"p50": 1792.0,
+						"p95": 1792.0
+					},
+					"pixel_identical_to_unique": true,
+					"polygons": 1792
+				},
+				{
+					"draw_calls": {
+						"p50": 1792.0,
+						"p95": 1792.0
+					},
+					"frame_ms": {
+						"p50": 59.135,
+						"p95": 96.105
+					},
+					"mode": "shared_idle",
+					"objects": {
+						"p50": 1792.0,
+						"p95": 1792.0
+					},
+					"pixel_identical_to_unique": true,
+					"polygons": 1792
+				},
+				{
+					"draw_calls": {
+						"p50": 1792.0,
+						"p95": 1792.0
+					},
+					"frame_ms": {
+						"p50": 53.543,
+						"p95": 70.359
+					},
+					"mode": "no_shader_diagnostic",
+					"objects": {
+						"p50": 1792.0,
+						"p95": 1792.0
+					},
+					"pixel_identical_to_unique": true,
+					"polygons": 1792
+				}
+			],
+			"species": "mixed"
+		}
+	],
+	"renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+	"scope": "Frozen 64 complete insect rigs; geometry, ordering, bones and textures identical. Compare unique hit materials versus shared idle material. No production changes."
+}

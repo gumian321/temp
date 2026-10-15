@@ -12,6 +12,8 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SUITES = [
+    "viscous_projectile_motion", "viscous_renderer", "viscous_integration",
+    "combat_spatial", "hud_refresh_cache", "particle_resource_cache", "render_hotpath_regressions", "soft_render_cache", "soft_solver_regressions", "rig_batch_dynamic",
     "radial_formations", "crystal_loot_scene", "hostile_readability", "soft_organs", "fusion_flagella", "camera_stability_scene", "centipede_coil", "centipede_coil_scene", "character_selection", "debug_characters", "direct_body_assembly", "insect_projectiles",
     "spider_leg_modules", "spider_rig", "spider_segments", "spider_visibility_scene", "spider_assembly_ui", "spider_motion_scene", "expedition_briefing", "character_roster", "character_abilities", "character_integration", "character_scene", "character_ui_integration", "brood", "armament_art", "generated_light_ui", "main_autofire", "main_autofire_scene", "passive_feedback_state", "passive_upgrade_effects", "passive_visual_feedback", "reward_progress_badges", "tooltip_theme", "contact_impacts", "insect_armaments", "insect_art_routes", "insect_controls", "insect_attack_fx", "game_ui_shell", "meta_ui_redesign", "battle_hud", "reward_cards", "mission_select",
     "core", "missions", "map", "rewards", "specials", "regressions", "drones",

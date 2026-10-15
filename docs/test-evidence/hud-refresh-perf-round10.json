@@ -1,0 +1,13 @@
+{
+  "engine": "Godot 4.6.3 headless",
+  "baseline": "2e97923",
+  "scope": "CPU microbenchmark, 10000 unchanged readings per case; no GPU claim",
+  "command": "godot --headless --path PROJECT --script /absolute/current/tests/benchmark_hud_refresh.gd (same script for both projects)",
+  "runs": [
+    {"version":"baseline", "meter_us":486525, "source_set_text_us":490770, "meter_theme_events":10000},
+    {"version":"optimized", "meter_us":42831, "source_set_text_us":14720, "meter_theme_events":0},
+    {"version":"baseline", "meter_us":420977, "source_set_text_us":404621, "meter_theme_events":10000},
+    {"version":"optimized", "meter_us":40479, "source_set_text_us":14062, "meter_theme_events":0}
+  ],
+  "notes": ["Alternating baseline/current runs; microbench timings vary with concurrent workers.", "HUD refresh remains every frame. Meter redraw only changes when quantized fill or warning changes. Static HUD backings still redraw on layout/resize.", "Source label fitting invalidates on text, font/theme, size, extent and wrap changes."]
+}
