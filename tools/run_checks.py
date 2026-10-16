@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SUITES = [
     "result_rank_ui",
     "fragment_recovery", "fragment_recovery_budget", "fragment_art", "fragment_recovery_scene",
-    "debug_points",
+    "debug_unlock_all",
     "knockback", "soft_knockback", "soft_pull", "tether_motion", "emitter_reaction",
     "combat_momentum", "special_encounters", "encounter_art", "encounter_scene", "encounter_pacing",
     "attack_shader_materials", "skill_shader_coverage",

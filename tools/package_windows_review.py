@@ -1,6 +1,6 @@
 """Build a standalone Windows playtest EXE and verify its actual Debug UI."""
 import argparse
-from datetime import date
+from datetime import datetime, timedelta, timezone
 import hashlib
 import json
 import os
@@ -45,6 +45,14 @@ def sha256(path):
     return digest.hexdigest()
 
 
+def source_snapshot():
+    paths = [ROOT / name for name in ("project.godot", "main.tscn", "export_presets.cfg")]
+    for directory in ("scripts", "shaders", "data", "assets"):
+        paths.extend(path for path in (ROOT / directory).rglob("*")
+                     if path.is_file() and path.suffix not in (".uid", ".import"))
+    return {path.relative_to(ROOT).as_posix(): sha256(path) for path in sorted(paths)}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--godot", required=True, help="Godot 4.6.3 editor executable")
@@ -58,7 +66,7 @@ def main():
         parser.error(f"Official Godot 4.6.3 Windows x64 export template required: {template}")
     BUILD.mkdir(parents=True, exist_ok=True)
     (ROOT / "artifacts" / ".gdignore").touch(exist_ok=True)
-    stamp = date.today().strftime("%Y%m%d")
+    stamp = datetime.now(timezone(timedelta(hours=8))).strftime("%Y%m%d")
     if args.label and not re.fullmatch(r"[a-zA-Z0-9-]+", args.label):
         parser.error("--label accepts only letters, digits and hyphens")
     suffix = f"-{args.label}" if args.label else ""
@@ -67,6 +75,7 @@ def main():
         parser.error(f"Package directory already exists; retain or rename it before rebuilding: {package}")
     package.mkdir()
     executable = package / "RunBuildPew.exe"
+    sources = source_snapshot()
     # Import/export and all runtime checks use disposable profiles, never the
     # local player's progress. The GDScript guard verifies this before loading.
     import tempfile
@@ -78,6 +87,8 @@ def main():
             environment, "export")
         if not executable.is_file() or executable.stat().st_size <= template.stat().st_size:
             raise RuntimeError("Export did not embed the game data")
+        if source_snapshot() != sources:
+            raise RuntimeError("Runtime sources changed during export; rebuild from the updated files")
         # Official export templates disable CLI script/path overrides. The
         # review-only entry point runs the same guarded probe as editor tests.
         verification = isolated_environment(scratch / "verification")
@@ -106,29 +117,38 @@ def main():
                           clean_profile, "normal-launch", timeout=45)
         if '"startup_exit":true' not in exit_output or '"passed":true' not in exit_output or '"passed":false' in exit_output:
             raise RuntimeError("Normal entry point/exit button validation did not pass")
-    quickstart = """蜈蚣：逐节武装 · 同事体验版
-Windows 64 位 / 2026-10-14
+    quickstart = f"""蜈蚣：逐节武装 · 同事体验版
+Windows 64 位 / {stamp[:4]}-{stamp[4:6]}-{stamp[6:]}
 
 启动
 将 ZIP 解压到一个文件夹，双击 RunBuildPew.exe。
 游戏资源已装进 EXE，无需安装 Godot。
 
-体验双角色
-主菜单 → 虫巢 → 右上角「DEBUG · 解锁双角色」。
-点选蜈蚣或蜘蛛，再点「前往远征」→「出发」。
+一键开放全部内容
+主菜单 →「DEBUG · 一键全开」。
+全部角色、技能奖励、进化阶段及任务立即解锁并自动保存。
+点击「虫巢」，选择蜈蚣或蜘蛛，再点「前往远征」→「出发」。
+也可以直接点击「出击」，体验普通成长过程。
 解锁与角色选择会自动保存，下一次启动仍然有效。
-设置里重置进度后，可以再次点击 Debug 按钮开放角色。
+设置里重置进度后，可以再次点击首页 Debug 按钮开放全部内容。
 
 操作
-WASD：移动；鼠标：瞄准；左键：主武器射击。
+WASD：移动；默认自动开火；按住鼠标左键可手动瞄准主武器。
 Shift：加速；空格：角色技能；E：装配；Esc：暂停。
 Tab / 鼠标右键：雷达。
-蜈蚣：蜷缩聚火；蜘蛛：织网牵引。
+蜈蚣：盘绕聚火；蜘蛛：软丝牵引。
 新元素奖励可以装上身体；在装配窗口拖动调整位置，手动完成后继续战斗。
+获得奖励时自动暂停并弹出三选一。选到模块后进入装配，属性奖励立即生效。
 拖动整节到前后侧：相邻节段平滑让位，松手插入。
 拖到同元素、同阶节段的中央：二合一进化，最高四阶。
 每次合成单节攻击 ×2.2；二/三/四阶分别有 2/3/4 条侧鞭毛。
 拖动时按 Esc 或右键取消；装配完成后手动点「出击」。
+
+本版内容
+5 / 10 连杀返还技能冷却；18 连杀触发 6 秒狂热，伤害 +25%、装填 +35%。
+特殊敌人：蓄力后锁定方向的冲锋虫、死亡分裂的母虫、限时追猎的藏宝虫。
+装配界面身上元素已放大到与战斗中一致的相对比例，拖动预览同步。
+特殊敌人、预警及相关 HUD 使用 ImageGen 贴图与现有骨骼动画。
 
 存档保存在 Windows 当前账户的 Godot 应用数据目录。
 本包包含 Debug 解锁功能，供内部体验。
@@ -151,7 +171,9 @@ engine, not to the original game assets. This package is for internal playtestin
         "engine": "Godot 4.6.3.stable",
         "platform": "Windows x86_64",
         "embedded_game_data": True,
-        "debug_unlock": ["centipede", "spider"],
+        "source_files_sha256": sources,
+        "debug_unlock": {"location": "home", "characters": ["centipede", "spider"],
+                         "skills": "all", "evolution_tiers": "all", "missions": "all"},
         "files": {path.relative_to(package).as_posix(): {"bytes": path.stat().st_size, "sha256": sha256(path)}
                   for path in package.rglob("*") if path.is_file()},
         "validated_checks": len(report["checks"]),

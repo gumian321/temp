@@ -20,6 +20,7 @@ func _init(source, save_path: String = "user://centipede-save.json", load_existi
 		_apply_requested_unlock()
 
 func unlock_all_content() -> bool:
+	var previous=state.duplicate(true)
 	for id in CharacterRoster.ids():
 		if id not in state.roster_unlocked:state.roster_unlocked.append(id)
 	for id in db.stores.MissionDataStore.missionsList:
@@ -32,7 +33,9 @@ func unlock_all_content() -> bool:
 			state.unlocked.append(reward.id)
 	state.disabled=state.disabled.filter(func(id):return id not in state.unlocked)
 	state.systems.ToggleResearches=true
-	return save()
+	if save():return true
+	state=previous
+	return false
 
 func _apply_requested_unlock():
 	# Only an explicit request for the normal player profile enables this. Other

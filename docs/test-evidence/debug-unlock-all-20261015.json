@@ -1,0 +1,45 @@
+{
+  "suites": [
+    {
+      "suite": "debug_unlock_all",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.325,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "game_ui_shell",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.997,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "character_roster",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.289,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_pool",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.694,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

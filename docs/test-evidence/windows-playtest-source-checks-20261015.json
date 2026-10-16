@@ -1,0 +1,75 @@
+{
+  "suites": [
+    {
+      "suite": "debug_unlock_all",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 3.813,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "debug_characters",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.728,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_flow",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.579,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "combat_momentum",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.18,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "special_encounters",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.573,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "missions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.718,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chain_ui_redesign",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.537,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

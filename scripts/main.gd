@@ -56,8 +56,7 @@ var controls
 var rebind_action=""
 var radar_mode=false
 var reset_pending=false
-const DEBUG_EVOLUTION_GRANT = 1000
-var debug_points_button:Button
+var debug_unlock_button:Button
 var home_points_label:Label
 var options_draft:Dictionary={}
 const SourceUI=preload("res://scripts/source_ui.gd")
@@ -247,26 +246,22 @@ func show_menu():
 	UI.button(panel,db.ui("SETTINGS","设置"),Rect2(276,516,180,76),show_options,"settings")
 	var updates=UI.button(panel,"",Rect2(80,628,76,66),show_changelog,"check");updates.tooltip_text=db.ui("What's new","更新记录")
 	var exit_button=UI.button(panel,"",Rect2(380,628,76,66),safe_shutdown,"exit");exit_button.tooltip_text=db.ui("Exit","退出游戏")
-	debug_points_button=UI.button(panel,db.ui("DEBUG · +1000 RP","DEBUG · +1000 进化点"),Rect2(80,706,376,46),debug_add_evolution_points,"meta",UI.AMBER)
-	debug_points_button.name="DebugEvolutionPoints"
-	debug_points_button.add_theme_font_size_override("font_size",18)
-	debug_points_button.tooltip_text=db.ui("Add 1000 evolution points and save. Repeat as needed.","每次增加 1000 进化点并保存，可重复点击。")
+	debug_unlock_button=UI.button(panel,db.ui("DEBUG · UNLOCK ALL","DEBUG · 一键全开"),Rect2(80,706,376,46),debug_unlock_all_content,"evolution",UI.AMBER)
+	debug_unlock_button.name="DebugUnlockAll"
+	debug_unlock_button.add_theme_font_size_override("font_size",18)
+	debug_unlock_button.tooltip_text=db.ui("Unlock all characters, skills and evolutions, then save.","解锁全部角色、技能和进化内容，并保存。")
 	UI.icon(panel,"meta",Vector2(82,765),38,UI.AMBER)
 	home_points_label=UI.label(panel,str(save.state.meta),Vector2(136,760),34,UI.AMBER)
 	UI.label(panel,db.ui("EVOLUTION","进化点"),Vector2(136,807),16,UI.MUTED)
 	UI.panel(panel,Rect2(760,818,480,45))
 	UI.label(panel,"W A S D  /  "+db.ui("MOVE","移动")+"     E  /  "+db.ui("BUILD","装配"),Vector2(780,830),18,UI.TEXT)
 
-func debug_add_evolution_points():
+func debug_unlock_all_content():
 	if screen!="home" or save==null:return
-	var previous=int(save.state.meta)
-	save.state.meta=previous+DEBUG_EVOLUTION_GRANT
-	if not save.save():
-		save.state.meta=previous
-		if is_instance_valid(debug_points_button):debug_points_button.text=db.ui("SAVE FAILED · TRY AGAIN","保存失败 · 请重试")
+	if not save.unlock_all_content():
+		if is_instance_valid(debug_unlock_button):debug_unlock_button.text=db.ui("SAVE FAILED · TRY AGAIN","保存失败 · 请重试")
 		return
-	if is_instance_valid(home_points_label):home_points_label.text=str(save.state.meta)
-	if is_instance_valid(debug_points_button):debug_points_button.text=db.ui("DEBUG · +1000 RP","DEBUG · +1000 进化点")
+	if is_instance_valid(debug_unlock_button):debug_unlock_button.text=db.ui("DEBUG · ALL UNLOCKED","DEBUG · 已全部解锁")
 	audio_system.play(70)
 
 func show_characters():
