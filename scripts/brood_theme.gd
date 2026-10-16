@@ -58,4 +58,9 @@ static func species(e: Dictionary) -> String:
 	return "grub"
 
 static func extent(e: Dictionary) -> float:
-	return maxf(38.0, float(e.get("radius", 18)) * 2.7)
+	var radius = float(e.get("radius", 18))
+	# Presentation only: ordinary radius-15 bugs gain 20% (40.5 -> 48.6).
+	# The bonus tapers away before charger-sized enemies, so large insects and
+	# bosses keep their scale. Never write this visual extent into hit/contact radii.
+	var small_bonus = 8.1 * clampf((22.0 - radius) / 7.0, 0.0, 1.0)
+	return maxf(38.0, radius * 2.7) + small_bonus

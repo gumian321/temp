@@ -1,0 +1,41 @@
+{
+	"checks": [
+		{
+			"name": "Living hostile is eligible",
+			"passed": true
+		},
+		{
+			"name": "Hidden or invalid enemy excluded: { \"hp\": 0.0 }",
+			"passed": true
+		},
+		{
+			"name": "Hidden or invalid enemy excluded: { \"max_hp\": 0.0 }",
+			"passed": true
+		},
+		{
+			"name": "Hidden or invalid enemy excluded: { \"role\": \"friendly\" }",
+			"passed": true
+		},
+		{
+			"name": "Hidden or invalid enemy excluded: { \"cloaked\": true }",
+			"passed": true
+		},
+		{
+			"name": "Hidden or invalid enemy excluded: { \"warp\": 0.1 }",
+			"passed": true
+		},
+		{
+			"name": "Ordinary bar has readable fixed screen dimensions",
+			"passed": true
+		},
+		{
+			"name": "Objective bar is larger",
+			"passed": true
+		},
+		{
+			"name": "Boss bar is largest",
+			"passed": true
+		}
+	],
+	"passed": true
+}

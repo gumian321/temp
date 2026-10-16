@@ -1,0 +1,127 @@
+{
+  "task": "Round 17 spider long-leg native turning review",
+  "date_utc": "2026-10-16",
+  "recording": {
+    "renderer": "Godot 4.6.3 Compatibility / Mesa llvmpipe, native cloud desktop X11",
+    "launch": "Supported CUA terminal key input; tools/run_checks.py --render; isolated user-data guard",
+    "scenario": "Actual main scene; spider with 32 installed weapons, 60 Hz simulation, 180 frames, boosted right/left/right reversals and final stop",
+    "before_baseline": "artifacts/spider_rig_before.gd",
+    "before_suite": {
+      "suites": [
+        {
+          "suite": "spider_turn_scene",
+          "exit_code": 0,
+          "passed": true,
+          "seconds": 102.204,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    },
+    "after_suite": {
+      "suites": [
+        {
+          "suite": "spider_turn_scene",
+          "exit_code": 0,
+          "passed": true,
+          "seconds": 105.176,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    },
+    "warning": "Native driver reports unsupported VSync changes; no script errors or failed checks."
+  },
+  "visual_review": {
+    "frames_examined": [
+      0,
+      29,
+      30,
+      31,
+      37,
+      38,
+      39,
+      108,
+      109,
+      149,
+      150,
+      179
+    ],
+    "before": "At 37–39 and 108–109, several long feet and attached leg chains sweep a large distance between adjacent frames, causing conspicuous snapping/reconfiguration.",
+    "after": "Same frame transitions are visibly more continuous. Some support feet stay nearly fixed while other legs take bounded steps. Attached weapons remain aligned with their leg chains. No comparable sudden flip or detached weapon observed in inspected transitions.",
+    "stopping": "149→150 remains continuous; by179 the legs have redistributed into a more open stance.",
+    "remaining_visual_behavior": "During a sharp reversal, legs temporarily crowd or cross on the old-facing side before redistributing. This is still visible; the update does not enforce non-overlapping legs. The review does not claim zero foot sliding.",
+    "scope": "Frame-by-frame inspection of native render outputs and encoded comparison preview, not a claim of exhaustive visual inspection of every frame."
+  },
+  "artifacts": {
+    "before": {
+      "path": "artifacts/spider-turn-before.mp4",
+      "library_file_id": "libfile_fb73d42c3b748191ae038ebe4abf4bc7",
+      "bytes": 4308619,
+      "sha256": "4abde9db783e52020903cd4d8ed0bf833633b6412e2b122757b07ef31c681b84",
+      "ffprobe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1440,
+            "height": 900,
+            "r_frame_rate": "60/1",
+            "nb_frames": "180"
+          }
+        ],
+        "format": {
+          "duration": "3.000000"
+        }
+      }
+    },
+    "after": {
+      "path": "artifacts/spider-turn-after.mp4",
+      "library_file_id": "libfile_5233c6f7605481918094556ac28ed757",
+      "bytes": 4690619,
+      "sha256": "724b84d9411c39962fb3a3d43f9fad0f683c3c5146e7e62e90b3e9cefa59c205",
+      "ffprobe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1440,
+            "height": 900,
+            "r_frame_rate": "60/1",
+            "nb_frames": "180"
+          }
+        ],
+        "format": {
+          "duration": "3.000000"
+        }
+      }
+    },
+    "comparison": {
+      "path": "artifacts/spider-turn-comparison.mp4",
+      "library_file_id": "libfile_8677448cf18481919452cb01ce862864",
+      "bytes": 7942609,
+      "sha256": "654b0f83bd62a6f456c776e1cfb6926c6ef47dd49d07d3ba06ca7ab6cec2b1e5",
+      "ffprobe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1600,
+            "height": 700,
+            "r_frame_rate": "60/1",
+            "nb_frames": "180"
+          }
+        ],
+        "format": {
+          "duration": "3.000000"
+        }
+      }
+    },
+    "contact-sheet": {
+      "path": "artifacts/spider-turn-contact-sheet.png",
+      "library_file_id": "libfile_50e3877cde08819199d925b3de79a959",
+      "bytes": 1827295,
+      "sha256": "1273e36ea78545b48198e604c53ede7f37028920b113d42a16de09f809d1c678"
+    }
+  }
+}

@@ -12,6 +12,7 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SUITES = [
+    "enemy_health", "enemy_health_scene", "enemy_sizes", "spider_turn_continuity",
     "result_rank_ui",
     "fragment_recovery", "fragment_recovery_budget", "fragment_art", "fragment_recovery_scene",
     "debug_unlock_all",

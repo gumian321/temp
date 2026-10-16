@@ -15,6 +15,7 @@ var _next_group = 0
 var _settle = 0.0
 var _speed = 0.0
 var _turn_speed = 0.0
+var _individual_gait = false
 
 func reset(player = null):
 	legs.clear()
@@ -24,6 +25,7 @@ func reset(player = null):
 	_serial = -1
 	_speed = 0.0
 	_turn_speed = 0.0
+	_individual_gait = false
 	if player != null: ensure(player)
 
 func ensure(player):
@@ -43,7 +45,7 @@ func ensure(player):
 		var length = BASE_LENGTH + MODULE_LENGTH * clampi(player.spider_leg_count(index), 0, 4)
 		var hip = _hip(index, _head, _angle)
 		var foot = _neutral(index, hip, _angle, length)
-		legs.append({"hip": hip, "knee": hip, "foot": foot,
+		legs.append({"index": index, "hip": hip, "knee": hip, "foot": foot,
 			"points": PackedVector2Array(), "lift": 0.0, "stepping": false,
 			"module_count": clampi(player.spider_leg_count(index), 0, 4), "segments": [],
 			"length": length, "target_length": length, "start": foot, "target": foot,
@@ -82,7 +84,7 @@ func _neutral(index: int, hip: Vector2, angle: float, length: float) -> Vector2:
 	# Long equipped legs open their fan instead of stacking their armor at knees.
 	var equipped = clampf((length - BASE_LENGTH) / (MODULE_LENGTH * 4.0), 0.0, 1.0)
 	var resting_reach = lerpf(0.59, 0.87, equipped)
-	var running_reach = lerpf(0.28, 0.72, equipped)
+	var running_reach = lerpf(0.28, 0.58, equipped)
 	return hip + Vector2.from_angle(angle + spread * side) * length * lerpf(resting_reach, running_reach, clampf((_speed - 120.0) / 300.0, 0.0, 1.0))
 
 func _tick(player, dt: float, velocity: Vector2):
@@ -93,31 +95,75 @@ func _tick(player, dt: float, velocity: Vector2):
 		leg.target_length = BASE_LENGTH + MODULE_LENGTH * clampi(player.spider_leg_count(index), 0, 4)
 		leg.length = move_toward(leg.length, leg.target_length, 105.0 * dt)
 		leg.hip = _hip(index, _head, _angle)
-	if _active_group >= 0:
-		var finished = true
-		for index in GROUPS[_active_group]:
-			var leg: Dictionary = legs[index]
-			leg.progress = minf(1.0, leg.progress + dt / leg.duration)
-			var t: float = leg.progress
-			var eased = t * t * (3.0 - 2.0 * t)
-			leg.foot = leg.start.lerp(leg.target, eased)
-			leg.lift = sin(t * PI)
-			leg.stepping = t < 1.0
-			if leg.stepping: finished = false
-			else:
-				leg.foot = leg.target
-				leg.lift = 0.0
-				leg.plant_angle = _angle
-		if finished:
-			_next_group = 1 - _active_group
-			_active_group = -1
-			_settle = 0.017
-	elif _settle <= 0.0:
-		var urgency = [_urgency(0), _urgency(1)]
-		var group = _next_group
-		if urgency[group] < 1.0: group = 1 - group
-		if urgency[group] >= 1.0: _begin_group(group, velocity)
+	var equipped = false
+	for leg in legs: equipped = equipped or int(leg.module_count) > 0
+	_individual_gait = _individual_gait or equipped
+	if _individual_gait:
+		# A long loaded foot must not block every short leg in its old quartet.
+		# Independent contact scheduling preserves four supports at all times.
+		_active_group = -1
+		var airborne = 0
+		for leg in legs:
+			leg.rest = maxf(0.0, float(leg.get("rest", 0.0)) - dt)
+			if leg.stepping: _advance_leg(leg, dt)
+			if leg.stepping: airborne += 1
+		while airborne < 4:
+			var candidate = -1
+			var priority = 1.0
+			for index in 8:
+				var leg: Dictionary = legs[index]
+				if leg.stepping or float(leg.get("rest", 0.0)) > 0.0: continue
+				var score = _leg_urgency(index)
+				if index in GROUPS[_next_group]: score *= 1.08
+				if score > priority:
+					priority = score
+					candidate = index
+			if candidate < 0: break
+			_begin_leg(candidate, velocity)
+			_next_group = 1 if candidate in GROUPS[0] else 0
+			airborne += 1
+	else:
+		if _active_group >= 0:
+			var finished = true
+			for index in GROUPS[_active_group]:
+				var leg: Dictionary = legs[index]
+				_advance_leg(leg, dt)
+				if leg.stepping: finished = false
+			if finished:
+				_next_group = 1 - _active_group
+				_active_group = -1
+				_settle = 0.017
+		elif _settle <= 0.0:
+			var urgency = [_urgency(0), _urgency(1)]
+			var group = _next_group
+			if urgency[group] < 1.0: group = 1 - group
+			if urgency[group] >= 1.0: _begin_group(group, velocity)
 	for index in range(8): _solve(index)
+
+func _advance_leg(leg: Dictionary, dt: float):
+	leg.progress = minf(1.0, leg.progress + dt / leg.duration)
+	var t: float = leg.progress
+	var eased = t * t * (3.0 - 2.0 * t)
+	if bool(leg.get("swing_arc", false)):
+		var a: Vector2 = leg.start - leg.swing_center
+		var b: Vector2 = leg.target - leg.swing_center
+		leg.foot = leg.swing_center + Vector2.from_angle(lerp_angle(a.angle(), b.angle(), eased)) * lerpf(a.length(), b.length(), eased)
+	else:
+		leg.foot = leg.start.lerp(leg.target, eased)
+	leg.lift = sin(t * PI)
+	leg.stepping = t < 1.0
+	if not leg.stepping:
+		leg.foot = leg.target
+		leg.lift = 0.0
+		leg.plant_angle = _angle
+
+	if not leg.stepping: leg.rest = 0.017
+
+func _leg_urgency(index: int) -> float:
+	var leg: Dictionary = legs[index]
+	var neutral = _neutral(index, leg.hip, _angle, leg.length)
+	var error = leg.foot.distance_to(neutral) / maxf(7.0, leg.length * 0.13)
+	return maxf(error, absf(angle_difference(leg.plant_angle, _angle)) / 0.40) + maxf(0.0, leg.foot.distance_to(leg.hip) / leg.length - 0.8) * 80.0
 
 func _urgency(group: int) -> float:
 	var result = 0.0
@@ -130,17 +176,36 @@ func _urgency(group: int) -> float:
 
 func _begin_group(group: int, velocity: Vector2):
 	_active_group = group
+	for index in GROUPS[group]: _begin_leg(index, velocity)
+
+func _begin_leg(index: int, velocity: Vector2):
 	var duration = lerpf(0.105, 0.035, clampf(velocity.length() / 420.0, 0.0, 1.0))
-	for index in GROUPS[group]:
-		var leg: Dictionary = legs[index]
-		leg.start = leg.foot
-		var lead = (velocity * duration * 0.95).limit_length(leg.length * 0.32)
-		var predicted_angle = _angle + clampf(_turn_speed * duration * 0.8, -0.30, 0.30)
-		leg.target = _neutral(index, leg.hip, predicted_angle, leg.length) + lead
-		leg.progress = 0.0
-		leg.duration = duration
-		leg.stepping = true
-		leg.lift = 0.0
+	var leg: Dictionary = legs[index]
+	leg.step_serial = int(leg.get("step_serial", 0)) + 1
+	leg.start = leg.foot
+	var lead = (velocity * duration * 0.95).limit_length(leg.length * 0.32)
+	var predicted_angle = _angle + clampf(_turn_speed * duration * 0.8, -0.30, 0.30)
+	leg.target = _neutral(index, leg.hip, predicted_angle, leg.length) + lead
+	if float(leg.length) > BASE_LENGTH * 1.1:
+		var radial: Vector2 = leg.start - leg.hip
+		var desired: Vector2 = leg.target - leg.hip
+		var turn = clampf(angle_difference(radial.angle(), desired.angle()), -0.8, 0.8)
+		leg.target = leg.hip + Vector2.from_angle(radial.angle() + turn) * desired.length()
+	var stride: Vector2 = leg.target - leg.start
+	leg.swing_center = leg.hip
+	leg.swing_arc = float(leg.length) > BASE_LENGTH * 1.1
+	leg.progress = 0.0
+	# Cubic easing peaks at 1.5 times mean speed. Equipped legs need
+	# enough real swing time to remain legible even during boosted reversals.
+	var path_length = stride.length()
+	if leg.swing_arc:
+		var start_radial: Vector2 = leg.start - leg.swing_center
+		var end_radial: Vector2 = leg.target - leg.swing_center
+		var arc = absf(angle_difference(start_radial.angle(), end_radial.angle())) * maxf(start_radial.length(), end_radial.length())
+		path_length = Vector2(arc, end_radial.length() - start_radial.length()).length()
+	leg.duration = maxf(duration, path_length * 1.5 / 1800.0) if leg.swing_arc else duration
+	leg.stepping = true
+	leg.lift = 0.0
 
 func _solve(index: int):
 	var leg: Dictionary = legs[index]
@@ -157,7 +222,7 @@ func _solve(index: int):
 	var side = -1.0 if index % 2 == 0 else 1.0
 	# Equipped chains on each side sweep the same way. Opposite bend signs
 	# made the two middle legs converge into one shared-looking shaft.
-	var elbow = -side if index < 4 or int(leg.module_count) > 0 else side
+	var elbow = -side
 	leg.knee = leg.hip + direction * projection + direction.orthogonal() * bend * elbow
 	leg.points = PackedVector2Array([leg.hip, leg.knee, leg.foot])
 	leg.visual_points = PackedVector2Array([leg.hip, leg.knee + Vector2.UP * leg.lift * 5.0, leg.foot + Vector2.UP * leg.lift * 10.0])
@@ -189,6 +254,28 @@ func _solve_segments(leg: Dictionary):
 	for length in lengths:
 		travel += length
 		nodes.append(_scaffold_sample(leg, travel / leg.solved_length * path_length))
+	if count > 0:
+		# Distribute the bend along all articulated shells instead of folding a
+		# long serial chain over one sharp two-bone knee. A convex arc seed also
+		# keeps FABRIK on one anatomical branch as the hip passes a planted foot.
+		var chord: Vector2 = target - origin
+		var reach = maxf(chord.length(), 0.001)
+		var ratio = clampf(reach / leg.solved_length, 0.05, 0.99999)
+		var lo = 0.001
+		var hi = PI - 0.01
+		for search in 12:
+			var mid = (lo + hi) * 0.5
+			if sin(mid) / mid > ratio: lo = mid
+			else: hi = mid
+		var theta = (lo + hi) * 0.5
+		var radius = reach / (2.0 * sin(theta))
+		var forward = chord / reach
+		var outward = forward.orthogonal() * (1.0 if int(leg.get("index", 0)) % 2 == 0 else -1.0)
+		var arc_travel = 0.0
+		for joint in range(1, nodes.size()):
+			arc_travel += lengths[joint - 1]
+			var phi = -theta + 2.0 * theta * arc_travel / leg.solved_length
+			nodes[joint] = origin + forward * (reach * 0.5 + radius * sin(phi)) + outward * (radius * (cos(phi) - cos(theta)))
 	for iteration in range(16):
 		nodes[-1] = target
 		for joint in range(nodes.size() - 2, -1, -1):

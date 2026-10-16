@@ -1,0 +1,160 @@
+{
+	"captures": [],
+	"checks": [
+		{
+			"name": "Health draws above combat particles",
+			"passed": true
+		},
+		{
+			"name": "Exact HP fraction 100%",
+			"passed": true
+		},
+		{
+			"name": "Exact HP fraction 50%",
+			"passed": true
+		},
+		{
+			"name": "Exact HP fraction 5%",
+			"passed": true
+		},
+		{
+			"name": "Health screen-space coordinates are not transformed a second time by world camera",
+			"passed": true
+		},
+		{
+			"name": "Shield and HP remain separate fractions",
+			"passed": true
+		},
+		{
+			"name": "Shield covers other hostile roles exactly as combat does",
+			"passed": true
+		},
+		{
+			"name": "Stunned source provides no shield strip",
+			"passed": true
+		},
+		{
+			"name": "Invulnerable boss controller aggregates child HP",
+			"passed": true
+		},
+		{
+			"name": "Destroyed boss part does not shrink original maximum or refill boss bar",
+			"passed": true
+		},
+		{
+			"name": "Bars persist in pause",
+			"passed": true
+		},
+		{
+			"name": "Bars persist in result",
+			"passed": true
+		},
+		{
+			"name": "Bars persist in rewards",
+			"passed": true
+		},
+		{
+			"name": "Bars clear in home",
+			"passed": true
+		},
+		{
+			"name": "Bars clear in build",
+			"passed": true
+		},
+		{
+			"name": "Tactical radar clears world bars",
+			"passed": true
+		},
+		{
+			"name": "Offscreen enemies culled",
+			"passed": true
+		},
+		{
+			"name": "Screen-space canvas remains identity at zoom 0.5",
+			"passed": true
+		},
+		{
+			"name": "Fixed readable size at (1280, 720) zoom 0.5",
+			"passed": true
+		},
+		{
+			"name": "Screen-space canvas remains identity at zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Fixed readable size at (1280, 720) zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Screen-space canvas remains identity at zoom 1.8",
+			"passed": true
+		},
+		{
+			"name": "Fixed readable size at (1280, 720) zoom 1.8",
+			"passed": true
+		},
+		{
+			"name": "Screen-space canvas remains identity at zoom 0.5",
+			"passed": true
+		},
+		{
+			"name": "Fixed readable size at (1920, 1080) zoom 0.5",
+			"passed": true
+		},
+		{
+			"name": "Screen-space canvas remains identity at zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Fixed readable size at (1920, 1080) zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Screen-space canvas remains identity at zoom 1.8",
+			"passed": true
+		},
+		{
+			"name": "Fixed readable size at (1920, 1080) zoom 1.8",
+			"passed": true
+		},
+		{
+			"name": "Dense field retains visible bars",
+			"passed": true
+		},
+		{
+			"name": "Dense 180-enemy layout stays within a bounded CPU budget",
+			"passed": true
+		},
+		{
+			"name": "Bounded rebuild CPU for 64 enemies",
+			"passed": true
+		},
+		{
+			"name": "Bounded rebuild CPU for 128 enemies",
+			"passed": true
+		},
+		{
+			"name": "Bounded rebuild CPU for 384 enemies",
+			"passed": true
+		},
+		{
+			"name": "Bounded rebuild CPU for 768 enemies",
+			"passed": true
+		},
+		{
+			"name": "Overlapping enemies receive bounded bar lifts",
+			"passed": true
+		}
+	],
+	"dense_rebuild_ms": 1.27505,
+	"draw_calls": {
+
+	},
+	"passed": true,
+	"rebuild_timings_ms": {
+		"128": 1.0841,
+		"384": 3.15225,
+		"64": 0.63155,
+		"768": 7.25785
+	}
+}

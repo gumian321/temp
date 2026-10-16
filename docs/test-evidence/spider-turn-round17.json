@@ -1,0 +1,51 @@
+{
+  "baseline_commit": "8a9177eeb7d694e52e54af0928e69adaec924bf7",
+  "fixture": "test_spider_turn_continuity.gd",
+  "baseline": [
+    {
+      "fps": 30,
+      "max_extension": 0.977824217884253,
+      "max_foot_speed": 7290.37078857422,
+      "max_mount_speed": 6328.36578369141
+    },
+    {
+      "fps": 60,
+      "max_extension": 0.982007615109707,
+      "max_foot_speed": 9156.43341064453,
+      "max_mount_speed": 8070.00915527344
+    },
+    {
+      "fps": 120,
+      "max_extension": 0.982007615109707,
+      "max_foot_speed": 9250.96984863281,
+      "max_mount_speed": 8452.19055175781
+    }
+  ],
+  "after": [
+    {
+      "fps": 15,
+      "max_extension": 1.1652920770307,
+      "max_foot_speed": 1628.64624023438,
+      "max_mount_speed": 1564.96101379395
+    },
+    {
+      "fps": 30,
+      "max_extension": 1.16843084240636,
+      "max_foot_speed": 1744.66220855713,
+      "max_mount_speed": 1916.29783630371
+    },
+    {
+      "fps": 60,
+      "max_extension": 1.16987566575936,
+      "max_foot_speed": 1792.01168060303,
+      "max_mount_speed": 1908.46012115479
+    },
+    {
+      "fps": 120,
+      "max_extension": 1.17054012650294,
+      "max_foot_speed": 1795.25539398193,
+      "max_mount_speed": 2475.20896911621
+    }
+  ],
+  "scope": "32 mounts; 320 units/sec; reverse, circle, stop; world position finite differences, not FPS benchmark"
+}

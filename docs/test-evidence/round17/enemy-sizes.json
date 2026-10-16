@@ -1,0 +1,1509 @@
+{
+	"checks": [
+		{
+			"name": "All actual prefabs gain at most 21.4% visually with no entity mutation; radius 22+ is unchanged",
+			"passed": true
+		},
+		{
+			"name": "Audit covers small and large spawned actors and all six species",
+			"passed": true
+		},
+		{
+			"name": "Ordinary small bugs gain exactly 20%",
+			"passed": true
+		},
+		{
+			"name": "Encounter hatchlings gain bounded visibility and remain smaller than ordinary bugs",
+			"passed": true
+		},
+		{
+			"name": "Visual size remains monotonic through the taper and into boss sizes",
+			"passed": true
+		},
+		{
+			"name": "Larger encounter / boss extent unchanged: 22.0",
+			"passed": true
+		},
+		{
+			"name": "Larger encounter / boss extent unchanged: 24.0",
+			"passed": true
+		},
+		{
+			"name": "Larger encounter / boss extent unchanged: 32.0",
+			"passed": true
+		},
+		{
+			"name": "Larger encounter / boss extent unchanged: 45.0",
+			"passed": true
+		},
+		{
+			"name": "Larger encounter / boss extent unchanged: 52.5",
+			"passed": true
+		},
+		{
+			"name": "Larger encounter / boss extent unchanged: 67.5",
+			"passed": true
+		},
+		{
+			"name": "Larger encounter / boss extent unchanged: 75.0",
+			"passed": true
+		},
+		{
+			"name": "Larger encounter / boss extent unchanged: 82.5",
+			"passed": true
+		},
+		{
+			"name": "Larger encounter / boss extent unchanged: 84.0",
+			"passed": true
+		},
+		{
+			"name": "Larger encounter / boss extent unchanged: 90.0",
+			"passed": true
+		},
+		{
+			"name": "Larger encounter / boss extent unchanged: 105.0",
+			"passed": true
+		},
+		{
+			"name": "Combat contact remains on the unchanged hit radius",
+			"passed": true
+		},
+		{
+			"name": "Size evaluation preserves health, damage, movement, transform and collision data",
+			"passed": true
+		}
+	],
+	"large_actors": 12,
+	"measurements": [
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "GAModeManager_Hard",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "GAModeManager_Hard",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "GAModeManager_Hard",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "GAModeManager_Hard",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "GAModeManager_Normal",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "GAModeManager_Normal",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "GAModeManager_Normal",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "GAModeManager_Normal",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "GAModeManager_Normal",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "GAModeManager_Normal",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "GAModeManager_Easy",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "GAModeManager_Easy",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "GAModeManager_Easy",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "GAModeManager_Easy",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "GAModeManager_Easy",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "GAModeManager_Easy",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "GAModeManager_Easy",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "BHModeManager_Normal",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "BHModeManager_Normal",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "BHModeManager_Normal",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "BHModeManager_Normal",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "BHModeManager_Normal",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "BHModeManager_Normal",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "BHModeManager_Easy",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "BHModeManager_Easy",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "BHModeManager_Easy",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "BHModeManager_Easy",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "BHModeManager_Hard",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "BHModeManager_Hard",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "BHModeManager_Hard",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "BHModeManager_Hard",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "BHModeManager_Hard",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "BHModeManager_Hard",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "BHModeManager_Hard",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "BHModeManager_Hard",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "BHModeManager_Hard",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "SpawnerStation",
+			"name": "SpawnerStation",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "sac"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIStation",
+			"name": "MapEvents_Station",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "sac"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIStation",
+			"name": "AI Station",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "sac"
+		},
+		{
+			"extent": 48.6,
+			"kind": "MineController",
+			"name": "Object_Mine",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "sac"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIGuardUnitController",
+			"name": "AI_Guard_Level1",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIGuardUnitController",
+			"name": "AI_Guard_Level2",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AI_MidBoss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AI_MidBoss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AI_MidBoss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AI_MidBoss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AI_MidBoss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 243.0,
+			"kind": "AIBossUnit",
+			"name": "AI_MidBoss",
+			"old_extent": 243.0,
+			"radius": 90.0,
+			"species": "queen"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AI_MidBoss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AI_Boss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AI_Boss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AI_Boss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AI_Boss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 283.5,
+			"kind": "AIBossUnit",
+			"name": "AI_Boss",
+			"old_extent": 283.5,
+			"radius": 105.0,
+			"species": "queen"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AI_Boss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AI_Boss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AI_Boss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AI_MiniBoss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AI_MiniBoss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AI_MiniBoss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AI_MiniBoss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 226.8,
+			"kind": "AIBossUnit",
+			"name": "AI_MiniBoss",
+			"old_extent": 226.8,
+			"radius": 84.0,
+			"species": "queen"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AI_MiniBoss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 202.5,
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_4",
+			"old_extent": 202.5,
+			"radius": 75.0,
+			"species": "grub"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_Kamikaze_2",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "sac"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_Tank",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_DronesCarrier_3",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_Shotgun_1",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_Pyro_1",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "sac"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_Tank_Shielded",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_Kamikaze_3",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "sac"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_Pyro_2_Shielded",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "sac"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_Pyro_2",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "sac"
+		},
+		{
+			"extent": 121.5,
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_1",
+			"old_extent": 121.5,
+			"radius": 45.0,
+			"species": "grub"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_Shotgun_1_Shielded",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 182.25,
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_3",
+			"old_extent": 182.25,
+			"radius": 67.5,
+			"species": "grub"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_DronesCarrier_2",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_Shotgun_2",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_Pyro_1_Shielded",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "sac"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_Tank_Wide",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 141.75,
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_2",
+			"old_extent": 141.75,
+			"radius": 52.5,
+			"species": "grub"
+		},
+		{
+			"extent": 222.75,
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_5",
+			"old_extent": 222.75,
+			"radius": 82.5,
+			"species": "grub"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_Shotgun_2_Shielded",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_DronesCarrier_1",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_Kamikaze_1",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "sac"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIFollowingUnit",
+			"name": "AI_Following_Drones",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIFollowingUnit",
+			"name": "AI_Following_Flak",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIFollowingUnit",
+			"name": "AI_Following_Sniper",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIFollowingUnit",
+			"name": "AI_Following_Spawner",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIFollowingUnit",
+			"name": "AI_Following_Spawn_Kamakazi",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "TraderUnit_Shield",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "TraderUnit",
+			"name": "TraderUnit",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "moth"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 5",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 5",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 5",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 5",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 5",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 5",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 5",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 3",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 3",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 3",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 3",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 3",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 3",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 3",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AI_PatrolUnit_Level5",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AI_PatrolUnit_Level3",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AI_PatrolUnit_Level1",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 4",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 4",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 4",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 4",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 4",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 4",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 4",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 2",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 2",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 2",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 2",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 2",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AI_PatrolUnit_Level4",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AI_PatrolUnit_Level2",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 1",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 1",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 1",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 1",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIPatrolUnit",
+			"name": "AIPatrolLevel 1",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "mantis"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AIWave_MiniBoss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AIWave_MiniBoss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AIWave_MiniBoss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AIWave_MiniBoss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossUnit",
+			"name": "AIWave_MiniBoss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "queen"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AIWave_MiniBoss",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIStation",
+			"name": "AI_Station",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "sac"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIStationPartController",
+			"name": "AI_MissionStationPart_Level3",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "sac"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIStationPartController",
+			"name": "AI_MissionStationPart_Level2",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "sac"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIStationPartController",
+			"name": "AI_StationPart_Level3",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "sac"
+		},
+		{
+			"extent": 46.1,
+			"kind": "AIUnitController",
+			"name": "AI_Station_Spawner",
+			"old_extent": 38.0,
+			"radius": 14.0,
+			"species": "grub"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIStationPartController",
+			"name": "AI_MissionStationPart_Level4",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "sac"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIStationPartController",
+			"name": "AI_StationPart_Level1",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "sac"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIStationPartController",
+			"name": "AI_MissionStationPart_Level1",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "sac"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIStationPartController",
+			"name": "AI_StationPart_Level2",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "sac"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_TeslaRockets",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "grub"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_GatlingSniperGatling",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "grub"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_Cannon",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "grub"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_GatlingRocketGatling",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "grub"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_EMP",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "grub"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_GatlingTesla_Shielded",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "grub"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_Rocket",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "grub"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_GatlingGatling",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "grub"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_Gatling",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "grub"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_Tesla",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "grub"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_GatlingTeslaGatling",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "grub"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AI_ProjectileShip_GatlingRockets",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "grub"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AIWaveTanks&3parts",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 182.25,
+			"kind": "AISwarmingUnit",
+			"name": "AIWaveTanks&3parts",
+			"old_extent": 182.25,
+			"radius": 67.5,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AIWaveTanks&3parts",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AIWaveTanks&3parts",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 182.25,
+			"kind": "AISwarmingUnit",
+			"name": "AIWaveTanks&3parts",
+			"old_extent": 182.25,
+			"radius": 67.5,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AIWaveTanks&3parts",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AISwarmingUnit",
+			"name": "AIWaveTanks&3parts",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 182.25,
+			"kind": "AISwarmingUnit",
+			"name": "AIWaveTanks&3parts",
+			"old_extent": 182.25,
+			"radius": 67.5,
+			"species": "beetle"
+		},
+		{
+			"extent": 182.25,
+			"kind": "AISwarmingUnit",
+			"name": "AIWaveTanks&3parts",
+			"old_extent": 182.25,
+			"radius": 67.5,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AIWave2MiniBosses",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AIWave2MiniBosses",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AIWave2MiniBosses",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AIWave2MiniBosses",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AIWave2MiniBosses",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AIWave2MiniBosses",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AIWave2MiniBosses",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossUnit",
+			"name": "AIWave2MiniBosses",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "queen"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AIWave2MiniBosses",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AIWave2MiniBosses",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossPartController",
+			"name": "AIWave2MiniBosses",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "beetle"
+		},
+		{
+			"extent": 48.6,
+			"kind": "AIBossUnit",
+			"name": "AIWave2MiniBosses",
+			"old_extent": 40.5,
+			"radius": 15.0,
+			"species": "queen"
+		}
+	],
+	"passed": true,
+	"radii": [
+		"15.0",
+		"90.0",
+		"105.0",
+		"84.0",
+		"75.0",
+		"45.0",
+		"67.5",
+		"52.5",
+		"82.5",
+		"14.0"
+	],
+	"small_actors": 164,
+	"species": [
+		"moth",
+		"sac",
+		"beetle",
+		"queen",
+		"grub",
+		"mantis"
+	]
+}

@@ -1,0 +1,212 @@
+{
+	"captures": [
+		"res://artifacts/enemy-health-01-fractions.png",
+		"res://artifacts/enemy-health-02-shield-boss.png",
+		"res://artifacts/enemy-health-03-dense.png",
+		"res://artifacts/enemy-health-04-overlap.png",
+		"res://artifacts/enemy-health-species-1280.png",
+		"res://artifacts/enemy-health-species-1920.png"
+	],
+	"checks": [
+		{
+			"name": "Health draws above combat particles",
+			"passed": true
+		},
+		{
+			"name": "Exact HP fraction 100%",
+			"passed": true
+		},
+		{
+			"name": "Exact HP fraction 50%",
+			"passed": true
+		},
+		{
+			"name": "Exact HP fraction 5%",
+			"passed": true
+		},
+		{
+			"name": "Captured enemy-health-01-fractions",
+			"passed": true
+		},
+		{
+			"name": "Native pixel contains health fill at the enemy's screen anchor",
+			"passed": true
+		},
+		{
+			"name": "Native pixel contains health fill at the enemy's screen anchor",
+			"passed": true
+		},
+		{
+			"name": "Native pixel shows empty HP at the unfilled end",
+			"passed": true
+		},
+		{
+			"name": "Native pixel contains health fill at the enemy's screen anchor",
+			"passed": true
+		},
+		{
+			"name": "Native pixel shows empty HP at the unfilled end",
+			"passed": true
+		},
+		{
+			"name": "Health screen-space coordinates are not transformed a second time by world camera",
+			"passed": true
+		},
+		{
+			"name": "Shield and HP remain separate fractions",
+			"passed": true
+		},
+		{
+			"name": "Shield covers other hostile roles exactly as combat does",
+			"passed": true
+		},
+		{
+			"name": "Stunned source provides no shield strip",
+			"passed": true
+		},
+		{
+			"name": "Invulnerable boss controller aggregates child HP",
+			"passed": true
+		},
+		{
+			"name": "Captured enemy-health-02-shield-boss",
+			"passed": true
+		},
+		{
+			"name": "Destroyed boss part does not shrink original maximum or refill boss bar",
+			"passed": true
+		},
+		{
+			"name": "Bars persist in pause",
+			"passed": true
+		},
+		{
+			"name": "Bars persist in result",
+			"passed": true
+		},
+		{
+			"name": "Bars persist in rewards",
+			"passed": true
+		},
+		{
+			"name": "Bars clear in home",
+			"passed": true
+		},
+		{
+			"name": "Bars clear in build",
+			"passed": true
+		},
+		{
+			"name": "Tactical radar clears world bars",
+			"passed": true
+		},
+		{
+			"name": "Offscreen enemies culled",
+			"passed": true
+		},
+		{
+			"name": "Screen-space canvas remains identity at zoom 0.5",
+			"passed": true
+		},
+		{
+			"name": "Fixed readable size at (1280, 720) zoom 0.5",
+			"passed": true
+		},
+		{
+			"name": "Screen-space canvas remains identity at zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Fixed readable size at (1280, 720) zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Screen-space canvas remains identity at zoom 1.8",
+			"passed": true
+		},
+		{
+			"name": "Fixed readable size at (1280, 720) zoom 1.8",
+			"passed": true
+		},
+		{
+			"name": "Screen-space canvas remains identity at zoom 0.5",
+			"passed": true
+		},
+		{
+			"name": "Fixed readable size at (1920, 1080) zoom 0.5",
+			"passed": true
+		},
+		{
+			"name": "Screen-space canvas remains identity at zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Fixed readable size at (1920, 1080) zoom 1.0",
+			"passed": true
+		},
+		{
+			"name": "Screen-space canvas remains identity at zoom 1.8",
+			"passed": true
+		},
+		{
+			"name": "Fixed readable size at (1920, 1080) zoom 1.8",
+			"passed": true
+		},
+		{
+			"name": "Dense field retains visible bars",
+			"passed": true
+		},
+		{
+			"name": "Dense 180-enemy layout stays within a bounded CPU budget",
+			"passed": true
+		},
+		{
+			"name": "Captured enemy-health-03-dense",
+			"passed": true
+		},
+		{
+			"name": "Bounded rebuild CPU for 64 enemies",
+			"passed": true
+		},
+		{
+			"name": "Bounded rebuild CPU for 128 enemies",
+			"passed": true
+		},
+		{
+			"name": "Bounded rebuild CPU for 384 enemies",
+			"passed": true
+		},
+		{
+			"name": "Bounded rebuild CPU for 768 enemies",
+			"passed": true
+		},
+		{
+			"name": "Overlapping enemies receive bounded bar lifts",
+			"passed": true
+		},
+		{
+			"name": "Captured enemy-health-04-overlap",
+			"passed": true
+		},
+		{
+			"name": "Captured enemy-health-species-1280",
+			"passed": true
+		},
+		{
+			"name": "Captured enemy-health-species-1920",
+			"passed": true
+		}
+	],
+	"dense_rebuild_ms": 1.53705,
+	"draw_calls": {
+		"disabled": 89,
+		"enabled": 91
+	},
+	"passed": true,
+	"rebuild_timings_ms": {
+		"128": 1.11325,
+		"384": 3.4415,
+		"64": 0.67775,
+		"768": 6.8721
+	}
+}
