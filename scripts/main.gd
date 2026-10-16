@@ -14,6 +14,7 @@ const Battle = preload("res://scripts/combat.gd")
 const Feedback = preload("res://scripts/weapon_feedback.gd")
 const AttackShaders = preload("res://scripts/attack_shader_layer.gd")
 var attack_shader_layer = AttackShaders.new()
+var enemy_health_layer = preload("res://scripts/enemy_health_layer.gd").new()
 var segment_damage_layer = preload("res://scripts/segment_damage_layer.gd").new()
 var fragment_art = preload("res://scripts/centipede_fragments_art.gd").new()
 const InsectAttackFX = preload("res://scripts/insect_attack_fx.gd")
@@ -143,6 +144,13 @@ func _ready():
 	menu_background.material=Ink.illustration()
 	particle_layer=CanvasLayer.new();particle_layer.layer=0;add_child(particle_layer)
 	particle_effects=load("res://scripts/particle_effects.gd").new();particle_layer.add_child(particle_effects);particle_effects.setup(db);native_visuals.setup(db,particle_effects)
+	enemy_health_layer.game=self
+	enemy_health_layer.z_index=100
+	var health_canvas=CanvasLayer.new()
+	health_canvas.name="EnemyHealthCanvas"
+	health_canvas.layer=0
+	add_child(health_canvas)
+	health_canvas.add_child(enemy_health_layer)
 	popup_text=load("res://scripts/popup_text.gd").new();popup_text.layer=3;add_child(popup_text)
 	attack_shader_layer.attach(self)
 	fragment_art.attach(self)
@@ -988,6 +996,7 @@ func _draw():
 	if encounter_feedback != null: encounter_feedback.queue_redraw()
 	# Any early-return screen (including tactical radar) starts without old FX.
 	segment_damage_layer.queue_redraw()
+	enemy_health_layer.queue_redraw()
 	passive_fx.living.hide()
 	attack_shader_layer.begin_frame(float(player.motion.elapsed) if player!=null else 0.0)
 	attack_shader_layer.set_occlusion(Rect2(get_viewport_rect().size-Vector2(210,235),Vector2(180,150)) if screen in ["game","pause","rewards","result"] else Rect2())
@@ -1040,7 +1049,6 @@ func _draw():
 				continue
 			var pulse=health_pulse(e)
 			if Brood.eligible(e):
-				draw_rect(Rect2(pos+Vector2(-18,-float(e.radius)*zoom-10),Vector2(36*maxf(0,e.hp/e.max_hp),2)),Color("173b70"))
 				continue
 			for renderer in e.get("render", []):
 				var texture: Texture2D = db.sprite(renderer.sprite)
@@ -1052,7 +1060,6 @@ func _draw():
 				var tint=RenderState.color(renderer,e.age,pulse,pulse_color(e))
 				if hit_flash>0: tint=tint.lerp(Color(1.15,1.1,1.0,tint.a),hit_flash*0.25)
 				art(texture, world(visual_position + offset), extent, e.angle + PI * 0.5 + RenderState.angle(renderer,e.age),tint)
-			draw_rect(Rect2(pos + Vector2(-22, -e.radius - 12), Vector2(44 * maxf(0, e.hp / e.max_hp), 3)), Color("173b70"))
 			for gun_index in range(e.guns.size()):
 				var gun=e.guns[gun_index]
 				var texture: Texture2D = db.core_sprite(db.asset(gun.id))

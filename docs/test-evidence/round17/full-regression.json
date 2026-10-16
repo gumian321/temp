@@ -1,0 +1,782 @@
+{
+  "suites": [
+    {
+      "suite": "enemy_health",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.515,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "enemy_health_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 6.003,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "enemy_sizes",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.946,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "spider_turn_continuity",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.18,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "result_rank_ui",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 21.233,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "fragment_recovery",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 5.043,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "fragment_recovery_budget",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.845,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "fragment_art",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.473,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "fragment_recovery_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.23,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "debug_unlock_all",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.945,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "knockback",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.0,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "soft_knockback",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.569,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "soft_pull",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.012,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "tether_motion",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.95,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "emitter_reaction",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.976,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "combat_momentum",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.889,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "special_encounters",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.148,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "encounter_art",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.732,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "encounter_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.515,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "encounter_pacing",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 16.777,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "attack_shader_materials",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.566,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "skill_shader_coverage",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.611,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "enemy_death_splatter",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.956,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "projectile_trajectory_continuity",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.279,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "viscous_projectile_motion",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.9,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "viscous_renderer",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.734,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "viscous_integration",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.92,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "combat_spatial",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.313,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "hud_refresh_cache",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.658,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "particle_resource_cache",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.855,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "render_hotpath_regressions",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.61,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "soft_render_cache",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.069,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "soft_solver_regressions",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.948,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "rig_batch_dynamic",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.85,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "radial_formations",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.46,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "crystal_loot_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.625,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "hostile_readability",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.384,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "soft_organs",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.928,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "fusion_flagella",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 4.042,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "camera_stability_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 4.622,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_coil",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.744,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_coil_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.324,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "character_selection",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 4.163,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "debug_characters",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 6.144,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "direct_body_assembly",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.666,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "insect_projectiles",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.777,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "spider_leg_modules",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.933,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "spider_rig",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.338,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "spider_segments",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.328,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "spider_visibility_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.575,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "spider_assembly_ui",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.128,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "spider_motion_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.305,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "expedition_briefing",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 4.608,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "character_roster",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.478,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "character_abilities",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.151,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "character_integration",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.85,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "character_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.576,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "character_ui_integration",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.555,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "brood",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.459,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "armament_art",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.631,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "generated_light_ui",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.691,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "main_autofire",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.064,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "main_autofire_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.075,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "passive_feedback_state",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.93,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "passive_upgrade_effects",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.981,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "passive_visual_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.637,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_progress_badges",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.441,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "tooltip_theme",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 6.274,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "contact_impacts",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.744,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "insect_armaments",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.57,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "insect_art_routes",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.668,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "insect_controls",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.845,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "insect_attack_fx",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.475,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "game_ui_shell",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.745,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "meta_ui_redesign",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 4.581,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "battle_hud",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.083,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_cards",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.827,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "mission_select",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 6.373,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "core",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.932,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "missions",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.036,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "map",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.844,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "rewards",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.852,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "specials",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.753,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "regressions",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.952,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "drones",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.766,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_pool",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.88,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "controller",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.392,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "long_body",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.444,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "shields",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.737,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "turret_tracking",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.768,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "achievements",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.792,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "fuel_tutorial",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.865,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "enemy_drones",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.75,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "radar",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.748,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "weapon_catalog",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.889,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "particles",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.899,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "presentation",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.04,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "loot",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.886,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_segments",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.952,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_support",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.794,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chinese",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.223,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chain_segments",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.524,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chain_scene",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.667,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chain_ui_redesign",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.483,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "segment_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.878,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_flow",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 5.484,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "blue_ink",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.149,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "grid_mounts",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.929,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_motion",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.852,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "weapon_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 1.234,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "weapon_readability",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 0.872,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}
