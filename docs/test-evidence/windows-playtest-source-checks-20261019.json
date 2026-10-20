@@ -1,0 +1,45 @@
+{
+  "suites": [
+    {
+      "suite": "mineral_erosion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.394,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chasm_collision",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 3.828,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "debug_unlock_all",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.724,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "debug_characters",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.141,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

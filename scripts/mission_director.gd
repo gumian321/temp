@@ -11,6 +11,8 @@ var initial_objectives = 0
 var fleet_position = Vector2.ZERO
 var fleet_goal = Vector2.ZERO
 var fleet_data: Dictionary = {}
+var fleet_ground: Dictionary = {}
+var fleet_radius = 0.0
 var station_data: Dictionary = {}
 var delayed: Array = []
 var warp_left = 0.0
@@ -100,6 +102,11 @@ func setup():
 				e.station_radius = float(rim.spawnersYPos)*48
 				e.station_angle = angle
 	initial_objectives = objectives.size()
+	if type in ["BHModeManager","GAModeManager"] and battle.terrain!=null:
+		for e in living_objectives(): fleet_radius=maxf(fleet_radius,Vector2(e.offset).length()+float(e.radius))
+		fleet_position=battle.terrain.safe_position(fleet_position,fleet_radius)
+		for e in living_objectives():
+			e.position=fleet_position+e.offset;e.ground_previous=e.position
 	started = true
 	event_log.append({"event": "setup", "mode": type, "objectives": initial_objectives})
 
@@ -140,21 +147,26 @@ func step(dt: float):
 	for e in battle.enemies:
 		if e.has("station_radius"):
 			e.station_angle += deg_to_rad(float(e.get("station_speed",0)))*dt
-			e.position = Vector2.from_angle(e.station_angle)*e.station_radius
+			battle.move_actor(e,Vector2.from_angle(e.station_angle)*e.station_radius)
 			e.angle = e.station_angle+PI*0.5
 	if type in ["BHModeManager", "GAModeManager"]:
 		var previous_warp = warp_left
 		warp_left = maxf(0, warp_left - dt)
 		if previous_warp > 0 and warp_left == 0:
 			fleet_position = player.head + Vector2.from_angle(run.rng.randf() * TAU) * float(mode.get("fleetWarpDistance", 50)) * 48
+			if battle.terrain!=null:fleet_position=battle.terrain.safe_position(fleet_position,fleet_radius)
 		if warp_left <= 0:
 			var direction = (fleet_goal - fleet_position).normalized()
 			var moving = true
 			if type == "BHModeManager": direction = (fleet_position - player.head).normalized()
 			else: moving = fleet_position.distance_to(player.head) < float(fleet_data.disFromPlayerToMove) * 48
-			if moving: fleet_position += direction * float(fleet_data.movingSpeed) * 48 * dt
+			if moving:
+				if battle.terrain!=null:direction=battle.terrain.direction(fleet_position,fleet_position+direction*1800,fleet_radius,fleet_ground)
+				var next=fleet_position+direction*float(fleet_data.movingSpeed)*48*dt
+				fleet_position=battle.terrain.move(fleet_position,next,fleet_radius) if battle.terrain!=null else next
 		for e in living:
 			e.position = fleet_position + e.offset
+			e.ground_previous=e.position
 			e.warp = warp_left
 		if living.is_empty() and initial_objectives > 0:
 			run.finish(type == "BHModeManager")

@@ -1,0 +1,237 @@
+{
+  "aggregation": "Latest executed result per suite, in execution order; original reports retained.",
+  "suites": [
+    {
+      "suite": "drones",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.498,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-regression-validation.json"
+    },
+    {
+      "suite": "specials",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.977,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-initial-checks.json"
+    },
+    {
+      "suite": "main_autofire",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.269,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-initial-checks.json"
+    },
+    {
+      "suite": "playtest_polish",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.061,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-repaired-validation.json"
+    },
+    {
+      "suite": "playtest_polish_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.078,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-first-validation.json"
+    },
+    {
+      "suite": "fusion_flagella",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.42,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-regression-validation.json"
+    },
+    {
+      "suite": "fragment_art",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.788,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-repaired-validation.json"
+    },
+    {
+      "suite": "fragment_recovery_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.106,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-regression-validation.json"
+    },
+    {
+      "suite": "viscous_renderer",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.416,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-regression-validation.json"
+    },
+    {
+      "suite": "hostile_readability",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.606,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-regression-validation.json"
+    },
+    {
+      "suite": "attack_shader_materials",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.478,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-regression-validation.json"
+    },
+    {
+      "suite": "skill_shader_coverage",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.593,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-regression-validation.json"
+    },
+    {
+      "suite": "render_hotpath_regressions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.221,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-regression-validation.json"
+    },
+    {
+      "suite": "enemy_drones",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.47,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-regression-validation.json"
+    },
+    {
+      "suite": "rewards",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.645,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-regression-validation.json"
+    },
+    {
+      "suite": "reward_flow",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.931,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-regression-validation.json"
+    },
+    {
+      "suite": "map",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.302,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-regression-validation.json"
+    },
+    {
+      "suite": "missions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.752,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-regression-validation.json"
+    },
+    {
+      "suite": "camera_stability_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.607,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-regression-validation.json"
+    },
+    {
+      "suite": "mineral_erosion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.447,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-regression-validation.json"
+    },
+    {
+      "suite": "chasm_collision",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.291,
+      "isolated_user_data": true,
+      "source_report": "artifacts/polish-regression-validation.json"
+    }
+  ],
+  "passed": true
+}

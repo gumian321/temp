@@ -55,14 +55,17 @@ func execute():
   for control in controls:
    if not control.visible:continue
    var rect=control.get_global_rect()
+   if not viewport.encloses(rect) or rect.end.y>100:print("HUD geometry outside band: ",control.name," ",rect)
    good=good and viewport.encloses(rect) and rect.end.y<=100
    area+=rect.get_area()
    for child in control.get_children():
     if (child is Label or child is TextureRect) and child.visible:
+     if not rect.encloses(child.get_global_rect()):print("HUD child overflow: ",control.name," ",rect," child ",child.get_global_rect())
      good=good and viewport.encloses(child.get_global_rect()) and rect.encloses(child.get_global_rect())
   for left in range(controls.size()):
    for right in range(left+1,controls.size()):
     if controls[left].visible and controls[right].visible:
+     if controls[left].get_global_rect().intersects(controls[right].get_global_rect()):print("HUD overlap: ",controls[left].name," ",controls[left].get_global_rect()," and ",controls[right].name," ",controls[right].get_global_rect())
      good=good and not controls[left].get_global_rect().intersects(controls[right].get_global_rect())
   good=good and area<viewport.get_area()*.06
   var backing_area=0.0

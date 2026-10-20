@@ -96,7 +96,7 @@ func step(body, dt: float):
 				if tangent.length_squared()<0.001: tangent=Vector2(pose.direction)
 				var target: Vector2 = leader-tangent*body.body_spacing
 				var delta: Vector2 = target-Vector2(pose.point)
-				pose.point += delta.limit_length(720.0*dt) * minf(1.0,local_age/0.25)
+				pose.point = body.ground_position(pose.point,pose.point+delta.limit_length(720.0*dt)*minf(1.0,local_age/0.25),27.0)
 				pose.direction = Vector2.from_angle(lerp_angle(Vector2(pose.direction).angle(),tangent.angle(),1.0-exp(-12.0*dt)))
 				group.parts[i].position = pose.point
 			if local_age < 0.75 or absf(Vector2(pose.point).distance_to(leader)-body.body_spacing)>0.01: complete = false

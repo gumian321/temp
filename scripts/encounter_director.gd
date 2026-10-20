@@ -84,6 +84,8 @@ func place_markers():
 	var head: Vector2 = current().player.head
 	markers.append(head + Vector2.from_angle(angle) * 520)
 	if event_type == "charger": markers.append(head + Vector2.from_angle(angle + PI * 0.85) * 560)
+	if current().combat.terrain!=null:
+		for i in markers.size(): markers[i]=current().combat.terrain.safe_position(markers[i],32.0)
 
 func step(dt: float):
 	var run = current()
@@ -143,6 +145,8 @@ func spawn_special(kind: String, at: Vector2) -> Dictionary:
 	e.hp = float({"charger": 110, "broodmother": 165, "treasure": 95, "hatchling": 18}[kind]) * run.combat.health_modifier * (1 + minf(run.heat, 1) * 0.6)
 	e.max_hp = e.hp
 	e.radius = float({"charger": 22, "broodmother": 32, "treasure": 24, "hatchling": 12}[kind])
+	e.ground_radius=e.radius
+	run.combat.move_actor(e,e.position)
 	e.angle = at.direction_to(run.player.head).angle()
 	e.encounter_phase = "approach"
 	e.phase_left = 0.0
@@ -159,7 +163,7 @@ func move_actor(e: Dictionary, dt: float) -> bool:
 	var battle = run.combat
 	var player = run.player
 	var start: Vector2 = e.position
-	var toward = start.direction_to(player.head)
+	var toward = battle.ground_direction(e,player.head)
 	var distance = start.distance_to(player.head)
 	var movement = battle.insect_control_system.movement_factor(e, dt)
 	e.contact_left = maxf(0, float(e.contact_left) - dt)
@@ -168,7 +172,7 @@ func move_actor(e: Dictionary, dt: float) -> bool:
 			match str(e.encounter_phase):
 				"approach":
 					e.angle = toward.angle()
-					if distance <= 390:
+					if distance <= 390 and (battle.terrain==null or battle.terrain.clear_segment(start,player.head,e.radius)):
 						e.encounter_phase = "windup"; e.phase_left = 0.85
 						e.charge_direction = toward; e.charge_hit = false
 					else: e.position += toward * 115 * movement * dt
@@ -177,7 +181,7 @@ func move_actor(e: Dictionary, dt: float) -> bool:
 					if e.phase_left <= 0: e.encounter_phase = "dash"; e.phase_left = 0.55
 				"dash":
 					var travel = minf(dt, maxf(0, e.phase_left))
-					e.position += Vector2(e.charge_direction) * 640 * movement * travel
+					battle.move_actor(e,Vector2(e.position)+Vector2(e.charge_direction)*640*movement*travel)
 					if not e.charge_hit:
 						for i in range(player.parts.size()):
 							var part: Dictionary = player.parts[i]
@@ -196,6 +200,7 @@ func move_actor(e: Dictionary, dt: float) -> bool:
 			var escape = -toward if distance < 720 else toward.orthogonal()
 			if escape.is_zero_approx(): escape = Vector2.RIGHT
 			var direction = escape.rotated(sin(e.age * 2.8) * 0.5)
+			direction=battle.ground_direction(e,start+direction*600)
 			e.position += direction * 105 * movement * dt
 			e.angle = direction.angle()
 		"broodmother":
@@ -209,7 +214,7 @@ func move_actor(e: Dictionary, dt: float) -> bool:
 					battle.fire(core, e.position, toward.rotated(spread), false, {}, e.damage_modifier * 0.65 - 1, true, 0, 1.0, "enemy:" + str(e.uid))
 		"hatchling":
 			e.angle = toward.angle()
-			e.position += toward * 150 * movement * dt
+			battle.move_actor(e,Vector2(e.position)+toward*150*movement*dt)
 			if e.contact_left <= 0:
 				for i in range(player.parts.size()):
 					if player.parts[i].hp > 0 and not player.parts[i].get("cloaked", false) and Vector2(e.position).distance_to(player.parts[i].position) < e.radius + player.collision_radius(i):

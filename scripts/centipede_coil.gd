@@ -73,9 +73,15 @@ func advance(body, dt: float):
 		var delay = FOLLOW_DELAY * float(ordinal) / maxf(1, order.size() - 1)
 		var progress = clampf((elapsed / duration() - delay) / (1.0 - delay), 0, 1)
 		var eased = smoothstep(0, 1, progress)
+		if body.terrain!=null: goal[ordinal]=body.terrain.safe_position(goal[ordinal],27.0)
 		var desired: Vector2 = (body.head + Vector2(source[uid].point)).lerp(goal[ordinal], eased)
 		var old: Vector2 = Vector2(current[uid].point) + translation
 		var point = old.move_toward(desired, max_speed * dt)
+		if body.terrain!=null:
+			var from: Vector2 = current[uid].point
+			if not body.terrain.clear_segment(from,desired,27.0):
+				point=from+body.terrain.direction(from,desired,27.0,p)*minf(from.distance_to(desired),max_speed*dt)
+			point=body.ground_position(from,point,27.0)
 		var leader: Vector2 = body.head if ordinal == 0 else surviving[int(body.parts[order[ordinal - 1]].feedback_uid)].point
 		var direction = point.direction_to(leader)
 		if direction.is_zero_approx(): direction = body.facing

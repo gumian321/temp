@@ -1,0 +1,253 @@
+{
+  "captures": [
+    "C:/Users/lvan/AppData/Local/Temp/centipede-windows-build-216uidzy/verification/roaming/Godot/app_userdata/Run Build Pew! — Centipede/review-01-debug-button.png",
+    "C:/Users/lvan/AppData/Local/Temp/centipede-windows-build-216uidzy/verification/roaming/Godot/app_userdata/Run Build Pew! — Centipede/review-02-all-unlocked.png",
+    "C:/Users/lvan/AppData/Local/Temp/centipede-windows-build-216uidzy/verification/roaming/Godot/app_userdata/Run Build Pew! — Centipede/review-05-home-full-unlock.png",
+    "C:/Users/lvan/AppData/Local/Temp/centipede-windows-build-216uidzy/verification/roaming/Godot/app_userdata/Run Build Pew! — Centipede/review-03-centipede.png",
+    "C:/Users/lvan/AppData/Local/Temp/centipede-windows-build-216uidzy/verification/roaming/Godot/app_userdata/Run Build Pew! — Centipede/review-04-fusion-centipede.png",
+    "C:/Users/lvan/AppData/Local/Temp/centipede-windows-build-216uidzy/verification/roaming/Godot/app_userdata/Run Build Pew! — Centipede/review-03-spider.png",
+    "C:/Users/lvan/AppData/Local/Temp/centipede-windows-build-216uidzy/verification/roaming/Godot/app_userdata/Run Build Pew! — Centipede/review-04-fusion-spider.png"
+  ],
+  "checks": [
+    {
+      "name": "Test runs in actual exported Windows executable",
+      "passed": true
+    },
+    {
+      "name": "Fresh executable opens directly at home",
+      "passed": true
+    },
+    {
+      "name": "Fresh colleague profile starts with normal roster",
+      "passed": true
+    },
+    {
+      "name": "Actual home Nest button opens character screen",
+      "passed": true
+    },
+    {
+      "name": "Nest displays only Centipede and Spider",
+      "passed": true
+    },
+    {
+      "name": "Two character cards are centered",
+      "passed": true
+    },
+    {
+      "name": "Debug unlock button is visible",
+      "passed": true
+    },
+    {
+      "name": "Renderer produced review-01-debug-button",
+      "passed": true
+    },
+    {
+      "name": "Saved review-01-debug-button",
+      "passed": true
+    },
+    {
+      "name": "Failed debug save keeps roster locked and displays error",
+      "passed": true
+    },
+    {
+      "name": "Real mouse click unlocks both playable characters",
+      "passed": true
+    },
+    {
+      "name": "Button preserves all unrelated profile progress",
+      "passed": true
+    },
+    {
+      "name": "Unlocked characters reload from saved file",
+      "passed": true
+    },
+    {
+      "name": "Repeated button clicks are safe",
+      "passed": true
+    },
+    {
+      "name": "Renderer produced review-02-all-unlocked",
+      "passed": true
+    },
+    {
+      "name": "Saved review-02-all-unlocked",
+      "passed": true
+    },
+    {
+      "name": "Debug button fits viewport (1280, 720)",
+      "passed": true
+    },
+    {
+      "name": "Debug button does not cover character cards (1280, 720)",
+      "passed": true
+    },
+    {
+      "name": "Debug button fits viewport (1440, 900)",
+      "passed": true
+    },
+    {
+      "name": "Debug button does not cover character cards (1440, 900)",
+      "passed": true
+    },
+    {
+      "name": "Shipped home exposes the new full-unlock Debug button",
+      "passed": true
+    },
+    {
+      "name": "Renderer produced review-05-home-full-unlock",
+      "passed": true
+    },
+    {
+      "name": "Saved review-05-home-full-unlock",
+      "passed": true
+    },
+    {
+      "name": "Actual EXE home button unlocks every evolution tier",
+      "passed": true
+    },
+    {
+      "name": "Actual EXE home button unlocks and enables every skill reward",
+      "passed": true
+    },
+    {
+      "name": "Full unlock includes every playable character",
+      "passed": true
+    },
+    {
+      "name": "Full unlock persists in an independently reloaded EXE profile",
+      "passed": true
+    },
+    {
+      "name": "Mouse selects centipede",
+      "passed": true
+    },
+    {
+      "name": "Selection persists: centipede",
+      "passed": true
+    },
+    {
+      "name": "Deploy from Nest opens expeditions for centipede",
+      "passed": true
+    },
+    {
+      "name": "Actual launch button starts centipede",
+      "passed": true
+    },
+    {
+      "name": "Correct mount capacity for centipede",
+      "passed": true
+    },
+    {
+      "name": "Space activates centipede skill",
+      "passed": true
+    },
+    {
+      "name": "Centipede coils",
+      "passed": true
+    },
+    {
+      "name": "Renderer produced review-03-centipede",
+      "passed": true
+    },
+    {
+      "name": "Saved review-03-centipede",
+      "passed": true
+    },
+    {
+      "name": "Actual EXE automatically opens earned three-choice reward: centipede",
+      "passed": true
+    },
+    {
+      "name": "Three-choice reward pauses combat in exported game: centipede",
+      "passed": true
+    },
+    {
+      "name": "Exported native drag fuses mounted elements: centipede",
+      "passed": true
+    },
+    {
+      "name": "Exported fusion increases attack and leaves assembly open: centipede",
+      "passed": true
+    },
+    {
+      "name": "Exported evolved segment renders two flagella: centipede",
+      "passed": true
+    },
+    {
+      "name": "Renderer produced review-04-fusion-centipede",
+      "passed": true
+    },
+    {
+      "name": "Saved review-04-fusion-centipede",
+      "passed": true
+    },
+    {
+      "name": "Mouse selects spider",
+      "passed": true
+    },
+    {
+      "name": "Selection persists: spider",
+      "passed": true
+    },
+    {
+      "name": "Deploy from Nest opens expeditions for spider",
+      "passed": true
+    },
+    {
+      "name": "Actual launch button starts spider",
+      "passed": true
+    },
+    {
+      "name": "Correct mount capacity for spider",
+      "passed": true
+    },
+    {
+      "name": "Space activates spider skill",
+      "passed": true
+    },
+    {
+      "name": "Spider connects enemy with silk",
+      "passed": true
+    },
+    {
+      "name": "Renderer produced review-03-spider",
+      "passed": true
+    },
+    {
+      "name": "Saved review-03-spider",
+      "passed": true
+    },
+    {
+      "name": "Actual EXE automatically opens earned three-choice reward: spider",
+      "passed": true
+    },
+    {
+      "name": "Three-choice reward pauses combat in exported game: spider",
+      "passed": true
+    },
+    {
+      "name": "Exported native drag fuses mounted elements: spider",
+      "passed": true
+    },
+    {
+      "name": "Exported fusion increases attack and leaves assembly open: spider",
+      "passed": true
+    },
+    {
+      "name": "Exported evolved segment renders two flagella: spider",
+      "passed": true
+    },
+    {
+      "name": "Renderer produced review-04-fusion-spider",
+      "passed": true
+    },
+    {
+      "name": "Saved review-04-fusion-spider",
+      "passed": true
+    }
+  ],
+  "exported": true,
+  "passed": true,
+  "renderer": "Windows",
+  "user_data": "C:/Users/lvan/AppData/Local/Temp/centipede-windows-build-216uidzy/verification/roaming/Godot/app_userdata/Run Build Pew! — Centipede"
+}

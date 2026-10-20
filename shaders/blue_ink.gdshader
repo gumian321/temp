@@ -1,5 +1,6 @@
 shader_type canvas_item;
 render_mode unshaded;
+#include "res://shaders/charcoal_palette.gdshaderinc"
 uniform bool ui_surface = false;
 varying vec4 ink_modulate;
 void vertex() { ink_modulate = COLOR; }
@@ -20,5 +21,5 @@ void fragment() {
 	vec3 result = mix(paper, ink, shade);
 	// Painted blue ink and code-drawn ink lines retain their own line weights.
 	if (!ui_surface && raw.b > raw.r * 1.18 && raw.r < 0.55 && raw.g < 0.52 && raw.b < 0.85) { result = raw; }
-	COLOR = vec4(result, tex.a * ink_modulate.a);
+	COLOR = vec4(charcoal_pigment(result), tex.a * ink_modulate.a);
 }

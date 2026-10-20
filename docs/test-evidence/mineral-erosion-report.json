@@ -1,0 +1,238 @@
+{
+	"checks": [
+		{
+			"name": "Mineral has no HP bar, variant 0",
+			"passed": true
+		},
+		{
+			"name": "Swept hit finds visible front face, variant 0",
+			"passed": true
+		},
+		{
+			"name": "Damage removes corresponding material area, variant 0",
+			"passed": true
+		},
+		{
+			"name": "Damage cannot alter another mineral or the source atlas",
+			"passed": true
+		},
+		{
+			"name": "Next impact advances into the chipped face",
+			"passed": true
+		},
+		{
+			"name": "Healing never regrows removed material",
+			"passed": true
+		},
+		{
+			"name": "Further damage only removes material",
+			"passed": true
+		},
+		{
+			"name": "Automatic weapons target surviving material instead of an empty center",
+			"passed": true
+		},
+		{
+			"name": "Rendered alpha and collision agree for every pixel",
+			"passed": true
+		},
+		{
+			"name": "Fractional surviving HP retains hittable material",
+			"passed": true
+		},
+		{
+			"name": "Fast zero-radius sweep hits even the final single-pixel fragment",
+			"passed": true
+		},
+		{
+			"name": "Destroyed mineral has no phantom collision",
+			"passed": true
+		},
+		{
+			"name": "Mineral has no HP bar, variant 1",
+			"passed": true
+		},
+		{
+			"name": "Swept hit finds visible front face, variant 1",
+			"passed": true
+		},
+		{
+			"name": "Damage removes corresponding material area, variant 1",
+			"passed": true
+		},
+		{
+			"name": "Damage cannot alter another mineral or the source atlas",
+			"passed": true
+		},
+		{
+			"name": "Next impact advances into the chipped face",
+			"passed": true
+		},
+		{
+			"name": "Healing never regrows removed material",
+			"passed": true
+		},
+		{
+			"name": "Further damage only removes material",
+			"passed": true
+		},
+		{
+			"name": "Automatic weapons target surviving material instead of an empty center",
+			"passed": true
+		},
+		{
+			"name": "Rendered alpha and collision agree for every pixel",
+			"passed": true
+		},
+		{
+			"name": "Fractional surviving HP retains hittable material",
+			"passed": true
+		},
+		{
+			"name": "Fast zero-radius sweep hits even the final single-pixel fragment",
+			"passed": true
+		},
+		{
+			"name": "Destroyed mineral has no phantom collision",
+			"passed": true
+		},
+		{
+			"name": "Mineral has no HP bar, variant 2",
+			"passed": true
+		},
+		{
+			"name": "Swept hit finds visible front face, variant 2",
+			"passed": true
+		},
+		{
+			"name": "Damage removes corresponding material area, variant 2",
+			"passed": true
+		},
+		{
+			"name": "Damage cannot alter another mineral or the source atlas",
+			"passed": true
+		},
+		{
+			"name": "Next impact advances into the chipped face",
+			"passed": true
+		},
+		{
+			"name": "Healing never regrows removed material",
+			"passed": true
+		},
+		{
+			"name": "Further damage only removes material",
+			"passed": true
+		},
+		{
+			"name": "Automatic weapons target surviving material instead of an empty center",
+			"passed": true
+		},
+		{
+			"name": "Rendered alpha and collision agree for every pixel",
+			"passed": true
+		},
+		{
+			"name": "Fractional surviving HP retains hittable material",
+			"passed": true
+		},
+		{
+			"name": "Fast zero-radius sweep hits even the final single-pixel fragment",
+			"passed": true
+		},
+		{
+			"name": "Destroyed mineral has no phantom collision",
+			"passed": true
+		},
+		{
+			"name": "Mineral has no HP bar, variant 3",
+			"passed": true
+		},
+		{
+			"name": "Swept hit finds visible front face, variant 3",
+			"passed": true
+		},
+		{
+			"name": "Damage removes corresponding material area, variant 3",
+			"passed": true
+		},
+		{
+			"name": "Damage cannot alter another mineral or the source atlas",
+			"passed": true
+		},
+		{
+			"name": "Next impact advances into the chipped face",
+			"passed": true
+		},
+		{
+			"name": "Healing never regrows removed material",
+			"passed": true
+		},
+		{
+			"name": "Further damage only removes material",
+			"passed": true
+		},
+		{
+			"name": "Automatic weapons target surviving material instead of an empty center",
+			"passed": true
+		},
+		{
+			"name": "Rendered alpha and collision agree for every pixel",
+			"passed": true
+		},
+		{
+			"name": "Fractional surviving HP retains hittable material",
+			"passed": true
+		},
+		{
+			"name": "Fast zero-radius sweep hits even the final single-pixel fragment",
+			"passed": true
+		},
+		{
+			"name": "Destroyed mineral has no phantom collision",
+			"passed": true
+		},
+		{
+			"name": "Erosion and chips consume no combat RNG",
+			"passed": true
+		},
+		{
+			"name": "Localized erosion opens a bullet-sized passage through original material",
+			"passed": true
+		},
+		{
+			"name": "Actual bullet passes through removed material and damages target behind",
+			"passed": true
+		},
+		{
+			"name": "Shield-absorbed hit leaves the mineral intact",
+			"passed": true
+		},
+		{
+			"name": "Explosion splash removes material on neighboring mineral",
+			"passed": true
+		},
+		{
+			"name": "Sustained black-hole damage also erodes material",
+			"passed": true
+		},
+		{
+			"name": "Spatial index encloses full sprite rather than the old small circle",
+			"passed": true
+		},
+		{
+			"name": "Thirty simultaneous quarter-rock cuts finish within bounded CPU work",
+			"passed": true
+		},
+		{
+			"name": "Automatic mining destroys all remaining fragments and records one mined rock",
+			"passed": true
+		},
+		{
+			"name": "Full mining preserves the original total resource reward",
+			"passed": true
+		}
+	],
+	"passed": true,
+	"thirty_cuts_ms": 158.928
+}

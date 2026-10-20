@@ -77,7 +77,7 @@ func advance(dt: float, battle):
 			var delta = Vector2(c.origin) - Vector2(e.position)
 			# Stop outside contact range; cumulative distance remains capped even if the source moves.
 			var distance = minf(minf(PULL_SPEED*covered,c.remaining_pull),maxf(0,delta.length()-maxf(48,float(e.get("radius",14))+24)))
-			e.position += delta.normalized()*distance
+			battle.move_actor(e,Vector2(e.position)+delta.normalized()*distance)
 			if distance>0:preload("res://scripts/soft_insect.gd").pull(e,delta,distance/covered,covered)
 			c.remaining_pull -= distance
 		var struggle=preload("res://scripts/soft_insect.gd").struggle(e.get("soft_body",{}))

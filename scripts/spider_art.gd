@@ -1,7 +1,7 @@
 extends RefCounted
 ## Generated raster carapace, countable armor modules, and eight permanent claws.
 static var pieces: Dictionary = {}
-const ATLAS_PATH = "res://assets/characters/spider_segmented_parts.png"
+const ATLAS_PATH = "res://assets/charcoal_ink/spider_segmented_parts.png"
 const Feedback=preload("res://scripts/segment_feedback.gd")
 const REGIONS = {
 	"body": Rect2(50, 60, 1155, 615),

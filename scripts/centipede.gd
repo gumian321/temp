@@ -19,6 +19,14 @@ func attack_boost(index: int, core: Dictionary) -> float:
 	return (1.0 + stats.get("14" if index == 0 else "15", 0.0) + upgrade_bonus(core.id, "DamagePercent")) * fusion_multiplier(index) - 1.0
 
 var db
+var terrain
+
+func ground_position(start: Vector2, desired: Vector2, radius: float) -> Vector2:
+	return terrain.move(start,desired,radius) if terrain!=null else desired
+
+func move_head(desired: Vector2):
+	head = ground_position(head,desired,collision_radius(0))
+
 var head = Vector2.ZERO
 var velocity = Vector2.ZERO
 var facing = Vector2.RIGHT
@@ -282,7 +290,7 @@ func step(dt: float, direction: Vector2, wants_boost: bool):
 	if velocity.length() > 0.1:
 		facing = Vector2.from_angle(rotate_toward(facing.angle(), velocity.angle(), 12.0 * dt))
 	if velocity.length() > 0.1:
-		head += velocity * dt
+		move_head(head + velocity * dt)
 		if history[0].distance_to(head) >= 3.0:
 			history.push_front(head)
 			if history.size() > 2400:

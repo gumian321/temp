@@ -1,0 +1,155 @@
+{
+  "suites": [
+    {
+      "suite": "mineral_erosion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.41,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "mineral_erosion_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.671,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "main_autofire",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.969,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "main_autofire_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.183,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "weapon_readability",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.72,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "contact_impacts",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.609,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "combat_spatial",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.247,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "enemy_health",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.145,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "enemy_health_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 11.276,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "specials",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.733,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "shields",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.605,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "drones",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.599,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "enemy_drones",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.622,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chasm_collision",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.157,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chasm_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.354,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

@@ -1,0 +1,45 @@
+黑白排线美术接入 — 2026-10-19
+
+依据
+以用户更正后的第二张参考图 22abc57fe47625b1a4fe928a6a130d3e8a79693f445a82877eb77740857f09b1.png 为准。
+原参考图存于 assets/charcoal_ink/reference.png。第一次提供的橄榄色骨网效果已经弃用。
+用户补充要求：武器与子弹保留原色。
+
+实现
+通过内置 image_gen 生成 8 张 PNG：ground、rocks、chasm、panel、centipede_parts、centipede_leg_links、centipede_tail_reference、spider_segmented_parts。
+PNG 原样保存，未进行离线重绘；游戏通过图集区域、关节变换及九宫格面板绘制。启用 mipmaps 降低缩小时细线闪烁。
+地面使用中性炭灰和稀疏黑色裂纹；岩石使用空洞轮廓、白色硬块面和交叉排线；HUD 使用黑底白色甲壳边框、粉红提示。
+蜈蚣、蜘蛛保留原关节和运动实现。其他旧敌人外壳通过局部材质映射到黑白色调。
+装配页同步改为中性深灰底、白色文字和粉红交互提示。
+武器仍引用 assets/ui_overhaul/armaments_atlas_*.png；没有替换武器图集或修改弹道、颜色和攻击特效代码。
+没有给主战斗画布或装配角色画布加全局灰度滤镜；彩色武器和子弹独立保留原显示路径。
+后续根据用户要求，大块地裂已加入固定世界坐标的阻挡，详见 CHASM_COLLISION_20261019.txt。岩石仍沿用原图的显示尺度与原碰撞半径。
+
+运行与范围
+双击工程根目录“启动蜈蚣中文版.cmd”，会先导入资源再启动 Godot 游戏。
+本次更新源工程，未重新导出 Windows 独立 EXE。
+这是已接入可运行场景的风格版本，不是把参考图整张覆盖到游戏画面。
+菜单和其他界面沿用现有布局；未重绘全部结算评级插画。
+
+验证
+使用 Godot 4.6.3、原生 OpenGL 渲染。测试使用独立临时存档目录。
+charcoal_scene：真实主场景开局、布置的参考展示状态、装配页、1280x720 和 1920x1080 布局，透明通道、障碍碰撞半径不变及地裂位置稳定。
+battle_hud：实时血量/燃料/计数、三个分辨率的控件边界、无重叠和按钮交互；修复顶部计数区与威胁读数的几何重叠。
+spider_visibility_scene：真实主场景的蜘蛛外壳、八条腿和模块可见性，对比隐藏身体纹理前后的像素。
+weapon_readability、hostile_readability：敌我弹方向、颜色显示路径、命中行为及不同缩放下的辨识。
+centipede_motion：原运动逻辑回归。
+camera_stability_scene、enemy_health_scene：移动镜头、原生渲染层与敌人血条显示回归。
+上述 8 项最终结果全部通过；此前 HUD 重叠失败已修复并复测。
+最终报告：docs/test-evidence/charcoal-final-validation.json。
+本机 Godot 有证书存储读取警告，已记录在测试日志；上述本地渲染/玩法测试不使用 TLS。
+
+预览（artifacts 目录为本地生成，不纳入 Git）
+artifacts/charcoal-reference-scene.png：实际主场景的布置展示，包含多个已装备体节和遭遇提示。
+artifacts/charcoal-fresh-run.png：真实新开局。
+artifacts/charcoal-assembly.png：装配页，可查看原色武器。
+artifacts/spider-visible-default-two-towers.png：蜘蛛装配后的主场景。
+artifacts/hostile-bullets-comparison.png：敌我弹原色及缩放对照。
+
+提示词和来源
+assets/charcoal_ink/GENERATION.txt：场景、岩石、HUD、头部及体节。
+assets/charcoal_ink/BODY_GENERATION.txt：腿、尾部、蜘蛛图集。

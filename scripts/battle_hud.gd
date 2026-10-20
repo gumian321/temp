@@ -1,12 +1,13 @@
 extends Control
-## Edge-aligned neon glass instruments. Cached local plates keep the field clear.
+## Ink-black instruments framed by generated chalk chitin.
 const UI=preload("res://scripts/game_ui.gd")
+const CharcoalArt=preload("res://scripts/charcoal_art.gd")
 const EncounterArt=preload("res://scripts/encounter_art.gd")
-const INK=Color("f5efff")
-const QUIET=Color("b1a5c4")
-const PAPER=Color("160b1e")
-const TEAL=Color("ff2d95")
-const AMBER=Color("ffbe85")
+const INK=Color("efede4")
+const QUIET=Color("aba9a3")
+const PAPER=Color("080808")
+const TEAL=Color("ff1764")
+const AMBER=Color("d7d3c7")
 const ALERT=Color("ff6c89")
 var game
 var health
@@ -97,7 +98,7 @@ func setup(owner_game):
  build_button=ArmoryButton.new();add_child(build_button);build_button.size=Vector2(60,42);build_button.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND;build_button.pressed.connect(game.show_build);build_button.tooltip_text=tr_text("武装 [E]","Armory [E]")
  for state in ["normal","hover","pressed","focus","disabled","hover_pressed"]:
   var style=compact_skin()
-  style.bg_color=Color("160b1e",0.90) if state=="normal" else Color("48203e",0.96)
+  style.bg_color=Color("080808",0.94) if state=="normal" else Color("36202a",0.96)
   style.border_color=Color(TEAL,0.6 if state=="normal" else 1.0)
   style.content_margin_left=0;style.content_margin_right=0;style.content_margin_top=0;style.content_margin_bottom=0
   build_button.add_theme_stylebox_override(state,style)
@@ -120,40 +121,40 @@ func meter(symbol:String,tint:Color,dimensions:Vector2):
 func layout_hud():
  mission.position=Vector2(66,18);mission.size=Vector2(190,18)
  health.position=Vector2(20,38);fuel.position=Vector2(66,76)
- timer.position=Vector2(size.x/2-100,18);timer.size=Vector2(200,32)
- danger.position=Vector2(size.x/2-68,54)
- counters.position=Vector2(size.x/2-95,78);counters.size=Vector2(190,19)
+ timer.position=Vector2(size.x/2-100,12);timer.size=Vector2(200,36)
+ danger.position=Vector2(size.x/2-68,48)
+ counters.position=Vector2(size.x/2-95,71);counters.size=Vector2(190,23)
  modules.position=Vector2(size.x-284,34);drones.position=Vector2(size.x-182,34)
  build_button.position=Vector2(size.x-74,28)
- radar_label.position=Vector2(size.x-202,size.y-257);radar_label.size=Vector2(170,18)
- skill_icon.position=Vector2(456,size.y-90);skill_label.position=Vector2(506,size.y-82);skill_label.size=Vector2(360,30)
- keys.position=Vector2(24,size.y-32);keys.size=Vector2(400,20)
+ radar_label.position=Vector2(size.x-182,size.y-257);radar_label.size=Vector2(142,18)
+ skill_icon.position=Vector2(size.x/2-204,size.y-90);skill_label.position=Vector2(size.x/2-154,size.y-82);skill_label.size=Vector2(340,30)
+ keys.position=Vector2(46,size.y-32);keys.size=Vector2(350,20)
  streak_label.position=Vector2(24,114);streak_label.size=Vector2(284,28)
  streak_detail.position=Vector2(24,147);streak_detail.size=Vector2(284,20)
  encounter_label.position=Vector2(size.x/2-224,113);encounter_label.size=Vector2(448,25)
  encounter_hint.position=Vector2(size.x/2-224,141);encounter_hint.size=Vector2(448,20)
- supplies.position=Vector2(size.x-310,89);supplies.size=Vector2(292,24)
+ supplies.position=Vector2(size.x-290,89);supplies.size=Vector2(252,24)
  queue_redraw()
 func rail_skin()->StyleBoxFlat:
- var skin=UI.flat_style(Color("160b1e",0.90),Color(TEAL,0.52),26)
+ var skin=UI.flat_style(Color("080808",0.94),Color(INK,0.7),8)
  skin.shadow_color=Color("090510",0.28);skin.shadow_size=4;skin.shadow_offset=Vector2(0,2)
  return skin
 func compact_skin()->StyleBoxFlat:
- return UI.flat_style(Color("160b1e",0.90),Color(TEAL,0.6),18)
-func plate(rect:Rect2):
- draw_texture_rect(EncounterArt.decal("hud_plate"),rect,false)
+ return UI.flat_style(Color("080808",0.94),Color(INK,0.7),8)
+func plate(rect:Rect2,alert:bool=false):
+ draw_style_box(CharcoalArt.panel_skin(alert,rect.size.y<=40),rect)
 func instrument_backings()->Array[Rect2]:
  return [Rect2(12,10,270,88),Rect2(size.x/2-109,10,218,88),Rect2(size.x-306,22,296,56)]
 func _draw():
  if not is_instance_valid(fuel):return
  for rect in instrument_backings():plate(rect)
- plate(Rect2(444,size.y-98,432,64))
+ plate(Rect2(size.x/2-216,size.y-98,432,64))
  plate(Rect2(12,size.y-39,414,32))
  plate(Rect2(size.x-212,size.y-261,192,28))
  if is_instance_valid(streak_label) and streak_label.visible:
   plate(Rect2(12,106,308,68))
   if streak_fill>0:draw_texture_rect(EncounterArt.decal("charge_lane"),Rect2(24,141,284*streak_fill,5),false,AMBER)
- if is_instance_valid(encounter_label) and encounter_label.visible:plate(Rect2(size.x/2-236,106,472,62))
+ if is_instance_valid(encounter_label) and encounter_label.visible:plate(Rect2(size.x/2-236,106,472,62),true)
  if is_instance_valid(supplies) and supplies.visible:plate(Rect2(size.x-316,84,304,32))
 
 

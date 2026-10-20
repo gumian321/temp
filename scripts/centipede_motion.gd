@@ -37,7 +37,7 @@ func ensure_length(body):
 	# advances followers in advance(), rather than translating them with the head.
 	var relocation: Vector2 = body.head - anchor
 	if relocation.length_squared() > 0.000001:
-		for i in centers.size(): centers[i] += relocation
+		for i in centers.size(): centers[i] = body.ground_position(centers[i],centers[i]+relocation,27.0)
 	anchor = body.head
 	while spine.size() < body.segment_count():
 		var angle = body.facing.angle() if spine.is_empty() else spine.back()
@@ -45,7 +45,8 @@ func ensure_length(body):
 		route.append(angle)
 		orientations.append(angle)
 		var leader: Vector2 = body.head if centers.is_empty() else centers.back()
-		centers.append(leader - Vector2.from_angle(angle) * body.body_spacing)
+		var point = leader - Vector2.from_angle(angle) * body.body_spacing
+		centers.append(body.ground_position(leader,point,27.0))
 
 func step(body, dt: float, direction: Vector2, speed: float):
 	ensure_length(body)
@@ -79,7 +80,7 @@ func advance(body, dt: float, direction: Vector2, speed: float):
 	body.velocity = body.facing * current_speed
 	body.input_velocity = body.velocity / maxf(speed, 1.0)
 	body.engine_power = speed
-	body.head += body.velocity * dt
+	body.move_head(body.head + body.velocity * dt)
 	if current_speed > 0.001:
 		record_trail(body)
 	activity = move_toward(activity, current_speed / maxf(speed, 1.0), dt * 5.0)
@@ -90,7 +91,7 @@ func advance(body, dt: float, direction: Vector2, speed: float):
 		# down the body instead of every shell rebuilding from head-relative angles.
 		var tangent: Vector2 = centers[i].direction_to(leader)
 		var next = tangent.angle()
-		centers[i] = leader - Vector2.from_angle(next) * body.body_spacing
+		centers[i] = body.ground_position(centers[i],leader - Vector2.from_angle(next) * body.body_spacing,27.0)
 		spine[i] = next
 		route[i] = next
 		leader = centers[i]
@@ -127,6 +128,8 @@ func poses(body) -> Array:
 		var onset = smoothstep(0.0, 3.0, float(i + 1))
 		var wave = sin(phase - (i + 1) * 0.9) * lerpf(0.045, 0.075, activity) * onset * smoothstep(0.0, 0.4, elapsed)
 		point -= Vector2.from_angle(spine[i]+wave)*body.body_spacing
+		if body.terrain!=null:
+			point=body.ground_position(centers[i],point,27.0)
 		var angle = previous+clampf(angle_difference(previous,orientations[i]+wave),-0.82,0.82)
 		var direction = Vector2.from_angle(angle)
 		result.append({"point": point, "direction": direction})

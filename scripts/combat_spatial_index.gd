@@ -1,6 +1,7 @@
 extends RefCounted
 ## Frame-local broad phase. Keep dead actors and array order: splash and ties depend on both.
 const CELL = 256.0
+const Mineral = preload("res://scripts/mineral_erosion.gd")
 var cells: Dictionary = {}
 var actors: Array = []
 var locations: Dictionary = {}
@@ -18,7 +19,7 @@ func rebuild(source: Array, db):
 	for i in source.size():
 		var e: Dictionary = source[i]
 		by_uid[e.uid] = i
-		max_radius = maxf(max_radius, float(e.radius))
+		max_radius = maxf(max_radius, Mineral.bounds_radius(e,db) if e.get("kind","")=="Asteroid" else float(e.radius))
 		if e.role == "friendly": allies.append(e)
 		for gun in e.guns:
 			if db.asset(gun.id).get("class") == "ShieldCore":

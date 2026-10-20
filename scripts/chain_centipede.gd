@@ -65,7 +65,7 @@ func step_flagella(dt: float):
 		if not is_head and level == 1: continue
 		var pose = segment_pose(int(part.segment)) if i > 0 else {"point": head, "direction": facing}
 		keys.append(int(part.feedback_uid))
-		flagella.step(int(part.feedback_uid), pose.point, Vector2(pose.direction).angle(), 2 if is_head else level, is_head, dt, motion.elapsed, velocity.length())
+		flagella.step(int(part.feedback_uid), pose.point, Vector2(pose.direction).angle(), 2 if is_head else Flagella.fusion_count(level), is_head, dt, motion.elapsed, velocity.length())
 	flagella.retain(keys)
 
 func configure_character(id: String):
@@ -163,7 +163,7 @@ func step(dt: float, direction: Vector2, wants_boost: bool):
 	engine_power = speed
 	if not rush_active and direction.length_squared() > 0.001:
 		facing = Vector2.from_angle(rotate_toward(facing.angle(), direction.angle(), dt * (3.0 if character_id == "beetle" else 7.0)))
-	head += velocity * dt
+	move_head(head + velocity * dt)
 	motion.elapsed += dt
 	motion.activity = move_toward(motion.activity, direction.length(), dt * 4)
 	if character_id == "spider": spider_rig.step(self, dt)

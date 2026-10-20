@@ -181,5 +181,5 @@ func step(dt: float):
 	for actor in battle.enemies:
 		if actor.get("orbit_speed",0) != 0:
 			actor.orbit_offset = Vector2(actor.orbit_offset).rotated(actor.orbit_speed*dt)
-			actor.position = actor.origin + actor.orbit_offset
+			battle.move_actor(actor,actor.origin+actor.orbit_offset)
 			actor.angle += actor.orbit_speed*dt

@@ -185,7 +185,7 @@ func paint(game):
 						var initial: Dictionary = active_snapshots.get(uid,{"legs":pose.get("legs",[]),"clock":fragment.get("visual_clock",0.0),"feelers":[]})
 						if initial.legs.is_empty(): initial.legs=Art.Legs.resting(-float(uid)*0.8)
 						if initial.feelers.is_empty() and int(part.get("fusion_level",1))>1:
-							initial.feelers=feeler_pose([],int(part.fusion_level),float(initial.clock),0.0)
+							initial.feelers=feeler_pose([],Art.Flagella.fusion_count(int(part.fusion_level)),float(initial.clock),0.0)
 						frozen_snapshots[key]=initial
 					retained_snapshots[key]=frozen_snapshots[key]
 					var at: Vector2 = game.world(Vector2(pose.point))
@@ -206,7 +206,7 @@ func paint(game):
 						"legs":leg_pose(snapshot.legs,-seed*0.8,wake_clock,activation),
 						"texture":game.db.core_sprite(core),"family":game.db.Armaments.variant(game.db,core),
 						"organ_angle":float(part.get("angle",angle))+PI*0.5+angle-float(part.get("body_angle",angle)),
-						"fused":level>1,"feelers":feeler_pose(snapshot.feelers,level,clock,activation) if level>1 else []
+						"fused":level>1,"feelers":feeler_pose(snapshot.feelers,Art.Flagella.fusion_count(level),clock,activation) if level>1 else []
 					}
 					if index>0: entry.previous=game.world(Vector2(poses[index-1].point))
 					ground.entries.append(entry);glow.entries.append(entry)

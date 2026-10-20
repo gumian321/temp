@@ -69,7 +69,7 @@ func execute():
 			var hp=float(victim.hp);b.hit_enemy(victim,friendly[0])
 			check(is_equal_approx(hp-victim.hp,base*pow(2.2,tier-1)),"Tier %d damage reaches enemy health"%tier)
 		for frame in 60:p.step(1.0/60,Vector2.RIGHT,false)
-		check(p.flagella.poses(int(evolved.feedback_uid)).size()==(tier if tier>1 else 0),"Tier %d has visible matching strand count"%tier)
+		check(p.flagella.poses(int(evolved.feedback_uid)).size()==2*(tier-1),"Tier %d adds one symmetric pair per fusion"%tier)
 		check(is_equal_approx(evolved.max_hp,float(db.asset(id).CoreHealth)*pow(1.6,tier-1)),"Tier %d health survives refresh"%tier)
 	for name in ["Core_Gun_Flame Thrower","Core_MinesField","Core_Drones_Attack"]:
 		var normal=measure_special(db,name,1)

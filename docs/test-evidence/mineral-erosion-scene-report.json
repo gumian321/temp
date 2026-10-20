@@ -1,0 +1,47 @@
+{
+	"captures": [
+		"res://artifacts/mineral-erosion-stages.png",
+		"res://artifacts/mineral-fracture-impact.png",
+		"res://artifacts/mineral-erosion-paused.png"
+	],
+	"checks": [
+		{
+			"name": "Native capture: erosion-stages",
+			"passed": true
+		},
+		{
+			"name": "Actual scene hides every mineral health bar",
+			"passed": true
+		},
+		{
+			"name": "Monster health bar remains visible",
+			"passed": true
+		},
+		{
+			"name": "Weapon and projectile canvas retains original colors",
+			"passed": true
+		},
+		{
+			"name": "Native capture: fracture-impact",
+			"passed": true
+		},
+		{
+			"name": "Further hit updates existing native texture after first upload",
+			"passed": true
+		},
+		{
+			"name": "Native capture: erosion-paused",
+			"passed": true
+		},
+		{
+			"name": "Pause, zoom and camera movement preserve every cut",
+			"passed": true
+		},
+		{
+			"name": "Native renderer uploads masks and clears dirty flag",
+			"passed": true
+		}
+	],
+	"passed": true,
+	"scope": "Actual gameplay renderer with staged damage; HP labels are test-only."
+}

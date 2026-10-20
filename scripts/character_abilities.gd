@@ -93,7 +93,7 @@ func update(dt: float):
 					var distance = player.head.distance_to(e.position)
 					# Silk remains taut at the hold distance: legs keep struggling against it.
 					preload("res://scripts/soft_insect.gd").pull(e,player.head-Vector2(e.position),125.0 if distance>90 else 75.0,dt)
-					if distance > 90: e.position = Vector2(e.position).move_toward(player.head, minf(125 * dt, distance - 90))
+					if distance > 90: combat.move_actor(e,Vector2(e.position).move_toward(player.head,minf(125*dt,distance-90)))
 				thread.position = e.position
 				var struggle=preload("res://scripts/soft_insect.gd").struggle(e.get("soft_body",{}))
 				Tether.step(thread.tether,player.head,e.position,.95,struggle,dt)
@@ -120,6 +120,7 @@ func finish():
 func advance_rush(dt: float):
 	var start: Vector2 = player.head
 	var end: Vector2 = start + rush_direction * 620 * dt
+	end=player.ground_position(start,end,player.collision_radius(0))
 	var candidates: Array = combat.enemies.filter(func(e): return e.hp > 0 and e.role != "friendly" and float(e.get("warp", 0)) <= 0 and not e.get("cloaked", false) and not e.get("despawn", false))
 	candidates.sort_custom(func(a,b): return start.distance_squared_to(a.position) < start.distance_squared_to(b.position))
 	for e in candidates:
@@ -135,6 +136,7 @@ func advance_rush(dt: float):
 			end = start
 			active = 0
 			break
+	# Already swept above, before testing contacts along the permitted travel.
 	player.head = end
 	player.velocity = rush_direction * 620
 	player.refresh_positions()

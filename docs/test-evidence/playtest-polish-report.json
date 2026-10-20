@@ -1,0 +1,221 @@
+{
+	"checks": [
+		{
+			"name": "Collector arrives and returns without orbiting: 30 FPS (3.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Delivered crystal is never re-reserved while waiting for run collection",
+			"passed": true
+		},
+		{
+			"name": "Collector arrives and returns without orbiting: 30 FPS (0.0, 90.0)",
+			"passed": true
+		},
+		{
+			"name": "Delivered crystal is never re-reserved while waiting for run collection",
+			"passed": true
+		},
+		{
+			"name": "Collector arrives and returns without orbiting: 30 FPS (-170.0, 50.0)",
+			"passed": true
+		},
+		{
+			"name": "Delivered crystal is never re-reserved while waiting for run collection",
+			"passed": true
+		},
+		{
+			"name": "Collector arrives and returns without orbiting: 30 FPS (270.0, -80.0)",
+			"passed": true
+		},
+		{
+			"name": "Delivered crystal is never re-reserved while waiting for run collection",
+			"passed": true
+		},
+		{
+			"name": "Collector arrives and returns without orbiting: 60 FPS (3.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Delivered crystal is never re-reserved while waiting for run collection",
+			"passed": true
+		},
+		{
+			"name": "Collector arrives and returns without orbiting: 60 FPS (0.0, 90.0)",
+			"passed": true
+		},
+		{
+			"name": "Delivered crystal is never re-reserved while waiting for run collection",
+			"passed": true
+		},
+		{
+			"name": "Collector arrives and returns without orbiting: 60 FPS (-170.0, 50.0)",
+			"passed": true
+		},
+		{
+			"name": "Delivered crystal is never re-reserved while waiting for run collection",
+			"passed": true
+		},
+		{
+			"name": "Collector arrives and returns without orbiting: 60 FPS (270.0, -80.0)",
+			"passed": true
+		},
+		{
+			"name": "Delivered crystal is never re-reserved while waiting for run collection",
+			"passed": true
+		},
+		{
+			"name": "Collector arrives and returns without orbiting: 120 FPS (3.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Delivered crystal is never re-reserved while waiting for run collection",
+			"passed": true
+		},
+		{
+			"name": "Collector arrives and returns without orbiting: 120 FPS (0.0, 90.0)",
+			"passed": true
+		},
+		{
+			"name": "Delivered crystal is never re-reserved while waiting for run collection",
+			"passed": true
+		},
+		{
+			"name": "Collector arrives and returns without orbiting: 120 FPS (-170.0, 50.0)",
+			"passed": true
+		},
+		{
+			"name": "Delivered crystal is never re-reserved while waiting for run collection",
+			"passed": true
+		},
+		{
+			"name": "Collector arrives and returns without orbiting: 120 FPS (270.0, -80.0)",
+			"passed": true
+		},
+		{
+			"name": "Delivered crystal is never re-reserved while waiting for run collection",
+			"passed": true
+		},
+		{
+			"name": "Only one collector reserves a crystal",
+			"passed": true
+		},
+		{
+			"name": "Disappeared crystal releases its reservation",
+			"passed": true
+		},
+		{
+			"name": "Continuous whip has an anchored root and a visibly curved body",
+			"passed": true
+		},
+		{
+			"name": "Whip tip responds to turning with delayed flexible motion",
+			"passed": true
+		},
+		{
+			"name": "Soft curve stays in the original damage corridor",
+			"passed": true
+		},
+		{
+			"name": "Fusion adds two strands at every tier: 1",
+			"passed": true
+		},
+		{
+			"name": "Fusion adds two strands at every tier: 2",
+			"passed": true
+		},
+		{
+			"name": "Fusion adds two strands at every tier: 3",
+			"passed": true
+		},
+		{
+			"name": "Fusion adds two strands at every tier: 4",
+			"passed": true
+		},
+		{
+			"name": "Boss pointer remains inside screen and outside radar: (1280.0, 720.0) (1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Boss pointer remains inside screen and outside radar: (1280.0, 720.0) (-1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Boss pointer remains inside screen and outside radar: (1280.0, 720.0) (0.0, -1.0)",
+			"passed": true
+		},
+		{
+			"name": "Boss pointer remains inside screen and outside radar: (1280.0, 720.0) (0.0, 1.0)",
+			"passed": true
+		},
+		{
+			"name": "Boss pointer remains inside screen and outside radar: (1280.0, 720.0) (1.0, 1.0)",
+			"passed": true
+		},
+		{
+			"name": "Boss pointer remains inside screen and outside radar: (1280.0, 720.0) (-1.0, -1.0)",
+			"passed": true
+		},
+		{
+			"name": "Onscreen boss does not get a redundant direction arrow",
+			"passed": true
+		},
+		{
+			"name": "Boss pointer remains inside screen and outside radar: (1440.0, 900.0) (1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Boss pointer remains inside screen and outside radar: (1440.0, 900.0) (-1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Boss pointer remains inside screen and outside radar: (1440.0, 900.0) (0.0, -1.0)",
+			"passed": true
+		},
+		{
+			"name": "Boss pointer remains inside screen and outside radar: (1440.0, 900.0) (0.0, 1.0)",
+			"passed": true
+		},
+		{
+			"name": "Boss pointer remains inside screen and outside radar: (1440.0, 900.0) (1.0, 1.0)",
+			"passed": true
+		},
+		{
+			"name": "Boss pointer remains inside screen and outside radar: (1440.0, 900.0) (-1.0, -1.0)",
+			"passed": true
+		},
+		{
+			"name": "Onscreen boss does not get a redundant direction arrow",
+			"passed": true
+		},
+		{
+			"name": "Boss pointer remains inside screen and outside radar: (1920.0, 1080.0) (1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Boss pointer remains inside screen and outside radar: (1920.0, 1080.0) (-1.0, 0.0)",
+			"passed": true
+		},
+		{
+			"name": "Boss pointer remains inside screen and outside radar: (1920.0, 1080.0) (0.0, -1.0)",
+			"passed": true
+		},
+		{
+			"name": "Boss pointer remains inside screen and outside radar: (1920.0, 1080.0) (0.0, 1.0)",
+			"passed": true
+		},
+		{
+			"name": "Boss pointer remains inside screen and outside radar: (1920.0, 1080.0) (1.0, 1.0)",
+			"passed": true
+		},
+		{
+			"name": "Boss pointer remains inside screen and outside radar: (1920.0, 1080.0) (-1.0, -1.0)",
+			"passed": true
+		},
+		{
+			"name": "Onscreen boss does not get a redundant direction arrow",
+			"passed": true
+		}
+	],
+	"passed": true
+}

@@ -8,7 +8,9 @@ const CentipedeArt = preload("res://scripts/centipede_art.gd")
 const SegmentFeedback = preload("res://scripts/segment_feedback.gd")
 const UI = preload("res://scripts/game_ui.gd")
 const Ink = preload("res://scripts/blue_ink.gd")
-var neon_radar_skin:StyleBoxFlat
+var neon_radar_skin:StyleBoxTexture
+const CharcoalArt = preload("res://scripts/charcoal_art.gd")
+var charcoal_terrain
 const Brood = preload("res://scripts/brood_theme.gd")
 const Battle = preload("res://scripts/combat.gd")
 const Feedback = preload("res://scripts/weapon_feedback.gd")
@@ -19,10 +21,12 @@ var segment_damage_layer = preload("res://scripts/segment_damage_layer.gd").new(
 var fragment_art = preload("res://scripts/centipede_fragments_art.gd").new()
 const InsectAttackFX = preload("res://scripts/insect_attack_fx.gd")
 const CrystalLoot = preload("res://scripts/crystal_loot.gd")
+const WorldObjects = preload("res://scripts/organic_world_objects.gd")
 var passive_fx = preload("res://scripts/passive_feedback.gd").new()
 var weapon_fx = preload("res://scripts/weapon_fx.gd").new()
 var hit_pause_left = 0.0
 var hit_pause_cooldown = 0.0
+var death_transition = preload("res://scripts/death_transition.gd").new()
 var camera_recoil = Vector2.ZERO
 const Run = preload("res://scripts/run_state.gd")
 var db
@@ -109,6 +113,8 @@ func _ready():
 		get_tree().quit(2)
 		return
 	texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+	charcoal_terrain = preload("res://scripts/charcoal_terrain.gd").new()
+	add_child(charcoal_terrain);charcoal_terrain.setup(self)
 	get_tree().node_added.connect(ink_node_added)
 	db = DB.new()
 	Ink.register_game_colors(db)
@@ -240,6 +246,7 @@ func show_intro():
 	show_menu()
 
 func show_menu():
+	death_transition.reset(self)
 	if audio_system!=null:audio_system.sync_loops([])
 	reset_pending=false
 	screen="home";audio_system.change_music("menu");clear_ui();source_ui=null
@@ -449,6 +456,7 @@ func show_controls():
 	UI.button(panel,db.ui("RESET KEYS","恢复按键"),Rect2(1060,792,300,65),func():save.state.settings.bindings.clear();controls.apply();save.save();show_controls(),"settings")
 
 func start_run():
+	death_transition.reset(self)
 	passive_fx.reset()
 	reward_flow_active=false;reward_choice_busy=false;reward_snoozed=false;reward_epoch+=1
 	hit_pause_left=0.0; hit_pause_cooldown=0.0; camera_recoil=Vector2.ZERO; camera_kick=Vector2.ZERO
@@ -458,6 +466,7 @@ func start_run():
 	save.begin_character_run(true)
 	player = Body.new(db)
 	player.configure_character(str(save.state.selected_character))
+	player.terrain = charcoal_terrain.world
 	leg_phase=0.0;player_legs.reset()
 	build_selected_segment=1
 	combat = Battle.new(db, player)
@@ -708,6 +717,9 @@ func profile_mark(key:String,started:int):
 		sample.microseconds+=Time.get_ticks_usec()-started;sample.calls+=1;performance_samples[key]=sample
 
 func _process(dt: float):
+	if death_transition.active:
+		if death_transition.advance(self,dt):show_result()
+		return
 	passive_fx.tick(self,dt)
 	if run!=null and screen in ["rewards","build"] and (run.finished or player.parts[0].hp<=0):
 		if not run.finished:run.finish(false)
@@ -786,6 +798,7 @@ func _process(dt: float):
 		# Confirmed heavy hits briefly hold combat motion; steering and UI remain
 		# responsive and repeated volleys cannot chain the hold indefinitely.
 		combat.step(combat_dt, aim, weapon_input.manual, weapon_input.enabled)
+		death_transition.observe(combat.enemies,combat_dt)
 		var particle_bursts=0
 		for effect in combat.effects:
 			if effect.get("rendered",false):continue
@@ -826,7 +839,8 @@ func _process(dt: float):
 		update_source_hud()
 		profile_mark("audio_hud",measured)
 		if run.finished:
-			show_result()
+			if not run.won and player.parts[0].hp<=0:death_transition.begin(self)
+			else:show_result()
 		elif auto_reward_ready():advance_reward_flow()
 	test_time += dt
 	sync_camera_layers()
@@ -865,6 +879,8 @@ func main_weapon_input() -> Dictionary:
 	return {"aim": direction_target, "manual": enabled and (controls.shooting() or stick != Vector2.ZERO or test_mode), "enabled": enabled}
 
 func _input(event):
+	if death_transition.active:
+		get_viewport().set_input_as_handled();return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		var hovered = get_viewport().gui_get_hovered_control()
 		weapon_mouse_blocked = event.pressed and (screen != "game" or (hovered != null and hovered.mouse_filter != Control.MOUSE_FILTER_IGNORE))
@@ -919,6 +935,7 @@ func _input(event):
 		get_viewport().set_input_as_handled()
 
 func _unhandled_input(event):
+	if death_transition.active:return
 	if event.is_action_pressed("character_skill") and not event.is_echo():
 		if screen=="game" and camera_focus.is_empty() and not run.finished:
 			var command=main_weapon_input()
@@ -992,6 +1009,7 @@ func draw_weapon_neck(anchor: Vector2, tip: Vector2, radius: float, alpha: float
 	draw_polyline(curve, Color(Ink.WASH, alpha), 3.0 * zoom, true)
 
 func _draw():
+	charcoal_terrain.sync()
 	fragment_art.paint(self)
 	if encounter_feedback != null: encounter_feedback.queue_redraw()
 	# Any early-return screen (including tactical radar) starts without old FX.
@@ -1023,17 +1041,14 @@ func _draw():
 		for segment in range(8,-1,-1):
 			var pos=Vector2(1120-segment*55,520+sin(segment*0.5+test_time*0.5)*50)
 			var ahead=Vector2(1120-(segment-1)*55,520+sin((segment-1)*0.5+test_time*0.5)*50)
-			if segment>0:draw_line(pos,ahead,Color("173b70"),23,true)
+			if segment>0:draw_line(pos,ahead,Ink.INK,23,true)
 			CentipedeArt.segment(self,pos,(ahead-pos).angle(),1.0,test_time*3-segment*0.8,segment==0,segment>3)
 			if segment in [1,2,3]:module_art(db.core_sprite(db.named(["Core_Gun_Gatling","Core_Gun_Shotgun","Core_Gun_Cannon"][segment-1])),pos,Vector2(35,35),-PI/2)
 	if screen in ["game", "pause", "result", "rewards"]:
 		for node in run.map_director.nodes.values():
-			if node.has("center_sprite"):art(db.sprite(node.center_sprite),world(node.position),Vector2(180,180)*zoom)
+			if node.has("center_sprite"):WorldObjects.nest(self,node.position,zoom,test_time)
 		if run.mode.get("class") in ["SDestroyModeManager","SProtectModeManager"]:
-			for renderer in db.prefabs[run.objective.objectivePrefab].get("render",[]):
-				if "RadarIcons" in db.sprites.get(renderer.sprite,{}).get("name",""):continue
-				var texture=db.sprite(renderer.sprite)
-				if texture!=null:art(texture,world(Vector2(renderer.x,renderer.y)*48),texture.get_size()/float(db.sprites[renderer.sprite].get("ppu",100))*Vector2(renderer.sx,renderer.sy)*48*zoom)
+			WorldObjects.nest(self,Vector2.ZERO,zoom,test_time,run.mode.get("class")=="SProtectModeManager")
 		if radar_mode:
 			for e in combat.enemies:
 				var at=world(e.position)
@@ -1048,6 +1063,12 @@ func _draw():
 			if pos.x < -250 or pos.x > 1700 or pos.y < -250 or pos.y > 1150:
 				continue
 			var pulse=health_pulse(e)
+			if e.kind == "Asteroid":
+				CharcoalArt.rock(self, e, pos, zoom, db)
+				continue
+			if e.kind=="ContainerObject":
+				WorldObjects.container(self,e,pos,zoom,test_time)
+				continue
 			if Brood.eligible(e):
 				continue
 			for renderer in e.get("render", []):
@@ -1067,21 +1088,10 @@ func _draw():
 					var tension=combat.insect_control_system.emitter_pose("enemy:%d:%d"%[e.uid,gun_index])
 					organ_art(texture,world(visual_position+Vector2(gun.get("offset",Vector2.ZERO)).rotated(e.angle)+Vector2(tension.get("offset",Vector2.ZERO))),Vector2(42,42)*zoom,float(gun.angle)+PI/2+float(tension.get("twist",0)),Color.WHITE,db.Armaments.variant(db,db.asset(gun.id)),float(gun.get("organ_pulse",0)),"enemy:%d:%d"%[e.uid,gun_index],float(e.uid)+gun_index*0.2,0,float(e.stun)>0,tension)
 		for pack in run.recycled_packs:
-			for renderer in db.prefabs[db.pool['203']].get('render',[]):
-				var texture=db.sprite(renderer.sprite)
-				if texture!=null:
-					var factor=0.75*(1-clampf((float(pack.age)-1)/0.25,0,1))
-					art(texture,world(pack.position),texture.get_size()/float(db.sprites[renderer.sprite].get('ppu',100))*48*zoom*factor,deg_to_rad(float(pack.age)*-50))
+			WorldObjects.pod(self,world(pack.position),32*zoom*(1-clampf((float(pack.age)-1)/.25,0,1)),test_time,Color("ff508d"),true)
 		for drop in combat.loot:
 			if not drop.pack:continue # Energy stones are drawn above battle effects below.
-			if not drop.has('_render'):
-				var prefab=db.pool['200' if drop.pack else '21']
-				drop._render=RenderState.instantiate(db.prefabs[prefab].get('render',[]),int(drop.position.x*13+drop.position.y*17))
-			for renderer in drop._render:
-				var texture=db.sprite(renderer.sprite)
-				if texture!=null:
-					var extent=texture.get_size()/float(db.sprites[renderer.sprite].get('ppu',100))*Vector2(renderer.sx,renderer.sy)*48*zoom
-					art(texture,world(drop.position),extent,RenderState.angle(renderer,test_time),RenderState.color(renderer,test_time))
+			WorldObjects.loot(self,drop,zoom,test_time)
 		for evolved in player.parts.slice(1):
 			if int(evolved.get("fusion_level",1)) > 1:
 				var pose = player.segment_pose(int(evolved.segment))
@@ -1095,7 +1105,7 @@ func _draw():
 			for segment in range(player.segment_count(),0,-1):
 				var pose:Dictionary=player.segment_pose(segment)
 				var previous:Dictionary=player.segment_pose(segment-1)
-				draw_line(world(pose.point),world(previous.point),Color("173b70"),22*zoom,true)
+				draw_line(world(pose.point),world(previous.point),Ink.INK,22*zoom,true)
 				var index=player.part_at(segment)
 				var shell:Dictionary=player.parts[index] if index>0 else {}
 				CentipedeArt.segment(self,world(Vector2(pose.point)+SegmentFeedback.offset(shell)),Vector2(pose.direction).angle(),zoom,leg_phase-segment*0.8,false,player.parts_on_segment(segment).is_empty(),false,0,-1,player_legs.poses(segment),[],SegmentFeedback.tint(shell))
@@ -1140,7 +1150,7 @@ func _draw():
 			if not b.friendly:weapon_fx.paint_projectile(self,b,test_time,zoom)
 		# Radar uses actual world objects, including distant mission bosses.
 		var radar_origin=get_viewport_rect().size-Vector2(210,235)
-		if neon_radar_skin==null:neon_radar_skin=UI.hud_style()
+		if neon_radar_skin==null:neon_radar_skin=CharcoalArt.panel_skin()
 		draw_style_box(neon_radar_skin,Rect2(radar_origin,Vector2(180,150)))
 		draw_rect(Rect2(radar_origin+Vector2(12,12),Vector2(156,126)),Color(UI.MUTED,.12),false,1.0)
 		for e in combat.enemies:
@@ -1149,6 +1159,7 @@ func _draw():
 				draw_map_icon(e,radar_origin+Vector2(90,75)+offset,8 if e.kind!="AIBossUnit" else 13,true)
 		draw_circle(radar_origin+Vector2(90,75), 4, UI.TEAL)
 		draw_objective_arrows()
+		death_transition.paint(self)
 
 func automated_flow():
 	await get_tree().process_frame
@@ -1230,15 +1241,7 @@ func draw_map_icon(enemy:Dictionary,at:Vector2,pixels:float,neon:bool=false):
 	art(texture,at,Ink.fitted_size(texture,Vector2.ONE*pixels),0,(UI.AMBER if enemy.role=="friendly" else UI.TEXT) if neon else (Ink.MUTED if enemy.role=="friendly" else Ink.INK),true)
 
 func draw_objective_arrows():
-	for enemy in combat.enemies:
-		if enemy.kind!="AIBossUnit" and not enemy.objective:continue
-		var at=world(enemy.position)
-		if Rect2(80,80,1280,740).has_point(at):continue
-		var direction=(at-center).normalized()
-		var extent=minf(610/maxf(0.001,absf(direction.x)),340/maxf(0.001,absf(direction.y)))
-		var pos=center+direction*extent
-		art(db.sprite("714f0dad9b162d542b7f9a76b5690691"),pos,Vector2(30,30),direction.angle(),Ink.INK,true)
-		draw_map_icon(enemy,pos-direction*27,22)
+	preload("res://scripts/boss_direction.gd").paint(self)
 
 func source_hit_color()->Color:
 	var c:Dictionary=db.stores.PlayerDataStore.get('playerHitColor',{})

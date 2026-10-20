@@ -37,7 +37,7 @@ func execute():
 	verify(game.fragment_art.visible_parts==2,"Both severed surviving bodies render")
 	var first=game.fragment_art.batches[0].entries[1]
 	verify(first.at==game.world(fragment.poses[0].point),"Dormant body is drawn at its actual world position")
-	verify(first.fused and first.feelers.size()==3,"Fused dormant modules retain level-dependent body feelers")
+	verify(first.fused and first.feelers.size()==4,"Tier-three dormant modules retain two symmetric flagella pairs")
 	verify(var_to_bytes(fragment)==source_bytes,"Drawing leaves fragment simulation dictionaries unchanged")
 	verify(game.fragment_art.stats().materials==14 and game.fragment_art.stats().batches==15,"Fixed shader/material batch budget")
 	var entry=game.fragment_art.batches[0].entries[0]

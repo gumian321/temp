@@ -8,20 +8,15 @@ static var pieces: Dictionary = {}
 
 static func prepare():
 	if not pieces.is_empty(): return
-	var atlas: Texture2D = load("res://assets/blue_ink/centipede_parts.png")
-	var regions = {"head": Rect2(173,108,432,416), "body": Rect2(879,103,514,427), "upper_jaw": Rect2(155,625,486,313), "lower_jaw": Rect2(885,622,493,306)}
-	for key in regions:
-		var part = AtlasTexture.new()
-		part.atlas = atlas
-		part.region = regions[key]
-		part.filter_clip = true
-		pieces[key] = part
+	var keys = ["head", "body", "upper_jaw", "lower_jaw"]
+	for i in keys.size():
+		pieces[keys[i]] = preload("res://scripts/charcoal_art.gd").cutout("centipede_parts", i, 2, 2)
 	var tail = AtlasTexture.new()
-	tail.atlas = load("res://assets/blue_ink/centipede_tail_reference.png")
+	tail.atlas = load("res://assets/charcoal_ink/centipede_tail_reference.png")
 	tail.region = Rect2(1120,140,300,830)
 	tail.filter_clip = true
 	pieces.tail = tail
-	var links:Texture2D=load("res://assets/blue_ink/centipede_leg_links.png")
+	var links:Texture2D=load("res://assets/charcoal_ink/centipede_leg_links.png")
 	for key in ["upper_leg","lower_leg"]:
 		var link=AtlasTexture.new();link.atlas=links
 		link.region=Rect2(44,150,1230,310) if key=="upper_leg" else Rect2(20,575,1495,405)

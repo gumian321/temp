@@ -1,0 +1,53 @@
+{
+	"captures": [
+		"res://artifacts/polish-world-and-weapons.png",
+		"res://artifacts/polish-fatal-slow-motion.png"
+	],
+	"checks": [
+		{
+			"name": "Actual game tier-four segment carries six flagella",
+			"passed": true
+		},
+		{
+			"name": "Native capture world-and-weapons",
+			"passed": true
+		},
+		{
+			"name": "Colored weapons keep their original palette",
+			"passed": true
+		},
+		{
+			"name": "Each flame owner has one continuous curved ribbon, never a row of bullets",
+			"passed": true
+		},
+		{
+			"name": "Fatal hit starts slow aftermath before entering result screen",
+			"passed": true
+		},
+		{
+			"name": "Projectiles continue moving slowly during fatal aftermath",
+			"passed": true
+		},
+		{
+			"name": "Native capture fatal-slow-motion",
+			"passed": true
+		},
+		{
+			"name": "Result appears after the bounded slow-motion transition",
+			"passed": true
+		},
+		{
+			"name": "Fatal aftermath awards the result exactly once",
+			"passed": true
+		},
+		{
+			"name": "Slow motion never changes global engine time scale",
+			"passed": true
+		},
+		{
+			"name": "Restart returns to normal speed and camera scale",
+			"passed": true
+		}
+	],
+	"passed": true
+}

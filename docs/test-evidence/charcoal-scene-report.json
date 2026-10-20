@@ -1,0 +1,89 @@
+{
+	"captures": [
+		"res://artifacts/charcoal-fresh-run.png",
+		"res://artifacts/charcoal-reference-scene.png",
+		"res://artifacts/charcoal-layout-1280x720.png",
+		"res://artifacts/charcoal-layout-1920x1080.png",
+		"res://artifacts/charcoal-assembly.png"
+	],
+	"checks": [
+		{
+			"name": "Native capture fresh-run",
+			"passed": true
+		},
+		{
+			"name": "Weapon and projectile canvas preserves original colors",
+			"passed": true
+		},
+		{
+			"name": "True transparent source: rocks",
+			"passed": true
+		},
+		{
+			"name": "True transparent source: chasm",
+			"passed": true
+		},
+		{
+			"name": "True transparent source: panel",
+			"passed": true
+		},
+		{
+			"name": "True transparent source: centipede_parts",
+			"passed": true
+		},
+		{
+			"name": "True transparent source: centipede_leg_links",
+			"passed": true
+		},
+		{
+			"name": "True transparent source: centipede_tail_reference",
+			"passed": true
+		},
+		{
+			"name": "True transparent source: spider_segmented_parts",
+			"passed": true
+		},
+		{
+			"name": "Native capture reference-scene",
+			"passed": true
+		},
+		{
+			"name": "Restyling preserves obstacle collision radii",
+			"passed": true
+		},
+		{
+			"name": "Decorations remain stable between stationary frames",
+			"passed": true
+		},
+		{
+			"name": "Native capture layout-1280x720",
+			"passed": true
+		},
+		{
+			"name": "Skill label fits (1280, 720)",
+			"passed": true
+		},
+		{
+			"name": "Bottom controls do not overlap (1280, 720)",
+			"passed": true
+		},
+		{
+			"name": "Native capture layout-1920x1080",
+			"passed": true
+		},
+		{
+			"name": "Skill label fits (1920, 1080)",
+			"passed": true
+		},
+		{
+			"name": "Bottom controls do not overlap (1920, 1080)",
+			"passed": true
+		},
+		{
+			"name": "Assembly capture",
+			"passed": true
+		}
+	],
+	"passed": true,
+	"scope": "Native main scene; staged showcase plus fresh run. Corrected second reference only."
+}

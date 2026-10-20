@@ -13,7 +13,7 @@ var bars:Array=[]
 var shield_sources:Array=[]
 
 static func eligible(e:Dictionary)->bool:
-	return float(e.get("hp",0))>0 and float(e.get("max_hp",0))>0 and e.get("role","")!="friendly" and not e.get("cloaked",false) and float(e.get("warp",0))<=0
+	return e.get("kind","")!="Asteroid" and float(e.get("hp",0))>0 and float(e.get("max_hp",0))>0 and e.get("role","")!="friendly" and not e.get("cloaked",false) and float(e.get("warp",0))<=0
 
 static func bar_size(e:Dictionary)->Vector2:
 	if e.get("kind","")=="AIBossUnit":return Vector2(88,8)

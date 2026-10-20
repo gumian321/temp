@@ -16,7 +16,7 @@ func _process(dt):
 	if is_instance_valid(builder):
 		var part:Dictionary=builder.active_drag_data.get("part",{})
 		var level=int(part.get("fusion_level",1))
-		if level>1:flagella.step(0,builder.drag_pointer,PI,level,false,dt,clock)
+		if level>1:flagella.step(0,builder.drag_pointer,PI,Art.Flagella.fusion_count(level),false,dt,clock)
 	queue_redraw()
 func _draw():
 	if not is_instance_valid(builder):return

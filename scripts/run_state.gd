@@ -44,6 +44,7 @@ func _init(source, persistence, centipede, battle, selected: Dictionary, difficu
 	mission = selected
 	if mission.get("isOffsetPlayer",false):
 		var offset=Vector2(float(mission.playerYOffset)*48,0)
+		if player.terrain!=null:offset=player.terrain.safe_position(offset,player.collision_radius(0))
 		player.head=offset
 		for i in player.history.size():player.history[i]+=offset
 		player.refresh_positions()

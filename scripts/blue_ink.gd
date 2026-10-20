@@ -1,10 +1,10 @@
 extends RefCounted
 ## Shared ink, paper and control treatment for every screen, including source UI.
-const INK = Color("173b70")
-const BLUE = Color("2f60a0")
-const PAPER = Color("f6f2e7")
-const WASH = Color("d8e3ec")
-const MUTED = Color("6984a4")
+const INK = Color("121212")
+const BLUE = Color("ff1764")
+const PAPER = Color("e1ded4")
+const WASH = Color("92918b")
+const MUTED = Color("8b8b87")
 static var sprite_material: ShaderMaterial
 static var surface_material: ShaderMaterial
 static var shared_theme: Theme

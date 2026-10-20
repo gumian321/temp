@@ -1,0 +1,99 @@
+{
+  "passed": true,
+  "renderer": "Godot 4.6.3 native OpenGL; NVIDIA GTX 1050",
+  "suites": [
+    {
+      "suite": "charcoal_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.7,
+      "isolated_user_data": true,
+      "source_report": "charcoal-render-final-validation.json"
+    },
+    {
+      "suite": "spider_visibility_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.707,
+      "isolated_user_data": true,
+      "source_report": "charcoal-final-validation.json"
+    },
+    {
+      "suite": "battle_hud",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.936,
+      "isolated_user_data": true,
+      "source_report": "charcoal-layout-final-validation.json"
+    },
+    {
+      "suite": "weapon_readability",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.631,
+      "isolated_user_data": true,
+      "source_report": "charcoal-final-validation.json"
+    },
+    {
+      "suite": "hostile_readability",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.146,
+      "isolated_user_data": true,
+      "source_report": "charcoal-final-validation.json"
+    },
+    {
+      "suite": "centipede_motion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.45,
+      "isolated_user_data": true,
+      "source_report": "charcoal-final-validation.json"
+    },
+    {
+      "suite": "camera_stability_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.724,
+      "isolated_user_data": true,
+      "source_report": "charcoal-render-final-validation.json"
+    },
+    {
+      "suite": "enemy_health_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 10.317,
+      "isolated_user_data": true,
+      "source_report": "charcoal-render-final-validation.json"
+    }
+  ],
+  "notes": [
+    "Earlier HUD geometry failure corrected and rerun; final result uses latest run per suite.",
+    "Reference-scene screenshot is a staged state in the real gameplay scene; fresh-run screenshot is captured separately.",
+    "Weapon and projectile implementation files and original armament atlases have no diff."
+  ]
+}

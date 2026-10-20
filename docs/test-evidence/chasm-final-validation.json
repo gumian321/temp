@@ -1,0 +1,454 @@
+{
+  "passed": true,
+  "suites": [
+    {
+      "suite": "chasm_collision",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.257,
+      "isolated_user_data": true,
+      "source_report": "chasm-collision-validation.json"
+    },
+    {
+      "suite": "centipede_motion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.098,
+      "isolated_user_data": true,
+      "source_report": "chasm-regression-validation.json"
+    },
+    {
+      "suite": "centipede_coil",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.154,
+      "isolated_user_data": true,
+      "source_report": "chasm-regression-validation.json"
+    },
+    {
+      "suite": "fragment_recovery",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.521,
+      "isolated_user_data": true,
+      "source_report": "chasm-regression-validation.json"
+    },
+    {
+      "suite": "knockback",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.212,
+      "isolated_user_data": true,
+      "source_report": "chasm-regression-validation.json"
+    },
+    {
+      "suite": "insect_controls",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.042,
+      "isolated_user_data": true,
+      "source_report": "chasm-regression-validation.json"
+    },
+    {
+      "suite": "special_encounters",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.238,
+      "isolated_user_data": true,
+      "source_report": "chasm-regression-validation.json"
+    },
+    {
+      "suite": "combat_spatial",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.693,
+      "isolated_user_data": true,
+      "source_report": "chasm-regression-validation.json"
+    },
+    {
+      "suite": "missions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.377,
+      "isolated_user_data": true,
+      "source_report": "chasm-mission-validation.json"
+    },
+    {
+      "suite": "map",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.013,
+      "isolated_user_data": true,
+      "source_report": "chasm-mission-validation.json"
+    },
+    {
+      "suite": "chasm_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.966,
+      "isolated_user_data": true,
+      "source_report": "chasm-final-validation.json"
+    },
+    {
+      "suite": "camera_stability_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.604,
+      "isolated_user_data": true,
+      "source_report": "chasm-native-validation.json"
+    }
+  ],
+  "terrain_checks": {
+    "checks": [
+      {
+        "name": "All opening pits participate without a viewport",
+        "passed": true
+      },
+      {
+        "name": "Default player spawn remains traversable",
+        "passed": true
+      },
+      {
+        "name": "Painted opening is solid: opening:0",
+        "passed": true
+      },
+      {
+        "name": "Spawn in pit relocates to shore: opening:0",
+        "passed": true
+      },
+      {
+        "name": "Continuous sweep stops a 1300px crossing: opening:0",
+        "passed": true
+      },
+      {
+        "name": "Painted opening is solid: opening:1",
+        "passed": true
+      },
+      {
+        "name": "Spawn in pit relocates to shore: opening:1",
+        "passed": true
+      },
+      {
+        "name": "Continuous sweep stops a 1300px crossing: opening:1",
+        "passed": true
+      },
+      {
+        "name": "Painted opening is solid: opening:2",
+        "passed": true
+      },
+      {
+        "name": "Spawn in pit relocates to shore: opening:2",
+        "passed": true
+      },
+      {
+        "name": "Continuous sweep stops a 1300px crossing: opening:2",
+        "passed": true
+      },
+      {
+        "name": "Painted opening is solid: opening:3",
+        "passed": true
+      },
+      {
+        "name": "Spawn in pit relocates to shore: opening:3",
+        "passed": true
+      },
+      {
+        "name": "Continuous sweep stops a 1300px crossing: opening:3",
+        "passed": true
+      },
+      {
+        "name": "Painted opening is solid: opening:4",
+        "passed": true
+      },
+      {
+        "name": "Spawn in pit relocates to shore: opening:4",
+        "passed": true
+      },
+      {
+        "name": "Continuous sweep stops a 1300px crossing: opening:4",
+        "passed": true
+      },
+      {
+        "name": "Painted opening is solid: -1:-2",
+        "passed": true
+      },
+      {
+        "name": "Spawn in pit relocates to shore: -1:-2",
+        "passed": true
+      },
+      {
+        "name": "Continuous sweep stops a 1300px crossing: -1:-2",
+        "passed": true
+      },
+      {
+        "name": "Painted opening is solid: 0:-2",
+        "passed": true
+      },
+      {
+        "name": "Spawn in pit relocates to shore: 0:-2",
+        "passed": true
+      },
+      {
+        "name": "Continuous sweep stops a 1300px crossing: 0:-2",
+        "passed": true
+      },
+      {
+        "name": "Painted opening is solid: 1:-2",
+        "passed": true
+      },
+      {
+        "name": "Spawn in pit relocates to shore: 1:-2",
+        "passed": true
+      },
+      {
+        "name": "Continuous sweep stops a 1300px crossing: 1:-2",
+        "passed": true
+      },
+      {
+        "name": "Painted opening is solid: 1:-1",
+        "passed": true
+      },
+      {
+        "name": "Spawn in pit relocates to shore: 1:-1",
+        "passed": true
+      },
+      {
+        "name": "Continuous sweep stops a 1300px crossing: 1:-1",
+        "passed": true
+      },
+      {
+        "name": "Painted opening is solid: -2:0",
+        "passed": true
+      },
+      {
+        "name": "Spawn in pit relocates to shore: -2:0",
+        "passed": true
+      },
+      {
+        "name": "Continuous sweep stops a 1300px crossing: -2:0",
+        "passed": true
+      },
+      {
+        "name": "Painted opening is solid: 1:0",
+        "passed": true
+      },
+      {
+        "name": "Spawn in pit relocates to shore: 1:0",
+        "passed": true
+      },
+      {
+        "name": "Continuous sweep stops a 1300px crossing: 1:0",
+        "passed": true
+      },
+      {
+        "name": "Generated distant pits collide off camera",
+        "passed": true
+      },
+      {
+        "name": "AI routes around lip and reaches other shore at 30 FPS (remaining 2.0)",
+        "passed": true
+      },
+      {
+        "name": "AI routes around lip and reaches other shore at 60 FPS (remaining 1.6)",
+        "passed": true
+      },
+      {
+        "name": "AI routes around lip and reaches other shore at 120 FPS (remaining 2.9)",
+        "passed": true
+      },
+      {
+        "name": "centipede cannot walk/boost across pit",
+        "passed": true
+      },
+      {
+        "name": "Rush movement respects centipede collision radius",
+        "passed": true
+      },
+      {
+        "name": "spider cannot walk/boost across pit",
+        "passed": true
+      },
+      {
+        "name": "Rush movement respects spider collision radius",
+        "passed": true
+      },
+      {
+        "name": "Eight following body segments stay on land around the pit",
+        "passed": true
+      },
+      {
+        "name": "Coil/uncoil stays on shore and completes without a stuck transition",
+        "passed": true
+      },
+      {
+        "name": "AISwarmingUnit spawn is relocated off pit",
+        "passed": true
+      },
+      {
+        "name": "AISwarmingUnit production AI routes around pit (remaining 67.8)",
+        "passed": true
+      },
+      {
+        "name": "AISwarmingUnit forced movement cannot tunnel",
+        "passed": true
+      },
+      {
+        "name": "AIFollowingUnit spawn is relocated off pit",
+        "passed": true
+      },
+      {
+        "name": "AIFollowingUnit production AI routes around pit (remaining 68.5)",
+        "passed": true
+      },
+      {
+        "name": "AIFollowingUnit forced movement cannot tunnel",
+        "passed": true
+      },
+      {
+        "name": "AIPatrolUnit spawn is relocated off pit",
+        "passed": true
+      },
+      {
+        "name": "AIPatrolUnit production AI routes around pit (remaining 68.9)",
+        "passed": true
+      },
+      {
+        "name": "AIPatrolUnit forced movement cannot tunnel",
+        "passed": true
+      },
+      {
+        "name": "Boss and attached parts spawn with the full footprint on land",
+        "passed": true
+      },
+      {
+        "name": "Forced movement preserves attached boss parts on the protected parent",
+        "passed": true
+      },
+      {
+        "name": "Mission spawns and scripted movement stay on land: Station Protector Mission",
+        "passed": true
+      },
+      {
+        "name": "Mission spawns and scripted movement stay on land: Bounty Hunter Mission",
+        "passed": true
+      },
+      {
+        "name": "Mission spawns and scripted movement stay on land: Gardian Angel Mission",
+        "passed": true
+      },
+      {
+        "name": "Mission spawns and scripted movement stay on land: Endless Mission",
+        "passed": true
+      },
+      {
+        "name": "Mission spawns and scripted movement stay on land: Survival Mission",
+        "passed": true
+      },
+      {
+        "name": "Mission spawns and scripted movement stay on land: Station Hunter Mission",
+        "passed": true
+      },
+      {
+        "name": "120 simultaneously pursuing enemies remain outside pits",
+        "passed": true
+      }
+    ],
+    "dense_average_step_ms": 10.7422333333333,
+    "passed": true
+  },
+  "native_checks": {
+    "captures": [
+      "res://artifacts/chasm-opposite-shores.png",
+      "res://artifacts/chasm-routes-debug.png",
+      "res://artifacts/chasm-shore-after-chase.png"
+    ],
+    "checks": [
+      {
+        "name": "Production renderer, player and enemies share one terrain",
+        "passed": true
+      },
+      {
+        "name": "Real player pressing into cliff remains on shore",
+        "passed": true
+      },
+      {
+        "name": "Special enemy spawns on land: charger",
+        "passed": true
+      },
+      {
+        "name": "Special enemy spawns on land: broodmother",
+        "passed": true
+      },
+      {
+        "name": "Special enemy spawns on land: treasure",
+        "passed": true
+      },
+      {
+        "name": "Special enemy spawns on land: hatchling",
+        "passed": true
+      },
+      {
+        "name": "Production charger dash obeys the cliff before contact damage",
+        "passed": true
+      },
+      {
+        "name": "Native capture opposite-shores",
+        "passed": true
+      },
+      {
+        "name": "Rendered chase stays outside the same painted lip",
+        "passed": true
+      },
+      {
+        "name": "Monsters reach the player's shore by going around",
+        "passed": true
+      },
+      {
+        "name": "Native capture routes-debug",
+        "passed": true
+      },
+      {
+        "name": "Native capture shore-after-chase",
+        "passed": true
+      }
+    ],
+    "debug": "Pink outline is collision lip; cyan lines are measured monster routes. Overlay is test-only.",
+    "passed": true
+  }
+}

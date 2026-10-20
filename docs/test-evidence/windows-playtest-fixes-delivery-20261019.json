@@ -1,0 +1,9 @@
+{
+  "archive": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261019-playtest-fixes.zip",
+  "executable": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261019-playtest-fixes\\RunBuildPew.exe",
+  "bytes": 155779436,
+  "sha256": "4c03be42a6906b03d1ffab676c5e75348a7bf8a159aa7c1697e64380a4f777b2",
+  "passed": true,
+  "unpacked_launch": true,
+  "validated_checks": 59
+}

@@ -1,17 +1,17 @@
 extends RefCounted
-## Plasma UI Neon-inspired dark glass, rose rims, and readable bold type.
+## Charcoal/chalk comic shell with sparse rose cues.
 ## No full-screen refraction, blur pass, or continuously redrawing controls.
 const Art=preload("res://scripts/generated_ui_art.gd")
 const FONT_PATH="res://assets/fonts/NotoSansCJKsc-Bold.otf"
-const BG = Color("100b19")
-const PANEL = Color("21162e")
-const TEAL = Color("ff2d95")
-const AMBER = Color("ffbe85")
-const TEXT = Color("f5efff")
-const MUTED = Color("b1a5c4")
+const BG = Color("111111")
+const PANEL = Color("1c1c1b")
+const TEAL = Color("ff1764")
+const AMBER = Color("d9d3c4")
+const TEXT = Color("efede4")
+const MUTED = Color("aaa8a0")
 const RED = Color("ff6c89")
-const TOOLTIP_BG = Color("100b19")
-const TOOLTIP_TEXT = Color("f5efff")
+const TOOLTIP_BG = Color("101010")
+const TOOLTIP_TEXT = Color("efede4")
 
 static var shared_font:FontFile
 static var shared_icon_material:ShaderMaterial
@@ -31,18 +31,18 @@ static func protect(node:Node):
 	node.set_meta("game_ui",true)
 
 static func style(fill:Color=PANEL,border:Color=TEAL,radius:int=26,margin:int=0)->StyleBoxFlat:
-	# Rounded tinted glass with a restrained baked-in shadow; no blur framebuffer.
+	# Flat charcoal plates with pale borders and compact corners.
 	var box=flat_style(fill,border,radius,margin)
 	box.bg_color=Color(PANEL.lerp(fill,0.16),0.96)
 	box.border_color=Color(border,0.48)
-	box.shadow_color=Color(TEAL,0.09);box.shadow_size=8
-	box.border_width_top=2
+	box.shadow_color=Color(0,0,0,.45);box.shadow_size=3
+	box.border_width_top=1
 	return box
 
 static func card_style(active:bool=false)->StyleBoxFlat:
-	var box=style(PANEL,TEAL if active else Color("70557f"),26,12)
+	var box=style(PANEL,TEAL if active else MUTED,26,12)
 	if active:
-		box.bg_color=Color("39203d");box.border_color=TEAL;box.shadow_color=Color(TEAL,0.2)
+		box.bg_color=Color("30262a");box.border_color=TEAL;box.shadow_color=Color(TEAL,0.2)
 	return box
 
 static func card_focus_style()->StyleBoxFlat:
@@ -50,7 +50,7 @@ static func card_focus_style()->StyleBoxFlat:
 	return box
 
 static func hud_style()->StyleBoxFlat:
-	return style(PANEL,Color("9d588b"),22,8)
+	return style(PANEL,MUTED,22,8)
 
 static func focus_style()->StyleBoxFlat:
 	var box=style(PANEL,Color("ffb6df"),22,0);box.draw_center=false
@@ -60,14 +60,14 @@ static func focus_style()->StyleBoxFlat:
 static func flat_style(fill:Color=PANEL,border:Color=TEAL,radius:int=16,margin:int=0)->StyleBoxFlat:
 	var box=StyleBoxFlat.new()
 	box.bg_color=fill;box.border_color=border
-	box.set_border_width_all(1);box.set_corner_radius_all(radius)
+	box.set_border_width_all(1);box.set_corner_radius_all(mini(radius,6))
 	box.content_margin_left=margin;box.content_margin_right=margin;box.content_margin_top=margin;box.content_margin_bottom=margin
 	return box
 
 static func button_style(fill:Color=PANEL,border:Color=TEAL)->StyleBoxFlat:
 	var active=fill==TEAL
-	var box=style(Color("48223f") if active else PANEL,border,22,44)
-	box.bg_color=Color("48223f") if active else Color("25192f")
+	var box=style(Color("30262a") if active else PANEL,border,22,44)
+	box.bg_color=Color("30262a") if active else Color("222221")
 	box.border_color=Color(TEAL,0.85) if active else Color(border,0.36)
 	box.shadow_color=Color(TEAL,0.18 if active else 0.06)
 	box.content_margin_top=6;box.content_margin_bottom=6
@@ -76,7 +76,7 @@ static func button_style(fill:Color=PANEL,border:Color=TEAL)->StyleBoxFlat:
 static func apply_tooltip_theme(t:Theme):
 	# Define the pair together: missing TooltipPanel used to inherit cream paper
 	# while TooltipLabel inherited the expedition's nearly white Label color.
-	var tooltip=flat_style(TOOLTIP_BG,Color("64506f"),8)
+	var tooltip=flat_style(TOOLTIP_BG,MUTED,8)
 	tooltip.content_margin_left=14;tooltip.content_margin_right=14
 	tooltip.content_margin_top=9;tooltip.content_margin_bottom=9
 	t.set_stylebox("panel","TooltipPanel",tooltip)
@@ -95,7 +95,7 @@ static func theme()->Theme:
 		t.set_color("font_hover_color",kind,TEXT)
 		t.set_color("font_pressed_color",kind,TEXT)
 		t.set_color("font_focus_color",kind,TEXT)
-	t.set_stylebox("normal","Button",button_style(PANEL,Color("68506f")))
+	t.set_stylebox("normal","Button",button_style(PANEL,MUTED))
 	t.set_stylebox("hover","Button",button_style(TEAL))
 	t.set_stylebox("pressed","Button",button_style(TEAL))
 	t.set_stylebox("hover_pressed","Button",button_style(TEAL))
@@ -113,9 +113,9 @@ static func theme()->Theme:
 			t.set_stylebox(state,kind,t.get_stylebox(state,"Button"))
 	for state in ["normal","focus","read_only"]:
 		t.set_stylebox(state,"LineEdit",button_style())
-	t.set_stylebox("background","ProgressBar",flat_style(Color("342640"),Color("64506f"),5))
+	t.set_stylebox("background","ProgressBar",flat_style(Color("282827"),MUTED,5))
 	t.set_stylebox("fill","ProgressBar",flat_style(TEAL,TEAL,5))
-	var track=flat_style(Color("342640"),Color("64506f"),4)
+	var track=flat_style(Color("282827"),MUTED,4)
 	track.content_margin_top=4;track.content_margin_bottom=4
 	var fill=flat_style(TEAL,TEAL,4)
 	fill.content_margin_top=4;fill.content_margin_bottom=4
@@ -145,10 +145,11 @@ static func backdrop(parent:Control,hero:bool=false):
 	var bg=Backdrop.new();bg.hero=hero;bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);parent.add_child(bg)
 	bg.mouse_filter=Control.MOUSE_FILTER_IGNORE
 
-	if hero and ResourceLoader.exists("res://assets/ui_overhaul/menu_hero_neon.png"):
-		var art=TextureRect.new();art.texture=load("res://assets/ui_overhaul/menu_hero_neon.png")
+	if hero:
+		var art=TextureRect.new();art.texture=preload("res://scripts/charcoal_art.gd").texture("ground")
 		art.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);art.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
 		art.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_COVERED;art.mouse_filter=Control.MOUSE_FILTER_IGNORE
+		art.modulate=Color(.42,.42,.42)
 		parent.add_child(art)
 
 static func panel(parent:Control,rect:Rect2,accent:Color=TEAL)->Panel:
@@ -196,7 +197,7 @@ static func icon(parent:Control,key:String,pos:Vector2,extent:float=40,_color:Co
 static func header(parent:Control,title:String,back_callback:Callable):
 	button(parent,"",Rect2(40,34,60,60),back_callback,"back")
 	label(parent,title,Vector2(120,36),32)
-	label(parent,"N E O N / 0 1",Vector2(1210,52),16,MUTED)
+	label(parent,"C H I T I N / 0 1",Vector2(1210,52),16,MUTED)
 
 class Backdrop extends Control:
 	var hero=false

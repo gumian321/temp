@@ -1,6 +1,8 @@
 extends RefCounted
 const Feedback = preload("res://scripts/weapon_feedback.gd")
 const Formation = preload("res://scripts/radial_formation.gd")
+const FlameWhip = preload("res://scripts/flame_whip.gd")
+var flame_whips:Dictionary={}
 var battle_ref: WeakRef
 var db
 var player
@@ -39,6 +41,9 @@ func process_destroyed_part(index: int):
 			battle().loot.append({"position":part.position,"value":0,"pack":true})
 
 func step(dt: float):
+	for key in flame_whips.keys():
+		flame_whips[key].idle=float(flame_whips[key].get("idle",0))+dt
+		if flame_whips[key].idle>.3:flame_whips.erase(key)
 	for i in range(player.parts.size()):
 		var p: Dictionary = player.parts[i]
 		var c: Dictionary = db.asset(p.id)
@@ -106,6 +111,7 @@ func step(dt: float):
 			if e.hp<=0 or not e.damageable or (e.role=="friendly" if hole.friendly else e.role!="friendly"): continue
 			if e.position.distance_to(hole.position)<hole.radius:
 				e.hp-=hole.damage*dt
+				battle().erode_mineral(e,{"position":hole.position,"velocity":Vector2(hole.position).direction_to(e.position)})
 				preload("res://scripts/soft_insect.gd").impact(e,Vector2(hole.position),Vector2(e.position)-Vector2(hole.position),hole.damage*dt,"blackhole")
 				e.last_fx="blackhole"; e.last_friendly=hole.friendly
 				e.last_death_direction=Vector2(e.position).direction_to(hole.position)
@@ -132,11 +138,16 @@ func continuous(core: Dictionary,at: Vector2,dir: Vector2,friendly: bool,chips: 
 		shield_damage *= multiplier
 	for e in battle().area_candidates(at, reach):
 		if e.hp<=0 or not e.damageable or (e.role=="friendly" if friendly else e.role!="friendly"): continue
-		var delta: Vector2 = e.position-at
+		var delta: Vector2 = battle().target_position(e)-at
 		if delta.length()<reach and absf(angle_difference(dir.angle(),delta.angle()))<0.2:
 			battle().hit_enemy(e,{"data":projectile,"damage":damage,"shield_damage":shield_damage,"position":at,"friendly":friendly,"chips":{},"velocity":dir,"pierce":1})
 	if not friendly:
 		for i in range(player.parts.size()):
 			var delta: Vector2 = player.parts[i].position-at
 			if delta.length()<reach and absf(angle_difference(dir.angle(),delta.angle()))<0.2: battle().hurt_player(i,damage,shield_damage)
-	battle().effects.append(Feedback.decorate({"position":at,"end":at+dir*reach,"radius":reach,"life":0.06,"kind":"flame","owner":visual_owner},"flame",friendly))
+	var key=visual_owner if not visual_owner.is_empty() else str(at)+str(friendly)
+	if not flame_whips.has(key):flame_whips[key]={"phase":float(hash(key)%127)*.03}
+	var curve=FlameWhip.advance(flame_whips[key],at,dir,reach,dt)
+	# Replace the previous frame's tether, then allow a short anchored release.
+	battle().effects=battle().effects.filter(func(e):return e.kind!="flame" or e.get("owner","")!=key)
+	battle().effects.append(Feedback.decorate({"position":at,"end":at+dir*reach,"radius":reach,"life":0.14,"kind":"flame","owner":key,"curve":curve},"flame",friendly))

@@ -251,7 +251,7 @@ func _process(dt:float):
 		var uid=int(part.feedback_uid)
 		var pose=display_poses.get(uid,{})
 		if not pose.is_empty() and int(part.get("fusion_level",1))>1:
-			flagella.step(uid,pose.point,pose.angle,int(part.fusion_level),false,dt,clock)
+			flagella.step(uid,pose.point,pose.angle,Flagella.fusion_count(int(part.fusion_level)),false,dt,clock)
 	if not points.is_empty():flagella.step(0,points[0],angles[0],2,true,dt,clock)
 	queue_redraw()
 

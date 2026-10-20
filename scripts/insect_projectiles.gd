@@ -65,6 +65,7 @@ static func paint(canvas, bullet: Dictionary, zoom: float, time: float = 0.0):
 		var cue=hostile_geometry(bullet,zoom)
 		size=cue.size
 		paint_hostile_cue(canvas,at,heading,cue)
+		return
 	if not hostile:
 		var kind=Viscous.family(bullet,key)
 		var wet_size=size*wet_pose(bullet,kind,time)
@@ -108,17 +109,24 @@ static func paint_hostile_cue(canvas,at:Vector2,heading:float,cue:Dictionary):
 	canvas.draw_set_transform(at,heading)
 	var size:Vector2=cue.size
 	var rear=Vector2(-size.x*0.30,0)
-	var tail=rear-Vector2(cue.tail,0)
 	if cue.tail>0.5:
-		canvas.draw_line(tail,rear,SEPARATION,6.5,true)
-		canvas.draw_line(tail,rear,DANGER_EDGE,4.0,true)
-		canvas.draw_line(tail,rear,DANGER,2.0,true)
-	# Pointed spore/chitin envelope: nose shows direction even in a still frame.
+		var trail=PackedVector2Array()
+		for bank in [1,-1]:
+			for i in 9:
+				var t=float(i if bank==1 else 8-i)/8
+				trail.append(rear+Vector2(-cue.tail*t,sin(t*PI)*1.5+bank*2.3*pow(1-t,1.5)))
+		canvas.draw_colored_polygon(trail,Color(DANGER,.42))
+	# Pathogenic-inspired cell membrane and nucleus; keep the existing danger hue.
 	var shape=hostile_shell(size)
-	canvas.draw_colored_polygon(shape.shell,DANGER)
+	canvas.draw_colored_polygon(shape.shell,DANGER_EDGE)
 	var border:PackedVector2Array=shape.border
-	canvas.draw_polyline(border,SEPARATION,5.5,true)
-	canvas.draw_polyline(border,DANGER_EDGE,2.2,true)
+	canvas.draw_polyline(border,Color("e88d9c"),1.1,true)
+	var membrane=PackedVector2Array()
+	for p in shape.shell:membrane.append(p*.77)
+	canvas.draw_colored_polygon(membrane,DANGER)
+	canvas.draw_circle(Vector2(size.x*.08,0),size.y*.28,Color("611b47"),true,-1,true)
+	canvas.draw_circle(Vector2(size.x*.16,-size.y*.06),size.y*.13,Color("ffba9b"),true,-1,true)
+	canvas.draw_arc(Vector2.ZERO,size.y*.37,-1.4,.5,12,Color("f1b7b4"),.85,true)
 	canvas.draw_set_transform(Vector2.ZERO)
 
 static func hostile_shell(size:Vector2)->Dictionary:

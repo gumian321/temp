@@ -1,0 +1,15 @@
+{
+  "suites": [
+    {
+      "suite": "mineral_erosion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.857,
+      "isolated_user_data": true
+    }
+  ],
+  "passed": true
+}

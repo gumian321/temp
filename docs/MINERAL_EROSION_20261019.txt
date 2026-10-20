@@ -1,0 +1,37 @@
+矿石按弹着点破碎开采 — 2026-10-19
+
+需求
+不显示矿石血量，通过越打越小和弹着点坑洼表达开采进度。
+
+当前行为
+Asteroid 矿石不再显示血条；怪物、Boss 和其他原有对象的血条继续显示。
+每次实际伤害从弹着点附近移除相应比例的石料，形成持续存在的不规则缺口，局部断面带浅色石纹及黑色细节。
+命中会飞出短暂的灰白石屑，原来的彩色子弹、元素光效仍然保留。
+移除部分同时失去子弹碰撞，后续子弹能够穿过缺口、击中后面的目标。高速子弹仍能击中薄碎片。
+自动武器、友方单位、追踪弹和攻击蜂群瞄准剩余石料，避免中心挖空后持续空打；手动瞄准仍由玩家控制。
+爆炸溅射、持续攻击和黑洞伤害都参与侵蚀；被护盾吸收的命中不裁掉矿石。
+伤害数值、资源总掉落量和采矿统计沿用现有规则，矿石耗尽后正常销毁。已有深坑阻挡功能保持有效。
+
+实现
+scripts/mineral_erosion.gd 缓存四种源图的 128 像素材质遮罩。每块矿石第一次实际受损时才复制自己的图像和碰撞数据。
+伤害控制移除像素数量，局部带细小棱角的距离排序决定弹着点附近先崩掉哪些石料。生成源 PNG 不作修改。
+同一份遮罩用于连续子弹扫掠和透明裁剪；空间查询范围包住真实岩石轮廓，不再仅依赖以前较小的固定圆。
+破损图像仅在变化后上传，后续命中复用原有纹理。每次上传重新生成 mipmaps，避免缩小时旧轮廓以残影形式出现。
+没有每帧重建全场矿石，也没有为每块矿石创建独立节点。状态随实体释放，镜头移动、缩放和暂停不会重置破损。
+岩石仍有内部生命数值，用于保留原伤害与掉落规则；游戏画面不显示该数值。
+
+验证
+mineral_erosion：四种矿石的碰撞/透明像素一致、定向缺口、独立实例、高速薄碎片命中、真实子弹穿孔击中后方目标、护盾拦截、溅射、持续伤害、自动瞄准残块及完整自动开采奖励。
+mineral_erosion_scene：原生 main.tscn 渲染、矿石无血条/怪物有血条、纹理复用和再次受损上传、暂停和镜头变化后保留缺口。
+相关回归：main_autofire、main_autofire_scene、weapon_readability、contact_impacts、combat_spatial、enemy_health、enemy_health_scene、specials、shields、drones、enemy_drones、chasm_collision、chasm_scene。
+15 组测试通过，使用独立测试存档和原生 OpenGL；报告见 docs/test-evidence/mineral-final-validation.json。
+额外完整开采验证见 docs/test-evidence/mineral-mining-validation.json，逐项断言见 mineral-erosion-report.json。
+单独记录了 30 块矿石同时发生四分之一面积裁剪的 CPU 时间，用于跟踪突发工作量；这不是实战 FPS 测量。
+
+实机图
+artifacts/mineral-erosion-stages.png：两种矿石从完整到轻度开采、深度开采、剩余碎块；阶段说明文字只属于测试场景。
+artifacts/mineral-fracture-impact.png：原彩色命中特效、灰白碎屑，以及已经上传过的破损纹理继续被裁剪。
+artifacts/mineral-erosion-paused.png：暂停和缩放后的持续缺口。
+
+运行
+关闭旧游戏，重新双击根目录“启动蜈蚣中文版.cmd”。更新的是 Godot 源工程，未重新导出独立 EXE。

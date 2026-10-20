@@ -3,6 +3,7 @@ extends RefCounted
 const SpecialSystems = preload("res://scripts/special_systems.gd")
 const SoftInsect = preload("res://scripts/soft_insect.gd")
 const Feedback = preload("res://scripts/weapon_feedback.gd")
+const Mineral = preload("res://scripts/mineral_erosion.gd")
 const DeathSplatter = preload("res://scripts/enemy_death_splatter.gd")
 var death_splatters:Array=[]
 const ViscousMotion = preload("res://scripts/viscous_projectile_motion.gd")
@@ -20,6 +21,7 @@ var character_abilities
 var barrages: Array = []
 var db
 var player
+var terrain
 var enemies: Array = []
 const SpatialIndex = preload("res://scripts/combat_spatial_index.gd")
 var spatial = SpatialIndex.new()
@@ -56,6 +58,7 @@ var encounters
 func _init(source, centipede):
 	db = source
 	player = centipede
+	terrain = player.terrain
 	player.parts_removing.connect(remap_part_owners)
 	character_abilities = CharacterAbilities.new(self)
 	for part in player.parts:
@@ -86,8 +89,10 @@ func spawn_actor(prefab: String, blueprint: Dictionary, at: Vector2, role: Strin
 	for c in blueprint.components:
 		if str(c["class"]).ends_with("Movement"): movement = c
 	var hp = float(unit.get("maxHealth", unit.get("objectHealth", 100))) * health_modifier
+	if terrain!=null: at=terrain.safe_position(at,maxf(14,float(unit.get("formationSize",1))*15))
 	var e = {"uid": next_uid, "prefab": prefab, "source_id": blueprint.id, "name": source.get("name", blueprint.name), "kind": unit["class"], "unit": unit, "movement": movement, "position": at, "origin": at, "hp": hp, "max_hp": hp, "angle": 0.0, "cooldown": 0.0, "stun": 0.0, "guns": [], "parts": [], "radius": maxf(14.0, float(unit.get("formationSize", 1)) * 15.0), "role": role, "objective": objective, "age": 0.0, "warp": 0.0, "parent": 0, "offset": Vector2.ZERO, "render": load("res://scripts/render_state.gd").instantiate(blueprint.render,next_uid), "slots": blueprint.slots, "components": blueprint.components, "group": "", "damageable": unit["class"] not in ["AIBossUnit", "AIStation"], "boost_left": 0.0, "boost_cooldown": 0.0, "active": false, "range_modifier": 0.0, "damage_modifier": damage_modifier, "heat_speed": false, "target": Vector2.ZERO, "mission_controlled": false}
 	next_uid += 1
+	if terrain!=null: e.ground_previous=at
 	for slot in blueprint.slots:
 		var core_id = slot.get("core")
 		if slot.get("GetCoreFromDataStore",false):
@@ -111,6 +116,12 @@ func spawn_actor(prefab: String, blueprint: Dictionary, at: Vector2, role: Strin
 
 func spawn(prefab: String, at: Vector2, role: String = "", objective: bool = false) -> Dictionary:
 	var definitions: Array = db.entities.get(prefab, [])
+	if terrain!=null:
+		# Move the whole prefab together, preserving boss/guard/formation offsets.
+		var formation_radius = 0.0
+		for blueprint in definitions:
+			formation_radius=maxf(formation_radius,Vector2(blueprint.x,blueprint.y).length()*48+maxf(14,float(blueprint.unit.get("formationSize",1))*15))
+		at=terrain.safe_position(at,formation_radius)
 	var spawned = {}
 	var first = {}
 	for blueprint in definitions:
@@ -163,6 +174,16 @@ func spawn(prefab: String, at: Vector2, role: String = "", objective: bool = fal
 			slow=minf(slow,float(e.movement.get("enginePower",2)))
 		patrols[first.uid]={"members":members.map(func(e):return e.uid),"position":at,"target":player.head+Vector2.from_angle(rng.randf()*TAU)*rng.randf()*patrol_radius*48,"chase":0.0,"speed":0.0,"max_speed":slow*0.5*48,"wait":0.0,"data":patrol,"movement":db.component(prefab,"AIPatrolMovement")}
 	# Boss loadouts and patrol formation positions are finalized after spawn_actor.
+	if terrain!=null:
+		for e in spawned.values():
+			var radius = float(e.radius)
+			for uid in e.parts:
+				var child = entity(uid)
+				if not child.is_empty(): radius=maxf(radius,Vector2(child.offset).length()+float(child.radius))
+			e.ground_radius=radius
+			e.position=terrain.safe_position(e.position,radius)
+			e.origin=e.position
+			e.ground_previous=e.position
 	if spatial_active: spatial.rebuild(enemies, db)
 	return first
 
@@ -180,11 +201,36 @@ func nearest(at: Vector2, reach: float = INF) -> Dictionary:
 	return result
 
 func refresh_spatial():
+	if terrain!=null:
+		for e in enemies: constrain_actor(e)
 	spatial.rebuild(enemies, db)
 	spatial_active = true
 
 func spatial_moved(e: Dictionary):
+	constrain_actor(e)
 	if spatial_active: spatial.moved(e)
+
+func constrain_actor(e: Dictionary):
+	if terrain==null: return
+	if int(e.get("parent",0))==0:
+		var radius=float(e.get("ground_radius",e.radius))
+		if not e.has("ground_checked_radius") or e.ground_checked_radius!=radius or e.get("ground_previous")!=e.position:
+			e.position=terrain.move(e.get("ground_previous",e.position),e.position,radius)
+			e.ground_checked_radius=radius
+	else:
+		# Attached boss/station pieces inherit the parent's protected footprint;
+		# an area pull must not temporarily detach them into the pit.
+		var owner=entity(int(e.parent))
+		if not owner.is_empty():e.position=owner.position+Vector2(e.offset).rotated(owner.angle)
+	e.ground_previous=e.position
+
+func move_actor(e: Dictionary, desired: Vector2):
+	e.ground_previous=e.position
+	e.position=desired
+	spatial_moved(e)
+
+func ground_direction(e: Dictionary, target: Vector2) -> Vector2:
+	return terrain.direction(e.position,target,float(e.get("ground_radius",e.radius)),e) if terrain!=null else Vector2(e.position).direction_to(target)
 
 func area_candidates(at: Vector2, reach: float) -> Array:
 	return spatial.query(at-Vector2.ONE*absf(reach), at+Vector2.ONE*absf(reach)) if spatial_active and is_finite(reach) else enemies
@@ -199,6 +245,35 @@ func projectile_candidates(b: Dictionary) -> Array:
 	if not spatial_active: return enemies
 	var margin = Vector2.ONE * (float(b.radius) + spatial.max_radius)
 	return spatial.query(Vector2(b.previous).min(b.position)-margin, Vector2(b.previous).max(b.position)+margin)
+
+func target_position(e: Dictionary) -> Vector2:
+	return Mineral.aim_position(e,db) if e.get("kind","")=="Asteroid" else Vector2(e.position)
+
+func projectile_hits(e: Dictionary, b: Dictionary) -> bool:
+	if e.kind!="Asteroid":
+		return Geometry2D.get_closest_point_to_segment(e.position,b.previous,b.position).distance_to(e.position)<e.radius+b.radius
+	var reach=Mineral.bounds_radius(e,db)+float(b.radius)
+	if Geometry2D.get_closest_point_to_segment(e.position,b.previous,b.position).distance_squared_to(e.position)>reach*reach: return false
+	var contact=Mineral.sweep(e,b.previous,b.position,b.radius,db)
+	if contact.is_empty(): return false
+	b.mineral_contact={"uid":e.uid,"contact":contact}
+	return true
+
+func mineral_contact(e: Dictionary, b: Dictionary) -> Dictionary:
+	if b.get("mineral_contact",{}).get("uid",-1)==e.uid: return b.mineral_contact.contact
+	var contact=Mineral.contact(e,b,db)
+	b.mineral_contact={"uid":e.uid,"contact":contact}
+	return contact
+
+func erode_mineral(e: Dictionary, b: Dictionary):
+	if e.kind!="Asteroid": return
+	var contact=mineral_contact(e,b)
+	var removed=Mineral.erode(e,contact.position,db)
+	b.erase("mineral_contact")
+	if removed<=0: return
+	# Stone chips are neutral; the original colored weapon impact stays intact.
+	if effects.filter(func(f):return f.kind=="stone_chips").size()<32:
+		effects.append({"kind":"stone_chips","position":contact.position,"direction":contact.normal,"life":.38,"seed":int(e.uid)*19+int(e.mineral.revision)*7,"size":clampf(sqrt(float(removed))*Mineral.pixel_scale(e,db)*.24,1.0,3.5)})
 
 func target_for(core: Dictionary, at: Vector2, reach: float) -> Dictionary:
 	var config:Dictionary=db.asset(core.get("radarConfiguration",""))
@@ -305,7 +380,7 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 	character_abilities.update(dt)
 	var player_push=Knockback.take_displacement(player.parts[0],dt)
 	if not player_push.is_zero_approx():
-		player.head+=player_push
+		player.move_head(player.head+player_push)
 		player.refresh_positions()
 	refresh_spatial()
 	player.step_feedback(dt)
@@ -347,7 +422,7 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 			# The manual-aim chip still requires explicit input for adjacent guns.
 			var manual: bool = shooting if i == 0 else chips.has(6)
 			if not manual:
-				dir = Vector2.from_angle(p.angle) if target.is_empty() else (target.position - emitter).normalized()
+				dir = Vector2.from_angle(p.angle) if target.is_empty() else (target_position(target) - emitter).normalized()
 			p.angle = rotate_toward(p.angle,dir.angle(),deg_to_rad(float(c.get("turretRotateSpeed",360)))*dt)
 			if db.asset(c.coreProjectile).get("class")=="ContinuousProjectile":
 				if player_weapons_enabled and ((manual and shooting) or (not manual and not target.is_empty())):
@@ -413,7 +488,7 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 		var target: Vector2 = player.head if not e.get("target_mission", false) else mission_target
 		if e.role == "friendly":
 			var foe = nearest(e.position, 1400)
-			if not foe.is_empty(): target = foe.position
+			if not foe.is_empty(): target = target_position(foe)
 		var delta: Vector2 = target - e.position
 		var speed = float(e.movement.get("enginePower", 2)) * 48.0
 		var stop = float(e.stop_distance)
@@ -423,6 +498,8 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 			stop=24.0
 		if e.kind == "TraderUnit":
 			delta = -delta if e.role != "friendly" else Vector2.RIGHT
+		# Navigation changes movement intent only; retain the real target for guns.
+		var navigation_delta = delta
 
 		if e.kind in ["AIStation", "AIStationPartController", "AIGuardUnitController", "AIBossPartController", "Asteroid", "ContainerObject", "SpawnerStation"] or e.mission_controlled:
 			speed = 0
@@ -440,6 +517,8 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 			elif e.heat_speed:
 				var factor = maxf(1.0, heat) if e.active else heat
 				speed *= factor * (float(e.movement.get("speedAfterTimerModifier", 2)) if factor > 1 else 1.0)
+		if speed>0 and e.parent==0 and not e.mission_controlled:
+			navigation_delta=ground_direction(e,Vector2(e.position)+delta)*delta.length()
 		if e.parent != 0:
 			var parent = entity(e.parent)
 			if not parent.is_empty():
@@ -449,24 +528,24 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 		if e.kind=="AIFollowingUnit":
 			var modifier=1.0 if delta.length()>float(e.movement.get("stoppingdDis",0))*48 else 0.0
 			if delta.length()<float(e.movement.get("runningAwayDistance",0))*48:modifier=-float(e.movement.get("movingBackSpeedPercent",0.6))
-			e.position+=delta.normalized()*speed*modifier*dt
+			e.position+=navigation_delta.normalized()*speed*modifier*dt
 			speed=0
 		if e.kind=="AIPatrolUnit" and delta.length()>stop:
 			var engine=float(e.movement.get("enginePower",2))
-			var error=absf(rad_to_deg(angle_difference(e.angle,delta.angle())))
+			var error=absf(rad_to_deg(angle_difference(e.angle,navigation_delta.angle())))
 			var max_rotation=engine*25
 			var desired_speed=0.0 if error>60 else (1-error/60)*engine*48
 			var desired_rotation=max_rotation if error>60 else error/60*max_rotation
 			e.moving_speed=lerpf(float(e.get("moving_speed",0)),desired_speed,minf(1,engine/2*dt))
 			e.rotation_speed=lerpf(float(e.get("rotation_speed",0)),desired_rotation,minf(1,max_rotation/8*dt))
 			e.position+=Vector2.from_angle(e.angle)*e.moving_speed*dt
-			e.angle=rotate_toward(e.angle,delta.angle(),deg_to_rad(e.rotation_speed)*dt)
+			e.angle=rotate_toward(e.angle,navigation_delta.angle(),deg_to_rad(e.rotation_speed)*dt)
 		else:
 			if delta.length()>stop:e.position+=Vector2.from_angle(e.angle)*speed*dt
 			if e.boost_left<=0 and not e.mission_controlled and e.parent==0:
 				var rotation_speed=float(e.movement.get("enginePower",2))*float(e.movement.get("rotEngineModifier",12))
 				if e.kind=="AIBossUnit" and e.heat_speed:rotation_speed*=maxf(1,heat) if e.active else heat
-				e.angle=rotate_toward(e.angle,delta.angle(),deg_to_rad(rotation_speed)*dt)
+				e.angle=rotate_toward(e.angle,navigation_delta.angle(),deg_to_rad(rotation_speed)*dt)
 		e.position = movement_start + (Vector2(e.position)-movement_start)*insect_control_system.movement_factor(e,dt)
 		spatial_moved(e)
 		var kamikaze=source_component(e.components,"KamikazeTrigger")
@@ -517,7 +596,7 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 				var target = nearest(b.position) if b.friendly else {"position":player.head}
 				if not target.is_empty():
 					b.rot_speed = lerpf(b.rot_speed,float(b.data.maxRotSpeed),minf(1,float(b.data.rotAcceleration)*dt))
-					b.direction = Vector2.from_angle(rotate_toward(Vector2(b.direction).angle(),(Vector2(target.position)-Vector2(b.position)).angle(),deg_to_rad(b.rot_speed)*dt))
+					b.direction = Vector2.from_angle(rotate_toward(Vector2(b.direction).angle(),(target_position(target)-Vector2(b.position)).angle(),deg_to_rad(b.rot_speed)*dt))
 			b.velocity = Vector2(b.direction)*b.homing_speed
 		if b.data["class"]=="SonicBasicProjectile": b.radius = minf(1,b.age)*float(b.data.sonicWaveLength)*24
 
@@ -526,7 +605,7 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 			for e in projectile_candidates(b):
 				if e.hp <= 0 or e.warp>0 or not e.damageable or e.role == "friendly" or e.uid in b.hit:
 					continue
-				if Geometry2D.get_closest_point_to_segment(e.position, b.previous, b.position).distance_to(e.position) < e.radius + b.radius:
+				if projectile_hits(e,b):
 					hit_enemy(e, b)
 					b.hit.append(e.uid)
 					b.pierce -= 1
@@ -576,7 +655,9 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 					var warp = source_component(parent.components, "AIWarpManager")
 					var remaining = parent.parts.filter(func(uid): return entity(uid).get("hp", 0) > 0).size()
 					if warp.get("activateWarping", false) and remaining in db.packed(warp.get("PartsCountWarp")):
-						parent.position = player.head + Vector2.from_angle(rng.randf() * TAU) * float(warp.get("warpRadius", 50)) * 48
+						var destination = player.head + Vector2.from_angle(rng.randf() * TAU) * float(warp.get("warpRadius", 50)) * 48
+						parent.position = terrain.safe_position(destination,float(parent.get("ground_radius",parent.radius))) if terrain!=null else destination
+						parent.ground_previous=parent.position
 						parent.warp = 0.5
 						for uid in parent.parts:
 							var child = entity(uid)
@@ -636,10 +717,12 @@ func impact_feedback(e: Dictionary, b: Dictionary, shielded: bool = false, conta
 	var center=Vector2(e.position) if contact_center==null else Vector2(contact_center)
 	var radius=float(e.get("radius",20)) if contact_radius<0 else contact_radius
 	var contact=Feedback.shield_contact(center,radius,b) if shielded else Feedback.surface_contact(center,radius,b)
+	if not shielded and e.get("kind","")=="Asteroid": contact=mineral_contact(e,b)
 	var size=Feedback.impact_size(power)
 	if not shielded:
 		e.feedback_left=0.065
 		e.feedback_kick=Vector2(contact.direction)*minf(4,size*0.15)
+		if e.get("kind","")=="Asteroid": e.feedback_kick=Vector2.ZERO
 	var effect=Feedback.decorate({"position":contact.position,"direction":contact.direction,"normal":contact.normal,"damage":power,"radius":size,"life":0.075+size*0.004,"kind":"shield_hit" if shielded else "hit","particle_type":0,"hit_pause":style.pause},family,bool(b.get("friendly",true)))
 	# Hard cap only presentation. Do not consume the gameplay random stream.
 	var count=0
@@ -672,6 +755,7 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 		return
 	impact_feedback(e,b)
 	e.hp -= b.damage
+	erode_mineral(e,b)
 	insect_control_system.attach(e,b)
 	SoftInsect.impact(e,Vector2(Feedback.surface_contact(e.position,e.radius,b).position),Vector2(b.get("velocity",Vector2.RIGHT)),float(b.damage),str(b.get("fx_family",Feedback.family(b.data))))
 	if e.kind in ["Asteroid", "ContainerObject"]:
@@ -699,6 +783,7 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 				splash.velocity=Vector2(e.position).direction_to(other.position)
 				splash.damage=float(b.damage)*(special.chip("ExplosionDamagePercent",int(b.chips[2])) if b.chips.has(2) and not b.data.has("projectileEffectArea") else 1.0)
 				impact_feedback(other,splash)
+				erode_mineral(other,splash)
 		explosion(e.position,area,0.35,str(b.get("fx_family",Feedback.family(b.data))),bool(b.friendly))
 	if typ == "BlackHoleProjectile":
 		for other in enemies:
@@ -863,7 +948,7 @@ func step_drones(dt: float):
 		var efficiency=1+player.upgrade_bonus(data.id,"efficiencyPercent")
 		d.ping-=dt;d.cooldown-=dt*momentum.rate_multiplier()
 		if not d.target.is_empty():
-			var valid=loot.has(d.target) if d.mode in ["pickup","carry"] else float(d.target.get("hp",0))>0
+			var valid=loot.has(d.target) and not d.target.get("delivered",false) and d.target.get("reserved_by",-1)==d.uid if d.mode in ["pickup","carry"] else float(d.target.get("hp",0))>0
 			if d.mode=="repair":valid=valid and d.target.hp<d.target.max_hp
 			if d.mode=="attack":valid=valid and d.target.position.distance_to(home.position)<reach
 			if not valid:release_drone_target(d)
@@ -879,8 +964,8 @@ func step_drones(dt: float):
 				if not target.is_empty():candidates=[target]
 				d.mode="attack"
 			else:
-				candidates=loot.filter(func(drop):return not drop.has("reserved_by") and float(drop.get("scatter_left",0))<=0 and drop.position.distance_to(d.position)<reach)
-				candidates.sort_custom(func(a,b):return bool(a.pack) and not bool(b.pack))
+				candidates=loot.filter(func(drop):return not drop.get("delivered",false) and not drop.has("reserved_by") and float(drop.get("scatter_left",0))<=0 and drop.position.distance_to(home.position)<reach)
+				candidates.sort_custom(func(a,b):return bool(a.pack) if bool(a.pack)!=bool(b.pack) else a.position.distance_squared_to(d.position)<b.position.distance_squared_to(d.position))
 				d.mode="pickup"
 			if not candidates.is_empty():
 				if d.docked:home.organ_pulse=0.18
@@ -889,11 +974,16 @@ func step_drones(dt: float):
 				if d.mode=="pickup":d.target.reserved_by=d.uid
 			else:d.mode="return"
 		var target:Vector2=home.position if d.target.is_empty() or d.carrying else d.target.position
+		if d.mode=="attack" and not d.target.is_empty(): target=target_position(d.target)
 		var delta:Vector2=target-d.position
 		var action_distance=float(data.droneCoreStopDistance if d.mode in ["return","carry"] else data.droneActionRange)*48
 		if delta.length()<action_distance:
 			match d.mode:
-				"pickup":d.carrying=true;d.target.carried=true;d.mode="carry"
+				"pickup":
+					d.carrying=true;d.target.carried=true;d.mode="carry"
+					d.target.position=d.position
+					# Recompute the destination this tick, not after flying past the crystal.
+					target=home.position;delta=target-d.position
 				"carry":
 					d.target.delivered=true;d.target.erase("reserved_by");d.target.erase("carried");d.target={};d.carrying=false;d.mode="return"
 					audio_events.append({"type":int(data.droneActionAudioType),"position":home.position})
@@ -913,10 +1003,17 @@ func step_drones(dt: float):
 		var speed_modifier=1+player.upgrade_bonus(data.id,"enginePowerPercent")
 		var goal_speed=float(data.maxMovingSpeed)*48*speed_modifier
 		if delta.length()<float(data.slowingDownDis)*48:goal_speed/=5
+		var gathering=data["class"]=="Drone" and d.mode in ["pickup","carry","return"]
+		if gathering:
+			# Arrival steering removes the minimum orbit radius. A crystal is a
+			# point destination, not a target to circle at full forward speed.
+			goal_speed=minf(goal_speed,maxf(20.0,delta.length()*5.0))
 		d.speed=lerpf(d.speed,goal_speed,minf(1,float(data.acceleration)*speed_modifier*dt))
 		d.rot_speed=lerpf(d.rot_speed,float(data.maxRotSpeed)*speed_modifier,minf(1,float(data.rotAcceleration)*dt))
 		d.angle=rotate_toward(d.angle,delta.angle(),deg_to_rad(d.rot_speed)*dt)
-		d.position+=Vector2.from_angle(d.angle)*d.speed*dt
+		if gathering:
+			d.position=Vector2(d.position).move_toward(target,maxf(d.speed,20.0)*dt)
+		else:d.position+=Vector2.from_angle(d.angle)*d.speed*dt
 		if d.carrying:d.target.position=d.position
 
 func add_drone(owner: int, data: Dictionary):
@@ -944,7 +1041,7 @@ func step_enemy_drones(dt:float):
 			candidates=candidates.filter(func(target):return target.position.distance_to(owner.position)<reach)
 			candidates.sort_custom(func(a,b):return a.position.distance_squared_to(d.position)<b.position.distance_squared_to(d.position))
 			if not candidates.is_empty():d.target=candidates[0];d.docked=false
-		var target:Vector2=owner.position if d.target.is_empty() else d.target.position
+		var target:Vector2=owner.position if d.target.is_empty() else target_position(d.target)
 		var delta=target-d.position
 		if d.target.is_empty() and delta.length()<float(data.droneCoreStopDistance)*48:d.position=owner.position;d.docked=true;d.speed=0;continue
 		if not d.target.is_empty() and delta.length()<float(data.droneActionRange)*48 and d.cooldown<=0:
@@ -976,7 +1073,10 @@ func step_patrols(dt:float):
 		var delta:Vector2=target-Vector2(group.position)
 		if delta.length()<24 and group.chase<=0:group.wait=float(group.movement.get("waitingTime",3));continue
 		group.speed=lerpf(group.speed,group.max_speed,minf(1,group.max_speed/48/10*dt))
-		group.position+=delta.normalized()*group.speed*dt
+		var direction=delta.normalized()
+		if terrain!=null:direction=terrain.direction(group.position,target,30.0,group)
+		var desired=Vector2(group.position)+direction*group.speed*dt
+		group.position=terrain.move(group.position,desired,30.0) if terrain!=null else desired
 
 func spawn_scraps(at:Vector2,count:int):
 	if count<=0 or loot.filter(func(d):return not d.pack and not d.has('reserved_by')).size()>=250:return
@@ -1012,7 +1112,7 @@ func visual_contact(e: Dictionary, shot: Dictionary) -> Dictionary:
 			var shield=db.asset(gun.id)
 			if shield.get("class")=="ShieldCore" and float(gun.get("shield",shield.maxShieldHealth))>0 and other.position.distance_to(e.position)<float(shield.ShieldRange)*48:
 				return Feedback.shield_contact(other.position,float(shield.ShieldRange)*48,shot)
-	return Feedback.surface_contact(e.position,e.radius,shot)
+	return mineral_contact(e,shot) if e.kind=="Asteroid" else Feedback.surface_contact(e.position,e.radius,shot)
 
 func player_visual_contact(index: int, shot: Dictionary) -> Dictionary:
 	var p:Dictionary=player.parts[index]

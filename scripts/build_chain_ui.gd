@@ -35,8 +35,8 @@ var drag_pointer = Vector2.ZERO
 
 func setup(owner_game):
 	game=owner_game;player=game.player;db=game.db;theme=UI.theme();UI.protect(self)
-	assembly_glass=UI.flat_style(Color("160b1e",0.75),Color(UI.TEAL,0.30),26)
-	tray_glass=UI.flat_style(Color("21162e",0.75),Color(UI.TEAL,0.42),26)
+	assembly_glass=UI.flat_style(Color("181818",0.9),Color(UI.TEXT,0.30),6)
+	tray_glass=UI.flat_style(Color("212120",0.9),Color(UI.TEXT,0.42),6)
 	size=Vector2(1440,900);mouse_filter=Control.MOUSE_FILTER_IGNORE
 	selected_segment=clampi(game.build_selected_segment,0,player.segment_count())
 	if game.reward_flow_active and not player.pending.is_empty():
@@ -191,7 +191,7 @@ func inspect(data:Dictionary):
 			description_label.text="伤害  %.1f    频率  %.1f/s\n射程  %.0f"%[float(projectile.get("projectileDamage",{}).get("hullDamage",0))*(1+player.attack_boost(player.parts.find(part),core) if not part.is_empty() else 1),float(core.get("turretRateOfFire",0)),db.range_units(core.get("turretRange",1))*48]
 		else:description_label.text=db.armament_description(core)
 		var tier=int(part.get("fusion_level",1))
-		description_label.text += "  ·  合成攻击 ×%.2f  ·  %d条鞭毛"%[pow(2.2,tier-1),tier] if tier>1 else "  ·  同元素同阶可合成"
+		description_label.text += "  ·  合成攻击 ×%.2f  ·  %d条鞭毛"%[pow(2.2,tier-1),preload("res://scripts/flagella.gd").fusion_count(tier)] if tier>1 else "  ·  同元素同阶可合成"
 		description_label.text=description_label.text.replace("\n","  ·  ")
 		description_label.max_lines_visible=1;description_label.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
 	armor_button.visible=selected_data.get("kind")=="mounted" and not game.reward_flow_active
@@ -312,5 +312,5 @@ func action_button(title: String, at: Vector2, extent: Vector2, callback: Callab
 	var button=Button.new();button.text=title;button.position=at;button.size=extent;button.disabled=disabled
 	button.add_theme_font_size_override("font_size",19)
 	for state in ["normal","hover","pressed","disabled","focus"]:
-		button.add_theme_stylebox_override(state,UI.focus_style() if state=="focus" else UI.flat_style(Color("48203e",0.9) if state in ["hover","pressed"] else Color("21162e",0.75),Color(UI.TEAL,0.85 if state in ["hover","pressed"] else 0.45),26))
+		button.add_theme_stylebox_override(state,UI.focus_style() if state=="focus" else UI.flat_style(Color("30262a",0.9) if state in ["hover","pressed"] else Color("222221",0.95),Color(UI.TEAL,0.85 if state in ["hover","pressed"] else 0.45),6))
 	button.pressed.connect(callback);add_child(button);return button

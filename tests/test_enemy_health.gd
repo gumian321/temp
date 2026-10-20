@@ -7,7 +7,7 @@ func check(ok:bool,title:String):
 func _initialize():
 	var e={"hp":100.0,"max_hp":100.0,"role":"swarm","kind":"AISwarmingUnit","radius":15.0}
 	check(Layer.eligible(e),"Living hostile is eligible")
-	for patch in [{"hp":0.0},{"max_hp":0.0},{"role":"friendly"},{"cloaked":true},{"warp":0.1}]:
+	for patch in [{"hp":0.0},{"max_hp":0.0},{"role":"friendly"},{"cloaked":true},{"warp":0.1},{"kind":"Asteroid"}]:
 		var hidden=e.duplicate();hidden.merge(patch,true)
 		check(not Layer.eligible(hidden),"Hidden or invalid enemy excluded: "+str(patch))
 	check(Layer.bar_size(e)==Vector2(48,6),"Ordinary bar has readable fixed screen dimensions")

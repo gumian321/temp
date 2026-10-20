@@ -109,7 +109,7 @@ func paint(canvas, battle, time: float, zoom: float):
 		for effect in bucket:
 			if drawn >= MAX_TRANSIENTS: break
 			if not visible(canvas,effect.position,440): continue
-			if effect.kind not in ["muzzle","hit","shield_hit","explosion","chain","flame","emp","mine_arm","hole_birth","hole_collapse","viscous_contact","egg_burst"]: continue
+			if effect.kind not in ["stone_chips","muzzle","hit","shield_hit","explosion","chain","flame","emp","mine_arm","hole_birth","hole_collapse","viscous_contact","egg_burst"]: continue
 			if effect.kind=="flame":
 				var owner=str(effect.get("owner",""))
 				if flame_owners.has(owner):continue
@@ -137,6 +137,19 @@ func order_effects(effects:Array):
 			minor_effects.append(effect)
 
 func paint_effect(canvas, effect: Dictionary, zoom: float):
+	if effect.kind=="stone_chips":
+		var age=.38-float(effect.life)
+		var fade=clampf(float(effect.life)/.16,0,1)
+		for i in 5:
+			var seed=int(effect.seed)+i*31
+			var speed=35.0+float(seed%47)
+			var direction=Vector2(effect.direction).rotated(float(seed%21-10)*.12)
+			var point=canvas.world(effect.position)+(direction*speed*age+Vector2(0,90*age*age))*zoom
+			var size=float(effect.size)*(0.7+float(seed%5)*.15)*zoom
+			var axis=Vector2.from_angle(seed+age*7)*size
+			var triangle=PackedVector2Array([point+axis,point+axis.rotated(2.2),point+axis.rotated(4.1)*.7])
+			canvas.draw_colored_polygon(triangle,Color(Color("bdbbb0") if i%2==0 else Color("74746f"),fade))
+		return
 	canvas=AttackShaders.route(canvas,str(effect.get("fx_family","tesla" if effect.kind=="chain" else ("emp" if effect.kind in ["emp","shield_hit"] else "impact"))),not bool(effect.get("friendly",true)))
 	var key = str(effect.get("fx_family", "tesla" if effect.kind=="chain" else ("emp" if effect.kind in ["emp","shield_hit"] else "impact")))
 	var style = Feedback.profile(key)
@@ -286,61 +299,12 @@ func paint_beam(canvas, effect: Dictionary, style: Dictionary, fade: float, zoom
 	canvas.draw_circle(finish,2*zoom,Color(style.color,fade))
 
 func paint_flame(canvas, effect: Dictionary, style: Dictionary, alpha: float, zoom: float):
-	if not effect.get("friendly",true):
-		paint_hostile_flame(canvas,effect,style,alpha,zoom)
-		return
-	var start=canvas.world(effect.position)
-	var finish=canvas.world(effect.end)
-	var axis=start.direction_to(finish)
-	var length=start.distance_to(finish)
-	if length<0.01:return
-	var side=axis.orthogonal()
-	# A continuous secretion jet with a thick leading mass and thin wet neck.
-	# All animation is presentation inside the original flame damage corridor.
-	var pressure=1.0+sin(clock*14.0+start.x*0.003)*0.08
-	Viscous.stamp(canvas,"wet_trail",start.lerp(finish,0.5),Vector2(length,22.0*zoom*pressure),axis.angle(),alpha*0.90)
-	for i in 3:
-		var phase=fposmod(clock*3.8+float(i)/3.0,1.0)
-		var drop_length=minf(29.0*zoom,length)
-		var distance=clampf(length*phase,drop_length*0.5,length-drop_length*0.5)
-		var point=start+axis*distance
-		var width=(5.0+phase*10.0)*zoom
-		Viscous.stamp(canvas,"mucus",point,Vector2(drop_length,width),axis.angle(),alpha*(1.0-phase*0.3))
-		var bead_length=minf(7.0*zoom,length)
-		var bead_distance=clampf(distance-16.0*zoom,bead_length*0.5,length-bead_length*0.5)
-		var bead=start+axis*bead_distance+side*(float(i)-1.0)*phase*6.0*zoom
-		Viscous.stamp(canvas,"goo_bead",bead,Vector2(bead_length,4.0*zoom),axis.angle(),alpha*(1.0-phase)*0.75)
-
-func paint_hostile_flame(canvas, effect: Dictionary, style: Dictionary, alpha: float, zoom: float):
-	var start=canvas.world(effect.position)
-	var finish=canvas.world(effect.end)
-	var axis=start.direction_to(finish)
-	var side=axis.orthogonal()
-	if start.distance_squared_to(finish)<0.01:return
-	# Hostile secretion keeps its damage corridor, with folded wet flesh and
-	# a crimson edge instead of an orange fire plume.
-	for layer in range(3):
-		var outline=PackedVector2Array()
-		var length_scale=1.0-layer*0.11
-		for bank in [1,-1]:
-			for index in range(49):
-				var t=float(index if bank==1 else 48-index)/48.0
-				var width=(3+22*pow(sin(t*PI),0.85))*(1.0-layer*0.30)*zoom
-				var sway=sin(t*17-clock*7)*5*t*zoom
-				var edge=sin(t*39-clock*9+bank)*2.5*t*zoom
-				outline.append(start.lerp(finish,t*length_scale)+side*(sway+bank*maxf(0.7*zoom,width+edge)))
-		canvas.draw_colored_polygon(outline,Color([Organic.DANGER_EDGE,Organic.DANGER,Color("f2a2a8")][layer],alpha*[0.85,0.86,0.82][layer]))
-		if layer==0:
-			outline.append(outline[0])
-			canvas.draw_polyline(outline,Color(Organic.SEPARATION,alpha*.9),2.3*zoom,true)
-	for i in range(13):
-		var t=fposmod(clock*2.5+i/13.0,1.0)
-		var at=start.lerp(finish,t)+side*sin(i*3.7+clock*8)*t*14*zoom
-		var radius=(5+20*t)*zoom
-		glow(canvas,at,radius*.85,style.accent,(1-t)*alpha*0.30)
-		var ember=at+side*sin(i*5+clock*12)*t*24*zoom
-		canvas.draw_line(ember-axis*radius*0.4,ember,Color(style.color,(1-t)*alpha),2.2*zoom,true)
-		if t<0.65:glow(canvas,at,radius*0.32,Color("f7ccd0"),(1-t)*alpha*.6)
+	var curve:PackedVector2Array=effect.get("curve",PackedVector2Array())
+	if curve.is_empty():
+		curve=preload("res://scripts/flame_whip.gd").advance({"clock":clock},effect.position,Vector2(effect.position).direction_to(effect.end),Vector2(effect.position).distance_to(effect.end),0)
+	var release=clampf(float(effect.life)/.11,0,1)
+	preload("res://scripts/flame_whip.gd").paint(canvas,curve,zoom,style.color,style.accent,alpha*release,lerpf(.2,1.0,release))
+	return
 
 func paint_hole(canvas, hole: Dictionary, zoom: float):
 	canvas=AttackShaders.route(canvas,"blackhole",not bool(hole.get("friendly",true)))

@@ -8,6 +8,9 @@ const BODY_LENGTH = 128.0
 const RANK_LENGTH = 20.0
 var strands: Dictionary = {}
 
+static func fusion_count(level: int) -> int:
+	return maxi(0,level-1)*2
+
 func clear(): strands.clear()
 
 func step(key: int, at: Vector2, angle: float, count: int, head: bool, dt: float, clock: float, motion: float = -1.0):

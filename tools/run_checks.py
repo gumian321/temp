@@ -12,6 +12,9 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SUITES = [
+    "playtest_polish", "playtest_polish_scene",
+    "mineral_erosion", "mineral_erosion_scene",
+    "chasm_collision", "chasm_scene",
     "enemy_health", "enemy_health_scene", "enemy_sizes", "spider_turn_continuity",
     "result_rank_ui",
     "fragment_recovery", "fragment_recovery_budget", "fragment_art", "fragment_recovery_scene",

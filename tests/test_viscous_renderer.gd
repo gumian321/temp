@@ -62,7 +62,7 @@ func run():
 	probe=Probe.new();fx.draw_count=FX.MAX_PROJECTILES;fx.paint_projectile(probe,bullet,1,1)
 	check(probe.textures.size()==1,"Exhausted embellishment budget preserves generated body")
 	probe=Probe.new();bullet.friendly=false;fx.paint_projectile(probe,bullet,1,.4)
-	check(probe.textures.size()==1 and probe.lines>=6,"Hostile cue and old contrast shell survive exhausted budget and zoom out")
+	check(probe.textures.is_empty() and probe.polygons>=2 and probe.circles==2,"Hostile cell membrane and nucleus survive exhausted budget and zoom out")
 	probe=Probe.new();bullet.position=Vector2(-2000,-2000);fx.paint_projectile(probe,bullet,1,1)
 	check(probe.textures.is_empty() and probe.transforms==0,"Offscreen shots are culled before atlas rendering")
 	var event={"position":Vector2(300,300),"kind":"viscous_contact","organic_family":"egg","direction":Vector2.RIGHT,"radius":7,"life":.4,"fx_duration":.72,"friendly":true}
@@ -89,32 +89,16 @@ func run():
 				aligned=aligned and Vector2(probe.poses[-1].position).distance_to(start.lerp(finish,reach))<.001
 		check(bounded,key+" dynamic accents preserve fixed family draw budget through retraction")
 		check(aligned,key+" tongue remains collinear through contact hold and smooth retraction without a V joint")
-	# Production secretion stream: exact generated route, fixed seven-stamp cap,
-	# axial front masses and no visible quad escaping behind the emitter.
+	# Continuous secretion is now an anchored soft whip, not a stretched sprite.
 	for phase in [0.0,.1,.25,.57,.77,1.0]:
 		var start=Vector2(220,180);var axis=Vector2.from_angle(.71);var length=336.0
-		var stream={"position":start,"end":start+axis*length,"kind":"flame","life":.04,"fx_duration":.06,"fx_family":"flame","friendly":true}
+		var stream={"position":start,"end":start+axis*length,"kind":"flame","life":.14,"fx_duration":.14,"fx_family":"flame","friendly":true}
 		var original=stream.duplicate(true)
 		probe=Probe.new();fx.clock=phase;fx.paint_effect(probe,stream,1)
-		var atlas_only=probe.textures.size()==7 and probe.polygons==0 and probe.lines==0 and probe.circles==0
-		var aligned=true;var contained=true;var mucus_count=0;var bead_count=0;var trail_count=0
-		for stamp in probe.stamps:
-			atlas_only=atlas_only and stamp.texture in [Wet.texture("wet_trail"),Wet.texture("mucus"),Wet.texture("goo_bead")]
-			aligned=aligned and absf(float(stamp.heading)-axis.angle())<.00001
-			if stamp.texture==Wet.texture("mucus"):
-				mucus_count+=1
-				aligned=aligned and absf((Vector2(stamp.position)-start).dot(axis.orthogonal()))<.001
-			elif stamp.texture==Wet.texture("goo_bead"):bead_count+=1
-			else:trail_count+=1
-			var rect:Rect2=stamp.rect
-			for corner in [rect.position,Vector2(rect.end.x,rect.position.y),rect.end,Vector2(rect.position.x,rect.end.y)]:
-				var world_corner=Vector2(stamp.position)+Vector2(corner).rotated(float(stamp.heading))
-				var axial=(world_corner-start).dot(axis)
-				contained=contained and axial>=-.001 and axial<=length+.001
-		check(atlas_only and mucus_count==3 and bead_count==3 and trail_count==1,"Friendly stream %.2fs uses seven generated stamps without orange polygons or glow"%phase)
-		check(aligned and contained and stream==original,"Friendly stream %.2fs is axial and stays within original endpoints without mutating damage state"%phase)
+		check(probe.textures.is_empty() and probe.lines==72 and probe.circles==0,"Friendly soft whip uses a bounded continuous tapered ribbon")
+		check(stream==original,"Whip rendering never changes damage state")
 		stream.friendly=false;probe=Probe.new();fx.paint_effect(probe,stream,1)
-		check(probe.polygons==3 and probe.lines>=16 and probe.textures.size()>13 and probe.textures.all(func(t):return t==fx.halo_texture),"Hostile flame %.2fs retains existing three-layer cone and danger glow"%phase)
+		check(probe.textures.is_empty() and probe.lines==72,"Hostile whip uses the same flexible shape with its danger palette")
 	check(Art.texture("rocket").region==Art.REGIONS[Art.CELLS.rocket],"Original atlas API retains exact legacy contract")
 	var effects:Array=[]
 	for i in 300:effects.append(event)
