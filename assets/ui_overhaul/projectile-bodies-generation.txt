@@ -1,0 +1,22 @@
+Generated with the built-in image_gen tool, 2026-10-21.
+Project: standalone organic projectile bodies; flight trails are drawn separately.
+Original atlases are preserved for compatibility, impact and beam art.
+
+projectile_bodies_atlas.png
+Use case: precise-object-edit
+Asset type: transparent 2D organic projectile BODY-ONLY sprite atlas for an existing top-down insect action game.
+Input image: the existing viscous_projectiles_atlas.png is the EDIT TARGET and exact art-style/color reference.
+Primary request: regenerate ONLY four standalone projectile bodies without any attached motion trail. Produce a new square transparent PNG sprite sheet with a strict evenly spaced 2 by 2 grid, exactly FOUR isolated sprites, one sprite centered in each quadrant. Top-left: glossy translucent yellow-green mucus glob, compact rounded capsule. Top-right: translucent golden amber egg sac containing three ivory eggs, compact closed oval membrane. Bottom-left: ivory segmented insect larva with amber-brown mandibles, straight horizontal compact body, head facing RIGHT, rounded natural rear on LEFT. Bottom-right: peach-pink fleshy spit glob, compact rounded capsule.
+Style: match the reference's hand-painted colored biological game sprites, fine dark ink contour, wet highlights, warm detailed translucent material, no background or cast shadow.
+Composition: 1024x1024 square, quadrant centers at (256,256), (768,256), (256,768), (768,768). Each body occupies about 260px wide by 200px tall, ample completely transparent gutters. Bodies point RIGHT and have complete closed rounded silhouettes at both ends. Keep the bodies chunky enough to read at 20-40px in gameplay.
+Critical constraints: BODY ONLY. Remove all attached slime trails, speed streaks, trailing ligaments, stretched tails, detached droplets, splatters, particles and motion effects. Do not put the original bottom-row impact art into this sheet. Exactly four closed isolated bodies; no fifth sprite, no labels, no text, no frame, no checkerboard, no watermark. Preserve genuine transparent alpha.
+
+special_projectile_bodies_atlas.png
+Use case: stylized-concept
+Asset type: transparent two-sprite body-only atlas for an existing hand-painted insect action game.
+Input image 1 (insect_projectiles_atlas.png): STYLE and CHARACTER reference for the turquoise orb in row 3 column 1, and the purple spiral spore in row 3 column 2. Input image 2 (projectile_bodies_atlas.png): style and isolated closed-body silhouette reference.
+Create a new transparent 1024x1024 sheet with exactly TWO separate body-only sprites stacked vertically, centered at (512,256) and (512,768), each roughly 420px wide and 330px high, with large fully transparent margins.
+Top sprite: compact turquoise-green luminous biological orb, clustered pale yellow nuclei inside, subtle dark olive organic membrane and small closed front seam facing right. Preserve the turquoise/ivory/gold identity from the reference but remove all long antennae, stems, filaments and dangling appendages.
+Bottom sprite: compact violet-purple coiled spore, clear ivory and lilac spiral center within a chunky round curled biological shell, preserve the reference spiral identity. Smooth closed silhouette without protruding tentacles, trailing strands or feelers.
+Style: detailed hand-painted 2D colored game sprites with fine dark ink contours and glossy highlights, matching both input references. Readable at 25px. Each is a single isolated closed body with a rounded LEFT rear edge and small RIGHT-facing front.
+Critical constraints: no motion trails, no streamers, no speed lines, no detached droplets, no particles, no tentacles. Exactly two separate bodies, no other sprites, no labels, no text, no shadow, no background. Genuine transparent alpha; no faint opaque residue in the gutters.

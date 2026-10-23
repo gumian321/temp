@@ -85,9 +85,12 @@ func _draw():
 			draw_rect(Rect2(strip.position,Vector2(strip.size.x*bar.shield,3)),SHIELD)
 	# Group line primitives after every filled rectangle, avoiding rect/line
 	# batch breaks for each enemy. No per-enemy node or material.
+	var lines=PackedVector2Array()
 	for bar in bars:
 		var rect:Rect2=bar.rect
-		if rect.position!=bar.anchor:draw_line(Vector2(rect.get_center().x,rect.end.y+2),Vector2(rect.get_center().x,bar.anchor.y+rect.size.y+3),FRAME,1)
+		if rect.position!=bar.anchor:
+			lines.append(Vector2(rect.get_center().x,rect.end.y+2));lines.append(Vector2(rect.get_center().x,bar.anchor.y+rect.size.y+3))
 		for tick in [0.25,0.5,0.75]:
 			var x=roundf(rect.position.x+rect.size.x*tick)
-			draw_line(Vector2(x,rect.end.y-2),Vector2(x,rect.end.y),FRAME,1)
+			lines.append(Vector2(x,rect.end.y-2));lines.append(Vector2(x,rect.end.y))
+	if not lines.is_empty():draw_multiline(lines,FRAME,1)

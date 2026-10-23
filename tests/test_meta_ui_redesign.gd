@@ -33,7 +33,7 @@ func execute():
  check(lab.theme.default_font.resource_path.ends_with('NotoSansCJKsc-Bold.otf'),'Research uses bold Chinese typography')
  check(lab.node_buttons.values().all(func(b):return b.get_theme_stylebox('normal') is StyleBoxFlat),'Research nodes render rounded Neon panel skins')
  check(lab.node_buttons.size()==db.research.size(),'Every research branch represented in pictorial constellation')
- check(lab.canvas.get_child(0).lines.size()>0,'Prerequisite links shown as constellation paths')
+ check(lab.canvas.get_node('EvolutionConnections').lines.size()>0,'Prerequisite links shown as constellation paths')
  for b in lab.node_buttons.values():check(b.text.is_empty() and b.icon!=null,'Research node uses actual reward art with tooltip')
  lab.show_detail(db.research[0],0);await process_frame
  check(is_instance_valid(lab.detail),'Research detail opens')

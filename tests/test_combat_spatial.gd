@@ -60,6 +60,10 @@ func _initialize():
 	check(battle.nearest(Vector2.ZERO).is_empty() and battle.entity(e.uid).is_empty(),"external clear is immediately visible outside tick")
 	battle.enemies=[e]; e.position=Vector2(-40,0)
 	check(battle.nearest(Vector2.ZERO).uid==e.uid,"external replacement and movement outside tick")
+	check(battle.entity(e.uid)==e and battle.entity(summoned.uid).is_empty(),"UID hints reject removed slots after external replacement")
+	battle.enemies=[summoned,e];battle.refresh_spatial();battle.spatial_active=false
+	battle.enemies.reverse()
+	check(battle.entity(e.uid)==e and battle.entity(summoned.uid)==summoned,"UID hints validate identity after same-size external reorder")
 	var variants: Array = []
 	for optimized in [false,true]:
 		var body=preload("res://scripts/centipede.gd").new(db)

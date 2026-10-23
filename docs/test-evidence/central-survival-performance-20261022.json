@@ -1,0 +1,458 @@
+{
+  "date": "2026-10-22",
+  "project": "E:/_Nlv/github/temp",
+  "user_capture": {
+    "average_frame_ms": 19.6196103896104,
+    "captured_at": "2026-10-22T17:14:11",
+    "character": "centipede",
+    "debug_build": true,
+    "frames": 154,
+    "p95_frame_ms": 25.92,
+    "project": "E:/_Nlv/github/temp/",
+    "runtime": "D:/godot/Godot_v4.6.3-stable_win64.exe",
+    "scope": "Normal gameplay F3 diagnostic. Main/combat microseconds are instrumentation; real frame intervals include rendering and engine waits. Not a controlled before/after benchmark.",
+    "source_main_sha256": "61b605d260895222a494f5ff1d0f3130502ec5e835ef347fedeb6dc7a588c489",
+    "version": 1,
+    "viewport": [
+      1440.0,
+      900.0
+    ],
+    "vsync_mode": 1,
+    "window_size": [
+      1440,
+      900
+    ]
+  },
+  "user_counts": {
+    "actors": {
+      "mean": 79.41558441558442,
+      "p95": 80,
+      "max": 80
+    },
+    "bullets": {
+      "mean": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "drones": {
+      "mean": 22,
+      "p95": 22,
+      "max": 22
+    },
+    "parts": {
+      "mean": 10,
+      "p95": 10,
+      "max": 10
+    },
+    "draw_calls": {
+      "mean": 224.2792207792208,
+      "p95": 229.0,
+      "max": 229.0
+    }
+  },
+  "user_main_phases_ms": {
+    "audio_hud": 0.30938311688311687,
+    "body": 0.8731948051948052,
+    "combat": 6.88148051948052,
+    "mission": 2.7799285714285715,
+    "preparation": 0.21478571428571427,
+    "visual_sync": 0.19986363636363638,
+    "draw_attacks": 0.02207792207792208,
+    "draw_body": 0.34425324675324676,
+    "draw_hud_feedback": 0.5255064935064935,
+    "draw_organs": 1.5426363636363638,
+    "draw_support": 0.6953701298701298,
+    "draw_terrain": 0.6204545454545455,
+    "draw_world": 0.8343376623376624
+  },
+  "user_combat_phases_ms": {
+    "cleanup": 0.057077922077922075,
+    "drones": 0.6504025974025974,
+    "enemy_ai": 4.996649350649351,
+    "enemy_soft_body": 0.3581753246753247,
+    "patrol_special": 0.19687662337662337,
+    "player_weapons": 0.35097402597402594,
+    "projectiles": 0.0019090909090909091
+  },
+  "changes": [
+    "Cache conservative edge candidates for short swept-circle queries; preserve exact contact solver/order; full-precision radius keys; 512-entry cap; local mining invalidation and reset cleanup.",
+    "Validate cached UID slots outside active spatial queries and reconcile positions after AI/tethers without rebuilding the entire index twice.",
+    "F3 also records loadout, elapsed run time and combat/terrain file hashes."
+  ],
+  "collision_replay": {
+    "after_us": {
+      "15.0": 1982056,
+      "27.0": 58477,
+      "287.963623046875": 400163,
+      "30.0": 240255,
+      "45.0": 674621
+    },
+    "before_us": {
+      "15.0": 1954599,
+      "27.0": 55698,
+      "287.963623046875": 1280284,
+      "30.0": 295020,
+      "45.0": 790260
+    },
+    "counts": {
+      "15.0": 12212,
+      "27.0": 10800,
+      "287.963623046875": 600,
+      "30.0": 2400,
+      "45.0": 2760
+    },
+    "differences": [],
+    "passed": true,
+    "queries": 28772,
+    "repeats": 3,
+    "scope": "Recorded central-chamber movement queries against identical rock, interleaved old/new exact-contact replay. Collision CPU only, not FPS."
+  },
+  "geometry_checks": {
+    "bounded": true,
+    "comparisons": 7560,
+    "differences": [],
+    "mining": true,
+    "passed": true,
+    "reset": true,
+    "scope": "Exact first contacts for short sweeps, negative/cell boundary coordinates, inside starts, full-precision radii through 513px, repeated excavation and bounded cache lifetime."
+  },
+  "combat_replay": {
+    "passed": true,
+    "scope": "Full-rate versus incremental spatial refresh: identical actors, gun state, bullets, drones, hits and RNG throughout normal combat, pull constraints, attached pieces, spawning and death.",
+    "ticks": 180
+  },
+  "native_before": {
+    "path": "artifacts/central-survival-native-verified-before.json",
+    "passed": true,
+    "initial_elapsed": 120.199999999994,
+    "final_elapsed": 130.448231999994,
+    "frames": 600,
+    "legacy": true,
+    "metrics": {
+      "cpu_ms": {
+        "mean": 10.369608333333334,
+        "p95": 16.015,
+        "max": 31.62
+      },
+      "frame_ms": {
+        "mean": 17.00976,
+        "p95": 26.358,
+        "max": 37.8
+      },
+      "actors": {
+        "mean": 67.625,
+        "p95": 68,
+        "max": 68
+      },
+      "bullets": {
+        "mean": 0,
+        "p95": 0,
+        "max": 0
+      },
+      "drones": {
+        "mean": 40,
+        "p95": 40,
+        "max": 40
+      },
+      "draw_calls": {
+        "mean": 212.84,
+        "p95": 216.0,
+        "max": 216.0
+      },
+      "sweep_neighborhoods": {
+        "mean": 0,
+        "p95": 0,
+        "max": 0
+      }
+    },
+    "main_phases_ms": {
+      "audio_hud": 0.32722833333333334,
+      "body": 0.7669483333333333,
+      "combat": 7.303005,
+      "draw_attacks": 0.024454999999999998,
+      "draw_body": 0.41904833333333336,
+      "draw_hud_feedback": 0.56959,
+      "draw_organs": 1.766775,
+      "draw_support": 0.82363,
+      "draw_terrain": 0.12486833333333335,
+      "draw_world": 0.3358516666666667,
+      "mission": 1.5469916666666665,
+      "preparation": 0.23638666666666666,
+      "visual_sync": 0.16798666666666667
+    }
+  },
+  "native_after": {
+    "path": "artifacts/central-survival-native-verified-after.json",
+    "passed": true,
+    "initial_elapsed": 120.199999999994,
+    "final_elapsed": 130.040277777774,
+    "frames": 600,
+    "legacy": false,
+    "metrics": {
+      "cpu_ms": {
+        "mean": 9.239265,
+        "p95": 12.358,
+        "max": 20.301
+      },
+      "frame_ms": {
+        "mean": 16.306558333333335,
+        "p95": 20.891,
+        "max": 87.484
+      },
+      "actors": {
+        "mean": 68.6,
+        "p95": 69,
+        "max": 69
+      },
+      "bullets": {
+        "mean": 0.30666666666666664,
+        "p95": 4,
+        "max": 8
+      },
+      "drones": {
+        "mean": 40,
+        "p95": 40,
+        "max": 40
+      },
+      "draw_calls": {
+        "mean": 222.57833333333335,
+        "p95": 254.0,
+        "max": 268.0
+      },
+      "sweep_neighborhoods": {
+        "mean": 512,
+        "p95": 512,
+        "max": 512
+      }
+    },
+    "main_phases_ms": {
+      "audio_hud": 0.37764333333333333,
+      "body": 0.755555,
+      "combat": 6.203270000000001,
+      "draw_attacks": 0.08167,
+      "draw_body": 0.3901383333333333,
+      "draw_hud_feedback": 0.6036783333333333,
+      "draw_organs": 1.759775,
+      "draw_support": 0.9979316666666667,
+      "draw_terrain": 0.12120666666666666,
+      "draw_world": 0.36476666666666663,
+      "mission": 1.4721216666666668,
+      "preparation": 0.23391666666666666,
+      "visual_sync": 0.17447666666666667
+    }
+  },
+  "native_conditions": {
+    "renderer": "Godot 4.6.3 / OpenGL Compatibility / GTX 1050",
+    "resolution": [
+      1440,
+      900
+    ],
+    "debug": true,
+    "window": "Offscreen native window; no editor remote debugger attached",
+    "native_pacing": true,
+    "measured_fixed_fps": false,
+    "preparation": "7200 fixed 1/60 simulation ticks, then 12 fixed rendered warmup frames excluded from measurements; measured frames use real engine delta. Initial elapsed asserted within 120-121 seconds.",
+    "loadout": "9 representative modules + head; 40 drones, versus 22 in the user capture",
+    "player_hp_raised": true,
+    "save_isolated": true
+  },
+  "limits": [
+    "Representative central survival scene, not exact user loadout/upgrade history.",
+    "Two independent real-delta native runs; later combat, spawn counts and draw calls differ. Not a frame-identical replay or a guarantee of steady 60 FPS.",
+    "CPU instrumentation adds overhead; native window was offscreen.",
+    "Initial native-before/native-after runs consumed an oversized delta after synchronous preparation and are excluded. Only native-verified-before/native-verified-after are used.",
+    "A trial horizontal scan rewrite did not improve the recorded workload and was removed."
+  ],
+  "regressions": [
+    {
+      "suite": "combat_spatial",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.558,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "insect_controls",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.319,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "soft_pull",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.403,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_collision_cache",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.953,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_movement_certificates",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.505,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_sweep_neighborhoods",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.133,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "combat_incremental_refresh",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.656,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_mining",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.894,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_escort",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.06,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_update_budget",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.741,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_far_navigation",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.775,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "remote_map_orbits",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.251,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "enemy_motion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 3.072,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "enemy_drones",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.39,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "main_autofire",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.584,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "all_dynamic_trails",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.744,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "performance_overlay",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.479,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "runtime_performance_capture",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.086,
+      "isolated_user_data": true
+    }
+  ],
+  "regressions_passed": true,
+  "source_sha256": {
+    "scripts/cave_world.gd": "1fa2b0dc7373530186a1f37be4b0885e15a0341ae9e8cf75ab9e0ba9ca443062",
+    "scripts/combat.gd": "a3fd339a67656a6556ba401522ef575198c8147854c1ef27d2531d549b15a415",
+    "scripts/performance_overlay.gd": "9aff9c129fb9f3a8f4951dec115156da2e88fb405f3041cb5377e38f79a36320"
+  },
+  "native_observed_reduction_percent": {
+    "cpu_mean": 10.90054028077242,
+    "frame_p95": 20.74133090522802
+  }
+}

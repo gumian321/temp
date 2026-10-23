@@ -50,6 +50,11 @@ func start():
 func settle():
 	for i in 4:await process_frame
 
+func await_deployment():
+	var deadline=Time.get_ticks_msec()+60000
+	while game.deployment_active and Time.get_ticks_msec()<deadline:await process_frame
+	check(not game.deployment_active,"Deployment finishes within 60 seconds")
+
 func click_at(point: Vector2):
 	var motion = InputEventMouseMotion.new()
 	motion.position = point;motion.global_position = point
@@ -142,6 +147,7 @@ func execute():
 		await click_at(Vector2(1215,804))
 		check(game.screen == "menu", "Deploy from Nest opens expeditions for " + id)
 		await click_at(game.mission_ui.launch_button.get_global_rect().get_center())
+		await await_deployment()
 		check(game.screen == "game" and game.player.character_id == id, "Actual launch button starts " + id)
 		check(game.player.module_cap() == int(Roster.config(id).slot_cap), "Correct mount capacity for " + id)
 		if id == "spider":

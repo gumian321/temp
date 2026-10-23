@@ -55,6 +55,10 @@ func text_at(content: String, at: Vector2, extent: Vector2, px: int = 20) -> Lab
 func action_button(title: String, at: Vector2, extent: Vector2, callback: Callable, disabled: bool = false) -> Button:
 	var button = Button.new()
 	button.text = title; button.position = at; button.size = extent; button.disabled = disabled
+	for state in ["normal","hover","pressed","hover_pressed","focus","disabled"]:
+		var skin=theme.get_stylebox(state,"Button").duplicate()
+		skin.content_margin_left=minf(20,extent.x*.15);skin.content_margin_right=minf(20,extent.x*.15)
+		button.add_theme_stylebox_override(state,skin)
 	button.pressed.connect(callback); add_child(button)
 	return button
 

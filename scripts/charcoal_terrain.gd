@@ -3,7 +3,7 @@ extends Node2D
 const Art = preload("res://scripts/charcoal_art.gd")
 var game
 var visible_chasms: Array = []
-var world = preload("res://scripts/chasm_world.gd").new()
+var world = preload("res://scripts/cave_world.gd").new()
 
 func setup(owner_game):
 	game = owner_game

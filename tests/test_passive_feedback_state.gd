@@ -18,7 +18,7 @@ func _initialize():
 		check(event.reward_id == reward.id and event.reward_class == reward["class"] and not event.status.is_empty(), "Mapped " + reward.name)
 		if reward["class"] == "BlockReward": check(event.status == "pending_module" and event.part_uids.is_empty(), "Module waits for install " + reward.name)
 		if reward["class"] == "CountBasicReward": check(event.status == "pending_charge" and event.part_uids.is_empty(), "Build action is only a charge " + reward.name)
-	check(count == 129 and classes.size() == 12,"All 129 source rewards and 12 reachable classes covered")
+	check(count == 144 and classes.size() == 12,"All 129 source rewards, nine added weapon rewards and six branches map to 12 reachable classes")
 	var pooled = {}
 	for pack in db.kind("RewardPack"):
 		for id in pack.packRewardsList: pooled[id] = true
@@ -28,7 +28,7 @@ func _initialize():
 		var reward: Dictionary = db.asset(id)
 		check(reward.get("class") in feedback.CLASSES,"Reachable pack entry mapped " + str(id))
 		if reward.get("class") != "CountBasicReward" or int(reward.rewardType) not in [8,9,20]: chain_count += 1
-	check(pooled.size() == 117 and chain_count == 111,"Exact source pool117 and live-chain111 coverage")
+	check(pooled.size() == 128 and chain_count == 126,"Live pool covers 117 source rewards minus four retired actions plus 15 weapon/branch rewards")
 	p.add_piece(db.named("Core_Shield").id,Vector2i(-1,0))
 	p.take_feedback_events()
 	p.add_piece(db.named("Core_Repair").id,Vector2i(-2,0))

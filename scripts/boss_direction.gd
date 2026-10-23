@@ -15,7 +15,7 @@ static func layout(view:Vector2,target:Vector2)->Dictionary:
 	return {"point":point,"direction":direction,"label":(point-direction*40-Vector2(48,-28)).clamp(Vector2(8,104),view-Vector2(104,94))}
 
 static func paint(game):
-	var targets=game.combat.enemies.filter(func(e):return e.hp>0 and int(e.get("parent",0))==0 and (e.kind=="AIBossUnit" or e.get("objective",false)))
+	var targets=game.combat.enemies.filter(func(e):return e.hp>0 and int(e.get("parent",0))==0 and (e.kind=="AIBossUnit" or e.get("objective",false)) and not (e.role=="friendly" and e.get("group","")=="mission_traders"))
 	targets.sort_custom(func(a,b):return a.kind=="AIBossUnit" if (a.kind=="AIBossUnit")!=(b.kind=="AIBossUnit") else a.position.distance_squared_to(game.player.head)<b.position.distance_squared_to(game.player.head))
 	var drawn:Array=[]
 	for e in targets:

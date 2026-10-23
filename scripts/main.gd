@@ -11,6 +11,7 @@ const Ink = preload("res://scripts/blue_ink.gd")
 var neon_radar_skin:StyleBoxTexture
 const CharcoalArt = preload("res://scripts/charcoal_art.gd")
 var charcoal_terrain
+var cave_terrain
 const Brood = preload("res://scripts/brood_theme.gd")
 const Battle = preload("res://scripts/combat.gd")
 const Feedback = preload("res://scripts/weapon_feedback.gd")
@@ -24,6 +25,7 @@ const CrystalLoot = preload("res://scripts/crystal_loot.gd")
 const WorldObjects = preload("res://scripts/organic_world_objects.gd")
 var passive_fx = preload("res://scripts/passive_feedback.gd").new()
 var weapon_fx = preload("res://scripts/weapon_fx.gd").new()
+var mutation_ground_layer:Node2D
 var hit_pause_left = 0.0
 var hit_pause_cooldown = 0.0
 var death_transition = preload("res://scripts/death_transition.gd").new()
@@ -34,6 +36,13 @@ var save
 var player
 var combat
 var run
+var deployment_ui: Control
+var deployment_layer: CanvasLayer
+var deployment_active = false
+var deployment_warmup = false
+var deployment_insects: Node2D
+var deployment_epoch = 0
+var deployment_report: Dictionary = {}
 var screen = "menu"
 var selected_mission: Dictionary
 var difficulty = 0
@@ -62,6 +71,7 @@ var rebind_action=""
 var radar_mode=false
 var reset_pending=false
 var debug_unlock_button:Button
+var debug_reset_skills_button:Button
 var home_points_label:Label
 var options_draft:Dictionary={}
 const SourceUI=preload("res://scripts/source_ui.gd")
@@ -97,6 +107,7 @@ var insect_layer
 var build_ui
 var mission_ui
 var battle_hud
+var performance_overlay
 var encounter_feedback
 var reward_ui
 var reward_flow_active=false
@@ -107,7 +118,7 @@ var reward_snooze_count=0
 var build_selected_segment = 1
 
 func _ready():
-	var review_check = OS.has_feature("review_build") and Array(OS.get_cmdline_user_args()).any(func(arg):return arg in ["--review-ui-check","--review-exit-check"])
+	var review_check = OS.has_feature("review_build") and Array(OS.get_cmdline_user_args()).any(func(arg):return arg in ["--review-ui-check","--review-exit-check","--review-cave-check","--review-performance-check"])
 	if review_check and not preload("res://scripts/windows_review_probe.gd").isolated_profile():
 		printerr("ERROR: Refusing review test outside isolated user directory")
 		get_tree().quit(2)
@@ -115,6 +126,8 @@ func _ready():
 	texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	charcoal_terrain = preload("res://scripts/charcoal_terrain.gd").new()
 	add_child(charcoal_terrain);charcoal_terrain.setup(self)
+	cave_terrain = preload("res://scripts/cave_terrain.gd").new()
+	add_child(cave_terrain);cave_terrain.setup(self)
 	get_tree().node_added.connect(ink_node_added)
 	db = DB.new()
 	Ink.register_game_colors(db)
@@ -125,6 +138,8 @@ func _ready():
 	insect_layer=preload("res://scripts/soft_insect_layer.gd").new()
 	insect_layer.z_index=-1
 	add_child(insect_layer)
+	mutation_ground_layer=preload("res://scripts/mutation_ground_layer.gd").new()
+	add_child(mutation_ground_layer);mutation_ground_layer.setup(self)
 	var isolated = Array(OS.get_cmdline_user_args()).any(func(arg):return arg in ["--smoke","--operations-input-fixture","--build-input-fixture"])
 	save = Save.new(db, "user://preview-isolated.json" if isolated else "user://centipede-save.json", not isolated)
 	controls=InputSystem.new(save)
@@ -137,6 +152,8 @@ func _ready():
 	add_child(ui)
 	font = UI.theme().default_font
 	ThemeDB.fallback_font = font
+	performance_overlay = preload("res://scripts/performance_overlay.gd").new()
+	add_child(performance_overlay); performance_overlay.setup(self)
 	audio_system=AudioSystem.new()
 	add_child(audio_system)
 	audio_system.setup(db,save)
@@ -159,6 +176,8 @@ func _ready():
 	health_canvas.add_child(enemy_health_layer)
 	popup_text=load("res://scripts/popup_text.gd").new();popup_text.layer=3;add_child(popup_text)
 	attack_shader_layer.attach(self)
+	if DisplayServer.get_name() != "headless":
+		preload("res://scripts/viscous_projectiles.gd").texture("mucus")
 	fragment_art.attach(self)
 	encounter_feedback = preload("res://scripts/encounter_feedback.gd").new()
 	add_child(encounter_feedback); encounter_feedback.setup(self)
@@ -168,9 +187,10 @@ func _ready():
 	passive_fx.setup(self)
 	show_menu()
 	if review_check:
-		var probe=preload("res://scripts/windows_review_probe.gd").new(self)
+		var probe=preload("res://scripts/cave_playtest_probe.gd").new(self) if "--review-cave-check" in OS.get_cmdline_user_args() else preload("res://scripts/windows_review_probe.gd").new(self)
+		if "--review-performance-check" in OS.get_cmdline_user_args():probe=preload("res://scripts/cave_performance_probe.gd").new(self)
 		get_tree().set_meta("windows_review_probe",probe)
-		if "--review-ui-check" in OS.get_cmdline_user_args():probe.start()
+		if "--review-ui-check" in OS.get_cmdline_user_args() or "--review-cave-check" in OS.get_cmdline_user_args() or "--review-performance-check" in OS.get_cmdline_user_args():probe.start()
 		else:probe.check_exit()
 	elif "--smoke" in OS.get_cmdline_user_args():
 		test_mode = true
@@ -192,9 +212,11 @@ func clear_ui():
 	if cursor_system!=null:cursor_system.set_cursor(2 if screen=="game" else 1)
 	for child in ui.get_children():
 		child.queue_free()
-	panel = Control.new()
+	var fixed_layout=screen in ["home","changelog","options","controls","build","pause","result","loading"]
+	panel = UI.FittedCanvas.new() if fixed_layout else Control.new()
+	if fixed_layout and screen in ["build","pause","result"]:panel.bottom_inset=34
 	panel.theme = Ink.theme()
-	panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	if not fixed_layout:panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	ui.add_child(panel)
 	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	call_deferred("focus_menu_button")
@@ -246,6 +268,7 @@ func show_intro():
 	show_menu()
 
 func show_menu():
+	cancel_deployment()
 	death_transition.reset(self)
 	if audio_system!=null:audio_system.sync_loops([])
 	reset_pending=false
@@ -253,21 +276,25 @@ func show_menu():
 	UI.backdrop(panel,true)
 	UI.panel(panel,Rect2(48,48,440,804),UI.TEAL)
 	UI.label(panel,"C E N T I P E D E",Vector2(84,88),19,UI.TEAL)
-	UI.label(panel,db.ui("ARMORED\nINSTINCT","逐节武装"),Vector2(80,136),52)
-	UI.label(panel,"01 / "+db.ui("EXPEDITION","远征"),Vector2(84,225),17,UI.MUTED)
+	UI.label(panel,db.ui("ARMORED\nINSTINCT","逐节武装"),Vector2(80,136),52 if db.language.begins_with("Chinese") else 40)
+	UI.label(panel,"01 / "+db.ui("EXPEDITION","远征"),Vector2(84,225 if db.language.begins_with("Chinese") else 270),17,UI.MUTED)
 	UI.button(panel,db.ui("DEPLOY","出击"),Rect2(80,308,376,102),show_missions,"play",UI.AMBER)
 	UI.button(panel,db.ui("INSECT NEST","虫巢"),Rect2(80,426,376,76),show_characters,"body")
 	UI.button(panel,db.ui("RESEARCH","进化"),Rect2(80,516,180,76),show_lab,"research")
 	UI.button(panel,db.ui("SETTINGS","设置"),Rect2(276,516,180,76),show_options,"settings")
-	var updates=UI.button(panel,"",Rect2(80,628,76,66),show_changelog,"check");updates.tooltip_text=db.ui("What's new","更新记录")
-	var exit_button=UI.button(panel,"",Rect2(380,628,76,66),safe_shutdown,"exit");exit_button.tooltip_text=db.ui("Exit","退出游戏")
-	debug_unlock_button=UI.button(panel,db.ui("DEBUG · UNLOCK ALL","DEBUG · 一键全开"),Rect2(80,706,376,46),debug_unlock_all_content,"evolution",UI.AMBER)
+	var updates=UI.button(panel,"",Rect2(80,606,76,48),show_changelog,"check");updates.tooltip_text=db.ui("What's new","更新记录")
+	var exit_button=UI.button(panel,"",Rect2(380,606,76,48),safe_shutdown,"exit");exit_button.tooltip_text=db.ui("Exit","退出游戏")
+	debug_unlock_button=UI.button(panel,db.ui("DEBUG · UNLOCK ALL","DEBUG · 一键全开"),Rect2(80,666,376,40),debug_unlock_all_content,"evolution",UI.AMBER)
 	debug_unlock_button.name="DebugUnlockAll"
 	debug_unlock_button.add_theme_font_size_override("font_size",18)
 	debug_unlock_button.tooltip_text=db.ui("Unlock all characters, skills and evolutions, then save.","解锁全部角色、技能和进化内容，并保存。")
+	debug_reset_skills_button=UI.button(panel,db.ui("DEBUG · RESET SKILLS","DEBUG · 恢复初始技能"),Rect2(80,714,376,40),debug_reset_skill_progress,"research",UI.AMBER)
+	debug_reset_skills_button.name="DebugResetSkills"
+	debug_reset_skills_button.add_theme_font_size_override("font_size",18)
+	debug_reset_skills_button.tooltip_text=db.ui("Restore initial skills, evolutions and reward filters; top up to at least 10,000 RP. Keep characters, missions and records, then save.","恢复新档技能、进化和奖励筛选，进化点补到至少 10,000。保留角色、关卡和成绩，自动保存。")
 	UI.icon(panel,"meta",Vector2(82,765),38,UI.AMBER)
 	home_points_label=UI.label(panel,str(save.state.meta),Vector2(136,760),34,UI.AMBER)
-	UI.label(panel,db.ui("EVOLUTION","进化点"),Vector2(136,807),16,UI.MUTED)
+	UI.label(panel,db.ui("EVOLUTION","进化点"),Vector2(136,817),16,UI.MUTED)
 	UI.panel(panel,Rect2(760,818,480,45))
 	UI.label(panel,"W A S D  /  "+db.ui("MOVE","移动")+"     E  /  "+db.ui("BUILD","装配"),Vector2(780,830),18,UI.TEXT)
 
@@ -277,6 +304,17 @@ func debug_unlock_all_content():
 		if is_instance_valid(debug_unlock_button):debug_unlock_button.text=db.ui("SAVE FAILED · TRY AGAIN","保存失败 · 请重试")
 		return
 	if is_instance_valid(debug_unlock_button):debug_unlock_button.text=db.ui("DEBUG · ALL UNLOCKED","DEBUG · 已全部解锁")
+	if is_instance_valid(debug_reset_skills_button):debug_reset_skills_button.text=db.ui("DEBUG · RESET SKILLS","DEBUG · 恢复初始技能")
+	audio_system.play(70)
+
+func debug_reset_skill_progress():
+	if screen!="home" or save==null:return
+	if not save.reset_skill_progress():
+		if is_instance_valid(debug_reset_skills_button):debug_reset_skills_button.text=db.ui("SAVE FAILED · TRY AGAIN","保存失败 · 请重试")
+		return
+	if is_instance_valid(debug_reset_skills_button):debug_reset_skills_button.text=db.ui("DEBUG · INITIAL SKILLS","DEBUG · 已恢复初始技能")
+	if is_instance_valid(debug_unlock_button):debug_unlock_button.text=db.ui("DEBUG · UNLOCK ALL","DEBUG · 一键全开")
+	if is_instance_valid(home_points_label):home_points_label.text=str(save.state.meta)
 	audio_system.play(70)
 
 func show_characters():
@@ -456,6 +494,14 @@ func show_controls():
 	UI.button(panel,db.ui("RESET KEYS","恢复按键"),Rect2(1060,792,300,65),func():save.state.settings.bindings.clear();controls.apply();save.save();show_controls(),"settings")
 
 func start_run():
+	cancel_deployment()
+	deployment_epoch += 1
+	reset_run_state()
+	prepare_run_player()
+	run = Run.new(db, save, player, combat, selected_mission, difficulty)
+	finish_run_start()
+
+func reset_run_state():
 	death_transition.reset(self)
 	passive_fx.reset()
 	reward_flow_active=false;reward_choice_busy=false;reward_snoozed=false;reward_epoch+=1
@@ -464,13 +510,21 @@ func start_run():
 	if particle_effects!=null:particle_effects.clear()
 	if tutorials!=null:tutorials.reset_run()
 	save.begin_character_run(true)
+	radar_mode=false
+	zoom=1.0
+
+func prepare_run_player():
 	player = Body.new(db)
 	player.configure_character(str(save.state.selected_character))
+	charcoal_terrain.world.reset_cave(player.character_id == "centipede")
+	cave_terrain.reset()
 	player.terrain = charcoal_terrain.world
+	if charcoal_terrain.world.enabled: player.history = charcoal_terrain.world.initial_trail(player.head, player.facing)
 	leg_phase=0.0;player_legs.reset()
 	build_selected_segment=1
 	combat = Battle.new(db, player)
-	run = Run.new(db, save, player, combat, selected_mission, difficulty)
+
+func finish_run_start():
 	camera_focus.clear();shown_bosses.clear()
 	# Boss locations are shown on radar; the camera stays with the player.
 	for enemy in combat.enemies:
@@ -629,8 +683,71 @@ func reward_placement_changed():
 	build_ui.rebuild()
 
 func begin_run():
-	# Tips remain available in show_loading(), but no longer interrupt deployment.
-	start_run()
+	if deployment_active:return
+	deployment_epoch+=1
+	var token=deployment_epoch
+	var started=Time.get_ticks_usec()
+	deployment_active=true
+	screen="deploying";clear_ui();source_ui=null
+	insect_layer.visible=false
+	if menu_background!=null:menu_background.visible=false
+	if particle_effects!=null:particle_effects.visible=false
+	audio_system.sync_loops([])
+	deployment_layer=CanvasLayer.new();deployment_layer.layer=100;add_child(deployment_layer)
+	deployment_ui=preload("res://scripts/deployment_screen.gd").new();deployment_ui.cave=save.state.selected_character=="centipede";deployment_layer.add_child(deployment_ui)
+	var phases:Array=[]
+	if not await deployment_checkpoint(token,0,"准备虫体与地形"):return
+	var stage=Time.get_ticks_usec()
+	reset_run_state();prepare_run_player()
+	phases.append({"stage":"player","ms":float(Time.get_ticks_usec()-stage)/1000})
+	if not await deployment_checkpoint(token,8,"布置任务"):return
+	stage=Time.get_ticks_usec()
+	run=Run.new(db,save,player,combat,selected_mission,difficulty,true)
+	phases.append({"stage":"mission","ms":float(Time.get_ticks_usec()-stage)/1000})
+	var total=run.map_director.pending_nodes.size()
+	for i in total:
+		if not await deployment_checkpoint(token,12.0+48.0*i/maxi(1,total),"布置矿区  %d / %d"%[i,total]):return
+		stage=Time.get_ticks_usec();run.map_director.prepare_next_node()
+		phases.append({"stage":"map_node","ms":float(Time.get_ticks_usec()-stage)/1000})
+	camera=player.head
+	var chunks=cave_terrain.preparation_chunks()
+	for i in chunks.size():
+		if not await deployment_checkpoint(token,60.0+35.0*i/maxi(1,chunks.size()),"生成岩层  %d / %d"%[i,chunks.size()]):return
+		stage=Time.get_ticks_usec();cave_terrain.prepare_chunk(chunks[i])
+		phases.append({"stage":"terrain_chunk","ms":float(Time.get_ticks_usec()-stage)/1000})
+	deployment_warmup=true
+	if not await deployment_checkpoint(token,96,"准备战斗效果"):return
+	deployment_insects=Node2D.new();add_child(deployment_insects)
+	for i in Brood.SPECIES.size():
+		var actor={"uid":-i-1,"kind":"AISwarmingUnit","position":Vector2.ZERO,"angle":0.0,"hp":100.0,"max_hp":100.0,"radius":18.0,"brood_species":Brood.SPECIES[i]}
+		var rig=preload("res://scripts/soft_insect_rig.gd").new();deployment_insects.add_child(rig);rig.setup(actor)
+		preload("res://scripts/soft_insect.gd").impact(actor,Vector2(0,-18),Vector2.DOWN,15)
+		rig.position=Vector2(60+i*70,60);rig.scale=Vector2.ONE*20;rig.pose(0.0)
+		if not await deployment_checkpoint(token,96.0+2.0*(i+1)/Brood.SPECIES.size(),"准备虫群  %d / %d"%[i+1,Brood.SPECIES.size()]):return
+	stage=Time.get_ticks_usec()
+	# Build and render the game behind the plate while simulation/input stay held.
+	finish_run_start()
+	insect_layer.sync(self,0)
+	var hud_ms=float(Time.get_ticks_usec()-stage)/1000
+	if not await deployment_checkpoint(token,99,"准备就绪",true):return
+	if not await deployment_checkpoint(token,100,"进入矿洞",true):return
+	deployment_report={"elapsed_ms":float(Time.get_ticks_usec()-started)/1000,"phases":phases,"hud_ms":hud_ms,"progress":deployment_ui.history.duplicate(true),"prepared_chunks":chunks.size(),"map_nodes":total}
+	deployment_active=false;deployment_warmup=false;deployment_layer.queue_free();deployment_insects.queue_free()
+
+func deployment_checkpoint(token:int,value:float,caption:String,ready:bool=false)->bool:
+	if token!=deployment_epoch or not deployment_active or screen!=("game" if ready else "deploying"):return false
+	deployment_ui.set_progress(value,caption)
+	queue_redraw()
+	await get_tree().process_frame
+	if DisplayServer.get_name()!="headless":await RenderingServer.frame_post_draw
+	if token==deployment_epoch and deployment_active and screen!=("game" if ready else "deploying"):cancel_deployment()
+	return token==deployment_epoch and deployment_active and screen==("game" if ready else "deploying")
+
+func cancel_deployment():
+	if not deployment_active:return
+	deployment_epoch+=1;deployment_active=false;deployment_warmup=false
+	if is_instance_valid(deployment_layer):deployment_layer.queue_free()
+	if is_instance_valid(deployment_insects):deployment_insects.queue_free()
 
 func show_loading():
 	screen="loading"
@@ -711,12 +828,16 @@ func set_score_row(id:String,title:String,value:int):
 	for key in ["scorePanelValueText","scorePanelValueBackground"]:source_ui.set_text(refid(row,key),str(value))
 
 var performance_samples:Dictionary={}
+var performance_profile_enabled=OS.get_environment("RBPEW_PROFILE")=="1"
 func profile_mark(key:String,started:int):
-	if OS.get_environment("RBPEW_PROFILE")=="1":
+	if performance_profile_enabled:
 		var sample=performance_samples.get(key,{"microseconds":0,"calls":0})
 		sample.microseconds+=Time.get_ticks_usec()-started;sample.calls+=1;performance_samples[key]=sample
 
 func _process(dt: float):
+	if deployment_active:
+		queue_redraw();return
+	var preparation_started = Time.get_ticks_usec()
 	if death_transition.active:
 		if death_transition.advance(self,dt):show_result()
 		return
@@ -790,8 +911,10 @@ func _process(dt: float):
 			dir = Vector2.from_angle(test_time * 0.7)
 		var weapon_input = main_weapon_input()
 		aim = weapon_input.aim
+		profile_mark("preparation", preparation_started)
 		var measured=Time.get_ticks_usec()
 		player.step(dt, dir, Input.is_action_pressed("boost"))
+		if charcoal_terrain.world.mining_active: mouth_activity = 1.0
 		leg_phase+=player.velocity.length()*dt*0.075
 		player_legs.step(player,dt)
 		profile_mark("body",measured);measured=Time.get_ticks_usec()
@@ -818,6 +941,10 @@ func _process(dt: float):
 				particle_effects.play(type,effect.position,float(effect.radius)/48 if effect.kind=="explosion" else 1,float(effect.get("duration",0)),effect.get("follow",{}))
 				particle_bursts+=1
 		profile_mark("combat",measured);measured=Time.get_ticks_usec()
+		# Keep all visible map actors at the normal collision cadence, including
+		# zoomed-out views; the margin also covers the following camera motion.
+		var orbit_extent=get_viewport_rect().size/maxf(.01,zoom)
+		run.map_director.orbit_activity_view=Rect2(camera-orbit_extent*.5,orbit_extent).grow(512)
 		run.step(dt)
 		profile_mark("mission",measured);measured=Time.get_ticks_usec()
 		for enemy in combat.enemies:
@@ -843,8 +970,10 @@ func _process(dt: float):
 			else:show_result()
 		elif auto_reward_ready():advance_reward_flow()
 	test_time += dt
+	var visual_started = Time.get_ticks_usec()
 	sync_camera_layers()
 	insect_layer.sync(self,dt if screen=="game" else 0.0)
+	profile_mark("visual_sync", visual_started)
 	queue_redraw()
 
 func focus_menu_button():
@@ -856,11 +985,11 @@ func focus_menu_button():
 	if not candidates.is_empty():candidates[0].grab_focus()
 
 func collect_focus_buttons(node:Node,result:Array):
-	if node is Button and node.is_visible_in_tree() and not node.disabled:result.append(node)
+	if node is Button and node.is_visible_in_tree() and not node.disabled and node.focus_mode!=Control.FOCUS_NONE:result.append(node)
 	for child in node.get_children():collect_focus_buttons(child,result)
 
 func _notification(what):
-	if what==NOTIFICATION_WM_WINDOW_FOCUS_OUT and screen=="game" and not test_mode and is_instance_valid(ui):show_pause()
+	if what==NOTIFICATION_WM_WINDOW_FOCUS_OUT and screen=="game" and not deployment_active and not test_mode and is_instance_valid(ui) and not get_tree().has_meta("performance_fixture"):show_pause()
 
 # Mouse motion is only a pointer update. A held fire button or an aim stick
 # outside the configured deadzone explicitly takes priority over HQ auto fire.
@@ -879,6 +1008,8 @@ func main_weapon_input() -> Dictionary:
 	return {"aim": direction_target, "manual": enabled and (controls.shooting() or stick != Vector2.ZERO or test_mode), "enabled": enabled}
 
 func _input(event):
+	if deployment_active:
+		get_viewport().set_input_as_handled();return
 	if death_transition.active:
 		get_viewport().set_input_as_handled();return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -935,7 +1066,11 @@ func _input(event):
 		get_viewport().set_input_as_handled()
 
 func _unhandled_input(event):
+	if deployment_active:return
 	if death_transition.active:return
+	if screen=="game" and event is InputEventKey and event.pressed and not event.echo and (event.physical_keycode==KEY_F3 or event.keycode==KEY_F3):
+		performance_overlay.begin_capture()
+		get_viewport().set_input_as_handled();return
 	if event.is_action_pressed("character_skill") and not event.is_echo():
 		if screen=="game" and camera_focus.is_empty() and not run.finished:
 			var command=main_weapon_input()
@@ -1009,16 +1144,21 @@ func draw_weapon_neck(anchor: Vector2, tip: Vector2, radius: float, alpha: float
 	draw_polyline(curve, Color(Ink.WASH, alpha), 3.0 * zoom, true)
 
 func _draw():
+	var draw_measured=Time.get_ticks_usec()
 	charcoal_terrain.sync()
+	if cave_terrain != null: cave_terrain.sync()
+	profile_mark("draw_terrain",draw_measured);draw_measured=Time.get_ticks_usec()
 	fragment_art.paint(self)
 	if encounter_feedback != null: encounter_feedback.queue_redraw()
 	# Any early-return screen (including tactical radar) starts without old FX.
 	segment_damage_layer.queue_redraw()
 	enemy_health_layer.queue_redraw()
+	mutation_ground_layer.queue_redraw()
 	passive_fx.living.hide()
 	attack_shader_layer.begin_frame(float(player.motion.elapsed) if player!=null else 0.0)
 	attack_shader_layer.set_occlusion(Rect2(get_viewport_rect().size-Vector2(210,235),Vector2(180,150)) if screen in ["game","pause","rewards","result"] else Rect2())
 	soft_organs.begin_frame()
+	if deployment_warmup:warm_attack_visuals()
 	sync_camera_layers()
 	if ink_world != null: ink_world.begin_frame()
 	var background=Color("20222c")
@@ -1097,6 +1237,7 @@ func _draw():
 				var pose = player.segment_pose(int(evolved.segment))
 				CentipedeArt.Flagella.paint(self,player.flagella.poses(int(evolved.feedback_uid)),world(pose.point),Vector2(pose.direction).angle(),zoom,true)
 		# Continuous insect silhouette; turrets sit on the carapace of each segment.
+		profile_mark("draw_world",draw_measured);draw_measured=Time.get_ticks_usec()
 		if player.character_id!="centipede":
 			CharacterArt.draw_body(self,player,world(player.head),zoom,test_time,combat.character_abilities.emitter_pose)
 		else:
@@ -1110,6 +1251,7 @@ func _draw():
 				var shell:Dictionary=player.parts[index] if index>0 else {}
 				CentipedeArt.segment(self,world(Vector2(pose.point)+SegmentFeedback.offset(shell)),Vector2(pose.direction).angle(),zoom,leg_phase-segment*0.8,false,player.parts_on_segment(segment).is_empty(),false,0,-1,player_legs.poses(segment),[],SegmentFeedback.tint(shell))
 			CentipedeArt.segment(self,world(player.head+SegmentFeedback.offset(player.parts[0])),player.facing.angle(),zoom,leg_phase,true,false,false,mouth_activity,test_time,[],player.flagella.poses(int(player.parts[0].feedback_uid)),SegmentFeedback.tint(player.parts[0]))
+		profile_mark("draw_body",draw_measured);draw_measured=Time.get_ticks_usec()
 		for i in range(player.parts.size()-1,-1,-1):
 			var p:Dictionary=player.parts[i]
 			var kick=SegmentFeedback.offset(p)
@@ -1122,20 +1264,22 @@ func _draw():
 			var c:Dictionary=db.asset(player.hq_weapon if i==0 else p.id)
 			var recoil=Vector2.from_angle(p.angle)*float(p.get("recoil",0))*zoom*minf(1,player.module_size(i)/35.0)
 			var tint=Color(1,1,1,0.3) if p.get("cloaked",false) else (pulse_color(p) if pulse else Color.WHITE)
-			organ_art(db.core_sprite(c),pos-recoil,size,p.angle+PI*0.5+float(tension.get("twist",0)),SegmentFeedback.tint(p,tint),db.Armaments.variant(db,c),float(p.get("organ_pulse",0)),"player:"+str(p.feedback_uid),float(p.feedback_uid),1.0 if not p.feedback_pulses.is_empty() else 0.0,p.hp<=0 or p.stun>0,tension)
+			organ_art(preload("res://scripts/mutation_branches.gd").core_texture(player,c),pos-recoil,size,p.angle+PI*0.5+float(tension.get("twist",0)),SegmentFeedback.tint(p,tint),db.Armaments.variant(db,c),float(p.get("organ_pulse",0)),"player:"+str(p.feedback_uid),float(p.feedback_uid),1.0 if not p.feedback_pulses.is_empty() else 0.0,p.hp<=0 or p.stun>0,tension)
+		profile_mark("draw_organs",draw_measured);draw_measured=Time.get_ticks_usec()
 		CharacterArt.draw_skill(self,player,combat.character_abilities.state(),world(player.head),zoom,test_time)
 		passive_fx.paint(self,player,combat,zoom)
-		for mine in combat.special.mines:
-			skill_module_art("mine",db.sprite(mine.data.mineSprite),world(mine.position),Vector2(22,22)*zoom,0.0,not bool(mine.get("friendly",true)))
+		weapon_fx.paint_mine_sprites(self,combat,zoom)
 		for d in combat.drones+combat.enemy_drones:
 			if d.get("docked",false):continue
 			native_visuals.trail(self,d,d.data.get("dronePrefab",0),test_time,zoom,not bool(d.get("friendly",true)))
 			var drone_angle=float(d.get("angle",0))+PI/2 if d.data.get("class","")=="ProjectileDrone" else 0.0
 			skill_module_art("repair_drone" if d.data.get("class","")=="EngineerDrone" else ("drone" if d.data.get("class","")=="ProjectileDrone" else "scrap_drone"),db.sprite(d.data.get("droneSprite", "")), world(d.position), Vector2(18, 18)*zoom,drone_angle,not bool(d.get("friendly",true)))
+		profile_mark("draw_support",draw_measured);draw_measured=Time.get_ticks_usec()
 		weapon_fx.draw_count=0
 		for b in combat.bullets:
 			if b.friendly:weapon_fx.paint_projectile(self,b,test_time,zoom)
 		weapon_fx.paint(self,combat,test_time,zoom)
+		profile_mark("draw_attacks",draw_measured);draw_measured=Time.get_ticks_usec()
 		InsectAttackFX.paint(self,combat.insect_controls,zoom)
 		InsectAttackFX.paint_released(self,combat.insect_control_system.released,zoom)
 		SegmentFeedback.paint(self,combat,zoom)
@@ -1160,6 +1304,20 @@ func _draw():
 		draw_circle(radar_origin+Vector2(90,75), 4, UI.TEAL)
 		draw_objective_arrows()
 		death_transition.paint(self)
+		profile_mark("draw_hud_feedback",draw_measured)
+
+func warm_attack_visuals():
+	# Submit real textured/geometry paths under the opaque loading plate. Loading
+	# a Shader resource alone leaves its first GL pipeline compilation for combat.
+	for key in AttackShaders.MODES:
+		var painter=AttackShaders.route(self,key)
+		painter.draw_line(Vector2(60,60),Vector2(72,60),Color.WHITE,2,true)
+		painter.draw_texture_rect(weapon_fx.halo_texture,Rect2(60,60,12,12),false)
+		for kind in ["muzzle","hit"]:
+			weapon_fx.paint_effect(self,{"kind":kind,"fx_family":key,"position":camera,"direction":Vector2.RIGHT,"normal":Vector2.LEFT,"radius":6.0,"life":0.12,"fx_duration":0.15,"visual_scale":1.0,"friendly":true},1.0)
+	for key in preload("res://scripts/insect_projectiles.gd").CELLS:
+		var bullet={"fx_family":key,"position":camera,"previous":camera-Vector2(12,0),"origin":camera-Vector2(50,0),"velocity":Vector2(600,0),"radius":5,"friendly":true}
+		weapon_fx.paint_projectile(self,bullet,0.0,1.0)
 
 func automated_flow():
 	await get_tree().process_frame
@@ -1181,6 +1339,7 @@ func automated_flow():
 	await capture("12-reward-pool")
 	begin_run()
 	await capture("13-loading-tips")
+	while deployment_active:await get_tree().process_frame
 	show_game()
 	var ids: Array = [db.named("Core_Gun_Gatling").id, db.named("Core_Gun_Shotgun").id, db.named("Core_Gun_Tesla").id]
 	for i in range(3):
@@ -1242,6 +1401,7 @@ func draw_map_icon(enemy:Dictionary,at:Vector2,pixels:float,neon:bool=false):
 
 func draw_objective_arrows():
 	preload("res://scripts/boss_direction.gd").paint(self)
+	preload("res://scripts/escort_guidance.gd").paint(self)
 
 func source_hit_color()->Color:
 	var c:Dictionary=db.stores.PlayerDataStore.get('playerHitColor',{})

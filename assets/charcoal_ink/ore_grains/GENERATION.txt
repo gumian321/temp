@@ -1,0 +1,44 @@
+A 方案矿粒斑块 / production asset provenance
+2026-10-21
+
+Tool: built-in image_gen (not the CLI/API fallback).
+Selected runtime file: ore_grains_v2.png
+Layout: 1536x1024 RGBA, 3 columns x 2 rows. Preserve alpha.
+Reference: user-approved LEFT PANEL A of the colored comparison sheet,
+exec-835fd84b-8bf9-4086-91d3-5f7c0a066884.png in the conversation's generated images.
+The concept sheet is a reference only; it is not a runtime screenshot.
+The first atlas iteration is preserved outside the runtime assets in
+artifacts/ore-grains-iterations/ore_grains_v1.png.
+
+Prompt 1 — original atlas generation (reference: colored A/B/C concept sheet)
+
+Use case: stylized-concept / game sprite atlas.
+Asset type: production-ready transparent RGBA sprite sheet for a flat top-down black-and-white 2D mining game.
+The attached concept sheet is a STYLE reference. The user has approved ONLY LEFT PANEL A: small disseminated mineral grains embedded in irregular charcoal-gray shattered host rock, with just a few exposed muted cyan-blue grains. Do not use panel B's large crystals or panel C's broad quartz layers.
+Create ONE atlas containing EXACTLY SIX separate mineral-bearing rock patches in an evenly spaced 3-column by 2-row grid. Use an overall landscape 3:2 aspect ratio, equal square cells, each patch centered within its own cell, at least 15% fully transparent padding around EVERY patch so adjacent cells never touch. Every patch is an isolated irregular cutout over genuine transparency, no rectangular background or solid rock tile, no gray sheet background, no fake transparency checkerboard.
+Each patch: an irregular, elongated-to-rounded swarm of naturally fractured dark-gray host-rock flakes and embedded small mineral grains, uneven density, ragged broken perimeter, a few detached nearby chips. Hand-inked black edges, charcoal/graphite interior hatching and subtle brush texture, flat orthographic top-down as in panel A. Mostly dark and mid-gray rock flakes with scattered silver-white mineral grains. Size variation: many small grains, several medium grains, just two or three slightly larger nuggets for readability. Organic lumpy clusters, NOT repeating individual icon diamonds, no orderly rows. Keep fine details bold enough to survive downscaling to roughly 70–120 game pixels.
+Only about 25–30% of the exposed mineral grains have a subtle yet identifiable muted blue-teal face (#629F9E / #487F83 with very small pale highlights). All ordinary host rock must remain strictly grayscale. The colored grains should be sparse, partially buried and intermixed with white and gray grains; the total patch is mostly grayscale and the mineral color should be a discovery cue, not a colored blob.
+The six patches should be distinct natural variants of this ONE material: ragged diagonal cluster, broken vertical cluster, compact forked cluster, crescent-shaped fractured cluster, sparse two-lobed cluster, dense asymmetrical cluster. Keep the same drawing style and scale. Small 2D drawn facets are fine. NO tall crystal spires, NO 3D perspective, NO extruded slabs, NO drop shadows cast onto a background, NO emissive glow, NO bloom, NO long mineral vein/circuit lines, NO circular badge shape, NO polished gemstones, NO grid borders, NO labels, NO letters, NO text, NO watermark, NO scenery, NO characters, NO UI. Transparent outside the rock patches, grayscale rock with a little colored mineral only.
+
+Prompt 2 — selected refinement (edit target: first generated atlas)
+
+Use case: precise-object-edit. Revise this transparent 3-column 2-row mineral-patch game atlas for small gameplay-scale readability.
+Keep the same SIX distinct ore patches, same 3x2 equal-square grid, same charcoal ink style and true transparency. Keep the host rock strictly grayscale, sparse blue-teal mineral accents, mostly silver-white grains. These are disseminated nuggets partly buried in broken host rock, NOT tall crystal clusters.
+Make two targeted production corrections:
+1. Reduce the number of very small mineral grains by about HALF. Use roughly 15–25 visible silver-white/gray mineral grains per patch, in varied sizes, plus around 5–8 readable medium grains showing a muted blue-teal facet (#629F9E / #487F83). Some individual minerals may combine a pale face with one small colored face. Leave broken gray host material between them. A few larger mineral nuggets should read at a total patch display size of 80–120 pixels. Keep color restrained and do not turn the whole patch blue.
+2. INCREASE TRANSPARENT PADDING. Every patch, including all outlying chips, must fit fully inside the central 65% of its own square cell. Leave at least 17% EMPTY, FULLY TRANSPARENT padding on ALL FOUR SIDES of EVERY cell. Absolutely no rock, chip, grain or haze may reach a cell boundary or cross to another cell. No rectangular background, no cast drop shadow, no smoke.
+Keep the six patch silhouettes irregular and different: diagonal, vertical, forked, crescent, sparse two-lobed, dense asymmetrical. The patches should be flat, granular rock inclusions, with organic broken outlines and confident fine black ink, matching the approved scheme A. No UI, no text, no borders, no glow, no perspective.
+
+Integration notes
+
+No external image editor or Python image editing was used. The selected PNG is
+copied intact from the built-in tool output; Pillow was used only to read alpha
+statistics. The atlas has genuine transparency (about 74% fully transparent).
+Godot samples the six equal atlas cells, clips the textured triangles into the
+actual rock shape, and generates mipmaps once when setting up the terrain.
+The mineral shader forces host material to grayscale and uses only cyan source
+grains as the mask for existing blue, gold and rose mineral kinds.
+The final game increases the exposed grain colors to #3fc7cc / #d3a34c /
+#ce659c after the user's readability feedback. This is a runtime shader palette
+change; the original generated PNG remains intact, and host rock stays grayscale.
+Minor detached chips near atlas boundaries are not separate gameplay items.

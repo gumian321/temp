@@ -54,6 +54,13 @@ func seed_recovered_motion(body, group: Dictionary, original_count: int):
 	for j in group.parts.size():
 		var i = original_count+j
 		var pose: Dictionary = group.poses[j]
+		if body.terrain != null and body.terrain.has_method("dig") and body.terrain.enabled:
+			body.motion.centers[i] = pose.point
+			body.motion.spine[i] = Vector2(pose.direction).angle()
+			body.motion.route[i] = body.motion.spine[i]
+			body.motion.orientations[i] = body.motion.spine[i]
+			leader = pose.point
+			continue
 		var wave = sin(body.motion.phase-(i+1)*0.9)*lerpf(0.045,0.075,body.motion.activity)*smoothstep(0.0,3.0,float(i+1))*smoothstep(0.0,0.4,body.motion.elapsed)
 		var angle = Vector2(pose.point).direction_to(leader).angle()-wave
 		body.motion.spine[i]=angle
@@ -95,11 +102,15 @@ func step(body, dt: float):
 				var tangent: Vector2 = Vector2(pose.point).direction_to(leader)
 				if tangent.length_squared()<0.001: tangent=Vector2(pose.direction)
 				var target: Vector2 = leader-tangent*body.body_spacing
+				var cave = body.terrain != null and body.terrain.has_method("dig") and body.terrain.enabled
+				if cave: target = body.path_sample((body.segment_count() + i + 1) * body.body_spacing).point
 				var delta: Vector2 = target-Vector2(pose.point)
+				if cave and not body.terrain.clear_segment(pose.point, target, 27):
+					delta = body.terrain.direction(pose.point, target, 27, group.parts[i]) * delta.length()
 				pose.point = body.ground_position(pose.point,pose.point+delta.limit_length(720.0*dt)*minf(1.0,local_age/0.25),27.0)
 				pose.direction = Vector2.from_angle(lerp_angle(Vector2(pose.direction).angle(),tangent.angle(),1.0-exp(-12.0*dt)))
 				group.parts[i].position = pose.point
-			if local_age < 0.75 or absf(Vector2(pose.point).distance_to(leader)-body.body_spacing)>0.01: complete = false
+				if local_age < 0.75 or (Vector2(pose.point).distance_to(target) > 0.01 if cave else absf(Vector2(pose.point).distance_to(leader)-body.body_spacing)>0.01): complete = false
 			leader=pose.point
 		if complete:
 			var original_count: int = body.segment_count()

@@ -52,6 +52,13 @@ func targets(body) -> Array:
 			var radius = 58.0 + float(i) * 6.0
 			if i > 0: angle += body.body_spacing / radius
 			result.append(body.head + Vector2.from_angle(angle) * radius)
+		if body.terrain != null and body.terrain.has_method("dig") and body.terrain.enabled:
+			var index = body.body_part_indices()[i]
+			var from: Vector2 = body.parts[index].position
+			# Confined coils keep the already-safe body trail instead of seeking
+			# a full spiral on the opposite side of a rock face.
+			if phase == "exit" or not body.terrain.clear_segment(from, result[i], 27):
+				result[i] = body.path_sample((i + 1) * body.body_spacing).point
 	return result
 
 func advance(body, dt: float):

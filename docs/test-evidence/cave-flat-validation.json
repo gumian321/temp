@@ -1,0 +1,322 @@
+{
+  "date": "2026-10-21",
+  "passed": true,
+  "source_suite_count": 16,
+  "source_suites": [
+    {
+      "suite": "cave_contours",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.499,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_update_budget",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.205,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_mining",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.472,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_mining_performance",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 16.891,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.815,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "debug_characters",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.07,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_coil_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.914,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "fragment_recovery_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 10.515,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chasm_collision",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.124,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chasm_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.955,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "combat_spatial",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.516,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_motion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.858,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "character_abilities",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.134,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "mineral_erosion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.232,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "mineral_erosion_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.238,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "render_hotpath_regressions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.502,
+      "isolated_user_data": true
+    }
+  ],
+  "superseded_results": [
+    {
+      "suite": "cave_contours",
+      "exit_code": 1,
+      "passed": false,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.22,
+      "isolated_user_data": true
+    }
+  ],
+  "superseded_note": "The initial two-rock contour fixture slid past isolated rocks. The corrected fixture starts at the actual swept contact; its final rerun passes all five checks.",
+  "source_matches_export": true,
+  "runtime_file_count": 864,
+  "runtime_hashes": {
+    "export_presets.cfg": "e17aeabf0dff78b2ebbba53f8044b272b640838470d32acd29a79576a9ee639f",
+    "scripts/cave_terrain.gd": "429efef7fe593c5c25882287a08878b2c6e563df2a2e006ac0ccb13ced44205d",
+    "scripts/cave_world.gd": "977ad19adedd27c155fae81593f717b19d189cc9252cd8050300dfe81320ff95",
+    "scripts/combat.gd": "c685ce1df762903f9af37f4bd02ea4ed3287390b2866c8118de9ec950df40b13",
+    "scripts/main.gd": "7382661b5cae3bc3934599ee633a884528cce1037ddf7dc1be9916724028d630"
+  },
+  "test_files_sha256": {
+    "tests/test_cave_contours.gd": "586a548e85b5fa6d98fe7c4dcb6861f4bf344eae7d4711eac0d7a2c0821ba579",
+    "tests/test_cave_update_budget.gd": "d4d53c76cdb583b71a35a708a20dc305c6042857284899b2c36d2de52deacdf1",
+    "tests/test_cave_mining.gd": "2bfc35766b04db13a69eda5b9245c347581798189b5ef29b10676bad658fcd73",
+    "tests/test_cave_mining_performance.gd": "5acdbd9b609cc5b17a93ea78121f01d81adf3f8962ea24f8988620b4dd9687c6",
+    "tests/test_cave_scene.gd": "81b68e903b889bbe3493e1313e500b703f1ed93940bdbe9cc3f6cf2da99dbb4e",
+    "tests/test_debug_characters.gd": "44b31d238ea0c38922454a36d24d19f8fd0ab23be9c5d00a8e5cb81abc406e89",
+    "tests/test_centipede_coil_scene.gd": "e491a2f6112e5dbd77eeb690d838b9607ccfe43895b2d406af20cc8fbd664250",
+    "tests/test_fragment_recovery_scene.gd": "15ca8e612ddc43bf01f811a5e3cb92593c87e59f1a1d3c8fd6e8d03015ae35bf",
+    "tests/test_chasm_collision.gd": "aa30a2c35e93e2c88a77a4066329addb8b873c6df44b0fbffe71fdb962ac3516",
+    "tests/test_chasm_scene.gd": "33a8d592760eaa047419bf035a13b53ff43307cfda42ea88e7c4da1a490af758",
+    "tests/test_combat_spatial.gd": "ff7698e8e054576b4fc200957c55dde6e815b309d2c31bdd276843292e24297f",
+    "tests/test_centipede_motion.gd": "0693032d158322a7c6ce769645c5ae8b5fd98ad682c95fe41b192a9ecb6e9ce8",
+    "tests/test_character_abilities.gd": "d9b70a7a0d8f3b6509df98bb37ac063cfe090bd57e1965f2a9b8e4364f5eec38",
+    "tests/test_mineral_erosion.gd": "cf6c12511879293a05e61c5068a1463444950658241dfe2cf9e3366fc24f138c",
+    "tests/test_mineral_erosion_scene.gd": "ef083558e40028b87e018d7a308dbdfb0a6021385668c110de335ab0e4749083",
+    "tests/test_render_hotpath_regressions.gd": "0119ded1b461727dd9368b75e3b73fdd830203c4bfd0e3e276ed7d8ec62215f1"
+  },
+  "performance": {
+    "baseline": {
+      "bite_cpu_ms": {
+        "max": 99.662,
+        "median": 28.467,
+        "p95": 99.662
+      },
+      "conditions": "1440x900 native OpenGL; six Gatling modules; 80 fixed seeded, non-shooting monsters across the shortcut; production _process, drops, weapons, audio and rendering; reward-choice interruptions suppressed; 12 warmup + 240 measured frames at 1/60s input.",
+      "cpu_ms": {
+        "max": 99.662,
+        "median": 24.96,
+        "p95": 63.961
+      },
+      "drop_cpu_ms": {
+        "max": 99.662,
+        "median": 50.122,
+        "p95": 99.662
+      },
+      "frame_ms": {
+        "max": 287.727,
+        "median": 40.493,
+        "p95": 79.842
+      },
+      "mined_cells": 23,
+      "ore_value": 16,
+      "passed": true
+    },
+    "optimized-1": {
+      "bite_cpu_ms": {
+        "max": 35.583,
+        "median": 24.797,
+        "p95": 35.583
+      },
+      "conditions": "1440x900 native OpenGL; six Gatling modules; 80 fixed seeded, non-shooting monsters across the shortcut; production _process, drops, weapons, audio and rendering; reward-choice interruptions suppressed; 12 warmup + 240 measured frames at 1/60s input.",
+      "cpu_ms": {
+        "max": 41.142,
+        "median": 23.362,
+        "p95": 33.504
+      },
+      "drop_cpu_ms": {
+        "max": 31.022,
+        "median": 27.804,
+        "p95": 31.022
+      },
+      "frame_ms": {
+        "max": 345.19,
+        "median": 38.256,
+        "p95": 51.078
+      },
+      "mined_cells": 23,
+      "ore_value": 16,
+      "passed": true
+    },
+    "flat-delivery": {
+      "bite_cpu_ms": {
+        "max": 30.526,
+        "median": 25.372,
+        "p95": 30.526
+      },
+      "bite_frame_ms": {
+        "max": 47.472,
+        "median": 39.163,
+        "p95": 47.472
+      },
+      "conditions": "1440x900 native OpenGL; six Gatling modules; 80 fixed seeded, non-shooting monsters across the shortcut; production _process, drops, weapons, audio and rendering; reward-choice interruptions suppressed; 12 warmup + 240 measured frames at 1/60s input.",
+      "cpu_ms": {
+        "max": 37.325,
+        "median": 24.382,
+        "p95": 31.034
+      },
+      "drop_cpu_ms": {
+        "max": 26.771,
+        "median": 25.968,
+        "p95": 26.771
+      },
+      "drop_frame_ms": {
+        "max": 39.255,
+        "median": 38.955,
+        "p95": 39.255
+      },
+      "frame_ms": {
+        "max": 51.328,
+        "median": 35.394,
+        "p95": 44.591
+      },
+      "mined_cells": 26,
+      "ore_value": 12,
+      "passed": true,
+      "warmup_simulation_ms": [
+        1388.887,
+        24.246,
+        23.916,
+        23.074,
+        22.942,
+        25.558,
+        24.224,
+        22.088,
+        29.775,
+        23.86,
+        24.628,
+        23.22
+      ]
+    }
+  },
+  "comparison_note": "baseline and optimized-1 use the same old map fixture. flat-delivery includes the requested irregular map and is not an identical workload. Native desktop load varies; this is not a global FPS guarantee.",
+  "delivery": {
+    "archive": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-flat.zip",
+    "executable": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-flat\\RunBuildPew.exe",
+    "bytes": 155814045,
+    "sha256": "0f60e4b6effc1de3c0df6f36cbb126d2978469b856a8d30771702c14b5617b0e",
+    "passed": true,
+    "unpacked_launch": true,
+    "validated_checks": 71,
+    "cave_mining_validated": true
+  }
+}

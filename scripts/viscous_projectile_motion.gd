@@ -13,6 +13,9 @@ static func family(weapon: String) -> String:
 	return ""
 
 static func initialize(shot: Dictionary, serial: int = 0):
+	# Chain/shrapnel copies start a new trail at their own spawn point.
+	shot.erase("projectile_trail")
+	shot.erase("trail_contact")
 	shot.organic_family = family(str(shot.get("fx_family", "")))
 	shot.organic_motion_enabled = false
 	shot.organic_phase = float(serial % 17) * 0.37

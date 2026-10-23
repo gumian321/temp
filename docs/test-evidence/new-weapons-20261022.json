@@ -1,0 +1,504 @@
+{
+  "date": "2026-10-22",
+  "passed": true,
+  "suites": [
+    {
+      "suite": "starter_progression",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.478,
+      "isolated_user_data": true,
+      "source_report": "artifacts/expanded-first-check-20261022.json"
+    },
+    {
+      "suite": "meta_ui_redesign",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.111,
+      "isolated_user_data": true,
+      "source_report": "artifacts/mutation-weapons-final-ui-20261022.json"
+    },
+    {
+      "suite": "mutation_weapons",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.048,
+      "isolated_user_data": true,
+      "source_report": "artifacts/mutation-weapons-final-logic-20261022.json"
+    },
+    {
+      "suite": "insect_armaments",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.646,
+      "isolated_user_data": true,
+      "source_report": "artifacts/mutation-weapon-logic-20261022.json"
+    },
+    {
+      "suite": "insect_art_routes",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.825,
+      "isolated_user_data": true,
+      "source_report": "artifacts/mutation-weapon-logic-20261022.json"
+    },
+    {
+      "suite": "weapon_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.56,
+      "isolated_user_data": true,
+      "source_report": "artifacts/mutation-weapon-logic-20261022.json"
+    },
+    {
+      "suite": "weapon_catalog",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.382,
+      "isolated_user_data": true,
+      "source_report": "artifacts/mutation-weapons-regression-20261022.json"
+    },
+    {
+      "suite": "core",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.594,
+      "isolated_user_data": true,
+      "source_report": "artifacts/mutation-weapons-regression-20261022.json"
+    },
+    {
+      "suite": "rewards",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.301,
+      "isolated_user_data": true,
+      "source_report": "artifacts/mutation-weapons-regression-20261022.json"
+    },
+    {
+      "suite": "reward_pool",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.265,
+      "isolated_user_data": true,
+      "source_report": "artifacts/mutation-weapons-regression-20261022.json"
+    },
+    {
+      "suite": "debug_unlock_all",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.199,
+      "isolated_user_data": true,
+      "source_report": "artifacts/mutation-weapons-regression-20261022.json"
+    },
+    {
+      "suite": "mutation_weapons_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 14.247,
+      "isolated_user_data": true,
+      "source_report": "artifacts/mutation-weapons-final-ui-20261022.json"
+    }
+  ],
+  "mutation_logic": {
+    "checks": [
+      {
+        "name": "Mounted/reward identity resolves for toxin",
+        "passed": true
+      },
+      {
+        "name": "Generated transparent art loads: toxin cell 0",
+        "passed": true
+      },
+      {
+        "name": "Generated transparent art loads: toxin cell 1",
+        "passed": true
+      },
+      {
+        "name": "Generated transparent art loads: toxin cell 2",
+        "passed": true
+      },
+      {
+        "name": "Generated transparent art loads: toxin cell 3",
+        "passed": true
+      },
+      {
+        "name": "The head version requires its earlier body-weapon evolution: toxin",
+        "passed": true
+      },
+      {
+        "name": "New weapon can be researched from its initial weapon prerequisite: toxin",
+        "passed": true
+      },
+      {
+        "name": "Research adds the new weapon to the available reward pool: toxin",
+        "passed": true
+      },
+      {
+        "name": "Mounted/reward identity resolves for boneblade",
+        "passed": true
+      },
+      {
+        "name": "Generated transparent art loads: boneblade cell 0",
+        "passed": true
+      },
+      {
+        "name": "Generated transparent art loads: boneblade cell 1",
+        "passed": true
+      },
+      {
+        "name": "Generated transparent art loads: boneblade cell 2",
+        "passed": true
+      },
+      {
+        "name": "Generated transparent art loads: boneblade cell 3",
+        "passed": true
+      },
+      {
+        "name": "The head version requires its earlier body-weapon evolution: boneblade",
+        "passed": true
+      },
+      {
+        "name": "New weapon can be researched from its initial weapon prerequisite: boneblade",
+        "passed": true
+      },
+      {
+        "name": "Research adds the new weapon to the available reward pool: boneblade",
+        "passed": true
+      },
+      {
+        "name": "Mounted/reward identity resolves for parasite",
+        "passed": true
+      },
+      {
+        "name": "Generated transparent art loads: parasite cell 0",
+        "passed": true
+      },
+      {
+        "name": "Generated transparent art loads: parasite cell 1",
+        "passed": true
+      },
+      {
+        "name": "Generated transparent art loads: parasite cell 2",
+        "passed": true
+      },
+      {
+        "name": "Generated transparent art loads: parasite cell 3",
+        "passed": true
+      },
+      {
+        "name": "The head version requires its earlier body-weapon evolution: parasite",
+        "passed": true
+      },
+      {
+        "name": "New weapon can be researched from its initial weapon prerequisite: parasite",
+        "passed": true
+      },
+      {
+        "name": "Research adds the new weapon to the available reward pool: parasite",
+        "passed": true
+      },
+      {
+        "name": "One venom impact creates exactly one persistent pool",
+        "passed": true
+      },
+      {
+        "name": "Venom pools apply real periodic poison damage",
+        "passed": true
+      },
+      {
+        "name": "Overlapping poison refreshes without doubling damage",
+        "passed": true
+      },
+      {
+        "name": "Poison persists briefly after leaving a pool",
+        "passed": true
+      },
+      {
+        "name": "Expired pools and poison status are cleaned up",
+        "passed": true
+      },
+      {
+        "name": "Spinning blade hits a target once on the outbound path",
+        "passed": true
+      },
+      {
+        "name": "The curved return hits once again and is caught at the origin",
+        "passed": true
+      },
+      {
+        "name": "The blade reaches targets near the advertised outer targeting range before turning",
+        "passed": true
+      },
+      {
+        "name": "Range bonuses extend the blade's actual outbound trajectory",
+        "passed": true
+      },
+      {
+        "name": "Returning blades cannot hit through an intervening cave wall",
+        "passed": true
+      },
+      {
+        "name": "A returning blade follows its organ identity after another segment is removed",
+        "passed": true
+      },
+      {
+        "name": "A destroyed firing organ cannot redirect its blade into a different segment",
+        "passed": true
+      },
+      {
+        "name": "A parasite impact hatches two actual larval entities",
+        "passed": true
+      },
+      {
+        "name": "Larvae acquire a target, crawl and deal melee damage",
+        "passed": true
+      },
+      {
+        "name": "Temporary larvae expire and release their capacity",
+        "passed": true
+      },
+      {
+        "name": "A missed egg does not hatch at arbitrary range expiry",
+        "passed": true
+      },
+      {
+        "name": "Massed brood organs obey the global larva limit",
+        "passed": true
+      },
+      {
+        "name": "Each brood organ obeys its independent larva limit",
+        "passed": true
+      },
+      {
+        "name": "Research upgrades and fusion scale actual new-weapon damage",
+        "passed": true
+      },
+      {
+        "name": "New weapon unlocks survive an ordinary save reload",
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "main_scene_render": {
+    "animation_frames": 30,
+    "captures": [
+      "res://artifacts/new-weapons-evolution-overview.png",
+      "res://artifacts/new-weapons-evolution-sustain.png",
+      "res://artifacts/new-weapons-evolution-summon.png",
+      "res://artifacts/new-weapons-evolution-support.png",
+      "res://artifacts/new-weapons-toxin-detail.png",
+      "res://artifacts/new-weapons-combat.png",
+      "res://artifacts/new-weapons-assembly.png"
+    ],
+    "checks": [
+      {
+        "name": "Every existing and new evolution appears in the sectioned map",
+        "passed": true
+      },
+      {
+        "name": "High-resolution organ icons cannot enlarge evolution node hit areas",
+        "passed": true
+      },
+      {
+        "name": "New weapons occupy their intended evolution sections",
+        "passed": true
+      },
+      {
+        "name": "Renderer produced new-weapons-evolution-overview",
+        "passed": true
+      },
+      {
+        "name": "Saved new-weapons-evolution-overview",
+        "passed": true
+      },
+      {
+        "name": "Real section click restores readable zoom: sustain",
+        "passed": true
+      },
+      {
+        "name": "Renderer produced new-weapons-evolution-sustain",
+        "passed": true
+      },
+      {
+        "name": "Saved new-weapons-evolution-sustain",
+        "passed": true
+      },
+      {
+        "name": "Real section click restores readable zoom: summon",
+        "passed": true
+      },
+      {
+        "name": "Renderer produced new-weapons-evolution-summon",
+        "passed": true
+      },
+      {
+        "name": "Saved new-weapons-evolution-summon",
+        "passed": true
+      },
+      {
+        "name": "Real section click restores readable zoom: support",
+        "passed": true
+      },
+      {
+        "name": "Renderer produced new-weapons-evolution-support",
+        "passed": true
+      },
+      {
+        "name": "Saved new-weapons-evolution-support",
+        "passed": true
+      },
+      {
+        "name": "Clicking a new evolution opens its real artwork and localized description",
+        "passed": true
+      },
+      {
+        "name": "High-resolution evolution artwork fits its reserved preview area",
+        "passed": true
+      },
+      {
+        "name": "New weapon descriptions wrap within the dialog text column",
+        "passed": true
+      },
+      {
+        "name": "Renderer produced new-weapons-toxin-detail",
+        "passed": true
+      },
+      {
+        "name": "Saved new-weapons-toxin-detail",
+        "passed": true
+      },
+      {
+        "name": "New organ installs in the normal body chain: toxin",
+        "passed": true
+      },
+      {
+        "name": "New organ installs in the normal body chain: boneblade",
+        "passed": true
+      },
+      {
+        "name": "New organ installs in the normal body chain: parasite",
+        "passed": true
+      },
+      {
+        "name": "Normally mounted toxin organs create real toxic ground in combat",
+        "passed": true
+      },
+      {
+        "name": "Normally mounted brood organs create live temporary larvae",
+        "passed": true
+      },
+      {
+        "name": "The real main-scene combat fixture takes actual new-weapon damage",
+        "passed": true
+      },
+      {
+        "name": "Renderer produced new-weapons-combat",
+        "passed": true
+      },
+      {
+        "name": "Saved new-weapons-combat",
+        "passed": true
+      },
+      {
+        "name": "Renderer produced new-weapons-assembly",
+        "passed": true
+      },
+      {
+        "name": "Saved new-weapons-assembly",
+        "passed": true
+      },
+      {
+        "name": "New weapon art also renders in the existing assembly interface",
+        "passed": true
+      }
+    ],
+    "fixture": "Three newly mounted organs versus three stationary high-health targets; normal main-scene rendering and combat.",
+    "passed": true
+  },
+  "generated_assets": [
+    {
+      "path": "assets/new_weapons/toxin_atlas.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "path": "assets/new_weapons/boneblade_atlas.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "path": "assets/new_weapons/parasite_atlas.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    }
+  ],
+  "prompts": "assets/new_weapons/GENERATION.txt",
+  "preview": {
+    "path": "artifacts/new-weapons-preview.webp",
+    "frames": 30,
+    "duration_ms": 4000,
+    "size": [
+      960,
+      600
+    ],
+    "fixture": "Three mounted new weapons versus three stationary high-health enemies; terrain disabled and head weapon stunned. Batched 60Hz combat simulation with actual main-scene rendering, not a real-time performance benchmark."
+  }
+}

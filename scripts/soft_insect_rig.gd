@@ -31,6 +31,12 @@ var visual_angle=0.0
 var walk_amount=0.0
 var gait_speed=0.0
 var display_heading=0.0
+var compact_pose=false
+var compact_sprite:Sprite2D
+static var compact_material:ShaderMaterial
+static var skin_weight_cache:Dictionary={}
+static var leg_cutout_cache:Dictionary={}
+static var hinge_cutout_cache:Dictionary={}
 const STRIDE={"grub":1.0,"beetle":1.15,"moth":1.3,"sac":1.0,"mantis":1.3,"queen":1.1}
 @export var preview_species=""
 
@@ -89,12 +95,17 @@ func _joint_cap(parent:Node,pivot:Vector2,angle:float,radius:float):
 	parent.get_child(parent.get_child_count()-1).name="JointCap"
 
 func _skin_weights(p:Vector2)->Array:
+	var species=Brood.species(entity)
+	if not skin_weight_cache.has(species):skin_weight_cache[species]={}
+	var cached:Dictionary=skin_weight_cache[species]
+	if cached.has(p):return cached[p]
 	var nearest:Array=[]
 	for i in rest_points.size():nearest.append({"index":i,"distance":p.distance_squared_to(rest_points[i])})
 	nearest.sort_custom(func(a,b):return a.distance<b.distance)
 	var total=0.0;var result:Array=[]
 	for j in range(4):total+=1.0/pow(.035+float(nearest[j].distance),2)
 	for j in range(4):result.append(Vector2(nearest[j].index,(1.0/pow(.035+float(nearest[j].distance),2))/total))
+	cached[p]=result
 	return result
 
 func setup(actor:Dictionary):
@@ -128,6 +139,12 @@ func setup(actor:Dictionary):
 	hit_fx=HitFX.new();hit_fx.name="HitFX";add_child(hit_fx);hit_fx.setup(entity.soft_body)
 	_bind_appendages()
 	_setup_appendage_batch()
+	compact_sprite=Sprite2D.new();compact_sprite.name="DistantInsect";compact_sprite.texture=art
+	compact_sprite.scale=Vector2.ONE*2.0/maxf(art.get_width(),art.get_height())
+	compact_sprite.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+	if compact_material==null:
+		compact_material=ShaderMaterial.new();compact_material.shader=preload("res://shaders/distant_insect.gdshader")
+	compact_sprite.material=compact_material;compact_sprite.visible=false;add_child(compact_sprite)
 
 func _flipped(p:Vector2,side:int)->Vector2:return p if side<0 else Vector2(1-p.x,p.y)
 func _flipped_polygon(p:PackedVector2Array,side:int)->PackedVector2Array:return p if side<0 else Anatomy.mirror(p)
@@ -152,11 +169,16 @@ func _build_leg(data:Dictionary,body:PackedVector2Array,side:int,row:int):
 		var parents=[upper,lower,wrist];var pivots=[hip,knee,end];var angles=[first_angle,second_angle,(tip-end).angle()]
 		for j in range(3):_cutout(parents[j],_flipped_polygon(data.parts[j],side),pivots[j],angles[j])
 	else:
-		var halves=Anatomy.split_leg(data.region,data.knee,data.foot)
+		var key=Brood.species(entity)+":"+str(row)
+		if not leg_cutout_cache.has(key):
+			var halves=Anatomy.split_leg(data.region,data.knee,data.foot)
+			var clipped_halves=[[],[]]
+			for j in range(2):
+				for part in halves[j]:clipped_halves[j].append_array(Geometry2D.clip_polygons(part,body))
+			leg_cutout_cache[key]=clipped_halves
 		for j in range(2):
-			for part in halves[j]:
-				for clipped in Geometry2D.clip_polygons(part,body):
-					_cutout(upper if j==0 else lower,_flipped_polygon(clipped,side),hip if j==0 else knee,first_angle if j==0 else second_angle)
+			for clipped in leg_cutout_cache[key][j]:
+				_cutout(upper if j==0 else lower,_flipped_polygon(clipped,side),hip if j==0 else knee,first_angle if j==0 else second_angle)
 	var foot=Node2D.new();foot.name="Foot";foot.position=Vector2(last_length,0);foot_parent.add_child(foot)
 	_joint_cap(upper,hip,first_angle,minf(.034,first_length*.26))
 	_joint_cap(lower,knee,second_angle,minf(.031,minf(first_length,second_length)*.24))
@@ -167,7 +189,9 @@ func _build_hinge(kind:String,pivot:Vector2,region:PackedVector2Array,body:Packe
 	var hinge=_new_bone(limb_skeleton,kind+("L" if side<0 else "R"),p,0,.15)
 	hinge.z_index=0
 	hinge.set_meta("type",kind);hinge.set_meta("side",side);hinge.set_meta("anchor",p)
-	for clipped in Geometry2D.clip_polygons(region,body):_cutout(hinge,_flipped_polygon(clipped,side),p,0)
+	var key=Brood.species(entity)+":"+kind+":"+str(pivot)
+	if not hinge_cutout_cache.has(key):hinge_cutout_cache[key]=Geometry2D.clip_polygons(region,body)
+	for clipped in hinge_cutout_cache[key]:_cutout(hinge,_flipped_polygon(clipped,side),p,0)
 
 func _bind_appendages():
 	previous_position=entity.position;previous_angle=float(entity.angle)+PI/2;display_heading=previous_angle
@@ -235,8 +259,13 @@ func _pose_leg(item:Dictionary,moving:bool,travel:Vector2,dt:float):
 	var reachable=upper.position+Vector2.from_angle(along)*distance
 	lower.rotation=rotate_toward(lower.rotation,(reachable-knee).angle()-upper.rotation,12.0*maxf(dt,0))
 
-func pose(dt:float,dying:bool=false):
+func pose(dt:float,dying:bool=false,compact:bool=false):
 	if mesh==null:return
+	compact=compact and not dying
+	var changed_detail=compact_pose!=compact
+	compact_pose=compact
+	if compact_sprite!=null:
+		compact_sprite.visible=compact;mesh.visible=not compact;limb_skeleton.visible=not compact;hit_fx.visible=not compact
 	var state:Dictionary=entity.soft_body
 	if dying:
 		if death_age==0.0:death_rest_scale=scale
@@ -270,10 +299,19 @@ func pose(dt:float,dying:bool=false):
 	visual_angle+=push_bend*0.55
 	var pull_bend=float(state.get("pull_bend",0))*float(state.get("pull_softness",1))
 	visual_angle+=pull_bend*.4
-	if relocated:
+	if relocated or (changed_detail and not compact):
 		for item in legs:item.world_foot=_to_world(item.rest_tip);item.swing=false;item.swing_u=0.0
 	mesh.position=visual_offset;limb_skeleton.position=visual_offset;hit_fx.position=visual_offset
 	rotation=display_heading+visual_angle
+	if compact:
+		# The original full-resolution insect art remains intact at small sizes.
+		# One shared material animates its extremities without a hidden skeleton
+		# uploading thousands of unchanged bones. Color carries per-instance gait.
+		compact_sprite.position=visual_offset
+		compact_sprite.self_modulate=Color(fposmod(gait,TAU)/TAU,walk_amount,0,1)
+		previous_position=entity.position;previous_angle=float(entity.angle)+PI/2
+		return
+	mesh.scale=Vector2.ONE
 	var push:Vector2=state.direction;var side=push.orthogonal()
 	var squeeze=minf(.26,float(state.shock)*.20)
 	var center=Vector2(0,rest_points[7].y)*aspect

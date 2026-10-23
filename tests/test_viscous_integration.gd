@@ -15,7 +15,9 @@ func execute():
 	for dt in [1.0/600.0,1.0/60.0,0.1]:
 		var body=Body.new(db);var battle=Combat.new(db,body)
 		var target=battle.spawn(db.pool["250"],Vector2(110,0))
-		target.guns=[];target.hp=1000;target.max_hp=1000;target.kind="Asteroid";target.unit={};target.radius=22.0
+		# This fixture asserts a circular hull. Mineable Asteroids use the
+		# charcoal material mask rather than their old circular proxy.
+		target.guns=[];target.hp=1000;target.max_hp=1000;target.kind="ContainerObject";target.unit={};target.radius=22.0
 		var shot={"position":Vector2.ZERO,"previous":Vector2.ZERO,"origin":Vector2.ZERO,"velocity":Vector2(600,0),"direction":Vector2.RIGHT,"age":0.0,"life":2.0,"radius":4.0,"friendly":true,"fx_family":"cannon","data":{"class":"BasicProjectile"},"damage":7.0,"shield_damage":7.0,"hit":[],"pierce":1,"chips":{}}
 		Motion.initialize(shot);battle.bullets.append(shot)
 		var contact={}

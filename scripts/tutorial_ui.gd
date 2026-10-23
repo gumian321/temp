@@ -27,13 +27,29 @@ func build_cards():
   var node=view.controls.get(ref(key))
   if node==null:continue
   for child in node.get_children():child.hide()
-  node.position=Vector2(36,550+(index%3)*96);node.size=Vector2(360,82);node.pivot_offset=Vector2.ZERO
-  UI.panel(node,Rect2(0,0,360,82))
+  if node.get_parent()!=view:node.reparent(view,false)
+  node.position=Vector2(0,index*102);node.size=Vector2(400,90);node.pivot_offset=Vector2.ZERO
+  UI.panel(node,Rect2(0,0,400,90))
   UI.icon(node,{'move':'next','shoot':'target','boost':'play','radar':'target','build':'settings','run':'play'}[key],Vector2(16,22),36)
-  keys[key]=UI.label(node,"",Vector2(68,12),25,UI.AMBER)
-  prompts[key]=UI.label(node,"",Vector2(68,48),16,UI.MUTED)
+  keys[key]=UI.label(node,"",Vector2(68,8),22,UI.AMBER)
+  prompts[key]=UI.label(node,"",Vector2(68,42),14,UI.MUTED)
+  prompts[key].autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;prompts[key].clip_text=true;prompts[key].max_lines_visible=2;prompts[key].size=Vector2(316,44)
   cards[key]=node;index+=1
  refresh_bindings()
+func _process(_dt:float):
+ if view==null:return
+ view.visible=get_parent().get("screen")=="game"
+ if not view.visible:return
+ var visible_cards=cards.values().filter(func(card):return card.visible)
+ if visible_cards.is_empty():return
+ var top=200.0
+ var hud=get_parent().get("battle_hud")
+ if is_instance_valid(hud) and hud.escort_title.visible:top=272
+ var extent=get_viewport().get_visible_rect().size
+ var height=visible_cards.size()*102.0-12
+ var factor=minf(1,minf((extent.x-48)/400.0,maxf(90,extent.y-160-top)/height))
+ view.scale=Vector2.ONE*factor;view.position=Vector2(24,top)
+ for i in visible_cards.size():visible_cards[i].position=Vector2(0,i*102)
 func refresh_bindings(using_joy:bool=false):
  joystick=using_joy;view.set_binding_labels(save.state.settings.bindings,using_joy)
  var input=load('res://scripts/input_system.gd')

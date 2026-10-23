@@ -165,6 +165,12 @@ static func button(parent:Control,text:String,rect:Rect2,callback:Callable,icon_
 	var b=Button.new();b.text=text;b.position=rect.position;b.size=rect.size;b.custom_minimum_size=rect.size;b.focus_mode=Control.FOCUS_ALL;b.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
 	b.add_theme_font_size_override("font_size",24);b.add_theme_stylebox_override("normal",button_style(PANEL,Color(accent,0.5)))
 	b.pressed.connect(callback);protect(b);parent.add_child(b)
+	if rect.size.x < 140:
+		for state in ["normal","hover","pressed","hover_pressed","disabled","focus"]:
+			var compact=button_style(TEAL if state in ["hover","pressed","hover_pressed"] else PANEL)
+			compact.content_margin_left=12;compact.content_margin_right=12
+			if state=="focus":compact.draw_center=false
+			b.add_theme_stylebox_override(state,compact)
 	if icon_key!="":
 		b.alignment=HORIZONTAL_ALIGNMENT_CENTER
 		if text.is_empty():
@@ -177,13 +183,15 @@ static func button(parent:Control,text:String,rect:Rect2,callback:Callable,icon_
 		else:
 			# Keep centered labels inside the content area to the right of the art.
 			# Apply identical insets to every state so hover cannot shift the text.
+			if rect.size.x<240:b.add_theme_font_size_override("font_size",20)
 			for state in ["normal","hover","pressed","hover_pressed","disabled","focus"]:
 				var inset=button_style(TEAL if state in ["hover","pressed","hover_pressed"] else PANEL)
-				inset.content_margin_left=(40 if rect.size.x>=240 else 28)+38+12
-				inset.content_margin_right=44 if rect.size.x>=240 else 28
+				inset.content_margin_left=(40 if rect.size.x>=240 else 16)+(38 if rect.size.x>=240 else 30)+12
+				inset.content_margin_right=44 if rect.size.x>=240 else 16
 				if state=="focus":inset.draw_center=false
 				b.add_theme_stylebox_override(state,inset)
-		icon(b,icon_key,Vector2((rect.size.x-38)/2 if text.is_empty() else (40 if rect.size.x>=240 else 28),(rect.size.y-38)/2),38,accent)
+		var icon_extent=38 if text.is_empty() or rect.size.x>=240 else 30
+		icon(b,icon_key,Vector2((rect.size.x-icon_extent)/2 if text.is_empty() else (40 if rect.size.x>=240 else 16),(rect.size.y-icon_extent)/2),icon_extent,accent)
 	return b
 
 static func icon(parent:Control,key:String,pos:Vector2,extent:float=40,_color:Color=TEAL)->Control:
@@ -198,6 +206,21 @@ static func header(parent:Control,title:String,back_callback:Callable):
 	button(parent,"",Rect2(40,34,60,60),back_callback,"back")
 	label(parent,title,Vector2(120,36),32)
 	label(parent,"C H I T I N / 0 1",Vector2(1210,52),16,MUTED)
+
+class FittedCanvas extends Control:
+	## Keep fixed-layout menu screens inside narrow or short native viewports.
+	const DESIGN_SIZE=Vector2(1440,900)
+	var bottom_inset=0.0
+	func _ready():
+		get_viewport().size_changed.connect(fit_canvas)
+		fit_canvas()
+	func fit_canvas():
+		var extent=get_viewport_rect().size-Vector2(0,bottom_inset)
+		var factor=minf(extent.x/DESIGN_SIZE.x,extent.y/DESIGN_SIZE.y)
+		size=DESIGN_SIZE;scale=Vector2.ONE*factor;position=(extent-DESIGN_SIZE*factor)*.5
+		queue_redraw()
+	func _draw():
+		draw_rect(Rect2(-position/scale,get_viewport_rect().size/scale),BG)
 
 class Backdrop extends Control:
 	var hero=false

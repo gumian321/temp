@@ -116,6 +116,8 @@ func refresh():
  var zh=["击败最后一波首领","迎战无限波次","击败目标运输队","护送商队抵达安全区","摧毁敌方空间站","守住己方空间站"]
  var en=["Defeat the final boss wave","Survive endless waves","Eliminate the target convoy","Escort the convoy to safety","Destroy the enemy station","Defend your station"]
  objective_text.text=(zh if game.db.language.begins_with("Chinese") else en)[index]
+ var cave=game.save.state.selected_character=="centipede"
+ objective_text.tooltip_text=(tr_text("靠近商队领航，清敌开路，护送至少一艘抵达安全区；全部损失失败。","Stay close, lead through open tunnels and deliver at least one convoy ship. Losing all ships fails.") if cave else tr_text("靠近商队，它会自动前进；护送至少一艘抵达安全区，全部损失失败。","Stay close so the convoy advances. Deliver at least one ship; losing all ships fails.")) if index==3 else ""
  duration.text="∞" if mission.isEndless else "%02d : 00"%int(mission.MissionsObjectiveList[game.difficulty].objectiveTime)
  mode_label.text=tr_text("无限波次","ENDLESS") if mission.isEndless else tr_text("行动时限","TIME LIMIT")
  points.text="%d RP"%game.save.state.meta
@@ -126,6 +128,12 @@ func refresh():
  pool_summary.text=tr_text("全部启用","ALL ACTIVE") if game.save.state.disabled.is_empty() else tr_text("排除 %d 项","%d EXCLUDED")%game.save.state.disabled.size()
  var config=game.db.asset(mission.MissionsObjectiveList[game.difficulty].objectiveAIConfiguration)
  risk_summary.text=tr_text("每波敌群 %d–%d","Enemy groups / wave  %d–%d")%[int(config.get("MinWaveCount",0)),int(config.get("MaxWaveCount",0))]
+ if index==3:
+  risk_summary.text=(tr_text("靠近领航 · 清敌开路 · 至少一艘抵达","Stay close · Clear a path · Deliver one ship") if cave else tr_text("靠近随行 · 清理敌人 · 至少一艘抵达","Stay close · Defend convoy · Deliver one ship"))+"\n"+risk_summary.text
+  status.text=tr_text("离队会等待 · 商队全灭失败","Convoy waits if you leave · Lose all = fail") if unlocked else status.text
+ risk_summary.add_theme_font_size_override("font_size",14 if index==3 else 17)
+ risk_summary.position.y=414 if index==3 else 422;risk_summary.size.y=48 if index==3 else 28
+ reward_summary.position.y=470 if index==3 else 464;status.position.y=508 if index==3 else 504
  var mode:Dictionary={}
  for component in game.db.prefabs.get(mission.MissionsObjectiveList[game.difficulty].objectivePrefab,{}).get("components",[]):
   if str(component.get("class","")).ends_with("ModeManager"):mode=component;break

@@ -1,0 +1,203 @@
+{
+  "date": "2026-10-21",
+  "passed": true,
+  "suite_count": 17,
+  "suites": [
+    {
+      "suite": "projectile_trails",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.945,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "viscous_projectile_motion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.896,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "viscous_renderer",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.594,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "viscous_integration",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.865,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "projectile_trajectory_continuity",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.811,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "weapon_catalog",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 3.645,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "weapon_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.343,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "weapon_readability",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.97,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "insect_projectiles",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.781,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "render_hotpath_regressions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.611,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_mining",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.165,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_collision_cache",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.499,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "insect_attack_fx",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.482,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "projectile_trails_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.116,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "projectile_trajectory_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.425,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "hostile_readability",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.357,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "attack_shader_materials",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.571,
+      "isolated_user_data": true
+    }
+  ],
+  "source_reports": [
+    "artifacts/projectile-trails-final-regression.json",
+    "artifacts/projectile-trails-final-render.json",
+    "artifacts/projectile-trails-final-focused.json"
+  ],
+  "focused_rerun": "projectile_trails supersedes its earlier test-only duplicate-variable parse error; other batch results are retained.",
+  "native_preview": {
+    "frames": 60,
+    "duration_seconds": 2.0,
+    "held_tail_changed_pixels": 427,
+    "held_shot_immutable": true,
+    "path": "artifacts/projectile-trails-preview.webp"
+  },
+  "performance_probe": {
+    "count": 300,
+    "dynamic_mean_us": 22484.75,
+    "dynamic_median_us": 22149,
+    "friendly": 220,
+    "hostile": 80,
+    "legacy_mean_us": 20003.35,
+    "legacy_median_us": 20052,
+    "recording_median_us": 567,
+    "renderer": "Windows",
+    "scope": "Native command construction only; same new body art in both variants, with reconstructed previous tail drawing as the baseline. Excludes gameplay, GPU frame time and full-game FPS."
+  },
+  "exported_executable_updated": false
+}

@@ -1,0 +1,379 @@
+{
+  "date": "2026-10-21",
+  "passed": true,
+  "source_suite_count": 15,
+  "source_suites": [
+    {
+      "suite": "cave_curves",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.507,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_contours",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.759,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_mining",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 3.696,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_mining_performance",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 17.924,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 13.262,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_update_budget",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.793,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "debug_characters",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.818,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_coil_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.547,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "fragment_recovery_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 11.611,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chasm_collision",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.087,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chasm_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.429,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "combat_spatial",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.518,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "centipede_motion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.86,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "character_abilities",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.149,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "mineral_erosion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.235,
+      "isolated_user_data": true
+    }
+  ],
+  "runtime_matches_export": true,
+  "runtime_file_count": 865,
+  "runtime_hashes": {
+    "scripts/cave_contour_mesh.gd": "369e812648f8f3135335ba1f1ed21bb20cfd3a704c5c3f592dadae2d5c21881c",
+    "scripts/cave_playtest_probe.gd": "f2439342914de61a125e38d67ee22ec1e49d5a8edb683e3a7ed7816cf8d72cbd",
+    "scripts/cave_terrain.gd": "6a1783d8e13fd6d752333d247826f01298b4a6fb7529aa1a883369ad4c7f4dac",
+    "scripts/cave_world.gd": "b1fa65885cc9618986d968393678d439dbbfe532f381dc550d713d9688c770f0",
+    "scripts/combat.gd": "c685ce1df762903f9af37f4bd02ea4ed3287390b2866c8118de9ec950df40b13",
+    "scripts/main.gd": "7382661b5cae3bc3934599ee633a884528cce1037ddf7dc1be9916724028d630"
+  },
+  "test_files_sha256": {
+    "tests/test_cave_curves.gd": "c7d538795ef3a20a9f6c79929ccb57ee16ab59617fdb2a3155f81555c7709287",
+    "tests/test_cave_contours.gd": "2c9ddc06fab4781a9d4432abbbc0f9b9f49fc00516800dd5ab8c0cf9644fa48b",
+    "tests/test_cave_mining.gd": "2bfc35766b04db13a69eda5b9245c347581798189b5ef29b10676bad658fcd73",
+    "tests/test_cave_mining_performance.gd": "5acdbd9b609cc5b17a93ea78121f01d81adf3f8962ea24f8988620b4dd9687c6",
+    "tests/test_cave_scene.gd": "81b68e903b889bbe3493e1313e500b703f1ed93940bdbe9cc3f6cf2da99dbb4e",
+    "tests/test_cave_update_budget.gd": "d4d53c76cdb583b71a35a708a20dc305c6042857284899b2c36d2de52deacdf1",
+    "tests/test_debug_characters.gd": "44b31d238ea0c38922454a36d24d19f8fd0ab23be9c5d00a8e5cb81abc406e89",
+    "tests/test_centipede_coil_scene.gd": "e491a2f6112e5dbd77eeb690d838b9607ccfe43895b2d406af20cc8fbd664250",
+    "tests/test_fragment_recovery_scene.gd": "15ca8e612ddc43bf01f811a5e3cb92593c87e59f1a1d3c8fd6e8d03015ae35bf",
+    "tests/test_chasm_collision.gd": "aa30a2c35e93e2c88a77a4066329addb8b873c6df44b0fbffe71fdb962ac3516",
+    "tests/test_chasm_scene.gd": "33a8d592760eaa047419bf035a13b53ff43307cfda42ea88e7c4da1a490af758",
+    "tests/test_combat_spatial.gd": "ff7698e8e054576b4fc200957c55dde6e815b309d2c31bdd276843292e24297f",
+    "tests/test_centipede_motion.gd": "0693032d158322a7c6ce769645c5ae8b5fd98ad682c95fe41b192a9ecb6e9ce8",
+    "tests/test_character_abilities.gd": "d9b70a7a0d8f3b6509df98bb37ac063cfe090bd57e1965f2a9b8e4364f5eec38",
+    "tests/test_mineral_erosion.gd": "cf6c12511879293a05e61c5068a1463444950658241dfe2cf9e3366fc24f138c"
+  },
+  "contour_patterns": {
+    "checks": [
+      {
+        "name": "Every one of 512 neighboring rock patterns produces bounded convex collision pieces",
+        "passed": true
+      },
+      {
+        "name": "Continuous boundaries use short curved-contour samples instead of full tile edges",
+        "passed": true
+      },
+      {
+        "name": "Empty and deep solid regions retain the cheap cached path",
+        "passed": true
+      },
+      {
+        "name": "Removing material never increases the continuous rock field or grows a wall into a previous route",
+        "passed": true
+      }
+    ],
+    "passed": true,
+    "patterns": 512,
+    "segments": 1612
+  },
+  "visible_boundary_validation": {
+    "beveled_cells": 227,
+    "boundary_samples": 828,
+    "checks": [
+      {
+        "name": "Irregular rock cells remain convex for the production swept collision solver",
+        "passed": true
+      },
+      {
+        "name": "Generated chamber boundaries use densely sampled continuous material contours",
+        "passed": true
+      },
+      {
+        "name": "Both sides of every painted boundary sample agree with physical rock clearance",
+        "passed": true
+      },
+      {
+        "name": "A real bite removes only the outer rock across a chunk boundary",
+        "passed": true
+      },
+      {
+        "name": "Excavating a neighbor refreshes the surviving rock's curved collision and cached drawing across the chunk seam",
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "performance": {
+    "bite_cpu_ms": {
+      "max": 34.305,
+      "median": 25.812,
+      "p95": 34.305
+    },
+    "bite_frame_ms": {
+      "max": 52.186,
+      "median": 42.605,
+      "p95": 52.186
+    },
+    "conditions": "1440x900 native OpenGL; six Gatling modules; 80 fixed seeded, non-shooting monsters across the shortcut; production _process, drops, weapons, audio and rendering; reward-choice interruptions suppressed; 12 warmup + 240 measured frames at 1/60s input.",
+    "cpu_ms": {
+      "max": 45.832,
+      "median": 24.374,
+      "p95": 30.493
+    },
+    "drop_cpu_ms": {
+      "max": 34.305,
+      "median": 33.225,
+      "p95": 34.305
+    },
+    "drop_frame_ms": {
+      "max": 52.186,
+      "median": 49.429,
+      "p95": 52.186
+    },
+    "frame_ms": {
+      "max": 61.966,
+      "median": 37.631,
+      "p95": 44.839
+    },
+    "mined_cells": 20,
+    "ore_value": 12,
+    "passed": true,
+    "warmup_simulation_ms": [
+      1364.85,
+      21.209,
+      20.383,
+      20.525,
+      22.482,
+      20.608,
+      19.777,
+      23.229,
+      24.53,
+      25.733,
+      24.94,
+      20.15
+    ]
+  },
+  "exported_curve_trial": {
+    "mined_cells": 35,
+    "ore_value": 12,
+    "path": [
+      [
+        331.414245605469,
+        -27.051082611084
+      ],
+      [
+        331.422027587891,
+        -27.1914119720459
+      ],
+      [
+        331.431243896484,
+        -27.3448925018311
+      ],
+      [
+        333.634460449219,
+        -27.4780654907227
+      ],
+      [
+        355.026153564453,
+        -27.559907913208
+      ],
+      [
+        355.028594970703,
+        -27.6461200714111
+      ],
+      [
+        355.031036376953,
+        -27.7323322296143
+      ],
+      [
+        378.5830078125,
+        -27.8055572509766
+      ],
+      [
+        386.785400390625,
+        -27.8659553527832
+      ],
+      [
+        402.33251953125,
+        -28.1776676177979
+      ],
+      [
+        415.062316894531,
+        -28.2537002563477
+      ],
+      [
+        427.482696533203,
+        -41.8382568359375
+      ],
+      [
+        427.358154296875,
+        -64.7845611572266
+      ],
+      [
+        427.156219482422,
+        -71.2739410400391
+      ],
+      [
+        426.860198974609,
+        -87.9300003051758
+      ],
+      [
+        426.673217773438,
+        -111.287818908691
+      ],
+      [
+        426.538940429688,
+        -121.670234680176
+      ],
+      [
+        427.579986572266,
+        -139.50390625
+      ]
+    ]
+  },
+  "captures": [
+    "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-organic-preview\\cave-01-before.png",
+    "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-organic-preview\\cave-02-chewing.png",
+    "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-organic-preview\\cave-03-tunnel.png",
+    "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-organic-preview\\cave-04-monster-follows.png",
+    "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-organic-preview\\cave-05-rounded-bend.png"
+  ],
+  "delivery": {
+    "archive": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-organic.zip",
+    "executable": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-organic\\RunBuildPew.exe",
+    "bytes": 155821284,
+    "sha256": "01c661ea34568d57590176fd329abcf30b4ea80e0459f4d92a0a65e777c1b84a",
+    "passed": true,
+    "unpacked_launch": true,
+    "validated_checks": 74,
+    "cave_mining_validated": true
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "source_suites": 119,
+  "source_passed": true,
+  "exported_checks": 71,
+  "exported_cave_passed": true,
+  "independent_unpacked_launch": true,
+  "archive": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261020-mining.zip",
+  "archive_sha256": "fb37a7dafc951a41009aab7c0a51f4f7a834ee7d8f571c49667de26d26612957",
+  "archive_bytes": 155810659,
+  "tested_sources_match_export": true
+}

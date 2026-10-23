@@ -37,6 +37,7 @@ class Batch extends RefCounted:
 		if what==NOTIFICATION_PREDELETE and rid.is_valid():RenderingServer.free_rid(rid)
 
 class Painter extends RefCounted:
+	static var circles:Dictionary={}
 	var batch: Batch
 	var source: Node2D
 	var shader_family: String
@@ -83,19 +84,42 @@ class Painter extends RefCounted:
 		batch.command_count+=1
 		if batch.trace:batch.commands.append([&"draw_polygon"])
 		RenderingServer.canvas_item_add_polygon(batch.rid,points,colors,uvs,texture.get_rid() if texture!=null else RID())
+	func draw_triangle_array(indices: PackedInt32Array, points: PackedVector2Array, colors: PackedColorArray, uvs: PackedVector2Array = PackedVector2Array()):
+		batch.command_count+=1
+		if batch.trace:batch.commands.append([&"draw_triangle_array"])
+		RenderingServer.canvas_item_add_triangle_array(batch.rid,indices,points,colors,uvs)
 	func draw_colored_polygon(points: PackedVector2Array,color: Color):
 		batch.command_count+=1
 		if batch.trace:batch.commands.append([&"draw_colored_polygon"])
 		RenderingServer.canvas_item_add_polygon(batch.rid,points,PackedColorArray([color]))
+	func draw_multimesh(multimesh:MultiMesh,texture:Texture2D=null):
+		batch.command_count+=1
+		if batch.trace:batch.commands.append([&"draw_multimesh"])
+		RenderingServer.canvas_item_add_multimesh(batch.rid,multimesh.get_rid(),texture.get_rid() if texture!=null else RID())
 	func draw_polyline(points: PackedVector2Array,color: Color,width: float = 1.0,antialiased: bool = false):
 		batch.command_count+=1
 		if batch.trace:batch.commands.append([&"draw_polyline"])
 		RenderingServer.canvas_item_add_polyline(batch.rid,points,PackedColorArray([color]),width,antialiased)
+	func draw_polyline_colors(points: PackedVector2Array,colors: PackedColorArray,width: float = 1.0,antialiased: bool = false):
+		batch.command_count+=1
+		if batch.trace:batch.commands.append([&"draw_polyline_colors"])
+		RenderingServer.canvas_item_add_polyline(batch.rid,points,colors,width,antialiased)
 	func draw_arc(at,radius,from,to,count,color,width=1.0,antialiased=false):
 		if count<2:return
-		var points=PackedVector2Array();points.resize(count)
-		var span=clampf(to-from,-TAU,TAU)
-		for i in count:points[i]=at+Vector2.from_angle(from+span*float(i)/float(count-1))*radius
+		var points:PackedVector2Array
+		if from==0.0 and to==TAU and count<=512:
+			if not circles.has(count):
+				if circles.size()>=64:circles.erase(circles.keys()[0])
+				var circle=PackedVector2Array();circle.resize(count)
+				for i in count:circle[i]=Vector2.from_angle(TAU*float(i)/float(count-1))
+				circles[count]=circle
+			# Preserve every original point and AA setting. Transforming the
+			# cached unit arc runs natively instead of 44 trig calls per egg.
+			points=Transform2D(0.0,Vector2.ONE*radius,0.0,at)*circles[count]
+		else:
+			points=PackedVector2Array();points.resize(count)
+			var span=clampf(to-from,-TAU,TAU)
+			for i in count:points[i]=at+Vector2.from_angle(from+span*float(i)/float(count-1))*radius
 		batch.command_count+=1
 		if batch.trace:batch.commands.append([&"draw_arc"])
 		RenderingServer.canvas_item_add_polyline(batch.rid,points,PackedColorArray([color]),width,antialiased)

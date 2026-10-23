@@ -264,4 +264,4 @@ func local_pointer()->Vector2:
 
 func paint_organ(part:Dictionary,at:Vector2,scale_factor:float):
 	var core=builder.db.asset(part.id)
-	organs.paint(self,str(part.feedback_uid),builder.db.core_sprite(core),at,builder.element_bounds(scale_factor,part),builder.ASSEMBLY_FACING+PI/2,builder.db.Armaments.variant(builder.db,core),clock,0.0,Color.WHITE,float(part.feedback_uid))
+	organs.paint(self,str(part.feedback_uid),preload("res://scripts/mutation_branches.gd").core_texture(builder.player,core),at,builder.element_bounds(scale_factor,part),builder.ASSEMBLY_FACING+PI/2,builder.db.Armaments.variant(builder.db,core),clock,0.0,Color.WHITE,float(part.feedback_uid))

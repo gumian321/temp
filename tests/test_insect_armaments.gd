@@ -8,17 +8,20 @@ func check(ok: bool, label: String):
 func _initialize():
 	var db = DB.new()
 	var original: Dictionary = db.read_json("catalog")
-	check(Art.entries().size() == 33, "33 distinct anatomical equipment and entity identities")
+	check(Art.entries().size() == 36, "36 distinct anatomical equipment and entity identities")
 	var total_guns = 0
 	var total_devices = 0
 	for value in db.catalog.values():
-		var unchanged = value.duplicate(true)
-		unchanged.erase("insect_variant")
-		if original[value.id].has("coreNameID"): unchanged.coreNameID = original[value.id].coreNameID
-		else: unchanged.erase("coreNameID")
-		if original[value.id].has("rewardDesc"): unchanged.rewardDesc = original[value.id].rewardDesc
-		else: unchanged.erase("rewardDesc")
-		check(unchanged == original[value.id], "Stable IDs, internal names and mechanics: " + str(value.name))
+		if original.has(value.id):
+			var unchanged = value.duplicate(true)
+			unchanged.erase("insect_variant");unchanged.erase("retired")
+			if original[value.id].has("coreNameID"): unchanged.coreNameID = original[value.id].coreNameID
+			else: unchanged.erase("coreNameID")
+			if original[value.id].has("rewardDesc"): unchanged.rewardDesc = original[value.id].rewardDesc
+			else: unchanged.erase("rewardDesc")
+			if original[value.id].has("packRewardsList"):unchanged.packRewardsList=original[value.id].packRewardsList
+			check(unchanged == original[value.id], "Stable IDs, internal names and combat mechanics: " + str(value.name))
+		else:check(value.get("project_added",false),"Added content is explicitly identified: "+str(value.name))
 		if value.has("coreProjectile"): total_guns += 1
 		if value.has("coreTurret") or value.has("coreChip"):
 			total_devices += 1
@@ -33,7 +36,7 @@ func _initialize():
 		if "Reward" in str(value.get("class", "")):
 			var key = db.armament_variant(value)
 			if not key.is_empty(): check(db.text(value.rewardDesc) == Art.entries()[key].description_zh, "Reward/research description shares current identity: " + value.name)
-	check(total_guns == 32, "All 32 player, HQ and enemy gun cores covered")
+	check(total_guns == 38, "All 32 original and six added body/head gun cores covered")
 	check(db.title(db.named("Core_Drones_Attack")) == "猎蜂巢", "Drone bay name is distinct from deployed hunter wasp")
 	check(db.ui_text("Gatling Gun") == "蜂尾针簇", "Legacy literal name resolves to new display name")
 	check(db.title(db.named("Reward_LevelUP_Gun_Gatling")).contains("蜂尾针簇"), "Level-up title uses new family name")

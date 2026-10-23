@@ -24,6 +24,8 @@ class PaintProbe extends RefCounted:
 		at=point;heading=angle;transform_calls+=1
 	func draw_texture_rect(texture,rect,_tile,color):
 		commands.append({"texture":texture,"at":at,"heading":heading,"rect":rect,"color":color})
+	func draw_colored_polygon(points,color):
+		commands.append({"texture":null,"at":at,"heading":heading,"points":points,"color":color})
 
 func check(ok:bool,title:String):
 	checks.append({"name":title,"passed":ok})

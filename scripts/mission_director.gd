@@ -1,6 +1,6 @@
 extends RefCounted
 
-# Direct ports of Survival/BH/GA/SProtect/SDestroy/Endless mode callbacks.
+# Source mission callbacks, with travelled-tunnel escort movement for caves.
 var session: WeakRef
 var db
 var battle
@@ -13,6 +13,7 @@ var fleet_goal = Vector2.ZERO
 var fleet_data: Dictionary = {}
 var fleet_ground: Dictionary = {}
 var fleet_radius = 0.0
+var cave_escort
 var station_data: Dictionary = {}
 var delayed: Array = []
 var warp_left = 0.0
@@ -102,7 +103,14 @@ func setup():
 				e.station_radius = float(rim.spawnersYPos)*48
 				e.station_angle = angle
 	initial_objectives = objectives.size()
-	if type in ["BHModeManager","GAModeManager"] and battle.terrain!=null:
+	if type=="GAModeManager" and battle.cave_enabled() and initial_objectives>0:
+		cave_escort=preload("res://scripts/cave_escort.gd").new()
+		var ships=living_objectives()
+		for e in ships:fleet_radius=maxf(fleet_radius,float(e.radius))
+		fleet_goal=battle.terrain.safe_position(fleet_goal,fleet_radius+2)
+		cave_escort.setup(battle.terrain,player,ships,fleet_data,fleet_goal)
+		fleet_position=ships[0].position
+	elif type in ["BHModeManager","GAModeManager"] and battle.terrain!=null:
 		for e in living_objectives(): fleet_radius=maxf(fleet_radius,Vector2(e.offset).length()+float(e.radius))
 		fleet_position=battle.terrain.safe_position(fleet_position,fleet_radius)
 		for e in living_objectives():
@@ -129,7 +137,7 @@ func spawn_wave(types, name: String, radius: float = -1.0, point = null):
 	var run = current()
 	if radius < 0: radius = float(run.configuration.get("bossSpawningRadius", 100))
 	var before = battle.next_uid
-	run.spawn_fleet(types, radius, name == "survival_final", point)
+	run.spawn_fleet(types, radius, name == "survival_final", point,name)
 	for e in battle.enemies:
 		if e.uid >= before:
 			e.group = name
@@ -155,7 +163,9 @@ func step(dt: float):
 		if previous_warp > 0 and warp_left == 0:
 			fleet_position = player.head + Vector2.from_angle(run.rng.randf() * TAU) * float(mode.get("fleetWarpDistance", 50)) * 48
 			if battle.terrain!=null:fleet_position=battle.terrain.safe_position(fleet_position,fleet_radius)
-		if warp_left <= 0:
+		if cave_escort!=null:
+			fleet_position=cave_escort.step(dt,living,fleet_goal)
+		elif warp_left <= 0:
 			var direction = (fleet_goal - fleet_position).normalized()
 			var moving = true
 			if type == "BHModeManager": direction = (fleet_position - player.head).normalized()
@@ -165,7 +175,7 @@ func step(dt: float):
 				var next=fleet_position+direction*float(fleet_data.movingSpeed)*48*dt
 				fleet_position=battle.terrain.move(fleet_position,next,fleet_radius) if battle.terrain!=null else next
 		for e in living:
-			e.position = fleet_position + e.offset
+			if cave_escort==null:e.position = fleet_position + e.offset
 			e.ground_previous=e.position
 			e.warp = warp_left
 		if living.is_empty() and initial_objectives > 0:
@@ -184,7 +194,7 @@ func step(dt: float):
 			spawn_wave(mode.EndBossFleetList, "survival_final", float(mode.EndBossSpawningRadius))
 		for key in ["MiniBossFleet", "MidBossFleet"]:
 			if mode.has(key) and run.heat > float(mode[key].fleetPercent) and not gates.has(key): spawn_wave(mode[key].fleetTypes, key)
-		if end_spawned and not battle.enemies.any(func(e): return e.group == "survival_final"):
+		if end_spawned and not run.pending_fleet("survival_final") and not battle.enemies.any(func(e): return e.group == "survival_final"):
 			run.finish(true)
 			return
 	elif type == "EndlessModeManager":
@@ -218,11 +228,22 @@ func step(dt: float):
 			delayed.erase(event)
 	for event in battle.destroyed:
 		if event.kind == "AIBossUnit":
-			if not battle.enemies.any(func(e): return e.group == event.group):
+			if not run.pending_fleet(event.group) and not battle.enemies.any(func(e): return e.group == event.group):
 				boss_pause = float(db.stores.AIDataStore.get("spawningPauseAfterBoss", 5))
 				event_log.append({"event": "boss_wave_destroyed", "group": event.group, "time": run.elapsed})
 	battle.destroyed.clear()
 	battle.mission_target = target()
+
+func escort_brief()->Dictionary:
+	if mode.get("class")!="GAModeManager":return {}
+	var living=living_objectives()
+	var state="moving" if fleet_position.distance_to(player.head)<float(fleet_data.disFromPlayerToMove)*48 else "far"
+	if cave_escort!=null:state=cave_escort.status
+	var total_health=0.0;var health=0.0
+	for e in living:health+=maxf(0,e.hp);total_health+=e.max_hp
+	var distance=fleet_position.distance_to(fleet_goal)
+	var initial_distance=cave_escort.start_distance if cave_escort!=null else fleet_goal.length()
+	return {"state":state,"cave":cave_escort!=null,"alive":living.size(),"total":initial_objectives,"health":health/maxf(1,total_health),"distance":distance,"separation":fleet_position.distance_to(player.head),"range":float(fleet_data.disFromPlayerToMove)*48,"progress":clampf(1-distance/maxf(1,initial_distance),0,1)}
 
 func bonus(victory: bool) -> int:
 	if not victory: return 0

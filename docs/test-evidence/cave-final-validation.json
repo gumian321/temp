@@ -1,0 +1,1338 @@
+{
+  "passed": true,
+  "suite_count": 119,
+  "suites": [
+    {
+      "suite": "playtest_polish",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.684,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "playtest_polish_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.508,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "mineral_erosion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.978,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "mineral_erosion_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.63,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "chasm_collision",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.752,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "chasm_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.704,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "enemy_health",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.214,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "enemy_health_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 11.282,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "enemy_sizes",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.57,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "spider_turn_continuity",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.599,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "result_rank_ui",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 18.043,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "fragment_recovery",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 10.777,
+      "isolated_user_data": true,
+      "validation_report": "cave-recovery-fixes.json"
+    },
+    {
+      "suite": "fragment_recovery_budget",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.588,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "fragment_art",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.875,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "fragment_recovery_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.805,
+      "isolated_user_data": true,
+      "validation_report": "cave-final-source-checks.json"
+    },
+    {
+      "suite": "debug_unlock_all",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.078,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "knockback",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.919,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "soft_knockback",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.38,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "soft_pull",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.987,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "tether_motion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.058,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "emitter_reaction",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.761,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "combat_momentum",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.772,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "special_encounters",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.809,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "encounter_art",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.602,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "encounter_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.863,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "encounter_pacing",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 18.866,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "attack_shader_materials",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.505,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "skill_shader_coverage",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.715,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "enemy_death_splatter",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.846,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "projectile_trajectory_continuity",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 3.431,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "viscous_projectile_motion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.574,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "viscous_renderer",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.385,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "viscous_integration",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.759,
+      "isolated_user_data": true,
+      "validation_report": "cave-recovery-fixes.json"
+    },
+    {
+      "suite": "combat_spatial",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.245,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "hud_refresh_cache",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.398,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "particle_resource_cache",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.691,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "render_hotpath_regressions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.27,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "soft_render_cache",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 3.069,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "soft_solver_regressions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.592,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "rig_batch_dynamic",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.645,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "radial_formations",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.18,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "crystal_loot_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.608,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "hostile_readability",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.599,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "soft_organs",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.127,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "fusion_flagella",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.579,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "camera_stability_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 22.582,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "centipede_coil",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.331,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "centipede_coil_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.296,
+      "isolated_user_data": true,
+      "validation_report": "cave-final-source-checks.json"
+    },
+    {
+      "suite": "character_selection",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.087,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "debug_characters",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.398,
+      "isolated_user_data": true,
+      "validation_report": "cave-render-resources.json"
+    },
+    {
+      "suite": "direct_body_assembly",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.457,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "insect_projectiles",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.589,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "spider_leg_modules",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.671,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "spider_rig",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.932,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "spider_segments",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.036,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "spider_visibility_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.96,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "spider_assembly_ui",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.215,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "spider_motion_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.964,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "expedition_briefing",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.492,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "character_roster",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.273,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "character_abilities",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.0,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "character_integration",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.714,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "character_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.068,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "character_ui_integration",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.164,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "brood",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.218,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "armament_art",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.333,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "generated_light_ui",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.413,
+      "isolated_user_data": true,
+      "validation_report": "cave-ui-palette.json"
+    },
+    {
+      "suite": "main_autofire",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.846,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "main_autofire_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.101,
+      "isolated_user_data": true,
+      "validation_report": "cave-input-recheck.json"
+    },
+    {
+      "suite": "passive_feedback_state",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.851,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "passive_upgrade_effects",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.657,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "passive_visual_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.306,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "reward_progress_badges",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.506,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "tooltip_theme",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.104,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "contact_impacts",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.578,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "insect_armaments",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.286,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "insect_art_routes",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.463,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "insect_controls",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.567,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "insect_attack_fx",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.203,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "game_ui_shell",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.056,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "meta_ui_redesign",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.028,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "battle_hud",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 11.188,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "reward_cards",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.246,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "mission_select",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.799,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "core",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.815,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "missions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.021,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "map",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.561,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "rewards",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.563,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "specials",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.599,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "regressions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.669,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "drones",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.463,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "reward_pool",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.565,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "controller",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.266,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "long_body",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.139,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "shields",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.505,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "turret_tracking",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.49,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "achievements",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.569,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "fuel_tutorial",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.549,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "enemy_drones",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.593,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "radar",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.648,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "weapon_catalog",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 3.991,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "particles",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.585,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "presentation",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.864,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "loot",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.57,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "centipede_segments",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.705,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "centipede_support",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.664,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "chinese",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.227,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "chain_segments",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.457,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "chain_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 10.033,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "chain_ui_redesign",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.218,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "segment_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.739,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "reward_flow",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.59,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "blue_ink",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.213,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "grid_mounts",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.771,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "centipede_motion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.636,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "weapon_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.153,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "weapon_readability",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.666,
+      "isolated_user_data": true,
+      "validation_report": "cave-full-regression.json"
+    },
+    {
+      "suite": "cave_mining",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.453,
+      "isolated_user_data": true,
+      "validation_report": "cave-final-source-checks.json"
+    },
+    {
+      "suite": "cave_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.978,
+      "isolated_user_data": true,
+      "validation_report": "cave-render-resources.json"
+    }
+  ],
+  "reports": [
+    "cave-full-regression.json",
+    "cave-recovery-fixes.json",
+    "cave-starting-body.json",
+    "cave-ui-palette.json",
+    "cave-render-resources.json",
+    "cave-input-recheck.json",
+    "cave-final-source-checks.json"
+  ],
+  "source_sha256": {
+    "scripts/cave_playtest_probe.gd": "b846a5b372508d90065c9bae1f9c4eeac734a89d0a8313ec0e17595ee4e032e7",
+    "scripts/cave_terrain.gd": "e111077f1b8444693dbd42b35e9013da2ae4862e04ddc5e9a71899d59d3d89f5",
+    "scripts/cave_world.gd": "e4b8fda763dbc4c0bc6211ee412cea804bb8bc52669811aa4ca6a54472c2ee9d",
+    "scripts/centipede_motion.gd": "94a8e9ec14f3fc6ee87df1c914250a121b9ecfcd4d99669512f89bd3bce6bda7",
+    "scripts/centipede_fragments.gd": "d4c80685fea6b67b1758f59d0b39f3db1a81a0422f68b469fa0bc7bc7e062b7d",
+    "scripts/centipede_coil.gd": "cbd8bb43dff8d2b98c71aa6df690c055700c7e8d267931811b660f7adec0f97b",
+    "scripts/chain_centipede.gd": "65d7d1a2b579c9f5d8392f2cb6f4ddbc1383031f826f9a59b12a0c4449496a54",
+    "scripts/main.gd": "21674fedb95c9ef47b9e0622db52a4e11d08ac0b21b1573d5807672900cac594",
+    "scripts/combat.gd": "d0795575a69aad5390b07e994bae0aab00a349800db819268f3414f692fa4f55",
+    "scripts/special_systems.gd": "c1985a57bf8f948dd2d2b91ed85bd99c4e808fb49f48d6b6f51acee15179388a",
+    "shaders/cave_rock.gdshader": "56fe114843a443a73bd1d4be9460c674a3d582fdecf790958d6c04a8db4d5b18"
+  },
+  "note": "Initial full regression plus explicit reruns after the fixes; all suites use isolated user data."
+}

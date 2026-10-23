@@ -1,0 +1,353 @@
+{
+  "generated_at": "2026-10-21T13:48:08.540541+08:00",
+  "passed": true,
+  "request": "Implement approved scheme A, retain grayscale rock and a little exposed mineral color, then strengthen exposed color for normal gameplay readability and deliver a playable Windows build.",
+  "runtime_source_snapshot_matches_export": true,
+  "source_file_count": 868,
+  "source_suite_count": 4,
+  "source_suites": [
+    {
+      "suite": "cave_mining",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.267,
+      "isolated_user_data": true,
+      "runner_report": "cave-grains-native.json"
+    },
+    {
+      "suite": "cave_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 17.323,
+      "isolated_user_data": true,
+      "runner_report": "cave-grains-color-native.json"
+    },
+    {
+      "suite": "cave_mining_performance",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 29.616,
+      "isolated_user_data": true,
+      "runner_report": "cave-grains-color-native.json"
+    },
+    {
+      "suite": "debug_characters",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 12.213,
+      "isolated_user_data": true,
+      "runner_report": "cave-grains-native.json"
+    }
+  ],
+  "asset": {
+    "file": "E:\\_Nlv\\github\\temp\\assets\\charcoal_ink\\ore_grains\\ore_grains_v2.png",
+    "sha256": "97c6f1949190ff6baeea5f38fd55f1011f4e86cf061528a1a90d8f98000afa1d",
+    "generator": "built-in image_gen",
+    "layout": "1536x1024 RGBA; 3 columns x 2 rows; six mineral-bearing rock variants",
+    "prompt_set": "E:\\_Nlv\\github\\temp\\assets\\charcoal_ink\\ore_grains\\GENERATION.txt"
+  },
+  "readability_update": {
+    "palette": [
+      "#3fc7cc",
+      "#d3a34c",
+      "#ce659c"
+    ],
+    "normal_zoom_capture": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-grains-color-preview\\cave-00b-normal-mineral-grains.png",
+    "changes": "Stronger saturation on the already exposed source mineral faces; grayscale host material and spatial distribution preserved."
+  },
+  "exported_ui_check_count": 59,
+  "exported_cave_validation": {
+    "captures": [
+      "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-grains-color-preview\\cave-00-mineral-grains.png",
+      "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-grains-color-preview\\cave-00b-normal-mineral-grains.png",
+      "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-grains-color-preview\\cave-01-before.png",
+      "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-grains-color-preview\\cave-02-chewing.png",
+      "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-grains-color-preview\\cave-03-tunnel.png",
+      "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-grains-color-preview\\cave-04-monster-follows.png",
+      "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-grains-color-preview\\cave-05-rounded-bend.png"
+    ],
+    "checks": [
+      {
+        "name": "Main scene shares one enabled cave world across simulation and rendering",
+        "passed": true
+      },
+      {
+        "name": "Native cave capture: 00-mineral-grains",
+        "passed": true
+      },
+      {
+        "name": "Native cave capture: 00b-normal-mineral-grains",
+        "passed": true
+      },
+      {
+        "name": "Native cave capture: 01-before",
+        "passed": true
+      },
+      {
+        "name": "Actual movement input engages head chewing and jaw animation",
+        "passed": true
+      },
+      {
+        "name": "Native cave capture: 02-chewing",
+        "passed": true
+      },
+      {
+        "name": "Production chamber shortcut opens by pushing into its ore-bearing wall",
+        "passed": true
+      },
+      {
+        "name": "All six actual body modules follow the new passage without penetrating rock",
+        "passed": true
+      },
+      {
+        "name": "Mining the production deposit creates existing energy-crystal pickups",
+        "passed": true
+      },
+      {
+        "name": "Projectiles gain a clear line through the excavated shortcut",
+        "passed": true
+      },
+      {
+        "name": "Native cave capture: 03-tunnel",
+        "passed": true
+      },
+      {
+        "name": "Pause freezes excavation and preserves the tunnel",
+        "passed": true
+      },
+      {
+        "name": "Production monster chase AI walks through the freshly mined shortcut",
+        "passed": true
+      },
+      {
+        "name": "Native cave capture: 04-monster-follows",
+        "passed": true
+      },
+      {
+        "name": "Actual production excavation turns north inside rock and cuts a curved passage",
+        "passed": true
+      },
+      {
+        "name": "All six body modules remain clear throughout the newly excavated bend",
+        "passed": true
+      },
+      {
+        "name": "Native cave capture: 05-rounded-bend",
+        "passed": true
+      }
+    ],
+    "curve_trial": {
+      "mined_cells": 39,
+      "ore_value": 16,
+      "path": [
+        [
+          329.437438964844,
+          -0.0207340978085995
+        ],
+        [
+          329.584899902344,
+          -0.178908362984657
+        ],
+        [
+          329.593444824219,
+          -0.329780846834183
+        ],
+        [
+          331.790466308594,
+          -0.450478821992874
+        ],
+        [
+          374.197418212891,
+          -1.67687916755676
+        ],
+        [
+          382.684661865234,
+          -3.46551489830017
+        ],
+        [
+          389.712951660156,
+          -2.8196861743927
+        ],
+        [
+          399.972534179688,
+          -2.8196861743927
+        ],
+        [
+          416.711547851563,
+          -2.88288545608521
+        ],
+        [
+          424.717254638672,
+          -18.0755462646484
+        ],
+        [
+          424.744812011719,
+          -35.4753112792969
+        ],
+        [
+          428.296478271484,
+          -59.5624656677246
+        ],
+        [
+          428.669006347656,
+          -88.6361618041992
+        ],
+        [
+          428.299621582031,
+          -95.2098999023438
+        ],
+        [
+          429.672729492188,
+          -135.686279296875
+        ]
+      ]
+    },
+    "exported": true,
+    "mined_cells": 23,
+    "ore_value": 16,
+    "passed": true,
+    "performance": {
+      "actors": 100,
+      "simulation_median_ms": 11.836,
+      "simulation_p95_ms": 13.485
+    },
+    "route": [
+      [
+        211.600006103516,
+        0.0
+      ],
+      [
+        230.799163818359,
+        0.181295856833458
+      ],
+      [
+        249.998321533203,
+        0.362659364938736
+      ],
+      [
+        269.197357177734,
+        0.544022917747498
+      ],
+      [
+        288.396331787109,
+        0.725386321544647
+      ],
+      [
+        307.595306396484,
+        0.906749427318573
+      ],
+      [
+        326.794281005859,
+        1.08811259269714
+      ],
+      [
+        345.993255615234,
+        1.26947569847107
+      ],
+      [
+        365.192230224609,
+        1.450838804245
+      ],
+      [
+        384.391204833984,
+        1.63220191001892
+      ],
+      [
+        403.590179443359,
+        1.81356501579285
+      ],
+      [
+        422.789154052734,
+        1.99492740631104
+      ],
+      [
+        441.988128662109,
+        2.17629051208496
+      ],
+      [
+        461.187103271484,
+        2.35765290260315
+      ],
+      [
+        480.386077880859,
+        2.53901314735413
+      ]
+    ]
+  },
+  "performance": {
+    "passed": true,
+    "conditions": "1440x900 native OpenGL; six Gatling modules; 80 fixed seeded, non-shooting monsters across the shortcut; production _process, drops, weapons, audio and rendering; reward-choice interruptions suppressed; 12 warmup + 240 measured frames at 1/60s input.",
+    "cpu_ms": {
+      "max": 80.465,
+      "median": 42.142,
+      "p95": 62.474
+    },
+    "bite_cpu_ms": {
+      "max": 71.997,
+      "median": 46.897,
+      "p95": 71.997
+    },
+    "drop_cpu_ms": {
+      "max": 64.333,
+      "median": 49.791,
+      "p95": 64.333
+    },
+    "frame_ms": {
+      "max": 289.422,
+      "median": 67.203,
+      "p95": 96.053
+    },
+    "drop_frame_ms": {
+      "max": 96.053,
+      "median": 82.017,
+      "p95": 96.053
+    },
+    "mined_cells": 23,
+    "ore_value": 16
+  },
+  "performance_report": "artifacts/cave-mining-performance-grains-color.json",
+  "mineral_geometry_peak_ms": 1.012,
+  "terrain_geometry_peak_ms": 18.91,
+  "visual_review": [
+    "Native images inspected at 1.0 and 1.75 game zoom. Blue-teal grain faces are more visible while ordinary rock and silver-white grains stay grayscale.",
+    "The generated PNG is copied intact into the project and has genuine alpha; Pillow was used only for alpha analysis.",
+    "Deposit texture placement reads the original ore field and remains fixed during mining; clipped textured polygons follow the same rock pieces used by collision."
+  ],
+  "notes": [
+    "All automated gameplay checks used guarded isolated user-data directories.",
+    "Final color changes were followed by native scene and performance checks, then actual exported UI/cave checks, ordinary launch and independent unpacked launch.",
+    "The local 80-actor pressure fixture remains expensive and is not a full-match FPS guarantee; timings varied between runs, so they do not establish a performance effect of changing color.",
+    "All prior packages and dedicated preview folders remain intact."
+  ],
+  "captures": [
+    "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-grains-color-preview\\cave-00-mineral-grains.png",
+    "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-grains-color-preview\\cave-00b-normal-mineral-grains.png",
+    "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-grains-color-preview\\cave-01-before.png",
+    "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-grains-color-preview\\cave-02-chewing.png",
+    "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-grains-color-preview\\cave-03-tunnel.png",
+    "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-grains-color-preview\\cave-04-monster-follows.png",
+    "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-grains-color-preview\\cave-05-rounded-bend.png"
+  ],
+  "delivery": {
+    "archive": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-grains-color.zip",
+    "executable": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-grains-color\\RunBuildPew.exe",
+    "bytes": 157154086,
+    "sha256": "0171c21e31f67dfe74e1d25133eecb3add21ff6a5253e5a49c978c16b174bef8",
+    "passed": true,
+    "unpacked_launch": true,
+    "validated_checks": 76,
+    "cave_mining_validated": true
+  }
+}

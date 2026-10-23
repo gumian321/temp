@@ -29,6 +29,10 @@ var streak_detail:Label
 var encounter_label:Label
 var encounter_hint:Label
 var supplies:Label
+var escort_title:Label
+var escort_status:Label
+var escort_rule:Label
+var escort_progress=0.0
 var streak_fill=0.0
 
 class Meter extends Control:
@@ -111,6 +115,10 @@ func setup(owner_game):
  encounter_label=label(self,"",17);encounter_hint=label(self,"",13)
  encounter_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;encounter_hint.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
  supplies=label(self,"",14);supplies.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
+ escort_title=label(self,"",15);escort_status=label(self,"",14);escort_rule=label(self,"",12)
+ for field in [escort_title,escort_status,escort_rule]:
+  field.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;field.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS;field.visible=false
+ escort_title.add_theme_color_override("font_color",Color("83d9c1"))
  for field in [streak_label,streak_detail,encounter_label,encounter_hint,supplies]:field.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
  resized.connect(layout_hud);layout_hud.call_deferred();refresh()
 func tr_text(zh:String,en:String)->String:return game.db.ui(en,zh)
@@ -119,6 +127,7 @@ func label(parent:Node,value:String,px:int)->Label:
 func meter(symbol:String,tint:Color,dimensions:Vector2):
  var m=Meter.new(symbol,tint,dimensions);add_child(m);return m
 func layout_hud():
+ var narrow=size.x<1100
  mission.position=Vector2(66,18);mission.size=Vector2(190,18)
  health.position=Vector2(20,38);fuel.position=Vector2(66,76)
  timer.position=Vector2(size.x/2-100,12);timer.size=Vector2(200,36)
@@ -127,13 +136,22 @@ func layout_hud():
  modules.position=Vector2(size.x-284,34);drones.position=Vector2(size.x-182,34)
  build_button.position=Vector2(size.x-74,28)
  radar_label.position=Vector2(size.x-182,size.y-257);radar_label.size=Vector2(142,18)
- skill_icon.position=Vector2(size.x/2-204,size.y-90);skill_label.position=Vector2(size.x/2-154,size.y-82);skill_label.size=Vector2(340,30)
+ var skill_bounds=skill_panel_rect()
+ skill_icon.position=skill_bounds.position+Vector2(12,8);skill_label.position=skill_bounds.position+Vector2(62,16);skill_label.size=Vector2(skill_bounds.size.x-92,30)
+ skill_label.add_theme_font_size_override("font_size",14 if skill_bounds.size.x<360 else 16);skill_label.clip_text=true;skill_label.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
  keys.position=Vector2(46,size.y-32);keys.size=Vector2(350,20)
- streak_label.position=Vector2(24,114);streak_label.size=Vector2(284,28)
- streak_detail.position=Vector2(24,147);streak_detail.size=Vector2(284,20)
- encounter_label.position=Vector2(size.x/2-224,113);encounter_label.size=Vector2(448,25)
- encounter_hint.position=Vector2(size.x/2-224,141);encounter_hint.size=Vector2(448,20)
+ streak_label.autowrap_mode=TextServer.AUTOWRAP_OFF;streak_label.clip_text=true;streak_label.max_lines_visible=1
+ streak_label.add_theme_font_size_override("font_size",16 if narrow else 20)
+ streak_label.position=Vector2(24,114);streak_label.size=Vector2(192 if narrow else 284,28)
+ streak_detail.add_theme_font_size_override("font_size",11 if narrow else 12)
+ streak_detail.position=Vector2(24,147);streak_detail.size=Vector2(192 if narrow else 284,20)
+ var event_width=minf(448,size.x-488) if narrow else 448.0
+ encounter_label.position=Vector2((size.x-event_width)/2,113);encounter_label.size=Vector2(event_width,25)
+ encounter_hint.position=Vector2((size.x-event_width)/2,141);encounter_hint.size=Vector2(event_width,20)
  supplies.position=Vector2(size.x-290,89);supplies.size=Vector2(252,24)
+ escort_title.position=Vector2(size.x/2-232,180);escort_title.size=Vector2(464,23)
+ escort_status.position=Vector2(size.x/2-232,205);escort_status.size=Vector2(464,23)
+ escort_rule.position=Vector2(size.x/2-232,230);escort_rule.size=Vector2(464,20)
  queue_redraw()
 func rail_skin()->StyleBoxFlat:
  var skin=UI.flat_style(Color("080808",0.94),Color(INK,0.7),8)
@@ -145,23 +163,31 @@ func plate(rect:Rect2,alert:bool=false):
  draw_style_box(CharcoalArt.panel_skin(alert,rect.size.y<=40),rect)
 func instrument_backings()->Array[Rect2]:
  return [Rect2(12,10,270,88),Rect2(size.x/2-109,10,218,88),Rect2(size.x-306,22,296,56)]
+func skill_panel_rect()->Rect2:
+ var width=minf(432,maxf(240,size.x-496))
+ return Rect2((size.x-width)/2,size.y-98,width,64)
 func _draw():
  if not is_instance_valid(fuel):return
  for rect in instrument_backings():plate(rect)
- plate(Rect2(size.x/2-216,size.y-98,432,64))
+ plate(skill_panel_rect())
  plate(Rect2(12,size.y-39,414,32))
  plate(Rect2(size.x-212,size.y-261,192,28))
  if is_instance_valid(streak_label) and streak_label.visible:
-  plate(Rect2(12,106,308,68))
-  if streak_fill>0:draw_texture_rect(EncounterArt.decal("charge_lane"),Rect2(24,141,284*streak_fill,5),false,AMBER)
- if is_instance_valid(encounter_label) and encounter_label.visible:plate(Rect2(size.x/2-236,106,472,62),true)
+  var narrow=size.x<1100
+  plate(Rect2(12,106,216 if narrow else 308,68))
+  if streak_fill>0:draw_texture_rect(EncounterArt.decal("charge_lane"),Rect2(24,141,(192 if narrow else 284)*streak_fill,5),false,AMBER)
+ if is_instance_valid(encounter_label) and encounter_label.visible:plate(Rect2(encounter_label.position-Vector2(12,7),Vector2(encounter_label.size.x+24,62)),true)
  if is_instance_valid(supplies) and supplies.visible:plate(Rect2(size.x-316,84,304,32))
+ if is_instance_valid(escort_title) and escort_title.visible:
+  draw_style_box(plaque,Rect2(size.x/2-244,176,488,80))
+  draw_rect(Rect2(size.x/2-228,253,456*escort_progress,2),Color("83d9c1"))
 
 
 func refresh():
  if game.run==null:return
  var p=game.player;var run=game.run
  mission.text=game.db.title(game.selected_mission)
+ refresh_escort()
  var ability=game.combat.character_abilities.state()
  var cooldown=float(ability.get("cooldown",0))
  var binding="Y" if game.joy_ui else OS.get_keycode_string(int(game.save.state.settings.bindings.get("character_skill",KEY_SPACE)))
@@ -194,6 +220,7 @@ func refresh():
  streak_detail.visible=streak_label.visible
  if momentum.burst_left>0:
   streak_label.text=tr_text("狂热爆发  %.1f秒  ·  %d连杀","OVERDRIVE  %.1fs  ·  %d CHAIN")%[momentum.burst_left,momentum.chain]
+  if size.x<1100:streak_label.text=tr_text("狂热 %.1f秒 · %d连杀","BURST %.1fs · %d CHAIN")%[momentum.burst_left,momentum.chain]
   if momentum.chain==0:streak_label.text=tr_text("狂热爆发  %.1f秒","OVERDRIVE  %.1fs")%momentum.burst_left
   streak_detail.text=tr_text("伤害 +25%  ·  装填 +35%","Damage +25%  ·  Reload +35%")
   streak_fill=momentum.burst_left/momentum.BURST_DURATION
@@ -206,9 +233,30 @@ func refresh():
  encounter_hint.visible=encounter_label.visible
  encounter_label.text=encounter.title(encounter.event_type)
  encounter_hint.text=encounter.notice if encounter.notice_left>0 else encounter.hint(encounter.event_type)
+ for field in [streak_label,streak_detail,encounter_label,encounter_hint]:field.tooltip_text=field.text
  if encounter.phase=="warning":encounter_label.text+=tr_text(" · 即将出现"," · INCOMING")
  supplies.visible=run.packs>0 or not p.pending.is_empty()
  var build_key="B" if game.joy_ui else OS.get_keycode_string(int(game.save.state.settings.bindings.get("build",KEY_E)))
  supplies.text=tr_text("补给 ×%d · 待装 %d  [%s]","Supply ×%d · Pending %d  [%s]")%[run.packs,p.pending.size(),build_key]
  build_button.tooltip_text=tr_text("领取补给 / 身体装配 [%s]","Claim supplies / Armory [%s]")%build_key
  if old_status!=[streak_label.visible,encounter_label.visible,supplies.visible,streak_fill]:queue_redraw()
+
+func refresh_escort():
+ var brief:Dictionary=game.run.director.escort_brief()
+ var was_visible=escort_title.visible;var previous=escort_progress
+ for field in [escort_title,escort_status,escort_rule]:field.visible=not brief.is_empty()
+ if brief.is_empty():
+  if was_visible:queue_redraw()
+  return
+ escort_progress=brief.progress
+ escort_title.text=tr_text("护航 · 商队 %d/%d  · 路程 %d%%  · 剩余 %d米","ESCORT · %d/%d  · %d%%  · %dm LEFT")%[brief.alive,brief.total,roundi(brief.progress*100),ceili(brief.distance/48)]
+ match brief.state:
+  "far":escort_status.text=tr_text("离队等待 · 返回商队旁（当前 %.1f米 / 范围 %.1f米）","WAITING · Return to convoy (%.1fm / %.1fm range)")%[brief.separation/48,brief.range/48]
+  "regroup","blocked":escort_status.text=tr_text("等待领航 · 回到商队旁，沿已打通的路带队","REGROUP · Return to convoy and lead along an open tunnel")
+  "ready":escort_status.text=tr_text("商队已集合 · 向终点箭头方向移动，带队开路","READY · Move toward the safe-zone arrow to lead the convoy")
+  "arriving":escort_status.text=tr_text("正在进站 · 留在商队附近，守住最后一段路","ARRIVING · Stay close and defend the last stretch")
+  _:escort_status.text=tr_text("正在跟随 · 保持靠近，清理沿路敌人","FOLLOWING · Stay close and clear enemies ahead") if brief.cave else tr_text("正在护送 · 靠近商队，它会自动前往终点","ESCORTING · Stay close while the convoy advances")
+ if brief.state=="moving" and brief.separation>brief.range*.75:
+  escort_status.text=tr_text("商队落后 · 放慢速度，超过 %.1f米会停下","SLOW DOWN · Convoy stops beyond %.1fm")%[brief.range/48]
+ escort_rule.text=tr_text("绿色标记为商队 · 至少一艘抵达获胜，全部损失失败","Green markers: convoy · Deliver one to win; lose all and fail")
+ if was_visible!=escort_title.visible or not is_equal_approx(previous,escort_progress):queue_redraw()

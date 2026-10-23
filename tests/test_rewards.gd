@@ -20,7 +20,7 @@ func _initialize():
 	for i in range(20):
 		r.rewards.enqueue(true)
 		var offers = r.roll_rewards()
-		check(offers.size()==3,"pack %d produces three offers including locked previews"%i)
+		check(offers.size()==3 and offers.all(func(v):return r.can_reward(v)),"pack %d produces three selectable offers"%i)
 		var selectable = offers.filter(func(v):return r.can_reward(v))
 		check(not selectable.is_empty(),"pack %d has an eligible reward"%i)
 		if not selectable.is_empty(): check(r.take_reward(selectable[0]),"pack %d consumes source reward"%i)

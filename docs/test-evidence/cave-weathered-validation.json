@@ -1,0 +1,477 @@
+{
+  "generated_at": "2026-10-21T12:17:36.604940+08:00",
+  "passed": true,
+  "runtime_source_snapshot_matches_export": true,
+  "source_file_count": 865,
+  "source_suite_count": 15,
+  "source_suites": [
+    {
+      "suite": "cave_curves",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.639,
+      "isolated_user_data": true,
+      "runner_report": "cave-weathered-verified-native.json"
+    },
+    {
+      "suite": "cave_contours",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.706,
+      "isolated_user_data": true,
+      "runner_report": "cave-weathered-verified-native.json"
+    },
+    {
+      "suite": "cave_mining",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.391,
+      "isolated_user_data": true,
+      "runner_report": "cave-weathered-verified-native.json"
+    },
+    {
+      "suite": "cave_update_budget",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.576,
+      "isolated_user_data": true,
+      "runner_report": "cave-weathered-verified-native.json"
+    },
+    {
+      "suite": "cave_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 17.1,
+      "isolated_user_data": true,
+      "runner_report": "cave-weathered-cached-native.json"
+    },
+    {
+      "suite": "cave_mining_performance",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 22.863,
+      "isolated_user_data": true,
+      "runner_report": "cave-weathered-cached-native.json"
+    },
+    {
+      "suite": "debug_characters",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 15.393,
+      "isolated_user_data": true,
+      "runner_report": "cave-weathered-verified-native.json"
+    },
+    {
+      "suite": "centipede_coil_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 15.187,
+      "isolated_user_data": true,
+      "runner_report": "cave-weathered-verified-native.json"
+    },
+    {
+      "suite": "fragment_recovery_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 19.2,
+      "isolated_user_data": true,
+      "runner_report": "cave-weathered-verified-native.json"
+    },
+    {
+      "suite": "chasm_collision",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.623,
+      "isolated_user_data": true,
+      "runner_report": "cave-weathered-regressions.json"
+    },
+    {
+      "suite": "chasm_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.792,
+      "isolated_user_data": true,
+      "runner_report": "cave-weathered-regressions.json"
+    },
+    {
+      "suite": "combat_spatial",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.856,
+      "isolated_user_data": true,
+      "runner_report": "cave-weathered-regressions.json"
+    },
+    {
+      "suite": "centipede_motion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.12,
+      "isolated_user_data": true,
+      "runner_report": "cave-weathered-regressions.json"
+    },
+    {
+      "suite": "character_abilities",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.473,
+      "isolated_user_data": true,
+      "runner_report": "cave-weathered-regressions.json"
+    },
+    {
+      "suite": "mineral_erosion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.464,
+      "isolated_user_data": true,
+      "runner_report": "cave-weathered-regressions.json"
+    }
+  ],
+  "final_renderer_validation": {
+    "runner_report": "cave-weathered-cached-native.json",
+    "exported_check_count": 75,
+    "exported": true
+  },
+  "contour_validation": {
+    "beveled_cells": 345,
+    "boundary_samples": 1272,
+    "checks": [
+      {
+        "name": "Irregular rock cells remain convex for the production swept collision solver",
+        "passed": true
+      },
+      {
+        "name": "Generated chamber boundaries use densely sampled continuous material contours",
+        "passed": true
+      },
+      {
+        "name": "Both sides of every painted boundary sample agree with physical rock clearance",
+        "passed": true
+      },
+      {
+        "name": "A real bite removes only the outer rock across a chunk boundary",
+        "passed": true
+      },
+      {
+        "name": "Excavating a neighbor refreshes the surviving rock's curved collision and cached drawing across the chunk seam",
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "exported_cave_validation": {
+    "captures": [
+      "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-weathered-preview\\cave-00-mineral-veins.png",
+      "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-weathered-preview\\cave-01-before.png",
+      "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-weathered-preview\\cave-02-chewing.png",
+      "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-weathered-preview\\cave-03-tunnel.png",
+      "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-weathered-preview\\cave-04-monster-follows.png",
+      "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-weathered-preview\\cave-05-rounded-bend.png"
+    ],
+    "checks": [
+      {
+        "name": "Main scene shares one enabled cave world across simulation and rendering",
+        "passed": true
+      },
+      {
+        "name": "Native cave capture: 00-mineral-veins",
+        "passed": true
+      },
+      {
+        "name": "Native cave capture: 01-before",
+        "passed": true
+      },
+      {
+        "name": "Actual movement input engages head chewing and jaw animation",
+        "passed": true
+      },
+      {
+        "name": "Native cave capture: 02-chewing",
+        "passed": true
+      },
+      {
+        "name": "Production chamber shortcut opens by pushing into its ore-bearing wall",
+        "passed": true
+      },
+      {
+        "name": "All six actual body modules follow the new passage without penetrating rock",
+        "passed": true
+      },
+      {
+        "name": "Mining the production deposit creates existing energy-crystal pickups",
+        "passed": true
+      },
+      {
+        "name": "Projectiles gain a clear line through the excavated shortcut",
+        "passed": true
+      },
+      {
+        "name": "Native cave capture: 03-tunnel",
+        "passed": true
+      },
+      {
+        "name": "Pause freezes excavation and preserves the tunnel",
+        "passed": true
+      },
+      {
+        "name": "Production monster chase AI walks through the freshly mined shortcut",
+        "passed": true
+      },
+      {
+        "name": "Native cave capture: 04-monster-follows",
+        "passed": true
+      },
+      {
+        "name": "Actual production excavation turns north inside rock and cuts a curved passage",
+        "passed": true
+      },
+      {
+        "name": "All six body modules remain clear throughout the newly excavated bend",
+        "passed": true
+      },
+      {
+        "name": "Native cave capture: 05-rounded-bend",
+        "passed": true
+      }
+    ],
+    "curve_trial": {
+      "mined_cells": 39,
+      "ore_value": 16,
+      "path": [
+        [
+          329.437438964844,
+          -0.0207340978085995
+        ],
+        [
+          329.584899902344,
+          -0.178908362984657
+        ],
+        [
+          329.593444824219,
+          -0.329780846834183
+        ],
+        [
+          331.790466308594,
+          -0.450478821992874
+        ],
+        [
+          374.197418212891,
+          -1.67687916755676
+        ],
+        [
+          382.684661865234,
+          -3.46551489830017
+        ],
+        [
+          389.712951660156,
+          -2.8196861743927
+        ],
+        [
+          399.972534179688,
+          -2.8196861743927
+        ],
+        [
+          416.711547851563,
+          -2.88288545608521
+        ],
+        [
+          424.717254638672,
+          -18.0755462646484
+        ],
+        [
+          424.744812011719,
+          -35.4753112792969
+        ],
+        [
+          428.296478271484,
+          -59.5624656677246
+        ],
+        [
+          428.669006347656,
+          -88.6361618041992
+        ],
+        [
+          428.299621582031,
+          -95.2098999023438
+        ],
+        [
+          429.672729492188,
+          -135.686279296875
+        ]
+      ]
+    },
+    "exported": true,
+    "mined_cells": 23,
+    "ore_value": 16,
+    "passed": true,
+    "performance": {
+      "actors": 100,
+      "simulation_median_ms": 11.552,
+      "simulation_p95_ms": 14.27
+    },
+    "route": [
+      [
+        211.600006103516,
+        0.0
+      ],
+      [
+        230.799163818359,
+        0.181295856833458
+      ],
+      [
+        249.998321533203,
+        0.362659364938736
+      ],
+      [
+        269.197357177734,
+        0.544022917747498
+      ],
+      [
+        288.396331787109,
+        0.725386321544647
+      ],
+      [
+        307.595306396484,
+        0.906749427318573
+      ],
+      [
+        326.794281005859,
+        1.08811259269714
+      ],
+      [
+        345.993255615234,
+        1.26947569847107
+      ],
+      [
+        365.192230224609,
+        1.450838804245
+      ],
+      [
+        384.391204833984,
+        1.63220191001892
+      ],
+      [
+        403.590179443359,
+        1.81356501579285
+      ],
+      [
+        422.789154052734,
+        1.99492740631104
+      ],
+      [
+        441.988128662109,
+        2.17629051208496
+      ],
+      [
+        461.187103271484,
+        2.35765290260315
+      ],
+      [
+        480.386077880859,
+        2.53901314735413
+      ]
+    ]
+  },
+  "exported_ui_check_count": 59,
+  "performance": {
+    "passed": true,
+    "conditions": "1440x900 native OpenGL; six Gatling modules; 80 fixed seeded, non-shooting monsters across the shortcut; production _process, drops, weapons, audio and rendering; reward-choice interruptions suppressed; 12 warmup + 240 measured frames at 1/60s input.",
+    "cpu_ms": {
+      "max": 65.985,
+      "median": 31.863,
+      "p95": 44.717
+    },
+    "bite_cpu_ms": {
+      "max": 65.985,
+      "median": 34.104,
+      "p95": 65.985
+    },
+    "drop_cpu_ms": {
+      "max": 65.985,
+      "median": 37.992,
+      "p95": 65.985
+    },
+    "frame_ms": {
+      "max": 282.95,
+      "median": 49.91,
+      "p95": 66.346
+    },
+    "drop_frame_ms": {
+      "max": 92.69,
+      "median": 56.678,
+      "p95": 92.69
+    },
+    "mined_cells": 23,
+    "ore_value": 16
+  },
+  "performance_report": "artifacts/cave-mining-performance-weathered-cached.json",
+  "notes": [
+    "Fixed shallow fractured lips suppressing chewing; production shortcut and northward bend passed in source and shipped EXE.",
+    "Mineral recesses and crystal faces are clipped into shared physical rock polygons; native before, chewing and bend images visually inspected.",
+    "Unaffected mineral cell faces are cached by rock shape identity; camera-margin construction is limited to one new offscreen chunk per process frame.",
+    "Renderer cache and prefetch changes were validated after the earlier native physics/body checks by the final native scene/performance checks and actual exported UI/cave probes.",
+    "All automated gameplay runs used guarded isolated user-data directories. Timings describe a fixed 80-actor local stress fixture, not a full-match FPS guarantee."
+  ],
+  "captures": [
+    "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-weathered-preview\\cave-00-mineral-veins.png",
+    "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-weathered-preview\\cave-01-before.png",
+    "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-weathered-preview\\cave-02-chewing.png",
+    "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-weathered-preview\\cave-03-tunnel.png",
+    "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-weathered-preview\\cave-04-monster-follows.png",
+    "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-weathered-preview\\cave-05-rounded-bend.png"
+  ],
+  "delivery": {
+    "archive": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-weathered.zip",
+    "executable": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-weathered\\RunBuildPew.exe",
+    "bytes": 155827965,
+    "sha256": "d58b5274c2354045f0404224abb253c63f9b0c4cdc54fb500cf965b18c767bca",
+    "passed": true,
+    "unpacked_launch": true,
+    "validated_checks": 75,
+    "cave_mining_validated": true
+  }
+}

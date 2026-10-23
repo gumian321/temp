@@ -32,11 +32,12 @@ var finished = false
 var won = false
 var result: Dictionary = {}
 var timers = {"swarm": 2.0, "wave": 4.0, "patrol": 5.0}
+var local_spawn_jobs:Array=[]
 var fleet_flags: Array = []
 var offers: Array = []
 var rng = RandomNumberGenerator.new()
 
-func _init(source, persistence, centipede, battle, selected: Dictionary, difficulty: int):
+func _init(source, persistence, centipede, battle, selected: Dictionary, difficulty: int, defer_map: bool = false):
 	db = source
 	save = persistence
 	player = centipede
@@ -63,7 +64,7 @@ func _init(source, persistence, centipede, battle, selected: Dictionary, difficu
 	combat.damage_modifier = float(d.enemiesDamageModifier)
 	rng.seed = 20261012
 	director = MissionDirector.new(self)
-	map_director = MapDirector.new(self)
+	map_director = MapDirector.new(self, defer_map)
 	rewards = RewardDirector.new(self)
 	combat.momentum.enabled = true
 	encounters = preload("res://scripts/encounter_director.gd").new(self)
@@ -85,6 +86,7 @@ func step(dt: float):
 		if timers[key] <= 0:
 			spawn_group(key)
 	step_local_spawners(dt)
+	prepare_local_spawn()
 	map_director.step(dt)
 	director.step(dt)
 	encounters.step(dt)
@@ -108,12 +110,17 @@ func step(dt: float):
 	elif mission.get("isTimeEndCondition", false) and elapsed >= duration:
 		finish(bool(mission.isPlayerWinWhenTimerIsOver))
 
-func spawn_fleet(types, radius: float, objective_boss: bool = false, point = null):
+func spawn_fleet(types, radius: float, objective_boss: bool = false, point = null,group:String=""):
 	for type in db.packed(types):
 		var id: String = db.pool.get(str(type), "")
 		var pos: Vector2 = player.head + Vector2.from_angle(rng.randf() * TAU) * radius * 48
 		if point is Vector2: pos = point
-		combat.spawn(id, pos, "", objective_boss)
+		if combat.cave_enabled() and map_director.incremental:
+			local_spawn_jobs.append({"prefab":id,"point":pos,"owner":0,"objective":objective_boss,"group":group,"target_mission":not bool(configuration.get("IsAIBossSpawnerPlayerTargeting",true)),"placement":{}})
+		else:combat.spawn(id, pos, "", objective_boss)
+
+func pending_fleet(group:String)->bool:
+	return local_spawn_jobs.any(func(job):return job.get("group","")==group)
 
 func choose(entries: Array) -> Dictionary:
 	var list = entries.filter(func(x): return minf(heat, 1.0) >= float(x.get("entryHeatPercent", 0)) and minf(heat, 1.0) <= float(x.get("exitHeatPercent", 1)))
@@ -185,6 +192,7 @@ func character_module_cap()->int:
 
 func can_reward(r: Dictionary) -> bool:
 	if r.is_empty() or not save.available(r.id): return false
+	if r.has("mutation_branch"):return preload("res://scripts/mutation_branches.gd").can_choose(player,r)
 	if r["class"] == "BlockReward":
 		if player.get("character_id")!=null and player.get("character_id")!="centipede":return player.pending.is_empty()
 		return player.parts.size()+player.pending.size()+(player.detached_module_count() if player.has_method("detached_module_count") else 0)+player.reward_module_count(r)<=character_module_cap()+1
@@ -284,6 +292,7 @@ func step_local_spawners(dt: float):
 		for candidate in configuration.HeatSpawnersList:
 			if heat>=float(candidate.selectHeatPercent): config = candidate
 		if config.is_empty(): continue
+		if e.get("spawn_pending",false):continue
 		e.spawn_timer = float(e.get("spawn_timer",config.timeBetweenSpawns))-dt
 		if e.spawn_timer>0 or e.position.distance_to(director.target())>float(spawner.disToSpawn)*48: continue
 		var count = combat.enemies.filter(func(a): return a.get("spawner_owner",0)==e.uid).size()
@@ -291,8 +300,36 @@ func step_local_spawners(dt: float):
 		e.spawn_timer = float(config.timeBetweenSpawns)
 		var types = db.packed(config.SpawnObjectsList)
 		if types.is_empty(): continue
-		var actor = combat.spawn(db.pool.get(str(types[rng.randi_range(0,types.size()-1)]),""),e.position)
-		if not actor.is_empty(): actor.spawner_owner = e.uid
+		var prefab:String=db.pool.get(str(types[rng.randi_range(0,types.size()-1)]),"")
+		if combat.cave_enabled() and map_director.incremental:
+			e.spawn_pending=true
+			local_spawn_jobs.append({"prefab":prefab,"point":Vector2(e.position),"owner":e.uid,"cooldown":float(config.timeBetweenSpawns),"range":float(spawner.disToSpawn)*48,"placement":{}})
+		else:
+			var actor=combat.spawn(prefab,e.position)
+			if not actor.is_empty():actor.spawner_owner=e.uid
+
+func prepare_local_spawn():
+	if local_spawn_jobs.is_empty():return
+	var job:Dictionary=local_spawn_jobs[0]
+	var owner:Dictionary={}
+	if int(job.owner)>0:
+		owner=combat.entity(job.owner)
+		if owner.is_empty() or float(owner.hp)<=0:
+			local_spawn_jobs.pop_front();return
+		if owner.position.distance_to(director.target())>float(job.range):
+			owner.spawn_pending=false;owner.spawn_timer=0.0;local_spawn_jobs.pop_front();return
+	if not combat.terrain.prepare_placement(job.placement,job.point,combat.formation_radius(job.prefab)):return
+	var before=combat.next_uid
+	var actor=combat.spawn(job.prefab,job.point,"",job.get("objective",false),job.placement)
+	if not str(job.get("group","")).is_empty():
+		for e in combat.enemies:
+			if e.uid>=before:
+				e.group=job.group;e.target_mission=job.get("target_mission",false)
+				if job.group=="survival_final":e.heat_speed=true
+	if not owner.is_empty():
+		if not actor.is_empty():actor.spawner_owner=owner.uid
+		owner.spawn_pending=false;owner.spawn_timer=job.cooldown
+	local_spawn_jobs.pop_front()
 
 func step_recycled_packs(dt:float):
 	for pack in recycled_packs.duplicate():

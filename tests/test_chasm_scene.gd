@@ -28,6 +28,9 @@ func execute():
 	game=load("res://main.tscn").instantiate();root.add_child(game);await process_frame
 	game.set_process(false);game.save.fresh();game.test_mode=false
 	game.selected_mission=game.db.named("Survival Mission");game.start_run();game.set_process(false)
+	# These measured cliff fixtures exercise the indestructible pit component;
+	# cave generation and mining are covered by test_cave_scene separately.
+	game.player.terrain.reset_cave(false)
 	game.combat.enemies.clear();game.combat.drones.clear();game.combat.loot.clear();game.combat.effects.clear()
 	var terrain=game.player.terrain
 	check(terrain==game.charcoal_terrain.world and terrain==game.combat.terrain,"Production renderer, player and enemies share one terrain")

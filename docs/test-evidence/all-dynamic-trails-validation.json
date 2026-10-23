@@ -1,0 +1,471 @@
+{
+  "date": "2026-10-21",
+  "scope": "G/H/sonic/hostile beams, O death jets and droplet tails, red incoming bullets, three drone families and legacy native beam entry point",
+  "passed": true,
+  "suite_count": 21,
+  "regression": {
+    "suites": [
+      {
+        "suite": "all_dynamic_trails",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.6,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "projectile_trails",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.056,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "viscous_renderer",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.688,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "viscous_integration",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.873,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "viscous_projectile_motion",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.85,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "enemy_death_splatter",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.128,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "skill_shader_coverage",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 2.618,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "weapon_catalog",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 3.266,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "weapon_readability",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.062,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "weapon_feedback",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.374,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "drones",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.761,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "enemy_drones",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.758,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "tether_motion",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.946,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "insect_attack_fx",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.535,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "particles",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.884,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "cave_mining",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 2.071,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "render_hotpath_regressions",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.579,
+        "isolated_user_data": true
+      }
+    ],
+    "passed": true
+  },
+  "native": {
+    "suites": [
+      {
+        "suite": "all_dynamic_trails_scene",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 5.06,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "attack_shader_materials",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.526,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "hostile_readability",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 5.258,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "projectile_trajectory_scene",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 2.599,
+        "isolated_user_data": true
+      }
+    ],
+    "passed": true
+  },
+  "targeted_cases": {
+    "checks": [
+      {
+        "name": "Beam uses a moving membrane without a stretched trail image: tesla / true",
+        "passed": true
+      },
+      {
+        "name": "Beam surface flows at fixed exact endpoints without simulation writes: tesla / true",
+        "passed": true
+      },
+      {
+        "name": "Beam uses a moving membrane without a stretched trail image: tesla / false",
+        "passed": true
+      },
+      {
+        "name": "Beam surface flows at fixed exact endpoints without simulation writes: tesla / false",
+        "passed": true
+      },
+      {
+        "name": "Beam uses a moving membrane without a stretched trail image: rail / true",
+        "passed": true
+      },
+      {
+        "name": "Beam surface flows at fixed exact endpoints without simulation writes: rail / true",
+        "passed": true
+      },
+      {
+        "name": "Beam uses a moving membrane without a stretched trail image: rail / false",
+        "passed": true
+      },
+      {
+        "name": "Beam surface flows at fixed exact endpoints without simulation writes: rail / false",
+        "passed": true
+      },
+      {
+        "name": "Beam uses a moving membrane without a stretched trail image: sonic / true",
+        "passed": true
+      },
+      {
+        "name": "Beam surface flows at fixed exact endpoints without simulation writes: sonic / true",
+        "passed": true
+      },
+      {
+        "name": "Beam uses a moving membrane without a stretched trail image: sonic / false",
+        "passed": true
+      },
+      {
+        "name": "Beam surface flows at fixed exact endpoints without simulation writes: sonic / false",
+        "passed": true
+      },
+      {
+        "name": "Death pressure jets and flying droplet tails use six dynamic membranes with separate beads",
+        "passed": true
+      },
+      {
+        "name": "Death membrane rendering preserves the immutable cleanup snapshot",
+        "passed": true
+      },
+      {
+        "name": "All death jet and droplet strips combine into one native indexed submission",
+        "passed": true
+      },
+      {
+        "name": "Drone trail retains the actual turn rather than stretching a segment texture: ProjectileDrone",
+        "passed": true
+      },
+      {
+        "name": "Drone rendering is texture-free and never records or changes simulation state: ProjectileDrone",
+        "passed": true
+      },
+      {
+        "name": "Docked drone releases its flight history: ProjectileDrone",
+        "passed": true
+      },
+      {
+        "name": "Drone trail retains the actual turn rather than stretching a segment texture: EngineerDrone",
+        "passed": true
+      },
+      {
+        "name": "Drone rendering is texture-free and never records or changes simulation state: EngineerDrone",
+        "passed": true
+      },
+      {
+        "name": "Docked drone releases its flight history: EngineerDrone",
+        "passed": true
+      },
+      {
+        "name": "Drone trail retains the actual turn rather than stretching a segment texture: Drone",
+        "passed": true
+      },
+      {
+        "name": "Drone rendering is texture-free and never records or changes simulation state: Drone",
+        "passed": true
+      },
+      {
+        "name": "Docked drone releases its flight history: Drone",
+        "passed": true
+      },
+      {
+        "name": "Legacy native beam entry point also uses a flowing membrane without birth-time writes",
+        "passed": true
+      },
+      {
+        "name": "Dense friendly shots cannot consume the history slots needed by red incoming hazards",
+        "passed": true
+      },
+      {
+        "name": "Red incoming trail remains visibly extended beyond the body at zoom 0.4",
+        "passed": true
+      },
+      {
+        "name": "Red incoming trail remains visibly extended beyond the body at zoom 1.0",
+        "passed": true
+      },
+      {
+        "name": "Red incoming trail remains visibly extended beyond the body at zoom 1.6",
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "frozen_simulation_scene": {
+    "duration": 2.4,
+    "frames": [
+      "res://artifacts/all-trails-frames/frame-000.png",
+      "res://artifacts/all-trails-frames/frame-001.png",
+      "res://artifacts/all-trails-frames/frame-002.png",
+      "res://artifacts/all-trails-frames/frame-003.png",
+      "res://artifacts/all-trails-frames/frame-004.png",
+      "res://artifacts/all-trails-frames/frame-005.png",
+      "res://artifacts/all-trails-frames/frame-006.png",
+      "res://artifacts/all-trails-frames/frame-007.png",
+      "res://artifacts/all-trails-frames/frame-008.png",
+      "res://artifacts/all-trails-frames/frame-009.png",
+      "res://artifacts/all-trails-frames/frame-010.png",
+      "res://artifacts/all-trails-frames/frame-011.png",
+      "res://artifacts/all-trails-frames/frame-012.png",
+      "res://artifacts/all-trails-frames/frame-013.png",
+      "res://artifacts/all-trails-frames/frame-014.png",
+      "res://artifacts/all-trails-frames/frame-015.png",
+      "res://artifacts/all-trails-frames/frame-016.png",
+      "res://artifacts/all-trails-frames/frame-017.png",
+      "res://artifacts/all-trails-frames/frame-018.png",
+      "res://artifacts/all-trails-frames/frame-019.png",
+      "res://artifacts/all-trails-frames/frame-020.png",
+      "res://artifacts/all-trails-frames/frame-021.png",
+      "res://artifacts/all-trails-frames/frame-022.png",
+      "res://artifacts/all-trails-frames/frame-023.png",
+      "res://artifacts/all-trails-frames/frame-024.png",
+      "res://artifacts/all-trails-frames/frame-025.png",
+      "res://artifacts/all-trails-frames/frame-026.png",
+      "res://artifacts/all-trails-frames/frame-027.png",
+      "res://artifacts/all-trails-frames/frame-028.png",
+      "res://artifacts/all-trails-frames/frame-029.png",
+      "res://artifacts/all-trails-frames/frame-030.png",
+      "res://artifacts/all-trails-frames/frame-031.png",
+      "res://artifacts/all-trails-frames/frame-032.png",
+      "res://artifacts/all-trails-frames/frame-033.png",
+      "res://artifacts/all-trails-frames/frame-034.png",
+      "res://artifacts/all-trails-frames/frame-035.png",
+      "res://artifacts/all-trails-frames/frame-036.png",
+      "res://artifacts/all-trails-frames/frame-037.png",
+      "res://artifacts/all-trails-frames/frame-038.png",
+      "res://artifacts/all-trails-frames/frame-039.png",
+      "res://artifacts/all-trails-frames/frame-040.png",
+      "res://artifacts/all-trails-frames/frame-041.png",
+      "res://artifacts/all-trails-frames/frame-042.png",
+      "res://artifacts/all-trails-frames/frame-043.png",
+      "res://artifacts/all-trails-frames/frame-044.png",
+      "res://artifacts/all-trails-frames/frame-045.png",
+      "res://artifacts/all-trails-frames/frame-046.png",
+      "res://artifacts/all-trails-frames/frame-047.png",
+      "res://artifacts/all-trails-frames/frame-048.png",
+      "res://artifacts/all-trails-frames/frame-049.png",
+      "res://artifacts/all-trails-frames/frame-050.png",
+      "res://artifacts/all-trails-frames/frame-051.png",
+      "res://artifacts/all-trails-frames/frame-052.png",
+      "res://artifacts/all-trails-frames/frame-053.png",
+      "res://artifacts/all-trails-frames/frame-054.png",
+      "res://artifacts/all-trails-frames/frame-055.png",
+      "res://artifacts/all-trails-frames/frame-056.png",
+      "res://artifacts/all-trails-frames/frame-057.png",
+      "res://artifacts/all-trails-frames/frame-058.png",
+      "res://artifacts/all-trails-frames/frame-059.png",
+      "res://artifacts/all-trails-frames/frame-060.png",
+      "res://artifacts/all-trails-frames/frame-061.png",
+      "res://artifacts/all-trails-frames/frame-062.png",
+      "res://artifacts/all-trails-frames/frame-063.png",
+      "res://artifacts/all-trails-frames/frame-064.png",
+      "res://artifacts/all-trails-frames/frame-065.png",
+      "res://artifacts/all-trails-frames/frame-066.png",
+      "res://artifacts/all-trails-frames/frame-067.png",
+      "res://artifacts/all-trails-frames/frame-068.png",
+      "res://artifacts/all-trails-frames/frame-069.png",
+      "res://artifacts/all-trails-frames/frame-070.png",
+      "res://artifacts/all-trails-frames/frame-071.png"
+    ],
+    "frozen_panel_changed_pixels": [
+      6520,
+      5251,
+      5417,
+      341,
+      1604,
+      7323
+    ],
+    "passed": true,
+    "renderer": "Windows",
+    "scope": "Native production G/H/O, hostile projectile, all three drone families and compatibility beams. Fixed geometry/simulation with advancing shared shader time must change native pixels; not a full-game FPS test.",
+    "simulation_unchanged": true
+  },
+  "delivery": {
+    "archive": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-dynamic-trails-r1.zip",
+    "executable": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-dynamic-trails-r1\\RunBuildPew.exe",
+    "bytes": 159342353,
+    "sha256": "d77f48d6f6f2a439cf194c146dd93c2158e565fe617addd8617d12643d65f7ba",
+    "passed": true,
+    "unpacked_launch": true,
+    "validated_checks": 85,
+    "cave_mining_validated": true,
+    "native_performance": {}
+  },
+  "packaged_sources_verified": [
+    "scripts/fluid_ribbon.gd",
+    "scripts/projectile_trails.gd",
+    "scripts/weapon_fx.gd",
+    "scripts/native_visuals.gd",
+    "scripts/enemy_death_splatter.gd",
+    "scripts/combat.gd",
+    "scripts/insect_projectiles.gd",
+    "scripts/viscous_projectiles.gd",
+    "shaders/attack_material.gdshader",
+    "assets/ui_overhaul/projectile_bodies_atlas.png",
+    "assets/ui_overhaul/special_projectile_bodies_atlas.png"
+  ],
+  "preview": "artifacts/all-dynamic-trails-preview.webp",
+  "performance_scope": "Bounded history/cache and batched death strips verified; no new full-game FPS benchmark claimed.",
+  "source_audit": {
+    "active_wet_trail_render_calls": 0,
+    "already_dynamic": [
+      "flame_whip",
+      "silk/tendril motion",
+      "particle presets"
+    ],
+    "compatibility_resources_retained": true
+  }
+}

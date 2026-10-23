@@ -92,6 +92,8 @@ func execute():
   var old=result_node();var button=old.get_node(action)
   button.grab_focus();await settle();check(root.gui_get_focus_owner()==button,"Focusable action "+action)
   await press_key(KEY_ENTER)
+  while game.deployment_active:await process_frame
+  game.set_process(false)
   check(game.screen=={"BaseButton":"home","EvolveButton":"lab","AgainButton":"game"}[action],"Keyboard activates "+action)
   check(not is_instance_valid(old),"Old result freed after "+action)
  for i in 3:

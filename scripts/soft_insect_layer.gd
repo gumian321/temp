@@ -20,6 +20,8 @@ func sync(game,dt:float):
 	if not visible:return
 	var active:Dictionary={}
 	var viewport_size:Vector2=game.get_viewport_rect().size
+	var crowded=game.combat.enemies.size()>24
+	var focus=viewport_size*.5
 	for e in game.combat.enemies:
 		if not Brood.eligible(e):continue
 		var point:Vector2=game.world(e.position)
@@ -40,7 +42,10 @@ func sync(game,dt:float):
 		hidden_rigs.erase(e.uid)
 		rig.position=point
 		rig.scale=Vector2.ONE*Brood.extent(e)*0.5*game.zoom
-		rig.pose(dt)
+		var state:Dictionary=e.soft_body
+		var feedback=float(state.shock)>.12 or float(state.hold)>0 or state.has("push_strain") or state.has("pull_strain") or float(state.flash)>0
+		var compact=crowded and margin<72 and point.distance_squared_to(focus)>170*170 and e.get("role","")!="friendly" and not feedback
+		rig.pose(dt,false,compact)
 	for uid in rigs.keys():
 		if active.has(uid):continue
 		var rig=rigs[uid]

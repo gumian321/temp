@@ -25,8 +25,14 @@ func setup(source,store,on_back:Callable,on_sound:Callable):
  db=source;save=store;back=on_back;sound=on_sound;size=Vector2(1440,900);UI.backdrop(self);theme=UI.theme()
  var layout:Dictionary=db.read_json('ui_layouts')['MainMenuScene/ResearchesCanvas']
  config=layout.components.ToggleResearchUIManager;collect_groups(layout)
+ for node in db.research:
+  if not node.get('project_added',false):continue
+  var group:Array=node.nodeRewardsList.duplicate()
+  if group.is_empty() or draft.has(group[0]):continue
+  groups.append(group);entries.append({});draft[group[0]]=group[0] not in save.state.disabled
  UI.header(self,db.ui('LOOT CODEX','战利品图鉴'),func():action('BackButton','',{}))
  points=UI.label(self,'',Vector2(1050,38),24,UI.AMBER)
+ points.size=Vector2(150,38);points.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT;points.clip_text=true;points.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
  UI.panel(self,Rect2(36,116,952,644),Color(UI.MUTED,.35))
  var scroll=ScrollContainer.new();scroll.position=Vector2(56,136);scroll.size=Vector2(912,604);scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;scroll.follow_focus=true;add_child(scroll)
  var grid=GridContainer.new();grid.columns=7;grid.add_theme_constant_override('h_separation',12);grid.add_theme_constant_override('v_separation',12);scroll.add_child(grid)
@@ -57,7 +63,9 @@ func collect_groups(node:Dictionary):
  for entry in node.get('components',{}).values():
   if not entry.has('rewardsList') or not entry.has('rewardButton') or entry.rewardsList.is_empty():continue
   var group=[]
-  for reward in entry.rewardsList:group.append(reward.guid)
+  for reward in entry.rewardsList:
+   if not db.asset(reward.guid).get('retired',false):group.append(reward.guid)
+  if group.is_empty() or draft.has(group[0]):continue
   groups.append(group);entries.append(entry);draft[group[0]]=group[0] not in save.state.disabled
  for child in node.get('children',[]):collect_groups(child)
 func ref(entry:Dictionary,key:String)->String:return str(int(entry.get(key,{}).get('fileID',0)))

@@ -28,6 +28,8 @@ func execute():
  nest.choose("spider");check(game.save.state.selected_character=="centipede","Locked character cannot be selected")
  check(nest.unlock_text("spider").contains("0 / 3"),"Locked spider shows actual challenge progress")
  game.begin_run();await settle()
+ while game.deployment_active:await process_frame
+ game.set_process(false)
  for i in 6:game.player.install_module(game.db.named("Core_Gun_Gatling").id,i+1)
  await skill_press();game.battle_hud.refresh();await capture("character-02-centipede-coil")
  check(game.player.coil_active,"Real Space input starts centipede coil")
@@ -51,6 +53,8 @@ func execute():
   await capture("character-roster-"+str(dimensions.x))
  check(game.player.character_id=="centipede","Menu choice does not mutate prior run body")
  game.begin_run();await settle()
+ while game.deployment_active:await process_frame
+ game.set_process(false)
  check(game.player.character_id=="spider" and game.player.module_cap()==32,"Next run snapshots selected spider")
  check(game.battle_hud.modules.amount.text=="0 / 32","Compact HUD counts occupied mounts rather than fixed body nodes")
  game.show_build();await settle()

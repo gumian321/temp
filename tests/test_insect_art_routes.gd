@@ -22,7 +22,7 @@ func _initialize():
 		for size in [18,28,42,56,78,96]:
 			var fit = Ink.fitted_size(texture,Vector2.ONE*size)
 			check(is_equal_approx(fit.x/texture.get_width(),fit.y/texture.get_height()), "Preserve silhouette ratio at %d px: %s" % [size,key])
-	check(regions.size() == 33, "All 33 identities use different atlas regions")
+	check(regions.size() == 36, "All 36 identities use different atlas regions")
 	for value in db.catalog.values():
 		var key = db.armament_variant(value)
 		if key.is_empty(): continue

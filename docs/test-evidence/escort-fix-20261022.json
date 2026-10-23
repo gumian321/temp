@@ -1,0 +1,1308 @@
+{
+  "date": "2026-10-22",
+  "passed": true,
+  "request": "Escort at 19 FPS, unclear rules and stationary convoy",
+  "root_cause": {
+    "old_formation_radius": 927,
+    "new_hull_radius": 15,
+    "old_player_center_distance": 960,
+    "follow_range": 600
+  },
+  "measurements": {
+    "before": {
+      "scope": "Actual native main scene, Escort normal difficulty, screenshot-derived four modules, real engine delta. Isolated profile, durable inspection actors; not the user's exact upgrade/RNG history.",
+      "initial": {
+        "count": 7,
+        "fleet": "(0.0, 0.0)",
+        "follow_range": 600.0,
+        "geometry": 11880,
+        "goal": "(28800.0, 0.0)",
+        "player": "(960.0, 0.0)",
+        "radius": 927.0
+      },
+      "frame_ms": {
+        "max": 62.924,
+        "mean": 13.3420267618198,
+        "median": 12.221,
+        "p95": 21.565
+      },
+      "cpu_ms": {
+        "max": 32.978,
+        "mean": 7.94488849241748,
+        "median": 7.433,
+        "p95": 13.751
+      },
+      "draw_ms": {
+        "max": 39.503,
+        "mean": 2.88741570026762,
+        "median": 2.571,
+        "p95": 4.512
+      },
+      "phases": {
+        "audio_hud": {
+          "max": 10.812,
+          "mean": 0.351589652096342,
+          "median": 0.269,
+          "p95": 0.527
+        },
+        "body": {
+          "max": 2.809,
+          "mean": 0.411104371097234,
+          "median": 0.346,
+          "p95": 0.598
+        },
+        "combat": {
+          "max": 17.575,
+          "mean": 4.34192952720785,
+          "median": 3.933,
+          "p95": 7.861
+        },
+        "draw_attacks": {
+          "max": 36.065,
+          "mean": 0.136768064228368,
+          "median": 0.02,
+          "p95": 0.565
+        },
+        "draw_body": {
+          "max": 2.364,
+          "mean": 0.2611454058876,
+          "median": 0.22,
+          "p95": 0.363
+        },
+        "draw_hud_feedback": {
+          "max": 3.118,
+          "mean": 0.647081177520071,
+          "median": 0.548,
+          "p95": 0.98
+        },
+        "draw_organs": {
+          "max": 3.609,
+          "mean": 0.894328278322927,
+          "median": 0.745,
+          "p95": 1.278
+        },
+        "draw_support": {
+          "max": 2.833,
+          "mean": 0.519362176628011,
+          "median": 0.455,
+          "p95": 0.712
+        },
+        "draw_terrain": {
+          "max": 0.27,
+          "mean": 0.108402319357716,
+          "median": 0.098,
+          "p95": 0.149
+        },
+        "draw_world": {
+          "max": 2.446,
+          "mean": 0.308899197145406,
+          "median": 0.267,
+          "p95": 0.447
+        },
+        "mission": {
+          "max": 26.777,
+          "mean": 0.963799286351472,
+          "median": 0.749,
+          "p95": 2.066
+        },
+        "preparation": {
+          "max": 9.614,
+          "mean": 0.37636306868867,
+          "median": 0.32,
+          "p95": 0.508
+        },
+        "visual_sync": {
+          "max": 7.027,
+          "mean": 1.48081355932203,
+          "median": 1.261,
+          "p95": 2.271
+        }
+      },
+      "final_fleet": "(0.0, 0.0)",
+      "captures": [
+        "res://artifacts/escort-profile-before.png"
+      ],
+      "fps_from_mean_interval": 74.95113132748685
+    },
+    "before-near": {
+      "scope": "Actual native main scene, Escort normal difficulty, screenshot-derived four modules, real engine delta. Isolated profile, durable inspection actors; not the user's exact upgrade/RNG history.",
+      "initial": {
+        "count": 7,
+        "fleet": "(0.0, 0.0)",
+        "follow_range": 600.0,
+        "geometry": 11880,
+        "goal": "(28800.0, 0.0)",
+        "player": "(240.0, 0.0)",
+        "radius": 927.0
+      },
+      "frame_ms": {
+        "max": 203.787,
+        "mean": 55.7277732342008,
+        "median": 53.368,
+        "p95": 68.742
+      },
+      "cpu_ms": {
+        "max": 170.572,
+        "mean": 50.6898215613383,
+        "median": 48.609,
+        "p95": 63.331
+      },
+      "draw_ms": {
+        "max": 22.042,
+        "mean": 2.82173977695167,
+        "median": 2.312,
+        "p95": 4.21
+      },
+      "phases": {
+        "audio_hud": {
+          "max": 0.73,
+          "mean": 0.325152416356877,
+          "median": 0.294,
+          "p95": 0.471
+        },
+        "body": {
+          "max": 1.292,
+          "mean": 0.560159851301115,
+          "median": 0.509,
+          "p95": 0.851
+        },
+        "combat": {
+          "max": 14.209,
+          "mean": 4.89157620817844,
+          "median": 5.089,
+          "p95": 7.899
+        },
+        "draw_attacks": {
+          "max": 0.041,
+          "mean": 0.0196840148698885,
+          "median": 0.018,
+          "p95": 0.026
+        },
+        "draw_body": {
+          "max": 0.432,
+          "mean": 0.237379182156134,
+          "median": 0.216,
+          "p95": 0.348
+        },
+        "draw_hud_feedback": {
+          "max": 0.771,
+          "mean": 0.48264312267658,
+          "median": 0.442,
+          "p95": 0.712
+        },
+        "draw_organs": {
+          "max": 1.285,
+          "mean": 0.783338289962825,
+          "median": 0.711,
+          "p95": 1.158
+        },
+        "draw_support": {
+          "max": 0.86,
+          "mean": 0.479579925650557,
+          "median": 0.446,
+          "p95": 0.656
+        },
+        "draw_terrain": {
+          "max": 19.062,
+          "mean": 0.532981412639405,
+          "median": 0.102,
+          "p95": 2.035
+        },
+        "draw_world": {
+          "max": 0.831,
+          "mean": 0.275576208178439,
+          "median": 0.255,
+          "p95": 0.366
+        },
+        "mission": {
+          "max": 151.022,
+          "mean": 43.0826914498142,
+          "median": 41.197,
+          "p95": 52.634
+        },
+        "preparation": {
+          "max": 3.698,
+          "mean": 0.339527881040892,
+          "median": 0.306,
+          "p95": 0.43
+        },
+        "visual_sync": {
+          "max": 5.227,
+          "mean": 1.47056505576208,
+          "median": 1.305,
+          "p95": 2.169
+        }
+      },
+      "final_fleet": "(-0.683561, -2.717381)",
+      "captures": [
+        "res://artifacts/escort-profile-before-near.png"
+      ],
+      "fps_from_mean_interval": 17.94437390845339
+    },
+    "after-near": {
+      "scope": "Actual native main scene, Escort normal difficulty, screenshot-derived four modules, real engine delta. Isolated profile, durable inspection actors; not the user's exact upgrade/RNG history.",
+      "initial": {
+        "count": 7,
+        "fleet": "(176.0, 0.0)",
+        "follow_range": 600.0,
+        "geometry": 11998,
+        "goal": "(28800.0, 0.0)",
+        "player": "(240.0, 0.0)",
+        "radius": 15.0
+      },
+      "frame_ms": {
+        "max": 82.873,
+        "mean": 11.1011876854599,
+        "median": 10.674,
+        "p95": 13.876
+      },
+      "cpu_ms": {
+        "max": 29.959,
+        "mean": 6.37566023738873,
+        "median": 5.961,
+        "p95": 8.789
+      },
+      "draw_ms": {
+        "max": 61.601,
+        "mean": 2.5022002967359,
+        "median": 2.235,
+        "p95": 3.519
+      },
+      "phases": {
+        "audio_hud": {
+          "max": 11.684,
+          "mean": 0.307152077151335,
+          "median": 0.278,
+          "p95": 0.402
+        },
+        "body": {
+          "max": 0.706,
+          "mean": 0.33542359050445,
+          "median": 0.314,
+          "p95": 0.477
+        },
+        "combat": {
+          "max": 10.912,
+          "mean": 3.35538724035608,
+          "median": 2.93,
+          "p95": 5.283
+        },
+        "draw_attacks": {
+          "max": 25.437,
+          "mean": 0.0396320474777446,
+          "median": 0.017,
+          "p95": 0.023
+        },
+        "draw_body": {
+          "max": 0.428,
+          "mean": 0.220579376854599,
+          "median": 0.207,
+          "p95": 0.323
+        },
+        "draw_hud_feedback": {
+          "max": 1.324,
+          "mean": 0.635458456973295,
+          "median": 0.602,
+          "p95": 0.903
+        },
+        "draw_organs": {
+          "max": 1.291,
+          "mean": 0.722816023738874,
+          "median": 0.676,
+          "p95": 1.067
+        },
+        "draw_support": {
+          "max": 0.759,
+          "mean": 0.413677299703263,
+          "median": 0.392,
+          "p95": 0.575
+        },
+        "draw_terrain": {
+          "max": 58.467,
+          "mean": 0.227114243323442,
+          "median": 0.086,
+          "p95": 0.633
+        },
+        "draw_world": {
+          "max": 1.439,
+          "mean": 0.233326409495549,
+          "median": 0.22,
+          "p95": 0.317
+        },
+        "mission": {
+          "max": 25.023,
+          "mean": 0.758980712166172,
+          "median": 0.667,
+          "p95": 1.321
+        },
+        "preparation": {
+          "max": 3.244,
+          "mean": 0.297971810089021,
+          "median": 0.278,
+          "p95": 0.398
+        },
+        "visual_sync": {
+          "max": 4.506,
+          "mean": 1.30491839762611,
+          "median": 1.221,
+          "p95": 1.878
+        }
+      },
+      "final_fleet": "(176.0, 0.0)",
+      "captures": [
+        "res://artifacts/escort-profile-after-near.png"
+      ],
+      "fps_from_mean_interval": 90.080451599767
+    },
+    "after-drive": {
+      "scope": "Actual native main scene, Escort normal difficulty, screenshot-derived four modules, real engine delta. Isolated profile, durable inspection actors; not the user's exact upgrade/RNG history.",
+      "initial": {
+        "count": 7,
+        "fleet": "(896.0, 0.0)",
+        "follow_range": 600.0,
+        "geometry": 11952,
+        "goal": "(28800.0, 0.0)",
+        "player": "(960.0, 0.0)",
+        "radius": 15.0
+      },
+      "frame_ms": {
+        "max": 93.963,
+        "mean": 14.553867768595,
+        "median": 13.656,
+        "p95": 21.294
+      },
+      "cpu_ms": {
+        "max": 51.268,
+        "mean": 8.49514535731648,
+        "median": 8.021,
+        "p95": 13.065
+      },
+      "draw_ms": {
+        "max": 27.758,
+        "mean": 3.20135391346621,
+        "median": 2.912,
+        "p95": 5.323
+      },
+      "phases": {
+        "audio_hud": {
+          "max": 14.274,
+          "mean": 0.383675741370927,
+          "median": 0.302,
+          "p95": 0.557
+        },
+        "body": {
+          "max": 3.379,
+          "mean": 0.517947010209043,
+          "median": 0.451,
+          "p95": 0.981
+        },
+        "combat": {
+          "max": 12.521,
+          "mean": 4.2023845405931,
+          "median": 3.907,
+          "p95": 6.708
+        },
+        "draw_attacks": {
+          "max": 25.192,
+          "mean": 0.125365580943121,
+          "median": 0.019,
+          "p95": 0.511
+        },
+        "draw_body": {
+          "max": 2.442,
+          "mean": 0.234699076324745,
+          "median": 0.211,
+          "p95": 0.355
+        },
+        "draw_hud_feedback": {
+          "max": 3.857,
+          "mean": 0.858520175012154,
+          "median": 0.763,
+          "p95": 1.298
+        },
+        "draw_organs": {
+          "max": 3.448,
+          "mean": 0.767334953816237,
+          "median": 0.689,
+          "p95": 1.182
+        },
+        "draw_support": {
+          "max": 2.933,
+          "mean": 0.531701020904231,
+          "median": 0.466,
+          "p95": 0.834
+        },
+        "draw_terrain": {
+          "max": 6.96,
+          "mean": 0.36535683033544,
+          "median": 0.095,
+          "p95": 2.158
+        },
+        "draw_world": {
+          "max": 0.854,
+          "mean": 0.307841516771997,
+          "median": 0.272,
+          "p95": 0.504
+        },
+        "mission": {
+          "max": 32.379,
+          "mean": 1.57840495867769,
+          "median": 1.328,
+          "p95": 3.505
+        },
+        "preparation": {
+          "max": 3.299,
+          "mean": 0.275685950413223,
+          "median": 0.275,
+          "p95": 0.422
+        },
+        "visual_sync": {
+          "max": 44.147,
+          "mean": 1.51964316966456,
+          "median": 1.335,
+          "p95": 2.321
+        }
+      },
+      "final_fleet": "(2608.074, 86.17431)",
+      "captures": [
+        "res://artifacts/escort-profile-after-drive.png"
+      ],
+      "fps_from_mean_interval": 68.71025736250303,
+      "convoy_travel": 1809.66519662738,
+      "mined_cells": 19,
+      "escort_states": {
+        "moving": 1754,
+        "ready": 303
+      },
+      "drive": true
+    }
+  },
+  "validation_reports": {
+    "escort-final-regression-checks.json": {
+      "suites": [
+        {
+          "suite": "cave_escort",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 1.331,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "missions",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 1.229,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "cave_update_budget",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 0.488,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "cave_far_navigation",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 0.579,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "radial_formations",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 3.75,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "special_encounters",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 1.047,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "main_autofire",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 1.14,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "runtime_performance_capture",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 7.0,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "performance_overlay",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 1.329,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "all_dynamic_trails",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 0.59,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    },
+    "escort-native-guidance-final.json": {
+      "suites": [
+        {
+          "suite": "escort_guidance",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 6.959,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "expedition_briefing",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 4.747,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    },
+    "escort-ui-regression-checks.json": {
+      "suites": [
+        {
+          "suite": "battle_hud",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 7.757,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "mission_select",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 8.248,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "expedition_briefing",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 4.539,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    },
+    "escort-profile-after-near-check.json": {
+      "suites": [
+        {
+          "suite": "escort_performance",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 21.318,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    },
+    "escort-profile-after-drive-check.json": {
+      "suites": [
+        {
+          "suite": "escort_performance",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 36.382,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    }
+  },
+  "physical_validation": {
+    "checks": [
+      {
+        "name": "Difficulty 0 retains the source convoy and uses individual cave hulls",
+        "passed": true
+      },
+      {
+        "name": "Difficulty 0 spawns every convoy hull outside solid rock",
+        "passed": true
+      },
+      {
+        "name": "Difficulty 0 starts within the actual convoy's follow range",
+        "passed": true
+      },
+      {
+        "name": "Difficulty 0 has a physically accessible safe-zone footprint",
+        "passed": true
+      },
+      {
+        "name": "Difficulty 0 physically delivers a living ship before awarding victory",
+        "passed": true
+      },
+      {
+        "name": "Difficulty 1 retains the source convoy and uses individual cave hulls",
+        "passed": true
+      },
+      {
+        "name": "Difficulty 1 spawns every convoy hull outside solid rock",
+        "passed": true
+      },
+      {
+        "name": "Difficulty 1 starts within the actual convoy's follow range",
+        "passed": true
+      },
+      {
+        "name": "Difficulty 1 has a physically accessible safe-zone footprint",
+        "passed": true
+      },
+      {
+        "name": "Difficulty 1 physically delivers a living ship before awarding victory",
+        "passed": true
+      },
+      {
+        "name": "Difficulty 2 retains the source convoy and uses individual cave hulls",
+        "passed": true
+      },
+      {
+        "name": "Difficulty 2 spawns every convoy hull outside solid rock",
+        "passed": true
+      },
+      {
+        "name": "Difficulty 2 starts within the actual convoy's follow range",
+        "passed": true
+      },
+      {
+        "name": "Difficulty 2 has a physically accessible safe-zone footprint",
+        "passed": true
+      },
+      {
+        "name": "Difficulty 2 physically delivers a living ship before awarding victory",
+        "passed": true
+      },
+      {
+        "name": "Leaving the escort radius stops the whole convoy",
+        "passed": true
+      },
+      {
+        "name": "Returning across a solid corner cannot link a teleport shortcut",
+        "passed": true
+      },
+      {
+        "name": "Returning along clear ground resumes guidance without input or navigation spam",
+        "passed": true
+      },
+      {
+        "name": "Every surviving ship stays outside rock through two narrow right-angle turns",
+        "passed": true
+      },
+      {
+        "name": "Convoy hulls retain 72 px/s source speed without jumps, including leader death",
+        "passed": true
+      },
+      {
+        "name": "A promoted surviving leader reaches the actual goal while the player waits in the safe zone",
+        "passed": true
+      },
+      {
+        "name": "Travelled-path following uses bounded history and no formation-sized A* queries",
+        "passed": true
+      },
+      {
+        "name": "An indefinitely circling player cannot allocate unbounded pending route points",
+        "passed": true
+      }
+    ],
+    "max_points": 176,
+    "passed": true,
+    "samples": [
+      {
+        "leader": "(-64.0, 0.0)",
+        "player": "(1.2, 0.0)",
+        "state": "ready"
+      },
+      {
+        "leader": "(73.99975, 0.0)",
+        "player": "(145.1998, 0.0)",
+        "state": "moving"
+      },
+      {
+        "leader": "(217.9995, 0.0)",
+        "player": "(289.1999, 0.0)",
+        "state": "moving"
+      },
+      {
+        "leader": "(288.7996, 0.0)",
+        "player": "(360.0, 1.2)",
+        "state": "ready"
+      },
+      {
+        "leader": "(360.0, 73.99973)",
+        "player": "(360.0, 145.1998)",
+        "state": "moving"
+      },
+      {
+        "leader": "(360.0, 165.9998)",
+        "player": "(360.0, 289.1999)",
+        "state": "moving"
+      },
+      {
+        "leader": "(360.0, 297.9998)",
+        "player": "(361.2, 420.0)",
+        "state": "moving"
+      },
+      {
+        "leader": "(385.3452, 420.0)",
+        "player": "(505.2015, 420.0)",
+        "state": "moving"
+      },
+      {
+        "leader": "(529.3441, 420.0)",
+        "player": "(649.2029, 420.0)",
+        "state": "moving"
+      },
+      {
+        "leader": "(673.3431, 420.0)",
+        "player": "(793.2044, 420.0)",
+        "state": "arriving"
+      }
+    ],
+    "scope": "Real cave mission setup and physical delivery at all three difficulties; a narrow two-corner cave checks all hulls, speed, stop/rejoin, leader loss, bounded route memory and arrival.",
+    "setups": [
+      {
+        "count": 7,
+        "delivered": "(936.8, 0.0)",
+        "difficulty": 0,
+        "radius": 15.0,
+        "start": "(896.0, 0.0)"
+      },
+      {
+        "count": 6,
+        "delivered": "(936.8, 0.0)",
+        "difficulty": 1,
+        "radius": 15.0,
+        "start": "(896.0, 0.0)"
+      },
+      {
+        "count": 4,
+        "delivered": "(936.8, 0.0)",
+        "difficulty": 2,
+        "radius": 15.0,
+        "start": "(896.0, 0.0)"
+      }
+    ]
+  },
+  "guidance_validation": {
+    "captures": [
+      "res://artifacts/escort-guidance-zh-1440x900.png",
+      "res://artifacts/escort-guidance-zh-1280x720.png",
+      "res://artifacts/escort-guidance-en-1440x900.png",
+      "res://artifacts/escort-guidance-en-1280x720.png",
+      "res://artifacts/escort-guidance-briefing-zh.png"
+    ],
+    "checks": [
+      {
+        "name": "HUD receives the actual normal escort objective, alive count and cave movement rule",
+        "passed": true
+      },
+      {
+        "name": "The start screen states how to lead and how escort victory/failure works",
+        "passed": true
+      },
+      {
+        "name": "Escort ready fits Chinese (simplified) (1440, 900): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort ready fits Chinese (simplified) (1440, 900): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort ready fits Chinese (simplified) (1440, 900): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort moving fits Chinese (simplified) (1440, 900): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort moving fits Chinese (simplified) (1440, 900): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort moving fits Chinese (simplified) (1440, 900): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort far fits Chinese (simplified) (1440, 900): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort far fits Chinese (simplified) (1440, 900): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort far fits Chinese (simplified) (1440, 900): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort regroup fits Chinese (simplified) (1440, 900): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort regroup fits Chinese (simplified) (1440, 900): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort regroup fits Chinese (simplified) (1440, 900): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort arriving fits Chinese (simplified) (1440, 900): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort arriving fits Chinese (simplified) (1440, 900): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort arriving fits Chinese (simplified) (1440, 900): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort blocked fits Chinese (simplified) (1440, 900): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort blocked fits Chinese (simplified) (1440, 900): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort blocked fits Chinese (simplified) (1440, 900): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Native escort capture: zh-1440x900",
+        "passed": true
+      },
+      {
+        "name": "Escort ready fits Chinese (simplified) (1280, 720): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort ready fits Chinese (simplified) (1280, 720): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort ready fits Chinese (simplified) (1280, 720): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort moving fits Chinese (simplified) (1280, 720): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort moving fits Chinese (simplified) (1280, 720): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort moving fits Chinese (simplified) (1280, 720): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort far fits Chinese (simplified) (1280, 720): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort far fits Chinese (simplified) (1280, 720): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort far fits Chinese (simplified) (1280, 720): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort regroup fits Chinese (simplified) (1280, 720): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort regroup fits Chinese (simplified) (1280, 720): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort regroup fits Chinese (simplified) (1280, 720): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort arriving fits Chinese (simplified) (1280, 720): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort arriving fits Chinese (simplified) (1280, 720): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort arriving fits Chinese (simplified) (1280, 720): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort blocked fits Chinese (simplified) (1280, 720): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort blocked fits Chinese (simplified) (1280, 720): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort blocked fits Chinese (simplified) (1280, 720): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Native escort capture: zh-1280x720",
+        "passed": true
+      },
+      {
+        "name": "Escort ready fits English (1440, 900): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort ready fits English (1440, 900): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort ready fits English (1440, 900): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort moving fits English (1440, 900): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort moving fits English (1440, 900): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort moving fits English (1440, 900): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort far fits English (1440, 900): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort far fits English (1440, 900): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort far fits English (1440, 900): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort regroup fits English (1440, 900): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort regroup fits English (1440, 900): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort regroup fits English (1440, 900): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort arriving fits English (1440, 900): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort arriving fits English (1440, 900): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort arriving fits English (1440, 900): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort blocked fits English (1440, 900): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort blocked fits English (1440, 900): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort blocked fits English (1440, 900): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Native escort capture: en-1440x900",
+        "passed": true
+      },
+      {
+        "name": "Escort ready fits English (1280, 720): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort ready fits English (1280, 720): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort ready fits English (1280, 720): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort moving fits English (1280, 720): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort moving fits English (1280, 720): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort moving fits English (1280, 720): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort far fits English (1280, 720): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort far fits English (1280, 720): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort far fits English (1280, 720): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort regroup fits English (1280, 720): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort regroup fits English (1280, 720): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort regroup fits English (1280, 720): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort arriving fits English (1280, 720): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort arriving fits English (1280, 720): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort arriving fits English (1280, 720): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Escort blocked fits English (1280, 720): @Label@444",
+        "passed": true
+      },
+      {
+        "name": "Escort blocked fits English (1280, 720): @Label@445",
+        "passed": true
+      },
+      {
+        "name": "Escort blocked fits English (1280, 720): @Label@446",
+        "passed": true
+      },
+      {
+        "name": "Escort instructions clear encounter and skill panels",
+        "passed": true
+      },
+      {
+        "name": "Native escort capture: en-1280x720",
+        "passed": true
+      },
+      {
+        "name": "Reading and redrawing escort guidance cannot move actors or consume mission RNG",
+        "passed": true
+      },
+      {
+        "name": "The escort HUD updates the actual number of surviving ships",
+        "passed": true
+      },
+      {
+        "name": "The mission briefing states proximity, path-clearing and loss rules before launch",
+        "passed": true
+      },
+      {
+        "name": "The two-line escort briefing clears the reward text",
+        "passed": true
+      },
+      {
+        "name": "Native escort capture: briefing-zh",
+        "passed": true
+      }
+    ],
+    "passed": true,
+    "scope": "Actual main-scene Escort HUD in Chinese and English at 1440x900 and 1280x720, all convoy states, real live-count changes, safe-zone/ally markers and mission briefing; native captures when rendered."
+  },
+  "sources_sha256": {
+    "scripts/cave_escort.gd": "ef8970a53eb4bd1d711ff77559a6481dc8e9dc759df352e39d9cdc205e8d7452",
+    "scripts/mission_director.gd": "b56caddbcbe4e222a1f05baa48a84ef85b5b719d315163186ff3a78d22808888",
+    "scripts/escort_guidance.gd": "3e51b50d435d32d244c75d62e663f632372be8b67333314572730989e9b30da0",
+    "scripts/battle_hud.gd": "bcfd5cc5280b37cb8ee9a63c33fb16d3fa82bc70f2d3ed23d0fefa1d75dadad9",
+    "scripts/mission_select.gd": "8e73b1ff49d1c093aae4af14daf2b9d1228c7edc300a68d54b66723aefda5162",
+    "scripts/main.gd": "a8db4dcdaac199e33b8321cef1dc4b9a13fc115c2ed04bcefb11c2f35ec126d0"
+  },
+  "limitations": [
+    "Native debug runs use durable inspection actors and real variable frame deltas; not the user exact passive/RNG history or a deterministic frame replay.",
+    "The local --debug runtime is not the full editor remote-debugger state.",
+    "30-second driven playtest is not a full original-distance mission playthrough; all three victory tests use a shorter physically reached fixture goal.",
+    "Excavation and combat still have slow-frame spikes; no all-scene 60 FPS guarantee.",
+    "UI captures stop simulation and hide the timing overlay; performance evidence is the separate native profile data.",
+    "Current source only; no new standalone EXE was exported."
+  ]
+}

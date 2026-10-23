@@ -1,0 +1,641 @@
+{
+  "created_at": "2026-10-21T18:43:13.130329+08:00",
+  "scope": "Optimize current 2D cave without changing the black/white rock, exposed ore, mining, body following or monster passage behavior.",
+  "delivery": {
+    "archive": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-optimized.zip",
+    "executable": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-optimized\\RunBuildPew.exe",
+    "bytes": 157200594,
+    "sha256": "a62c2a8a57bf664a17e319686d5fd21b7d7553b9f761aa5c7d2d72e5edba9950",
+    "passed": true,
+    "unpacked_launch": true,
+    "validated_checks": 85,
+    "cave_mining_validated": true,
+    "native_performance": {
+      "stress-80": {
+        "conditions": {
+          "audio_and_effects": true,
+          "dt": 0.0166666666666667,
+          "fixture_focus_pause_suppressed": true,
+          "height": 900,
+          "initial_actors": 80,
+          "invulnerable_fixture_actors": true,
+          "measured_frames": 240,
+          "mission": "Survival Mission",
+          "native_map_spawns": true,
+          "reward_interruptions_suppressed": true,
+          "route": "straight",
+          "six_gatling_modules": true,
+          "warmup_frames": 12,
+          "width": 1440
+        },
+        "frame_ms": {
+          "max": 25.836,
+          "mean": 13.805475,
+          "median": 13.742,
+          "p95": 19.568,
+          "p99": 24.732,
+          "within_60fps_percent": 84.5833333333333
+        },
+        "cpu_ms": {
+          "max": 16.537,
+          "mean": 7.22524166666667,
+          "median": 7.186,
+          "p95": 10.757,
+          "p99": 13.206,
+          "within_60fps_percent": 100.0
+        },
+        "bite_frame_ms": {
+          "max": 25.836,
+          "mean": 16.60425,
+          "median": 14.658,
+          "p95": 25.836,
+          "p99": 25.836,
+          "within_60fps_percent": 56.25
+        },
+        "drop_frame_ms": {
+          "max": 25.836,
+          "mean": 18.75075,
+          "median": 24.732,
+          "p95": 25.836,
+          "p99": 25.836,
+          "within_60fps_percent": 50.0
+        },
+        "counter": {
+          "average_ms": 15.871875,
+          "fps": 63.0045284504824,
+          "peak_ms": 22.9270000457764,
+          "text": "63 FPS   15.9 ms"
+        },
+        "mined_cells": 23,
+        "ore_value": 16
+      },
+      "excavation-24": {
+        "conditions": {
+          "audio_and_effects": true,
+          "dt": 0.0166666666666667,
+          "fixture_focus_pause_suppressed": true,
+          "height": 900,
+          "initial_actors": 24,
+          "invulnerable_fixture_actors": true,
+          "measured_frames": 2400,
+          "mission": "Endless Mission",
+          "native_map_spawns": true,
+          "reward_interruptions_suppressed": true,
+          "route": "excavate",
+          "six_gatling_modules": true,
+          "warmup_frames": 12,
+          "width": 1440
+        },
+        "frame_ms": {
+          "max": 37.065,
+          "mean": 14.5060116666667,
+          "median": 13.708,
+          "p95": 20.602,
+          "p99": 26.674,
+          "within_60fps_percent": 81.5416666666667
+        },
+        "cpu_ms": {
+          "max": 26.817,
+          "mean": 8.35562791666667,
+          "median": 7.876,
+          "p95": 12.561,
+          "p99": 16.687,
+          "within_60fps_percent": 99.0
+        },
+        "bite_frame_ms": {
+          "max": 37.065,
+          "mean": 19.3169469026549,
+          "median": 19.302,
+          "p95": 32.765,
+          "p99": 36.57,
+          "within_60fps_percent": 42.4778761061947
+        },
+        "drop_frame_ms": {
+          "max": 23.687,
+          "mean": 16.7872,
+          "median": 18.694,
+          "p95": 23.687,
+          "p99": 23.687,
+          "within_60fps_percent": 50.0
+        },
+        "counter": {
+          "average_ms": 14.8551176470588,
+          "fps": 67.3168684192811,
+          "peak_ms": 21.4120006561279,
+          "text": "67 FPS   14.9 ms"
+        },
+        "mined_cells": 336,
+        "ore_value": 32
+      }
+    }
+  },
+  "source_snapshot_matches_export": true,
+  "archive_sha256_verified": true,
+  "package_file_hashes_verified": true,
+  "headless_regressions": {
+    "suites": [
+      {
+        "suite": "cave_mining",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 2.593,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "cave_curves",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.819,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "cave_contours",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.748,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "cave_collision_cache",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.935,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "cave_update_budget",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.752,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "cave_far_navigation",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.838,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "cave_spawn_jobs",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 6.017,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "map",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.475,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "missions",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.913,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "radial_formations",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 4.875,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "combat_spatial",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.747,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "chasm_collision",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 4.922,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "soft_solver_regressions",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.648,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "soft_knockback",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.546,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "soft_pull",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.093,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "combat_momentum",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.13,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "special_encounters",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.205,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "core",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.344,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "specials",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.045,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "drones",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.01,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "enemy_drones",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.177,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "shields",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.205,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "turret_tracking",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.105,
+        "isolated_user_data": true
+      }
+    ],
+    "passed": true
+  },
+  "native_render_regressions": {
+    "suites": [
+      {
+        "suite": "cave_scene",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 10.055,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "deployment",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 6.856,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "soft_render_cache",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 2.938,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "rig_batch_dynamic",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 5.034,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "brood_scene",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 9.26,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "encounter_scene",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 8.254,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "performance_overlay",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 2.195,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "enemy_health_scene",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 8.352,
+        "isolated_user_data": true
+      }
+    ],
+    "passed": true
+  },
+  "actual_exe_checks": {
+    "ui": 61,
+    "cave": 24,
+    "total": 85,
+    "passed": true
+  },
+  "independent_benchmark_environment": {
+    "cpu": "Intel Core i3-12100F",
+    "gpu": "NVIDIA GeForce GTX 1050",
+    "resolution": [
+      1440,
+      900
+    ],
+    "visible_native_windows": true,
+    "parallel_test_processes": false,
+    "user_authorized_closed_playtests": [
+      "kuaiHun",
+      "shinobi"
+    ],
+    "other_project_files_modified": false
+  },
+  "final_native_performance": {
+    "stress-80": {
+      "conditions": {
+        "audio_and_effects": true,
+        "dt": 0.0166666666666667,
+        "fixture_focus_pause_suppressed": true,
+        "height": 900,
+        "initial_actors": 80,
+        "invulnerable_fixture_actors": true,
+        "measured_frames": 240,
+        "mission": "Survival Mission",
+        "native_map_spawns": true,
+        "reward_interruptions_suppressed": true,
+        "route": "straight",
+        "six_gatling_modules": true,
+        "warmup_frames": 12,
+        "width": 1440
+      },
+      "frame_ms": {
+        "max": 25.836,
+        "mean": 13.805475,
+        "median": 13.742,
+        "p95": 19.568,
+        "p99": 24.732,
+        "within_60fps_percent": 84.5833333333333
+      },
+      "cpu_ms": {
+        "max": 16.537,
+        "mean": 7.22524166666667,
+        "median": 7.186,
+        "p95": 10.757,
+        "p99": 13.206,
+        "within_60fps_percent": 100.0
+      },
+      "bite_frame_ms": {
+        "max": 25.836,
+        "mean": 16.60425,
+        "median": 14.658,
+        "p95": 25.836,
+        "p99": 25.836,
+        "within_60fps_percent": 56.25
+      },
+      "drop_frame_ms": {
+        "max": 25.836,
+        "mean": 18.75075,
+        "median": 24.732,
+        "p95": 25.836,
+        "p99": 25.836,
+        "within_60fps_percent": 50.0
+      },
+      "counter": {
+        "average_ms": 15.871875,
+        "fps": 63.0045284504824,
+        "peak_ms": 22.9270000457764,
+        "text": "63 FPS   15.9 ms"
+      },
+      "mined_cells": 23,
+      "ore_value": 16,
+      "average_fps": 72.43503030500581,
+      "bite_frames": 16,
+      "drop_frames": 4,
+      "active_simulation_frames": 240,
+      "actor_range": [
+        80,
+        80
+      ],
+      "report": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-optimized-preview\\native-performance-stress-80.json"
+    },
+    "excavation-24": {
+      "conditions": {
+        "audio_and_effects": true,
+        "dt": 0.0166666666666667,
+        "fixture_focus_pause_suppressed": true,
+        "height": 900,
+        "initial_actors": 24,
+        "invulnerable_fixture_actors": true,
+        "measured_frames": 2400,
+        "mission": "Endless Mission",
+        "native_map_spawns": true,
+        "reward_interruptions_suppressed": true,
+        "route": "excavate",
+        "six_gatling_modules": true,
+        "warmup_frames": 12,
+        "width": 1440
+      },
+      "frame_ms": {
+        "max": 37.065,
+        "mean": 14.5060116666667,
+        "median": 13.708,
+        "p95": 20.602,
+        "p99": 26.674,
+        "within_60fps_percent": 81.5416666666667
+      },
+      "cpu_ms": {
+        "max": 26.817,
+        "mean": 8.35562791666667,
+        "median": 7.876,
+        "p95": 12.561,
+        "p99": 16.687,
+        "within_60fps_percent": 99.0
+      },
+      "bite_frame_ms": {
+        "max": 37.065,
+        "mean": 19.3169469026549,
+        "median": 19.302,
+        "p95": 32.765,
+        "p99": 36.57,
+        "within_60fps_percent": 42.4778761061947
+      },
+      "drop_frame_ms": {
+        "max": 23.687,
+        "mean": 16.7872,
+        "median": 18.694,
+        "p95": 23.687,
+        "p99": 23.687,
+        "within_60fps_percent": 50.0
+      },
+      "counter": {
+        "average_ms": 14.8551176470588,
+        "fps": 67.3168684192811,
+        "peak_ms": 21.4120006561279,
+        "text": "67 FPS   14.9 ms"
+      },
+      "mined_cells": 336,
+      "ore_value": 32,
+      "average_fps": 68.93693614612869,
+      "bite_frames": 113,
+      "drop_frames": 10,
+      "active_simulation_frames": 2400,
+      "actor_range": [
+        24,
+        51
+      ],
+      "report": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-optimized-preview\\native-performance-excavation-24.json"
+    }
+  },
+  "stable_60fps_achieved": false,
+  "conclusion": "Average gameplay performance exceeds 60 FPS in both final independent fixtures. Excavation still has frame-time spikes; P95 remains over 16.667 ms, so full stability at 60 FPS is not claimed.",
+  "visual_comparison": {
+    "1.0": {
+      "mean_rgb_error_0_255": [
+        0.5686118827160493,
+        0.5628425925925926,
+        0.5546512345679012
+      ]
+    },
+    "1.75": {
+      "mean_rgb_error_0_255": [
+        0.7031111111111111,
+        0.6962438271604938,
+        0.6870509259259259
+      ]
+    },
+    "0.65": {
+      "mean_rgb_error_0_255": [
+        0.3998425925925926,
+        0.3959776234567901,
+        0.3915655864197531
+      ]
+    }
+  },
+  "preview": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-optimized-preview",
+  "notes": "E:\\_Nlv\\github\\temp\\docs\\CAVE_PERFORMANCE_60_20261021.txt",
+  "earlier_shared_load_measurements_are_not_acceptance": true,
+  "runtime_unchanged_after_export": true
+}

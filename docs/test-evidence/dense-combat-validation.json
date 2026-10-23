@@ -1,0 +1,3762 @@
+{
+  "date": "2026-10-21",
+  "package": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-dense-combat-r6",
+  "archive": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-dense-combat-r6.zip",
+  "archive_bytes": 159343440,
+  "archive_sha256": "844fcc247bef4ff0c010189f3010d8e4ad19ab352c8783a27e89a0571c0a3b8d",
+  "source_snapshot_match": true,
+  "source_files_checked": 881,
+  "package_files": {
+    "RunBuildPew.exe": {
+      "passed": true,
+      "bytes": 237032032,
+      "sha256": "1884094b5f1d50827419ee8163e0678c68bc32396505efa263d87c34fc90f7d3"
+    },
+    "先读我.txt": {
+      "passed": true,
+      "bytes": 6083,
+      "sha256": "3ec5513746ca577079820011e7d962b3c359fa8d26cc5a53402fd5b6e9e67564"
+    },
+    "Licenses/GODOT_LICENSE.txt": {
+      "passed": true,
+      "bytes": 1169,
+      "sha256": "0cc27400b8da8c06bb35350422c14715647cd2632c138921fd49caa6610a1ef6"
+    },
+    "Licenses/NOTICE.txt": {
+      "passed": true,
+      "bytes": 408,
+      "sha256": "5e3b68d0f7a1144d9c84b10a1fc5b46f0a0c5f27a7fd20e2780afc2aafc9ad9f"
+    },
+    "Licenses/NotoSansCJK-LICENSE.txt": {
+      "passed": true,
+      "bytes": 15039,
+      "sha256": "2d92b7b894e6ec96f24e884b5e0a5ebe4031003039d9dd9d1d2cea4c31bda99d"
+    }
+  },
+  "package_validation": {
+    "archive": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-dense-combat-r6.zip",
+    "executable": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-dense-combat-r6\\RunBuildPew.exe",
+    "bytes": 159343440,
+    "sha256": "844fcc247bef4ff0c010189f3010d8e4ad19ab352c8783a27e89a0571c0a3b8d",
+    "passed": true,
+    "unpacked_launch": true,
+    "validated_checks": 85,
+    "cave_mining_validated": true,
+    "native_performance": {}
+  },
+  "preview": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-dense-combat-r6-preview",
+  "target_stable_60fps_achieved": false,
+  "visual_features_preserved": [
+    "monochrome natural rock",
+    "exposed colored ore",
+    "chewing and mineral drops",
+    "body following",
+    "enemy movement through new passages",
+    "30 egg capacity",
+    "latest dynamic projectile bodies and trails"
+  ],
+  "changes": [
+    "exact collision sweep clipping",
+    "16px conservative movement certificates with indexed negative invalidation",
+    "no-op soft constraint certificate",
+    "exact clear point/radius cache",
+    "15Hz distant unengaged map orbit collision checks with full-rate phase/combat and immediate interaction wake"
+  ],
+  "remote_orbit_tradeoff": "Offscreen wall-contact path may vary slightly; visible and interacting units retain normal collision cadence. Guard count, phase, weapon cadence and targeting are preserved.",
+  "tests": {
+    "soft-constraint-certificate-report.json": "E:\\_Nlv\\github\\temp\\artifacts\\soft-constraint-certificate-report.json",
+    "soft-solver-regressions-report.json": "E:\\_Nlv\\github\\temp\\artifacts\\soft-solver-regressions-report.json",
+    "cave-movement-certificates-report.json": "E:\\_Nlv\\github\\temp\\artifacts\\cave-movement-certificates-report.json",
+    "cave-sweep-clipping-report.json": "E:\\_Nlv\\github\\temp\\artifacts\\cave-sweep-clipping-report.json",
+    "cave-clearance-cache-report.json": "E:\\_Nlv\\github\\temp\\artifacts\\cave-clearance-cache-report.json",
+    "remote-map-orbits-report.json": "E:\\_Nlv\\github\\temp\\artifacts\\remote-map-orbits-report.json",
+    "dense-cpu-final-logical-checks.json": "E:\\_Nlv\\github\\temp\\artifacts\\dense-cpu-final-logical-checks.json",
+    "dense-cpu-final-native-checks.json": "E:\\_Nlv\\github\\temp\\artifacts\\dense-cpu-final-native-checks.json",
+    "dense-clearance-final-checks.json": "E:\\_Nlv\\github\\temp\\artifacts\\dense-clearance-final-checks.json",
+    "dense-clearance-native-final-checks.json": "E:\\_Nlv\\github\\temp\\artifacts\\dense-clearance-native-final-checks.json",
+    "dense-clearance-budget-final-checks.json": "E:\\_Nlv\\github\\temp\\artifacts\\dense-clearance-budget-final-checks.json",
+    "remote-orbits-logical-checks.json": "E:\\_Nlv\\github\\temp\\artifacts\\remote-orbits-logical-checks.json",
+    "remote-orbits-native-checks.json": "E:\\_Nlv\\github\\temp\\artifacts\\remote-orbits-native-checks.json",
+    "remote-orbits-final-check.json": "E:\\_Nlv\\github\\temp\\artifacts\\remote-orbits-final-check.json",
+    "dense-render-attribution.json": "E:\\_Nlv\\github\\temp\\artifacts\\dense-render-attribution.json"
+  },
+  "benchmarks": {
+    "dense-r4-natural-new-90": {
+      "raw_report": "E:\\_Nlv\\github\\temp\\artifacts\\dense-r4-natural-new-90.json",
+      "conditions": {
+        "audio_and_effects": true,
+        "battle_seed": 20261021,
+        "dt": "actual engine process delta",
+        "duration_seconds": 90.0053873333345,
+        "fixture_focus_pause_suppressed": true,
+        "height": 900,
+        "initial_actors": 45,
+        "invulnerable_fixture_actors": false,
+        "legacy_cpu": false,
+        "legacy_egg_rendering": false,
+        "loadout": "screenshot-derived 11 mixed modules",
+        "measured_frames": 6239,
+        "mission": "Survival Mission",
+        "native_actor_waves": true,
+        "native_map_spawns": true,
+        "native_pacing": true,
+        "refresh_rate": 60.0,
+        "reward_interruptions_suppressed": true,
+        "route": "roam",
+        "six_gatling_modules": false,
+        "vsync_mode": 1,
+        "warmup_frames": 12,
+        "width": 1440
+      },
+      "frame_ms": {
+        "max": 80.741,
+        "mean": 14.2947231928194,
+        "median": 14.187,
+        "p95": 18.755,
+        "p99": 22.496,
+        "within_60fps_percent": 85.9112037185446
+      },
+      "fps_from_mean_ms": 69.95588417566037,
+      "actual_frames_per_run_second": 69.31807289372463,
+      "cpu_ms": {
+        "max": 55.919,
+        "mean": 7.55797211091522,
+        "median": 7.673,
+        "p95": 10.702,
+        "p99": 12.868,
+        "within_60fps_percent": 99.7114922263183
+      },
+      "final_counter": {
+        "average_ms": 15.3289411764706,
+        "fps": 65.2360778535028,
+        "peak_ms": 18.7140007019043,
+        "text": "65 FPS   15.3 ms"
+      },
+      "renderer_override": null,
+      "windows": {
+        "0-10": {
+          "frames": 955,
+          "fps_from_mean_ms": 96.01846128354664,
+          "frame_ms": {
+            "mean": 10.41466387434555,
+            "p95": 13.977,
+            "p99": 16.787,
+            "max": 56.837
+          },
+          "mean_cpu_ms": 4.279567539267016,
+          "mean_actors": 53.64397905759162,
+          "mean_effects": 1.2722513089005236,
+          "mean_draw_calls": 267.8628272251309,
+          "mean_attack_commands": 23.318324607329842,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.23341780104712043,
+            "body": 0.6141717277486911,
+            "combat": 2.3333413612565446,
+            "draw_attacks": 0.12243874345549738,
+            "draw_body": 0.2537748691099476,
+            "draw_hud_feedback": 0.3617842931937173,
+            "draw_organs": 1.2491832460732983,
+            "draw_support": 0.6237926701570681,
+            "draw_terrain": 0.3602429319371728,
+            "draw_world": 0.46017591623036647,
+            "mission": 0.7538890052356021,
+            "preparation": 0.24986596858638743,
+            "visual_sync": 0.0829434554973822
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.029380104712041884,
+            "drones": 0.2850753926701571,
+            "enemy_ai": 1.3021225130890053,
+            "enemy_soft_body": 0.13492879581151832,
+            "patrol_special": 0.16247015706806284,
+            "player_weapons": 0.2721413612565445,
+            "projectiles": 0.003636649214659686
+          }
+        },
+        "10-20": {
+          "frames": 706,
+          "fps_from_mean_ms": 71.98386093289045,
+          "frame_ms": {
+            "mean": 13.89200283286119,
+            "p95": 17.182,
+            "p99": 20.016,
+            "max": 80.741
+          },
+          "mean_cpu_ms": 7.078910764872521,
+          "mean_actors": 86.66147308781869,
+          "mean_effects": 2.698300283286119,
+          "mean_draw_calls": 259.4334277620397,
+          "mean_attack_commands": 45.052407932011334,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.26892067988668555,
+            "body": 0.5614235127478754,
+            "combat": 4.005315864022663,
+            "draw_attacks": 0.1945127478753541,
+            "draw_body": 0.25906232294617565,
+            "draw_hud_feedback": 0.3810439093484419,
+            "draw_organs": 1.2771444759206798,
+            "draw_support": 0.7850779036827196,
+            "draw_terrain": 0.5386373937677054,
+            "draw_world": 0.4913101983002833,
+            "mission": 1.8879971671388103,
+            "preparation": 0.22826345609065157,
+            "visual_sync": 0.11502549575070821
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.05154957507082153,
+            "drones": 0.45737535410764874,
+            "enemy_ai": 2.3847167138810197,
+            "enemy_soft_body": 0.27131444759206796,
+            "patrol_special": 0.34544475920679885,
+            "player_weapons": 0.25912889518413595,
+            "projectiles": 0.06934844192634561
+          }
+        },
+        "30-40": {
+          "frames": 664,
+          "fps_from_mean_ms": 66.66788489508544,
+          "frame_ms": {
+            "mean": 14.999725903614458,
+            "p95": 18.107,
+            "p99": 20.993,
+            "max": 24.675
+          },
+          "mean_cpu_ms": 8.425691265060241,
+          "mean_actors": 80.88704819277109,
+          "mean_effects": 0.6942771084337349,
+          "mean_draw_calls": 244.34638554216866,
+          "mean_attack_commands": 26.628012048192772,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.2343012048192771,
+            "body": 0.6169804216867469,
+            "combat": 4.873673192771085,
+            "draw_attacks": 0.08665963855421686,
+            "draw_body": 0.25941114457831327,
+            "draw_hud_feedback": 0.370375,
+            "draw_organs": 1.2720602409638555,
+            "draw_support": 0.8695090361445783,
+            "draw_terrain": 0.5734352409638555,
+            "draw_world": 0.486519578313253,
+            "mission": 2.434503012048193,
+            "preparation": 0.14268825301204818,
+            "visual_sync": 0.11091415662650603
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.04013403614457831,
+            "drones": 0.5330572289156627,
+            "enemy_ai": 2.7041385542168674,
+            "enemy_soft_body": 0.27902710843373496,
+            "patrol_special": 0.8651219879518073,
+            "player_weapons": 0.279625,
+            "projectiles": 0.011986445783132531
+          }
+        },
+        "70-80": {
+          "frames": 666,
+          "fps_from_mean_ms": 66.87068584924917,
+          "frame_ms": {
+            "mean": 14.954235735735736,
+            "p95": 18.375,
+            "p99": 23.53,
+            "max": 27.708
+          },
+          "mean_cpu_ms": 8.36998048048048,
+          "mean_actors": 77.37237237237237,
+          "mean_effects": 0.5900900900900901,
+          "mean_draw_calls": 252.5165165165165,
+          "mean_attack_commands": 14.657657657657658,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.23114114114114115,
+            "body": 0.9105990990990991,
+            "combat": 4.4881831831831835,
+            "draw_attacks": 0.10231681681681681,
+            "draw_body": 0.2685585585585586,
+            "draw_hud_feedback": 0.3995255255255255,
+            "draw_organs": 1.3091006006006005,
+            "draw_support": 0.795012012012012,
+            "draw_terrain": 0.2032042042042042,
+            "draw_world": 0.5071651651651652,
+            "mission": 2.4400795795795798,
+            "preparation": 0.14956756756756756,
+            "visual_sync": 0.13706156156156157
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.03778228228228228,
+            "drones": 0.4863273273273273,
+            "enemy_ai": 2.824162162162162,
+            "enemy_soft_body": 0.310496996996997,
+            "patrol_special": 0.4300630630630631,
+            "player_weapons": 0.26558408408408407,
+            "projectiles": 0.0014369369369369369
+          }
+        },
+        "80-90": {
+          "frames": 622,
+          "fps_from_mean_ms": 63.294121166724345,
+          "frame_ms": {
+            "mean": 15.799255627009646,
+            "p95": 20.208,
+            "p99": 30.302,
+            "max": 63.02
+          },
+          "mean_cpu_ms": 9.189091639871382,
+          "mean_actors": 84.48874598070739,
+          "mean_effects": 1.4260450160771705,
+          "mean_draw_calls": 257.1109324758842,
+          "mean_attack_commands": 30.479099678456592,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.24309807073954984,
+            "body": 0.9721479099678456,
+            "combat": 5.037483922829582,
+            "draw_attacks": 0.1747443729903537,
+            "draw_body": 0.2628553054662379,
+            "draw_hud_feedback": 0.39570578778135046,
+            "draw_organs": 1.2871254019292604,
+            "draw_support": 0.8625144694533762,
+            "draw_terrain": 0.25184244372990355,
+            "draw_world": 0.501024115755627,
+            "mission": 2.549538585209003,
+            "preparation": 0.14781993569131832,
+            "visual_sync": 0.22636012861736335
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.046020900321543406,
+            "drones": 0.552371382636656,
+            "enemy_ai": 3.182961414790997,
+            "enemy_soft_body": 0.3386897106109325,
+            "patrol_special": 0.4132540192926045,
+            "player_weapons": 0.332072347266881,
+            "projectiles": 0.0532540192926045
+          }
+        }
+      },
+      "effects_ge_12": {
+        "frames": 99,
+        "fps_from_mean_ms": 56.2152168345836,
+        "frame_ms": {
+          "mean": 17.788777777777778,
+          "p95": 22.452,
+          "p99": 50.119,
+          "max": 50.119
+        },
+        "mean_cpu_ms": 9.202131313131312,
+        "mean_actors": 76,
+        "mean_effects": 15.484848484848484,
+        "mean_draw_calls": 362.90909090909093,
+        "mean_attack_commands": 146.91919191919192,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.5944444444444444,
+          "body": 0.7715858585858586,
+          "combat": 5.4547474747474745,
+          "draw_attacks": 1.1731010101010102,
+          "draw_body": 0.25945454545454544,
+          "draw_hud_feedback": 0.5029090909090909,
+          "draw_organs": 1.2746767676767676,
+          "draw_support": 0.8804242424242424,
+          "draw_terrain": 0.5163939393939394,
+          "draw_world": 0.6931010101010101,
+          "mission": 1.9194040404040404,
+          "preparation": 0.15642424242424244,
+          "visual_sync": 0.2934141414141414
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.0873030303030303,
+          "drones": 0.5442121212121213,
+          "enemy_ai": 3.309909090909091,
+          "enemy_soft_body": 0.33341414141414144,
+          "patrol_special": 0.4715757575757576,
+          "player_weapons": 0.4432121212121212,
+          "projectiles": 0.16285858585858587
+        }
+      },
+      "attack_commands_ge_120": {
+        "frames": 226,
+        "fps_from_mean_ms": 55.616435591861006,
+        "frame_ms": {
+          "mean": 17.98029646017699,
+          "p95": 21.934,
+          "p99": 25.181,
+          "max": 29.048
+        },
+        "mean_cpu_ms": 9.37287168141593,
+        "mean_actors": 73.56637168141593,
+        "mean_effects": 8.336283185840708,
+        "mean_draw_calls": 367.71238938053096,
+        "mean_attack_commands": 164.04424778761063,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.42721238938053097,
+          "body": 0.7687212389380531,
+          "combat": 5.576106194690266,
+          "draw_attacks": 0.7325132743362832,
+          "draw_body": 0.261429203539823,
+          "draw_hud_feedback": 0.6818185840707964,
+          "draw_organs": 1.2724557522123894,
+          "draw_support": 0.9397477876106195,
+          "draw_terrain": 0.7577654867256637,
+          "draw_world": 0.7302522123893805,
+          "mission": 2.174234513274336,
+          "preparation": 0.14660619469026548,
+          "visual_sync": 0.26796902654867255
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.07867256637168142,
+          "drones": 0.5297212389380531,
+          "enemy_ai": 3.3446194690265485,
+          "enemy_soft_body": 0.32184513274336285,
+          "patrol_special": 0.6469557522123893,
+          "player_weapons": 0.39284513274336286,
+          "projectiles": 0.15749115044247788
+        }
+      }
+    },
+    "dense-r4-natural-baseline-90": {
+      "raw_report": "E:\\_Nlv\\github\\temp\\artifacts\\dense-r4-natural-baseline-90.json",
+      "conditions": {
+        "audio_and_effects": true,
+        "battle_seed": 20261021,
+        "dt": "actual engine process delta",
+        "duration_seconds": 90.0014243333342,
+        "fixture_focus_pause_suppressed": true,
+        "height": 900,
+        "initial_actors": 45,
+        "invulnerable_fixture_actors": false,
+        "legacy_cpu": true,
+        "legacy_egg_rendering": false,
+        "loadout": "screenshot-derived 11 mixed modules",
+        "measured_frames": 6038,
+        "mission": "Survival Mission",
+        "native_actor_waves": true,
+        "native_map_spawns": true,
+        "native_pacing": true,
+        "refresh_rate": 60.0,
+        "reward_interruptions_suppressed": true,
+        "route": "roam",
+        "six_gatling_modules": false,
+        "vsync_mode": 1,
+        "warmup_frames": 12,
+        "width": 1440
+      },
+      "frame_ms": {
+        "max": 83.985,
+        "mean": 14.7781088108645,
+        "median": 14.582,
+        "p95": 19.505,
+        "p99": 23.861,
+        "within_60fps_percent": 78.5028155018218
+      },
+      "fps_from_mean_ms": 67.66765712706248,
+      "actual_frames_per_run_second": 67.08782716190505,
+      "cpu_ms": {
+        "max": 58.197,
+        "mean": 7.95383686651207,
+        "median": 7.888,
+        "p95": 11.624,
+        "p99": 13.998,
+        "within_60fps_percent": 99.5031467373302
+      },
+      "final_counter": {
+        "average_ms": 15.76775,
+        "fps": 63.4205894943794,
+        "peak_ms": 18.9750003814697,
+        "text": "63 FPS   15.8 ms"
+      },
+      "renderer_override": null,
+      "windows": {
+        "0-10": {
+          "frames": 930,
+          "fps_from_mean_ms": 93.45340789910408,
+          "frame_ms": {
+            "mean": 10.70051935483871,
+            "p95": 14.652,
+            "p99": 17.289,
+            "max": 56.361
+          },
+          "mean_cpu_ms": 4.453939784946237,
+          "mean_actors": 53.65483870967742,
+          "mean_effects": 1.0204301075268818,
+          "mean_draw_calls": 264.90860215053766,
+          "mean_attack_commands": 21.429032258064517,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.22523440860215055,
+            "body": 0.6539806451612903,
+            "combat": 2.3911451612903227,
+            "draw_attacks": 0.07941720430107527,
+            "draw_body": 0.2582752688172043,
+            "draw_hud_feedback": 0.36779354838709677,
+            "draw_organs": 1.2778645161290323,
+            "draw_support": 0.6412290322580645,
+            "draw_terrain": 0.38257526881720433,
+            "draw_world": 0.4693967741935484,
+            "mission": 0.8326290322580645,
+            "preparation": 0.25873548387096773,
+            "visual_sync": 0.07998494623655913
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.030391397849462366,
+            "drones": 0.2942010752688172,
+            "enemy_ai": 1.3210397849462365,
+            "enemy_soft_body": 0.1349741935483871,
+            "patrol_special": 0.1676494623655914,
+            "player_weapons": 0.2804494623655914,
+            "projectiles": 0.002218279569892473
+          }
+        },
+        "10-20": {
+          "frames": 675,
+          "fps_from_mean_ms": 68.73958786187193,
+          "frame_ms": {
+            "mean": 14.547657777777777,
+            "p95": 18.228,
+            "p99": 20.627,
+            "max": 83.985
+          },
+          "mean_cpu_ms": 7.589859259259259,
+          "mean_actors": 86.71555555555555,
+          "mean_effects": 2.3333333333333335,
+          "mean_draw_calls": 260.8162962962963,
+          "mean_attack_commands": 45.044444444444444,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.28862814814814813,
+            "body": 0.6588118518518519,
+            "combat": 4.076837037037037,
+            "draw_attacks": 0.23098814814814814,
+            "draw_body": 0.2604237037037037,
+            "draw_hud_feedback": 0.38988,
+            "draw_organs": 1.272677037037037,
+            "draw_support": 0.7995644444444444,
+            "draw_terrain": 0.5808607407407408,
+            "draw_world": 0.5005022222222222,
+            "mission": 2.2027437037037036,
+            "preparation": 0.22841185185185187,
+            "visual_sync": 0.12237481481481481
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.05163851851851852,
+            "drones": 0.462362962962963,
+            "enemy_ai": 2.358437037037037,
+            "enemy_soft_body": 0.2615688888888889,
+            "patrol_special": 0.40955851851851854,
+            "player_weapons": 0.2748711111111111,
+            "projectiles": 0.07618962962962963
+          }
+        },
+        "30-40": {
+          "frames": 640,
+          "fps_from_mean_ms": 64.2184905704679,
+          "frame_ms": {
+            "mean": 15.5718390625,
+            "p95": 19.285,
+            "p99": 22.066,
+            "max": 32.817
+          },
+          "mean_cpu_ms": 9.037431250000001,
+          "mean_actors": 79.6921875,
+          "mean_effects": 1.015625,
+          "mean_draw_calls": 244.184375,
+          "mean_attack_commands": 25.00625,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.2410921875,
+            "body": 0.6376390625,
+            "combat": 4.9780578125,
+            "draw_attacks": 0.107953125,
+            "draw_body": 0.25850625,
+            "draw_hud_feedback": 0.36849375,
+            "draw_organs": 1.26115,
+            "draw_support": 0.840490625,
+            "draw_terrain": 0.5490703125,
+            "draw_world": 0.487665625,
+            "mission": 2.915703125,
+            "preparation": 0.1420984375,
+            "visual_sync": 0.1102453125
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.0411296875,
+            "drones": 0.531409375,
+            "enemy_ai": 2.9987296875,
+            "enemy_soft_body": 0.27814375,
+            "patrol_special": 0.6894140625,
+            "player_weapons": 0.26286875,
+            "projectiles": 0.019934375
+          }
+        },
+        "70-80": {
+          "frames": 599,
+          "fps_from_mean_ms": 60.22876473518347,
+          "frame_ms": {
+            "mean": 16.603362270450752,
+            "p95": 21.279,
+            "p99": 30.869,
+            "max": 37.02
+          },
+          "mean_cpu_ms": 9.480357262103507,
+          "mean_actors": 76.74290484140234,
+          "mean_effects": 3.2253756260434057,
+          "mean_draw_calls": 285.10016694490815,
+          "mean_attack_commands": 57.27545909849749,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.2812136894824708,
+            "body": 1.0702570951585977,
+            "combat": 4.812075125208681,
+            "draw_attacks": 0.2562220367278798,
+            "draw_body": 0.2633505843071786,
+            "draw_hud_feedback": 0.4215125208681135,
+            "draw_organs": 1.2802821368948247,
+            "draw_support": 0.9551869782971619,
+            "draw_terrain": 0.22423873121869783,
+            "draw_world": 0.5397779632721202,
+            "mission": 2.93822203672788,
+            "preparation": 0.14773622704507514,
+            "visual_sync": 0.21863772954924876
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.04681302170283806,
+            "drones": 0.508338898163606,
+            "enemy_ai": 2.9638330550918197,
+            "enemy_soft_body": 0.33266110183639397,
+            "patrol_special": 0.45262771285475795,
+            "player_weapons": 0.3764958263772955,
+            "projectiles": 0.02123873121869783
+          }
+        },
+        "80-90": {
+          "frames": 586,
+          "fps_from_mean_ms": 59.52318072375312,
+          "frame_ms": {
+            "mean": 16.80017747440273,
+            "p95": 21.069,
+            "p99": 26.037,
+            "max": 66.909
+          },
+          "mean_cpu_ms": 10.026133105802048,
+          "mean_actors": 83.67576791808874,
+          "mean_effects": 3.2303754266211606,
+          "mean_draw_calls": 253.4470989761092,
+          "mean_attack_commands": 51.99829351535836,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.28126962457337884,
+            "body": 1.0696621160409556,
+            "combat": 5.094679180887372,
+            "draw_attacks": 0.28715870307167235,
+            "draw_body": 0.26074744027303753,
+            "draw_hud_feedback": 0.40417235494880543,
+            "draw_organs": 1.273740614334471,
+            "draw_support": 0.9069812286689419,
+            "draw_terrain": 0.2421825938566553,
+            "draw_world": 0.530165529010239,
+            "mission": 3.1504744027303753,
+            "preparation": 0.14562286689419796,
+            "visual_sync": 0.27210921501706486
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.05234300341296928,
+            "drones": 0.5615836177474403,
+            "enemy_ai": 3.153943686006826,
+            "enemy_soft_body": 0.3667423208191126,
+            "patrol_special": 0.43829351535836175,
+            "player_weapons": 0.38273720136518774,
+            "projectiles": 0.04622866894197952
+          }
+        }
+      },
+      "effects_ge_12": {
+        "frames": 156,
+        "fps_from_mean_ms": 55.11111425134554,
+        "frame_ms": {
+          "mean": 18.145160256410257,
+          "p95": 23.699,
+          "p99": 59.721,
+          "max": 66.909
+        },
+        "mean_cpu_ms": 10.004025641025642,
+        "mean_actors": 74.06410256410257,
+        "mean_effects": 15.403846153846153,
+        "mean_draw_calls": 352.5,
+        "mean_attack_commands": 146.32692307692307,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.5031282051282051,
+          "body": 0.8804487179487179,
+          "combat": 5.2878974358974355,
+          "draw_attacks": 0.9081730769230769,
+          "draw_body": 0.2640192307692308,
+          "draw_hud_feedback": 0.4865,
+          "draw_organs": 1.2642307692307693,
+          "draw_support": 0.8858141025641025,
+          "draw_terrain": 0.35362179487179485,
+          "draw_world": 0.6865128205128205,
+          "mission": 2.3579487179487177,
+          "preparation": 0.14832692307692308,
+          "visual_sync": 0.8139358974358974
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.08908974358974359,
+          "drones": 0.528673076923077,
+          "enemy_ai": 2.999698717948718,
+          "enemy_soft_body": 0.3405320512820513,
+          "patrol_special": 0.6316794871794872,
+          "player_weapons": 0.43674358974358973,
+          "projectiles": 0.17331410256410257
+        }
+      },
+      "attack_commands_ge_120": {
+        "frames": 337,
+        "fps_from_mean_ms": 55.47157090221465,
+        "frame_ms": {
+          "mean": 18.027252225519288,
+          "p95": 23.006,
+          "p99": 25.757,
+          "max": 66.909
+        },
+        "mean_cpu_ms": 9.638896142433234,
+        "mean_actors": 72.25816023738872,
+        "mean_effects": 9.498516320474778,
+        "mean_draw_calls": 358.8219584569733,
+        "mean_attack_commands": 158.76854599406528,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.46104451038575667,
+          "body": 0.8911127596439169,
+          "combat": 5.412382789317507,
+          "draw_attacks": 0.7990890207715133,
+          "draw_body": 0.26652818991097926,
+          "draw_hud_feedback": 0.5950712166172106,
+          "draw_organs": 1.2637537091988131,
+          "draw_support": 0.9172255192878338,
+          "draw_terrain": 0.5718011869436201,
+          "draw_world": 0.7247062314540059,
+          "mission": 2.3521780415430267,
+          "preparation": 0.14769139465875372,
+          "visual_sync": 0.3623412462908012
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.08326706231454006,
+          "drones": 0.518940652818991,
+          "enemy_ai": 3.221362017804154,
+          "enemy_soft_body": 0.32867359050445105,
+          "patrol_special": 0.5754807121661721,
+          "player_weapons": 0.4107062314540059,
+          "projectiles": 0.1815074183976261
+        }
+      }
+    },
+    "dense-r4-engaged-new-90": {
+      "raw_report": "E:\\_Nlv\\github\\temp\\artifacts\\dense-r4-engaged-new-90.json",
+      "conditions": {
+        "audio_and_effects": true,
+        "battle_seed": 20261021,
+        "dt": "actual engine process delta",
+        "duration_seconds": 90.0174510000032,
+        "fixture_focus_pause_suppressed": true,
+        "height": 900,
+        "initial_actors": 24,
+        "invulnerable_fixture_actors": true,
+        "legacy_cpu": false,
+        "legacy_egg_rendering": false,
+        "loadout": "screenshot-derived 11 mixed modules",
+        "measured_frames": 5190,
+        "mission": "Survival Mission",
+        "native_actor_waves": false,
+        "native_map_spawns": true,
+        "native_pacing": true,
+        "refresh_rate": 60.0,
+        "reward_interruptions_suppressed": true,
+        "route": "excavate",
+        "six_gatling_modules": false,
+        "vsync_mode": 1,
+        "warmup_frames": 12,
+        "width": 1440
+      },
+      "frame_ms": {
+        "max": 61.525,
+        "mean": 17.2086882466281,
+        "median": 16.652,
+        "p95": 22.007,
+        "p99": 26.333,
+        "within_60fps_percent": 50.2504816955684
+      },
+      "fps_from_mean_ms": 58.11018165175616,
+      "actual_frames_per_run_second": 57.65548726768341,
+      "cpu_ms": {
+        "max": 27.556,
+        "mean": 9.0785013487476,
+        "median": 8.766,
+        "p95": 12.251,
+        "p99": 14.809,
+        "within_60fps_percent": 99.6339113680154
+      },
+      "final_counter": {
+        "average_ms": 18.1565,
+        "fps": 55.0766942968083,
+        "peak_ms": 21.826000213623,
+        "text": "55 FPS   18.2 ms"
+      },
+      "renderer_override": null,
+      "windows": {
+        "0-10": {
+          "frames": 616,
+          "fps_from_mean_ms": 61.84513556383436,
+          "frame_ms": {
+            "mean": 16.169420454545456,
+            "p95": 22.605,
+            "p99": 29.058,
+            "max": 61.525
+          },
+          "mean_cpu_ms": 8.016967532467532,
+          "mean_actors": 24,
+          "mean_effects": 7.23051948051948,
+          "mean_draw_calls": 377.03084415584414,
+          "mean_attack_commands": 72.00162337662337,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.3639301948051948,
+            "body": 0.8270503246753247,
+            "combat": 3.7751737012987014,
+            "draw_attacks": 0.45598863636363635,
+            "draw_body": 0.2629659090909091,
+            "draw_hud_feedback": 0.5107305194805195,
+            "draw_organs": 1.4159253246753247,
+            "draw_support": 0.6286363636363637,
+            "draw_terrain": 0.3759886363636364,
+            "draw_world": 0.6282142857142857,
+            "mission": 0.07117532467532468,
+            "preparation": 0.24223214285714287,
+            "visual_sync": 2.7251525974025976
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.04090746753246753,
+            "drones": 0.20072727272727273,
+            "enemy_ai": 2.0552775974025974,
+            "enemy_soft_body": 0.2140698051948052,
+            "patrol_special": 0.1534918831168831,
+            "player_weapons": 1.1312840909090909,
+            "projectiles": 0.05212175324675325
+          }
+        },
+        "10-20": {
+          "frames": 537,
+          "fps_from_mean_ms": 54.51658207628789,
+          "frame_ms": {
+            "mean": 18.343042830540035,
+            "p95": 23.921,
+            "p99": 29.008,
+            "max": 39.348
+          },
+          "mean_cpu_ms": 9.824081936685289,
+          "mean_actors": 32.60335195530726,
+          "mean_effects": 14.888268156424582,
+          "mean_draw_calls": 380.877094972067,
+          "mean_attack_commands": 132.15456238361267,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.43637243947858473,
+            "body": 1.101217877094972,
+            "combat": 5.645743016759776,
+            "draw_attacks": 0.9070204841713222,
+            "draw_body": 0.26311173184357545,
+            "draw_hud_feedback": 0.375731843575419,
+            "draw_organs": 1.3934283054003724,
+            "draw_support": 0.6540614525139665,
+            "draw_terrain": 0.5694711359404097,
+            "draw_world": 0.7015977653631285,
+            "mission": 0.8975828677839851,
+            "preparation": 0.20237430167597764,
+            "visual_sync": 1.528556797020484
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.06508193668528864,
+            "drones": 0.2644953445065177,
+            "enemy_ai": 3.4479851024208568,
+            "enemy_soft_body": 0.5713240223463687,
+            "patrol_special": 0.19225512104283055,
+            "player_weapons": 1.377830540037244,
+            "projectiles": 0.10568156424581006
+          }
+        },
+        "30-40": {
+          "frames": 543,
+          "fps_from_mean_ms": 54.481608995425354,
+          "frame_ms": {
+            "mean": 18.35481767955801,
+            "p95": 22.986,
+            "p99": 25.958,
+            "max": 29.16
+          },
+          "mean_cpu_ms": 9.64405709023941,
+          "mean_actors": 58,
+          "mean_effects": 16.61510128913444,
+          "mean_draw_calls": 421.24309392265195,
+          "mean_attack_commands": 155.57826887661142,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.47328360957642723,
+            "body": 1.0787697974217312,
+            "combat": 5.531920810313076,
+            "draw_attacks": 1.0482357274401473,
+            "draw_body": 0.26405524861878454,
+            "draw_hud_feedback": 0.630182320441989,
+            "draw_organs": 1.3935580110497237,
+            "draw_support": 0.7985764272559852,
+            "draw_terrain": 0.25542909760589316,
+            "draw_world": 0.7812394106813997,
+            "mission": 1.767828729281768,
+            "preparation": 0.13524309392265194,
+            "visual_sync": 0.6448029465930019
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.08296869244935544,
+            "drones": 0.35904604051565375,
+            "enemy_ai": 3.428268876611418,
+            "enemy_soft_body": 0.672963167587477,
+            "patrol_special": 0.23240883977900553,
+            "player_weapons": 0.9698729281767956,
+            "projectiles": 0.13590055248618785
+          }
+        },
+        "70-80": {
+          "frames": 604,
+          "fps_from_mean_ms": 60.19236043344878,
+          "frame_ms": {
+            "mean": 16.613403973509932,
+            "p95": 19.6,
+            "p99": 21.708,
+            "max": 27.526
+          },
+          "mean_cpu_ms": 8.83394701986755,
+          "mean_actors": 58,
+          "mean_effects": 16.05298013245033,
+          "mean_draw_calls": 365.8592715231788,
+          "mean_attack_commands": 140.0728476821192,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.4333079470198676,
+            "body": 1.0207086092715232,
+            "combat": 5.169685430463576,
+            "draw_attacks": 0.9739950331125827,
+            "draw_body": 0.2625761589403974,
+            "draw_hud_feedback": 0.39337417218543047,
+            "draw_organs": 1.3711870860927153,
+            "draw_support": 0.7799486754966888,
+            "draw_terrain": 0.07323675496688742,
+            "draw_world": 0.6632665562913908,
+            "mission": 1.5698592715231787,
+            "preparation": 0.13707284768211922,
+            "visual_sync": 0.4915
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.08013245033112583,
+            "drones": 0.32148013245033114,
+            "enemy_ai": 3.397041390728477,
+            "enemy_soft_body": 0.643203642384106,
+            "patrol_special": 0.30716059602649004,
+            "player_weapons": 0.6250546357615894,
+            "projectiles": 0.12066225165562915
+          }
+        },
+        "80-90": {
+          "frames": 590,
+          "fps_from_mean_ms": 59.93007886595226,
+          "frame_ms": {
+            "mean": 16.68611186440678,
+            "p95": 19.883,
+            "p99": 22.063,
+            "max": 27.182
+          },
+          "mean_cpu_ms": 8.953861016949153,
+          "mean_actors": 58,
+          "mean_effects": 15.345762711864406,
+          "mean_draw_calls": 362.7389830508475,
+          "mean_attack_commands": 139.364406779661,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.43748983050847456,
+            "body": 1.0295,
+            "combat": 5.3954,
+            "draw_attacks": 0.9525237288135593,
+            "draw_body": 0.26172881355932204,
+            "draw_hud_feedback": 0.3898491525423729,
+            "draw_organs": 1.3750372881355932,
+            "draw_support": 0.7845864406779661,
+            "draw_terrain": 0.07346440677966101,
+            "draw_world": 0.6586983050847458,
+            "mission": 1.4526949152542372,
+            "preparation": 0.13621525423728814,
+            "visual_sync": 0.4907694915254237
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.07972881355932203,
+            "drones": 0.31813389830508476,
+            "enemy_ai": 3.6602542372881355,
+            "enemy_soft_body": 0.6674627118644068,
+            "patrol_special": 0.30652881355932204,
+            "player_weapons": 0.5928033898305085,
+            "projectiles": 0.12739322033898304
+          }
+        }
+      },
+      "effects_ge_12": {
+        "frames": 3277,
+        "fps_from_mean_ms": 55.54382078637914,
+        "frame_ms": {
+          "mean": 18.003802868477266,
+          "p95": 22.711,
+          "p99": 26.928,
+          "max": 44.948
+        },
+        "mean_cpu_ms": 9.437825450106805,
+        "mean_actors": 53.312480927677754,
+        "mean_effects": 19.47085749160818,
+        "mean_draw_calls": 410.1058895331096,
+        "mean_attack_commands": 167.28837351235887,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.5085245651510528,
+          "body": 1.052707354287458,
+          "combat": 5.449405859017394,
+          "draw_attacks": 1.1877995117485505,
+          "draw_body": 0.2640543179737565,
+          "draw_hud_feedback": 0.45920018309429356,
+          "draw_organs": 1.391678974671956,
+          "draw_support": 0.754613060726274,
+          "draw_terrain": 0.22182636557827282,
+          "draw_world": 0.7444284406469331,
+          "mission": 1.466806225205981,
+          "preparation": 0.15343271284711626,
+          "visual_sync": 0.7948086664632286
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.08605065608788526,
+          "drones": 0.33246017699115044,
+          "enemy_ai": 3.4723048519987794,
+          "enemy_soft_body": 0.6429362221544095,
+          "patrol_special": 0.25650869697894413,
+          "player_weapons": 0.8589285932255112,
+          "projectiles": 0.14497436679890144
+        }
+      },
+      "attack_commands_ge_120": {
+        "frames": 2781,
+        "fps_from_mean_ms": 54.87106375340845,
+        "frame_ms": {
+          "mean": 18.22454189140597,
+          "p95": 22.913,
+          "p99": 26.835,
+          "max": 44.948
+        },
+        "mean_cpu_ms": 9.512238043869111,
+        "mean_actors": 53.596548004315,
+        "mean_effects": 20.386551600143832,
+        "mean_draw_calls": 422.84645810859405,
+        "mean_attack_commands": 179.0945702984538,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.5328335131247752,
+          "body": 1.055205321826681,
+          "combat": 5.4906382596188426,
+          "draw_attacks": 1.2625458468176916,
+          "draw_body": 0.26412117943185903,
+          "draw_hud_feedback": 0.48094534340165407,
+          "draw_organs": 1.3931359223300972,
+          "draw_support": 0.7576828478964401,
+          "draw_terrain": 0.20893707299532543,
+          "draw_world": 0.7689906508450198,
+          "mission": 1.486111470693995,
+          "preparation": 0.1528856526429342,
+          "visual_sync": 0.7824225098885293
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.08918122977346278,
+          "drones": 0.3391603739661992,
+          "enemy_ai": 3.4829687162891045,
+          "enemy_soft_body": 0.6490690399137001,
+          "patrol_special": 0.2562477526069759,
+          "player_weapons": 0.8643505933117583,
+          "projectiles": 0.15843653362099963
+        }
+      }
+    },
+    "dense-r4-engaged-baseline-90": {
+      "raw_report": "E:\\_Nlv\\github\\temp\\artifacts\\dense-r4-engaged-baseline-90.json",
+      "conditions": {
+        "audio_and_effects": true,
+        "battle_seed": 20261021,
+        "dt": "actual engine process delta",
+        "duration_seconds": 90.0074242222207,
+        "fixture_focus_pause_suppressed": true,
+        "height": 900,
+        "initial_actors": 24,
+        "invulnerable_fixture_actors": true,
+        "legacy_cpu": true,
+        "legacy_egg_rendering": false,
+        "loadout": "screenshot-derived 11 mixed modules",
+        "measured_frames": 4778,
+        "mission": "Survival Mission",
+        "native_actor_waves": false,
+        "native_map_spawns": true,
+        "native_pacing": true,
+        "refresh_rate": 60.0,
+        "reward_interruptions_suppressed": true,
+        "route": "excavate",
+        "six_gatling_modules": false,
+        "vsync_mode": 1,
+        "warmup_frames": 12,
+        "width": 1440
+      },
+      "frame_ms": {
+        "max": 61.824,
+        "mean": 18.6891203432398,
+        "median": 18.458,
+        "p95": 23.461,
+        "p99": 29.019,
+        "within_60fps_percent": 18.3968187526162
+      },
+      "fps_from_mean_ms": 53.50706623073988,
+      "actual_frames_per_run_second": 53.084509875580075,
+      "cpu_ms": {
+        "max": 28.128,
+        "mean": 10.4310971117622,
+        "median": 10.3,
+        "p95": 13.796,
+        "p99": 17.273,
+        "within_60fps_percent": 98.7651737128506
+      },
+      "final_counter": {
+        "average_ms": 17.6358666666667,
+        "fps": 56.7026287338681,
+        "peak_ms": 22.17799949646,
+        "text": "57 FPS   17.6 ms"
+      },
+      "renderer_override": null,
+      "windows": {
+        "0-10": {
+          "frames": 593,
+          "fps_from_mean_ms": 59.42612600984329,
+          "frame_ms": {
+            "mean": 16.827615514333896,
+            "p95": 25.136,
+            "p99": 32.922,
+            "max": 61.824
+          },
+          "mean_cpu_ms": 8.561220910623947,
+          "mean_actors": 24,
+          "mean_effects": 8.126475548060709,
+          "mean_draw_calls": 384.67284991568295,
+          "mean_attack_commands": 75.56155143338954,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.37870994940978076,
+            "body": 0.890558178752108,
+            "combat": 4.178537942664418,
+            "draw_attacks": 0.5009376053962901,
+            "draw_body": 0.26704553119730184,
+            "draw_hud_feedback": 0.5131433389544688,
+            "draw_organs": 1.3144030354131535,
+            "draw_support": 0.6360927487352445,
+            "draw_terrain": 0.3841112984822934,
+            "draw_world": 0.6476475548060708,
+            "mission": 0.07161214165261383,
+            "preparation": 0.2464806070826307,
+            "visual_sync": 2.782674536256324
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.04353288364249579,
+            "drones": 0.19734907251264755,
+            "enemy_ai": 2.0911517706576728,
+            "enemy_soft_body": 0.25443676222596967,
+            "patrol_special": 0.15653962900505902,
+            "player_weapons": 1.4841231028667792,
+            "projectiles": 0.06072849915682968
+          }
+        },
+        "10-20": {
+          "frames": 515,
+          "fps_from_mean_ms": 52.3266405697284,
+          "frame_ms": {
+            "mean": 19.11072427184466,
+            "p95": 24.313,
+            "p99": 29.019,
+            "max": 38.841
+          },
+          "mean_cpu_ms": 10.295615533980582,
+          "mean_actors": 32.337864077669906,
+          "mean_effects": 18.1126213592233,
+          "mean_draw_calls": 411.97087378640776,
+          "mean_attack_commands": 156.70679611650485,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.4596368932038835,
+            "body": 1.1377087378640776,
+            "combat": 6.153926213592233,
+            "draw_attacks": 1.0757922330097087,
+            "draw_body": 0.26358640776699027,
+            "draw_hud_feedback": 0.47269126213592233,
+            "draw_organs": 1.2993067961165048,
+            "draw_support": 0.6562582524271845,
+            "draw_terrain": 0.5492854368932039,
+            "draw_world": 0.7667883495145631,
+            "mission": 0.910726213592233,
+            "preparation": 0.20238252427184467,
+            "visual_sync": 1.4192582524271844
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.07123883495145632,
+            "drones": 0.2991902912621359,
+            "enemy_ai": 3.8302252427184467,
+            "enemy_soft_body": 0.8121378640776699,
+            "patrol_special": 0.1926854368932039,
+            "player_weapons": 1.459190291262136,
+            "projectiles": 0.11132038834951456
+          }
+        },
+        "30-40": {
+          "frames": 501,
+          "fps_from_mean_ms": 50.27324663522966,
+          "frame_ms": {
+            "mean": 19.891295409181637,
+            "p95": 26.418,
+            "p99": 30.196,
+            "max": 35.569
+          },
+          "mean_cpu_ms": 11.458784431137724,
+          "mean_actors": 60,
+          "mean_effects": 14.063872255489022,
+          "mean_draw_calls": 372.7385229540918,
+          "mean_attack_commands": 143.38323353293413,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.47089021956087823,
+            "body": 1.2654311377245508,
+            "combat": 6.500884231536926,
+            "draw_attacks": 1.016750499001996,
+            "draw_body": 0.27002594810379243,
+            "draw_hud_feedback": 0.607193612774451,
+            "draw_organs": 1.3204231536926148,
+            "draw_support": 0.8594411177644711,
+            "draw_terrain": 0.14586027944111776,
+            "draw_world": 0.7670558882235529,
+            "mission": 2.554135728542914,
+            "preparation": 0.1418622754491018,
+            "visual_sync": 0.5125289421157685
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.08332135728542914,
+            "drones": 0.443872255489022,
+            "enemy_ai": 4.158776447105788,
+            "enemy_soft_body": 1.0022195608782436,
+            "patrol_special": 0.271061876247505,
+            "player_weapons": 1.036435129740519,
+            "projectiles": 0.15622554890219562
+          }
+        },
+        "70-80": {
+          "frames": 527,
+          "fps_from_mean_ms": 52.90783254781432,
+          "frame_ms": {
+            "mean": 18.900793168880455,
+            "p95": 21.745,
+            "p99": 31.092,
+            "max": 40.397
+          },
+          "mean_cpu_ms": 10.778309297912713,
+          "mean_actors": 60,
+          "mean_effects": 18.707779886148007,
+          "mean_draw_calls": 344.1404174573055,
+          "mean_attack_commands": 153.96204933586338,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.4936641366223909,
+            "body": 1.07073055028463,
+            "combat": 6.010719165085389,
+            "draw_attacks": 1.1731404174573055,
+            "draw_body": 0.26630550284629984,
+            "draw_hud_feedback": 0.45526565464895635,
+            "draw_organs": 1.308278937381404,
+            "draw_support": 0.7996508538899431,
+            "draw_terrain": 0.07362998102466793,
+            "draw_world": 0.7869810246679317,
+            "mission": 2.5335332068311196,
+            "preparation": 0.14298861480075903,
+            "visual_sync": 0.5105521821631879
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.08295825426944972,
+            "drones": 0.4300834914611006,
+            "enemy_ai": 4.019948766603416,
+            "enemy_soft_body": 1.0626717267552181,
+            "patrol_special": 0.3212675521821632,
+            "player_weapons": 0.709392789373814,
+            "projectiles": 0.10914990512333966
+          }
+        },
+        "80-90": {
+          "frames": 525,
+          "fps_from_mean_ms": 53.4304865807552,
+          "frame_ms": {
+            "mean": 18.715906666666665,
+            "p95": 21.6,
+            "p99": 23.23,
+            "max": 37.713
+          },
+          "mean_cpu_ms": 10.745965714285715,
+          "mean_actors": 60,
+          "mean_effects": 18.04190476190476,
+          "mean_draw_calls": 344.89714285714285,
+          "mean_attack_commands": 149.86285714285714,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.48036,
+            "body": 1.1314742857142857,
+            "combat": 6.045274285714286,
+            "draw_attacks": 1.1073409523809523,
+            "draw_body": 0.26484380952380954,
+            "draw_hud_feedback": 0.4512819047619048,
+            "draw_organs": 1.3010419047619048,
+            "draw_support": 0.7906628571428571,
+            "draw_terrain": 0.07321333333333334,
+            "draw_world": 0.7514190476190477,
+            "mission": 2.4324190476190477,
+            "preparation": 0.13686285714285715,
+            "visual_sync": 0.5074057142857142
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.08054857142857143,
+            "drones": 0.4175371428571429,
+            "enemy_ai": 4.088594285714286,
+            "enemy_soft_body": 1.0524361904761905,
+            "patrol_special": 0.31662666666666667,
+            "player_weapons": 0.7057428571428571,
+            "projectiles": 0.1083352380952381
+          }
+        }
+      },
+      "effects_ge_12": {
+        "frames": 3385,
+        "fps_from_mean_ms": 52.04495706429418,
+        "frame_ms": {
+          "mean": 19.214157459379617,
+          "p95": 23.478,
+          "p99": 28.455,
+          "max": 38.841
+        },
+        "mean_cpu_ms": 10.70114800590842,
+        "mean_actors": 54.57488921713442,
+        "mean_effects": 20.22983751846381,
+        "mean_draw_calls": 376.04667651403247,
+        "mean_attack_commands": 166.20531757754802,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.5165692762186115,
+          "body": 1.1227373707533235,
+          "combat": 6.102144165435746,
+          "draw_attacks": 1.2313645494830132,
+          "draw_body": 0.26642363367799116,
+          "draw_hud_feedback": 0.4819190546528804,
+          "draw_organs": 1.3052333825701625,
+          "draw_support": 0.7702626292466765,
+          "draw_terrain": 0.2207533234859675,
+          "draw_world": 0.7913033973412112,
+          "mission": 2.0195178729689807,
+          "preparation": 0.15440856720827179,
+          "visual_sync": 0.7734629246676514
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.08411403249630724,
+          "drones": 0.407765435745938,
+          "enemy_ai": 3.976489807976366,
+          "enemy_soft_body": 0.9728765140324963,
+          "patrol_special": 0.27856011816838994,
+          "player_weapons": 0.9221036927621861,
+          "projectiles": 0.1263979320531758
+        }
+      },
+      "attack_commands_ge_120": {
+        "frames": 2889,
+        "fps_from_mean_ms": 51.441367898086476,
+        "frame_ms": {
+          "mean": 19.439607476635516,
+          "p95": 23.753,
+          "p99": 28.978,
+          "max": 38.841
+        },
+        "mean_cpu_ms": 10.757095534787124,
+        "mean_actors": 54.42921426098996,
+        "mean_effects": 21.093457943925234,
+        "mean_draw_calls": 388.4506749740395,
+        "mean_attack_commands": 178.12218760816893,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.549601246105919,
+          "body": 1.1319781931464175,
+          "combat": 6.1293935617860855,
+          "draw_attacks": 1.3111118033921771,
+          "draw_body": 0.26684977500865353,
+          "draw_hud_feedback": 0.4991619937694704,
+          "draw_organs": 1.3052159916926271,
+          "draw_support": 0.7750868812737972,
+          "draw_terrain": 0.22396400138456213,
+          "draw_world": 0.8159034267912773,
+          "mission": 2.0011142263759085,
+          "preparation": 0.15590965732087228,
+          "visual_sync": 0.7767417791623399
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.08693907926618206,
+          "drones": 0.41153340256143994,
+          "enemy_ai": 3.9720404984423676,
+          "enemy_soft_body": 0.9760401523018345,
+          "patrol_special": 0.27895984769816545,
+          "player_weapons": 0.9328823122187608,
+          "projectiles": 0.13938248528902736
+        }
+      }
+    },
+    "dense-r5-engaged-new-90": {
+      "raw_report": "E:\\_Nlv\\github\\temp\\artifacts\\dense-r5-engaged-new-90.json",
+      "conditions": {
+        "audio_and_effects": true,
+        "battle_seed": 20261021,
+        "dt": "actual engine process delta",
+        "duration_seconds": 90.0007852380986,
+        "fixture_focus_pause_suppressed": true,
+        "height": 900,
+        "initial_actors": 24,
+        "invulnerable_fixture_actors": true,
+        "legacy_cpu": false,
+        "legacy_egg_rendering": false,
+        "loadout": "screenshot-derived 11 mixed modules",
+        "measured_frames": 6401,
+        "mission": "Survival Mission",
+        "native_actor_waves": false,
+        "native_map_spawns": true,
+        "native_pacing": true,
+        "refresh_rate": 60.0,
+        "reward_interruptions_suppressed": true,
+        "route": "excavate",
+        "six_gatling_modules": false,
+        "vsync_mode": 1,
+        "warmup_frames": 12,
+        "width": 1440
+      },
+      "frame_ms": {
+        "max": 60.204,
+        "mean": 13.9104683643181,
+        "median": 13.171,
+        "p95": 18.353,
+        "p99": 22.192,
+        "within_60fps_percent": 89.954694578972
+      },
+      "fps_from_mean_ms": 71.88830554153814,
+      "actual_frames_per_run_second": 71.12160169565239,
+      "cpu_ms": {
+        "max": 18.597,
+        "mean": 7.37128979846897,
+        "median": 7.097,
+        "p95": 9.862,
+        "p99": 11.975,
+        "within_60fps_percent": 99.9375097640994
+      },
+      "final_counter": {
+        "average_ms": 13.2548421052632,
+        "fps": 75.444127667347,
+        "peak_ms": 16.9349994659424,
+        "text": "75 FPS   13.3 ms"
+      },
+      "renderer_override": null,
+      "windows": {
+        "0-10": {
+          "frames": 642,
+          "fps_from_mean_ms": 64.39667388170211,
+          "frame_ms": {
+            "mean": 15.528752336448598,
+            "p95": 20.956,
+            "p99": 24.499,
+            "max": 60.204
+          },
+          "mean_cpu_ms": 7.669115264797508,
+          "mean_actors": 24,
+          "mean_effects": 7.690031152647975,
+          "mean_draw_calls": 378.7492211838006,
+          "mean_attack_commands": 75.74299065420561,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.3518785046728972,
+            "body": 0.8003302180685359,
+            "combat": 3.51788785046729,
+            "draw_attacks": 0.4903566978193146,
+            "draw_body": 0.25748130841121497,
+            "draw_hud_feedback": 0.4741931464174455,
+            "draw_organs": 1.2725140186915889,
+            "draw_support": 0.6075358255451713,
+            "draw_terrain": 0.3504906542056075,
+            "draw_world": 0.6233271028037383,
+            "mission": 0.0696386292834891,
+            "preparation": 0.2366651090342679,
+            "visual_sync": 2.6807694704049845
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.04048130841121495,
+            "drones": 0.18921806853582554,
+            "enemy_ai": 1.968557632398754,
+            "enemy_soft_body": 0.1857570093457944,
+            "patrol_special": 0.15070093457943926,
+            "player_weapons": 0.9771884735202492,
+            "projectiles": 0.054398753894081
+          }
+        },
+        "10-20": {
+          "frames": 604,
+          "fps_from_mean_ms": 61.37782860078773,
+          "frame_ms": {
+            "mean": 16.292528145695364,
+            "p95": 21.084,
+            "p99": 26.651,
+            "max": 33.523
+          },
+          "mean_cpu_ms": 7.908240066225166,
+          "mean_actors": 33.16556291390729,
+          "mean_effects": 18.721854304635762,
+          "mean_draw_calls": 394.09437086092714,
+          "mean_attack_commands": 155.408940397351,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.46036754966887417,
+            "body": 1.0433526490066225,
+            "combat": 4.653011589403974,
+            "draw_attacks": 1.1434718543046358,
+            "draw_body": 0.2623692052980133,
+            "draw_hud_feedback": 0.3603046357615894,
+            "draw_organs": 1.285685430463576,
+            "draw_support": 0.6365943708609272,
+            "draw_terrain": 0.5179751655629139,
+            "draw_world": 0.7332798013245033,
+            "mission": 0.8000397350993378,
+            "preparation": 0.20284768211920529,
+            "visual_sync": 0.736567880794702
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.0713228476821192,
+            "drones": 0.2654817880794702,
+            "enemy_ai": 3.004796357615894,
+            "enemy_soft_body": 0.3955811258278146,
+            "patrol_special": 0.17280629139072848,
+            "player_weapons": 0.8529701986754967,
+            "projectiles": 0.09350993377483444
+          }
+        },
+        "30-40": {
+          "frames": 673,
+          "fps_from_mean_ms": 68.80376827913189,
+          "frame_ms": {
+            "mean": 14.53408766716196,
+            "p95": 18.126,
+            "p99": 21.967,
+            "max": 25.728
+          },
+          "mean_cpu_ms": 7.335225854383358,
+          "mean_actors": 61,
+          "mean_effects": 7.399702823179792,
+          "mean_draw_calls": 317.52451708766716,
+          "mean_attack_commands": 93.67161961367013,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.30537147102526,
+            "body": 1.0071619613670133,
+            "combat": 4.3251233283803865,
+            "draw_attacks": 0.6057578008915304,
+            "draw_body": 0.2585260029717682,
+            "draw_hud_feedback": 0.49548291233283803,
+            "draw_organs": 1.257586924219911,
+            "draw_support": 0.7875022288261515,
+            "draw_terrain": 0.14745022288261517,
+            "draw_world": 0.6339925705794948,
+            "mission": 1.2687934621099555,
+            "preparation": 0.13467904903417532,
+            "visual_sync": 0.2820029717682021
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.05924219910846954,
+            "drones": 0.3089702823179792,
+            "enemy_ai": 2.682751857355126,
+            "enemy_soft_body": 0.43247102526002973,
+            "patrol_special": 0.24766419019316493,
+            "player_weapons": 0.6205928677563151,
+            "projectiles": 0.08712332838038633
+          }
+        },
+        "70-80": {
+          "frames": 763,
+          "fps_from_mean_ms": 76.72733288047782,
+          "frame_ms": {
+            "mean": 13.033165137614679,
+            "p95": 14.617,
+            "p99": 16.257,
+            "max": 20.47
+          },
+          "mean_cpu_ms": 7.28132372214941,
+          "mean_actors": 61,
+          "mean_effects": 5.114023591087811,
+          "mean_draw_calls": 224.67496723460027,
+          "mean_attack_commands": 31.347313237221496,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.2890878112712975,
+            "body": 0.9183774574049803,
+            "combat": 4.420807339449541,
+            "draw_attacks": 0.13781389252948886,
+            "draw_body": 0.25795150720838794,
+            "draw_hud_feedback": 0.29254521625163826,
+            "draw_organs": 1.2627994757536043,
+            "draw_support": 0.7672201834862385,
+            "draw_terrain": 0.07051245085190039,
+            "draw_world": 0.4726094364351245,
+            "mission": 1.398007863695937,
+            "preparation": 0.13031585845347313,
+            "visual_sync": 0.11187549148099607
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.05109698558322411,
+            "drones": 0.29304980340760156,
+            "enemy_ai": 3.02802752293578,
+            "enemy_soft_body": 0.525699868938401,
+            "patrol_special": 0.30381258191349936,
+            "player_weapons": 0.3834115334207077,
+            "projectiles": 0.05009829619921363
+          }
+        },
+        "80-90": {
+          "frames": 740,
+          "fps_from_mean_ms": 75.3901337543227,
+          "frame_ms": {
+            "mean": 13.264335135135136,
+            "p95": 14.531,
+            "p99": 15.686,
+            "max": 21.689
+          },
+          "mean_cpu_ms": 7.547601351351352,
+          "mean_actors": 61,
+          "mean_effects": 5.6824324324324325,
+          "mean_draw_calls": 224.6689189189189,
+          "mean_attack_commands": 31.366216216216216,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.2930472972972973,
+            "body": 0.8945054054054054,
+            "combat": 4.72734054054054,
+            "draw_attacks": 0.1382027027027027,
+            "draw_body": 0.25694864864864864,
+            "draw_hud_feedback": 0.2903459459459459,
+            "draw_organs": 1.2543932432432432,
+            "draw_support": 0.7642986486486486,
+            "draw_terrain": 0.07061351351351351,
+            "draw_world": 0.46166621621621623,
+            "mission": 1.3781216216216217,
+            "preparation": 0.12983243243243242,
+            "visual_sync": 0.11206756756756757
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.05333243243243243,
+            "drones": 0.2924972972972973,
+            "enemy_ai": 3.333675675675676,
+            "enemy_soft_body": 0.5335540540540541,
+            "patrol_special": 0.3034743243243243,
+            "player_weapons": 0.38194864864864864,
+            "projectiles": 0.05250945945945946
+          }
+        }
+      },
+      "effects_ge_12": {
+        "frames": 1418,
+        "fps_from_mean_ms": 62.62574281948161,
+        "frame_ms": {
+          "mean": 15.967874471086036,
+          "p95": 20.912,
+          "p99": 25.895,
+          "max": 33.523
+        },
+        "mean_cpu_ms": 8.059864598025388,
+        "mean_actors": 45.4950634696756,
+        "mean_effects": 17.753878702397742,
+        "mean_draw_calls": 361.9675599435825,
+        "mean_attack_commands": 133.41466854724965,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.45899435825105783,
+          "body": 1.0232270803949224,
+          "combat": 4.805478843441467,
+          "draw_attacks": 0.945203808180536,
+          "draw_body": 0.2609287729196051,
+          "draw_hud_feedback": 0.39147672778561354,
+          "draw_organs": 1.2766043723554301,
+          "draw_support": 0.6884231311706629,
+          "draw_terrain": 0.38692031029619184,
+          "draw_world": 0.6799922425952045,
+          "mission": 0.8541382228490833,
+          "preparation": 0.17518899858956277,
+          "visual_sync": 0.7306918194640338
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.07441889985895628,
+          "drones": 0.2934534555712271,
+          "enemy_ai": 3.1047482369534554,
+          "enemy_soft_body": 0.4187299012693935,
+          "patrol_special": 0.2053737658674189,
+          "player_weapons": 0.7649139633286319,
+          "projectiles": 0.11649858956276446
+        }
+      },
+      "attack_commands_ge_120": {
+        "frames": 867,
+        "fps_from_mean_ms": 59.323721886833745,
+        "frame_ms": {
+          "mean": 16.856663206459054,
+          "p95": 21.727,
+          "p99": 26.651,
+          "max": 33.523
+        },
+        "mean_cpu_ms": 8.256705882352941,
+        "mean_actors": 40.32756632064591,
+        "mean_effects": 19.3679354094579,
+        "mean_draw_calls": 409.2237600922722,
+        "mean_attack_commands": 174.87658592848905,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.5101061130334487,
+          "body": 1.021874279123414,
+          "combat": 4.880853517877739,
+          "draw_attacks": 1.2359065743944637,
+          "draw_body": 0.26146828143021916,
+          "draw_hud_feedback": 0.4214832756632065,
+          "draw_organs": 1.2843552479815457,
+          "draw_support": 0.6752076124567474,
+          "draw_terrain": 0.45388235294117646,
+          "draw_world": 0.7643771626297577,
+          "mission": 0.76039907727797,
+          "preparation": 0.19160553633217994,
+          "visual_sync": 0.8798500576701269
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.07956401384083045,
+          "drones": 0.28976355247981544,
+          "enemy_ai": 3.0989019607843136,
+          "enemy_soft_body": 0.4033217993079585,
+          "patrol_special": 0.18973125720876585,
+          "player_weapons": 0.8585374855824682,
+          "projectiles": 0.14070588235294118
+        }
+      }
+    },
+    "dense-r5-engaged-baseline-90": {
+      "raw_report": "E:\\_Nlv\\github\\temp\\artifacts\\dense-r5-engaged-baseline-90.json",
+      "conditions": {
+        "audio_and_effects": true,
+        "battle_seed": 20261021,
+        "dt": "actual engine process delta",
+        "duration_seconds": 90.0100801904766,
+        "fixture_focus_pause_suppressed": true,
+        "height": 900,
+        "initial_actors": 24,
+        "invulnerable_fixture_actors": true,
+        "legacy_cpu": true,
+        "legacy_egg_rendering": false,
+        "loadout": "screenshot-derived 11 mixed modules",
+        "measured_frames": 4777,
+        "mission": "Survival Mission",
+        "native_actor_waves": false,
+        "native_map_spawns": true,
+        "native_pacing": true,
+        "refresh_rate": 60.0,
+        "reward_interruptions_suppressed": true,
+        "route": "excavate",
+        "six_gatling_modules": false,
+        "vsync_mode": 1,
+        "warmup_frames": 12,
+        "width": 1440
+      },
+      "frame_ms": {
+        "max": 61.189,
+        "mean": 18.6929889051706,
+        "median": 18.489,
+        "p95": 23.043,
+        "p99": 27.058,
+        "within_60fps_percent": 14.5070127695206
+      },
+      "fps_from_mean_ms": 53.495992806340006,
+      "actual_frames_per_run_second": 53.07183362009074,
+      "cpu_ms": {
+        "max": 32.944,
+        "mean": 10.5029893238434,
+        "median": 10.384,
+        "p95": 13.677,
+        "p99": 16.014,
+        "within_60fps_percent": 99.2673225873979
+      },
+      "final_counter": {
+        "average_ms": 18.4299285714286,
+        "fps": 54.2595700316643,
+        "peak_ms": 23.4759998321533,
+        "text": "54 FPS   18.4 ms"
+      },
+      "renderer_override": null,
+      "windows": {
+        "0-10": {
+          "frames": 599,
+          "fps_from_mean_ms": 60.14277835337908,
+          "frame_ms": {
+            "mean": 16.62710016694491,
+            "p95": 23.602,
+            "p99": 29.494,
+            "max": 61.189
+          },
+          "mean_cpu_ms": 8.495764607679465,
+          "mean_actors": 24,
+          "mean_effects": 7.876460767946577,
+          "mean_draw_calls": 383.37228714524207,
+          "mean_attack_commands": 74.82303839732889,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.360440734557596,
+            "body": 0.8872988313856427,
+            "combat": 4.157854757929883,
+            "draw_attacks": 0.47652921535893156,
+            "draw_body": 0.2618831385642738,
+            "draw_hud_feedback": 0.5191218697829716,
+            "draw_organs": 1.3018764607679465,
+            "draw_support": 0.6278614357262103,
+            "draw_terrain": 0.3893873121869783,
+            "draw_world": 0.6442270450751252,
+            "mission": 0.0699465776293823,
+            "preparation": 0.2440484140233723,
+            "visual_sync": 2.7637679465776293
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.04087646076794658,
+            "drones": 0.19714524207011686,
+            "enemy_ai": 2.0430968280467448,
+            "enemy_soft_body": 0.26138063439065107,
+            "patrol_special": 0.15163939899833057,
+            "player_weapons": 1.5326210350584306,
+            "projectiles": 0.05090150250417362
+          }
+        },
+        "10-20": {
+          "frames": 516,
+          "fps_from_mean_ms": 52.399580925212085,
+          "frame_ms": {
+            "mean": 19.084122093023257,
+            "p95": 24.035,
+            "p99": 29.011,
+            "max": 37.294
+          },
+          "mean_cpu_ms": 10.500393410852713,
+          "mean_actors": 32.36821705426357,
+          "mean_effects": 16.732558139534884,
+          "mean_draw_calls": 382.06976744186045,
+          "mean_attack_commands": 139.3294573643411,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.46287015503875967,
+            "body": 1.1589127906976744,
+            "combat": 6.296928294573643,
+            "draw_attacks": 0.9945387596899224,
+            "draw_body": 0.26488372093023255,
+            "draw_hud_feedback": 0.4355813953488372,
+            "draw_organs": 1.2994011627906976,
+            "draw_support": 0.6607751937984496,
+            "draw_terrain": 0.5754980620155039,
+            "draw_world": 0.7305484496124031,
+            "mission": 0.9066434108527132,
+            "preparation": 0.20265116279069767,
+            "visual_sync": 1.4602538759689923
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.06841279069767442,
+            "drones": 0.28119961240310076,
+            "enemy_ai": 3.770765503875969,
+            "enemy_soft_body": 0.776781007751938,
+            "patrol_special": 0.2003139534883721,
+            "player_weapons": 1.679187984496124,
+            "projectiles": 0.10375775193798449
+          }
+        },
+        "30-40": {
+          "frames": 522,
+          "fps_from_mean_ms": 52.43275423934387,
+          "frame_ms": {
+            "mean": 19.072047892720306,
+            "p95": 23.381,
+            "p99": 26.655,
+            "max": 28.234
+          },
+          "mean_cpu_ms": 10.887890804597701,
+          "mean_actors": 56,
+          "mean_effects": 16.310344827586206,
+          "mean_draw_calls": 390.1954022988506,
+          "mean_attack_commands": 129.70114942528735,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.4723888888888889,
+            "body": 1.2547298850574713,
+            "combat": 6.0039214559386975,
+            "draw_attacks": 0.8221379310344827,
+            "draw_body": 0.265948275862069,
+            "draw_hud_feedback": 0.6356455938697319,
+            "draw_organs": 1.284515325670498,
+            "draw_support": 0.8220651340996169,
+            "draw_terrain": 0.1362911877394636,
+            "draw_world": 0.742735632183908,
+            "mission": 2.266176245210728,
+            "preparation": 0.13534291187739464,
+            "visual_sync": 0.7427413793103448
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.08222030651340996,
+            "drones": 0.37272030651341,
+            "enemy_ai": 3.717655172413793,
+            "enemy_soft_body": 0.9348984674329501,
+            "patrol_special": 0.2625632183908046,
+            "player_weapons": 1.0773199233716475,
+            "projectiles": 0.15676053639846743
+          }
+        },
+        "70-80": {
+          "frames": 511,
+          "fps_from_mean_ms": 51.28518567696094,
+          "frame_ms": {
+            "mean": 19.49880821917808,
+            "p95": 23.251,
+            "p99": 25.811,
+            "max": 30.951
+          },
+          "mean_cpu_ms": 11.30342661448141,
+          "mean_actors": 56,
+          "mean_effects": 18.68101761252446,
+          "mean_draw_calls": 392.7847358121331,
+          "mean_attack_commands": 143.17416829745596,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.5048825831702544,
+            "body": 1.215307240704501,
+            "combat": 5.903772994129159,
+            "draw_attacks": 1.047211350293542,
+            "draw_body": 0.2673052837573386,
+            "draw_hud_feedback": 0.4694090019569472,
+            "draw_organs": 1.3154383561643836,
+            "draw_support": 0.8017318982387476,
+            "draw_terrain": 0.07232289628180039,
+            "draw_world": 0.7813913894324853,
+            "mission": 2.7706536203522503,
+            "preparation": 0.13809393346379648,
+            "visual_sync": 0.7581722113502936
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.08473776908023484,
+            "drones": 0.3609256360078278,
+            "enemy_ai": 3.933152641878669,
+            "enemy_soft_body": 1.0064011741682974,
+            "patrol_special": 0.3046771037181996,
+            "player_weapons": 0.767160469667319,
+            "projectiles": 0.11776125244618395
+          }
+        },
+        "80-90": {
+          "frames": 521,
+          "fps_from_mean_ms": 52.985450459722514,
+          "frame_ms": {
+            "mean": 18.87310556621881,
+            "p95": 21.578,
+            "p99": 23.73,
+            "max": 33.738
+          },
+          "mean_cpu_ms": 10.708959692898272,
+          "mean_actors": 56,
+          "mean_effects": 19.049904030710174,
+          "mean_draw_calls": 396.637236084453,
+          "mean_attack_commands": 145.59884836852208,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.4818502879078695,
+            "body": 1.2323397312859885,
+            "combat": 5.979207293666027,
+            "draw_attacks": 1.0591036468330135,
+            "draw_body": 0.26633205374280233,
+            "draw_hud_feedback": 0.4699309021113244,
+            "draw_organs": 1.298595009596929,
+            "draw_support": 0.7921823416506718,
+            "draw_terrain": 0.07233397312859885,
+            "draw_world": 0.7771477927063339,
+            "mission": 2.109819577735125,
+            "preparation": 0.13708061420345488,
+            "visual_sync": 0.756088291746641
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.08829174664107485,
+            "drones": 0.3642437619961612,
+            "enemy_ai": 3.981147792706334,
+            "enemy_soft_body": 1.0026065259117083,
+            "patrol_special": 0.30617274472168904,
+            "player_weapons": 0.7785220729366603,
+            "projectiles": 0.12623032629558542
+          }
+        }
+      },
+      "effects_ge_12": {
+        "frames": 3488,
+        "fps_from_mean_ms": 51.92262035006177,
+        "frame_ms": {
+          "mean": 19.25942861238532,
+          "p95": 23.373,
+          "p99": 27.154,
+          "max": 37.294
+        },
+        "mean_cpu_ms": 10.85229615825688,
+        "mean_actors": 51.7233371559633,
+        "mean_effects": 20.051605504587155,
+        "mean_draw_calls": 400.1697247706422,
+        "mean_attack_commands": 150.55647935779817,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.5260536123853211,
+          "body": 1.182511754587156,
+          "combat": 5.939267775229358,
+          "draw_attacks": 1.0685086009174312,
+          "draw_body": 0.26601118119266054,
+          "draw_hud_feedback": 0.4863170871559633,
+          "draw_organs": 1.296727350917431,
+          "draw_support": 0.7697373853211009,
+          "draw_terrain": 0.21843606651376146,
+          "draw_world": 0.7700091743119266,
+          "mission": 2.1110668004587154,
+          "preparation": 0.15093979357798165,
+          "visual_sync": 0.9299567087155963
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.08593061926605505,
+          "drones": 0.34968491972477067,
+          "enemy_ai": 3.777837729357798,
+          "enemy_soft_body": 0.9264375,
+          "patrol_special": 0.27514506880733947,
+          "player_weapons": 1.0080960435779815,
+          "projectiles": 0.13418864678899084
+        }
+      },
+      "attack_commands_ge_120": {
+        "frames": 2458,
+        "fps_from_mean_ms": 51.017188932134275,
+        "frame_ms": {
+          "mean": 19.601236777868184,
+          "p95": 23.602,
+          "p99": 27.299,
+          "max": 35.215
+        },
+        "mean_cpu_ms": 10.94529332790887,
+        "mean_actors": 50.9613506916192,
+        "mean_effects": 22.073230268510983,
+        "mean_draw_calls": 426.1513425549227,
+        "mean_attack_commands": 171.7912937347437,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.5625154597233523,
+          "body": 1.1789344995931652,
+          "combat": 5.969623270951994,
+          "draw_attacks": 1.2147302685109846,
+          "draw_body": 0.26592961757526445,
+          "draw_hud_feedback": 0.512246948738812,
+          "draw_organs": 1.2962538649308382,
+          "draw_support": 0.7679633848657446,
+          "draw_terrain": 0.17444711147274206,
+          "draw_world": 0.8114430431244914,
+          "mission": 2.0959829129373473,
+          "preparation": 0.1551960943856794,
+          "visual_sync": 0.970493490642799
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.08992148087876323,
+          "drones": 0.3538413344182262,
+          "enemy_ai": 3.7646423921887715,
+          "enemy_soft_body": 0.9195638730675346,
+          "patrol_special": 0.2774227013832384,
+          "player_weapons": 1.0301415785191212,
+          "projectiles": 0.14745972335231897
+        }
+      }
+    },
+    "dense-r5-engaged-straight-90": {
+      "raw_report": "E:\\_Nlv\\github\\temp\\artifacts\\dense-r5-engaged-straight-90.json",
+      "conditions": {
+        "audio_and_effects": true,
+        "battle_seed": 20261021,
+        "dt": "actual engine process delta",
+        "duration_seconds": 90.0206149523808,
+        "fixture_focus_pause_suppressed": true,
+        "height": 900,
+        "initial_actors": 24,
+        "invulnerable_fixture_actors": true,
+        "legacy_cpu": false,
+        "legacy_egg_rendering": false,
+        "loadout": "screenshot-derived 11 mixed modules",
+        "measured_frames": 4542,
+        "mission": "Survival Mission",
+        "native_actor_waves": false,
+        "native_map_spawns": true,
+        "native_pacing": true,
+        "refresh_rate": 60.0,
+        "reward_interruptions_suppressed": true,
+        "route": "straight",
+        "six_gatling_modules": false,
+        "vsync_mode": 1,
+        "warmup_frames": 12,
+        "width": 1440
+      },
+      "frame_ms": {
+        "max": 61.004,
+        "mean": 19.6666426684281,
+        "median": 19.28,
+        "p95": 27.168,
+        "p99": 31.348,
+        "within_60fps_percent": 27.03654777631
+      },
+      "fps_from_mean_ms": 50.84751967377497,
+      "actual_frames_per_run_second": 50.45510967018646,
+      "cpu_ms": {
+        "max": 29.689,
+        "mean": 10.1169542051959,
+        "median": 9.664,
+        "p95": 15.663,
+        "p99": 18.234,
+        "within_60fps_percent": 97.1378247468076
+      },
+      "final_counter": {
+        "average_ms": 22.1633333333333,
+        "fps": 45.1195668521582,
+        "peak_ms": 35.0369987487793,
+        "text": "45 FPS   22.2 ms"
+      },
+      "renderer_override": null,
+      "windows": {
+        "0-10": {
+          "frames": 645,
+          "fps_from_mean_ms": 64.70166863095582,
+          "frame_ms": {
+            "mean": 15.455551937984497,
+            "p95": 21.149,
+            "p99": 25.862,
+            "max": 61.004
+          },
+          "mean_cpu_ms": 6.978933333333333,
+          "mean_actors": 25.398449612403102,
+          "mean_effects": 9.421705426356588,
+          "mean_draw_calls": 404.6341085271318,
+          "mean_attack_commands": 104.74883720930232,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.3935193798449612,
+            "body": 0.6666651162790698,
+            "combat": 3.0839069767441862,
+            "draw_attacks": 0.6034480620155038,
+            "draw_body": 0.2600186046511628,
+            "draw_hud_feedback": 0.5625782945736434,
+            "draw_organs": 1.2781627906976745,
+            "draw_support": 0.6695302325581395,
+            "draw_terrain": 0.5040542635658914,
+            "draw_world": 0.6959457364341085,
+            "mission": 0.30713178294573645,
+            "preparation": 0.24275503875968993,
+            "visual_sync": 2.272936434108527
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.04926821705426357,
+            "drones": 0.21651317829457364,
+            "enemy_ai": 1.5861286821705427,
+            "enemy_soft_body": 0.2873643410852713,
+            "patrol_special": 0.15029457364341084,
+            "player_weapons": 0.8540124031007752,
+            "projectiles": 0.07636589147286822
+          }
+        },
+        "10-20": {
+          "frames": 592,
+          "fps_from_mean_ms": 60.12683715671968,
+          "frame_ms": {
+            "mean": 16.631508445945947,
+            "p95": 19.977,
+            "p99": 22.112,
+            "max": 23.746
+          },
+          "mean_cpu_ms": 7.510180743243243,
+          "mean_actors": 53.273648648648646,
+          "mean_effects": 14.346283783783784,
+          "mean_draw_calls": 434.44594594594594,
+          "mean_attack_commands": 172.16554054054055,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.4004172297297297,
+            "body": 0.5898445945945946,
+            "combat": 4.054538851351351,
+            "draw_attacks": 0.9343445945945946,
+            "draw_body": 0.2605726351351351,
+            "draw_hud_feedback": 0.5913057432432433,
+            "draw_organs": 1.2865760135135136,
+            "draw_support": 0.8160641891891892,
+            "draw_terrain": 0.6735388513513514,
+            "draw_world": 0.7553125,
+            "mission": 0.8549408783783784,
+            "preparation": 0.21943074324324324,
+            "visual_sync": 1.3791368243243243
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.07615709459459459,
+            "drones": 0.36972635135135135,
+            "enemy_ai": 2.1928260135135136,
+            "enemy_soft_body": 0.6127077702702702,
+            "patrol_special": 0.1873091216216216,
+            "player_weapons": 0.8063429054054054,
+            "projectiles": 0.1377212837837838
+          }
+        },
+        "30-40": {
+          "frames": 561,
+          "fps_from_mean_ms": 56.3379376458535,
+          "frame_ms": {
+            "mean": 17.750028520499107,
+            "p95": 21.91,
+            "p99": 23.669,
+            "max": 25.81
+          },
+          "mean_cpu_ms": 8.77850623885918,
+          "mean_actors": 72.49554367201426,
+          "mean_effects": 15.807486631016042,
+          "mean_draw_calls": 415.09269162210336,
+          "mean_attack_commands": 166.49376114081997,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.41497147950089125,
+            "body": 0.6067308377896613,
+            "combat": 5.23238146167558,
+            "draw_attacks": 0.8943262032085562,
+            "draw_body": 0.2594313725490196,
+            "draw_hud_feedback": 0.6368698752228164,
+            "draw_organs": 1.2846666666666666,
+            "draw_support": 0.8874866310160427,
+            "draw_terrain": 0.5660855614973263,
+            "draw_world": 0.7851586452762923,
+            "mission": 1.4416916221033869,
+            "preparation": 0.14698217468805705,
+            "visual_sync": 0.9236221033868093
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.08262210338680927,
+            "drones": 0.5042549019607843,
+            "enemy_ai": 3.131825311942959,
+            "enemy_soft_body": 0.8263992869875223,
+            "patrol_special": 0.21711051693404634,
+            "player_weapons": 0.7665704099821747,
+            "projectiles": 0.12823172905525845
+          }
+        },
+        "70-80": {
+          "frames": 399,
+          "fps_from_mean_ms": 40.079749661280914,
+          "frame_ms": {
+            "mean": 24.950255639097744,
+            "p95": 32.599,
+            "p99": 37.119,
+            "max": 39.939
+          },
+          "mean_cpu_ms": 13.908959899749373,
+          "mean_actors": 96.58395989974937,
+          "mean_effects": 15.674185463659148,
+          "mean_draw_calls": 481.6591478696742,
+          "mean_attack_commands": 183.6892230576441,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.5484310776942356,
+            "body": 0.8745739348370928,
+            "combat": 7.877233082706767,
+            "draw_attacks": 1.244937343358396,
+            "draw_body": 0.2788170426065163,
+            "draw_hud_feedback": 0.8285488721804511,
+            "draw_organs": 1.355471177944862,
+            "draw_support": 1.061110275689223,
+            "draw_terrain": 1.01296992481203,
+            "draw_world": 0.9798245614035088,
+            "mission": 3.171270676691729,
+            "preparation": 0.18121052631578946,
+            "visual_sync": 1.2423759398496241
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.1076265664160401,
+            "drones": 0.6391779448621554,
+            "enemy_ai": 4.965734335839599,
+            "enemy_soft_body": 1.0613834586466164,
+            "patrol_special": 0.21893734335839599,
+            "player_weapons": 1.184002506265664,
+            "projectiles": 0.1773984962406015
+          }
+        },
+        "80-90": {
+          "frames": 441,
+          "fps_from_mean_ms": 44.80612663329,
+          "frame_ms": {
+            "mean": 22.31837641723356,
+            "p95": 27.168,
+            "p99": 31.348,
+            "max": 39.345
+          },
+          "mean_cpu_ms": 12.532108843537415,
+          "mean_actors": 93.31519274376417,
+          "mean_effects": 14.287981859410431,
+          "mean_draw_calls": 421.1451247165533,
+          "mean_attack_commands": 166.64625850340136,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.502517006802721,
+            "body": 0.8407868480725623,
+            "combat": 6.9110884353741495,
+            "draw_attacks": 1.049421768707483,
+            "draw_body": 0.2739138321995465,
+            "draw_hud_feedback": 0.7134467120181406,
+            "draw_organs": 1.3188684807256237,
+            "draw_support": 1.0028956916099774,
+            "draw_terrain": 0.6296916099773242,
+            "draw_world": 0.8643537414965986,
+            "mission": 3.1983968253968253,
+            "preparation": 0.1713628117913832,
+            "visual_sync": 0.8947573696145125
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.09425396825396826,
+            "drones": 0.5889795918367347,
+            "enemy_ai": 4.3576303854875285,
+            "enemy_soft_body": 0.9964784580498867,
+            "patrol_special": 0.23969614512471654,
+            "player_weapons": 0.9327142857142857,
+            "projectiles": 0.138421768707483
+          }
+        }
+      },
+      "effects_ge_12": {
+        "frames": 2806,
+        "fps_from_mean_ms": 48.57031310109765,
+        "frame_ms": {
+          "mean": 20.588708125445475,
+          "p95": 27.802,
+          "p99": 32.19,
+          "max": 39.939
+        },
+        "mean_cpu_ms": 10.466643620812544,
+        "mean_actors": 75.8071988595866,
+        "mean_effects": 18.812188168210977,
+        "mean_draw_calls": 478.0823235923022,
+        "mean_attack_commands": 202.53243050605843,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.5364233784746971,
+          "body": 0.7074800427655025,
+          "combat": 5.843285816108339,
+          "draw_attacks": 1.2230228082679973,
+          "draw_body": 0.2663941553813257,
+          "draw_hud_feedback": 0.7130634354953671,
+          "draw_organs": 1.3050277975766216,
+          "draw_support": 0.9408378474697078,
+          "draw_terrain": 0.7189511760513186,
+          "draw_world": 0.8883139700641483,
+          "mission": 1.916812188168211,
+          "preparation": 0.17976193870277976,
+          "visual_sync": 1.270223806129722
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.0961407697790449,
+          "drones": 0.5209821810406272,
+          "enemy_ai": 3.441558446186743,
+          "enemy_soft_body": 0.8568253741981469,
+          "patrol_special": 0.2226870990734141,
+          "player_weapons": 0.9571992159657876,
+          "projectiles": 0.16856699928724161
+        }
+      },
+      "attack_commands_ge_120": {
+        "frames": 3455,
+        "fps_from_mean_ms": 48.97851236820138,
+        "frame_ms": {
+          "mean": 20.417116642547033,
+          "p95": 27.511,
+          "p99": 31.645,
+          "max": 39.939
+        },
+        "mean_cpu_ms": 10.456647467438495,
+        "mean_actors": 76.25817655571635,
+        "mean_effects": 16.98697539797395,
+        "mean_draw_calls": 464.7247467438495,
+        "mean_attack_commands": 191.11461649782925,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.5046124457308249,
+          "body": 0.7067308248914617,
+          "combat": 5.838444573082489,
+          "draw_attacks": 1.1320191027496382,
+          "draw_body": 0.26588191027496383,
+          "draw_hud_feedback": 0.714972503617945,
+          "draw_organs": 1.305121562952243,
+          "draw_support": 0.9429910274963821,
+          "draw_terrain": 0.7217606367583213,
+          "draw_world": 0.8672891461649783,
+          "mission": 1.9493230101302461,
+          "preparation": 0.17910043415340088,
+          "visual_sync": 1.265822575976845
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.0927849493487699,
+          "drones": 0.5187933429811867,
+          "enemy_ai": 3.4498289435600578,
+          "enemy_soft_body": 0.8539837916063676,
+          "patrol_special": 0.22301186685962374,
+          "player_weapons": 0.9554665701881332,
+          "projectiles": 0.16101823444283647
+        }
+      }
+    },
+    "dense-r5-mobile-straight-90": {
+      "raw_report": "E:\\_Nlv\\github\\temp\\artifacts\\dense-r5-mobile-straight-90.json",
+      "conditions": {
+        "audio_and_effects": true,
+        "battle_seed": 20261021,
+        "dt": "actual engine process delta",
+        "duration_seconds": 90.0113600740734,
+        "fixture_focus_pause_suppressed": true,
+        "height": 900,
+        "initial_actors": 24,
+        "invulnerable_fixture_actors": true,
+        "legacy_cpu": false,
+        "legacy_egg_rendering": false,
+        "loadout": "screenshot-derived 11 mixed modules",
+        "measured_frames": 4868,
+        "mission": "Survival Mission",
+        "native_actor_waves": false,
+        "native_map_spawns": true,
+        "native_pacing": true,
+        "refresh_rate": 60.0,
+        "reward_interruptions_suppressed": true,
+        "route": "straight",
+        "six_gatling_modules": false,
+        "vsync_mode": 1,
+        "warmup_frames": 12,
+        "width": 1440
+      },
+      "frame_ms": {
+        "max": 42.287,
+        "mean": 18.3532941659819,
+        "median": 18.038,
+        "p95": 25.47,
+        "p99": 30.159,
+        "within_60fps_percent": 36.3393590797042
+      },
+      "fps_from_mean_ms": 54.486131533461425,
+      "actual_frames_per_run_second": 54.08206248626794,
+      "cpu_ms": {
+        "max": 31.498,
+        "mean": 9.75583463434677,
+        "median": 9.59,
+        "p95": 14.528,
+        "p99": 17.641,
+        "within_60fps_percent": 98.3360723089564
+      },
+      "final_counter": {
+        "average_ms": 20.5772307692308,
+        "fps": 48.597404150966,
+        "peak_ms": 27.048999786377,
+        "text": "49 FPS   20.6 ms"
+      },
+      "renderer_override": "mobile",
+      "windows": {
+        "0-10": {
+          "frames": 705,
+          "fps_from_mean_ms": 70.67151269415746,
+          "frame_ms": {
+            "mean": 14.14997304964539,
+            "p95": 18.424,
+            "p99": 22.046,
+            "max": 42.287
+          },
+          "mean_cpu_ms": 6.8989659574468085,
+          "mean_actors": 25.394326241134753,
+          "mean_effects": 9.956028368794327,
+          "mean_draw_calls": 413.8964539007092,
+          "mean_attack_commands": 111.29929078014185,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.3737276595744681,
+            "body": 0.6487163120567376,
+            "combat": 3.0381517730496452,
+            "draw_attacks": 0.6545276595744681,
+            "draw_body": 0.259577304964539,
+            "draw_hud_feedback": 0.6009106382978724,
+            "draw_organs": 1.312041134751773,
+            "draw_support": 0.6649191489361702,
+            "draw_terrain": 0.4728836879432624,
+            "draw_world": 0.6400666666666667,
+            "mission": 0.31110212765957446,
+            "preparation": 0.23197304964539006,
+            "visual_sync": 2.283441134751773
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.04869787234042553,
+            "drones": 0.21303120567375886,
+            "enemy_ai": 1.5322652482269503,
+            "enemy_soft_body": 0.26329929078014186,
+            "patrol_special": 0.14496879432624113,
+            "player_weapons": 0.882286524822695,
+            "projectiles": 0.07057163120567377
+          }
+        },
+        "10-20": {
+          "frames": 665,
+          "fps_from_mean_ms": 67.68493993801282,
+          "frame_ms": {
+            "mean": 14.774335338345864,
+            "p95": 18.639,
+            "p99": 20.178,
+            "max": 25.825
+          },
+          "mean_cpu_ms": 6.989299248120301,
+          "mean_actors": 50.32781954887218,
+          "mean_effects": 14.463157894736842,
+          "mean_draw_calls": 414.1097744360902,
+          "mean_attack_commands": 169.43308270676692,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.38892330827067667,
+            "body": 0.5781654135338345,
+            "combat": 3.91903007518797,
+            "draw_attacks": 0.9704706766917294,
+            "draw_body": 0.2636375939849624,
+            "draw_hud_feedback": 0.568024060150376,
+            "draw_organs": 1.3443353383458647,
+            "draw_support": 0.8070646616541354,
+            "draw_terrain": 0.6563879699248121,
+            "draw_world": 0.7074661654135338,
+            "mission": 0.8410255639097745,
+            "preparation": 0.20594887218045113,
+            "visual_sync": 1.0441924812030074
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.07803007518796992,
+            "drones": 0.35199548872180453,
+            "enemy_ai": 2.144609022556391,
+            "enemy_soft_body": 0.5514781954887218,
+            "patrol_special": 0.1641533834586466,
+            "player_weapons": 0.7518646616541353,
+            "projectiles": 0.14850225563909775
+          }
+        },
+        "30-40": {
+          "frames": 550,
+          "fps_from_mean_ms": 55.23819815809735,
+          "frame_ms": {
+            "mean": 18.103414545454545,
+            "p95": 23.211,
+            "p99": 30.159,
+            "max": 41.146
+          },
+          "mean_cpu_ms": 9.749745454545454,
+          "mean_actors": 76.5709090909091,
+          "mean_effects": 14.201818181818181,
+          "mean_draw_calls": 417.3727272727273,
+          "mean_attack_commands": 168.92363636363638,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.44629636363636366,
+            "body": 0.6452290909090909,
+            "combat": 5.7223381818181815,
+            "draw_attacks": 0.9904872727272728,
+            "draw_body": 0.2676690909090909,
+            "draw_hud_feedback": 0.7218618181818182,
+            "draw_organs": 1.3934527272727273,
+            "draw_support": 0.9922872727272727,
+            "draw_terrain": 0.5772472727272727,
+            "draw_world": 0.7809909090909091,
+            "mission": 1.8371890909090909,
+            "preparation": 0.15080181818181818,
+            "visual_sync": 0.9349890909090909
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.08772,
+            "drones": 0.4918527272727273,
+            "enemy_ai": 3.5112763636363638,
+            "enemy_soft_body": 0.7982218181818181,
+            "patrol_special": 0.24855636363636363,
+            "player_weapons": 0.7799745454545455,
+            "projectiles": 0.13704181818181818
+          }
+        },
+        "70-80": {
+          "frames": 499,
+          "fps_from_mean_ms": 50.13196058161111,
+          "frame_ms": {
+            "mean": 19.94735470941884,
+            "p95": 25.359,
+            "p99": 27.458,
+            "max": 30.644
+          },
+          "mean_cpu_ms": 10.67653507014028,
+          "mean_actors": 88.99599198396794,
+          "mean_effects": 16.008016032064127,
+          "mean_draw_calls": 462.97795591182364,
+          "mean_attack_commands": 188.9318637274549,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.5187014028056112,
+            "body": 0.7688957915831663,
+            "combat": 5.941813627254509,
+            "draw_attacks": 1.203567134268537,
+            "draw_body": 0.26650300601202404,
+            "draw_hud_feedback": 0.7836312625250501,
+            "draw_organs": 1.3775951903807615,
+            "draw_support": 1.0227875751503006,
+            "draw_terrain": 0.724376753507014,
+            "draw_world": 0.8290941883767535,
+            "mission": 2.273478957915832,
+            "preparation": 0.1590120240480962,
+            "visual_sync": 1.0017775551102204
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.09537074148296593,
+            "drones": 0.50137875751503,
+            "enemy_ai": 3.553324649298597,
+            "enemy_soft_body": 0.869312625250501,
+            "patrol_special": 0.29030460921843687,
+            "player_weapons": 0.872066132264529,
+            "projectiles": 0.15733667334669338
+          }
+        },
+        "80-90": {
+          "frames": 497,
+          "fps_from_mean_ms": 50.417568037087854,
+          "frame_ms": {
+            "mean": 19.834356136820926,
+            "p95": 24.458,
+            "p99": 27.832,
+            "max": 32.398
+          },
+          "mean_cpu_ms": 10.802621730382294,
+          "mean_actors": 83.9235412474849,
+          "mean_effects": 15.603621730382294,
+          "mean_draw_calls": 452.59758551307846,
+          "mean_attack_commands": 183.08853118712273,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.48621327967806843,
+            "body": 0.7790040241448692,
+            "combat": 5.602760563380282,
+            "draw_attacks": 1.1463501006036216,
+            "draw_body": 0.2677424547283702,
+            "draw_hud_feedback": 0.7462394366197184,
+            "draw_organs": 1.3859215291750504,
+            "draw_support": 1.1008832997987927,
+            "draw_terrain": 0.49306438631790744,
+            "draw_world": 0.8415311871227364,
+            "mission": 2.595235412474849,
+            "preparation": 0.15582897384305835,
+            "visual_sync": 1.1707142857142856
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.0886317907444668,
+            "drones": 0.4966338028169014,
+            "enemy_ai": 3.2304044265593563,
+            "enemy_soft_body": 0.8177565392354125,
+            "patrol_special": 0.3011106639839034,
+            "player_weapons": 0.906466800804829,
+            "projectiles": 0.1279979879275654
+          }
+        }
+      },
+      "effects_ge_12": {
+        "frames": 2825,
+        "fps_from_mean_ms": 51.75433264372746,
+        "frame_ms": {
+          "mean": 19.322053805309736,
+          "p95": 26.339,
+          "p99": 30.644,
+          "max": 41.146
+        },
+        "mean_cpu_ms": 10.133027256637169,
+        "mean_actors": 73.2424778761062,
+        "mean_effects": 19.030442477876107,
+        "mean_draw_calls": 474.47893805309735,
+        "mean_attack_commands": 207.89769911504425,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.5425373451327433,
+          "body": 0.7023118584070797,
+          "combat": 5.492026194690266,
+          "draw_attacks": 1.3353398230088496,
+          "draw_body": 0.2697345132743363,
+          "draw_hud_feedback": 0.739255221238938,
+          "draw_organs": 1.387390442477876,
+          "draw_support": 0.9842605309734513,
+          "draw_terrain": 0.669713982300885,
+          "draw_world": 0.8465727433628318,
+          "mission": 2.0724605309734514,
+          "preparation": 0.1749624778761062,
+          "visual_sync": 1.1358138053097344
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.09800389380530973,
+          "drones": 0.4765359292035398,
+          "enemy_ai": 3.1379125663716816,
+          "enemy_soft_body": 0.7841730973451327,
+          "patrol_special": 0.2393270796460177,
+          "player_weapons": 0.9426608849557522,
+          "projectiles": 0.16928814159292035
+        }
+      },
+      "attack_commands_ge_120": {
+        "frames": 3743,
+        "fps_from_mean_ms": 52.437697277047526,
+        "frame_ms": {
+          "mean": 19.070250066791345,
+          "p95": 25.809,
+          "p99": 30.329,
+          "max": 42.152
+        },
+        "mean_cpu_ms": 10.104849051562917,
+        "mean_actors": 73.97648944696768,
+        "mean_effects": 16.44696767298958,
+        "mean_draw_calls": 455.07480630510287,
+        "mean_attack_commands": 192.42025113545284,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.5038060379374834,
+          "body": 0.697850921720545,
+          "combat": 5.498275981832754,
+          "draw_attacks": 1.1982591504141062,
+          "draw_body": 0.26891130109537803,
+          "draw_hud_feedback": 0.7313283462463265,
+          "draw_organs": 1.3893224686080683,
+          "draw_support": 0.988772375100187,
+          "draw_terrain": 0.6844130376703179,
+          "draw_world": 0.8189043547956185,
+          "mission": 2.109759551162169,
+          "preparation": 0.17076943628105798,
+          "visual_sync": 1.11154902484638
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.09322575474218542,
+          "drones": 0.4760136254341437,
+          "enemy_ai": 3.1723438418380976,
+          "enemy_soft_body": 0.7824646005877638,
+          "patrol_special": 0.24058696232968207,
+          "player_weapons": 0.9288634784931873,
+          "projectiles": 0.15958081752604864
+        }
+      }
+    },
+    "dense-r6-engaged-straight-90": {
+      "raw_report": "E:\\_Nlv\\github\\temp\\artifacts\\dense-r6-engaged-straight-90.json",
+      "conditions": {
+        "audio_and_effects": true,
+        "battle_seed": 20261021,
+        "dt": "actual engine process delta",
+        "duration_seconds": 90.014718935064,
+        "fixture_focus_pause_suppressed": true,
+        "height": 900,
+        "initial_actors": 24,
+        "invulnerable_fixture_actors": true,
+        "legacy_cpu": false,
+        "legacy_egg_rendering": false,
+        "loadout": "screenshot-derived 11 mixed modules",
+        "measured_frames": 4610,
+        "mission": "Survival Mission",
+        "native_actor_waves": false,
+        "native_map_spawns": true,
+        "native_pacing": true,
+        "refresh_rate": 60.0,
+        "remote_orbits": true,
+        "reward_interruptions_suppressed": true,
+        "route": "straight",
+        "six_gatling_modules": false,
+        "vsync_mode": 1,
+        "warmup_frames": 12,
+        "width": 1440
+      },
+      "frame_ms": {
+        "max": 60.952,
+        "mean": 19.3716553145337,
+        "median": 19.241,
+        "p95": 25.257,
+        "p99": 28.272,
+        "within_60fps_percent": 22.8416485900217
+      },
+      "fps_from_mean_ms": 51.62181464429341,
+      "actual_frames_per_run_second": 51.213846519096755,
+      "cpu_ms": {
+        "max": 22.784,
+        "mean": 9.78168698481566,
+        "median": 9.847,
+        "p95": 13.844,
+        "p99": 16.386,
+        "within_60fps_percent": 99.2407809110629
+      },
+      "final_counter": {
+        "average_ms": 20.84875,
+        "fps": 47.9645062653636,
+        "peak_ms": 24.0890007019043,
+        "text": "48 FPS   20.8 ms"
+      },
+      "renderer_override": null,
+      "windows": {
+        "0-10": {
+          "frames": 625,
+          "fps_from_mean_ms": 62.69520779900298,
+          "frame_ms": {
+            "mean": 15.9501824,
+            "p95": 20.701,
+            "p99": 37.002,
+            "max": 60.952
+          },
+          "mean_cpu_ms": 7.2759472,
+          "mean_actors": 25.2352,
+          "mean_effects": 9.9744,
+          "mean_draw_calls": 417.9808,
+          "mean_attack_commands": 112.4464,
+          "mean_orbit_moves": 0.256,
+          "mean_remote_orbit_skips": 0.7152,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.4004256,
+            "body": 0.6778752,
+            "combat": 3.2434352,
+            "draw_attacks": 0.664392,
+            "draw_body": 0.2634672,
+            "draw_hud_feedback": 0.5907024,
+            "draw_organs": 1.3001296,
+            "draw_support": 0.6740304,
+            "draw_terrain": 0.4954,
+            "draw_world": 0.6974352,
+            "mission": 0.3564032,
+            "preparation": 0.2453712,
+            "visual_sync": 2.3399712
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.050896,
+            "drones": 0.2177952,
+            "enemy_ai": 1.6763376,
+            "enemy_soft_body": 0.3264816,
+            "patrol_special": 0.1497744,
+            "player_weapons": 0.9171008,
+            "projectiles": 0.0819888
+          }
+        },
+        "10-20": {
+          "frames": 609,
+          "fps_from_mean_ms": 61.94548492176712,
+          "frame_ms": {
+            "mean": 16.143226600985223,
+            "p95": 19.65,
+            "p99": 21.917,
+            "max": 24.473
+          },
+          "mean_cpu_ms": 7.21656486042693,
+          "mean_actors": 48.532019704433495,
+          "mean_effects": 13.282430213464696,
+          "mean_draw_calls": 420.81937602627255,
+          "mean_attack_commands": 166.8735632183908,
+          "mean_orbit_moves": 5.697865353037767,
+          "mean_remote_orbit_skips": 12.229885057471265,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.3730689655172414,
+            "body": 0.5755697865353038,
+            "combat": 4.026965517241379,
+            "draw_attacks": 0.9059178981937602,
+            "draw_body": 0.26117405582922826,
+            "draw_hud_feedback": 0.5808292282430213,
+            "draw_organs": 1.2858604269293925,
+            "draw_support": 0.8089376026272578,
+            "draw_terrain": 0.6432216748768473,
+            "draw_world": 0.7459868637110016,
+            "mission": 0.7507536945812808,
+            "preparation": 0.21163382594417077,
+            "visual_sync": 1.266399014778325
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.0731888341543514,
+            "drones": 0.351200328407225,
+            "enemy_ai": 2.227129720853859,
+            "enemy_soft_body": 0.5887027914614121,
+            "patrol_special": 0.18214614121510672,
+            "player_weapons": 0.7994548440065682,
+            "projectiles": 0.13336124794745485
+          }
+        },
+        "30-40": {
+          "frames": 488,
+          "fps_from_mean_ms": 48.98763734733148,
+          "frame_ms": {
+            "mean": 20.413313524590166,
+            "p95": 25.34,
+            "p99": 28.31,
+            "max": 32.131
+          },
+          "mean_cpu_ms": 10.50905737704918,
+          "mean_actors": 82.89139344262296,
+          "mean_effects": 16.674180327868854,
+          "mean_draw_calls": 478.1844262295082,
+          "mean_attack_commands": 203.04303278688525,
+          "mean_orbit_moves": 23.452868852459016,
+          "mean_remote_orbit_skips": 16.520491803278688,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.4982172131147541,
+            "body": 0.6368524590163934,
+            "combat": 6.404338114754099,
+            "draw_attacks": 1.0550901639344261,
+            "draw_body": 0.261469262295082,
+            "draw_hud_feedback": 0.7924897540983606,
+            "draw_organs": 1.2978094262295081,
+            "draw_support": 1.1115819672131149,
+            "draw_terrain": 0.5566844262295082,
+            "draw_world": 0.8699672131147541,
+            "mission": 1.8539098360655737,
+            "preparation": 0.1581045081967213,
+            "visual_sync": 0.9449303278688524
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.09400409836065574,
+            "drones": 0.537686475409836,
+            "enemy_ai": 4.050088114754098,
+            "enemy_soft_body": 0.9285532786885246,
+            "patrol_special": 0.21997950819672132,
+            "player_weapons": 0.874202868852459,
+            "projectiles": 0.1741967213114754
+          }
+        },
+        "70-80": {
+          "frames": 488,
+          "fps_from_mean_ms": 49.05632913097517,
+          "frame_ms": {
+            "mean": 20.38472950819672,
+            "p95": 25.441,
+            "p99": 27.922,
+            "max": 45.274
+          },
+          "mean_cpu_ms": 10.599231557377049,
+          "mean_actors": 99.35655737704919,
+          "mean_effects": 15.579918032786885,
+          "mean_draw_calls": 437.87090163934425,
+          "mean_attack_commands": 169.5922131147541,
+          "mean_orbit_moves": 23.37295081967213,
+          "mean_remote_orbit_skips": 31.598360655737704,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.4959672131147541,
+            "body": 0.7666516393442623,
+            "combat": 6.75239344262295,
+            "draw_attacks": 1.0565512295081967,
+            "draw_body": 0.26257172131147544,
+            "draw_hud_feedback": 0.681016393442623,
+            "draw_organs": 1.3006639344262294,
+            "draw_support": 0.9907868852459016,
+            "draw_terrain": 0.7176270491803278,
+            "draw_world": 0.8650368852459016,
+            "mission": 1.4921413934426229,
+            "preparation": 0.17365368852459015,
+            "visual_sync": 0.9057069672131147
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.09448360655737705,
+            "drones": 0.583905737704918,
+            "enemy_ai": 4.228137295081967,
+            "enemy_soft_body": 0.9340819672131148,
+            "patrol_special": 0.2572377049180328,
+            "player_weapons": 0.9318483606557377,
+            "projectiles": 0.14084016393442622
+          }
+        },
+        "80-90": {
+          "frames": 498,
+          "fps_from_mean_ms": 50.68730664650031,
+          "frame_ms": {
+            "mean": 19.728805220883533,
+            "p95": 23.707,
+            "p99": 26.463,
+            "max": 31.298
+          },
+          "mean_cpu_ms": 10.418885542168674,
+          "mean_actors": 87.66265060240964,
+          "mean_effects": 14.660642570281125,
+          "mean_draw_calls": 425.0381526104418,
+          "mean_attack_commands": 159.789156626506,
+          "mean_orbit_moves": 20.395582329317268,
+          "mean_remote_orbit_skips": 26.710843373493976,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.45223493975903617,
+            "body": 0.7830381526104417,
+            "combat": 6.161536144578314,
+            "draw_attacks": 0.976855421686747,
+            "draw_body": 0.2636285140562249,
+            "draw_hud_feedback": 0.6839357429718875,
+            "draw_organs": 1.3028273092369478,
+            "draw_support": 0.9159016064257028,
+            "draw_terrain": 0.45336345381526105,
+            "draw_world": 0.8036927710843373,
+            "mission": 1.6922168674698794,
+            "preparation": 0.1660140562248996,
+            "visual_sync": 1.1511124497991967
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.09006425702811245,
+            "drones": 0.5551506024096385,
+            "enemy_ai": 3.7522710843373495,
+            "enemy_soft_body": 0.8776104417670683,
+            "patrol_special": 0.24074497991967872,
+            "player_weapons": 0.8901044176706827,
+            "projectiles": 0.16846184738955824
+          }
+        }
+      },
+      "effects_ge_12": {
+        "frames": 2810,
+        "fps_from_mean_ms": 49.00425191233861,
+        "frame_ms": {
+          "mean": 20.406392526690393,
+          "p95": 25.811,
+          "p99": 28.718,
+          "max": 45.274
+        },
+        "mean_cpu_ms": 10.248720996441282,
+        "mean_actors": 80.95622775800712,
+        "mean_effects": 18.85409252669039,
+        "mean_draw_calls": 483.1729537366548,
+        "mean_attack_commands": 208.32491103202847,
+        "mean_orbit_moves": 19.690391459074732,
+        "mean_remote_orbit_skips": 20.69252669039146,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.533146975088968,
+          "body": 0.6939419928825623,
+          "combat": 6.008784697508897,
+          "draw_attacks": 1.2044903914590748,
+          "draw_body": 0.2640113879003559,
+          "draw_hud_feedback": 0.7359427046263345,
+          "draw_organs": 1.3057483985765124,
+          "draw_support": 0.9969829181494662,
+          "draw_terrain": 0.6945928825622776,
+          "draw_world": 0.8877274021352313,
+          "mission": 1.5976665480427046,
+          "preparation": 0.18076797153024912,
+          "visual_sync": 1.2216644128113878
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.09648932384341637,
+          "drones": 0.527738078291815,
+          "enemy_ai": 3.5698092526690393,
+          "enemy_soft_body": 0.8826875444839858,
+          "patrol_special": 0.23321387900355872,
+          "player_weapons": 0.973779359430605,
+          "projectiles": 0.17201992882562278
+        }
+      },
+      "attack_commands_ge_120": {
+        "frames": 3725,
+        "fps_from_mean_ms": 49.86979097984139,
+        "frame_ms": {
+          "mean": 20.052219597315435,
+          "p95": 25.475,
+          "p99": 28.575,
+          "max": 45.274
+        },
+        "mean_cpu_ms": 10.137743892617449,
+        "mean_actors": 81.04322147651007,
+        "mean_effects": 16.36805369127517,
+        "mean_draw_calls": 464.19436241610737,
+        "mean_attack_commands": 193.2544966442953,
+        "mean_orbit_moves": 19.653959731543623,
+        "mean_remote_orbit_skips": 20.643758389261745,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.4922311409395973,
+          "body": 0.6869661744966443,
+          "combat": 5.953191140939597,
+          "draw_attacks": 1.0812907382550336,
+          "draw_body": 0.2632241610738255,
+          "draw_hud_feedback": 0.730281610738255,
+          "draw_organs": 1.3048359731543624,
+          "draw_support": 1.0015954362416106,
+          "draw_terrain": 0.6936893959731544,
+          "draw_world": 0.8563395973154362,
+          "mission": 1.5982791946308725,
+          "preparation": 0.17919355704697987,
+          "visual_sync": 1.2151460402684564
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.09203302013422819,
+          "drones": 0.5249157046979865,
+          "enemy_ai": 3.5519390604026846,
+          "enemy_soft_body": 0.8761218791946309,
+          "patrol_special": 0.23158711409395974,
+          "player_weapons": 0.958581744966443,
+          "projectiles": 0.1604606711409396
+        }
+      }
+    },
+    "dense-r6-engaged-full-orbits-90": {
+      "raw_report": "E:\\_Nlv\\github\\temp\\artifacts\\dense-r6-engaged-full-orbits-90.json",
+      "conditions": {
+        "audio_and_effects": true,
+        "battle_seed": 20261021,
+        "dt": "actual engine process delta",
+        "duration_seconds": 90.0139300000005,
+        "fixture_focus_pause_suppressed": true,
+        "height": 900,
+        "initial_actors": 24,
+        "invulnerable_fixture_actors": true,
+        "legacy_cpu": false,
+        "legacy_egg_rendering": false,
+        "loadout": "screenshot-derived 11 mixed modules",
+        "measured_frames": 4488,
+        "mission": "Survival Mission",
+        "native_actor_waves": false,
+        "native_map_spawns": true,
+        "native_pacing": true,
+        "refresh_rate": 60.0,
+        "remote_orbits": false,
+        "reward_interruptions_suppressed": true,
+        "route": "straight",
+        "six_gatling_modules": false,
+        "vsync_mode": 1,
+        "warmup_frames": 12,
+        "width": 1440
+      },
+      "frame_ms": {
+        "max": 60.688,
+        "mean": 19.90072771836,
+        "median": 19.704,
+        "p95": 26.649,
+        "p99": 30.173,
+        "within_60fps_percent": 22.1479500891266
+      },
+      "fps_from_mean_ms": 50.249418722382735,
+      "actual_frames_per_run_second": 49.85894960924354,
+      "cpu_ms": {
+        "max": 26.223,
+        "mean": 10.3356508467023,
+        "median": 10.261,
+        "p95": 15.341,
+        "p99": 18.167,
+        "within_60fps_percent": 97.5490196078431
+      },
+      "final_counter": {
+        "average_ms": 28.6373333333333,
+        "fps": 34.9194524629854,
+        "peak_ms": 34.5970001220703,
+        "text": "35 FPS   28.6 ms"
+      },
+      "renderer_override": null,
+      "windows": {
+        "0-10": {
+          "frames": 635,
+          "fps_from_mean_ms": 63.64127089312857,
+          "frame_ms": {
+            "mean": 15.713074015748031,
+            "p95": 20.687,
+            "p99": 24.12,
+            "max": 60.688
+          },
+          "mean_cpu_ms": 7.079551181102362,
+          "mean_actors": 24.982677165354332,
+          "mean_effects": 11.070866141732283,
+          "mean_draw_calls": 429.47716535433074,
+          "mean_attack_commands": 118.37795275590551,
+          "mean_orbit_moves": 0.6992125984251969,
+          "mean_remote_orbit_skips": 0,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.3954724409448819,
+            "body": 0.6688204724409449,
+            "combat": 3.1153858267716537,
+            "draw_attacks": 0.7252692913385826,
+            "draw_body": 0.25686299212598424,
+            "draw_hud_feedback": 0.5740062992125984,
+            "draw_organs": 1.272703937007874,
+            "draw_support": 0.6600094488188977,
+            "draw_terrain": 0.4854283464566929,
+            "draw_world": 0.7150094488188976,
+            "mission": 0.31008818897637797,
+            "preparation": 0.24234015748031495,
+            "visual_sync": 2.3350850393700786
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.05059527559055118,
+            "drones": 0.21424409448818899,
+            "enemy_ai": 1.572503937007874,
+            "enemy_soft_body": 0.3124944881889764,
+            "patrol_special": 0.1446740157480315,
+            "player_weapons": 0.9078236220472441,
+            "projectiles": 0.0771732283464567
+          }
+        },
+        "10-20": {
+          "frames": 584,
+          "fps_from_mean_ms": 59.42429055384762,
+          "frame_ms": {
+            "mean": 16.828135273972602,
+            "p95": 20.325,
+            "p99": 22.734,
+            "max": 26.887
+          },
+          "mean_cpu_ms": 7.834118150684931,
+          "mean_actors": 49.55650684931507,
+          "mean_effects": 14.205479452054794,
+          "mean_draw_calls": 422.14554794520546,
+          "mean_attack_commands": 169.2414383561644,
+          "mean_orbit_moves": 18.106164383561644,
+          "mean_remote_orbit_skips": 0,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.39452397260273975,
+            "body": 0.5925017123287671,
+            "combat": 4.123162671232877,
+            "draw_attacks": 0.9187482876712328,
+            "draw_body": 0.2595787671232877,
+            "draw_hud_feedback": 0.573958904109589,
+            "draw_organs": 1.2839520547945205,
+            "draw_support": 0.7967054794520548,
+            "draw_terrain": 0.6928493150684931,
+            "draw_world": 0.7449332191780822,
+            "mission": 1.2247602739726027,
+            "preparation": 0.22014383561643835,
+            "visual_sync": 1.2667191780821918
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.07681335616438356,
+            "drones": 0.3317071917808219,
+            "enemy_ai": 2.3141489726027396,
+            "enemy_soft_body": 0.6234503424657535,
+            "patrol_special": 0.16626883561643835,
+            "player_weapons": 0.8170239726027397,
+            "projectiles": 0.14784417808219177
+          }
+        },
+        "30-40": {
+          "frames": 494,
+          "fps_from_mean_ms": 49.58382708051831,
+          "frame_ms": {
+            "mean": 20.167866396761134,
+            "p95": 26.472,
+            "p99": 29.809,
+            "max": 34.729
+          },
+          "mean_cpu_ms": 10.7081012145749,
+          "mean_actors": 69.7672064777328,
+          "mean_effects": 14.856275303643725,
+          "mean_draw_calls": 395.6862348178138,
+          "mean_attack_commands": 150.42914979757086,
+          "mean_orbit_moves": 30.670040485829958,
+          "mean_remote_orbit_skips": 0,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.4756740890688259,
+            "body": 0.6918623481781376,
+            "combat": 5.850777327935223,
+            "draw_attacks": 0.9195587044534413,
+            "draw_body": 0.27909109311740893,
+            "draw_hud_feedback": 0.672825910931174,
+            "draw_organs": 1.38015991902834,
+            "draw_support": 0.9734858299595142,
+            "draw_terrain": 0.625663967611336,
+            "draw_world": 0.8018704453441295,
+            "mission": 2.569724696356275,
+            "preparation": 0.16098178137651822,
+            "visual_sync": 0.9452672064777328
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.0931923076923077,
+            "drones": 0.49080566801619435,
+            "enemy_ai": 3.5544635627530363,
+            "enemy_soft_body": 0.8672672064777328,
+            "patrol_special": 0.2560425101214575,
+            "player_weapons": 0.8345971659919028,
+            "projectiles": 0.20149190283400809
+          }
+        },
+        "70-80": {
+          "frames": 465,
+          "fps_from_mean_ms": 46.645243960644656,
+          "frame_ms": {
+            "mean": 21.438412903225807,
+            "p95": 26.136,
+            "p99": 28.019,
+            "max": 31.196
+          },
+          "mean_cpu_ms": 11.730232258064516,
+          "mean_actors": 96.21505376344086,
+          "mean_effects": 12.346236559139784,
+          "mean_draw_calls": 435.8451612903226,
+          "mean_attack_commands": 163.2688172043011,
+          "mean_orbit_moves": 54.38279569892473,
+          "mean_remote_orbit_skips": 0,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.48200645161290323,
+            "body": 0.7810688172043011,
+            "combat": 6.3195763440860215,
+            "draw_attacks": 0.8575440860215053,
+            "draw_body": 0.2661010752688172,
+            "draw_hud_feedback": 0.7022387096774193,
+            "draw_organs": 1.3103139784946236,
+            "draw_support": 1.1165956989247312,
+            "draw_terrain": 0.7249978494623656,
+            "draw_world": 0.8262709677419355,
+            "mission": 2.852279569892473,
+            "preparation": 0.16543010752688173,
+            "visual_sync": 1.1166709677419355
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.08627956989247312,
+            "drones": 0.556152688172043,
+            "enemy_ai": 3.9141763440860213,
+            "enemy_soft_body": 0.9837397849462366,
+            "patrol_special": 0.2596,
+            "player_weapons": 0.8795139784946236,
+            "projectiles": 0.1214258064516129
+          }
+        },
+        "80-90": {
+          "frames": 401,
+          "fps_from_mean_ms": 40.85559980503423,
+          "frame_ms": {
+            "mean": 24.476448877805485,
+            "p95": 30.213,
+            "p99": 33.722,
+            "max": 38.283
+          },
+          "mean_cpu_ms": 14.620798004987531,
+          "mean_actors": 100.44638403990025,
+          "mean_effects": 14.189526184538654,
+          "mean_draw_calls": 452.51122194513715,
+          "mean_attack_commands": 161.5211970074813,
+          "mean_orbit_moves": 57.14713216957606,
+          "mean_remote_orbit_skips": 0,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.5083790523690773,
+            "body": 0.8435436408977556,
+            "combat": 8.056910224438903,
+            "draw_attacks": 1.0032693266832917,
+            "draw_body": 0.2667431421446384,
+            "draw_hud_feedback": 0.7617755610972569,
+            "draw_organs": 1.3097830423940149,
+            "draw_support": 1.0530423940149627,
+            "draw_terrain": 0.4879925187032419,
+            "draw_world": 0.8912892768079801,
+            "mission": 3.578064837905237,
+            "preparation": 0.1694638403990025,
+            "visual_sync": 1.4509775561097258
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.0942219451371571,
+            "drones": 0.5965436408977556,
+            "enemy_ai": 5.352241895261845,
+            "enemy_soft_body": 1.0974638403990025,
+            "patrol_special": 0.28121945137157106,
+            "player_weapons": 1.0269501246882793,
+            "projectiles": 0.17562344139650873
+          }
+        }
+      },
+      "effects_ge_12": {
+        "frames": 2639,
+        "fps_from_mean_ms": 47.65264669462806,
+        "frame_ms": {
+          "mean": 20.985193255020842,
+          "p95": 27.559,
+          "p99": 31.196,
+          "max": 38.283
+        },
+        "mean_cpu_ms": 10.792674118984463,
+        "mean_actors": 76.05911330049261,
+        "mean_effects": 19.203107237589997,
+        "mean_draw_calls": 481.7620310723759,
+        "mean_attack_commands": 204.41265630920805,
+        "mean_orbit_moves": 37.43160287987874,
+        "mean_remote_orbit_skips": 0,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.5566494884425919,
+          "body": 0.7070488821523304,
+          "combat": 5.808860932171277,
+          "draw_attacks": 1.2105039787798408,
+          "draw_body": 0.2662527472527473,
+          "draw_hud_feedback": 0.7306294050776809,
+          "draw_organs": 1.314684350132626,
+          "draw_support": 0.9733251231527094,
+          "draw_terrain": 0.7179238347859037,
+          "draw_world": 0.8940132625994694,
+          "mission": 2.263401667298219,
+          "preparation": 0.18312201591511937,
+          "visual_sync": 1.260413414172035
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.09721447517999242,
+          "drones": 0.4825657446002274,
+          "enemy_ai": 3.4055316407730203,
+          "enemy_soft_body": 0.8601439939370974,
+          "patrol_special": 0.231353164077302,
+          "player_weapons": 0.989798787419477,
+          "projectiles": 0.1829120879120879
+        }
+      },
+      "attack_commands_ge_120": {
+        "frames": 3383,
+        "fps_from_mean_ms": 48.214985876059096,
+        "frame_ms": {
+          "mean": 20.74043955069465,
+          "p95": 27.287,
+          "p99": 30.486,
+          "max": 38.283
+        },
+        "mean_cpu_ms": 10.760960390186225,
+        "mean_actors": 77.28465858705292,
+        "mean_effects": 16.84569908365356,
+        "mean_draw_calls": 466.5950339934969,
+        "mean_attack_commands": 191.64971918415608,
+        "mean_orbit_moves": 38.313331362695834,
+        "mean_remote_orbit_skips": 0,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.5162518474726574,
+          "body": 0.7051132131244457,
+          "combat": 5.791523204256577,
+          "draw_attacks": 1.1062521430682826,
+          "draw_body": 0.26593940289683715,
+          "draw_hud_feedback": 0.7238326928761454,
+          "draw_organs": 1.3133895950339936,
+          "draw_support": 0.9824977830328111,
+          "draw_terrain": 0.7019964528524978,
+          "draw_world": 0.8693470292639669,
+          "mission": 2.2982323381613954,
+          "preparation": 0.17938486550399055,
+          "visual_sync": 1.257313626958321
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.0931862252438664,
+          "drones": 0.4830360626662725,
+          "enemy_ai": 3.4093112621933197,
+          "enemy_soft_body": 0.8594153118533846,
+          "patrol_special": 0.23168016553355011,
+          "player_weapons": 0.9791445462607153,
+          "projectiles": 0.1722964824120603
+        }
+      }
+    },
+    "dense-r6-natural-roam-90": {
+      "raw_report": "E:\\_Nlv\\github\\temp\\artifacts\\dense-r6-natural-roam-90.json",
+      "conditions": {
+        "audio_and_effects": true,
+        "battle_seed": 20261021,
+        "dt": "actual engine process delta",
+        "duration_seconds": 90.0138908888895,
+        "fixture_focus_pause_suppressed": true,
+        "height": 900,
+        "initial_actors": 45,
+        "invulnerable_fixture_actors": false,
+        "legacy_cpu": false,
+        "legacy_egg_rendering": false,
+        "loadout": "screenshot-derived 11 mixed modules",
+        "measured_frames": 6576,
+        "mission": "Survival Mission",
+        "native_actor_waves": true,
+        "native_map_spawns": true,
+        "native_pacing": true,
+        "refresh_rate": 60.0,
+        "remote_orbits": true,
+        "reward_interruptions_suppressed": true,
+        "route": "roam",
+        "six_gatling_modules": false,
+        "vsync_mode": 1,
+        "warmup_frames": 12,
+        "width": 1440
+      },
+      "frame_ms": {
+        "max": 81.575,
+        "mean": 13.5572218673966,
+        "median": 13.191,
+        "p95": 17.723,
+        "p99": 22.092,
+        "within_60fps_percent": 91.1952554744526
+      },
+      "fps_from_mean_ms": 73.76142470640488,
+      "actual_frames_per_run_second": 73.0553910631107,
+      "cpu_ms": {
+        "max": 57.314,
+        "mean": 6.84119312652069,
+        "median": 6.698,
+        "p95": 9.847,
+        "p99": 12.055,
+        "within_60fps_percent": 99.8175182481752
+      },
+      "final_counter": {
+        "average_ms": 15.75125,
+        "fps": 63.4870248392985,
+        "peak_ms": 39.1640014648438,
+        "text": "63 FPS   15.8 ms"
+      },
+      "renderer_override": null,
+      "windows": {
+        "0-10": {
+          "frames": 935,
+          "fps_from_mean_ms": 94.07200482534049,
+          "frame_ms": {
+            "mean": 10.630155080213903,
+            "p95": 14.846,
+            "p99": 17.764,
+            "max": 56.252
+          },
+          "mean_cpu_ms": 4.348663101604278,
+          "mean_actors": 53.6096256684492,
+          "mean_effects": 1.0342245989304812,
+          "mean_draw_calls": 265.50160427807486,
+          "mean_attack_commands": 21.33475935828877,
+          "mean_orbit_moves": 12.987165775401069,
+          "mean_remote_orbit_skips": 26.211764705882352,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.23012620320855615,
+            "body": 0.6390470588235294,
+            "combat": 2.4183540106951873,
+            "draw_attacks": 0.10719251336898396,
+            "draw_body": 0.2578951871657754,
+            "draw_hud_feedback": 0.367351871657754,
+            "draw_organs": 1.2941572192513369,
+            "draw_support": 0.6397475935828877,
+            "draw_terrain": 0.3754994652406417,
+            "draw_world": 0.47064919786096254,
+            "mission": 0.7001165775401069,
+            "preparation": 0.2623807486631016,
+            "visual_sync": 0.08637326203208556
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.029681283422459893,
+            "drones": 0.2927101604278075,
+            "enemy_ai": 1.3611144385026739,
+            "enemy_soft_body": 0.13583957219251336,
+            "patrol_special": 0.16677219251336897,
+            "player_weapons": 0.27742139037433156,
+            "projectiles": 0.0013283422459893048
+          }
+        },
+        "10-20": {
+          "frames": 712,
+          "fps_from_mean_ms": 72.58173115787943,
+          "frame_ms": {
+            "mean": 13.777571629213483,
+            "p95": 17.72,
+            "p99": 20.448,
+            "max": 81.575
+          },
+          "mean_cpu_ms": 6.681924157303371,
+          "mean_actors": 86.62780898876404,
+          "mean_effects": 1.7176966292134832,
+          "mean_draw_calls": 257.57443820224717,
+          "mean_attack_commands": 40.27949438202247,
+          "mean_orbit_moves": 15.207865168539326,
+          "mean_remote_orbit_skips": 46.30477528089887,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.26782724719101125,
+            "body": 0.6140983146067416,
+            "combat": 4.123019662921348,
+            "draw_attacks": 0.17916994382022472,
+            "draw_body": 0.26901123595505616,
+            "draw_hud_feedback": 0.39672752808988765,
+            "draw_organs": 1.335880617977528,
+            "draw_support": 0.8193848314606742,
+            "draw_terrain": 0.5700070224719102,
+            "draw_world": 0.5094522471910112,
+            "mission": 1.2941488764044944,
+            "preparation": 0.24672191011235955,
+            "visual_sync": 0.12327949438202247
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.05241994382022472,
+            "drones": 0.47689185393258426,
+            "enemy_ai": 2.451828651685393,
+            "enemy_soft_body": 0.25918398876404497,
+            "patrol_special": 0.3209676966292135,
+            "player_weapons": 0.27585393258426966,
+            "projectiles": 0.06796348314606741
+          }
+        },
+        "30-40": {
+          "frames": 709,
+          "fps_from_mean_ms": 71.25367473993916,
+          "frame_ms": {
+            "mean": 14.03436389280677,
+            "p95": 17.62,
+            "p99": 20.067,
+            "max": 24.477
+          },
+          "mean_cpu_ms": 7.41974047954866,
+          "mean_actors": 81.049365303244,
+          "mean_effects": 0.8913963328631875,
+          "mean_draw_calls": 249.6784203102962,
+          "mean_attack_commands": 32.69816643159379,
+          "mean_orbit_moves": 22.613540197461212,
+          "mean_remote_orbit_skips": 31.34132581100141,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.2346854724964739,
+            "body": 0.6098998589562764,
+            "combat": 4.883558533145275,
+            "draw_attacks": 0.10026093088857546,
+            "draw_body": 0.25723131170662905,
+            "draw_hud_feedback": 0.3873935119887165,
+            "draw_organs": 1.2847602256699577,
+            "draw_support": 0.8877404795486601,
+            "draw_terrain": 0.5293342736248237,
+            "draw_world": 0.48907475317348376,
+            "mission": 1.4222045133991537,
+            "preparation": 0.14463046544428773,
+            "visual_sync": 0.11262905500705218
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.042253878702397746,
+            "drones": 0.534459802538787,
+            "enemy_ai": 2.6590042313117066,
+            "enemy_soft_body": 0.2592524682651622,
+            "patrol_special": 0.9135035260930888,
+            "player_weapons": 0.268311706629055,
+            "projectiles": 0.0169802538787024
+          }
+        },
+        "70-80": {
+          "frames": 717,
+          "fps_from_mean_ms": 72.02910096229674,
+          "frame_ms": {
+            "mean": 13.883277545327754,
+            "p95": 17.417,
+            "p99": 21.803,
+            "max": 28.478
+          },
+          "mean_cpu_ms": 7.333557880055788,
+          "mean_actors": 72.7768479776848,
+          "mean_effects": 1.9818688981868897,
+          "mean_draw_calls": 271.7015341701534,
+          "mean_attack_commands": 35.31101813110181,
+          "mean_orbit_moves": 14.249651324965132,
+          "mean_remote_orbit_skips": 30.15481171548117,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.246442119944212,
+            "body": 0.8987489539748954,
+            "combat": 4.4457182705718274,
+            "draw_attacks": 0.19460390516039053,
+            "draw_body": 0.25705718270571826,
+            "draw_hud_feedback": 0.402697350069735,
+            "draw_organs": 1.2608047419804742,
+            "draw_support": 0.7995327754532775,
+            "draw_terrain": 0.1992273361227336,
+            "draw_world": 0.49042677824267783,
+            "mission": 1.458255230125523,
+            "preparation": 0.14110041841004184,
+            "visual_sync": 0.13090516039051603
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.04095118549511855,
+            "drones": 0.4784002789400279,
+            "enemy_ai": 2.7739232914923293,
+            "enemy_soft_body": 0.2684811715481172,
+            "patrol_special": 0.4195718270571827,
+            "player_weapons": 0.31411436541143656,
+            "projectiles": 0.015316596931659694
+          }
+        },
+        "80-90": {
+          "frames": 688,
+          "fps_from_mean_ms": 70.10711919453442,
+          "frame_ms": {
+            "mean": 14.263886627906977,
+            "p95": 18.417,
+            "p99": 26.634,
+            "max": 64.281
+          },
+          "mean_cpu_ms": 7.886572674418605,
+          "mean_actors": 82.72093023255815,
+          "mean_effects": 1.438953488372093,
+          "mean_draw_calls": 251.10610465116278,
+          "mean_attack_commands": 20.61918604651163,
+          "mean_orbit_moves": 21.694767441860463,
+          "mean_remote_orbit_skips": 31.600290697674417,
+          "main_phase_mean_ms": {
+            "audio_hud": 0.23041715116279068,
+            "body": 0.7758924418604651,
+            "combat": 5.058385174418604,
+            "draw_attacks": 0.1664360465116279,
+            "draw_body": 0.2582354651162791,
+            "draw_hud_feedback": 0.3790276162790698,
+            "draw_organs": 1.282390988372093,
+            "draw_support": 0.7855058139534884,
+            "draw_terrain": 0.229734011627907,
+            "draw_world": 0.47975436046511627,
+            "mission": 1.4548677325581396,
+            "preparation": 0.14484156976744186,
+            "visual_sync": 0.20962063953488372
+          },
+          "combat_phase_mean_ms": {
+            "cleanup": 0.042409883720930235,
+            "drones": 0.5638662790697675,
+            "enemy_ai": 3.2996831395348836,
+            "enemy_soft_body": 0.3026453488372093,
+            "patrol_special": 0.42063808139534886,
+            "player_weapons": 0.2728299418604651,
+            "projectiles": 0.010469476744186046
+          }
+        }
+      },
+      "effects_ge_12": {
+        "frames": 135,
+        "fps_from_mean_ms": 63.04130886832445,
+        "frame_ms": {
+          "mean": 15.862614814814815,
+          "p95": 21.429,
+          "p99": 23.883,
+          "max": 23.884
+        },
+        "mean_cpu_ms": 7.685888888888889,
+        "mean_actors": 70.14074074074074,
+        "mean_effects": 14.725925925925926,
+        "mean_draw_calls": 373.0888888888889,
+        "mean_attack_commands": 151.25925925925927,
+        "mean_orbit_moves": 18.177777777777777,
+        "mean_remote_orbit_skips": 24.37037037037037,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.5170222222222223,
+          "body": 0.7432444444444445,
+          "combat": 4.836562962962963,
+          "draw_attacks": 0.9205037037037037,
+          "draw_body": 0.26297777777777775,
+          "draw_hud_feedback": 0.5038444444444444,
+          "draw_organs": 1.2743555555555555,
+          "draw_support": 0.8896962962962963,
+          "draw_terrain": 0.3382,
+          "draw_world": 0.7204074074074074,
+          "mission": 1.2071703703703704,
+          "preparation": 0.1444074074074074,
+          "visual_sync": 0.22548148148148148
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.08435555555555556,
+          "drones": 0.5083777777777778,
+          "enemy_ai": 2.756748148148148,
+          "enemy_soft_body": 0.2762222222222222,
+          "patrol_special": 0.4861259259259259,
+          "player_weapons": 0.42506666666666665,
+          "projectiles": 0.17575555555555555
+        }
+      },
+      "attack_commands_ge_120": {
+        "frames": 347,
+        "fps_from_mean_ms": 61.70471820593266,
+        "frame_ms": {
+          "mean": 16.20621613832853,
+          "p95": 21.057,
+          "p99": 23.883,
+          "max": 26.114
+        },
+        "mean_cpu_ms": 7.9556916426512965,
+        "mean_actors": 67.39481268011528,
+        "mean_effects": 8.671469740634006,
+        "mean_draw_calls": 369.1757925072046,
+        "mean_attack_commands": 159.22190201729106,
+        "mean_orbit_moves": 16.30835734870317,
+        "mean_remote_orbit_skips": 23.265129682997117,
+        "main_phase_mean_ms": {
+          "audio_hud": 0.39362247838616715,
+          "body": 0.7742680115273776,
+          "combat": 4.815599423631124,
+          "draw_attacks": 0.7587521613832853,
+          "draw_body": 0.25943804034582135,
+          "draw_hud_feedback": 0.6047752161383285,
+          "draw_organs": 1.2616397694524495,
+          "draw_support": 0.9211556195965418,
+          "draw_terrain": 0.48878097982708935,
+          "draw_world": 0.7137550432276657,
+          "mission": 1.5828011527377521,
+          "preparation": 0.1449913544668588,
+          "visual_sync": 0.2323458213256484
+        },
+        "combat_phase_mean_ms": {
+          "cleanup": 0.07569164265129683,
+          "drones": 0.4890691642651297,
+          "enemy_ai": 2.9141037463976946,
+          "enemy_soft_body": 0.26968299711815563,
+          "patrol_special": 0.4035936599423631,
+          "player_weapons": 0.38320461095100866,
+          "projectiles": 0.1585821325648415
+        }
+      }
+    }
+  },
+  "measurement_limits": [
+    "Native actual engine delta, no --fixed-fps or additional fps cap. Profile overhead and all slow frames retained.",
+    "Each frame advances active combat with 12 living modules. Isolated save, native map spawns, actual digging and ore drops.",
+    "Dense fixture contains 24 durable targets, disables scheduled waves/special encounters, preserves map spawns and all real weapons. Natural fixture preserves normal waves/encounters. Player/module health protected; reward interruption suppressed.",
+    "Same seed and route are not identical real-time battles: contact, aiming and spawned actor counts diverge. The excavate turn also uses a frame threshold, so higher fps changes the turn time.",
+    "R5 excavate late battle quieted down. Its overall 71.9 fps is not representative of persistent dense fire.",
+    "Frozen draw ablations only locate rendering cost and are never treated as live gameplay fps.",
+    "Soft body phase is nested inside enemy_ai and draw stages are not part of process cpu_ms."
+  ],
+  "rejected_experiments": {
+    "persistent_radar_icons": {
+      "adopted": false,
+      "reason": "About 0.04ms benefit with subpixel placement differences."
+    },
+    "separate_render_thread": {
+      "adopted": false,
+      "reason": "Startup crashed, exit code 4294967295; default render model unchanged."
+    },
+    "mobile_vulkan": {
+      "adopted": false,
+      "reason": "90 second dense straight average 54.49 fps, still below goal, keeps compatibility default."
+    }
+  },
+  "conclusion": "Normal 90-second wave run averages 73.76 fps. Final dense continuous excavation averages 51.62 fps, with 70-80 and 80-90 second means 49.06 and 50.69 fps. Same-build full-rate distant-orbit control averages 50.25 fps, late windows 46.65 and 40.86 fps. Work reduces repeated CPU collision and deformation cost, but sustained hardest battles remain below 60 fps."
+}

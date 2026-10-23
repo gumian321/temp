@@ -2,6 +2,7 @@ extends RefCounted
 
 const CharacterRoster = preload("res://scripts/character_roster.gd")
 const FULL_UNLOCK_REQUEST = "user://unlock-all-on-next-start.request"
+const DEBUG_RESEARCH_POINTS = 10000
 var _character_run_active = false
 var _character_run_id = "centipede"
 var _character_run_support = 0
@@ -29,10 +30,20 @@ func unlock_all_content() -> bool:
 		for id in node.nodeRewardsList:
 			if id not in state.unlocked:state.unlocked.append(id)
 	for reward in db.catalog.values():
-		if str(reward.get("class","")).ends_with("Reward") and reward.id not in state.unlocked:
+		if str(reward.get("class","")).ends_with("Reward") and not reward.get("retired",false) and reward.id not in state.unlocked:
 			state.unlocked.append(reward.id)
 	state.disabled=state.disabled.filter(func(id):return id not in state.unlocked)
 	state.systems.ToggleResearches=true
+	if save():return true
+	state=previous
+	return false
+
+func reset_skill_progress() -> bool:
+	var previous=state.duplicate(true)
+	state.unlocked=db.stores.RewardDataStore.rewardsUnlockedList.duplicate()
+	state.disabled.clear()
+	state.systems.erase("ToggleResearches")
+	state.meta=maxi(int(state.meta),DEBUG_RESEARCH_POINTS)
 	if save():return true
 	state=previous
 	return false
@@ -83,6 +94,12 @@ func load_save() -> bool:
 	if int(previous_settings.get("language_revision", 0)) < 1:
 		if state.settings.language == "English":state.settings.language = db.DEFAULT_LANGUAGE
 		state.settings.language_revision = 1
+	state.unlocked=state.unlocked.filter(func(id):return not db.asset(id).get("retired",false))
+	state.disabled=state.disabled.filter(func(id):return not db.asset(id).get("retired",false))
+	for id in db.stores.RewardDataStore.rewardsUnlockedList:
+		if id not in state.unlocked:
+			state.unlocked.append(id)
+			state.disabled.erase(id)
 	_normalize_roster()
 	return true
 
@@ -99,7 +116,7 @@ func save() -> bool:
 	return err == OK
 
 func available(id: String) -> bool:
-	return id in state.unlocked and id not in state.disabled
+	return id in state.unlocked and id not in state.disabled and not db.asset(id).get("retired",false)
 
 func mission_unlocked(m: Dictionary) -> bool:
 	return int(m.get("MissionCost", 0)) == 0 or m.id in state.missions
@@ -125,17 +142,24 @@ func research_price(node: Dictionary, index: int) -> int:
 	var base = float(d.scrapBaseValue) * float(node.nodeBaseValue)
 	return int(ceil((base * rarity + index * float(d.subRate) * base) / 5.0) * 5.0)
 
+func research_prerequisite_met(node:Dictionary)->bool:
+	var previous=str(int(node.get("previousUpgradeTreeNode",{}).get("fileID",0)))
+	for parent in db.research:
+		if parent.id!=previous:continue
+		var required=mini(int(node.get("prerequisite_level",1)),parent.nodeRewardsList.size())
+		for i in required:
+			if parent.nodeRewardsList[i] not in state.unlocked:return false
+	return true
+
 func unlock_research(node: Dictionary, index: int) -> bool:
 	var id: String = node.nodeRewardsList[index]
+	if db.asset(id).get("retired",false):return false
 	if id in state.unlocked:
 		return false
 	for i in range(index):
 		if node.nodeRewardsList[i] not in state.unlocked:
 			return false
-	var previous = str(int(node.get("previousUpgradeTreeNode", {}).get("fileID", 0)))
-	for n in db.research:
-		if n.id == previous and n.nodeRewardsList[0] not in state.unlocked:
-			return false
+	if not research_prerequisite_met(node):return false
 	var cost = research_price(node, index)
 	if state.meta < cost:
 		return false

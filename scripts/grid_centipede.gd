@@ -27,6 +27,8 @@ func step(dt: float, direction: Vector2, wants_boost: bool):
 	else:
 		fuel_delay -= dt
 		if fuel_delay <= 0.0: fuel = minf(max_fuel, fuel + 25.0 * dt)
+	if terrain != null and terrain.has_method("dig"):
+		terrain.dig(head, direction, facing, collision_radius(0), dt, boost)
 	motion.step(self, dt, direction, speed)
 	refresh_positions()
 	step_mount_sway(dt)

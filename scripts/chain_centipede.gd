@@ -158,12 +158,15 @@ func step(dt: float, direction: Vector2, wants_boost: bool):
 		if fuel_delay <= 0: fuel = minf(max_fuel, fuel + 25 * dt)
 	if coil_active: speed *= 0.3
 	if rush_active: speed = 0
+	if terrain != null and terrain.has_method("dig") and terrain.enabled:
+		terrain.dig(head, direction if not rush_active else Vector2.ZERO, facing, collision_radius(0), dt, boost)
 	input_velocity = direction.limit_length()
 	velocity = input_velocity * speed
 	engine_power = speed
 	if not rush_active and direction.length_squared() > 0.001:
 		facing = Vector2.from_angle(rotate_toward(facing.angle(), direction.angle(), dt * (3.0 if character_id == "beetle" else 7.0)))
 	move_head(head + velocity * dt)
+	if terrain != null and terrain.has_method("dig") and terrain.enabled: motion.record_trail(self)
 	motion.elapsed += dt
 	motion.activity = move_toward(motion.activity, direction.length(), dt * 4)
 	if character_id == "spider": spider_rig.step(self, dt)

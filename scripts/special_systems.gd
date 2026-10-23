@@ -129,6 +129,9 @@ func mine_slots(owner:int)->Array:
 func continuous(core: Dictionary,at: Vector2,dir: Vector2,friendly: bool,chips: Dictionary,boost: float,dt: float,visual_owner:String="",range_boost:float=0.0):
 	var projectile = db.asset(core.coreProjectile)
 	var reach = db.range_units(core.get("turretRange",1))*48*maxf(0.0,1+range_boost)*(1+chip("MammothAreaPercentBoost",int(chips.get(5,0))))
+	if battle().cave_enabled():
+		var hit = battle().terrain.wall_hit(at, at + dir * reach)
+		if not hit.is_empty(): reach = maxf(0, at.distance_to(hit.position) - 1.0)
 	var damage = float(projectile.projectileDamage.hullDamage)*maxf(0.0,1+boost)*(1+chip("MammothDamagePercentBoost",int(chips.get(5,0))))*dt
 	var shield_damage = float(projectile.projectileDamage.shieldDamage)*maxf(0.0,1+boost)*dt
 	if friendly and not visual_owner.begins_with("enemy:"):
@@ -138,6 +141,7 @@ func continuous(core: Dictionary,at: Vector2,dir: Vector2,friendly: bool,chips: 
 		shield_damage *= multiplier
 	for e in battle().area_candidates(at, reach):
 		if e.hp<=0 or not e.damageable or (e.role=="friendly" if friendly else e.role!="friendly"): continue
+		if battle().cave_enabled() and not battle().terrain.ray_clear(at, battle().target_position(e)): continue
 		var delta: Vector2 = battle().target_position(e)-at
 		if delta.length()<reach and absf(angle_difference(dir.angle(),delta.angle()))<0.2:
 			battle().hit_enemy(e,{"data":projectile,"damage":damage,"shield_damage":shield_damage,"position":at,"friendly":friendly,"chips":{},"velocity":dir,"pierce":1})

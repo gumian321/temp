@@ -30,7 +30,7 @@ func execute():
 		check(battle.rng.state==rng_state,core.name+" visual/audio identity does not consume gameplay randomness")
 		if key in ["rail","tesla"]:
 			check(battle.effects.any(func(e):return e.kind=="chain" and e.fx_family==key),core.name+" uses the correct rail/arc beam identity")
-	check(families.size()==12,"All twelve source gun families are covered")
+	check(families.size()==15,"All twelve original and three added gun families are covered")
 	for hz in [30,60,120]:
 		var held=0.014
 		var elapsed=0.0

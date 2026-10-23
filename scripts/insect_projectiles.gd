@@ -69,10 +69,10 @@ static func paint(canvas, bullet: Dictionary, zoom: float, time: float = 0.0):
 	if not hostile:
 		var kind=Viscous.family(bullet,key)
 		var wet_size=size*wet_pose(bullet,kind,time)
-		# The generated atlas has its heavy droplet at the front and thin ligaments
-		# behind. Stretch that silhouette axially, keeping body and tail on the same
-		# heading. A separate larva heading wobble formerly made a crooked joint.
+		# Closed body-only art deforms on the velocity axis. Flight trails are
+		# separate world-space strips owned by projectile_trails.gd.
 		if not kind.is_empty() and Viscous.stamp(canvas,kind,at,wet_size,heading):return
+		if key in Viscous.SPECIAL_BODY_KEYS and Viscous.stamp(canvas,key,at,size,heading):return
 	var source=texture(key)
 	canvas.draw_set_transform(at,heading)
 	if source!=null:
@@ -108,14 +108,6 @@ static func hostile_geometry(bullet:Dictionary,zoom:float)->Dictionary:
 static func paint_hostile_cue(canvas,at:Vector2,heading:float,cue:Dictionary):
 	canvas.draw_set_transform(at,heading)
 	var size:Vector2=cue.size
-	var rear=Vector2(-size.x*0.30,0)
-	if cue.tail>0.5:
-		var trail=PackedVector2Array()
-		for bank in [1,-1]:
-			for i in 9:
-				var t=float(i if bank==1 else 8-i)/8
-				trail.append(rear+Vector2(-cue.tail*t,sin(t*PI)*1.5+bank*2.3*pow(1-t,1.5)))
-		canvas.draw_colored_polygon(trail,Color(DANGER,.42))
 	# Pathogenic-inspired cell membrane and nucleus; keep the existing danger hue.
 	var shape=hostile_shell(size)
 	canvas.draw_colored_polygon(shape.shell,DANGER_EDGE)

@@ -12,19 +12,20 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SUITES = [
+    "cave_mining", "cave_curves", "cave_contours", "cave_collision_cache", "cave_sweep_neighborhoods", "cave_update_budget", "cave_far_navigation", "cave_escort", "escort_guidance", "remote_map_orbits", "cave_spawn_jobs", "cave_scene", "deployment",
     "playtest_polish", "playtest_polish_scene",
     "mineral_erosion", "mineral_erosion_scene",
     "chasm_collision", "chasm_scene",
     "enemy_health", "enemy_health_scene", "enemy_sizes", "spider_turn_continuity",
-    "result_rank_ui",
+    "result_rank_ui", "ui_small_windows",
     "fragment_recovery", "fragment_recovery_budget", "fragment_art", "fragment_recovery_scene",
-    "debug_unlock_all",
+    "starter_progression", "mutation_weapons", "mutation_weapons_scene", "mutation_branches", "mutation_branches_scene", "reward_pacing", "reward_pacing_scene", "debug_unlock_all",
     "knockback", "soft_knockback", "soft_pull", "tether_motion", "emitter_reaction",
     "combat_momentum", "special_encounters", "encounter_art", "encounter_scene", "encounter_pacing",
     "attack_shader_materials", "skill_shader_coverage",
-    "enemy_death_splatter", "projectile_trajectory_continuity",
-    "viscous_projectile_motion", "viscous_renderer", "viscous_integration",
-    "combat_spatial", "hud_refresh_cache", "particle_resource_cache", "render_hotpath_regressions", "soft_render_cache", "soft_solver_regressions", "rig_batch_dynamic",
+    "enemy_death_splatter", "all_dynamic_trails", "all_dynamic_trails_scene", "projectile_trajectory_continuity",
+    "projectile_trails", "projectile_trails_scene", "viscous_projectile_motion", "viscous_renderer", "viscous_integration",
+    "combat_spatial", "combat_incremental_refresh", "hud_refresh_cache", "performance_overlay", "runtime_performance_capture", "particle_resource_cache", "render_hotpath_regressions", "soft_render_cache", "soft_solver_regressions", "rig_batch_dynamic",
     "radial_formations", "crystal_loot_scene", "hostile_readability", "soft_organs", "fusion_flagella", "camera_stability_scene", "centipede_coil", "centipede_coil_scene", "character_selection", "debug_characters", "direct_body_assembly", "insect_projectiles",
     "spider_leg_modules", "spider_rig", "spider_segments", "spider_visibility_scene", "spider_assembly_ui", "spider_motion_scene", "expedition_briefing", "character_roster", "character_abilities", "character_integration", "character_scene", "character_ui_integration", "brood", "armament_art", "generated_light_ui", "main_autofire", "main_autofire_scene", "passive_feedback_state", "passive_upgrade_effects", "passive_visual_feedback", "reward_progress_badges", "tooltip_theme", "contact_impacts", "insect_armaments", "insect_art_routes", "insect_controls", "insect_attack_fx", "game_ui_shell", "meta_ui_redesign", "battle_hud", "reward_cards", "mission_select",
     "core", "missions", "map", "rewards", "specials", "regressions", "drones",
@@ -55,7 +56,7 @@ def isolated_environment(scratch: Path) -> dict[str, str]:
     }
 
 
-def run_suite(godot: str, name: str, timeout: float, render: bool, verbose: bool = False) -> dict:
+def run_suite(godot: str, name: str, timeout: float, render: bool, verbose: bool = False, visible: bool = False, native_pacing: bool = False, debug: bool = False, profiling: bool = False) -> dict:
     script = ROOT / "tests" / f"test_{name}.gd"
     if not script.is_file():
         return {"suite": name, "passed": False, "error": f"Missing test: {script}"}
@@ -83,9 +84,14 @@ def run_suite(godot: str, name: str, timeout: float, render: bool, verbose: bool
         command = [godot, "--path", str(ROOT), "--log-file", str(scratch / "godot.log")]
         if verbose:
             command.append("--verbose")
+        if debug or profiling:
+            command.append("--debug")
+        if profiling:
+            command.append("--profiling")
         if render:
             command += ["--audio-driver", "Dummy", "--windowed", "--resolution", "1440x900",
-                        "--position", "-10000,-10000", "--fixed-fps", "60"]
+                        "--position", "80,50" if visible else "-10000,-10000"]
+            if not native_pacing: command += ["--fixed-fps", "60"]
         else:
             command += ["--headless"]
         command += ["--script", str(wrapper)]
@@ -93,7 +99,7 @@ def run_suite(godot: str, name: str, timeout: float, render: bool, verbose: bool
         if os.name == "nt":
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-            startupinfo.wShowWindow = subprocess.SW_HIDE
+            startupinfo.wShowWindow = 5 if visible else subprocess.SW_HIDE  # Win32 SW_SHOW
         try:
             process = subprocess.run(
                 command, cwd=ROOT, env=environment, capture_output=True,
@@ -133,11 +139,17 @@ def main() -> int:
     parser.add_argument("--godot", default=os.environ.get("GODOT_BIN", "godot"), help="Godot executable; defaults to GODOT_BIN or PATH")
     parser.add_argument("--timeout", type=float, default=45)
     parser.add_argument("--render", action="store_true", help="Use the real renderer in an offscreen window for screenshot suites")
+    parser.add_argument("--visible", action="store_true", help="Show a native playtest window to measure foreground GPU performance; requires --render")
+    parser.add_argument("--native-pacing", action="store_true", help="Keep the game's normal real-time synchronization instead of --fixed-fps; requires --render")
     parser.add_argument("--verbose", action="store_true", help="Include Godot's resource and renderer diagnostics in suite logs")
+    parser.add_argument("--debug", action="store_true", help="Enable Godot's script debugger to compare editor-style debug execution")
+    parser.add_argument("--profiling", action="store_true", help="Enable the script debugger profiler for diagnostic comparisons; changes timing")
     parser.add_argument("--report", default="consolidated-test-report.json", help="Report filename within artifacts")
     args = parser.parse_args()
     if args.timeout <= 0:
         parser.error("--timeout must be positive")
+    if args.visible and not args.render:parser.error("--visible requires --render")
+    if args.native_pacing and not args.render:parser.error("--native-pacing requires --render")
     names = args.suites or DEFAULT_SUITES
     if any(not name.replace("_", "").isalnum() for name in names):
         parser.error("suite names may contain only letters, numbers and underscores")
@@ -150,7 +162,7 @@ def main() -> int:
     (ROOT / "artifacts" / ".gdignore").touch(exist_ok=True)
     results = []
     for name in names:
-        record = run_suite(godot, name, args.timeout, args.render, args.verbose)
+        record = run_suite(godot, name, args.timeout, args.render, args.verbose, args.visible, args.native_pacing, args.debug, args.profiling)
         results.append(record)
         print(json.dumps(record, ensure_ascii=False), flush=True)
     report = {"suites": results, "passed": all(result["passed"] for result in results)}

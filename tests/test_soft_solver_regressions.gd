@@ -72,6 +72,14 @@ func actor(species:String)->Dictionary:
 func execute():
 	var comparisons=0;var failures=[]
 	for species in Brood.SPECIES:
+		var a=actor(species);var b=actor(species);Soft.prepare(a);Soft.prepare(b)
+		for frame in 600:
+			var dt=[1.0/120,1.0/60,1.0/30,.001,.15,0.0,-.1][frame%7]
+			Soft.step(a,dt);Reference.step(b,dt)
+			for key in b.soft_body:
+				comparisons+=1
+				if a.soft_body[key]!=b.soft_body[key] and failures.size()<12:failures.append({"species":species,"pristine_frame":frame,"field":key})
+	for species in Brood.SPECIES:
 		var a=actor(species);var b=actor(species)
 		Soft.prepare(a);Soft.prepare(b)
 		for frame in 300:

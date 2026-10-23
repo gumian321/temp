@@ -1,0 +1,1996 @@
+{
+  "created_at": "2026-10-21T19:47:18.132966+08:00",
+  "delivery": {
+    "archive": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-egg-map-cache-r3.zip",
+    "executable": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-egg-map-cache-r3\\RunBuildPew.exe",
+    "bytes": 157209061,
+    "sha256": "b9414797a1d6bac7f3bfb7cea41e940b6a8c49b561e1d0a69bc33b8f8f7e7daf",
+    "passed": true,
+    "unpacked_launch": true,
+    "validated_checks": 85,
+    "cave_mining_validated": true,
+    "native_performance": {}
+  },
+  "source_snapshot_matches_export": true,
+  "package_file_hashes_verified": true,
+  "zip_sha256_verified": true,
+  "confirmed_bottleneck": "30 visible egg mines added 121 draw calls; now add 3 while retaining each mine.",
+  "draw_calls": {
+    "whole_frame_legacy": 342.0,
+    "whole_frame_instanced": 224.0,
+    "whole_frame_no_eggs": 221.0,
+    "egg_increment_before": 121.0,
+    "egg_increment_after": 3.0
+  },
+  "frozen_render_attribution": {
+    "results": [
+      {
+        "case": "full",
+        "draw_calls": {
+          "max": 224.0,
+          "mean": 224.0,
+          "median": 224.0,
+          "p95": 224.0
+        },
+        "last_organ_families_ms": {
+          "cloak": 0.076,
+          "drone_bay": 0.047,
+          "flak": 0.089,
+          "gatling": 0.053,
+          "mine": 0.063,
+          "repair_bay": 0.045,
+          "rocket": 0.099,
+          "scrap_bay": 0.046,
+          "shotgun": 0.057,
+          "sniper": 0.077,
+          "tesla": 0.11
+        },
+        "main_draw_ms": {
+          "max": 5.473,
+          "mean": 3.66588333333333,
+          "median": 3.483,
+          "p95": 4.79
+        },
+        "organ_draw_ms": {
+          "max": 1.278,
+          "mean": 0.7888,
+          "median": 0.727,
+          "p95": 1.182
+        },
+        "primitives": {
+          "max": 56896.0,
+          "mean": 56896.0,
+          "median": 56896.0,
+          "p95": 56896.0
+        },
+        "render_frame_ms": {
+          "max": 9.04,
+          "mean": 6.35716666666667,
+          "median": 6.256,
+          "p95": 7.789
+        }
+      },
+      {
+        "case": "legacy_egg",
+        "draw_calls": {
+          "max": 342.0,
+          "mean": 342.0,
+          "median": 342.0,
+          "p95": 342.0
+        },
+        "last_organ_families_ms": {
+          "cloak": 0.082,
+          "drone_bay": 0.048,
+          "flak": 0.06,
+          "gatling": 0.052,
+          "mine": 0.065,
+          "repair_bay": 0.048,
+          "rocket": 0.059,
+          "scrap_bay": 0.046,
+          "shotgun": 0.056,
+          "sniper": 0.084,
+          "tesla": 0.112
+        },
+        "main_draw_ms": {
+          "max": 8.747,
+          "mean": 5.24076666666666,
+          "median": 5.05,
+          "p95": 6.785
+        },
+        "organ_draw_ms": {
+          "max": 1.815,
+          "mean": 0.926458333333333,
+          "median": 0.85,
+          "p95": 1.286
+        },
+        "primitives": {
+          "max": 64576.0,
+          "mean": 64575.7166666667,
+          "median": 64576.0,
+          "p95": 64576.0
+        },
+        "render_frame_ms": {
+          "max": 12.901,
+          "mean": 8.64699999999999,
+          "median": 8.417,
+          "p95": 10.912
+        }
+      },
+      {
+        "case": "no_egg_visuals",
+        "draw_calls": {
+          "max": 221.0,
+          "mean": 221.0,
+          "median": 221.0,
+          "p95": 221.0
+        },
+        "last_organ_families_ms": {
+          "cloak": 0.131,
+          "drone_bay": 0.046,
+          "flak": 0.065,
+          "gatling": 0.057,
+          "mine": 0.098,
+          "repair_bay": 0.073,
+          "rocket": 0.1,
+          "scrap_bay": 0.082,
+          "shotgun": 0.061,
+          "sniper": 0.078,
+          "tesla": 0.158
+        },
+        "main_draw_ms": {
+          "max": 5.92,
+          "mean": 4.479775,
+          "median": 4.666,
+          "p95": 5.429
+        },
+        "organ_draw_ms": {
+          "max": 1.428,
+          "mean": 1.037525,
+          "median": 1.06,
+          "p95": 1.273
+        },
+        "primitives": {
+          "max": 56716.0,
+          "mean": 56715.9166666667,
+          "median": 56716.0,
+          "p95": 56716.0
+        },
+        "render_frame_ms": {
+          "max": 11.717,
+          "mean": 7.92236666666667,
+          "median": 8.012,
+          "p95": 9.709
+        }
+      },
+      {
+        "case": "no_soft_organs",
+        "draw_calls": {
+          "max": 212.0,
+          "mean": 212.0,
+          "median": 212.0,
+          "p95": 212.0
+        },
+        "last_organ_families_ms": {},
+        "main_draw_ms": {
+          "max": 4.475,
+          "mean": 3.47738333333333,
+          "median": 3.699,
+          "p95": 4.377
+        },
+        "organ_draw_ms": {
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "p95": 0.0
+        },
+        "primitives": {
+          "max": 55358.0,
+          "mean": 55357.5333333333,
+          "median": 55358.0,
+          "p95": 55358.0
+        },
+        "render_frame_ms": {
+          "max": 8.734,
+          "mean": 6.75363333333333,
+          "median": 6.889,
+          "p95": 8.282
+        }
+      },
+      {
+        "case": "no_passives",
+        "draw_calls": {
+          "max": 217.0,
+          "mean": 217.0,
+          "median": 217.0,
+          "p95": 217.0
+        },
+        "last_organ_families_ms": {
+          "cloak": 0.113,
+          "drone_bay": 0.066,
+          "flak": 0.06,
+          "gatling": 0.053,
+          "mine": 0.056,
+          "repair_bay": 0.073,
+          "rocket": 0.058,
+          "scrap_bay": 0.049,
+          "shotgun": 0.09,
+          "sniper": 0.093,
+          "tesla": 0.121
+        },
+        "main_draw_ms": {
+          "max": 4.653,
+          "mean": 3.18925833333333,
+          "median": 2.965,
+          "p95": 4.483
+        },
+        "organ_draw_ms": {
+          "max": 1.306,
+          "mean": 0.820841666666666,
+          "median": 0.741,
+          "p95": 1.203
+        },
+        "primitives": {
+          "max": 55148.0,
+          "mean": 55148.0,
+          "median": 55148.0,
+          "p95": 55148.0
+        },
+        "render_frame_ms": {
+          "max": 8.73,
+          "mean": 5.89971666666667,
+          "median": 5.753,
+          "p95": 7.84
+        }
+      },
+      {
+        "case": "no_flagella",
+        "draw_calls": {
+          "max": 223.0,
+          "mean": 223.0,
+          "median": 223.0,
+          "p95": 223.0
+        },
+        "last_organ_families_ms": {
+          "cloak": 0.076,
+          "drone_bay": 0.046,
+          "flak": 0.054,
+          "gatling": 0.052,
+          "mine": 0.053,
+          "repair_bay": 0.045,
+          "rocket": 0.057,
+          "scrap_bay": 0.046,
+          "shotgun": 0.055,
+          "sniper": 0.084,
+          "tesla": 0.112
+        },
+        "main_draw_ms": {
+          "max": 5.373,
+          "mean": 3.59485,
+          "median": 3.304,
+          "p95": 5.053
+        },
+        "organ_draw_ms": {
+          "max": 1.334,
+          "mean": 0.836466666666667,
+          "median": 0.758,
+          "p95": 1.271
+        },
+        "primitives": {
+          "max": 47172.0,
+          "mean": 47172.0,
+          "median": 47172.0,
+          "p95": 47172.0
+        },
+        "render_frame_ms": {
+          "max": 8.56,
+          "mean": 5.71896666666666,
+          "median": 5.41,
+          "p95": 7.827
+        }
+      },
+      {
+        "case": "full_repeat",
+        "draw_calls": {
+          "max": 224.0,
+          "mean": 224.0,
+          "median": 224.0,
+          "p95": 224.0
+        },
+        "last_organ_families_ms": {
+          "cloak": 0.074,
+          "drone_bay": 0.047,
+          "flak": 0.056,
+          "gatling": 0.058,
+          "mine": 0.055,
+          "repair_bay": 0.06,
+          "rocket": 0.055,
+          "scrap_bay": 0.042,
+          "shotgun": 0.058,
+          "sniper": 0.096,
+          "tesla": 0.126
+        },
+        "main_draw_ms": {
+          "max": 5.719,
+          "mean": 3.78485,
+          "median": 3.545,
+          "p95": 5.196
+        },
+        "organ_draw_ms": {
+          "max": 1.289,
+          "mean": 0.8155,
+          "median": 0.731,
+          "p95": 1.197
+        },
+        "primitives": {
+          "max": 56892.0,
+          "mean": 56892.0,
+          "median": 56892.0,
+          "p95": 56892.0
+        },
+        "render_frame_ms": {
+          "max": 9.423,
+          "mean": 6.559575,
+          "median": 6.292,
+          "p95": 8.577
+        }
+      }
+    ],
+    "scope": "Identical frozen screenshot-derived loadout with 30 egg mines. Changes hide drawing only, not saved equipment or production logic. Render times are not playable-game FPS; another user playtest may still be rendering."
+  },
+  "frozen_timing_is_not_gameplay_fps": true,
+  "logical_regressions": [
+    {
+      "suite": "cave_mining",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.59,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_curves",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.815,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_collision_cache",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.835,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_update_budget",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.627,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_far_navigation",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.736,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_spawn_jobs",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.149,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "combat_spatial",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.753,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "missions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.526,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "radial_formations",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.578,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "specials",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.039,
+      "isolated_user_data": true
+    }
+  ],
+  "native_regressions": [
+    {
+      "suite": "attack_shader_materials",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.733,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "skill_shader_coverage",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.994,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "weapon_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.315,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "specials",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.808,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "radial_formations",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.203,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "egg_visual_batch",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.593,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 10.542,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "deployment",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.345,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "mixed_render_attribution",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 14.052,
+      "isolated_user_data": true
+    }
+  ],
+  "egg_checks": {
+    "checks": [
+      {
+        "name": "The fixture retains all 30 upgraded mines",
+        "passed": true
+      },
+      {
+        "name": "All 30 egg sprites, rings and halos use three draws at zoom 1.0",
+        "passed": true
+      },
+      {
+        "name": "All 30 egg sprites, rings and halos use three draws at zoom 1.75",
+        "passed": true
+      },
+      {
+        "name": "All 30 egg sprites, rings and halos use three draws at zoom 0.65",
+        "passed": true
+      },
+      {
+        "name": "Drawing preserves mine owners, positions, slots, life and damage data",
+        "passed": true
+      },
+      {
+        "name": "Repeated frames reuse the same MultiMesh resources",
+        "passed": true
+      },
+      {
+        "name": "Hostile eggs retain their separate hazard material and layer",
+        "passed": true
+      },
+      {
+        "name": "Empty/restarted scenes clear every previous mine drawing command",
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "pixel_comparison": {
+    "1.0": {
+      "mean_rgb_error_0_255": [
+        0.2771543209876543,
+        0.21304243827160493,
+        0.05990817901234568
+      ],
+      "difference_bounds": [
+        278,
+        237,
+        602,
+        563
+      ]
+    },
+    "1.75": {
+      "mean_rgb_error_0_255": [
+        0.4034614197530864,
+        0.31367746913580247,
+        0.11719135802469136
+      ],
+      "difference_bounds": [
+        264,
+        224,
+        614,
+        576
+      ]
+    },
+    "0.65": {
+      "mean_rgb_error_0_255": [
+        0.18067824074074074,
+        0.13866743827160494,
+        0.03867283950617284
+      ],
+      "difference_bounds": [
+        285,
+        244,
+        597,
+        556
+      ]
+    }
+  },
+  "exported_mixed_short_smoke": {
+    "passed": true,
+    "conditions": {
+      "audio_and_effects": true,
+      "dt": "actual engine process delta",
+      "duration_seconds": 12.0026419090909,
+      "fixture_focus_pause_suppressed": true,
+      "height": 900,
+      "initial_actors": 45,
+      "invulnerable_fixture_actors": false,
+      "legacy_egg_rendering": false,
+      "loadout": "screenshot-derived 11 mixed modules",
+      "measured_frames": 635,
+      "mission": "Survival Mission",
+      "native_actor_waves": true,
+      "native_map_spawns": true,
+      "native_pacing": true,
+      "refresh_rate": 60.0,
+      "reward_interruptions_suppressed": true,
+      "route": "roam",
+      "six_gatling_modules": false,
+      "vsync_mode": 1,
+      "warmup_frames": 12,
+      "width": 1440
+    },
+    "active_frames": 635,
+    "report": "E:\\_Nlv\\github\\temp\\artifacts\\mixed-release-shared-smoke.json",
+    "independent_gpu_measurement": false
+  },
+  "long_independent_test": {
+    "status": "completed",
+    "duration_seconds_per_trial": 90,
+    "user_authorized_current_run_termination": true,
+    "closed_verified_playtests": [
+      {
+        "pid": 148780,
+        "project": "E:/_Nlv/github/temp"
+      },
+      {
+        "pid": 156228,
+        "project": "E:/_Nlv2/shinobi/godotgame",
+        "authorization": "prior explicit approval to close shinobi playtest"
+      }
+    ],
+    "preserved_editor_pid": 140732,
+    "isolated_user_profiles": true,
+    "other_godot_playtests_running_at_final_check": false,
+    "hardware": "Intel Core i3-12100F / GeForce GTX 1050 / 1440x900 / 60Hz monitor",
+    "trials": [
+      {
+        "tag": "mixed-isolated-legacy-90",
+        "edition": "r2 legacy egg drawing",
+        "report": "E:\\_Nlv\\github\\temp\\artifacts\\mixed-isolated-legacy-90.json",
+        "conditions": {
+          "audio_and_effects": true,
+          "dt": "actual engine process delta",
+          "duration_seconds": 90.0094910000003,
+          "fixture_focus_pause_suppressed": true,
+          "height": 900,
+          "initial_actors": 45,
+          "invulnerable_fixture_actors": false,
+          "legacy_egg_rendering": true,
+          "loadout": "screenshot-derived 11 mixed modules",
+          "measured_frames": 4059,
+          "mission": "Survival Mission",
+          "native_actor_waves": true,
+          "native_map_spawns": true,
+          "native_pacing": true,
+          "refresh_rate": 60.0,
+          "reward_interruptions_suppressed": true,
+          "route": "roam",
+          "six_gatling_modules": false,
+          "vsync_mode": 1,
+          "warmup_frames": 12,
+          "width": 1440
+        },
+        "active_frames": 4059,
+        "average_fps_from_frame_ms": 45.40240524247339,
+        "frames_per_elapsed_second": 45.09524445594284,
+        "frame_ms": {
+          "max": 112.345,
+          "mean": 22.0252648435575,
+          "median": 20.824,
+          "p95": 35.01,
+          "p99": 44.614,
+          "within_60fps_percent": 14.8558758314856
+        },
+        "cpu_ms": {
+          "max": 63.095,
+          "mean": 11.7261241685144,
+          "median": 11.308,
+          "p95": 19.931,
+          "p99": 26.783,
+          "within_60fps_percent": 89.2584380389258
+        },
+        "counter_at_end": {
+          "average_ms": 18.4872857142857,
+          "fps": 54.091228720897,
+          "peak_ms": 21.8999996185303,
+          "text": "54 FPS   18.5 ms"
+        },
+        "mined_cells": 416,
+        "ore_value": 16,
+        "windows": {
+          "0-10": {
+            "frames": 665,
+            "average_fps_from_frame_ms": 66.69309652236119,
+            "frames_per_elapsed_second": 66.5,
+            "frame_ms_mean": 14.994055639097745,
+            "frame_ms_p95": 25.987,
+            "cpu_ms_mean": 6.063709774436091,
+            "counts": {
+              "actors": {
+                "mean": 51.61353383458647,
+                "max": 65
+              },
+              "mines": {
+                "mean": 4.984962406015038,
+                "max": 11
+              },
+              "bullets": {
+                "mean": 0.22406015037593985,
+                "max": 4
+              },
+              "effects": {
+                "mean": 1.369924812030075,
+                "max": 10
+              },
+              "drones": {
+                "mean": 14,
+                "max": 14
+              },
+              "loot": {
+                "mean": 4.007518796992481,
+                "max": 12
+              },
+              "draw_calls": {
+                "mean": 282.4947368421053,
+                "max": 345.0
+              }
+            },
+            "main_phases_ms": {
+              "audio_hud": 0.33510676691729324,
+              "body": 0.9206526315789474,
+              "combat": 3.1171127819548876,
+              "mission": 1.1765533834586466,
+              "preparation": 0.38989774436090224,
+              "visual_sync": 0.1053548872180451
+            },
+            "combat_phases_ms": {
+              "cleanup": 0.03949022556390978,
+              "drones": 0.409,
+              "enemy_ai": 1.6534556390977444,
+              "patrol_special": 0.23116842105263158,
+              "player_weapons": 0.35597593984962406,
+              "projectiles": 0.013786466165413534
+            }
+          },
+          "30-40": {
+            "frames": 300,
+            "average_fps_from_frame_ms": 30.041893420374713,
+            "frames_per_elapsed_second": 30.0,
+            "frame_ms_mean": 33.28685,
+            "frame_ms_p95": 48.0,
+            "cpu_ms_mean": 18.90398666666667,
+            "counts": {
+              "actors": {
+                "mean": 82.74333333333334,
+                "max": 90
+              },
+              "mines": {
+                "mean": 30,
+                "max": 30
+              },
+              "bullets": {
+                "mean": 0.8966666666666666,
+                "max": 19
+              },
+              "effects": {
+                "mean": 1.1533333333333333,
+                "max": 21
+              },
+              "drones": {
+                "mean": 14,
+                "max": 14
+              },
+              "loot": {
+                "mean": 4.736666666666666,
+                "max": 5
+              },
+              "draw_calls": {
+                "mean": 378.6566666666667,
+                "max": 524.0
+              }
+            },
+            "main_phases_ms": {
+              "audio_hud": 0.46814666666666666,
+              "body": 1.55153,
+              "combat": 9.85552,
+              "mission": 6.435996666666667,
+              "preparation": 0.27673000000000003,
+              "visual_sync": 0.28523333333333334
+            },
+            "combat_phases_ms": {
+              "cleanup": 0.08472,
+              "drones": 0.9926833333333333,
+              "enemy_ai": 5.49721,
+              "patrol_special": 1.7743533333333332,
+              "player_weapons": 0.5751566666666666,
+              "projectiles": 0.05474333333333333
+            }
+          },
+          "70-80": {
+            "frames": 460,
+            "average_fps_from_frame_ms": 46.02095794424781,
+            "frames_per_elapsed_second": 46.0,
+            "frame_ms_mean": 21.729230434782608,
+            "frame_ms_p95": 33.528,
+            "cpu_ms_mean": 11.956789130434784,
+            "counts": {
+              "actors": {
+                "mean": 73.17608695652174,
+                "max": 89
+              },
+              "mines": {
+                "mean": 30,
+                "max": 30
+              },
+              "bullets": {
+                "mean": 1.076086956521739,
+                "max": 12
+              },
+              "effects": {
+                "mean": 4.567391304347826,
+                "max": 32
+              },
+              "drones": {
+                "mean": 14,
+                "max": 14
+              },
+              "loot": {
+                "mean": 5.808695652173913,
+                "max": 7
+              },
+              "draw_calls": {
+                "mean": 419.45652173913044,
+                "max": 624.0
+              }
+            },
+            "main_phases_ms": {
+              "audio_hud": 0.38023478260869564,
+              "body": 1.6260239130434782,
+              "combat": 6.10095652173913,
+              "mission": 3.4030239130434783,
+              "preparation": 0.1961326086956522,
+              "visual_sync": 0.23406086956521738
+            },
+            "combat_phases_ms": {
+              "cleanup": 0.054799999999999995,
+              "drones": 0.5946369565217391,
+              "enemy_ai": 3.8785282608695653,
+              "patrol_special": 0.4651847826086956,
+              "player_weapons": 0.5020043478260869,
+              "projectiles": 0.042593478260869566
+            }
+          },
+          "80-90": {
+            "frames": 466,
+            "average_fps_from_frame_ms": 47.3729272057028,
+            "frames_per_elapsed_second": 46.6,
+            "frame_ms_mean": 21.109103004291846,
+            "frame_ms_p95": 31.473,
+            "cpu_ms_mean": 12.461901287553648,
+            "counts": {
+              "actors": {
+                "mean": 80.27467811158799,
+                "max": 83
+              },
+              "mines": {
+                "mean": 30,
+                "max": 30
+              },
+              "bullets": {
+                "mean": 0,
+                "max": 0
+              },
+              "effects": {
+                "mean": 0.759656652360515,
+                "max": 2
+              },
+              "drones": {
+                "mean": 14,
+                "max": 14
+              },
+              "loot": {
+                "mean": 4,
+                "max": 4
+              },
+              "draw_calls": {
+                "mean": 358.27682403433477,
+                "max": 374.0
+              }
+            },
+            "main_phases_ms": {
+              "audio_hud": 0.2752832618025751,
+              "body": 1.665851931330472,
+              "combat": 6.310049356223176,
+              "mission": 3.8386845493562234,
+              "preparation": 0.19778755364806866,
+              "visual_sync": 0.15198068669527895
+            },
+            "combat_phases_ms": {
+              "cleanup": 0.04758154506437769,
+              "drones": 0.6168540772532188,
+              "enemy_ai": 4.309317596566523,
+              "patrol_special": 0.473568669527897,
+              "player_weapons": 0.30070600858369095,
+              "projectiles": 0.0014935622317596565
+            }
+          }
+        }
+      },
+      {
+        "tag": "mixed-isolated-new-90",
+        "edition": "r2 instanced eggs",
+        "report": "E:\\_Nlv\\github\\temp\\artifacts\\mixed-isolated-new-90.json",
+        "conditions": {
+          "audio_and_effects": true,
+          "dt": "actual engine process delta",
+          "duration_seconds": 90.000902888888,
+          "fixture_focus_pause_suppressed": true,
+          "height": 900,
+          "initial_actors": 45,
+          "invulnerable_fixture_actors": false,
+          "legacy_egg_rendering": false,
+          "loadout": "screenshot-derived 11 mixed modules",
+          "measured_frames": 5002,
+          "mission": "Survival Mission",
+          "native_actor_waves": true,
+          "native_map_spawns": true,
+          "native_pacing": true,
+          "refresh_rate": 60.0,
+          "reward_interruptions_suppressed": true,
+          "route": "roam",
+          "six_gatling_modules": false,
+          "vsync_mode": 1,
+          "warmup_frames": 12,
+          "width": 1440
+        },
+        "active_frames": 5002,
+        "average_fps_from_frame_ms": 55.99986744533582,
+        "frames_per_elapsed_second": 55.57722022161595,
+        "frame_ms": {
+          "max": 68.605,
+          "mean": 17.8571851259496,
+          "median": 17.03,
+          "p95": 27.462,
+          "p99": 34.992,
+          "within_60fps_percent": 45.2419032387045
+        },
+        "cpu_ms": {
+          "max": 58.987,
+          "mean": 9.77060595761695,
+          "median": 9.318,
+          "p95": 16.729,
+          "p99": 21.013,
+          "within_60fps_percent": 94.922031187525
+        },
+        "counter_at_end": {
+          "average_ms": 17.4314666666667,
+          "fps": 57.3675192754865,
+          "peak_ms": 28.44700050354,
+          "text": "57 FPS   17.4 ms"
+        },
+        "mined_cells": 425,
+        "ore_value": 16,
+        "windows": {
+          "0-10": {
+            "frames": 831,
+            "average_fps_from_frame_ms": 83.4530397393132,
+            "frames_per_elapsed_second": 83.1,
+            "frame_ms_mean": 11.982787003610108,
+            "frame_ms_p95": 16.465,
+            "cpu_ms_mean": 5.046305655836342,
+            "counts": {
+              "actors": {
+                "mean": 52.829121540312876,
+                "max": 73
+              },
+              "mines": {
+                "mean": 5.380264741275572,
+                "max": 11
+              },
+              "bullets": {
+                "mean": 1.2346570397111913,
+                "max": 18
+              },
+              "effects": {
+                "mean": 1.96028880866426,
+                "max": 26
+              },
+              "drones": {
+                "mean": 14,
+                "max": 14
+              },
+              "loot": {
+                "mean": 3.3730445246690732,
+                "max": 12
+              },
+              "draw_calls": {
+                "mean": 272.2190132370638,
+                "max": 460.0
+              }
+            },
+            "main_phases_ms": {
+              "audio_hud": 0.2766979542719615,
+              "body": 0.6778941034897714,
+              "combat": 2.7045631768953067,
+              "mission": 0.9626245487364621,
+              "preparation": 0.29882190132370634,
+              "visual_sync": 0.1103164861612515
+            },
+            "combat_phases_ms": {
+              "cleanup": 0.03100361010830325,
+              "drones": 0.30776534296028885,
+              "enemy_ai": 1.3064452466907341,
+              "patrol_special": 0.4204572803850782,
+              "player_weapons": 0.28451624548736465,
+              "projectiles": 0.029630565583634177
+            }
+          },
+          "30-40": {
+            "frames": 519,
+            "average_fps_from_frame_ms": 51.99698998541981,
+            "frames_per_elapsed_second": 51.9,
+            "frame_ms_mean": 19.23188246628131,
+            "frame_ms_p95": 27.685,
+            "cpu_ms_mean": 11.369385356454721,
+            "counts": {
+              "actors": {
+                "mean": 80.9306358381503,
+                "max": 87
+              },
+              "mines": {
+                "mean": 30,
+                "max": 30
+              },
+              "bullets": {
+                "mean": 0.7822736030828517,
+                "max": 10
+              },
+              "effects": {
+                "mean": 1.235067437379576,
+                "max": 9
+              },
+              "drones": {
+                "mean": 14,
+                "max": 14
+              },
+              "loot": {
+                "mean": 4.799614643545279,
+                "max": 6
+              },
+              "draw_calls": {
+                "mean": 242.27552986512524,
+                "max": 269.0
+              }
+            },
+            "main_phases_ms": {
+              "audio_hud": 0.2963275529865125,
+              "body": 0.8372947976878613,
+              "combat": 6.018134874759152,
+              "mission": 3.862290944123314,
+              "preparation": 0.188121387283237,
+              "visual_sync": 0.150766859344894
+            },
+            "combat_phases_ms": {
+              "cleanup": 0.047578034682080925,
+              "drones": 0.6145626204238921,
+              "enemy_ai": 3.0129749518304427,
+              "patrol_special": 1.3841368015414257,
+              "player_weapons": 0.36436223506743737,
+              "projectiles": 0.029789980732177264
+            }
+          },
+          "70-80": {
+            "frames": 537,
+            "average_fps_from_frame_ms": 53.900228569088455,
+            "frames_per_elapsed_second": 53.7,
+            "frame_ms_mean": 18.55279702048417,
+            "frame_ms_p95": 26.312,
+            "cpu_ms_mean": 10.629186219739292,
+            "counts": {
+              "actors": {
+                "mean": 81.0074487895717,
+                "max": 94
+              },
+              "mines": {
+                "mean": 30,
+                "max": 30
+              },
+              "bullets": {
+                "mean": 0.2309124767225326,
+                "max": 4
+              },
+              "effects": {
+                "mean": 1.0521415270018621,
+                "max": 9
+              },
+              "drones": {
+                "mean": 14,
+                "max": 14
+              },
+              "loot": {
+                "mean": 4.333333333333333,
+                "max": 7
+              },
+              "draw_calls": {
+                "mean": 263.1918063314711,
+                "max": 331.0
+              }
+            },
+            "main_phases_ms": {
+              "audio_hud": 0.28106145251396647,
+              "body": 1.4943389199255122,
+              "combat": 5.676223463687151,
+              "mission": 2.7693612662942275,
+              "preparation": 0.20251210428305402,
+              "visual_sync": 0.18850465549348233
+            },
+            "combat_phases_ms": {
+              "cleanup": 0.04745437616387337,
+              "drones": 0.5952886405959031,
+              "enemy_ai": 3.5847728119180635,
+              "patrol_special": 0.5093966480446928,
+              "player_weapons": 0.3493854748603352,
+              "projectiles": 0.008394785847299814
+            }
+          },
+          "80-90": {
+            "frames": 484,
+            "average_fps_from_frame_ms": 49.3074443442222,
+            "frames_per_elapsed_second": 48.4,
+            "frame_ms_mean": 20.280913223140494,
+            "frame_ms_p95": 27.938,
+            "cpu_ms_mean": 12.044785123966943,
+            "counts": {
+              "actors": {
+                "mean": 81.14876033057851,
+                "max": 82
+              },
+              "mines": {
+                "mean": 30,
+                "max": 30
+              },
+              "bullets": {
+                "mean": 0.2644628099173554,
+                "max": 4
+              },
+              "effects": {
+                "mean": 1.7066115702479339,
+                "max": 9
+              },
+              "drones": {
+                "mean": 14,
+                "max": 14
+              },
+              "loot": {
+                "mean": 3.0041322314049586,
+                "max": 4
+              },
+              "draw_calls": {
+                "mean": 243.78512396694214,
+                "max": 265.0
+              }
+            },
+            "main_phases_ms": {
+              "audio_hud": 0.32094834710743797,
+              "body": 1.771599173553719,
+              "combat": 6.723818181818182,
+              "mission": 2.7593140495867767,
+              "preparation": 0.21526239669421487,
+              "visual_sync": 0.23404545454545453
+            },
+            "combat_phases_ms": {
+              "cleanup": 0.05792561983471074,
+              "drones": 0.6889111570247934,
+              "enemy_ai": 4.428977272727273,
+              "patrol_special": 0.5345640495867768,
+              "player_weapons": 0.34900206611570245,
+              "projectiles": 0.016553719008264463
+            }
+          }
+        }
+      },
+      {
+        "tag": "mixed-isolated-map-final-90",
+        "edition": "r3 instanced eggs and cached pit regions",
+        "report": "E:\\_Nlv\\github\\temp\\artifacts\\mixed-isolated-map-final-90.json",
+        "conditions": {
+          "audio_and_effects": true,
+          "dt": "actual engine process delta",
+          "duration_seconds": 90.0012697407416,
+          "fixture_focus_pause_suppressed": true,
+          "height": 900,
+          "initial_actors": 45,
+          "invulnerable_fixture_actors": false,
+          "legacy_egg_rendering": false,
+          "loadout": "screenshot-derived 11 mixed modules",
+          "measured_frames": 5997,
+          "mission": "Survival Mission",
+          "native_actor_waves": true,
+          "native_map_spawns": true,
+          "native_pacing": true,
+          "refresh_rate": 60.0,
+          "reward_interruptions_suppressed": true,
+          "route": "roam",
+          "six_gatling_modules": false,
+          "vsync_mode": 1,
+          "warmup_frames": 12,
+          "width": 1440
+        },
+        "active_frames": 5997,
+        "average_fps_from_frame_ms": 67.16390805781742,
+        "frames_per_elapsed_second": 66.63239326817285,
+        "frame_ms": {
+          "max": 65.227,
+          "mean": 14.8889489744873,
+          "median": 14.453,
+          "p95": 20.764,
+          "p99": 26.952,
+          "within_60fps_percent": 75.9713189928298
+        },
+        "cpu_ms": {
+          "max": 54.586,
+          "mean": 7.72038702684677,
+          "median": 7.483,
+          "p95": 11.896,
+          "p99": 15.876,
+          "within_60fps_percent": 99.1995997999
+        },
+        "counter_at_end": {
+          "average_ms": 18.3467142857143,
+          "fps": 54.5056724832006,
+          "peak_ms": 46.8520011901855,
+          "text": "55 FPS   18.3 ms"
+        },
+        "mined_cells": 398,
+        "ore_value": 16,
+        "windows": {
+          "0-10": {
+            "frames": 882,
+            "average_fps_from_frame_ms": 88.63126199461338,
+            "frames_per_elapsed_second": 88.2,
+            "frame_ms_mean": 11.282700680272109,
+            "frame_ms_p95": 15.004,
+            "cpu_ms_mean": 4.5103356009070295,
+            "counts": {
+              "actors": {
+                "mean": 51.68027210884354,
+                "max": 73
+              },
+              "mines": {
+                "mean": 5.408163265306122,
+                "max": 11
+              },
+              "bullets": {
+                "mean": 1.0941043083900226,
+                "max": 18
+              },
+              "effects": {
+                "mean": 2.018140589569161,
+                "max": 28
+              },
+              "drones": {
+                "mean": 14,
+                "max": 14
+              },
+              "loot": {
+                "mean": 3.304988662131519,
+                "max": 12
+              },
+              "draw_calls": {
+                "mean": 272.30272108843536,
+                "max": 464.0
+              }
+            },
+            "main_phases_ms": {
+              "audio_hud": 0.2650226757369614,
+              "body": 0.6635544217687075,
+              "combat": 2.273613378684807,
+              "mission": 0.9044659863945579,
+              "preparation": 0.29400566893424035,
+              "visual_sync": 0.0953344671201814
+            },
+            "combat_phases_ms": {
+              "cleanup": 0.029833333333333333,
+              "drones": 0.2919716553287982,
+              "enemy_ai": 1.1631507936507937,
+              "patrol_special": 0.16885827664399095,
+              "player_weapons": 0.2791054421768707,
+              "projectiles": 0.027922902494331065
+            }
+          },
+          "30-40": {
+            "frames": 667,
+            "average_fps_from_frame_ms": 66.9206037703289,
+            "frames_per_elapsed_second": 66.7,
+            "frame_ms_mean": 14.94308095952024,
+            "frame_ms_p95": 20.073,
+            "cpu_ms_mean": 7.959830584707646,
+            "counts": {
+              "actors": {
+                "mean": 66.86806596701649,
+                "max": 72
+              },
+              "mines": {
+                "mean": 30,
+                "max": 30
+              },
+              "bullets": {
+                "mean": 0.5292353823088456,
+                "max": 8
+              },
+              "effects": {
+                "mean": 1.092953523238381,
+                "max": 12
+              },
+              "drones": {
+                "mean": 14,
+                "max": 14
+              },
+              "loot": {
+                "mean": 4.143928035982009,
+                "max": 5
+              },
+              "draw_calls": {
+                "mean": 243.4062968515742,
+                "max": 269.0
+              }
+            },
+            "main_phases_ms": {
+              "audio_hud": 0.2597931034482759,
+              "body": 0.6787241379310346,
+              "combat": 4.897343328335832,
+              "mission": 1.8301394302848575,
+              "preparation": 0.1731394302848576,
+              "visual_sync": 0.10566266866566718
+            },
+            "combat_phases_ms": {
+              "cleanup": 0.03818740629685158,
+              "drones": 0.42216491754122937,
+              "enemy_ai": 3.0566776611694153,
+              "patrol_special": 0.6439010494752624,
+              "player_weapons": 0.27923988005997,
+              "projectiles": 0.019499250374812593
+            }
+          },
+          "70-80": {
+            "frames": 625,
+            "average_fps_from_frame_ms": 62.773813095340564,
+            "frames_per_elapsed_second": 62.5,
+            "frame_ms_mean": 15.9302096,
+            "frame_ms_p95": 19.923,
+            "cpu_ms_mean": 9.0346752,
+            "counts": {
+              "actors": {
+                "mean": 76.1408,
+                "max": 97
+              },
+              "mines": {
+                "mean": 30,
+                "max": 30
+              },
+              "bullets": {
+                "mean": 0.0384,
+                "max": 2
+              },
+              "effects": {
+                "mean": 0.6416,
+                "max": 5
+              },
+              "drones": {
+                "mean": 14,
+                "max": 14
+              },
+              "loot": {
+                "mean": 6.5728,
+                "max": 10
+              },
+              "draw_calls": {
+                "mean": 252.9328,
+                "max": 325.0
+              }
+            },
+            "main_phases_ms": {
+              "audio_hud": 0.2471728,
+              "body": 1.0298448,
+              "combat": 4.576313600000001,
+              "mission": 2.8689024,
+              "preparation": 0.1786464,
+              "visual_sync": 0.11776
+            },
+            "combat_phases_ms": {
+              "cleanup": 0.037863999999999995,
+              "drones": 0.41705919999999996,
+              "enemy_ai": 2.9008032,
+              "patrol_special": 0.474976,
+              "player_weapons": 0.2686064,
+              "projectiles": 0.0034048
+            }
+          },
+          "80-90": {
+            "frames": 599,
+            "average_fps_from_frame_ms": 60.939946277215306,
+            "frames_per_elapsed_second": 59.9,
+            "frame_ms_mean": 16.409597662771287,
+            "frame_ms_p95": 25.932,
+            "cpu_ms_mean": 9.345607679465775,
+            "counts": {
+              "actors": {
+                "mean": 71,
+                "max": 71
+              },
+              "mines": {
+                "mean": 30,
+                "max": 30
+              },
+              "bullets": {
+                "mean": 0.24040066777963273,
+                "max": 7
+              },
+              "effects": {
+                "mean": 1.325542570951586,
+                "max": 13
+              },
+              "drones": {
+                "mean": 14,
+                "max": 14
+              },
+              "loot": {
+                "mean": 4.385642737896494,
+                "max": 5
+              },
+              "draw_calls": {
+                "mean": 245.6076794657763,
+                "max": 359.0
+              }
+            },
+            "main_phases_ms": {
+              "audio_hud": 0.2746727879799666,
+              "body": 1.0916410684474125,
+              "combat": 4.881671118530885,
+              "mission": 2.6997362270450753,
+              "preparation": 0.18065776293823038,
+              "visual_sync": 0.20063939899833055
+            },
+            "combat_phases_ms": {
+              "cleanup": 0.04119866444073456,
+              "drones": 0.4356260434056761,
+              "enemy_ai": 3.1038247078464107,
+              "patrol_special": 0.47538731218697833,
+              "player_weapons": 0.3416577629382304,
+              "projectiles": 0.011545909849749583
+            }
+          }
+        }
+      },
+      {
+        "tag": "mixed-isolated-map-repeat-90",
+        "edition": "r3 repeat; denser combat",
+        "report": "E:\\_Nlv\\github\\temp\\artifacts\\mixed-isolated-map-repeat-90.json",
+        "conditions": {
+          "audio_and_effects": true,
+          "dt": "actual engine process delta",
+          "duration_seconds": 90.0227753333324,
+          "fixture_focus_pause_suppressed": true,
+          "height": 900,
+          "initial_actors": 45,
+          "invulnerable_fixture_actors": false,
+          "legacy_egg_rendering": false,
+          "loadout": "screenshot-derived 11 mixed modules",
+          "measured_frames": 5234,
+          "mission": "Survival Mission",
+          "native_actor_waves": true,
+          "native_map_spawns": true,
+          "native_pacing": true,
+          "refresh_rate": 60.0,
+          "reward_interruptions_suppressed": true,
+          "route": "roam",
+          "six_gatling_modules": false,
+          "vsync_mode": 1,
+          "warmup_frames": 12,
+          "width": 1440
+        },
+        "active_frames": 5234,
+        "average_fps_from_frame_ms": 58.57021445203124,
+        "frames_per_elapsed_second": 58.14084247702621,
+        "frame_ms": {
+          "max": 65.93,
+          "mean": 17.0735246465419,
+          "median": 16.283,
+          "p95": 27.103,
+          "p99": 34.393,
+          "within_60fps_percent": 53.4199465036301
+        },
+        "cpu_ms": {
+          "max": 54.846,
+          "mean": 8.743518532671,
+          "median": 8.419,
+          "p95": 15.154,
+          "p99": 19.108,
+          "within_60fps_percent": 97.0768055024838
+        },
+        "counter_at_end": {
+          "average_ms": 25.7086,
+          "fps": 38.8974895560241,
+          "peak_ms": 39.1209983825684,
+          "text": "39 FPS   25.7 ms"
+        },
+        "mined_cells": 417,
+        "ore_value": 16,
+        "windows": {
+          "0-10": {
+            "frames": 927,
+            "average_fps_from_frame_ms": 93.14006819420398,
+            "frames_per_elapsed_second": 92.7,
+            "frame_ms_mean": 10.73651779935275,
+            "frame_ms_p95": 14.092,
+            "cpu_ms_mean": 4.2558619201726,
+            "counts": {
+              "actors": {
+                "mean": 52.78425026968716,
+                "max": 74
+              },
+              "mines": {
+                "mean": 5.483279395900755,
+                "max": 11
+              },
+              "bullets": {
+                "mean": 0.07335490830636461,
+                "max": 4
+              },
+              "effects": {
+                "mean": 0.9838187702265372,
+                "max": 8
+              },
+              "drones": {
+                "mean": 14,
+                "max": 14
+              },
+              "loot": {
+                "mean": 3.001078748651564,
+                "max": 12
+              },
+              "draw_calls": {
+                "mean": 260.05070118662354,
+                "max": 335.0
+              }
+            },
+            "main_phases_ms": {
+              "audio_hud": 0.23640237324703345,
+              "body": 0.6641024811218985,
+              "combat": 2.098797195253506,
+              "mission": 0.8680690399137001,
+              "preparation": 0.2943074433656958,
+              "visual_sync": 0.0797982740021575
+            },
+            "combat_phases_ms": {
+              "cleanup": 0.028169363538295578,
+              "drones": 0.290512405609493,
+              "enemy_ai": 1.0258371089536138,
+              "patrol_special": 0.1718133764832794,
+              "player_weapons": 0.26445307443365695,
+              "projectiles": 0.002459546925566343
+            }
+          },
+          "30-40": {
+            "frames": 413,
+            "average_fps_from_frame_ms": 41.28935973199706,
+            "frames_per_elapsed_second": 41.3,
+            "frame_ms_mean": 24.21931476997579,
+            "frame_ms_p95": 34.365,
+            "cpu_ms_mean": 11.869062953995158,
+            "counts": {
+              "actors": {
+                "mean": 66.87409200968523,
+                "max": 73
+              },
+              "mines": {
+                "mean": 22.62227602905569,
+                "max": 30
+              },
+              "bullets": {
+                "mean": 6.101694915254237,
+                "max": 22
+              },
+              "effects": {
+                "mean": 17.145278450363197,
+                "max": 45
+              },
+              "drones": {
+                "mean": 14,
+                "max": 14
+              },
+              "loot": {
+                "mean": 4.946731234866828,
+                "max": 8
+              },
+              "draw_calls": {
+                "mean": 480.20581113801455,
+                "max": 803.0
+              }
+            },
+            "main_phases_ms": {
+              "audio_hud": 0.6595835351089588,
+              "body": 0.9658571428571429,
+              "combat": 6.342525423728814,
+              "mission": 3.1136343825665858,
+              "preparation": 0.20766101694915257,
+              "visual_sync": 0.5618934624697337
+            },
+            "combat_phases_ms": {
+              "cleanup": 0.08780387409200968,
+              "drones": 0.5800556900726392,
+              "enemy_ai": 3.6863002421307507,
+              "patrol_special": 0.4957360774818402,
+              "player_weapons": 0.7260121065375302,
+              "projectiles": 0.23270217917675542
+            }
+          },
+          "70-80": {
+            "frames": 497,
+            "average_fps_from_frame_ms": 49.97825895455538,
+            "frames_per_elapsed_second": 49.7,
+            "frame_ms_mean": 20.008700201207244,
+            "frame_ms_p95": 27.581,
+            "cpu_ms_mean": 11.439221327967807,
+            "counts": {
+              "actors": {
+                "mean": 65.16901408450704,
+                "max": 81
+              },
+              "mines": {
+                "mean": 30,
+                "max": 30
+              },
+              "bullets": {
+                "mean": 1.2977867203219315,
+                "max": 9
+              },
+              "effects": {
+                "mean": 3.943661971830986,
+                "max": 19
+              },
+              "drones": {
+                "mean": 14,
+                "max": 14
+              },
+              "loot": {
+                "mean": 4.036217303822937,
+                "max": 6
+              },
+              "draw_calls": {
+                "mean": 260.1810865191147,
+                "max": 387.0
+              }
+            },
+            "main_phases_ms": {
+              "audio_hud": 0.39374647887323944,
+              "body": 1.2438169014084508,
+              "combat": 6.356937625754528,
+              "mission": 3.0477665995975856,
+              "preparation": 0.21370221327967806,
+              "visual_sync": 0.16328370221327967
+            },
+            "combat_phases_ms": {
+              "cleanup": 0.05497585513078471,
+              "drones": 0.4956841046277666,
+              "enemy_ai": 3.5812012072434607,
+              "patrol_special": 1.0261710261569417,
+              "player_weapons": 0.6071086519114688,
+              "projectiles": 0.0784688128772636
+            }
+          },
+          "80-90": {
+            "frames": 505,
+            "average_fps_from_frame_ms": 51.128786934600406,
+            "frames_per_elapsed_second": 50.5,
+            "frame_ms_mean": 19.558453465346535,
+            "frame_ms_p95": 28.17,
+            "cpu_ms_mean": 10.84490693069307,
+            "counts": {
+              "actors": {
+                "mean": 68.20990099009902,
+                "max": 70
+              },
+              "mines": {
+                "mean": 29.883168316831682,
+                "max": 30
+              },
+              "bullets": {
+                "mean": 4.035643564356436,
+                "max": 20
+              },
+              "effects": {
+                "mean": 8.106930693069307,
+                "max": 26
+              },
+              "drones": {
+                "mean": 14,
+                "max": 14
+              },
+              "loot": {
+                "mean": 5.198019801980198,
+                "max": 9
+              },
+              "draw_calls": {
+                "mean": 282.6831683168317,
+                "max": 458.0
+              }
+            },
+            "main_phases_ms": {
+              "audio_hud": 0.4959663366336634,
+              "body": 1.3350930693069305,
+              "combat": 6.007849504950496,
+              "mission": 2.525560396039604,
+              "preparation": 0.19874257425742572,
+              "visual_sync": 0.2644910891089109
+            },
+            "combat_phases_ms": {
+              "cleanup": 0.07036831683168318,
+              "drones": 0.5071168316831683,
+              "enemy_ai": 3.6131881188118813,
+              "patrol_special": 0.579459405940594,
+              "player_weapons": 0.5703267326732673,
+              "projectiles": 0.1487128712871287
+            }
+          }
+        }
+      }
+    ],
+    "interpretation": "Natural real-time runs share loadout and input route, but actual delta and wave encounters diverge. Do not attribute the whole FPS difference to one change. First final run late mean 62.8 FPS; repeat late mean 50.0 FPS, with the ending counter at 39 FPS. Stable 60 FPS has not been achieved."
+  },
+  "stable_60fps_confirmed": false,
+  "rejected_experiment": {
+    "name": "conservative visibility certificates",
+    "target_differences": 0,
+    "rng_differences": 0,
+    "paired_queries": 16800,
+    "exact_us": 3731402,
+    "cached_us": 4882171,
+    "adopted": false
+  },
+  "preview": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-egg-map-cache-r3-preview",
+  "runtime_unchanged_after_export": true,
+  "previous_delivery_r2": {
+    "archive": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-egg-batch-r2.zip",
+    "executable": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-egg-batch-r2\\RunBuildPew.exe",
+    "bytes": 157208192,
+    "sha256": "9f9dbc3b37f0eb654322000b3a5556af371563a97b4a8574d3bef1b2e22bfff6",
+    "passed": true,
+    "unpacked_launch": true,
+    "validated_checks": 85,
+    "cave_mining_validated": true,
+    "native_performance": {}
+  },
+  "updated_at": "2026-10-21T20:56:32.169713+08:00",
+  "legacy_region_cache": {
+    "checks": {
+      "areas": 4243,
+      "bounded": true,
+      "candidate_us": 14529,
+      "disabled_same": true,
+      "ordered_geometry_differences": 0,
+      "paired_moving_queries": 30720,
+      "passed": true,
+      "reset_cleared": true,
+      "source_us": 152437
+    },
+    "capacity": 256,
+    "semantics": "Same ordered pit geometry, physical sweeps, actor update frequency, count and rendering. Cache cleared on cave reset. Non-cave behavior delegates to the original implementation."
+  },
+  "latest_logical_regressions": {
+    "suites": [
+      {
+        "suite": "cave_nearby_regions",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.775,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "cave_mining",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 2.174,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "cave_curves",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.766,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "cave_collision_cache",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.519,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "cave_update_budget",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.588,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "cave_far_navigation",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.582,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "cave_spawn_jobs",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 3.381,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "combat_spatial",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.714,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "missions",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.343,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "radial_formations",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 3.753,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "specials",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.863,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "chasm_collision",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 4.024,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "map",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.862,
+        "isolated_user_data": true
+      }
+    ],
+    "passed": true
+  },
+  "latest_native_regressions": {
+    "suites": [
+      {
+        "suite": "cave_scene",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 9.132,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "chasm_scene",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 5.888,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "cave_spawn_jobs",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 5.955,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "deployment",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 7.646,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "egg_visual_batch",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 2.377,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "attack_shader_materials",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.619,
+        "isolated_user_data": true
+      }
+    ],
+    "passed": true
+  }
+}

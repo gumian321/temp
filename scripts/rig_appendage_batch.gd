@@ -7,6 +7,7 @@ var rig:Node2D
 var pieces:Array=[]
 var bindings:Array=[]
 var active=false
+static var triangulations:Dictionary={}
 
 func _collect(node:Node,ordered:Array):
 	if node!=self and node is Polygon2D:ordered.append(node)
@@ -28,7 +29,11 @@ func setup(owner_rig:Node2D)->bool:
 			if not ancestor is Node2D or ancestor.z_index!=0 or ancestor.modulate!=Color.WHITE or ancestor.self_modulate!=Color.WHITE:return false
 			ancestor=ancestor.get_parent()
 			if ancestor==null:return false
-		var indices=Geometry2D.triangulate_polygon(piece.polygon)
+		var polygon:PackedVector2Array=piece.polygon
+		if not triangulations.has(polygon):
+			if triangulations.size()>=2048:triangulations.clear()
+			triangulations[polygon]=Geometry2D.triangulate_polygon(polygon)
+		var indices:PackedInt32Array=triangulations[polygon]
 		if indices.size()!=(piece.polygon.size()-2)*3 or piece.uv.size()!=piece.polygon.size():return false
 		if not bones.has(bone):bones.append(bone)
 		var owner_index=bones.find(bone);var first=points.size()

@@ -7,6 +7,7 @@ static var textures: Dictionary = {}
 static func entries() -> Dictionary:
 	if catalog.is_empty():
 		catalog = JSON.parse_string(FileAccess.get_file_as_string("res://data/insect_armaments.json"))
+		catalog.merge(JSON.parse_string(FileAccess.get_file_as_string("res://data/expanded_armaments.json")))
 	return catalog
 
 static func variant(db, value: Dictionary) -> String:
@@ -56,6 +57,7 @@ static func install_names(db):
 		if not key.is_empty(): value.coreNameID = catalog[key].key
 	for value in db.catalog.values():
 		if not "Reward" in str(value.get("class", "")): continue
+		if value.has("mutation_branch"):continue
 		var key = variant(db, value)
 		if not key.is_empty(): value.rewardDesc = catalog[key].key + "_Desc"
 	set_text(db, "Reward_WallCores", "Iron Elytra", "铁鞘")
@@ -73,10 +75,12 @@ static func set_text(db, key: String, english: String, chinese: String):
 		if old is String and not old.is_empty(): db.chinese_ui.literal[old] = chinese
 
 static func atlas_path(key: String) -> String:
+	if entries()[key].has("atlas_path"):return str(entries()[key].atlas_path)
 	return ROOT + "armaments_atlas_" + str(entries()[key].atlas) + ".png"
 
 static func texture(key: String) -> Texture2D:
 	if not entries().has(key): return null
+	if entries()[key].has("atlas_path"):return preload("res://scripts/mutation_weapon_art.gd").texture(key)
 	if textures.has(key): return textures[key]
 	var path = atlas_path(key)
 	if not ResourceLoader.exists(path): return null

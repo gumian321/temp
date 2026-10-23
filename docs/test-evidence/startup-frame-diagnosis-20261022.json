@@ -1,0 +1,1144 @@
+{
+  "date": "2026-10-22",
+  "status": "User's persistent fresh-entry ~20 FPS not reproduced; root cause unresolved. Normal-play F3 capture implemented and verified.",
+  "optimization_claim": "No claimed fix for the reported ~20 FPS. Profiling environment switch cached once; no measured FPS gain attributed to it.",
+  "source_runtime_experiments": {
+    "source": {
+      "captures": [
+        "res://artifacts/startup-profile-fresh-idle.png",
+        "res://artifacts/startup-profile-fresh-mining.png",
+        "res://artifacts/startup-profile-mixed-combat.png",
+        "res://artifacts/startup-profile-hostile-crossfire.png"
+      ],
+      "checks": [
+        {
+          "name": "Uses the actual native renderer",
+          "passed": true
+        },
+        {
+          "name": "Case includes real simulation: fresh-idle",
+          "passed": true
+        },
+        {
+          "name": "Case includes real simulation: fresh-mining",
+          "passed": true
+        },
+        {
+          "name": "Case includes real simulation: mixed-combat",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_ProjectileShip_Gatling",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_ProjectileShip_Cannon",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_ProjectileShip_Rocket",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_ProjectileShip_EMP",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_ProjectileShip_Tesla",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_ProjectileShip_GatlingSniperGatling",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_Shotgun_1",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_Following_Flak",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_DronesCarrier_1",
+          "passed": true
+        },
+        {
+          "name": "Case includes real simulation: hostile-crossfire",
+          "passed": true
+        },
+        {
+          "name": "Actual enemy AI fires red projectiles in main scene",
+          "passed": true
+        },
+        {
+          "name": "All observed surviving red projectiles own dynamic history",
+          "passed": true
+        },
+        {
+          "name": "Actual homing projectiles preserve curved history",
+          "passed": true
+        }
+      ],
+      "curved_hostile_histories": 154,
+      "debug_build": true,
+      "hostile_families": {
+        "cannon": 12,
+        "emp": 7,
+        "flak": 222,
+        "gatling": 220,
+        "rocket": 548,
+        "shotgun": 53
+      },
+      "missing_hostile_histories": 0,
+      "passed": true,
+      "peak_hostile": 11,
+      "renderer": "Windows",
+      "resolution": "(1440, 900)",
+      "results": [
+        {
+          "actors": {
+            "max": 58,
+            "mean": 46.3497757847534,
+            "median": 47,
+            "p95": 48
+          },
+          "attack_commands": {
+            "max": 0,
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          },
+          "bullets": {
+            "max": 0,
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          },
+          "case": "fresh-idle",
+          "cpu_ms": {
+            "max": 23.222,
+            "mean": 2.35512107623319,
+            "median": 2.154,
+            "p95": 3.577
+          },
+          "draw_calls": {
+            "max": 94.0,
+            "mean": 91.7605381165919,
+            "median": 92.0,
+            "p95": 93.0
+          },
+          "draw_ms": {
+            "max": 1.727,
+            "mean": 0.903073542600897,
+            "median": 0.863,
+            "p95": 1.239
+          },
+          "effects_draw_ms": {
+            "max": 0.081,
+            "mean": 0.0126367713004483,
+            "median": 0.012,
+            "p95": 0.017
+          },
+          "frame_ms": {
+            "max": 25.766,
+            "mean": 4.45897757847534,
+            "median": 4.219,
+            "p95": 6.032
+          },
+          "frames": 1115,
+          "projectile_draw_ms": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0
+          },
+          "simulated_seconds": 5.00313945454545
+        },
+        {
+          "actors": {
+            "max": 58,
+            "mean": 56.0588942307692,
+            "median": 58,
+            "p95": 58
+          },
+          "attack_commands": {
+            "max": 24,
+            "mean": 6.04326923076923,
+            "median": 0,
+            "p95": 24
+          },
+          "bullets": {
+            "max": 0,
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          },
+          "case": "fresh-mining",
+          "cpu_ms": {
+            "max": 13.486,
+            "mean": 3.09478846153846,
+            "median": 2.867,
+            "p95": 4.73
+          },
+          "draw_calls": {
+            "max": 193.0,
+            "mean": 119.860576923077,
+            "median": 94.0,
+            "p95": 188.0
+          },
+          "draw_ms": {
+            "max": 8.891,
+            "mean": 1.40584735576923,
+            "median": 1.031,
+            "p95": 3.123
+          },
+          "effects_draw_ms": {
+            "max": 0.192,
+            "mean": 0.0463389423076923,
+            "median": 0.014,
+            "p95": 0.123
+          },
+          "frame_ms": {
+            "max": 58.116,
+            "mean": 5.96444951923077,
+            "median": 5.388,
+            "p95": 9.145
+          },
+          "frames": 832,
+          "projectile_draw_ms": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0
+          },
+          "simulated_seconds": 5.13769096969695
+        },
+        {
+          "actors": {
+            "max": 66,
+            "mean": 58.6904761904762,
+            "median": 58,
+            "p95": 66
+          },
+          "attack_commands": {
+            "max": 108,
+            "mean": 45.6481481481481,
+            "median": 36,
+            "p95": 82
+          },
+          "bullets": {
+            "max": 4,
+            "mean": 1.19047619047619,
+            "median": 0,
+            "p95": 4
+          },
+          "case": "mixed-combat",
+          "cpu_ms": {
+            "max": 26.246,
+            "mean": 7.57409259259259,
+            "median": 7.105,
+            "p95": 11.387
+          },
+          "draw_calls": {
+            "max": 346.0,
+            "mean": 281.640211640212,
+            "median": 285.0,
+            "p95": 315.0
+          },
+          "draw_ms": {
+            "max": 29.947,
+            "mean": 4.84281746031746,
+            "median": 4.22,
+            "p95": 8.189
+          },
+          "effects_draw_ms": {
+            "max": 25.956,
+            "mean": 0.238283068783069,
+            "median": 0.133,
+            "p95": 0.454
+          },
+          "frame_ms": {
+            "max": 115.338,
+            "mean": 15.8446613756614,
+            "median": 15.032,
+            "p95": 22.815
+          },
+          "frames": 378,
+          "projectile_draw_ms": {
+            "max": 1.069,
+            "mean": 0.154190476190476,
+            "median": 0.0,
+            "p95": 0.612
+          },
+          "simulated_seconds": 6.12803624242422
+        },
+        {
+          "actors": {
+            "max": 76,
+            "mean": 75.5032894736842,
+            "median": 76,
+            "p95": 76
+          },
+          "attack_commands": {
+            "max": 411,
+            "mean": 207.546052631579,
+            "median": 204,
+            "p95": 331
+          },
+          "bullets": {
+            "max": 22,
+            "mean": 4.84539473684211,
+            "median": 4,
+            "p95": 14
+          },
+          "case": "hostile-crossfire",
+          "cpu_ms": {
+            "max": 63.715,
+            "mean": 14.0259243421053,
+            "median": 12.773,
+            "p95": 21.204
+          },
+          "draw_calls": {
+            "max": 708.0,
+            "mean": 498.3125,
+            "median": 494.0,
+            "p95": 617.0
+          },
+          "draw_ms": {
+            "max": 15.589,
+            "mean": 7.32467434210526,
+            "median": 6.981,
+            "p95": 11.033
+          },
+          "effects_draw_ms": {
+            "max": 3.692,
+            "mean": 1.36404934210526,
+            "median": 1.378,
+            "p95": 2.227
+          },
+          "frame_ms": {
+            "max": 109.938,
+            "mean": 26.2558519736842,
+            "median": 24.454,
+            "p95": 39.538
+          },
+          "frames": 304,
+          "projectile_draw_ms": {
+            "max": 1.645,
+            "mean": 0.456118421052632,
+            "median": 0.368,
+            "p95": 1.238
+          },
+          "simulated_seconds": 8.0652213333333
+        }
+      ],
+      "scope": "Debug Godot source runtime, normal main scene/AI/weapons/collisions and real engine delta. Isolated save; HP raised only to retain inspection subjects; fixed test inputs and staged native enemy encounter. No editor debugger connected. Not the user's exact equipment/window."
+    },
+    "local_debug": {
+      "captures": [
+        "res://artifacts/startup-profile-fresh-idle-debug.png",
+        "res://artifacts/startup-profile-fresh-mining-debug.png",
+        "res://artifacts/startup-profile-mixed-combat-debug.png",
+        "res://artifacts/startup-profile-hostile-crossfire-debug.png"
+      ],
+      "checks": [
+        {
+          "name": "Uses the actual native renderer",
+          "passed": true
+        },
+        {
+          "name": "Case includes real simulation: fresh-idle",
+          "passed": true
+        },
+        {
+          "name": "Case includes real simulation: fresh-mining",
+          "passed": true
+        },
+        {
+          "name": "Case includes real simulation: mixed-combat",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_ProjectileShip_Gatling",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_ProjectileShip_Cannon",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_ProjectileShip_Rocket",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_ProjectileShip_EMP",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_ProjectileShip_Tesla",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_ProjectileShip_GatlingSniperGatling",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_Shotgun_1",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_Following_Flak",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_DronesCarrier_1",
+          "passed": true
+        },
+        {
+          "name": "Case includes real simulation: hostile-crossfire",
+          "passed": true
+        },
+        {
+          "name": "Actual enemy AI fires red projectiles in main scene",
+          "passed": true
+        },
+        {
+          "name": "All observed surviving red projectiles own dynamic history",
+          "passed": true
+        },
+        {
+          "name": "Actual homing projectiles preserve curved history",
+          "passed": true
+        }
+      ],
+      "curved_hostile_histories": 119,
+      "debug_build": true,
+      "hostile_families": {
+        "cannon": 10,
+        "emp": 4,
+        "flak": 154,
+        "gatling": 146,
+        "rocket": 472,
+        "shotgun": 40
+      },
+      "missing_hostile_histories": 0,
+      "passed": true,
+      "peak_hostile": 10,
+      "renderer": "Windows",
+      "resolution": "(1440, 900)",
+      "results": [
+        {
+          "actors": {
+            "max": 58,
+            "mean": 46.3367983367983,
+            "median": 47,
+            "p95": 48
+          },
+          "attack_commands": {
+            "max": 0,
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          },
+          "bullets": {
+            "max": 0,
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          },
+          "case": "fresh-idle",
+          "cpu_ms": {
+            "max": 30.051,
+            "mean": 2.7808711018711,
+            "median": 2.533,
+            "p95": 4.312
+          },
+          "draw_calls": {
+            "max": 94.0,
+            "mean": 91.7515592515593,
+            "median": 92.0,
+            "p95": 93.0
+          },
+          "draw_ms": {
+            "max": 1.702,
+            "mean": 1.04112681912682,
+            "median": 0.99,
+            "p95": 1.477
+          },
+          "effects_draw_ms": {
+            "max": 0.034,
+            "mean": 0.0145987525987527,
+            "median": 0.014,
+            "p95": 0.019
+          },
+          "frame_ms": {
+            "max": 32.768,
+            "mean": 5.16595426195426,
+            "median": 4.884,
+            "p95": 7.114
+          },
+          "frames": 962,
+          "projectile_draw_ms": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0
+          },
+          "simulated_seconds": 5.00082288888886
+        },
+        {
+          "actors": {
+            "max": 58,
+            "mean": 56.151724137931,
+            "median": 58,
+            "p95": 58
+          },
+          "attack_commands": {
+            "max": 36,
+            "mean": 6.35586206896552,
+            "median": 0,
+            "p95": 24
+          },
+          "bullets": {
+            "max": 1,
+            "mean": 0.00137931034482759,
+            "median": 0,
+            "p95": 0
+          },
+          "case": "fresh-mining",
+          "cpu_ms": {
+            "max": 13.277,
+            "mean": 3.64024827586207,
+            "median": 3.332,
+            "p95": 5.532
+          },
+          "draw_calls": {
+            "max": 194.0,
+            "mean": 121.874482758621,
+            "median": 94.0,
+            "p95": 188.0
+          },
+          "draw_ms": {
+            "max": 9.799,
+            "mean": 1.59910206896552,
+            "median": 1.19,
+            "p95": 3.464
+          },
+          "effects_draw_ms": {
+            "max": 0.265,
+            "mean": 0.0510717241379311,
+            "median": 0.016,
+            "p95": 0.129
+          },
+          "frame_ms": {
+            "max": 56.282,
+            "mean": 6.84611034482759,
+            "median": 6.249,
+            "p95": 9.586
+          },
+          "frames": 725,
+          "projectile_draw_ms": {
+            "max": 0.111,
+            "mean": 0.000153103448275862,
+            "median": 0.0,
+            "p95": 0.0
+          },
+          "simulated_seconds": 5.1416013535354
+        },
+        {
+          "actors": {
+            "max": 66,
+            "mean": 58.4969135802469,
+            "median": 58,
+            "p95": 66
+          },
+          "attack_commands": {
+            "max": 109,
+            "mean": 54.0185185185185,
+            "median": 51,
+            "p95": 97
+          },
+          "bullets": {
+            "max": 4,
+            "mean": 1.18518518518519,
+            "median": 0,
+            "p95": 4
+          },
+          "case": "mixed-combat",
+          "cpu_ms": {
+            "max": 21.385,
+            "mean": 8.76692592592593,
+            "median": 8.098,
+            "p95": 13.608
+          },
+          "draw_calls": {
+            "max": 355.0,
+            "mean": 282.966049382716,
+            "median": 284.0,
+            "p95": 315.0
+          },
+          "draw_ms": {
+            "max": 30.262,
+            "mean": 5.81958641975309,
+            "median": 4.969,
+            "p95": 9.771
+          },
+          "effects_draw_ms": {
+            "max": 25.266,
+            "mean": 0.286858024691358,
+            "median": 0.17,
+            "p95": 0.472
+          },
+          "frame_ms": {
+            "max": 113.796,
+            "mean": 18.4526759259259,
+            "median": 17.383,
+            "p95": 25.382
+          },
+          "frames": 324,
+          "projectile_draw_ms": {
+            "max": 1.299,
+            "mean": 0.169570987654321,
+            "median": 0.0,
+            "p95": 0.78
+          },
+          "simulated_seconds": 6.1217757575758
+        },
+        {
+          "actors": {
+            "max": 76,
+            "mean": 75.3813953488372,
+            "median": 76,
+            "p95": 76
+          },
+          "attack_commands": {
+            "max": 468,
+            "mean": 216.879069767442,
+            "median": 212,
+            "p95": 349
+          },
+          "bullets": {
+            "max": 25,
+            "mean": 5.98139534883721,
+            "median": 5,
+            "p95": 14
+          },
+          "case": "hostile-crossfire",
+          "cpu_ms": {
+            "max": 68.724,
+            "mean": 20.6993860465116,
+            "median": 19.602,
+            "p95": 28.99
+          },
+          "draw_calls": {
+            "max": 784.0,
+            "mean": 511.595348837209,
+            "median": 511.0,
+            "p95": 649.0
+          },
+          "draw_ms": {
+            "max": 24.499,
+            "mean": 10.0964186046512,
+            "median": 9.762,
+            "p95": 15.262
+          },
+          "effects_draw_ms": {
+            "max": 4.69,
+            "mean": 1.81257674418605,
+            "median": 1.772,
+            "p95": 3.077
+          },
+          "frame_ms": {
+            "max": 102.462,
+            "mean": 37.1775348837209,
+            "median": 35.777,
+            "p95": 51.449
+          },
+          "frames": 215,
+          "projectile_draw_ms": {
+            "max": 2.552,
+            "mean": 0.665162790697674,
+            "median": 0.562,
+            "p95": 1.505
+          },
+          "simulated_seconds": 8.06244851515158
+        }
+      ],
+      "scope": "Debug Godot source runtime, normal main scene/AI/weapons/collisions and real engine delta. Isolated save; HP raised only to retain inspection subjects; fixed test inputs and staged native enemy encounter. No editor debugger connected. Not the user's exact equipment/window."
+    },
+    "local_debug_profiler": {
+      "captures": [
+        "res://artifacts/startup-profile-fresh-idle-profiler.png",
+        "res://artifacts/startup-profile-fresh-mining-profiler.png",
+        "res://artifacts/startup-profile-mixed-combat-profiler.png",
+        "res://artifacts/startup-profile-hostile-crossfire-profiler.png"
+      ],
+      "checks": [
+        {
+          "name": "Uses the actual native renderer",
+          "passed": true
+        },
+        {
+          "name": "Case includes real simulation: fresh-idle",
+          "passed": true
+        },
+        {
+          "name": "Case includes real simulation: fresh-mining",
+          "passed": true
+        },
+        {
+          "name": "Case includes real simulation: mixed-combat",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_ProjectileShip_Gatling",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_ProjectileShip_Cannon",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_ProjectileShip_Rocket",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_ProjectileShip_EMP",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_ProjectileShip_Tesla",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_ProjectileShip_GatlingSniperGatling",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_Shotgun_1",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_Following_Flak",
+          "passed": true
+        },
+        {
+          "name": "Production enemy prefab exists: AI_DronesCarrier_1",
+          "passed": true
+        },
+        {
+          "name": "Case includes real simulation: hostile-crossfire",
+          "passed": true
+        },
+        {
+          "name": "Actual enemy AI fires red projectiles in main scene",
+          "passed": true
+        },
+        {
+          "name": "All observed surviving red projectiles own dynamic history",
+          "passed": true
+        },
+        {
+          "name": "Actual homing projectiles preserve curved history",
+          "passed": true
+        }
+      ],
+      "curved_hostile_histories": 114,
+      "debug_build": true,
+      "hostile_families": {
+        "cannon": 3,
+        "emp": 3,
+        "flak": 167,
+        "gatling": 165,
+        "rocket": 467,
+        "shotgun": 45
+      },
+      "missing_hostile_histories": 0,
+      "passed": true,
+      "peak_hostile": 9,
+      "renderer": "Windows",
+      "resolution": "(1440, 900)",
+      "results": [
+        {
+          "actors": {
+            "max": 58,
+            "mean": 46.2710396039604,
+            "median": 47,
+            "p95": 48
+          },
+          "attack_commands": {
+            "max": 0,
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          },
+          "bullets": {
+            "max": 0,
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          },
+          "case": "fresh-idle",
+          "cpu_ms": {
+            "max": 37.325,
+            "mean": 3.39382920792079,
+            "median": 2.946,
+            "p95": 5.972
+          },
+          "draw_calls": {
+            "max": 94.0,
+            "mean": 91.7042079207921,
+            "median": 92.0,
+            "p95": 93.0
+          },
+          "draw_ms": {
+            "max": 2.943,
+            "mean": 1.21239603960396,
+            "median": 1.135,
+            "p95": 1.717
+          },
+          "effects_draw_ms": {
+            "max": 0.044,
+            "mean": 0.0158415841584157,
+            "median": 0.015,
+            "p95": 0.021
+          },
+          "frame_ms": {
+            "max": 40.325,
+            "mean": 6.16768564356435,
+            "median": 5.627,
+            "p95": 9.331
+          },
+          "frames": 808,
+          "projectile_draw_ms": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0
+          },
+          "simulated_seconds": 5.00294133333331
+        },
+        {
+          "actors": {
+            "max": 58,
+            "mean": 56.1050955414013,
+            "median": 58,
+            "p95": 58
+          },
+          "attack_commands": {
+            "max": 36,
+            "mean": 6.05732484076433,
+            "median": 0,
+            "p95": 24
+          },
+          "bullets": {
+            "max": 1,
+            "mean": 0.00318471337579618,
+            "median": 0,
+            "p95": 0
+          },
+          "case": "fresh-mining",
+          "cpu_ms": {
+            "max": 16.068,
+            "mean": 4.25432324840764,
+            "median": 3.932,
+            "p95": 6.654
+          },
+          "draw_calls": {
+            "max": 202.0,
+            "mean": 121.114649681529,
+            "median": 94.0,
+            "p95": 189.0
+          },
+          "draw_ms": {
+            "max": 12.984,
+            "mean": 1.83857484076433,
+            "median": 1.333,
+            "p95": 4.185
+          },
+          "effects_draw_ms": {
+            "max": 0.214,
+            "mean": 0.0520716560509555,
+            "median": 0.016,
+            "p95": 0.136
+          },
+          "frame_ms": {
+            "max": 60.493,
+            "mean": 7.91658598726115,
+            "median": 7.128,
+            "p95": 11.635
+          },
+          "frames": 628,
+          "projectile_draw_ms": {
+            "max": 0.075,
+            "mean": 0.000222929936305733,
+            "median": 0.0,
+            "p95": 0.0
+          },
+          "simulated_seconds": 5.14057199999998
+        },
+        {
+          "actors": {
+            "max": 66,
+            "mean": 58.7559322033898,
+            "median": 58,
+            "p95": 66
+          },
+          "attack_commands": {
+            "max": 235,
+            "mean": 61.2915254237288,
+            "median": 42,
+            "p95": 131
+          },
+          "bullets": {
+            "max": 15,
+            "mean": 1.91525423728814,
+            "median": 0,
+            "p95": 8
+          },
+          "case": "mixed-combat",
+          "cpu_ms": {
+            "max": 20.627,
+            "mean": 9.92399322033898,
+            "median": 9.458,
+            "p95": 14.559
+          },
+          "draw_calls": {
+            "max": 430.0,
+            "mean": 290.305084745763,
+            "median": 286.0,
+            "p95": 329.0
+          },
+          "draw_ms": {
+            "max": 29.252,
+            "mean": 6.31079322033898,
+            "median": 5.328,
+            "p95": 10.371
+          },
+          "effects_draw_ms": {
+            "max": 24.637,
+            "mean": 0.374074576271186,
+            "median": 0.187,
+            "p95": 0.937
+          },
+          "frame_ms": {
+            "max": 123.801,
+            "mean": 20.2984338983051,
+            "median": 19.069,
+            "p95": 27.371
+          },
+          "frames": 295,
+          "projectile_draw_ms": {
+            "max": 1.09,
+            "mean": 0.209467796610169,
+            "median": 0.0,
+            "p95": 0.741
+          },
+          "simulated_seconds": 6.10736066666671
+        },
+        {
+          "actors": {
+            "max": 76,
+            "mean": 75.4871794871795,
+            "median": 76,
+            "p95": 76
+          },
+          "attack_commands": {
+            "max": 505,
+            "mean": 224.213675213675,
+            "median": 213,
+            "p95": 349
+          },
+          "bullets": {
+            "max": 32,
+            "mean": 5.97008547008547,
+            "median": 5,
+            "p95": 15
+          },
+          "case": "hostile-crossfire",
+          "cpu_ms": {
+            "max": 70.718,
+            "mean": 19.2090811965812,
+            "median": 18.465,
+            "p95": 24.369
+          },
+          "draw_calls": {
+            "max": 786.0,
+            "mean": 529.952991452991,
+            "median": 530.0,
+            "p95": 667.0
+          },
+          "draw_ms": {
+            "max": 19.324,
+            "mean": 9.14497863247863,
+            "median": 8.641,
+            "p95": 13.882
+          },
+          "effects_draw_ms": {
+            "max": 3.274,
+            "mean": 1.72594871794872,
+            "median": 1.756,
+            "p95": 2.788
+          },
+          "frame_ms": {
+            "max": 95.749,
+            "mean": 34.1592222222222,
+            "median": 32.849,
+            "p95": 43.891
+          },
+          "frames": 234,
+          "projectile_draw_ms": {
+            "max": 2.388,
+            "mean": 0.600235042735043,
+            "median": 0.521,
+            "p95": 1.352
+          },
+          "simulated_seconds": 8.0541666666667
+        }
+      ],
+      "scope": "Debug Godot source runtime, normal main scene/AI/weapons/collisions and real engine delta. Isolated save; HP raised only to retain inspection subjects; fixed test inputs and staged native enemy encounter. No editor debugger connected. Not the user's exact equipment/window."
+    }
+  },
+  "checks": {
+    "normal-startup-diagnostics-final.json": {
+      "suites": [
+        {
+          "suite": "runtime_performance_capture",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 7.903,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "performance_overlay",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 2.035,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "main_autofire",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 1.824,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "game_ui_shell",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 6.085,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    },
+    "runtime-capture-live-final.json": {
+      "suites": [
+        {
+          "suite": "runtime_performance_capture",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 8.686,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    },
+    "startup-diagnostics-headless-final.json": {
+      "suites": [
+        {
+          "suite": "runtime_performance_capture",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 7.191,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "all_dynamic_trails",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 0.599,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "projectile_trails",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 1.062,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    }
+  },
+  "capture_tests": {
+    "checks": [
+      {
+        "name": "Real F3 input starts an explicit diagnostic capture",
+        "passed": true
+      },
+      {
+        "name": "Capture finishes and exposes its actual output path",
+        "passed": true
+      },
+      {
+        "name": "Normal-play report contains bounded real frame samples",
+        "passed": true
+      },
+      {
+        "name": "Report includes CPU phases, render load and red projectile pressure",
+        "passed": true
+      },
+      {
+        "name": "Profiler flags restore their previous state after recording",
+        "passed": true
+      },
+      {
+        "name": "Sampling alone never changes player progress or gameplay random state",
+        "passed": true
+      },
+      {
+        "name": "A paused screen cannot start a live-combat capture",
+        "passed": true
+      },
+      {
+        "name": "Active gameplay capture records actual main/combat timing phases",
+        "passed": true
+      },
+      {
+        "name": "Leaving gameplay during capture still releases profiling after the deadline",
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "production_capture_path": "artifacts/runtime-performance-latest.json",
+  "performance_scope": "Native real-time debug-engine runtime. Local debugger experiments do not reproduce the complete editor remote-debug environment; fixed seeded inputs and durable inspection subjects are documented in each report.",
+  "windows_ui_capture_error": "window capture timed out: timed out waiting on channel"
+}

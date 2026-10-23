@@ -36,7 +36,7 @@ func run():
 	check(import_config.load(Wet.ATLAS_PATH+".import")==OK and bool(import_config.get_value("params","mipmaps/generate",false)),"Imported viscous atlas enables mipmaps for small projectile stability")
 	check(Wet.texture("mucus").atlas.get_image().has_mipmaps(),"Runtime viscous atlas retains mip chain after import")
 	var fx=FX.new()
-	var bullet={"position":Vector2(300,300),"origin":Vector2(200,300),"velocity":Vector2(600,0),"radius":4,"friendly":true,"fx_family":"cannon","data":{}}
+	var bullet={"position":Vector2(300,300),"previous":Vector2(240,300),"origin":Vector2(200,300),"velocity":Vector2(600,0),"radius":4,"friendly":true,"fx_family":"cannon","data":{}}
 	for key in Wet.CELLS:
 		var texture=Wet.texture(key)
 		check(texture!=null and texture.get_image().get_used_rect().get_area()>0,"Generated transparent asset resolves: "+key)
@@ -56,8 +56,8 @@ func run():
 	check(pose_ok,"Cheap deterministic body deformation remains finite and restrained")
 	var probe=Probe.new();var before=bullet.duplicate(true)
 	fx.paint_projectile(probe,bullet,1.0,1.0)
-	check(probe.textures.size()==3 and probe.circles==0,"Friendly projectile has one body plus at most two generated wet decorations")
-	check(probe.textures[0]==Wet.texture("mucus"),"Actual friendly projectile uses new mucus atlas")
+	check(probe.textures.size()==1 and probe.polygons==1 and probe.circles==0,"Friendly projectile has one standalone body and one independent dynamic trail")
+	check(probe.textures[0]==Wet.texture("mucus") and Wet.texture("mucus").atlas!=Wet.texture("wet_trail").atlas,"Actual friendly projectile uses the separate body-only atlas")
 	check(bullet==before,"Visual squish never changes gameplay state")
 	probe=Probe.new();fx.draw_count=FX.MAX_PROJECTILES;fx.paint_projectile(probe,bullet,1,1)
 	check(probe.textures.size()==1,"Exhausted embellishment budget preserves generated body")
@@ -72,7 +72,7 @@ func run():
 	check(probe.textures.size()==1 and probe.textures[0]==Wet.texture("egg_burst"),"Egg detonation uses generated wet burst")
 	var chain={"position":Vector2(200,200),"end":Vector2(400,200),"kind":"chain","life":.04,"fx_duration":.22,"fx_family":"tesla","friendly":true}
 	probe=Probe.new();fx.paint_effect(probe,chain,1)
-	check(probe.textures.size()==2 and probe.lines>=3 and probe.lines<=10 and probe.circles==0,"Friendly Tesla keeps continuous generated filament and tip with bounded three-layer discharge")
+	check(probe.textures.size()==1 and probe.polygons==1 and probe.lines>=4 and probe.lines<=11 and probe.circles==0,"Friendly Tesla uses an animated membrane and separate tip with bounded discharge")
 	for key in ["rail","tesla","sonic"]:
 		var aligned=true
 		var bounded=true
@@ -81,14 +81,14 @@ func run():
 			var duration=.22;var reach=1.0 if progress<.64 else pow((1.0-progress)/.36,.75)
 			chain={"position":start,"end":finish,"kind":"chain","life":duration*(1-progress),"fx_duration":duration,"fx_family":key,"friendly":true}
 			probe=Probe.new();fx.paint_effect(probe,chain,1)
-			aligned=aligned and probe.textures.size()==2 and probe.poses.size()==2
-			bounded=bounded and probe.circles==0 and probe.polygons==0 and (probe.lines==2 if key=="rail" else (probe.lines==5 if key=="sonic" else probe.lines>=3 and probe.lines<=10))
-			if probe.poses.size()==2:
+			aligned=aligned and probe.textures.size()==1 and probe.poses.size()==1
+			bounded=bounded and probe.circles==0 and probe.polygons==1 and (probe.lines==3 if key=="rail" else (probe.lines==6 if key=="sonic" else probe.lines>=4 and probe.lines<=11))
+			if probe.poses.size()==1:
 				for pose in probe.poses:
 					aligned=aligned and absf(float(pose.heading)-start.direction_to(finish).angle())<.00001 and Geometry2D.get_closest_point_to_segment(pose.position,start,finish).distance_to(pose.position)<.001
 				aligned=aligned and Vector2(probe.poses[-1].position).distance_to(start.lerp(finish,reach))<.001
 		check(bounded,key+" dynamic accents preserve fixed family draw budget through retraction")
-		check(aligned,key+" tongue remains collinear through contact hold and smooth retraction without a V joint")
+		check(aligned,key+" independent tip stays on the exact contact/retraction endpoint while the membrane flows")
 	# Continuous secretion is now an anchored soft whip, not a stretched sprite.
 	for phase in [0.0,.1,.25,.57,.77,1.0]:
 		var start=Vector2(220,180);var axis=Vector2.from_angle(.71);var length=336.0

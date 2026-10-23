@@ -1,0 +1,961 @@
+{
+  "passed": true,
+  "suite_count": 16,
+  "suites": [
+    {
+      "suite": "mutation_weapons",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.263,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_pacing",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.512,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "starter_progression",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 3.067,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "rewards",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.622,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_pool",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.219,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_flow",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 12.363,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_cards",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.541,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_progress_badges",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.751,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "passive_feedback_state",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.237,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "passive_upgrade_effects",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.457,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "core",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.415,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "weapon_catalog",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.81,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "character_integration",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.959,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "mutation_branches",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.778,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "mutation_branches_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 11.306,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "mutation_weapons_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 16.445,
+      "isolated_user_data": true
+    }
+  ],
+  "branch_reports": {
+    "mutation-branches-report.json": {
+      "base_flight": {
+        "reach": 453.304779052734,
+        "time": 1.34166666666666
+      },
+      "checks": [
+        {
+          "name": "Two research children exist for toxin",
+          "passed": true
+        },
+        {
+          "name": "Branch research cannot bypass the base research: toxin",
+          "passed": true
+        },
+        {
+          "name": "Sequential base research unlocks: toxin / 0",
+          "passed": true
+        },
+        {
+          "name": "Sequential base research unlocks: toxin / 1",
+          "passed": true
+        },
+        {
+          "name": "Sequential base research unlocks: toxin / 2",
+          "passed": true
+        },
+        {
+          "name": "Both permanent paths may be researched: toxin_spread",
+          "passed": true
+        },
+        {
+          "name": "Branch keeps its own title and mechanics description",
+          "passed": true
+        },
+        {
+          "name": "Branch has dedicated artwork",
+          "passed": true
+        },
+        {
+          "name": "Branch does not inherit unrelated cannon bonuses",
+          "passed": true
+        },
+        {
+          "name": "Both permanent paths may be researched: toxin_concentrate",
+          "passed": true
+        },
+        {
+          "name": "Branch keeps its own title and mechanics description",
+          "passed": true
+        },
+        {
+          "name": "Branch has dedicated artwork",
+          "passed": true
+        },
+        {
+          "name": "Branch does not inherit unrelated cannon bonuses",
+          "passed": true
+        },
+        {
+          "name": "Two research children exist for boneblade",
+          "passed": true
+        },
+        {
+          "name": "Branch research cannot bypass the base research: boneblade",
+          "passed": true
+        },
+        {
+          "name": "Sequential base research unlocks: boneblade / 0",
+          "passed": true
+        },
+        {
+          "name": "Sequential base research unlocks: boneblade / 1",
+          "passed": true
+        },
+        {
+          "name": "Sequential base research unlocks: boneblade / 2",
+          "passed": true
+        },
+        {
+          "name": "Both permanent paths may be researched: boneblade_fan",
+          "passed": true
+        },
+        {
+          "name": "Branch keeps its own title and mechanics description",
+          "passed": true
+        },
+        {
+          "name": "Branch has dedicated artwork",
+          "passed": true
+        },
+        {
+          "name": "Branch does not inherit unrelated cannon bonuses",
+          "passed": true
+        },
+        {
+          "name": "Both permanent paths may be researched: boneblade_recall",
+          "passed": true
+        },
+        {
+          "name": "Branch keeps its own title and mechanics description",
+          "passed": true
+        },
+        {
+          "name": "Branch has dedicated artwork",
+          "passed": true
+        },
+        {
+          "name": "Branch does not inherit unrelated cannon bonuses",
+          "passed": true
+        },
+        {
+          "name": "Two research children exist for parasite",
+          "passed": true
+        },
+        {
+          "name": "Branch research cannot bypass the base research: parasite",
+          "passed": true
+        },
+        {
+          "name": "Sequential base research unlocks: parasite / 0",
+          "passed": true
+        },
+        {
+          "name": "Sequential base research unlocks: parasite / 1",
+          "passed": true
+        },
+        {
+          "name": "Sequential base research unlocks: parasite / 2",
+          "passed": true
+        },
+        {
+          "name": "Both permanent paths may be researched: parasite_swarm",
+          "passed": true
+        },
+        {
+          "name": "Branch keeps its own title and mechanics description",
+          "passed": true
+        },
+        {
+          "name": "Branch has dedicated artwork",
+          "passed": true
+        },
+        {
+          "name": "Branch does not inherit unrelated cannon bonuses",
+          "passed": true
+        },
+        {
+          "name": "Both permanent paths may be researched: parasite_hunter",
+          "passed": true
+        },
+        {
+          "name": "Branch keeps its own title and mechanics description",
+          "passed": true
+        },
+        {
+          "name": "Branch has dedicated artwork",
+          "passed": true
+        },
+        {
+          "name": "Branch does not inherit unrelated cannon bonuses",
+          "passed": true
+        },
+        {
+          "name": "All six research unlocks survive a save reload",
+          "passed": true
+        },
+        {
+          "name": "An unequipped or unupgraded weapon cannot receive a branch card",
+          "passed": true
+        },
+        {
+          "name": "A pending organ alone does not enable a specialization",
+          "passed": true
+        },
+        {
+          "name": "A live upgraded weapon makes both researched paths eligible",
+          "passed": true
+        },
+        {
+          "name": "Repeated branch opportunities alternate paths while retaining one card per weapon family",
+          "passed": true
+        },
+        {
+          "name": "Branch cards honor the saved reward filter",
+          "passed": true
+        },
+        {
+          "name": "The ordinary reward transaction selects a branch",
+          "passed": true
+        },
+        {
+          "name": "A selected path excludes repeats and its opposing path for this run",
+          "passed": true
+        },
+        {
+          "name": "Branch feedback identifies the affected live organ",
+          "passed": true
+        },
+        {
+          "name": "Losing the organ cannot reset the branch commitment",
+          "passed": true
+        },
+        {
+          "name": "The same family specialization applies to a replacement head weapon",
+          "passed": true
+        },
+        {
+          "name": "A fresh run can choose either researched path again",
+          "passed": true
+        },
+        {
+          "name": "A dead organ does not enable branch cards",
+          "passed": true
+        },
+        {
+          "name": "Marsh projectile lays small path pools and a wider impact pool",
+          "passed": true
+        },
+        {
+          "name": "Wide persistent ground deals actual damage beyond the base pool radius",
+          "passed": true
+        },
+        {
+          "name": "Marsh trades poison DPS for coverage without stacking overlapping puddles",
+          "passed": true
+        },
+        {
+          "name": "The same fringe target is outside the base weapon's damaging ground",
+          "passed": true
+        },
+        {
+          "name": "Concentrated poison deals exactly 2.4x base poison DPS",
+          "passed": true
+        },
+        {
+          "name": "Dense venom has the smaller, shorter-lived pool described on its card",
+          "passed": true
+        },
+        {
+          "name": "Dense poison continues after two seconds outside the pool",
+          "passed": true
+        },
+        {
+          "name": "Dense poison expires after its three-second linger",
+          "passed": true
+        },
+        {
+          "name": "A weak pool cannot perpetually refresh an expired stronger poison source",
+          "passed": true
+        },
+        {
+          "name": "Wide and trail pools respect cave walls and line of sight",
+          "passed": true
+        },
+        {
+          "name": "Fan evolution launches three independently simulated trajectories",
+          "passed": true
+        },
+        {
+          "name": "Three fan directions sweep three separated real targets",
+          "passed": true
+        },
+        {
+          "name": "Each fan blade pays the stated 40 percent damage cost",
+          "passed": true
+        },
+        {
+          "name": "All three fan blades return and clean up",
+          "passed": true
+        },
+        {
+          "name": "Swift recall completes its real flight faster without shortening the outbound range",
+          "passed": true
+        },
+        {
+          "name": "Swift blade deals one 18-damage outbound hit and one 27-damage return hit",
+          "passed": true
+        },
+        {
+          "name": "Swift recall increases the real firing rate through the existing upgrade calculation",
+          "passed": true
+        },
+        {
+          "name": "High-speed blades cannot tunnel through cave walls",
+          "passed": true
+        },
+        {
+          "name": "Swarm hatches four reduced-damage larvae",
+          "passed": true
+        },
+        {
+          "name": "Swarm distributes its stable targets instead of piling onto one enemy",
+          "passed": true
+        },
+        {
+          "name": "Swarm respects ten larvae per source organ",
+          "passed": true
+        },
+        {
+          "name": "Hunter hatches one independently simulated heavy larva with triple bite damage",
+          "passed": true
+        },
+        {
+          "name": "Hunter has its advertised movement speed and longer lifetime",
+          "passed": true
+        },
+        {
+          "name": "Hunter uses a real short lunge toward its prey",
+          "passed": true
+        },
+        {
+          "name": "Hunter closes the gap and deals actual melee damage",
+          "passed": true
+        },
+        {
+          "name": "Heavy hunters respect their three-per-organ cap",
+          "passed": true
+        },
+        {
+          "name": "Crawling and lunging broods cannot move or bite through cave walls: parasite_swarm",
+          "passed": true
+        },
+        {
+          "name": "Global weighted brood limit remains bounded: parasite_swarm",
+          "passed": true
+        },
+        {
+          "name": "Expired brood releases its population budget: parasite_swarm",
+          "passed": true
+        },
+        {
+          "name": "Crawling and lunging broods cannot move or bite through cave walls: parasite_hunter",
+          "passed": true
+        },
+        {
+          "name": "Global weighted brood limit remains bounded: parasite_hunter",
+          "passed": true
+        },
+        {
+          "name": "Expired brood releases its population budget: parasite_hunter",
+          "passed": true
+        },
+        {
+          "name": "All branch transient state expires: toxin_spread",
+          "passed": true
+        },
+        {
+          "name": "All branch transient state expires: toxin_concentrate",
+          "passed": true
+        },
+        {
+          "name": "All branch transient state expires: boneblade_fan",
+          "passed": true
+        },
+        {
+          "name": "All branch transient state expires: boneblade_recall",
+          "passed": true
+        },
+        {
+          "name": "All branch transient state expires: parasite_swarm",
+          "passed": true
+        },
+        {
+          "name": "All branch transient state expires: parasite_hunter",
+          "passed": true
+        }
+      ],
+      "fast_flight": {
+        "reach": 457.873260498047,
+        "time": 0.666666666666667
+      },
+      "passed": true
+    },
+    "mutation-branches-scene-report.json": {
+      "branch_rolls": {
+        "boneblade_fan": 2,
+        "boneblade_recall": 3,
+        "parasite_hunter": 2,
+        "parasite_swarm": 2,
+        "toxin_concentrate": 4,
+        "toxin_spread": 1
+      },
+      "captures": [
+        "res://artifacts/branches-evolution-sustain.png",
+        "res://artifacts/branches-evolution-summon.png",
+        "res://artifacts/branches-hunter-detail.png",
+        "res://artifacts/branches-evolution-overview.png",
+        "res://artifacts/branches-reward-card.png",
+        "res://artifacts/branches-combat-toxin_spread.png",
+        "res://artifacts/branches-combat-toxin_concentrate.png",
+        "res://artifacts/branches-combat-boneblade_fan.png",
+        "res://artifacts/branches-combat-boneblade_recall.png",
+        "res://artifacts/branches-combat-parasite_swarm.png",
+        "res://artifacts/branches-reward-1280x720.png",
+        "res://artifacts/branches-combat-parasite_hunter.png",
+        "res://artifacts/branches-hunter-assembly.png"
+      ],
+      "checks": [
+        {
+          "name": "Section navigation shows the complete branch node: toxin_spread",
+          "passed": true
+        },
+        {
+          "name": "Branch child has a stable hit box below its parent: toxin_spread",
+          "passed": true
+        },
+        {
+          "name": "Research progress remains visible on the branch node: toxin_spread",
+          "passed": true
+        },
+        {
+          "name": "Section navigation shows the complete branch node: toxin_concentrate",
+          "passed": true
+        },
+        {
+          "name": "Branch child has a stable hit box below its parent: toxin_concentrate",
+          "passed": true
+        },
+        {
+          "name": "Research progress remains visible on the branch node: toxin_concentrate",
+          "passed": true
+        },
+        {
+          "name": "Section navigation shows the complete branch node: boneblade_fan",
+          "passed": true
+        },
+        {
+          "name": "Branch child has a stable hit box below its parent: boneblade_fan",
+          "passed": true
+        },
+        {
+          "name": "Research progress remains visible on the branch node: boneblade_fan",
+          "passed": true
+        },
+        {
+          "name": "Section navigation shows the complete branch node: boneblade_recall",
+          "passed": true
+        },
+        {
+          "name": "Branch child has a stable hit box below its parent: boneblade_recall",
+          "passed": true
+        },
+        {
+          "name": "Research progress remains visible on the branch node: boneblade_recall",
+          "passed": true
+        },
+        {
+          "name": "Renderer produced branches-evolution-sustain",
+          "passed": true
+        },
+        {
+          "name": "Saved branches-evolution-sustain",
+          "passed": true
+        },
+        {
+          "name": "Section navigation shows the complete branch node: parasite_swarm",
+          "passed": true
+        },
+        {
+          "name": "Branch child has a stable hit box below its parent: parasite_swarm",
+          "passed": true
+        },
+        {
+          "name": "Research progress remains visible on the branch node: parasite_swarm",
+          "passed": true
+        },
+        {
+          "name": "Section navigation shows the complete branch node: parasite_hunter",
+          "passed": true
+        },
+        {
+          "name": "Branch child has a stable hit box below its parent: parasite_hunter",
+          "passed": true
+        },
+        {
+          "name": "Research progress remains visible on the branch node: parasite_hunter",
+          "passed": true
+        },
+        {
+          "name": "Renderer produced branches-evolution-summon",
+          "passed": true
+        },
+        {
+          "name": "Saved branches-evolution-summon",
+          "passed": true
+        },
+        {
+          "name": "Branch detail identifies its effect and the opposing path",
+          "passed": true
+        },
+        {
+          "name": "Generated branch art fits the evolution detail panel",
+          "passed": true
+        },
+        {
+          "name": "Branch commitment rules wrap inside their dialog column",
+          "passed": true
+        },
+        {
+          "name": "Renderer produced branches-hunter-detail",
+          "passed": true
+        },
+        {
+          "name": "Saved branches-hunter-detail",
+          "passed": true
+        },
+        {
+          "name": "Renderer produced branches-evolution-overview",
+          "passed": true
+        },
+        {
+          "name": "Saved branches-evolution-overview",
+          "passed": true
+        },
+        {
+          "name": "Real upgrade pack dealer offers the eligible branch: toxin_spread",
+          "passed": true
+        },
+        {
+          "name": "Reward badge states the irreversible run choice: toxin_spread",
+          "passed": true
+        },
+        {
+          "name": "Card tooltip names the opposing path: toxin_spread",
+          "passed": true
+        },
+        {
+          "name": "Branch description stays inside the reward card: toxin_spread",
+          "passed": true
+        },
+        {
+          "name": "Renderer produced branches-reward-card",
+          "passed": true
+        },
+        {
+          "name": "Saved branches-reward-card",
+          "passed": true
+        },
+        {
+          "name": "Clicking the branch applies it and returns to battle: toxin_spread",
+          "passed": true
+        },
+        {
+          "name": "The chosen one-time branch leaves the reward pool: toxin_spread",
+          "passed": true
+        },
+        {
+          "name": "Mounted weapon uses its evolved organ appearance: toxin_spread",
+          "passed": true
+        },
+        {
+          "name": "Renderer produced branches-combat-toxin_spread",
+          "passed": true
+        },
+        {
+          "name": "Saved branches-combat-toxin_spread",
+          "passed": true
+        },
+        {
+          "name": "Evolved mounted organ deals actual combat damage: toxin_spread",
+          "passed": true
+        },
+        {
+          "name": "Real upgrade pack dealer offers the eligible branch: toxin_concentrate",
+          "passed": true
+        },
+        {
+          "name": "Reward badge states the irreversible run choice: toxin_concentrate",
+          "passed": true
+        },
+        {
+          "name": "Card tooltip names the opposing path: toxin_concentrate",
+          "passed": true
+        },
+        {
+          "name": "Branch description stays inside the reward card: toxin_concentrate",
+          "passed": true
+        },
+        {
+          "name": "Clicking the branch applies it and returns to battle: toxin_concentrate",
+          "passed": true
+        },
+        {
+          "name": "The chosen one-time branch leaves the reward pool: toxin_concentrate",
+          "passed": true
+        },
+        {
+          "name": "Mounted weapon uses its evolved organ appearance: toxin_concentrate",
+          "passed": true
+        },
+        {
+          "name": "Renderer produced branches-combat-toxin_concentrate",
+          "passed": true
+        },
+        {
+          "name": "Saved branches-combat-toxin_concentrate",
+          "passed": true
+        },
+        {
+          "name": "Evolved mounted organ deals actual combat damage: toxin_concentrate",
+          "passed": true
+        },
+        {
+          "name": "Real upgrade pack dealer offers the eligible branch: boneblade_fan",
+          "passed": true
+        },
+        {
+          "name": "Reward badge states the irreversible run choice: boneblade_fan",
+          "passed": true
+        },
+        {
+          "name": "Card tooltip names the opposing path: boneblade_fan",
+          "passed": true
+        },
+        {
+          "name": "Branch description stays inside the reward card: boneblade_fan",
+          "passed": true
+        },
+        {
+          "name": "Clicking the branch applies it and returns to battle: boneblade_fan",
+          "passed": true
+        },
+        {
+          "name": "The chosen one-time branch leaves the reward pool: boneblade_fan",
+          "passed": true
+        },
+        {
+          "name": "Mounted weapon uses its evolved organ appearance: boneblade_fan",
+          "passed": true
+        },
+        {
+          "name": "Renderer produced branches-combat-boneblade_fan",
+          "passed": true
+        },
+        {
+          "name": "Saved branches-combat-boneblade_fan",
+          "passed": true
+        },
+        {
+          "name": "Evolved mounted organ deals actual combat damage: boneblade_fan",
+          "passed": true
+        },
+        {
+          "name": "Real upgrade pack dealer offers the eligible branch: boneblade_recall",
+          "passed": true
+        },
+        {
+          "name": "Reward badge states the irreversible run choice: boneblade_recall",
+          "passed": true
+        },
+        {
+          "name": "Card tooltip names the opposing path: boneblade_recall",
+          "passed": true
+        },
+        {
+          "name": "Branch description stays inside the reward card: boneblade_recall",
+          "passed": true
+        },
+        {
+          "name": "Clicking the branch applies it and returns to battle: boneblade_recall",
+          "passed": true
+        },
+        {
+          "name": "The chosen one-time branch leaves the reward pool: boneblade_recall",
+          "passed": true
+        },
+        {
+          "name": "Mounted weapon uses its evolved organ appearance: boneblade_recall",
+          "passed": true
+        },
+        {
+          "name": "Renderer produced branches-combat-boneblade_recall",
+          "passed": true
+        },
+        {
+          "name": "Saved branches-combat-boneblade_recall",
+          "passed": true
+        },
+        {
+          "name": "Evolved mounted organ deals actual combat damage: boneblade_recall",
+          "passed": true
+        },
+        {
+          "name": "Real upgrade pack dealer offers the eligible branch: parasite_swarm",
+          "passed": true
+        },
+        {
+          "name": "Reward badge states the irreversible run choice: parasite_swarm",
+          "passed": true
+        },
+        {
+          "name": "Card tooltip names the opposing path: parasite_swarm",
+          "passed": true
+        },
+        {
+          "name": "Branch description stays inside the reward card: parasite_swarm",
+          "passed": true
+        },
+        {
+          "name": "Clicking the branch applies it and returns to battle: parasite_swarm",
+          "passed": true
+        },
+        {
+          "name": "The chosen one-time branch leaves the reward pool: parasite_swarm",
+          "passed": true
+        },
+        {
+          "name": "Mounted weapon uses its evolved organ appearance: parasite_swarm",
+          "passed": true
+        },
+        {
+          "name": "Renderer produced branches-combat-parasite_swarm",
+          "passed": true
+        },
+        {
+          "name": "Saved branches-combat-parasite_swarm",
+          "passed": true
+        },
+        {
+          "name": "Evolved mounted organ deals actual combat damage: parasite_swarm",
+          "passed": true
+        },
+        {
+          "name": "Real upgrade pack dealer offers the eligible branch: parasite_hunter",
+          "passed": true
+        },
+        {
+          "name": "Reward badge states the irreversible run choice: parasite_hunter",
+          "passed": true
+        },
+        {
+          "name": "Card tooltip names the opposing path: parasite_hunter",
+          "passed": true
+        },
+        {
+          "name": "Branch description stays inside the reward card: parasite_hunter",
+          "passed": true
+        },
+        {
+          "name": "Branch rewards fit a 1280 by 720 window",
+          "passed": true
+        },
+        {
+          "name": "Renderer produced branches-reward-1280x720",
+          "passed": true
+        },
+        {
+          "name": "Saved branches-reward-1280x720",
+          "passed": true
+        },
+        {
+          "name": "Clicking the branch applies it and returns to battle: parasite_hunter",
+          "passed": true
+        },
+        {
+          "name": "The chosen one-time branch leaves the reward pool: parasite_hunter",
+          "passed": true
+        },
+        {
+          "name": "Mounted weapon uses its evolved organ appearance: parasite_hunter",
+          "passed": true
+        },
+        {
+          "name": "Renderer produced branches-combat-parasite_hunter",
+          "passed": true
+        },
+        {
+          "name": "Saved branches-combat-parasite_hunter",
+          "passed": true
+        },
+        {
+          "name": "Evolved mounted organ deals actual combat damage: parasite_hunter",
+          "passed": true
+        },
+        {
+          "name": "Renderer produced branches-hunter-assembly",
+          "passed": true
+        },
+        {
+          "name": "Saved branches-hunter-assembly",
+          "passed": true
+        },
+        {
+          "name": "Evolved art also renders in the body editor",
+          "passed": true
+        }
+      ],
+      "fixture": "All research unlocked. One mounted weapon with one base upgrade. Actual upgrade-pack dealer and mouse selection; real automatic combat against stationary high-health targets. Not a balance or frame-rate benchmark.",
+      "passed": true
+    }
+  },
+  "reference": "Read-only existing Pathogenic source cache. No REA or reference runtime.",
+  "art": "Built-in imagegen; prompts and project asset paths in assets/new_weapons/BRANCH_GENERATION.txt",
+  "limitations": "Controlled stationary-target fixtures establish mechanics and UI behavior, not long-run balance or frame-rate performance."
+}

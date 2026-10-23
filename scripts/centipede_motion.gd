@@ -16,11 +16,13 @@ var route: Array[float] = []
 var centers: Array[Vector2] = []
 var orientations: Array[float] = []
 var anchor = Vector2.ZERO
+var reversing = false
 
 func reset():
 	turn_rate = 0.0
 	phase = 0.0
 	activity = 0.0
+	reversing = false
 	elapsed = 0.0
 	spine.clear()
 	route.clear()
@@ -59,6 +61,9 @@ func step(body, dt: float, direction: Vector2, speed: float):
 		remaining -= tick
 
 func advance(body, dt: float, direction: Vector2, speed: float):
+	if body.terrain != null and body.terrain.has_method("dig") and body.terrain.enabled:
+		advance_cave(body, dt, direction, speed)
+		return
 	elapsed += dt
 	var moving = direction.length_squared() > 0.0001
 	var heading = body.facing.angle()
@@ -108,6 +113,66 @@ func advance(body, dt: float, direction: Vector2, speed: float):
 		previous = orientations[i]
 	anchor = body.head
 
+func advance_cave(body, dt: float, direction: Vector2, speed: float):
+	elapsed += dt
+	var input = direction.limit_length()
+	var side = Vector2(body.facing).orthogonal()
+	var narrow = body.terrain.wall_blocked(body.head + side * 60, 15) or body.terrain.wall_blocked(body.head - side * 60, 15)
+	reversing = input.dot(body.facing) < -0.65 and narrow
+	var heading = body.facing.angle()
+	if input.length_squared() > 0.001 and not reversing:
+		var error = angle_difference(heading, input.angle())
+		var desired_rate = clampf(error * TURN_GAIN, -TURN_SPEED, TURN_SPEED)
+		turn_rate = lerpf(turn_rate, desired_rate, 1.0 - exp(-TURN_RESPONSE * dt))
+		heading += turn_rate * dt
+		body.facing = Vector2.from_angle(heading)
+	else: turn_rate = 0.0
+	var current_speed = move_toward(body.velocity.length(), speed * input.length(), speed * (6.0 if input.length_squared() > 0.001 else 10.0) * dt)
+	var old: Vector2 = body.head
+	if reversing:
+		var retreat: Vector2 = body.path_sample(current_speed * dt).point
+		body.move_head(retreat)
+		var distance = old.distance_to(body.head)
+		while body.history.size() > 2:
+			var length = Vector2(body.history[0]).distance_to(body.history[1])
+			if length > distance + 0.0001: break
+			distance = maxf(0, distance - length); body.history.remove_at(0)
+		body.history[0] = body.head
+	else:
+		body.move_head(body.head + body.facing * current_speed * dt)
+		if old.distance_squared_to(body.head) > 0.000001: record_trail(body)
+	body.velocity = (body.head - old) / maxf(dt, 0.00001)
+	body.input_velocity = input; body.engine_power = speed
+	activity = move_toward(activity, body.velocity.length() / maxf(speed, 1), dt * 5)
+	phase = fmod(phase + lerpf(1.8, 6.4, activity) * dt, TAU)
+	var trail = cave_trail(body)
+	for i in centers.size():
+		var pose: Dictionary = trail[i]
+		var target: Vector2 = centers[i].move_toward(pose.point, maxf(speed, 180) * dt * 1.8)
+		centers[i] = body.ground_position(centers[i], target, 27.0)
+		spine[i] = Vector2(pose.direction).angle(); route[i] = spine[i]
+		orientations[i] = lerp_angle(orientations[i], spine[i], 1 - exp(-18 * dt))
+	anchor = body.head
+
+func cave_trail(body) -> Array:
+	# Sample the shared trail once for the entire chain, including 60 modules.
+	var result: Array = []
+	var cursor = 0
+	var previous: Vector2 = body.head
+	var traveled = 0.0
+	for i in centers.size():
+		var wanted = (i + 1) * body.body_spacing
+		var found = false
+		while cursor < body.history.size():
+			var next: Vector2 = body.history[cursor]
+			var length = previous.distance_to(next)
+			if length > 0.0001 and traveled + length >= wanted:
+				result.append({"point": previous.lerp(next, (wanted - traveled) / length), "direction": (previous - next).normalized()})
+				found = true; break
+			traveled += length; previous = next; cursor += 1
+		if not found: result.append({"point": previous - body.facing * (wanted - traveled), "direction": body.facing})
+	return result
+
 func record_trail(body):
 	body.history[0] = body.head
 	var anchor: Vector2 = body.history[1]
@@ -122,6 +187,9 @@ func record_trail(body):
 func poses(body) -> Array:
 	ensure_length(body)
 	var result: Array = [{"point": body.head, "direction": body.facing}]
+	if body.terrain != null and body.terrain.has_method("dig") and body.terrain.enabled:
+		for i in centers.size(): result.append({"point": centers[i], "direction": Vector2.from_angle(orientations[i])})
+		return result
 	var point: Vector2 = body.head
 	var previous = body.facing.angle()
 	for i in range(body.segment_count()):

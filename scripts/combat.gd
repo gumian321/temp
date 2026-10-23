@@ -7,6 +7,7 @@ const Mineral = preload("res://scripts/mineral_erosion.gd")
 const DeathSplatter = preload("res://scripts/enemy_death_splatter.gd")
 var death_splatters:Array=[]
 const ViscousMotion = preload("res://scripts/viscous_projectile_motion.gd")
+const ProjectileTrails = preload("res://scripts/projectile_trails.gd")
 const InsectControls = preload("res://scripts/insect_controls.gd")
 const Knockback = preload("res://scripts/knockback.gd")
 var insect_control_system = InsectControls.new()
@@ -16,20 +17,24 @@ var segment_sound_cooldown = 0.0
 var shot_serial = 0
 var next_control_source_token = 1
 var special
+var mutation_weapons
 const CharacterAbilities = preload("res://scripts/character_abilities.gd")
 var character_abilities
 var barrages: Array = []
 var db
 var player
 var terrain
+var formation_radii:Dictionary={}
 var enemies: Array = []
 const SpatialIndex = preload("res://scripts/combat_spatial_index.gd")
 var spatial = SpatialIndex.new()
 var spatial_active = false
+var use_incremental_refresh=true
 var patrols: Dictionary = {}
 var despawn_radius=100.0
 var patrol_radius=75.0
 var bullets: Array = []
+var projectile_trails: Array = []
 var effects: Array = []
 var viscous_contact_count = 0
 var loot: Array = []
@@ -66,6 +71,7 @@ func _init(source, centipede):
 	rng.seed = 20261012
 	loot_rng.seed=20321
 	special = SpecialSystems.new(self)
+	mutation_weapons=preload("res://scripts/mutation_weapons.gd").new(self)
 	for id in db.stores.PlayerDataStore.playerDronesList:
 		add_drone(0, db.asset(id))
 
@@ -75,21 +81,23 @@ func source_component(components: Array, type: String) -> Dictionary:
 	return {}
 
 func entity(uid: int) -> Dictionary:
-	if spatial_active:
-		var index: int = spatial.by_uid.get(uid, -1)
-		return enemies[index] if index >= 0 else {}
+	# The UID hint remains useful between ticks, but external removals/reorders
+	# can invalidate its array slot. Validate it before using the cached index.
+	var index: int = spatial.by_uid.get(uid, -1)
+	if index>=0 and index<enemies.size() and int(enemies[index].uid)==uid:return enemies[index]
+	if spatial_active:return {}
 	for e in enemies:
 		if e.uid == uid: return e
 	return {}
 
-func spawn_actor(prefab: String, blueprint: Dictionary, at: Vector2, role: String = "", objective: bool = false) -> Dictionary:
+func spawn_actor(prefab: String, blueprint: Dictionary, at: Vector2, role: String = "", objective: bool = false, known_safe: bool = false) -> Dictionary:
 	var source: Dictionary = db.prefabs.get(prefab, {})
 	var unit: Dictionary = blueprint.unit
 	var movement: Dictionary = {}
 	for c in blueprint.components:
 		if str(c["class"]).ends_with("Movement"): movement = c
 	var hp = float(unit.get("maxHealth", unit.get("objectHealth", 100))) * health_modifier
-	if terrain!=null: at=terrain.safe_position(at,maxf(14,float(unit.get("formationSize",1))*15))
+	if terrain!=null and not known_safe: at=terrain.safe_position(at,maxf(14,float(unit.get("formationSize",1))*15))
 	var e = {"uid": next_uid, "prefab": prefab, "source_id": blueprint.id, "name": source.get("name", blueprint.name), "kind": unit["class"], "unit": unit, "movement": movement, "position": at, "origin": at, "hp": hp, "max_hp": hp, "angle": 0.0, "cooldown": 0.0, "stun": 0.0, "guns": [], "parts": [], "radius": maxf(14.0, float(unit.get("formationSize", 1)) * 15.0), "role": role, "objective": objective, "age": 0.0, "warp": 0.0, "parent": 0, "offset": Vector2.ZERO, "render": load("res://scripts/render_state.gd").instantiate(blueprint.render,next_uid), "slots": blueprint.slots, "components": blueprint.components, "group": "", "damageable": unit["class"] not in ["AIBossUnit", "AIStation"], "boost_left": 0.0, "boost_cooldown": 0.0, "active": false, "range_modifier": 0.0, "damage_modifier": damage_modifier, "heat_speed": false, "target": Vector2.ZERO, "mission_controlled": false}
 	next_uid += 1
 	if terrain!=null: e.ground_previous=at
@@ -114,18 +122,40 @@ func spawn_actor(prefab: String, blueprint: Dictionary, at: Vector2, role: Strin
 	if spatial_active: spatial.rebuild(enemies, db)
 	return e
 
-func spawn(prefab: String, at: Vector2, role: String = "", objective: bool = false) -> Dictionary:
+func formation_radius(prefab:String)->float:
+	if formation_radii.has(prefab):return formation_radii[prefab]
+	var radius=0.0
+	var definitions:Array=db.entities.get(prefab,[])
+	for blueprint in definitions:
+		radius=maxf(radius,Vector2(blueprint.x,blueprint.y).length()*48+maxf(14,float(blueprint.unit.get("formationSize",1))*15))
+		# A composite parent's collision circle also encloses its attached parts.
+		# Prepare that exact conservative circle before committing the prefab.
+		var ground=maxf(14,float(blueprint.unit.get("formationSize",1))*15)
+		for child in definitions:
+			if child.parent_unit==blueprint.id:
+				ground=maxf(ground,Vector2(child.x-blueprint.x,child.y-blueprint.y).length()*48+maxf(14,float(child.unit.get("formationSize",1))*15))
+		radius=maxf(radius,Vector2(blueprint.x,blueprint.y).length()*48+ground)
+	# World-space offsets are Vector2 floats; leave subpixel room for their
+	# rounding at distant map coordinates without changing collision radii.
+	formation_radii[prefab]=radius+.5
+	return formation_radii[prefab]
+
+func spawn(prefab: String, at: Vector2, role: String = "", objective: bool = false, placement:Dictionary={}) -> Dictionary:
 	var definitions: Array = db.entities.get(prefab, [])
+	var formation_safe = false
 	if terrain!=null:
 		# Move the whole prefab together, preserving boss/guard/formation offsets.
-		var formation_radius = 0.0
-		for blueprint in definitions:
-			formation_radius=maxf(formation_radius,Vector2(blueprint.x,blueprint.y).length()*48+maxf(14,float(blueprint.unit.get("formationSize",1))*15))
-		at=terrain.safe_position(at,formation_radius)
+		var reach=formation_radius(prefab)
+		if cave_enabled() and not placement.is_empty() and int(placement.get("revision",-1))==terrain.revision:
+			at=placement.point
+			formation_safe=not placement.get("split",false) and float(placement.get("radius",0))>=reach
+		else:
+			at=terrain.safe_position(at,reach)
+			formation_safe=not terrain.blocked(at,reach)
 	var spawned = {}
 	var first = {}
 	for blueprint in definitions:
-		var e = spawn_actor(prefab, blueprint, at + Vector2(blueprint.x, blueprint.y) * 48.0, role, objective)
+		var e = spawn_actor(prefab, blueprint, at + Vector2(blueprint.x, blueprint.y) * 48.0, role, objective, formation_safe)
 		spawned[blueprint.id] = e
 		if blueprint.parent_unit == "0" and first.is_empty(): first = e
 	for blueprint in definitions:
@@ -181,7 +211,7 @@ func spawn(prefab: String, at: Vector2, role: String = "", objective: bool = fal
 				var child = entity(uid)
 				if not child.is_empty(): radius=maxf(radius,Vector2(child.offset).length()+float(child.radius))
 			e.ground_radius=radius
-			e.position=terrain.safe_position(e.position,radius)
+			if not formation_safe or Vector2(e.position).distance_to(at)+radius>formation_radius(prefab)+.001:e.position=terrain.safe_position(e.position,radius)
 			e.origin=e.position
 			e.ground_previous=e.position
 	if spatial_active: spatial.rebuild(enemies, db)
@@ -205,6 +235,15 @@ func refresh_spatial():
 		for e in enemies: constrain_actor(e)
 	spatial.rebuild(enemies, db)
 	spatial_active = true
+
+func refresh_spatial_positions():
+	# AI and tethers already move through spatial_moved. Reconcile attached
+	# parts after parent pulls without rebuilding every shield/UID bucket again.
+	if not spatial_active or not is_same(spatial.actors,enemies) or spatial.by_uid.size()!=enemies.size():
+		refresh_spatial();return
+	for e in enemies:
+		constrain_actor(e)
+		spatial.moved(e)
 
 func spatial_moved(e: Dictionary):
 	constrain_actor(e)
@@ -231,6 +270,17 @@ func move_actor(e: Dictionary, desired: Vector2):
 
 func ground_direction(e: Dictionary, target: Vector2) -> Vector2:
 	return terrain.direction(e.position,target,float(e.get("ground_radius",e.radius)),e) if terrain!=null else Vector2(e.position).direction_to(target)
+
+func cave_enabled() -> bool:
+	return terrain != null and terrain.has_method("dig") and terrain.enabled
+
+func flush_mining_events():
+	for drop in terrain.loot_events: loot.append(drop)
+	terrain.loot_events.clear()
+	for bite in terrain.events:
+		effects.append({"kind":"stone_chips","position":bite.position,"direction":bite.normal,"life":0.3,"seed":bite.serial * 71,"size":2.4 if bite.broken else 1.4})
+		audio_events.append({"type":-1,"position":bite.position,"feedback":"impact","strength":0.38 if bite.broken else 0.2})
+	terrain.events.clear()
 
 func area_candidates(at: Vector2, reach: float) -> Array:
 	return spatial.query(at-Vector2.ONE*absf(reach), at+Vector2.ONE*absf(reach)) if spatial_active and is_finite(reach) else enemies
@@ -289,7 +339,10 @@ func target_for(core: Dictionary, at: Vector2, reach: float) -> Dictionary:
 				var shield=db.asset(gun.id)
 				if shield.get("class")=="ShieldCore" and float(gun.get("shield",shield.maxShieldHealth))>0:shielded.append(e);break
 	if candidates.is_empty():return {}
-	if radar=="RandomRadarConfiguration":return candidates[rng.randi_range(0,candidates.size()-1)]
+	if radar=="RandomRadarConfiguration":
+		if cave_enabled(): candidates = candidates.filter(func(e): return terrain.ray_clear(at, target_position(e)))
+		return candidates[rng.randi_range(0,candidates.size()-1)] if not candidates.is_empty() else {}
+	if cave_enabled() and not shielded.is_empty(): shielded = shielded.filter(func(e): return terrain.ray_clear(at, target_position(e)))
 	if not shielded.is_empty():candidates=shielded
 	var result:Dictionary={}
 	var best=0.0 if radar in ["BiggestTargetRadarConfiguration","FurthestRadarConfiguration"] else (1.0 if radar=="LowestHealthTargetRadarConfiguration" else INF)
@@ -301,9 +354,11 @@ func target_for(core: Dictionary, at: Vector2, reach: float) -> Dictionary:
 				if e.get("repair_owner",0)!=0:continue
 				value=float(e.hp)/float(e.max_hp)
 			"StunnedRadarConfiguration":
-				if e.kind.begins_with("AI") or e.kind=="TraderUnit":result=e
+				if (e.kind.begins_with("AI") or e.kind=="TraderUnit") and (not cave_enabled() or terrain.ray_clear(at, target_position(e))):result=e
 				continue
-		if (value>best if radar in ["BiggestTargetRadarConfiguration","FurthestRadarConfiguration"] else value<best):best=value;result=e
+		if (value>best if radar in ["BiggestTargetRadarConfiguration","FurthestRadarConfiguration"] else value<best):
+			if cave_enabled() and not terrain.ray_clear(at, target_position(e)): continue
+			best=value;result=e
 	return result
 
 func fire(core: Dictionary, at: Vector2, direction: Vector2, friendly: bool, chips: Dictionary = {}, damage_boost: float = 0.0, single: bool = false, barrel_index: int = 0, visual_scale: float = 1.0, control_source: String = ""):
@@ -312,6 +367,9 @@ func fire(core: Dictionary, at: Vector2, direction: Vector2, friendly: bool, chi
 	if projectile.is_empty():
 		return
 	mark_organ_attack(control_source,core)
+	if friendly and core.has("mutation_weapon"):
+		mutation_weapons.fire(core,at,direction,chips,damage_boost,control_source)
+		return
 	var source_token = 0
 	if control_source.begins_with("player:"):
 		var source_index = int(control_source.get_slice(":",1))
@@ -375,6 +433,9 @@ func request_skill(aim: Vector2) -> bool:
 	return character_abilities.request_skill(aim)
 
 func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool = true):
+	if cave_enabled():
+		terrain.begin_navigation_frame(dt)
+		flush_mining_events()
 	spatial_active = false
 	momentum.step(dt)
 	character_abilities.update(dt)
@@ -471,7 +532,9 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 		if e.hp <= 0:
 			continue
 		e.age += dt
+		var soft_started=Time.get_ticks_usec() if profile_enabled else 0
 		SoftInsect.step(e,dt)
+		if profile_enabled:mark_phase("enemy_soft_body",soft_started)
 		e.warp = maxf(0, e.warp - dt)
 		e.stun = maxf(0, e.stun - dt)
 		if Knockback.movable(e):
@@ -579,14 +642,19 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 				gun.barrel_index=int(gun.get("barrel_index",0))+1
 				gun.cooldown = 1.0 / maxf(0.1, float(core.get("turretRateOfFire", 1)))
 	measured=mark_phase("enemy_ai",measured)
-	spatial_active = false
+	if not use_incremental_refresh:spatial_active=false
 	insect_control_system.advance(dt,self)
-	refresh_spatial()
+	if use_incremental_refresh:refresh_spatial_positions()
+	else:refresh_spatial()
 	step_drones(dt)
 	step_enemy_drones(dt)
+	mutation_weapons.step(dt)
+	ProjectileTrails.advance_actors(drones,dt)
+	ProjectileTrails.advance_actors(enemy_drones,dt)
 	measured=mark_phase("drones",measured)
 	# Projectile hits queue impulses; displacement resumes on the next combat tick.
 	for b in bullets:
+		b.erase("trail_contact")
 		b.life -= dt
 		b.previous = b.position
 		b.age += dt
@@ -601,11 +669,16 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 		if b.data["class"]=="SonicBasicProjectile": b.radius = minf(1,b.age)*float(b.data.sonicWaveLength)*24
 
 		ViscousMotion.advance(b, dt)
+		var rock_hit: Dictionary = {}
+		if cave_enabled():
+			rock_hit = terrain.wall_hit(b.previous, b.position, maxf(0, float(b.radius)))
+			if not rock_hit.is_empty(): b.position = rock_hit.position
 		if b.friendly:
 			for e in projectile_candidates(b):
 				if e.hp <= 0 or e.warp>0 or not e.damageable or e.role == "friendly" or e.uid in b.hit:
 					continue
 				if projectile_hits(e,b):
+					b.trail_contact=(mineral_contact(e,b) if e.kind=="Asteroid" else Feedback.surface_contact(e.position,e.radius,b)).position
 					hit_enemy(e, b)
 					b.hit.append(e.uid)
 					b.pierce -= 1
@@ -616,6 +689,7 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 			for ally in (spatial.allies if spatial_active else enemies):
 				if ally.role != "friendly" or ally.hp <= 0 or ally.warp > 0: continue
 				if Geometry2D.get_closest_point_to_segment(ally.position, b.previous, b.position).distance_to(ally.position) < ally.radius + b.radius:
+					b.trail_contact=Feedback.surface_contact(ally.position,ally.radius,b).position
 					hit_enemy(ally, b)
 					b.life = 0
 					break
@@ -623,11 +697,16 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 			for i in range(player.parts.size()):
 				var p: Dictionary = player.parts[i]
 				if p.hp > 0 and not p.get("cloaked",false) and Geometry2D.get_closest_point_to_segment(p.position, b.previous, b.position).distance_to(p.position) < player.collision_radius(i):
+					b.trail_contact=player_visual_contact(i,b).position
 					hit_player(i,b)
 					b.life = 0
 					break
+		if not rock_hit.is_empty():
+			b.life = 0
+			if effects.size() < 160: effects.append({"kind":"stone_chips","position":rock_hit.position,"direction":rock_hit.normal,"life":0.2,"seed":int(b.get("id",0)),"size":1.0})
 	spatial_active=false
 	measured=mark_phase("projectiles",measured)
+	ProjectileTrails.advance(bullets, projectile_trails, dt)
 	bullets = bullets.filter(func(b): return b.life > 0)
 	for e in enemies:
 		if e.hp <= 0:
@@ -742,6 +821,7 @@ func hit_enemy(e: Dictionary, b: Dictionary):
 			if shield.get("class")!="ShieldCore" or float(gun.get("shield",shield.maxShieldHealth))<=0: continue
 			if other.position.distance_to(e.position)<float(shield.ShieldRange)*48:
 				gun.feedback_shield_contact=Vector2(Feedback.shield_contact(other.position,float(shield.ShieldRange)*48,b).position)
+				b.trail_contact=gun.feedback_shield_contact
 				gun.feedback_shield_hit_serial=int(gun.get("feedback_shield_hit_serial",0))+1
 				gun.shield = maxf(0,float(gun.get("shield",shield.maxShieldHealth))-float(b.shield_damage))
 				gun.shield_delay = float(shield.shieldRechargeDelay)

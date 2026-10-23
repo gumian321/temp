@@ -208,9 +208,11 @@ func support_route_checks(db):
 	for friendly in [true,false]:
 		layer.begin_frame(.6)
 		var data=db.named("Drones_Core_Attack" if friendly else "Drones_AI_Attack")
-		var actor={"position":Vector2.ZERO}
+		var actor={"position":Vector2.ZERO,"data":data,"friendly":friendly}
+		preload("res://scripts/projectile_trails.gd").advance_actors([actor],.02)
 		native.trail(board,actor,data.dronePrefab,.1,1.0,not friendly)
 		actor.position=Vector2(35,0)
+		preload("res://scripts/projectile_trails.gd").advance_actors([actor],.02)
 		native.trail(board,actor,data.dronePrefab,.12,1.0,not friendly)
 		check(submitted("drone",not friendly),"Actual native drone trail preserves shader ownership "+str(friendly))
 		var enemy=battle.spawn(db.pool["250"],Vector2(150,0));enemy.hp=10000;enemy.max_hp=10000;enemy.guns=[];enemy.unit={"canBeStunned":true}

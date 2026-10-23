@@ -1,0 +1,333 @@
+{
+  "delivery": {
+    "archive": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-performance.zip",
+    "executable": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-performance\\RunBuildPew.exe",
+    "bytes": 157173783,
+    "sha256": "60268d7e4764fef6e35bb8d9a1b6808cbb8571588ffe67bac71bf1f77b2e9acf",
+    "passed": true,
+    "unpacked_launch": true,
+    "validated_checks": 85,
+    "cave_mining_validated": true
+  },
+  "runtime_sources_match_package": true,
+  "archive_sha256_verified": true,
+  "preview": "E:\\_Nlv\\github\\temp\\artifacts\\Centipede-Review-20261021-mining-performance-preview",
+  "native_regressions": {
+    "mining-performance-regressions.json": {
+      "suites": [
+        {
+          "suite": "cave_mining",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 2.525,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "cave_curves",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 0.667,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "cave_contours",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 0.662,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "cave_collision_cache",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 1.408,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "cave_update_budget",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 0.48,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "performance_overlay",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 1.319,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "soft_solver_regressions",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 0.846,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "attack_shader_materials",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 0.577,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "character_ui_integration",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 5.324,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "chasm_collision",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 3.826,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    },
+    "mining-performance-native-checks.json": {
+      "suites": [
+        {
+          "suite": "deployment",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 6.559,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "cave_scene",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 11.786,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "soft_render_cache",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 2.359,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "rig_batch_dynamic",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 4.413,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "brood_scene",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 9.164,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "encounter_scene",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 10.033,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "performance_overlay",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 1.991,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    },
+    "mining-crowd-diagnostics.json": {
+      "suites": [
+        {
+          "suite": "soft_render_cache",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 2.458,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "performance_overlay",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 1.995,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    },
+    "mining-loading-batched-verified.json": {
+      "suites": [
+        {
+          "suite": "deployment",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 6.849,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "cave_scene",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 12.242,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "radial_formations",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 8.236,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    }
+  },
+  "performance": {
+    "conditions": "1440x900 native OpenGL; six Gatling modules; 80 fixed seeded, non-shooting monsters across the shortcut; production _process, drops, weapons, audio and rendering; reward-choice interruptions suppressed; 12 warmup + 240 measured frames at 1/60s input.",
+    "cpu_ms": {
+      "max": 24.828,
+      "median": 10.758,
+      "p95": 16.621
+    },
+    "frame_ms": {
+      "max": 47.288,
+      "median": 22.803,
+      "p95": 31.849
+    },
+    "frame_rate_counter": {
+      "average_ms": 25.2692,
+      "fps": 39.5738685830972,
+      "peak_ms": 34.1980018615723,
+      "peak_text": "1s MAX 34.2 ms · DC 379",
+      "text": "40 FPS   25.3 ms",
+      "visible": true
+    },
+    "rendering_ab": {
+      "rock_hidden": {
+        "draw_calls": {
+          "max": 331.0,
+          "median": 331.0,
+          "p95": 331.0
+        },
+        "frame_ms": {
+          "max": 6.459,
+          "median": 5.901,
+          "p95": 6.422
+        },
+        "primitives": {
+          "max": 17740.0,
+          "median": 17740.0,
+          "p95": 17740.0
+        }
+      },
+      "rock_visible": {
+        "draw_calls": {
+          "max": 368.0,
+          "median": 368.0,
+          "p95": 368.0
+        },
+        "frame_ms": {
+          "max": 12.889,
+          "median": 11.236,
+          "p95": 11.892
+        },
+        "primitives": {
+          "max": 160634.0,
+          "median": 160634.0,
+          "p95": 160634.0
+        }
+      }
+    },
+    "bite_frame_ms": {
+      "max": 38.345,
+      "median": 25.31,
+      "p95": 38.345
+    },
+    "drop_frame_ms": {
+      "max": 38.345,
+      "median": 35.228,
+      "p95": 38.345
+    }
+  },
+  "performance_source": "artifacts/cave-mining-performance-optimized-validated.json",
+  "rendering_before_source": "artifacts/cave-mining-performance-drawcall-ab.json",
+  "old_fps_build_baseline": "artifacts/cave-mining-performance-fps.json",
+  "exported_entry_ms": 3157.504,
+  "exported_checks": {
+    "exported-ui-report.json": 61,
+    "exported-cave-report.json": 24
+  },
+  "scope_note": "80 actors with normal audio and all weapon FX; frame rate measured in native source runner. Actual exported EXE separately validates entry, loading, both characters, excavation, drops, body following and monster chase. Does not guarantee 60 FPS in all conditions."
+}

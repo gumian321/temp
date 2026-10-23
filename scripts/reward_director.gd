@@ -7,9 +7,11 @@ var game_deck: Array = []
 var level_index = 0
 var game_index = 0
 var active_pack: Dictionary = {}
+var pacing
 func _init(run):
 	session = weakref(run)
 	db = run.db
+	pacing=preload("res://scripts/reward_pacing.gd").new(run)
 	level_deck = build_deck("packLevelUpFreq")
 	game_deck = build_deck("packGameFreq")
 func run(): return session.get_ref()
@@ -70,44 +72,45 @@ func enqueue(level_up: bool, drop: Dictionary = {}):
 	if rarity not in available_rarities:
 		var lower = available_rarities.filter(func(r): return r<rarity)
 		rarity = lower.max() if not lower.is_empty() and rarity != 4 else random_rarity(rewards)
-	queue.append({"id":id,"rarity":rarity})
+	queue.append({"id":id,"rarity":rarity,"mixed":not drop.has("pack_ids"),"level_up":level_up})
 	run().packs = queue.size()
 func conflict(a: Dictionary,b: Dictionary) -> bool:
+	if pacing.family(a)==pacing.family(b):return true
 	if a.has("rewardType") and b.has("rewardType"):return a.rewardType==b.rewardType
 	if a.get("class")=="MainCoreDroneReward" and b.get("class")=="MainCoreDroneReward":return a.drone==b.drone
 	if a.get("class")=="BlockReward" and b.get("class")=="BlockReward": return a.blockCore == b.blockCore
 	return false
+func candidates(pack_ids:Array)->Array:
+	var result:Array=[];var seen:Dictionary={}
+	for id in pack_ids:
+		for reward_id in db.asset(id).get("packRewardsList",[]):
+			if seen.has(reward_id):continue
+			seen[reward_id]=true
+			var reward=db.asset(reward_id)
+			if run().can_reward(reward):result.append(reward)
+	return result
 func roll() -> Array:
 	# Tests/debug may explicitly inject pack count; give each injected pack a real source deck entry.
 	var required: int = run().packs
 	while queue.size()<required: enqueue(true)
 	if queue.is_empty(): return []
-	active_pack = queue[0]
-	if not available(db.asset(active_pack.id)): active_pack = {"id":next_pack(true),"rarity":4}
+	active_pack = queue[0].duplicate()
+	if not available(db.asset(active_pack.id)):active_pack.id=next_pack(true);active_pack.rarity=4
 	var pack = db.asset(active_pack.id)
-	var unlocked: Array = pack.packRewardsList.map(func(id): return db.asset(id)).filter(func(r): return run().can_reward(r))
-	var locked: Array = pack.packRewardsList.map(func(id): return db.asset(id)).filter(func(r): return r.id not in run().save.state.unlocked)
-	var chosen: Array = []
-	var rarity: int = active_pack.rarity
-	while chosen.size()<3:
-		if unlocked.is_empty():
-			if not locked.is_empty(): chosen.append(locked.pop_at(run().rng.randi_range(0,locked.size()-1)))
-			elif not chosen.is_empty(): chosen.append(chosen[0])
-			else: break
-			continue
-		var eligible = unlocked.filter(func(r): return int(r.rarity)==rarity)
-		if eligible.is_empty(): rarity = random_rarity(unlocked); continue
-		var reward = eligible[run().rng.randi_range(0,eligible.size()-1)]
-		chosen.append(reward)
-		unlocked.erase(reward)
-		unlocked = unlocked.filter(func(r): return not conflict(r,reward))
-		rarity = random_rarity(unlocked)
-	if run().rng.randf()<float(db.stores.RewardDataStore.packRewardChance) and run().player.parts.size()+run().player.pending.size()+(run().player.detached_module_count() if run().player.has_method("detached_module_count") else 0)<run().character_module_cap()+1 and not chosen.is_empty():
-		var bonus: String = db.stores.RewardDataStore.packReward
-		if bonus not in run().save.state.unlocked: run().save.state.unlocked.append(bonus)
-		run().save.state.disabled.erase(bonus)
-		chosen[chosen.size()-1] = db.asset(bonus)
-	return chosen
+	var mixed=bool(active_pack.get("mixed",false))
+	var pack_ids:Array=[active_pack.id]
+	if mixed:
+		var field="packLevelUpFreq" if active_pack.get("level_up",true) else "packGameFreq"
+		pack_ids=db.stores.RewardDataStore.allRewardPacksList.filter(func(id):return int(db.asset(id).get(field,0))>0)
+	var primary=candidates(pack_ids)
+	var fallback=candidates(db.stores.RewardDataStore.allRewardPacksList)
+	var rarity=4 if mixed and active_pack.get("level_up",true) else int(active_pack.rarity)
+	var chosen=pacing.compose(primary,fallback,pack.get("packRewardsList",[]),rarity,mixed)
+	var bonus:Dictionary=db.asset(db.stores.RewardDataStore.packReward)
+	if run().rng.randf()<float(db.stores.RewardDataStore.packRewardChance) and chosen.size()==3 and run().can_reward(bonus) and pacing.age(pacing.family(bonus))>2 and not chosen.any(func(reward):return conflict(reward,bonus)):
+		chosen[chosen.size()-1]=bonus
+	pacing.remember(chosen)
+	return shuffle(chosen)
 func consume():
 	if not queue.is_empty(): queue.pop_front()
 	run().packs = queue.size()

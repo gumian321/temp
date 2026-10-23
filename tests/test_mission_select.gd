@@ -116,6 +116,8 @@ func execute():
  game.show_missions();await settle();await key(KEY_ESCAPE);check(game.screen=="home","Escape returns home from briefing")
  game.show_missions();await settle();game.mission_ui.select_mission(0);await settle()
  game.mission_ui.launch_button.grab_focus();await key(KEY_ENTER)
+ while game.deployment_active:await process_frame
+ game.set_process(false)
  check(game.screen=="game" and game.run.mission.id==game.selected_mission.id,"Deploy directly enters the selected mission")
  await settle();check(game.screen=="game","No extra confirmation is needed")
  game.cursor_system.shutdown();game.audio_system.shutdown();game.particle_effects.clear();game.queue_free();await settle()

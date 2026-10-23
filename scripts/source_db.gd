@@ -12,6 +12,7 @@ var prefab_transforms: Dictionary
 var scene_config: Dictionary
 var textures: Dictionary = {}
 const Armaments = preload("res://scripts/insect_armaments.gd")
+const STARTER_WEAPONS = ["Gatling", "Shotgun", "Cannon", "Tesla", "Rocket"]
 const DEFAULT_LANGUAGE = "Chinese (simplified)"
 var language = DEFAULT_LANGUAGE
 var chinese_ui: Dictionary
@@ -29,18 +30,45 @@ func _init():
 	prefab_transforms = read_json("prefab_transforms")
 	scene_config = read_json("scene_config")
 	sprites = read_json("sprites")
+	preload("res://scripts/expanded_armaments.gd").install(self)
+	preload("res://scripts/mutation_branches.gd").install(self)
+	apply_progression_rules()
 	preload("res://scripts/brood_theme.gd").install(self)
 	localization = read_json("localization")
 	chinese_ui = read_json("chinese_ui")
 	for key in chinese_ui.localization:
 		if localization.has(key):localization[key][DEFAULT_LANGUAGE] = chinese_ui.localization[key]
 	Armaments.install_names(self)
+	preload("res://scripts/mutation_branches.gd").install_names(self)
 	for key in localization:
 		english_keys[str(localization[key].get("English", ""))] = key
 	for value in catalog.values():
 		if not names.has(value.name):names[value.name]=value
 		if not classes.has(value["class"]):classes[value["class"]]=[]
 		classes[value["class"]].append(value)
+
+func apply_progression_rules():
+	# Keep legacy IDs readable while retiring paid rearrangement from progression.
+	var starter_names=STARTER_WEAPONS.map(func(weapon):return "Reward_Block_Gun_"+weapon)
+	for reward in catalog.values():
+		if reward.get("class")=="CountBasicReward" and int(reward.get("rewardType",-1)) in [8,20]:
+			reward.retired=true
+		if reward.get("name","") in starter_names:
+			if reward.id not in stores.RewardDataStore.rewardsUnlockedList:
+				stores.RewardDataStore.rewardsUnlockedList.append(reward.id)
+	for pack_id in stores.RewardDataStore.allRewardPacksList:
+		var pack:Dictionary=catalog[pack_id]
+		pack.packRewardsList=pack.packRewardsList.filter(func(id):return not catalog[id].get("retired",false))
+	var nodes:Dictionary={}
+	for node in research:
+		nodes[node.id]=node
+		node.nodeRewardsList=node.nodeRewardsList.filter(func(id):return not catalog[id].get("retired",false))
+	research=research.filter(func(node):return not node.nodeRewardsList.is_empty())
+	for node in research:
+		var parent=str(int(node.get("previousUpgradeTreeNode",{}).get("fileID",0)))
+		while nodes.has(parent) and nodes[parent].nodeRewardsList.is_empty():
+			parent=str(int(nodes[parent].get("previousUpgradeTreeNode",{}).get("fileID",0)))
+		node.previousUpgradeTreeNode={"fileID":int(parent)}
 
 func read_json(name: String):
 	return JSON.parse_string(FileAccess.get_file_as_string("res://data/" + name + ".json"))
@@ -72,6 +100,7 @@ func language_name(value: String) -> String:
 	return {"English":"English", "Chinese (simplified)":"简体中文", "Chinese (traditional)":"繁體中文", "Russian":"Русский"}.get(value, value)
 
 func title(v: Dictionary) -> String:
+	if v.has("mutation_branch"):return text(v.rewardTextID)
 	if v.has("insect_variant"): return text(Armaments.entries()[v.insect_variant].key)
 	if v.has("coresList") and "LevelUp" in str(v.get("class","")):return text("PopUpText_LevelUp").replace("{0}",title(asset(v.coresList[0])))
 	if v.get("class")=="CrusedReward":return "%s +%d%%\n%s %d%%"%[text(v.buffRewardPopUpText),v.buffPercent*100,text(v.debuffRewardPopUpText),v.debuffPercent*100]
@@ -128,6 +157,7 @@ func range_units(value) -> float:
 	return [5.0, 9.0, 12.0, 15.0, 20.0, 7.0][clampi(int(value), 0, 5)]
 
 func reward_sprite(reward:Dictionary)->Texture2D:
+	if reward.has("mutation_branch"):return preload("res://scripts/mutation_branches.gd").texture(reward.mutation_branch)
 	var variant = armament_variant(reward)
 	if not variant.is_empty(): return Armaments.texture(variant)
 	for field in ["blockCore","core","turretCore"]:

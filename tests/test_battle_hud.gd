@@ -12,7 +12,9 @@ func execute():
  game=load("res://main.tscn").instantiate();root.add_child(game);await settle()
  game.set_process(false);game.save.fresh();game.save.state.settings.skip_boss=true;game.test_mode=false
  for i in 3:
-  game.begin_run();await settle()
+  game.begin_run()
+  while game.deployment_active:await process_frame
+  game.set_process(false);await settle()
   check(game.screen=="game","Start/restart %d enters combat without confirmation"%i)
   var before=game.run.elapsed;game._process(.016)
   check(game.run.elapsed>before and game.screen=="game","First frame advances without tip input")

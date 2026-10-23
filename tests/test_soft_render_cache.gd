@@ -28,7 +28,7 @@ class Board extends Node2D:
 class CachedRig extends Node2D:
 	var entity:Dictionary
 	var death_age=0.0
-	func pose(dt:float,dying:bool=false):
+	func pose(dt:float,dying:bool=false,_compact:bool=false):
 		if dying:death_age+=dt
 class Probe extends Node2D:
 	var renderer=Organs.new()
@@ -132,6 +132,19 @@ func execute():
 	layer.sync(game,.3);check(not layer.rigs.has(0),"Completed death rig is released")
 	game.combat.enemies.clear();layer.sync(game,.016)
 	check(layer.rigs.is_empty(),"Removed actors release cached rigs")
+	for i in 32:
+		game.combat.enemies.append({"uid":100+i,"kind":"AISwarmingUnit","position":Vector2(100+i%8*35,100+i/8*35),"angle":0.0,"hp":100.0,"max_hp":100.0,"radius":15.0,"brood_species":"grub"})
+	layer.sync(game,1.0/60)
+	check(layer.rigs[100].compact_pose and layer.rigs[100].compact_sprite.visible and not layer.rigs[100].mesh.visible,"Small distant swarm actors use their original art without drawing hidden skeletons")
+	check(layer.rigs[100].compact_sprite.material==layer.rigs[101].compact_sprite.material,"Distant actors share one material rather than allocating it per insect")
+	preload("res://scripts/soft_insect.gd").impact(game.combat.enemies[0],Vector2(100,80),Vector2.DOWN,15)
+	layer.sync(game,1.0/60)
+	check(not layer.rigs[100].compact_pose and layer.rigs[100].mesh.visible and layer.rigs[100].hit_fx.visible,"Impact immediately restores full bones and contact feedback")
+	game.combat.enemies[1].position=game.get_viewport_rect().size*.5;layer.sync(game,1.0/60)
+	check(not layer.rigs[101].compact_pose,"A small enemy entering the player vicinity restores full anatomy")
+	game.combat.enemies[2].hp=0;game.combat.enemies.remove_at(2);layer.sync(game,.1)
+	check(layer.rigs.has(102) and not layer.rigs[102].compact_pose and layer.rigs[102].death_age>0,"A distant insect still plays its full death collapse")
+	game.combat.enemies.clear();layer.sync(game,.3)
 	if not baseline.is_empty():
 		layer.free();layer=load(baseline+"/scripts/soft_insect_layer.gd").new();game.add_child(layer)
 		for i in 24:game.combat.enemies.append({"uid":i,"kind":"AISwarmingUnit","position":Vector2(100+i%8*100,100+i/8*100),"angle":0.0,"hp":100.0,"max_hp":100.0,"radius":18.0,"brood_species":Brood.SPECIES[i%6]})
@@ -159,7 +172,7 @@ func verify_hidden_budget():
 	var layer=Layer.new();game.add_child(layer)
 	layer.battle_id=game.combat.get_instance_id()
 	for i in 180:
-		var e={"uid":i,"kind":"AISwarmingUnit","position":Vector2(10000 if i<80 else 100,100),"hp":100.0,"radius":18.0}
+		var e={"uid":i,"kind":"AISwarmingUnit","position":Vector2(10000 if i<80 else 100,100),"hp":100.0,"radius":18.0,"soft_body":{"shock":0.0,"hold":0.0,"flash":0.0}}
 		game.combat.enemies.append(e)
 		var rig=CachedRig.new();rig.entity=e;layer.add_child(rig);layer.rigs[i]=rig
 	layer.sync(game,.016)

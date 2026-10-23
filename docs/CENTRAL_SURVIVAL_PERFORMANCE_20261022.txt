@@ -1,0 +1,61 @@
+生存地图中央持续掉帧：碰撞邻域与敌人索引优化 / 2026-10-22
+
+用户现场
+截图为 43 FPS / 23.2ms；随后用户按 F3，正常游戏留下 154 帧现场记录。
+该次记录平均帧间隔 19.62ms，P95 25.92ms；约 79～80 个敌人、22 个无人机、10 个身体模块。
+采样期间弹丸、爆炸效果和死亡喷溅均为 0，不能把此次空场掉帧归结为弹幕堆积。
+敌人 AI 平均约 5.00ms，任务更新约 2.78ms；器官绘制约 1.54ms。
+现场原始记录保存在 artifacts/central-user-before.json。
+
+修改
+1. 对不超过 8px 的移动扫掠，复用附近可能接触到的岩壁边缘，按 1/2/4/8px 的保守行程范围准备候选集。
+   大型首领贴墙微动时，不再每帧遍历整个巨大碰撞圆内的所有岩壁行。
+   最终接触时间、位置、法线、同时间接触的选择顺序仍走原算法。
+   半径使用完整精度，最多 512 组；挖墙只失效与变化区域相交的组，重开清空。
+   长距离移动和超过 512px 的半径沿用原路径。
+2. 同一战斗帧中，AI 和牵引已经逐次维护了空间索引；随后只校正位置及附属部件，省去第二次完整重建。
+   按 UID 查找时可复用旧索引槽位，但先检查边界和 UID，避免外部删除、替换或重排后访问旧单位。
+3. F3 记录增加装备、局内时间、玩家坐标以及战斗/地形源码文件校验值。
+
+未改变怪物数量、AI 更新频率、碰撞半径、伤害、武器频率和渲染效果。
+尝试过横向扫掠改写，但在实际移动查询回放中没有收益，已撤回。
+
+验证
+- 28,772 条真实中央场景移动查询，交错回放新旧实现三轮；移动结果全部一致。
+- 7,560 组短扫掠/挖掘对照，覆盖负坐标、网格边界、内部起点、精确小数半径及 513px 大体型。
+  接触结果全部一致，缓存上限、挖掘后刷新和重开清理通过。
+- 连续 180 帧新旧索引实现对照：单位位置/角度/生命、武器、弹丸、无人机、命中数和 RNG 状态全部一致。
+  覆盖牵引、附属部件、生成、死亡；外部同长度数组重排和删除另有回归。
+- 本轮 18 组回归通过，包括挖墙、护航、远处守卫、寻路预算、敌人移动、无人机、主武器、拖尾及 F3。
+
+完整画面对照
+Godot 4.6.3 / --debug / OpenGL Compatibility / GTX 1050 / 1440×900。
+先推进 120 秒正常生存波次，再排除 12 个渲染预热帧，计量 600 个实际引擎 delta 的战斗帧；不使用 --fixed-fps。
+采用代表性的九节装备，测试有 40 个无人机，用户采样为 22 个；不是用户整局进度的精确重放。
+提高玩家生命避免死亡打断；存档隔离。窗口位于屏外，没有连接编辑器远程调试器。
+
+                              关闭本轮优化          开启本轮优化
+主循环 CPU 平均                 10.37ms               9.24ms
+计量帧耗时平均                  17.01ms              16.31ms
+计量帧耗时 P95                  26.36ms              20.89ms
+平均敌人数                      67.63                68.60
+平均 draw call                 212.84               222.58
+
+这一组观察到主循环 CPU 降约 10.9%，P95 帧耗时降约 20.7%。
+两轮使用真实 delta，交战与生成情况会分化，不能把全部差值归于某一个改动。
+仍有超过 16.67ms 的帧；后台原生对照也不等于用户在编辑器中实时游玩的现场，不宣称全程稳定 60 FPS。
+首次 native-before/native-after 实验在同步预热后误用了过长 delta，已标记无效，不用于上述结论。
+有效数据为 artifacts/central-survival-native-verified-before.json 和 central-survival-native-verified-after.json。
+
+交付与复测
+本轮更新当前工程源码，没有重新导出 EXE。停止旧游戏实例，再从 E:/_Nlv/github/temp/project.godot 按 F5 重开。
+再次到中央掉帧时按 F3，可生成包含装备、时间及源码校验值的新现场记录。
+完整汇总：docs/test-evidence/central-survival-performance-20261022.json。
+
+回归入口
+python tools/run_checks.py cave_sweep_neighborhoods combat_incremental_refresh combat_spatial cave_collision_cache cave_movement_certificates cave_mining cave_escort remote_map_orbits runtime_performance_capture --godot D:/godot/Godot_v4.6.3-stable_win64.exe --timeout 90
+
+原生对照入口（分别运行，勿并行）
+设置 RBPEW_CENTRAL_TAG 为对照标签，RBPEW_CENTRAL_LEGACY=1 关闭本轮优化，=0 开启。
+python tools/run_checks.py central_survival_profile --godot D:/godot/Godot_v4.6.3-stable_win64.exe --render --native-pacing --debug --timeout 240
+原始移动回放需先设置 RBPEW_RECORD_MOVES=1 运行 central_survival_profile，随后执行 central_movement_replay。

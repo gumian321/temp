@@ -317,6 +317,7 @@ static func stat_fragments(db,stats:Dictionary)->PackedStringArray:
  return result
 
 static func upgrade_summary(db,reward:Dictionary)->String:
+ if reward.has("mutation_branch"):return preload("res://scripts/mutation_branches.gd").brief(db,reward)
  var fields={"CoreHealthPercent":["Durability","耐久"],"DamagePercent":["Damage","伤害"],"RateOfFirePercent":["Fire rate","射速"],"RangePercent":["Range","射程"],"ShieldHealthPercent":["Shield capacity","护盾容量"],"ShieldRechargeRatePercent":["Shield recharge","护盾回复"],"ShieldRechargeDelayPercent":["Recharge delay","回复延迟"],"ShieldRangePercent":["Shield radius","护盾半径"],"TankCapacityPercent":["Fuel capacity","燃料容量"],"maxMinesCountPercent":["Mine capacity","地雷上限"],"minesRechargeRatePercent":["Mine reload time","布雷间隔"],"enginePowerPercent":["Drone speed","无人机速度"],"efficiencyPercent":["Drone efficiency","无人机效率"],"rangePercent":["Drone range","无人机范围"]}
  var parts=PackedStringArray()
  for key in fields:

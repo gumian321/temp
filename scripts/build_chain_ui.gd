@@ -85,7 +85,7 @@ func rebuild():
 		var control=TrayIcon.new();control.custom_minimum_size=Vector2(76,76);row.add_child(control)
 		control.setup(self,{"kind":"inventory","index":i},{"kind":"inventory","index":i,"id":player.pending[i]})
 		inventory.append(control)
-	if player.pending.is_empty():text_at("战斗中收集元素，为身体继续生长",Vector2(232,725),Vector2(900,36),18)
+	if player.pending.is_empty():text_at("战斗中收集元素，为身体继续生长",Vector2(256,725),Vector2(900,36),18)
 	reward_button=action_button("奖励  %d"%game.run.packs,Vector2(48,811),Vector2(150,48),game.show_rewards,not player.pending.is_empty());reward_button.visible=game.run.packs>0
 	return_button=action_button("出击  →",Vector2(1170,811),Vector2(190,52),game.finish_building,not player.pending.is_empty())
 	return_button.tooltip_text="手动返回战斗 · E / Esc"
@@ -180,7 +180,7 @@ func inspect(data:Dictionary):
 	if core.is_empty():
 		detail.text="虫群中枢"
 		health_label.text="独立甲壳 · 协同攻击"
-		description_label.text="选择元素查看性能\n拖动体节调整阵型"
+		description_label.text="选择元素查看性能 · 拖动体节调整阵型"
 	else:
 		detail.text=db.title(core)+" · %d阶"%int(shown.get("part",{}).get("fusion_level",1))
 		detail.tooltip_text=db.title(core)+"\n"+db.armament_description(core)

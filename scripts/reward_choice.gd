@@ -1,6 +1,8 @@
 extends Control
+const Branches=preload("res://scripts/mutation_branches.gd")
 const Passive=preload("res://scripts/passive_feedback.gd")
 const UI=preload("res://scripts/game_ui.gd")
+const Categories=preload("res://scripts/armament_categories.gd")
 var game
 var board:PanelContainer
 var buttons:Array[Button]=[]
@@ -39,22 +41,36 @@ func setup(owner_game,offers:Array,token:int):
    b.add_theme_stylebox_override(key,style)
   b.pressed.connect(func():game.choose_reward(reward,epoch));buttons.append(b)
   var face=VBoxContainer.new();face.set_anchors_and_offsets_preset(PRESET_FULL_RECT);face.offset_left=28;face.offset_right=-28;face.offset_top=26;face.offset_bottom=-26;face.add_theme_constant_override("separation",10);face.mouse_filter=MOUSE_FILTER_IGNORE;b.add_child(face);faces.append(face)
-  var top=HBoxContainer.new();top.mouse_filter=MOUSE_FILTER_IGNORE;face.add_child(top)
+  var top=HBoxContainer.new();top.add_theme_constant_override("separation",12);top.mouse_filter=MOUSE_FILTER_IGNORE;face.add_child(top)
   var rarity_name=[game.db.ui("COMMON","普通"),game.db.ui("RARE","稀有"),game.db.ui("EPIC","史诗"),game.db.ui("LEGENDARY","传说")][rarity]
   var rarity_label=label(top,rarity_name,16);rarity_label.add_theme_color_override("font_color",accent);rarity_label.size_flags_horizontal=SIZE_EXPAND_FILL
+  var category=Categories.category(game.db,reward)
+  var category_name=game.db.ui(str(category.en),str(category.zh))
+  var category_badge=PanelContainer.new();category_badge.name="RewardCategory";category_badge.mouse_filter=MOUSE_FILTER_IGNORE;top.add_child(category_badge)
+  var category_skin=UI.flat_style(Color(UI.MUTED,.08),Color(UI.MUTED,.35),4)
+  category_skin.content_margin_left=10;category_skin.content_margin_right=10;category_skin.content_margin_top=3;category_skin.content_margin_bottom=3
+  category_badge.add_theme_stylebox_override("panel",category_skin)
+  label(category_badge,category_name,16).add_theme_color_override("font_color",UI.TEXT)
+  b.tooltip_text=category_name+" · "+b.tooltip_text
   label(top,"0%d"%(i+1),16).add_theme_color_override("font_color",UI.MUTED)
   var image=TextureRect.new();image.texture=reward_art(reward);image.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;image.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;image.custom_minimum_size.y=170;image.size_flags_vertical=SIZE_EXPAND_FILL;image.mouse_filter=MOUSE_FILTER_IGNORE;face.add_child(image)
   var name_label=label(face,reward_title(reward),23);name_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;name_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;name_label.custom_minimum_size.y=54;name_label.max_lines_visible=2;name_label.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
   var rule=HSeparator.new();rule.mouse_filter=MOUSE_FILTER_IGNORE;face.add_child(rule)
   var effect=label(face,short_effect(reward),27);effect.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;effect.custom_minimum_size.y=38;effect.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;effect.max_lines_visible=1;effect.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS;effect.add_theme_color_override("font_color",UI.TEXT);effect_labels.append(effect)
+  if reward.has("mutation_branch"):
+   effect.add_theme_font_size_override("font_size",21)
+   face.add_theme_constant_override("separation",8);face.offset_top=22;face.offset_bottom=-22
+   image.custom_minimum_size.y=80;name_label.custom_minimum_size.y=46;effect.custom_minimum_size.y=30
+   var branch_desc=label(face,game.db.text(reward.rewardDesc),15);branch_desc.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;branch_desc.max_lines_visible=4;branch_desc.clip_text=true;branch_desc.custom_minimum_size.y=96;branch_desc.add_theme_constant_override("line_spacing",0);branch_desc.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS;branch_desc.tooltip_text=branch_desc.text
   var action=game.db.ui("GROW  →","生长  →") if reward.get("class")=="BlockReward" else game.db.ui("EVOLVE  →","进化  →")
   if reward.get("class")=="CountBasicReward":action=game.db.ui("STORE CHARGES  →","领取次数  →")
   elif str(reward.get("class","")).ends_with("LevelUpReward") and game.player.reward_feedback(reward,game.combat.drones).status=="dormant":action=game.db.ui("STORE UPGRADE  →","储备升级  →")
   if b.disabled:action=game.db.ui("MAX LEVEL","已满级") if "LevelUp" in str(reward.get("class","")) and int(game.player.levels.get(reward.id,0))>=int(game.db.stores.PlayerDataStore.get("levelUpsAllowed",3)) else game.db.ui("UNAVAILABLE","暂不可用")
   var bottom=HBoxContainer.new();bottom.mouse_filter=MOUSE_FILTER_IGNORE;bottom.add_theme_constant_override("separation",8);face.add_child(bottom)
+  if reward.has("mutation_branch"):action=game.db.ui("COMMIT PATH →","选定方向 →")
   var action_label=label(bottom,action,16);action_label.size_flags_horizontal=SIZE_EXPAND_FILL;action_label.add_theme_color_override("font_color",accent)
   var progress=progress_info(reward)
-  var badge=label(bottom,progress.text,21 if "LevelUp" in str(reward.get("class","")) else 15);badge.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT;badge.add_theme_color_override("font_color",UI.TEXT);badge.tooltip_text=progress.tooltip;progress_labels.append(badge)
+  var badge=label(bottom,progress.text,16 if reward.has("mutation_branch") else (21 if "LevelUp" in str(reward.get("class","")) else 15));badge.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT;badge.add_theme_color_override("font_color",UI.TEXT);badge.tooltip_text=progress.tooltip;progress_labels.append(badge)
   b.tooltip_text+="\n"+progress.tooltip
   if b.disabled:face.modulate=Color(1,1,1,.72)
  if not offers.any(func(r):return game.run.can_reward(r)):
@@ -65,6 +81,7 @@ func setup(owner_game,offers:Array,token:int):
  recycle_button=Button.new();recycle_button.custom_minimum_size=Vector2(128,52);recycle_button.add_theme_font_size_override("font_size",18);recycle_button.text=game.db.ui("RECYCLE","回收");recycle_button.pressed.connect(func():game.recycle_reward(epoch));footer.add_child(recycle_button)
  resized.connect(layout_board);layout_board.call_deferred()
 func effect_text(reward:Dictionary)->String:
+ if reward.has("mutation_branch"):return game.db.text(reward.rewardDesc)+"\n"+Branches.rule_text(game.db,reward)
  var kind=str(reward.get("class",""))
  if kind=="BlockReward":return game.db.armament_description(reward)+"\n"+(game.db.ui("New segment held in reserve. Open Armory and place it to activate.","获得待装新体节。进入身体装配，放入后才会生效。") if not compact_character() else game.db.ui("Module in reserve. Equip on an empty hardpoint or replace an old module.","获得待装模块。装入空挂点或替换旧模块。"))
  var description=""
@@ -82,13 +99,18 @@ func effect_text(reward:Dictionary)->String:
 func label(parent:Node,value:String,px:int)->Label:
  var l=Label.new();l.text=value;l.add_theme_font_size_override("font_size",px);l.mouse_filter=MOUSE_FILTER_IGNORE;parent.add_child(l);return l
 func layout_board():
- board.size=Vector2(minf(1120,size.x-64),minf(650,size.y-48));board.position=(size-board.size)*.5
+ # Keep the cards' text layout stable; shrinking the container alone lets its
+ # minimum content height push actions into the footer on small windows.
+ board.size=Vector2(1120,650)
+ var factor=minf(1.0,minf((size.x-64)/1120.0,(size.y-64)/650.0))
+ board.scale=Vector2.ONE*factor;board.position=(size-board.size*factor)*.5
 func focus_first():
  for b in buttons:
   if not b.disabled:b.grab_focus();return
  postpone_button.grab_focus()
 
 func short_effect(reward:Dictionary)->String:
+ if reward.has("mutation_branch"):return Branches.brief(game.db,reward)
  match str(reward.get("class","")):
   "BlockReward":return game.db.ui("+1 SEGMENT","+1  体节") if not compact_character() else game.db.ui("+1 MODULE","+1  模块")
   "PercentBasicReward":return "%+.0f%%"%(float(reward.get("percent",0))*100)
@@ -115,6 +137,8 @@ func progress_info(reward:Dictionary)->Dictionary:
  var player=game.player
  var kind=str(reward.get("class",""))
  var data:Dictionary=game.db.stores.PlayerDataStore
+ if reward.has("mutation_branch"):
+  return {"text":game.db.ui("ONE PATH","本局二选一"),"tooltip":Branches.rule_text(game.db,reward)}
  if "LevelUp" in kind:
   var level=int(player.levels.get(reward.id,0));var cap=int(data.get("levelUpsAllowed",3))
   return {"text":"%d/%d"%[level,cap],"tooltip":game.db.ui("Current upgrade level / maximum level: %d / %d","当前升级等级 / 等级上限：%d / %d")%[level,cap]}

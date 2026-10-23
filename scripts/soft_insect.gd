@@ -14,6 +14,7 @@ const REST = [
 const ELASTICITY = {"grub":Vector2(72,6.5),"beetle":Vector2(160,10),"moth":Vector2(85,7),"sac":Vector2(52,6),"mantis":Vector2(115,8),"queen":Vector2(58,7)}
 const MAX_OFFSET = 0.30
 static var rests:Dictionary={}
+static var use_constraint_certificate=true
 
 static func rest_points(species:String)->PackedVector2Array:
 	if rests.has(species):return rests[species]
@@ -40,7 +41,15 @@ static func prepare(e: Dictionary):
 	offset.resize(REST.size()); velocity.resize(REST.size())
 	var art:AtlasTexture=Brood.texture("enemy_"+Brood.species(e))
 	var aspect=art.atlas.get_size()/maxf(art.atlas.get_width(),art.atlas.get_height())
-	e.soft_body = {"offset":offset,"velocity":velocity,"lattice_active":false,"rest":rest_points(Brood.species(e)),"aspect":aspect,"clock":0.0,"pose_clock":0.0,"flash":0.0,"hits":0,"peak":0.0,"hold":0.0,"shock":0.0,"recoil":Vector2.ZERO,"recoil_velocity":Vector2.ZERO,"lean":0.0,"lean_velocity":0.0,"direction":Vector2.RIGHT,"contact":Vector2.ZERO,"cue":0,"cue_age":10.0,"cue_strength":0.0,"cue_cooldown":0.0,"family":"impact"}
+	var rest=rest_points(Brood.species(e))
+	# If every offset is shorter than this margin, even two opposing offsets
+	# cannot close a row/column below the existing ordering constraints.
+	var margin=MAX_OFFSET
+	for row in 5:
+		for side in [-1,1]:margin=minf(margin,absf(rest[row*3+1+side].x-rest[row*3+1].x)*.34)
+	for i in 12:margin=minf(margin,(rest[i+3].y-rest[i].y)*.31)
+	margin=maxf(0,margin*.99)
+	e.soft_body = {"offset":offset,"velocity":velocity,"lattice_active":false,"rest":rest,"constraint_margin_squared":margin*margin,"aspect":aspect,"clock":0.0,"pose_clock":0.0,"flash":0.0,"hits":0,"peak":0.0,"hold":0.0,"shock":0.0,"recoil":Vector2.ZERO,"recoil_velocity":Vector2.ZERO,"lean":0.0,"lean_velocity":0.0,"direction":Vector2.RIGHT,"contact":Vector2.ZERO,"cue":0,"cue_age":10.0,"cue_strength":0.0,"cue_cooldown":0.0,"family":"impact"}
 
 static func surface_point(state:Dictionary,point:Vector2,push:Vector2,species:String)->Vector2:
 	var border:PackedVector2Array=Anatomy.definition(species).body
@@ -218,6 +227,15 @@ static func step(e: Dictionary, dt: float):
 	prepare(e)
 	var state: Dictionary = e.soft_body
 	var remaining = clampf(dt,0,0.15)
+	# Before the first hit the lattice, recoil and feedback are exactly zero.
+	# Keep the original substep clock additions (including their rounding), but
+	# skip spring arithmetic until impact, push or pull actually wakes the body.
+	if not state.get("lattice_active",true) and not state.has("push_strain") and not state.has("pull_strain"):
+		while remaining>0.00001:
+			var h=minf(remaining,1.0/120.0)
+			state.clock+=h;state.pose_clock+=h;state.cue_age+=h
+			remaining-=h
+		return
 	var push_elapsed=0.0
 	var elastic: Vector2 = ELASTICITY[Brood.species(e)]
 	while remaining > 0.00001:
@@ -234,6 +252,7 @@ static func step(e: Dictionary, dt: float):
 			var velocities:PackedVector2Array=state.velocity
 			var rest:PackedVector2Array=state.rest
 			var peak:float=state.peak
+			var maximum_squared=0.0
 			if not held:
 				var damping=exp(-elastic.y*h)
 				for i in rest.size():
@@ -245,8 +264,15 @@ static func step(e: Dictionary, dt: float):
 					if offset.length()>MAX_OFFSET:offset=offset.limit_length(MAX_OFFSET);velocity*=.4
 					velocities[i]=velocity;offsets[i]=offset
 					peak=maxf(peak,offset.length())
-			var constrained=_constrained_arrays(rest,offsets,velocities)
-			state.offset=constrained[0];state.velocity=constrained[1];state.peak=peak
+					maximum_squared=maxf(maximum_squared,offset.length_squared())
+			if use_constraint_certificate and not held and maximum_squared<float(state.get("constraint_margin_squared",0)):
+				# These constraints are provably no-ops. Keep every spring value,
+				# including tiny decaying motion, bit-for-bit rather than sleeping it.
+				state.offset=offsets;state.velocity=velocities
+			else:
+				var constrained=_constrained_arrays(rest,offsets,velocities)
+				state.offset=constrained[0];state.velocity=constrained[1]
+			state.peak=peak
 		state.clock+=h
 		state.pose_clock+=h*(.12 if held else 1.0)
 		state.hold=maxf(0,state.hold-h)

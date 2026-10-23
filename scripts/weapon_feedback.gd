@@ -1,6 +1,9 @@
 extends RefCounted
 ## Visual/audio identity only: these profiles never change damage or hit geometry.
 const PROFILES = {
+	"toxin": {"label":"毒囊", "color":Color("9de84b"), "accent":Color("668b2e"), "weight":0.75, "recoil":4.0, "kick":0.4, "pause":0.0, "trail":30.0, "pitch":0.86},
+	"boneblade": {"label":"回旋骨刃", "color":Color("eee0b5"), "accent":Color("b58ef0"), "weight":1.0, "recoil":5.0, "kick":0.8, "pause":0.0, "trail":38.0, "pitch":1.08},
+	"parasite": {"label":"寄生荚", "color":Color("f395bf"), "accent":Color("a94d85"), "weight":0.8, "recoil":4.5, "kick":0.5, "pause":0.0, "trail":30.0, "pitch":0.93},
 	"gatling": {"label":"蜂尾针簇", "color":Color("ffc34f"), "accent":Color("ff6b45"), "weight":0.55, "recoil":3.2, "kick":0.35, "pause":0.0, "trail":38.0, "pitch":1.05},
 	"shotgun": {"label":"裂颚", "color":Color("ff9e51"), "accent":Color("f25475"), "weight":1.1, "recoil":7.0, "kick":1.15, "pause":0.014, "trail":28.0, "pitch":0.90},
 	"cannon": {"label":"爆腹", "color":Color("ffb43c"), "accent":Color("ec5b42"), "weight":1.55, "recoil":9.0, "kick":2.2, "pause":0.023, "trail":68.0, "pitch":0.86},

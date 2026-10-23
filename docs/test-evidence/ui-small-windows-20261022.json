@@ -1,0 +1,226 @@
+{
+  "date": "2026-10-22",
+  "scope": "Native offscreen Godot UI layout and input acceptance, with verified isolated user data. Not a performance benchmark.",
+  "passed": true,
+  "viewports": [
+    [
+      800,
+      600
+    ],
+    [
+      960,
+      600
+    ],
+    [
+      1024,
+      768
+    ],
+    [
+      1280,
+      720
+    ]
+  ],
+  "languages": [
+    "Chinese (simplified)",
+    "English"
+  ],
+  "layout_cases": 123,
+  "native_click_checks": [
+    {
+      "name": "800x600: native click opens the roster",
+      "passed": true
+    },
+    {
+      "name": "800x600: native click reaches mission selection",
+      "passed": true
+    },
+    {
+      "name": "800x600: native Back button returns home",
+      "passed": true
+    },
+    {
+      "name": "800x600: native click opens key bindings",
+      "passed": true
+    },
+    {
+      "name": "800x600: evolution category tab remains clickable",
+      "passed": true
+    },
+    {
+      "name": "800x600: native click opens a branch detail",
+      "passed": true
+    },
+    {
+      "name": "800x600: modal Back button dismisses the detail",
+      "passed": true
+    },
+    {
+      "name": "800x600: native reward click opens placement exactly once",
+      "passed": true
+    },
+    {
+      "name": "800x600: unobstructed Deploy button resumes gameplay",
+      "passed": true
+    }
+  ],
+  "suites": [
+    {
+      "suite": "ui_small_windows",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 27.861,
+      "isolated_user_data": true,
+      "source_report": "artifacts/ui-small-input-final.json"
+    },
+    {
+      "suite": "meta_ui_redesign",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.694,
+      "isolated_user_data": true,
+      "source_report": "artifacts/ui-small-layout-third.json"
+    },
+    {
+      "suite": "mission_select",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.836,
+      "isolated_user_data": true,
+      "source_report": "artifacts/ui-audit-baseline.json"
+    },
+    {
+      "suite": "character_selection",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.251,
+      "isolated_user_data": true,
+      "source_report": "artifacts/ui-small-layout-third.json"
+    },
+    {
+      "suite": "result_rank_ui",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 20.711,
+      "isolated_user_data": true,
+      "source_report": "artifacts/ui-small-layout-third.json"
+    },
+    {
+      "suite": "battle_hud",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 16.201,
+      "isolated_user_data": true,
+      "source_report": "artifacts/ui-small-input-final.json"
+    },
+    {
+      "suite": "deployment",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.405,
+      "isolated_user_data": true,
+      "source_report": "artifacts/ui-audit-baseline.json"
+    },
+    {
+      "suite": "reward_cards",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 10.783,
+      "isolated_user_data": true,
+      "source_report": "artifacts/ui-small-layout-fourth.json"
+    },
+    {
+      "suite": "reward_progress_badges",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.986,
+      "isolated_user_data": true,
+      "source_report": "artifacts/ui-small-layout-fourth.json"
+    },
+    {
+      "suite": "direct_body_assembly",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 13.251,
+      "isolated_user_data": true,
+      "source_report": "artifacts/ui-small-layout-fourth.json"
+    },
+    {
+      "suite": "game_ui_shell",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.437,
+      "isolated_user_data": true,
+      "source_report": "artifacts/ui-small-layout-fourth.json"
+    },
+    {
+      "suite": "fuel_tutorial",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.815,
+      "isolated_user_data": true,
+      "source_report": "artifacts/ui-small-layout-fourth.json"
+    },
+    {
+      "suite": "mutation_branches_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 12.351,
+      "isolated_user_data": true,
+      "source_report": "artifacts/ui-small-content-final.json"
+    }
+  ],
+  "layout_report": "artifacts/ui-small-windows-report.json",
+  "source_sha256": {
+    "scripts/game_ui.gd": "3fbd2e4be37caa7c537e9258083ee4b50095976c8884e418e54e2f7f07971bd8",
+    "scripts/main.gd": "f3799c2e88df153399e05e71011eea99b6ec64f0ab85007b516bce538ee21f7b",
+    "scripts/reward_choice.gd": "1760fc5934cbe50de9a91656f991534e463fd9af0b7e7985eb0151f2d26bc741",
+    "scripts/research_ui.gd": "21fc190bda2419367b0fccf319c122988e15ed324b09c6ced6e2033e90d90dfe",
+    "scripts/reward_pool_ui.gd": "82fe23795bd17c7a69c78c4c0077a30044d66806526bf5e533a50772a6cbe8d7",
+    "scripts/build_grid_ui.gd": "2ebd3b2c308a3010f7c9f417772e243ab90b54b7281283fbf3721fa4acf0c515",
+    "scripts/build_chain_ui.gd": "d5e03eaac6e57307006eff94e5b50b76132a3628a01e7f192433ee6d134c2902",
+    "scripts/character_select.gd": "3560357f72d2532394828c59dcb8cb3e888d16b635950a24428d6917d2dbf95f",
+    "scripts/battle_hud.gd": "a827cccce67ecde40c8f77a4c4a33aa135aca2ea20a5262cd3decd02e9d00b8d",
+    "scripts/cave_terrain.gd": "ebfc876b50e17a00f0aa9ddeec280eb4936d59d78e934005b83e38ad910a068c",
+    "scripts/tutorial_ui.gd": "bd70d59fef9fe848ea734de4668c90e870be8552f734b950b76eeb41fc02ad82",
+    "tests/test_ui_small_windows.gd": "257b294118189c092a6730680fa69f8cf7c7fff52b799f76605e241583fcd871"
+  }
+}

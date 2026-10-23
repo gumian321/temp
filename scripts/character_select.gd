@@ -40,7 +40,7 @@ func rebuild():
   UI.label(card,str(data.skill_name)+"  ·  "+{"centipede":"蜷缩聚火","spider":"织网聚怪"}[id],Vector2(28,349),20,UI.TEAL)
   UI.label(card,game.db.ui("UP TO %d MOUNTS","最多 %d 个挂点")%int(data.slot_cap),Vector2(28,391),19,UI.MUTED)
   var weakness=UI.label(card,str(data.weakness),Vector2(28,421),16,UI.MUTED);weakness.size=Vector2(368,40);weakness.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
-  var goal=UI.label(card,unlock_text(id) if not unlocked else str(data.equipment_rule),Vector2(28,467),18);goal.size=Vector2(368,65);goal.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+  var goal=UI.label(card,"",Vector2(28,467),17);goal.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;goal.clip_text=true;goal.max_lines_visible=3;goal.text=unlock_text(id) if not unlocked else str(data.equipment_rule);goal.size=Vector2(368,80)
   card.tooltip_text=str(data.equipment_rule)+"\n"+str(data.weakness)
  status=UI.label(content,game.db.ui("Selection applies to your next expedition.","选择将在下一次出击生效。"),Vector2(72,774),21,UI.MUTED)
  UI.button(content,game.db.ui("DEPLOY  →","前往远征  →"),Rect2(1060,770,310,68),game.show_missions,"play",UI.AMBER)

@@ -34,6 +34,9 @@ func execute():
 		p.facing=Vector2.UP;p.parts[1].position+=Vector2(40,70);b.special.step(0)
 		check(is_ring(b.special.mines.map(func(m):return m.position),p.parts[1].position),"Egg ring follows its moving and turning owner")
 		var victim=b.spawn(game.db.pool["250"],b.special.mines[0].position);victim.mission_controlled=true;victim.guns=[]
+		# The ring can overlap cave rock. This contact fixture must touch the
+		# selected egg even if normal safe spawning relocated the test actor.
+		victim.position=b.special.mines[0].position;b.spatial_active=false
 		var hp=victim.hp;p.parts[1].cooldown=1;b.special.step(0)
 		check(victim.hp<hp and b.special.mines.size()==cap-1,"Contact detonates one egg and leaves one empty slot")
 		b.enemies.clear();p.parts[1].cooldown=0;b.special.step(0)
