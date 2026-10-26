@@ -31,8 +31,7 @@ func execute():
  var before=research.pan;var buttons=research.node_buttons.values()
  buttons[0].grab_focus();check(research.pan==before,'Mouse focus leaves research nodes at their click position')
  research.controller_navigation=true;buttons[1].grab_focus()
- var center=research.pan+(buttons[1].position+buttons[1].size/2)*research.magnification
- check(center.distance_to(Vector2(710,350))<1,'Keyboard/controller focus brings the selected research node into view')
+ check(root.gui_get_focus_owner()==buttons[1] and research.world.get_global_rect().encloses(buttons[1].get_global_rect()),'Keyboard/controller focus brings the complete selected research node into the visible tree viewport')
  research.queue_free();await process_frame
  var ok=checks.all(func(c):return c.passed)
  FileAccess.open('res://artifacts/presentation-test-report.json',FileAccess.WRITE).store_string(JSON.stringify({'checks':checks,'passed':ok},'\t'));print(JSON.stringify(checks));quit(0 if ok else 1)

@@ -8,10 +8,39 @@ const MAX_HIDDEN_RIGS=96
 var rigs:Dictionary={}
 var hidden_rigs:Dictionary={}
 var battle_id=0
+const MAX_POOLED_RIGS=32
+var rig_pool:Array=[]
+var use_rig_pool=OS.get_environment("RBPEW_LEGACY_RIG_POOL")!="1"
+var rig_builds=0
+var rig_reuses=0
 
 func clear():
 	for rig in rigs.values():rig.queue_free()
 	rigs.clear();hidden_rigs.clear()
+	for rig in rig_pool:rig.free()
+	rig_pool.clear()
+
+func acquire(actor:Dictionary):
+	if use_rig_pool and not rig_pool.is_empty():
+		var key=Rig.reuse_key(actor)
+		for i in range(rig_pool.size()-1,-1,-1):
+			var rig=rig_pool[i]
+			if rig.anatomy_key==key:
+				rig_pool.remove_at(i);add_child(rig);rig.reuse(actor);rig_reuses+=1
+				return rig
+	var rig=Rig.new();add_child(rig);rig.setup(actor);rig_builds+=1
+	return rig
+
+func retire(rig):
+	if not use_rig_pool or not rig is Rig or not rig.preview_species.is_empty() or not rig.batch_appendages:rig.queue_free();return
+	rig.visible=false;remove_child(rig)
+	# The pool lives outside the tree; retained bones submit no frame updates.
+	if rig_pool.size()>=MAX_POOLED_RIGS:rig_pool.pop_front().free()
+	rig_pool.append(rig)
+
+func _exit_tree():
+	for rig in rig_pool:rig.free()
+	rig_pool.clear()
 
 func sync(game,dt:float):
 	if battle_id!=game.combat.get_instance_id():
@@ -36,7 +65,7 @@ func sync(game,dt:float):
 				if not hidden_rigs.has(e.uid):hidden_rigs[e.uid]=true
 			continue
 		if not rigs.has(e.uid):
-			var rig=Rig.new();add_child(rig);rig.setup(e);rigs[e.uid]=rig
+			rigs[e.uid]=acquire(e)
 		var rig=rigs[e.uid]
 		rig.visible=true
 		hidden_rigs.erase(e.uid)
@@ -53,9 +82,9 @@ func sync(game,dt:float):
 			rig.position=game.world(rig.entity.position)
 			rig.pose(dt,true)
 			if rig.death_age<0.16:continue
-		rig.queue_free();rigs.erase(uid);hidden_rigs.erase(uid)
+		retire(rig);rigs.erase(uid);hidden_rigs.erase(uid)
 	if hidden_rigs.size()>MAX_HIDDEN_RIGS:
 		# Snapshot keys only on overflow, never for the normal cache-hit path.
 		for uid in hidden_rigs.keys():
 			if hidden_rigs.size()<=MAX_HIDDEN_RIGS:break
-			rigs[uid].queue_free();rigs.erase(uid);hidden_rigs.erase(uid)
+			retire(rigs[uid]);rigs.erase(uid);hidden_rigs.erase(uid)

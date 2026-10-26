@@ -1,0 +1,242 @@
+{
+  "assets": [
+    {
+      "path": "assets/ui_overhaul/armaments_atlas_a.png",
+      "original_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "silhouette_iou": 0.8764,
+      "sha256": "2f2837a8a500aa84b02b3c029280ffd363fa9397c1adfe51779def5d01c3c874"
+    },
+    {
+      "path": "assets/ui_overhaul/projectile_bodies_atlas.png",
+      "original_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "silhouette_iou": 0.8615,
+      "sha256": "2b7cd822d0cd1064e3684c0fee0bd42f9b046073c6e949ed4d6651eafb487abf"
+    },
+    {
+      "path": "assets/ui_overhaul/armaments_atlas_b.png",
+      "original_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "silhouette_iou": 0.9555,
+      "sha256": "a84a5b94ed2c18c410d74869803466ee8364c6beca55b6609166ac770287b412"
+    },
+    {
+      "path": "assets/ui_overhaul/armaments_atlas_c.png",
+      "original_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "silhouette_iou": 0.9096,
+      "sha256": "d3b9057b59db4edabee60bbfdff64fc0e5c8e6e3dc2babe1d9e307697fe26b06"
+    },
+    {
+      "path": "assets/ui_overhaul/armaments_atlas_d.png",
+      "original_size": [
+        1536,
+        1024
+      ],
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        254
+      ],
+      "silhouette_iou": 0.9713,
+      "sha256": "95435bdc56a347950c15f12964706a9f715423afb90413ccfd15b09f3570f486"
+    },
+    {
+      "path": "assets/ui_overhaul/insect_projectiles_atlas.png",
+      "original_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "silhouette_iou": 0.9599,
+      "sha256": "cf8ea6b8ebdffc2098a5371be42f763b29f9231688a88e18b2149b97da993cb9"
+    },
+    {
+      "path": "assets/ui_overhaul/special_projectile_bodies_atlas.png",
+      "original_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "silhouette_iou": 0.9912,
+      "sha256": "0922ae0f6b7a2f8f98702362f77f2b239cd1dd6630bccceb42c9bb7660a6c3a3"
+    },
+    {
+      "path": "assets/new_weapons/toxin_atlas.png",
+      "original_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "silhouette_iou": 0.9752,
+      "sha256": "c5a6a83986616c088e0690cfd600f17cb2762171d24b933d7b8412f9a2b928d7"
+    },
+    {
+      "path": "assets/new_weapons/boneblade_atlas.png",
+      "original_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "silhouette_iou": 0.9523,
+      "sha256": "2b4feae475fad516301a1db023fd3693b64466a601b1705a932c150cbec52255"
+    },
+    {
+      "path": "assets/new_weapons/parasite_atlas.png",
+      "original_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "silhouette_iou": 0.9845,
+      "sha256": "0d5fb3b76fb0f1450550f4f13779476df45da7bcc4feb8bf6dcd8a41dcec9c15"
+    },
+    {
+      "path": "assets/new_weapons/toxin_branches_atlas.png",
+      "original_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "silhouette_iou": 0.9733,
+      "sha256": "3aea465f1b30ad2833f39a82c61adf5d28f0a1f01b2be235f7020683e586e8fb"
+    },
+    {
+      "path": "assets/new_weapons/boneblade_branches_atlas.png",
+      "original_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "silhouette_iou": 0.9524,
+      "sha256": "d942022af3d816488c72f658e845b574ebe9d08af0044713dea3f4875ab50b2b"
+    },
+    {
+      "path": "assets/new_weapons/parasite_branches_atlas.png",
+      "original_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "silhouette_iou": 0.9797,
+      "sha256": "930f1a3b8db3539ca856e777230cd4fd0533397e8e821415e3302e764c282a9e"
+    },
+    {
+      "path": "assets/ui_overhaul/viscous_projectiles_atlas.png",
+      "original_size": [
+        1774,
+        887
+      ],
+      "size": [
+        1774,
+        887
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "silhouette_iou": 0.954,
+      "sha256": "e01c3f9bd888b80b763c6131a6cd78c5692a5feb35f3dbbedb94ad7cf9956855"
+    }
+  ]
+}

@@ -6,6 +6,7 @@ func observe(event):
 	if event is InputEventJoypadButton or event is InputEventJoypadMotion:active_joy=event.device
 func joy_device()->int:
 	var connected=Input.get_connected_joypads()
+	if active_joy in connected:return active_joy
 	return connected[0] if not connected.is_empty() else active_joy
 func _init(persistence):
 	save=persistence
@@ -20,10 +21,15 @@ func apply():
 	var trigger=InputEventJoypadMotion.new();trigger.axis=JOY_AXIS_TRIGGER_LEFT;trigger.axis_value=1.0;InputMap.action_add_event("boost",trigger)
 	for action in joy_buttons:
 		var event=InputEventJoypadButton.new();event.button_index=joy_buttons[action];InputMap.action_add_event(action,event)
-func bind(action:String,key:int):
-	if key==KEY_PRINT or key==0:return
+func bind(action:String,key:int)->bool:
+	if key==KEY_PRINT or key==0 or not DEFAULTS.has(action):return false
+	var previous:Dictionary=save.state.settings.bindings.duplicate()
 	save.state.settings.bindings[action]=key
-	save.save();apply()
+	if not save.save():
+		save.state.settings.bindings=previous
+		return false
+	apply()
+	return true
 func movement(raw_axes:bool=false)->Vector2:
 	var value=Vector2(Input.get_axis("move_left","move_right"),Input.get_axis("move_up","move_down"))
 	if joy_device()>=0:

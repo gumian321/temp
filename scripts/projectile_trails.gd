@@ -131,9 +131,9 @@ static func indices(segments: int) -> PackedInt32Array:
 	strip_indices[segments] = result
 	return result
 
-static func paint(canvas, state: Dictionary, zoom: float, time: float):
+static func paint(canvas, state: Dictionary, zoom: float, time: float, live:bool=false):
 	if canvas is AttackShaders.Painter:
-		paint_gpu(canvas,state,zoom)
+		paint_gpu(canvas,state,zoom,live)
 		return
 	var trail = path(state,42.0/maxf(.01,zoom) if not state.friendly else -1.0)
 	if trail.length * zoom < 1.0: return
@@ -145,8 +145,7 @@ static func paint(canvas, state: Dictionary, zoom: float, time: float):
 	var colors = PackedColorArray(); colors.resize(vertices.size())
 	var kind = str(state.organic_family)
 	var pigment: Color = Color("d82746") if hostile else PALETTES.get(kind, PALETTES.get(str(state.fx_family), PALETTES.mucus))
-	var dark = pigment.darkened(.53)
-	var light = pigment.lerp(Color("fff4cf"), .64)
+	var dark = pigment.darkened(.04)
 	var width = (2.6 if kind == "larva" else 3.6) * clampf(float(state.radius) / 4.0, 1.0, 1.8) * zoom
 	if hostile: width = maxf(1.2, 1.9 * zoom)
 	var fade = clampf(float(state.life) / FADE_TIME, 0.0, 1.0)
@@ -171,7 +170,7 @@ static func paint(canvas, state: Dictionary, zoom: float, time: float):
 		vertices[i * 3 + 1] = at - cross_section * .22
 		vertices[i * 3 + 2] = at + cross_section
 		colors[i * 3] = Color(dark, alpha)
-		colors[i * 3 + 1] = Color(light, alpha)
+		colors[i * 3 + 1] = Color(pigment, alpha)
 		colors[i * 3 + 2] = Color(pigment, alpha)
 	canvas.draw_set_transform(Vector2.ZERO)
 	# One indexed strip avoids polygon triangulation failures at tight turns and
@@ -188,10 +187,23 @@ static func paint(canvas, state: Dictionary, zoom: float, time: float):
 
 ## Production sends only path centres and encoded normals. The shared shader
 ## expands, tapers and animates the strip, avoiding per-vertex CPU wave math.
-static func paint_gpu(canvas, state: Dictionary, zoom: float):
+static func paint_gpu(canvas, state: Dictionary, zoom: float, live:bool=false):
 	var origin:Vector2=canvas.world(Vector2.ZERO)
 	var scale_factor:float=origin.distance_to(canvas.world(Vector2.RIGHT))
 	if scale_factor<.0001:return
+	var mesh=prepare_gpu_mesh(state,zoom,scale_factor)
+	if mesh.segments==0:return
+	var layer=canvas.owner_layer
+	if layer!=null and layer.use_flight_batch and layer.batch_flights_this_frame and not layer.trace_commands and state.organic_family not in ["repair_drone","scrap_drone","drone"]:
+		if layer.flight_batch.enqueue(canvas,state,mesh,origin,scale_factor,{},"live_trail" if live else "remnant"):return
+	# Cached past vertices stay fixed in world space. Only the head is refreshed
+	# every frame, keeping the joint tucked inside even the fastest small body.
+	var vertices:PackedVector2Array=mesh.vertices
+	vertices[0]=state.position;vertices[1]=state.position;vertices[2]=state.position
+	canvas.draw_set_transform(origin,0.0,Vector2.ONE*scale_factor)
+	canvas.draw_triangle_array(indices(mesh.segments),vertices,mesh.colors,strip_uvs[mesh.uv_key])
+
+static func prepare_gpu_mesh(state:Dictionary,zoom:float,scale_factor:float)->Dictionary:
 	var width_scale=zoom/scale_factor
 	var distance_limit=42.0/maxf(.01,zoom) if not state.friendly else -1.0
 	var id=int(state.visual_id)
@@ -203,13 +215,7 @@ static func paint_gpu(canvas, state: Dictionary, zoom: float):
 		mesh.bucket=bucket
 		if not mesh_cache.has(id) and mesh_cache.size()>=MAX_TRACKED+MAX_REMNANTS:mesh_cache.erase(mesh_cache.keys()[0])
 		mesh_cache[id]=mesh
-	if mesh.segments==0:return
-	# Cached past vertices stay fixed in world space. Only the head is refreshed
-	# every frame, keeping the joint tucked inside even the fastest small body.
-	var vertices:PackedVector2Array=mesh.vertices
-	vertices[0]=state.position;vertices[1]=state.position;vertices[2]=state.position
-	canvas.draw_set_transform(origin,0.0,Vector2.ONE*scale_factor)
-	canvas.draw_triangle_array(indices(mesh.segments),vertices,mesh.colors,strip_uvs[mesh.uv_key])
+	return mesh
 
 static func build_mesh(state:Dictionary,width_scale:float,distance_limit:float=-1.0)->Dictionary:
 	var trail=path(state,distance_limit)
@@ -256,7 +262,7 @@ static func paint_shot(canvas, shot: Dictionary, zoom: float, time: float):
 		if not shot.has("previous"): return
 		state = make_state(shot, SAMPLE_INTERVAL)
 		state.position = shot.position
-	paint(canvas, state, zoom, time)
+	paint(canvas, state, zoom, time,true)
 
 ## Crowded friendly volleys retain a lightweight curved, fading trail.
 static func paint_simple(canvas,shot:Dictionary,zoom:float):

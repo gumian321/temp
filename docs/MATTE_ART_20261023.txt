@@ -1,0 +1,31 @@
+武器与弹体统一美术（2026-10-23）
+
+确认方向
+以用户确认的 armaments_atlas_a 为准，直接采用已确认的预览文件。
+保留原来的外形、器官结构、尖刺与分节；去掉反光高光，收掉细碎纹理，大片保留本色，仅在骨片叠压、关节及囊体下缘保留轻微阴影。
+其余图集使用内置 image_gen.imagegen 逐张参考编辑；完整提示词及生成记录保存在 assets/matte_style_generation.json。未使用 CLI 或 REA。
+
+替换范围
+assets/ui_overhaul/armaments_atlas_a.png、b.png、c.png、d.png（完整文件名均带 armaments_atlas_ 前缀）。
+assets/ui_overhaul/projectile_bodies_atlas.png、special_projectile_bodies_atlas.png、insect_projectiles_atlas.png、viscous_projectiles_atlas.png。
+assets/new_weapons/toxin_atlas.png、boneblade_atlas.png、parasite_atlas.png。
+assets/new_weapons/toxin_branches_atlas.png、boneblade_branches_atlas.png、parasite_branches_atlas.png。
+共 14 张生产图集；装配、拖动预览、研究、奖励、图鉴、战斗以及无人机共用现有资源路径。全部保持原图尺寸和透明 alpha。四种普通弹体按新轮廓补足透明裁切边距，防止切掉边缘；游戏内绘制尺寸和碰撞保持原样。
+
+运行时
+删除此前对整张图压亮部、降饱和度的 soft_finish 材质及其 UI 挂载。
+attack_material 直接显示已重绘的纹理颜色，不再叠加程序化湿润高光和细噪声。
+程序绘制的攻击结构保留运动，仅添加最多约 6% 的浅阴影；拖尾取消白色反光条，保留本色和少量下缘阴影。
+保持现有固定材质批次、绘制顺序、透明遮罩和敌方危险色。武器 ID、数值、碰撞、射速、弹道与存档结构没有变化。
+
+验证与实机截图
+matte_art_scene：14 张导入纹理的尺寸与透明度，42 个武器/分支和 34 个弹体/命中变体的实际资源入口、裁切及等比缩放。
+attack_shader_materials：已绘贴图的像素颜色保持不变；程序几何的阴影限幅与运动；危险色、绘制顺序和固定批次数量。
+armament_art、mutation_weapons_scene、mutation_branches_scene、all_dynamic_trails_scene 等检查装配、奖励和战斗场景。
+最终结果见 docs/test-evidence/matte-art-validation-20261023.json。
+artifacts/matte-weapons-lineup.png：全部武器和进化分支，大图与实际小尺寸。
+artifacts/matte-projectiles-lineup.png：弹体和命中特效，大图与实际小尺寸。
+artifacts/armament-v2-build.png、armament-v2-mounted.png：实际装配与战斗。
+artifacts/new-weapons-combat.png、all-trails-held.png：进化武器与动态弹道效果。
+
+原贴图备份在忽略目录 artifacts/pre-matte-art/；生产资源使用当前 assets/ 文件，不依赖生成工具的个人缓存目录。

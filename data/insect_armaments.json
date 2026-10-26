@@ -423,8 +423,8 @@
     "key": "Part_Fuel",
     "zh": "蜜囊",
     "en": "Nectar Sac",
-    "description_zh": "储存并生成加速所需燃料。",
-    "description_en": "Stores and generates fuel for boosting.",
+    "description_zh": "储存并恢复加速所需能量。",
+    "description_en": "Stores and restores energy used for boosting.",
     "turrets": [
       "Turret_FuelTank"
     ],

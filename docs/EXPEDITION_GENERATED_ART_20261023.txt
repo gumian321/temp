@@ -1,0 +1,44 @@
+出击页：生图插画和透明图标 — 2026-10-23
+
+按用户要求改用生成图片，保留黑白手绘与洞穴冒险氛围。
+使用内置 image_gen.imagegen；六张大图和六枚图标分别生成，共十二次。
+所有原始 PNG 已复制到 assets/expedition_ink/，没有用代码或图形占位替代素材。
+完整提示词、生成文件名与项目路径记录在 assets/expedition_ink/generation.json。
+
+素材
+scene-survive.png：小型骨甲蜈蚣面对巨型虫后与包围虫群。
+scene-endless.png：从洞穴深处涌来的虫潮。
+scene-hunt.png：追击携带卵茧的蛾虫运输队。
+scene-escort.png：运输队跟随蜈蚣通过有伏击者的岩缝。
+scene-siege.png：深入有甲虫守卫的根须巢体。
+scene-defend.png：蜈蚣环身护卵，外围虫群逼近。
+icon-survive.png / icon-endless.png / icon-hunt.png / icon-escort.png / icon-siege.png / icon-defend.png：
+虫首、盘曲蜈蚣、被捕蛾虫、护送蛾虫、破裂卵囊、护卵虫体，透明背景。
+
+接入
+scripts/mission_art.gd 使用 TextureRect 显示这些图片，按任务切换并缓存贴图。
+大图占用 676×338，保持 2:1 比例；图标在 96×72 内等比居中，下方保留文字。
+任务图标选中时提亮，保留按钮原有焦点与输入行为。
+图标原文件 1254×1254，导入大小限制为 256px，保留原始 alpha；大图为 1774×887。
+所有新图片开启 mipmaps，改善小窗口显示，原 PNG 未进行后处理。
+移除本轮此前添加的 mission_diagram.gd、expedition_scene.gd 与 expedition_ink.gdshader。
+插画现在表达任务主题，不随角色替换画中生物；选角、玩法、难度、奖励和出发行为不变。
+首页仍沿用之前的生物手记设计。
+
+验证
+使用 tools/run_checks.py 与隔离存档运行原生 OpenGL 检查。
+field_guide_scene：逐个验证六种任务的大图与图标映射、透明背景、难度切换复用与页面浏览不改进度；
+同时检查中英文、两种角色选择状态，以及 800×600、960×600、1280×720、1440×900 的布局与截图。
+expedition_briefing：任务内容、三个难度、1920×1080 布局、解锁与出发流程。
+mission_select：鼠标、键盘、注入的手柄事件和实际部署流程；未用实体手柄验收。
+meta_ui_redesign：相关界面回归。
+
+截图
+artifacts/ui-small-field-mission-3-1440x900.png
+artifacts/ui-small-field-mission-1-800x600.png
+artifacts/ui-small-field-mission-5-1440x900.png
+artifacts/ui-small-field-mission-english-3.png
+验证结果：docs/test-evidence/expedition-generated-art-20261023.json。
+
+使用
+关闭旧实例后在 Godot 按 F5，或重新运行“启动蜈蚣中文版.cmd”。本次未重新导出 EXE。

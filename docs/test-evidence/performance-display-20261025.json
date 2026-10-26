@@ -1,0 +1,1457 @@
+{
+  "date": "2026-10-25",
+  "passed": true,
+  "scope": "Runtime rendering, HUD layering, responsive culling, static screen redraws and exact targeting priority. Existing generated PNGs preserved. Whole-game FPS improvement NOT established.",
+  "core_regression_suite_count": 26,
+  "core_regression_suites": [
+    {
+      "suite": "organ_gpu",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.608,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "soft_organs",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.873,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "emitter_reaction",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.651,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "passive_visual_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.403,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "soft_render_cache",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.879,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "combat_incremental_refresh",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.392,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_mining",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.966,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_far_navigation",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.277,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "weapon_readability_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 13.832,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "hostile_readability",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.347,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "attack_shader_materials",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.795,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "skill_shader_coverage",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.889,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "projectile_trails_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.614,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "all_dynamic_trails_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.6,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "battle_hud",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 10.833,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "ui_small_windows",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 21.999,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "field_guide_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.494,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "mission_select",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.74,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "meta_ui_redesign",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.625,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "expedition_briefing",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.138,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "presentation_optimization",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.859,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "cave_target_priority",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.64,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "radar",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.555,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "render_hotpath_regressions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.258,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "hud_refresh_cache",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.354,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "render_snapshot",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.442,
+      "isolated_user_data": true
+    }
+  ],
+  "regression_reports": [
+    "optimize-final-regression-20261025.json",
+    "optimize-final-sanity-20261025.json",
+    "optimize-final-render-20261025.json"
+  ],
+  "organ_backend_comparison": {
+    "checks": [
+      {
+        "name": "CPU/GPU artwork parity, including recoil, tint and traction: pose 0",
+        "passed": true
+      },
+      {
+        "name": "CPU/GPU artwork parity, including recoil, tint and traction: pose 1",
+        "passed": true
+      },
+      {
+        "name": "CPU/GPU artwork parity, including recoil, tint and traction: pose 2",
+        "passed": true
+      },
+      {
+        "name": "CPU/GPU artwork parity, including recoil, tint and traction: pose 3",
+        "passed": true
+      },
+      {
+        "name": "CPU/GPU artwork parity, including recoil, tint and traction: pose 4",
+        "passed": true
+      },
+      {
+        "name": "Sixty organs reduce CPU submission cost without reducing animation frequency",
+        "passed": true
+      },
+      {
+        "name": "Removed organs release retained items and unused geometry",
+        "passed": true
+      },
+      {
+        "name": "Leaving combat clears all retained organs",
+        "passed": true
+      }
+    ],
+    "comparisons": [
+      {
+        "channels_over_16_fraction": 0.0,
+        "mean_channel_error_255": 6.65509259259259e-05,
+        "pose": 0
+      },
+      {
+        "channels_over_16_fraction": 0.0,
+        "mean_channel_error_255": 4.18595679012346e-05,
+        "pose": 1
+      },
+      {
+        "channels_over_16_fraction": 0.0,
+        "mean_channel_error_255": 3.68441358024691e-05,
+        "pose": 2
+      },
+      {
+        "channels_over_16_fraction": 0.0,
+        "mean_channel_error_255": 7.52314814814815e-05,
+        "pose": 3
+      },
+      {
+        "channels_over_16_fraction": 0.0,
+        "mean_channel_error_255": 4.24382716049383e-06,
+        "pose": 4
+      }
+    ],
+    "passed": true,
+    "scope": "Same 60 poses, atlas art, mesh resolution, tint and traction; native OpenGL submission time, not whole-game FPS.",
+    "sixty_organs_cpu_ms": {
+      "cpu": 4.666,
+      "gpu": 0.553236363636364
+    }
+  },
+  "same_scene_draw_comparison": {
+    "blocks": [
+      {
+        "mean_main_draw_ms": 5.2665625,
+        "mode": "cpu"
+      },
+      {
+        "mean_main_draw_ms": 4.9398125,
+        "mode": "gpu"
+      },
+      {
+        "mean_main_draw_ms": 5.024125,
+        "mode": "gpu"
+      },
+      {
+        "mean_main_draw_ms": 5.6675625,
+        "mode": "cpu"
+      }
+    ],
+    "changed_channel_fraction": 0.000131944444444444,
+    "checks": [
+      {
+        "name": "Main-scene CPU/GPU paths preserve generated art and effect layering",
+        "passed": true
+      },
+      {
+        "name": "GPU path reduces main drawing cost in alternating identical-scene blocks",
+        "passed": true
+      },
+      {
+        "name": "Render comparison leaves actors, bullets, loadout and RNG unchanged",
+        "passed": true
+      }
+    ],
+    "costs": {
+      "cpu": {
+        "mean_main_draw_ms": 5.4670625,
+        "median_main_draw_ms": 5.333,
+        "p95_main_draw_ms": 7.429
+      },
+      "gpu": {
+        "mean_main_draw_ms": 4.98196875,
+        "median_main_draw_ms": 4.951,
+        "p95_main_draw_ms": 6.754
+      }
+    },
+    "counts": [
+      24,
+      2,
+      12
+    ],
+    "mean_channel_error_255": 0.00815451388888889,
+    "passed": true,
+    "renderer": "NVIDIA GeForce GTX 1050",
+    "scope": "Frozen real main-scene snapshot, alternating CPU/GPU/GPU/CPU draw submission. No simulation, not gameplay FPS or a whole-change before/after comparison."
+  },
+  "presentation": {
+    "captures": [
+      "res://artifacts/optimized-battle-800x600.png",
+      "res://artifacts/optimized-battle-1440x900.png",
+      "res://artifacts/optimized-battle-2560x1080.png"
+    ],
+    "checks": [
+      {
+        "name": "Static home does not rebuild hidden world drawing",
+        "passed": true
+      },
+      {
+        "name": "Static home hides covered legacy ships and fullscreen terrain shader",
+        "passed": true
+      },
+      {
+        "name": "Homepage specimen animation keeps its independent clock",
+        "passed": true
+      },
+      {
+        "name": "Static missions does not rebuild hidden world drawing",
+        "passed": true
+      },
+      {
+        "name": "Static missions hides covered legacy ships and fullscreen terrain shader",
+        "passed": true
+      },
+      {
+        "name": "Static options does not rebuild hidden world drawing",
+        "passed": true
+      },
+      {
+        "name": "Static options hides covered legacy ships and fullscreen terrain shader",
+        "passed": true
+      },
+      {
+        "name": "Static research does not rebuild hidden world drawing",
+        "passed": true
+      },
+      {
+        "name": "Static research hides covered legacy ships and fullscreen terrain shader",
+        "passed": true
+      },
+      {
+        "name": "Paused combat retains its image without advancing organ or world clocks",
+        "passed": true
+      },
+      {
+        "name": "Resuming immediately restores animated world rendering",
+        "passed": true
+      },
+      {
+        "name": "Resize centres the actual battlefield at (800, 600)",
+        "passed": true
+      },
+      {
+        "name": "Radar stays inside (800, 600)",
+        "passed": true
+      },
+      {
+        "name": "Radar uses the intended compact/full size at (800, 600)",
+        "passed": true
+      },
+      {
+        "name": "Radar remains readable above world effects at (800, 600)",
+        "passed": true
+      },
+      {
+        "name": "Renderer produced optimized-battle-800x600",
+        "passed": true
+      },
+      {
+        "name": "Saved optimized-battle-800x600",
+        "passed": true
+      },
+      {
+        "name": "Resize centres the actual battlefield at (1440, 900)",
+        "passed": true
+      },
+      {
+        "name": "Radar stays inside (1440, 900)",
+        "passed": true
+      },
+      {
+        "name": "Radar uses the intended compact/full size at (1440, 900)",
+        "passed": true
+      },
+      {
+        "name": "Radar remains readable above world effects at (1440, 900)",
+        "passed": true
+      },
+      {
+        "name": "Renderer produced optimized-battle-1440x900",
+        "passed": true
+      },
+      {
+        "name": "Saved optimized-battle-1440x900",
+        "passed": true
+      },
+      {
+        "name": "Resize centres the actual battlefield at (2560, 1080)",
+        "passed": true
+      },
+      {
+        "name": "Radar stays inside (2560, 1080)",
+        "passed": true
+      },
+      {
+        "name": "Radar uses the intended compact/full size at (2560, 1080)",
+        "passed": true
+      },
+      {
+        "name": "Radar remains readable above world effects at (2560, 1080)",
+        "passed": true
+      },
+      {
+        "name": "Renderer produced optimized-battle-2560x1080",
+        "passed": true
+      },
+      {
+        "name": "Saved optimized-battle-2560x1080",
+        "passed": true
+      },
+      {
+        "name": "Returning home releases all mounted GPU canvas items",
+        "passed": true
+      }
+    ],
+    "idle": [
+      {
+        "screen": "home",
+        "world_redraws_in_30_ticks": 0
+      },
+      {
+        "screen": "missions",
+        "world_redraws_in_30_ticks": 0
+      },
+      {
+        "screen": "options",
+        "world_redraws_in_30_ticks": 0
+      },
+      {
+        "screen": "research",
+        "world_redraws_in_30_ticks": 0
+      }
+    ],
+    "passed": true
+  },
+  "target_priority": {
+    "checks": [
+      {
+        "name": "Open corridor chooses the same nearest target",
+        "passed": true
+      },
+      {
+        "name": "Priority ordering cuts 32 intermediate visibility rays to the one winning ray",
+        "passed": true
+      },
+      {
+        "name": "840 occluded targeting cases preserve shields, ties, dead/hidden/friendly filters and special radar behavior",
+        "passed": true
+      },
+      {
+        "name": "Random targeting consumes exactly the same RNG state",
+        "passed": true
+      }
+    ],
+    "open_corridor_rays": {
+      "after": 1,
+      "before": 32
+    },
+    "passed": true
+  },
+  "native_live_samples": [
+    {
+      "tag": "before",
+      "passed": true,
+      "scope": "Debug Godot source runtime, normal main scene/AI/weapons/collisions and real engine delta. Isolated save; HP raised only to retain inspection subjects; fixed test inputs and staged native enemy encounter. No editor debugger connected. Not the user's exact equipment/window.",
+      "results": [
+        {
+          "actors": {
+            "max": 48,
+            "mean": 46.331983805668,
+            "median": 47,
+            "p95": 48
+          },
+          "attack_commands": {
+            "max": 0,
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          },
+          "bullets": {
+            "max": 0,
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          },
+          "case": "fresh-idle",
+          "cpu_ms": {
+            "max": 8.582,
+            "mean": 2.54423684210526,
+            "median": 2.272,
+            "p95": 4.005
+          },
+          "draw_calls": {
+            "max": 93.0,
+            "mean": 91.7591093117409,
+            "median": 92.0,
+            "p95": 93.0
+          },
+          "draw_ms": {
+            "max": 3.253,
+            "mean": 1.01525607287449,
+            "median": 0.927,
+            "p95": 1.5
+          },
+          "effects_draw_ms": {
+            "max": 0.219,
+            "mean": 0.0175566801619433,
+            "median": 0.016,
+            "p95": 0.024
+          },
+          "frame_ms": {
+            "max": 15.318,
+            "mean": 5.00988765182186,
+            "median": 4.592,
+            "p95": 7.161
+          },
+          "frames": 988,
+          "projectile_draw_ms": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0
+          },
+          "simulated_seconds": 4.99944444444442
+        },
+        {
+          "actors": {
+            "max": 58,
+            "mean": 56.4913112164297,
+            "median": 58,
+            "p95": 58
+          },
+          "attack_commands": {
+            "max": 24,
+            "mean": 6.91943127962085,
+            "median": 0,
+            "p95": 24
+          },
+          "bullets": {
+            "max": 0,
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          },
+          "case": "fresh-mining",
+          "cpu_ms": {
+            "max": 34.992,
+            "mean": 4.00078830963666,
+            "median": 3.42,
+            "p95": 6.847
+          },
+          "draw_calls": {
+            "max": 199.0,
+            "mean": 130.187993680885,
+            "median": 94.0,
+            "p95": 199.0
+          },
+          "draw_ms": {
+            "max": 11.623,
+            "mean": 1.81093680884676,
+            "median": 1.637,
+            "p95": 3.636
+          },
+          "effects_draw_ms": {
+            "max": 0.222,
+            "mean": 0.0596619273301738,
+            "median": 0.027,
+            "p95": 0.137
+          },
+          "frame_ms": {
+            "max": 78.55,
+            "mean": 7.83689731437599,
+            "median": 7.13,
+            "p95": 11.314
+          },
+          "frames": 633,
+          "projectile_draw_ms": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0
+          },
+          "simulated_seconds": 5.09329255555553
+        },
+        {
+          "actors": {
+            "max": 66,
+            "mean": 57.9765625,
+            "median": 58,
+            "p95": 58
+          },
+          "attack_commands": {
+            "max": 242,
+            "mean": 61.8619791666667,
+            "median": 54,
+            "p95": 126
+          },
+          "bullets": {
+            "max": 17,
+            "mean": 2.1171875,
+            "median": 1,
+            "p95": 4
+          },
+          "case": "mixed-combat",
+          "cpu_ms": {
+            "max": 27.337,
+            "mean": 7.24355208333333,
+            "median": 6.673,
+            "p95": 11.991
+          },
+          "draw_calls": {
+            "max": 412.0,
+            "mean": 291.755208333333,
+            "median": 289.0,
+            "p95": 341.0
+          },
+          "draw_ms": {
+            "max": 39.164,
+            "mean": 4.87684635416667,
+            "median": 4.275,
+            "p95": 7.704
+          },
+          "effects_draw_ms": {
+            "max": 35.197,
+            "mean": 0.329786458333333,
+            "median": 0.155,
+            "p95": 0.843
+          },
+          "frame_ms": {
+            "max": 100.284,
+            "mean": 15.5835911458333,
+            "median": 14.13,
+            "p95": 22.24
+          },
+          "frames": 384,
+          "projectile_draw_ms": {
+            "max": 0.972,
+            "mean": 0.182369791666667,
+            "median": 0.002,
+            "p95": 0.558
+          },
+          "simulated_seconds": 6.14059633333332
+        },
+        {
+          "actors": {
+            "max": 76,
+            "mean": 75.3727810650888,
+            "median": 75,
+            "p95": 76
+          },
+          "attack_commands": {
+            "max": 444,
+            "mean": 211.742603550296,
+            "median": 205,
+            "p95": 326
+          },
+          "bullets": {
+            "max": 19,
+            "mean": 5.28402366863905,
+            "median": 4,
+            "p95": 15
+          },
+          "case": "hostile-crossfire",
+          "cpu_ms": {
+            "max": 63.471,
+            "mean": 12.3002278106509,
+            "median": 11.411,
+            "p95": 19.247
+          },
+          "draw_calls": {
+            "max": 676.0,
+            "mean": 500.689349112426,
+            "median": 493.0,
+            "p95": 639.0
+          },
+          "draw_ms": {
+            "max": 16.157,
+            "mean": 6.73365680473372,
+            "median": 6.468,
+            "p95": 9.035
+          },
+          "effects_draw_ms": {
+            "max": 2.532,
+            "mean": 1.19237573964497,
+            "median": 1.206,
+            "p95": 1.895
+          },
+          "frame_ms": {
+            "max": 108.229,
+            "mean": 23.632550295858,
+            "median": 22.302,
+            "p95": 35.121
+          },
+          "frames": 338,
+          "projectile_draw_ms": {
+            "max": 1.772,
+            "mean": 0.448254437869823,
+            "median": 0.35,
+            "p95": 1.236
+          },
+          "simulated_seconds": 8.09666666666666
+        }
+      ]
+    },
+    {
+      "tag": "after-first",
+      "passed": true,
+      "scope": "Debug Godot source runtime, normal main scene/AI/weapons/collisions and real engine delta. Isolated save; HP raised only to retain inspection subjects; fixed test inputs and staged native enemy encounter. No editor debugger connected. Not the user's exact equipment/window.",
+      "results": [
+        {
+          "actors": {
+            "max": 58,
+            "mean": 46.2677092916283,
+            "median": 47,
+            "p95": 48
+          },
+          "attack_commands": {
+            "max": 0,
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          },
+          "bullets": {
+            "max": 0,
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          },
+          "case": "fresh-idle",
+          "cpu_ms": {
+            "max": 25.225,
+            "mean": 2.33497976080957,
+            "median": 2.06,
+            "p95": 3.788
+          },
+          "draw_calls": {
+            "max": 94.0,
+            "mean": 91.7065317387304,
+            "median": 92.0,
+            "p95": 93.0
+          },
+          "draw_ms": {
+            "max": 1.307,
+            "mean": 0.669710211591537,
+            "median": 0.626,
+            "p95": 0.979
+          },
+          "effects_draw_ms": {
+            "max": 0.058,
+            "mean": 0.0166062557497699,
+            "median": 0.016,
+            "p95": 0.022
+          },
+          "frame_ms": {
+            "max": 27.778,
+            "mean": 4.57220423183073,
+            "median": 4.211,
+            "p95": 6.817
+          },
+          "frames": 1087,
+          "projectile_draw_ms": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0
+          },
+          "simulated_seconds": 5.00428533333332
+        },
+        {
+          "actors": {
+            "max": 58,
+            "mean": 56.1498829039813,
+            "median": 58,
+            "p95": 58
+          },
+          "attack_commands": {
+            "max": 36,
+            "mean": 5.95784543325527,
+            "median": 0,
+            "p95": 24
+          },
+          "bullets": {
+            "max": 1,
+            "mean": 0.00117096018735363,
+            "median": 0,
+            "p95": 0
+          },
+          "case": "fresh-mining",
+          "cpu_ms": {
+            "max": 10.264,
+            "mean": 2.91011943793911,
+            "median": 2.7,
+            "p95": 4.4
+          },
+          "draw_calls": {
+            "max": 202.0,
+            "mean": 124.600702576112,
+            "median": 94.0,
+            "p95": 199.0
+          },
+          "draw_ms": {
+            "max": 8.507,
+            "mean": 1.11085948477752,
+            "median": 0.793,
+            "p95": 2.736
+          },
+          "effects_draw_ms": {
+            "max": 0.186,
+            "mean": 0.0493922716627635,
+            "median": 0.018,
+            "p95": 0.12
+          },
+          "frame_ms": {
+            "max": 54.548,
+            "mean": 5.81654800936768,
+            "median": 5.578,
+            "p95": 8.197
+          },
+          "frames": 854,
+          "projectile_draw_ms": {
+            "max": 0.064,
+            "mean": 7.49414519906323e-05,
+            "median": 0.0,
+            "p95": 0.0
+          },
+          "simulated_seconds": 5.13666666666661
+        },
+        {
+          "actors": {
+            "max": 66,
+            "mean": 58.4209245742092,
+            "median": 58,
+            "p95": 66
+          },
+          "attack_commands": {
+            "max": 160,
+            "mean": 54.9464720194647,
+            "median": 39,
+            "p95": 126
+          },
+          "bullets": {
+            "max": 9,
+            "mean": 1.73722627737226,
+            "median": 0,
+            "p95": 7
+          },
+          "case": "mixed-combat",
+          "cpu_ms": {
+            "max": 17.502,
+            "mean": 7.10287104622871,
+            "median": 6.781,
+            "p95": 10.655
+          },
+          "draw_calls": {
+            "max": 355.0,
+            "mean": 283.637469586375,
+            "median": 281.0,
+            "p95": 330.0
+          },
+          "draw_ms": {
+            "max": 30.434,
+            "mean": 3.90343795620438,
+            "median": 3.36,
+            "p95": 6.889
+          },
+          "effects_draw_ms": {
+            "max": 27.365,
+            "mean": 0.248834549878346,
+            "median": 0.145,
+            "p95": 0.542
+          },
+          "frame_ms": {
+            "max": 94.353,
+            "mean": 14.5878467153285,
+            "median": 13.425,
+            "p95": 20.45
+          },
+          "frames": 411,
+          "projectile_draw_ms": {
+            "max": 0.897,
+            "mean": 0.158639902676399,
+            "median": 0.0,
+            "p95": 0.666
+          },
+          "simulated_seconds": 6.14815066666665
+        },
+        {
+          "actors": {
+            "max": 76,
+            "mean": 75.3788819875776,
+            "median": 76,
+            "p95": 76
+          },
+          "attack_commands": {
+            "max": 465,
+            "mean": 201.347826086957,
+            "median": 190,
+            "p95": 337
+          },
+          "bullets": {
+            "max": 26,
+            "mean": 5.85093167701863,
+            "median": 5,
+            "p95": 15
+          },
+          "case": "hostile-crossfire",
+          "cpu_ms": {
+            "max": 50.197,
+            "mean": 12.6818913043478,
+            "median": 12.151,
+            "p95": 18.261
+          },
+          "draw_calls": {
+            "max": 781.0,
+            "mean": 496.17701863354,
+            "median": 493.0,
+            "p95": 645.0
+          },
+          "draw_ms": {
+            "max": 14.241,
+            "mean": 6.56962111801242,
+            "median": 6.153,
+            "p95": 9.796
+          },
+          "effects_draw_ms": {
+            "max": 4.734,
+            "mean": 1.31791304347826,
+            "median": 1.252,
+            "p95": 2.449
+          },
+          "frame_ms": {
+            "max": 81.824,
+            "mean": 24.8411708074534,
+            "median": 23.741,
+            "p95": 33.469
+          },
+          "frames": 322,
+          "projectile_draw_ms": {
+            "max": 1.973,
+            "mean": 0.519847826086957,
+            "median": 0.467,
+            "p95": 1.241
+          },
+          "simulated_seconds": 8.06851600000002
+        }
+      ]
+    },
+    {
+      "tag": "after",
+      "passed": true,
+      "scope": "Debug Godot source runtime, normal main scene/AI/weapons/collisions and real engine delta. Isolated save; HP raised only to retain inspection subjects; fixed test inputs and staged native enemy encounter. No editor debugger connected. Not the user's exact equipment/window.",
+      "results": [
+        {
+          "actors": {
+            "max": 58,
+            "mean": 46.2592592592593,
+            "median": 47,
+            "p95": 48
+          },
+          "attack_commands": {
+            "max": 0,
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          },
+          "bullets": {
+            "max": 0,
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          },
+          "case": "fresh-idle",
+          "cpu_ms": {
+            "max": 42.923,
+            "mean": 3.2712503192848,
+            "median": 3.087,
+            "p95": 5.713
+          },
+          "draw_calls": {
+            "max": 95.0,
+            "mean": 92.698595146871,
+            "median": 93.0,
+            "p95": 94.0
+          },
+          "draw_ms": {
+            "max": 3.173,
+            "mean": 0.941282247765006,
+            "median": 0.973,
+            "p95": 1.236
+          },
+          "effects_draw_ms": {
+            "max": 0.102,
+            "mean": 0.0211928480204341,
+            "median": 0.022,
+            "p95": 0.027
+          },
+          "frame_ms": {
+            "max": 45.722,
+            "mean": 6.36768326947637,
+            "median": 6.207,
+            "p95": 9.574
+          },
+          "frames": 783,
+          "projectile_draw_ms": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0
+          },
+          "simulated_seconds": 5.0040230909091
+        },
+        {
+          "actors": {
+            "max": 58,
+            "mean": 56.3116883116883,
+            "median": 58,
+            "p95": 58
+          },
+          "attack_commands": {
+            "max": 24,
+            "mean": 7.10204081632653,
+            "median": 0,
+            "p95": 24
+          },
+          "bullets": {
+            "max": 0,
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          },
+          "case": "fresh-mining",
+          "cpu_ms": {
+            "max": 22.765,
+            "mean": 4.6221948051948,
+            "median": 4.399,
+            "p95": 7.254
+          },
+          "draw_calls": {
+            "max": 200.0,
+            "mean": 126.56400742115,
+            "median": 95.0,
+            "p95": 194.0
+          },
+          "draw_ms": {
+            "max": 12.093,
+            "mean": 1.76228571428571,
+            "median": 1.252,
+            "p95": 4.208
+          },
+          "effects_draw_ms": {
+            "max": 0.405,
+            "mean": 0.0732671614100186,
+            "median": 0.026,
+            "p95": 0.205
+          },
+          "frame_ms": {
+            "max": 80.981,
+            "mean": 9.20781261595547,
+            "median": 8.541,
+            "p95": 12.894
+          },
+          "frames": 539,
+          "projectile_draw_ms": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0
+          },
+          "simulated_seconds": 5.16597557575761
+        },
+        {
+          "actors": {
+            "max": 66,
+            "mean": 58.1152647975078,
+            "median": 58,
+            "p95": 58
+          },
+          "attack_commands": {
+            "max": 255,
+            "mean": 58.2523364485981,
+            "median": 51,
+            "p95": 109
+          },
+          "bullets": {
+            "max": 14,
+            "mean": 1.70093457943925,
+            "median": 0,
+            "p95": 4
+          },
+          "case": "mixed-combat",
+          "cpu_ms": {
+            "max": 22.131,
+            "mean": 9.01923676012461,
+            "median": 8.763,
+            "p95": 13.741
+          },
+          "draw_calls": {
+            "max": 442.0,
+            "mean": 289.314641744548,
+            "median": 290.0,
+            "p95": 335.0
+          },
+          "draw_ms": {
+            "max": 40.994,
+            "mean": 5.11848286604361,
+            "median": 4.672,
+            "p95": 8.714
+          },
+          "effects_draw_ms": {
+            "max": 37.373,
+            "mean": 0.399482866043614,
+            "median": 0.181,
+            "p95": 0.921
+          },
+          "frame_ms": {
+            "max": 125.794,
+            "mean": 18.6573271028037,
+            "median": 17.799,
+            "p95": 24.656
+          },
+          "frames": 321,
+          "projectile_draw_ms": {
+            "max": 1.148,
+            "mean": 0.192915887850467,
+            "median": 0.0,
+            "p95": 0.808
+          },
+          "simulated_seconds": 6.12117200000005
+        },
+        {
+          "actors": {
+            "max": 76,
+            "mean": 75.3971631205674,
+            "median": 76,
+            "p95": 76
+          },
+          "attack_commands": {
+            "max": 566,
+            "mean": 200.482269503546,
+            "median": 187,
+            "p95": 359
+          },
+          "bullets": {
+            "max": 32,
+            "mean": 5.9822695035461,
+            "median": 5,
+            "p95": 15
+          },
+          "case": "hostile-crossfire",
+          "cpu_ms": {
+            "max": 57.276,
+            "mean": 15.1175602836879,
+            "median": 14.671,
+            "p95": 20.904
+          },
+          "draw_calls": {
+            "max": 798.0,
+            "mean": 501.787234042553,
+            "median": 490.0,
+            "p95": 643.0
+          },
+          "draw_ms": {
+            "max": 15.329,
+            "mean": 7.25048226950355,
+            "median": 6.689,
+            "p95": 11.01
+          },
+          "effects_draw_ms": {
+            "max": 4.201,
+            "mean": 1.52929787234043,
+            "median": 1.448,
+            "p95": 2.708
+          },
+          "frame_ms": {
+            "max": 96.955,
+            "mean": 28.3252765957447,
+            "median": 27.001,
+            "p95": 38.622
+          },
+          "frames": 282,
+          "projectile_draw_ms": {
+            "max": 2.974,
+            "mean": 0.589957446808511,
+            "median": 0.474,
+            "p95": 1.584
+          },
+          "simulated_seconds": 8.08493503030301
+        }
+      ]
+    }
+  ],
+  "native_pressure_samples": [
+    {
+      "tag": "cpu",
+      "scope": "Native rendered fixed-step dense battle: 31 modules, 64 durable tank/shield enemies, production projectile floor 256; real drawing, soft actors, weapon FX, HUD, background retained. Mission spawning/audio excluded. Wall frame time includes CPU and renderer; not user hardware FPS.",
+      "renderer": "NVIDIA GeForce GTX 1050",
+      "frame_ms": {
+        "max": 194.645,
+        "mean": 130.273077777778,
+        "p50": 126.3,
+        "p95": 171.169
+      },
+      "main_draw_build_ms": {
+        "max": 91.509,
+        "mean": 67.4222944444445,
+        "p50": 65.765,
+        "p95": 86.892
+      },
+      "signature": {
+        "bullets": 235,
+        "enemies": 64,
+        "head": [
+          168.934753417969,
+          248.657577514648
+        ],
+        "hp_sum": 639999280.0,
+        "parts": 31,
+        "rng": "4385407826940968633"
+      }
+    },
+    {
+      "tag": "gpu",
+      "scope": "Native rendered fixed-step dense battle: 31 modules, 64 durable tank/shield enemies, production projectile floor 256; real drawing, soft actors, weapon FX, HUD, background retained. Mission spawning/audio excluded. Wall frame time includes CPU and renderer; not user hardware FPS.",
+      "renderer": "NVIDIA GeForce GTX 1050",
+      "frame_ms": {
+        "max": 180.484,
+        "mean": 106.835044444444,
+        "p50": 100.774,
+        "p95": 167.55
+      },
+      "main_draw_build_ms": {
+        "max": 96.154,
+        "mean": 54.5720611111111,
+        "p50": 51.526,
+        "p95": 89.788
+      },
+      "signature": {
+        "bullets": 237,
+        "enemies": 64,
+        "head": [
+          168.934753417969,
+          248.657577514648
+        ],
+        "hp_sum": 639999274.0,
+        "parts": 31,
+        "rng": "4385407826940968633"
+      }
+    }
+  ],
+  "performance_limits": [
+    "Latest real-time mixed and crossfire frame samples are slower than the initial baseline; these evolving real-delta runs do not establish a whole-game improvement.",
+    "Render-only controlled figures measure CPU submission; they are not frame rate claims.",
+    "Dense 64-durable-actor/256-projectile pressure remains expensive; CPU/GPU final projectile signatures differ, so the whole-frame means are not used as a causal percentage."
+  ],
+  "generated_assets": [
+    {
+      "path": "assets/expedition_ink/scene-survive.png",
+      "sha256": "0288d6bf9a453bb573735d3581b54fe181c643fabfba39e6cf6fe0af46876970",
+      "unchanged": true
+    },
+    {
+      "path": "assets/expedition_ink/scene-endless.png",
+      "sha256": "1c85c9491f375fc2f60ff001bc152199feb6ec800ff79aa99a316ec0179c7f2c",
+      "unchanged": true
+    },
+    {
+      "path": "assets/expedition_ink/scene-hunt.png",
+      "sha256": "35999e10475b76b68c9292d7b4baa740c600171e2632bebd14f82cc2b83906d6",
+      "unchanged": true
+    },
+    {
+      "path": "assets/expedition_ink/scene-escort.png",
+      "sha256": "42e3ae8183a0b80afcf60f25ccdf11389ab10c76739cb62cbc5bff0d10fb161a",
+      "unchanged": true
+    },
+    {
+      "path": "assets/expedition_ink/scene-siege.png",
+      "sha256": "15b01472fd2a2c5de251321d24465017f37579113af7d09a6fab3d918d55ef56",
+      "unchanged": true
+    },
+    {
+      "path": "assets/expedition_ink/scene-defend.png",
+      "sha256": "1c02beaf75b171efd494a0f8d7051b506cae0ddb05106d983b92a726f9bc85b3",
+      "unchanged": true
+    },
+    {
+      "path": "assets/expedition_ink/icon-survive.png",
+      "sha256": "a9ee9f5536d3f811ca9b9a40879f32fdbc3193f4a97033e76d1ab6a8aee1d006",
+      "unchanged": true
+    },
+    {
+      "path": "assets/expedition_ink/icon-endless.png",
+      "sha256": "8fb8f3665474bd359eef99f4fd8e5c2b4b96fd4684927decf1f727b1a5c65f55",
+      "unchanged": true
+    },
+    {
+      "path": "assets/expedition_ink/icon-hunt.png",
+      "sha256": "72dbd565201a06be4314534cce9c23ad988969f5d413ed3db1d47a2043c5e86e",
+      "unchanged": true
+    },
+    {
+      "path": "assets/expedition_ink/icon-escort.png",
+      "sha256": "906617c9993e262cda21ec39fe0bf15998df41bb7f29346abe84359a04fc5b27",
+      "unchanged": true
+    },
+    {
+      "path": "assets/expedition_ink/icon-siege.png",
+      "sha256": "58cbeebbe74ffee0582da194bdd1c380741761753563bf5662056a06cc34e63d",
+      "unchanged": true
+    },
+    {
+      "path": "assets/expedition_ink/icon-defend.png",
+      "sha256": "0a8c286a533c9472f3e7942c4a05070b8546310c982c55b084b3027be8b5ea89",
+      "unchanged": true
+    }
+  ],
+  "visual_inspection": [
+    "organ-gpu-20261025.png",
+    "render-snapshot-gpu-20261025.png",
+    "ui-small-game-busy-800x600.png",
+    "optimized-battle-2560x1080.png",
+    "ui-small-field-mission-3-1440x900.png"
+  ],
+  "isolated_user_data": true,
+  "exported_executable": false,
+  "resource_import_exit_code": 0,
+  "source_sha256": {
+    "scripts/main.gd": "9c91f56228536c25300aba26e99c61537d452c971e27265d66006c2902e7d29e",
+    "scripts/battle_hud.gd": "04adcdf9c14304bef862794cf436d4e2c9ccc5435812097305380adb42d973a7",
+    "scripts/combat.gd": "f0604833a499d62377d6603a182696cc9918f95ba6b2af3d5c5232e7235bc6f9",
+    "scripts/passive_feedback.gd": "77998e67acf76074ad8bca0f2a3e7017d5bba193bc3f91f832bed8a9efd17883",
+    "scripts/soft_organ_art.gd": "bf6449425cbbfe151b6c5241fe9727561e718777966e8aa2699893a851e87082",
+    "scripts/soft_organ_gpu.gd": "1495c90f9012a370ea55b96302fedd65135d17bf5ef18b1f22f96a3a42bed5d9",
+    "scripts/tactical_radar.gd": "7b22adf030935e1d1a7e4f8a66121b5ee978a55662b3f0ef2f9bd4cbc20bde3f",
+    "scripts/weapon_fx.gd": "ba0ede0983aa1955fb4afc240b0c0bf2807c9e01e1a9c69e7378043d8f8109ee",
+    "shaders/soft_organ.gdshader": "d20b175dad24d996a258ef5a6e581ea325a0690a6e359fd4227cbfbb06a98874",
+    "tests/test_organ_gpu.gd": "e811e33abaa9025e129063984363c625dfc149135d865382215ea297033f6c1f",
+    "tests/test_cave_target_priority.gd": "09322b73b6141a6c48d5a0f21761ecd0d8da242f0881552d21ad3c111afbde46",
+    "tests/test_presentation_optimization.gd": "bd0259d212405825f680cc58566caad36349d7fbdeb3846bc6230c2175d65c4d",
+    "tests/test_render_snapshot.gd": "64761174a6afba6d9e2048ee12e59670d652a2086b7d20a94542091592bdbaa9",
+    "tests/test_render_hotpath_regressions.gd": "2071b40d0124012e50ae9b69956591942a08aaaebad2b620c3a1f5ac6391cab7"
+  },
+  "resolved_findings": [
+    "Radar frame translucency admitted bright world flashes; independent layer and opaque inner backing verified at three sizes.",
+    "Render-only A/B initially revealed moving legacy menu ships in a manually stopped fixture; hiding/disabling the obsolete background at creation resolved that first-frame exposure."
+  ]
+}

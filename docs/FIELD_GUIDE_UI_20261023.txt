@@ -1,0 +1,53 @@
+首页 / 出击页：地下生物手记 — 2026-10-23
+
+后续更新：出击页主画面的行动示意已替换为黑白洞穴场景，详见
+docs/EXPEDITION_GENERATED_ART_20261023.txt。本文件记录第一版；同名任务截图已更新为最新画面。
+
+视觉问题
+首页的通栏地表纹理和大面板缺少角色主体；出击页仍使用浅金机械虫大场面插画，
+与当前黑白岩层、骨甲虫体的实际游戏画面不一致。
+
+改动
+首页取消外层大卡片，改用黑色纸面、骨白标题、细分隔线与少量玫红。
+主视觉用战斗里已有的蜈蚣骨甲、口器、足肢，或蜘蛛甲壳、分节腿与爪部组合，
+随已选角色切换。虫体采用标本姿态，触须收拢，保持轻微活动；背景不逐帧重绘。
+直接保留出击、虫巢、进化、设置、记录、退出，以及两个 DEBUG 操作。
+
+出击页移除 expedition_scenes.png 的运行时引用；旧素材文件保留。
+新的六种行动示意由 Godot 绘制岩层线、目标、路线、敌群与同源虫体：
+生存为围攻、无尽为持续来袭、猎杀为截击运输队、护航为领航到安全区、
+破巢为攻击敌站、守卫为防守己站。图中明确标注“行动示意”，不充当关卡地图。
+本次没有生成或修改位图。任务数据、难度、价格、奖励、存档和部署流程保持原有行为。
+
+实现
+scripts/home_screen.gd：主页结构与文案。
+scripts/field_guide.gd：局部共用的纸面、排字、按钮与焦点样式。
+scripts/field_specimen.gd：既有游戏部件的标本组合，仅菜单动画。
+scripts/mission_diagram.gd：六种行动示意与缩略符号。
+scripts/main.gd / mission_select.gd：接入新界面。
+没有改变其他页面共用的 game_ui.gd 样式。
+
+验证
+tools/run_checks.py 统一使用隔离测试存档，未更改玩家存档。
+原生 OpenGL 渲染：field_guide_scene、expedition_briefing、mission_select、
+game_ui_shell、debug_unlock_all、meta_ui_redesign 均通过。
+最后一轮触须和地形线条调整后，重跑 field_guide_scene 与 ui_small_windows 均通过。
+覆盖六种任务、两种角色、中英文、真实小视口、项目正常缩放、百万级余额、
+鼠标选择 / 返回 / 解锁 / 部署、键盘焦点与注入的手柄事件；未使用实体手柄验收。
+
+截图
+artifacts/ui-small-field-home-1440x900.png
+artifacts/ui-small-field-spider-home.png
+artifacts/ui-small-field-mission-0-1440x900.png 至 field-mission-5-1440x900.png
+artifacts/ui-small-field-home-800x600.png
+artifacts/ui-small-field-home-english.png
+
+报告
+artifacts/field-guide-scene-report.json
+artifacts/field-guide-render-validation.json
+artifacts/field-guide-final-layout.json
+docs/test-evidence/field-guide-ui-20261023.json
+
+使用
+关闭旧实例后从 Godot F5 重开，或运行“启动蜈蚣中文版.cmd”。
+本次更新源工程，未重新导出独立 EXE。

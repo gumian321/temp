@@ -18,7 +18,7 @@ class Board extends Node2D:
 	var font:Font=load("res://assets/fonts/NotoSansSC-Light.otf")
 	func _draw():
 		draw_rect(Rect2(0,0,1440,900),Ink.PAPER)
-		draw_string(font,Vector2(32,49),"蜈蚣武装 · 蓝墨甲壳 / 彩色树脂",HORIZONTAL_ALIGNMENT_LEFT,-1,30,Ink.INK)
+		draw_string(font,Vector2(32,49),"蜈蚣武装 · 哑色贴图 / 轻微阴影",HORIZONTAL_ALIGNMENT_LEFT,-1,30,Ink.INK)
 		draw_string(font,Vector2(33,82),"15 种武器与装置 · 下方为头部 / 体节 / 待装图标：42 / 56 / 78 像素",HORIZONTAL_ALIGNMENT_LEFT,-1,18,Ink.MUTED)
 		for i in ITEMS.size():
 			var cell=Vector2(30+i%5*282,110+i/5*245)
@@ -71,8 +71,8 @@ func execute():
 	for core in db.catalog.values():
 		if not core.has("coreProjectile"):continue
 		routed+=1
-		check("armaments_atlas_" in db.core_sprite(core).atlas.resource_path,"HQ/player/enemy weapon shares current art: "+core.name)
-	check(routed==32,"All 32 source gun cores are themed")
+		check(db.core_sprite(core).atlas.resource_path == Art.atlas_path(db.armament_variant(core)),"HQ/player/enemy weapon shares current art: "+core.name)
+	check(routed==38,"All 32 source gun cores and six mutation gun cores are themed")
 	for drone in db.kind("ProjectileDrone"):
 		check(db.sprite(drone.droneSprite) == Art.texture("drone_unit"),"Attack drone entity is themed: "+drone.name)
 	check(db.sprite(db.named("Projectile_Core_Mine").mineSprite) == Art.texture("mine_unit"),"Deployed mine entity is themed")
@@ -80,6 +80,8 @@ func execute():
 	await capture("res://artifacts/armament-v2-lineup.png")
 	board.queue_free();await process_frame
 	var game=load("res://main.tscn").instantiate();root.add_child(game);await process_frame
+	check(game.material==null,"Approved atlas colours render without a global darkening filter")
+	game.performance_overlay.visible=false
 	game.set_process(false);game.save.state.settings.skip_boss=true;game.start_run()
 	game.combat.enemies.clear();game.combat.drones.clear()
 	game.run.timers={"swarm":999.0,"wave":999.0,"patrol":999.0}
@@ -92,8 +94,8 @@ func execute():
 	await capture("res://artifacts/armament-v2-build.png")
 	check(game.build_ui.segment_buttons.size()==ITEMS.size() and game.build_ui.segment_buttons.values().all(func(s):return s.get_parent()==game.build_ui.body_canvas and db.core_sprite(db.asset(s.payload.part.id)) is AtlasTexture and db.armament_variant(db.asset(s.payload.part.id)) in ITEMS.map(func(item):return item[0])),"Direct body assembly routes every mounted physical element to its generated weapon image")
 	game.show_game();game.camera=game.player.head-Vector2(540,0);game.zoom=1.0
-	game.label_at("蓝墨蜈蚣 · 彩色生体武装",Vector2(455,145),27)
-	game.label_at("每节一个元素 · 炮塔保持原图比例",Vector2(426,189),19)
+	game.label_at("生体武装 · 哑色与浅阴影",Vector2(455,145),27)
+	game.label_at("保留造型、简化纹理；装配与战斗共用",Vector2(390,189),19)
 	game.queue_redraw();await capture("res://artifacts/armament-v2-mounted.png")
 	game.cursor_system.shutdown();game.audio_system.shutdown();game.particle_effects.clear();game.process_mode=Node.PROCESS_MODE_DISABLED
 	for i in range(12):OS.delay_msec(10);await process_frame

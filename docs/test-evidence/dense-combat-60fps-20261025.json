@@ -1,0 +1,2724 @@
+{
+  "date": "2026-10-25",
+  "scope": "Dense combat optimization; retain existing visual quality, gameplay rates and generated assets.",
+  "validation_passed": true,
+  "stable_60fps_achieved": false,
+  "limitations": [
+    "Extreme fixed-tick pressure remains above the 16.67 ms frame budget.",
+    "Final native real-delta battle: mean 15.06 ms, p95 21.37 ms, 75.70% of frames <=16.67 ms; no significant whole-battle improvement demonstrated.",
+    "Natural real-delta runs evolve into different battles and cannot establish strict deterministic A/B speedup.",
+    "Fixed-tick pressure results also vary slightly in final projectile count and damage, including repeated identical modes. Comparable actor/part/projectile loads, not exact-frame deterministic evidence.",
+    "Native renderer ran in offscreen windows on this machine. Foreground, hardware and driver behavior can differ.",
+    "Phase instrumentation adds overhead; release main_draw is a sum of existing main draw phase timers, excluding some child canvas work.",
+    "Earlier four-run pressure comparison preceded adaptive muzzle/hull thresholds and the compact-anatomy parking delay. Final two-run comparison uses the delivered executable."
+  ],
+  "implementation": {
+    "hostile_projectile_commands": "Exact native commands retained per stable visual ID; shared material; transforms/visibility only; retired pool <=96.",
+    "muzzle_batch": "Same five tongues, halo, pigment, fade and husk in shared GPU instances. Visible muzzle threshold 12; sparse and capacity fallback use original draw path.",
+    "player_hull_index": "Only when >4 parts and >=3 incoming hostile projectiles; ordered broadphase, original narrowphase and live HP/cloak checks.",
+    "equipment": "Frame-local shield indices; skip chip adjacency only when no chip core exists in that support tick.",
+    "shield_targets": "Original ranking and tie order before cave raycasts; random radar retains original path.",
+    "rigs": "Deduplicate unchanged properties; park hidden full anatomy after 0.2 s stable existing compact view; immediate restore for full detail and death.",
+    "no_quality_reductions": true,
+    "projectile_rate_or_enemy_count_changed": false,
+    "default_renderer_changed": false,
+    "experimental_retained_trails_reverted": true
+  },
+  "regression": {
+    "source": "artifacts/dense60-final-regression-20261025.json",
+    "sha256": "2957376ec78c54c35e11f253d226a28344de524bdac6372fc96c83c2911617b0",
+    "suite_count": 47,
+    "suites": [
+      {
+        "suite": "player_hull_index",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 5.215,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "retained_barrage",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 3.928,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "muzzle_batch",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 3.813,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "rig_cache_wake",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 3.667,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "cave_target_priority",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 2.111,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "soft_render_cache",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 2.627,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "rig_batch_dynamic",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 4.67,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "soft_knockback",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.18,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "soft_pull",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.876,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "soft_solver_regressions",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 2.905,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "attack_shader_materials",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.979,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "skill_shader_coverage",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 2.863,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "combat_spatial",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 2.5,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "combat_incremental_refresh",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 2.053,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "shields",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.549,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "centipede_support",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.545,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "combat_lifecycle",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.667,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "character_abilities",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.928,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "weapon_readability_scene",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 14.139,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "hostile_readability",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 5.908,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "projectile_trails_scene",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 4.038,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "all_dynamic_trails_scene",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 5.091,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "projectile_trajectory_continuity",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 3.868,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "viscous_renderer",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.991,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "viscous_integration",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.649,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "main_autofire",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.907,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "radar",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.576,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "drones",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.564,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "enemy_drones",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.545,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "cave_mining",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 2.754,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "cave_far_navigation",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.259,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "cave_escort",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 2.011,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "tether_motion",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.619,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "emitter_reaction",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.633,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "contact_impacts",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.634,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "passive_visual_feedback",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 6.942,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "camera_stability_scene",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 16.065,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "character_scene",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 7.234,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "spider_visibility_scene",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 6.599,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "ui_small_windows",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 19.233,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "battle_hud",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 9.944,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "field_guide_scene",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 6.493,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "mission_select",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 8.914,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "presentation_optimization",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 6.882,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "save_integrity",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.897,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "reward_lifecycle",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 5.474,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "assembly_lifecycle",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 5.573,
+        "isolated_user_data": true
+      }
+    ],
+    "passed": true
+  },
+  "parity_oracles_and_pixels": {
+    "player-hull-index": {
+      "checks": [
+        {
+          "name": "10,000 high-speed/negative-coordinate sweeps retain the same first living uncloaked hull",
+          "passed": true
+        },
+        {
+          "name": "Actual centipede gun-only loadout retains bullet damage, positions, effects and RNG on every tick",
+          "passed": true
+        },
+        {
+          "name": "Actual centipede shield/chip destruction + HQ replacement retains bullet damage, positions, effects and RNG on every tick",
+          "passed": true
+        },
+        {
+          "name": "Actual beetle gun-only loadout retains bullet damage, positions, effects and RNG on every tick",
+          "passed": true
+        },
+        {
+          "name": "Actual beetle shield/chip destruction + HQ replacement retains bullet damage, positions, effects and RNG on every tick",
+          "passed": true
+        },
+        {
+          "name": "Actual spider gun-only loadout retains bullet damage, positions, effects and RNG on every tick",
+          "passed": true
+        },
+        {
+          "name": "Actual spider shield/chip destruction + HQ replacement retains bullet damage, positions, effects and RNG on every tick",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    "retained-barrage": {
+      "cache_stats": {
+        "batches": 39,
+        "commands": 0,
+        "materials": 19,
+        "pooled_projectiles": 96,
+        "projectile_geometry_builds": 333,
+        "retained_projectiles": 0
+      },
+      "checks": [
+        {
+          "name": "240 curved projectiles preserve art, membranes, AA and ordering at zoom 0.5",
+          "passed": true
+        },
+        {
+          "name": "240 curved projectiles preserve art, membranes, AA and ordering at zoom 1.0",
+          "passed": true
+        },
+        {
+          "name": "240 curved projectiles preserve art, membranes, AA and ordering at zoom 1.65",
+          "passed": true
+        },
+        {
+          "name": "Rendering retains every simulation field and trail history",
+          "passed": true
+        },
+        {
+          "name": "Stable poses reuse body commands and trail surfaces without rebuilding",
+          "passed": true
+        },
+        {
+          "name": "Clearing bullets hides and releases all active retained drawings",
+          "passed": true
+        },
+        {
+          "name": "All drawing reuse pools stay bounded",
+          "passed": true
+        }
+      ],
+      "comparisons": [
+        {
+          "channels_over_24_fraction": 1.60108024691358e-05,
+          "mean_channel_error_255": 0.00120023148148148,
+          "zoom": 0.5
+        },
+        {
+          "channels_over_24_fraction": 3.35648148148148e-05,
+          "mean_channel_error_255": 0.00241473765432099,
+          "zoom": 1.0
+        },
+        {
+          "channels_over_24_fraction": 0.0,
+          "mean_channel_error_255": 0.0,
+          "zoom": 1.65
+        }
+      ],
+      "passed": true
+    },
+    "muzzle-batch": {
+      "active_channels_over_24_fraction": 0.00039624470367542,
+      "active_rgb_channels": 797487,
+      "checks": [
+        {
+          "name": "All 54 native/instanced discharges produce visible pixels",
+          "passed": true
+        },
+        {
+          "name": "Magnified discharge art preserves tongues, pigment, halo, fade and shed husks",
+          "passed": true
+        },
+        {
+          "name": "All discharge effects are instanced without dropping effects",
+          "passed": true
+        },
+        {
+          "name": "Clearing effects hides every instanced discharge",
+          "passed": true
+        }
+      ],
+      "mean_active_channel_error_255": 0.0395492340314011,
+      "passed": true
+    },
+    "rig-cache-wake": {
+      "checks": [
+        {
+          "name": "Six species restore identical full-detail bodies, feet and wings after wake at frame 3",
+          "passed": true
+        },
+        {
+          "name": "Distant insects park hidden anatomy outside the active tree",
+          "passed": true
+        },
+        {
+          "name": "Reference retains the original active hidden skeletons",
+          "passed": true
+        },
+        {
+          "name": "Six species restore identical full-detail bodies, feet and wings after wake at frame 35",
+          "passed": true
+        },
+        {
+          "name": "Six species restore identical full-detail bodies, feet and wings after wake at frame 70",
+          "passed": true
+        },
+        {
+          "name": "Six species restore identical full-detail bodies, feet and wings after wake at frame 99",
+          "passed": true
+        },
+        {
+          "name": "Repeated compact/full switches preserve all original bones",
+          "passed": true
+        },
+        {
+          "name": "Death wakes full anatomy immediately",
+          "passed": true
+        },
+        {
+          "name": "Deleting a parked rig frees every detached node",
+          "passed": true
+        }
+      ],
+      "comparisons": [
+        {
+          "channels_over_16_fraction": 0.0,
+          "frame": 3,
+          "mean_channel_error_255": 0.0
+        },
+        {
+          "channels_over_16_fraction": 0.0,
+          "frame": 35,
+          "mean_channel_error_255": 0.0
+        },
+        {
+          "channels_over_16_fraction": 0.0,
+          "frame": 70,
+          "mean_channel_error_255": 4.24382716049383e-06
+        },
+        {
+          "channels_over_16_fraction": 0.0,
+          "frame": 99,
+          "mean_channel_error_255": 0.0
+        }
+      ],
+      "passed": true
+    }
+  },
+  "pressure_comparisons": [
+    {
+      "source": "artifacts/dense60-tree-final-20261025-medium-comparison.json",
+      "sha256": "5d7cc0d11aba5ecdeb4a43fdc72918966faaab849c1617d238e864629c359619",
+      "aggregate": {
+        "before": {
+          "frame_ms": 38.65377222222225,
+          "main_draw_ms": 20.27273055555555,
+          "simulation_ms": 7.553480555555555,
+          "visual_sync_ms": 1.2410777777777748,
+          "draw_calls": 2005.93611111111,
+          "bullets": 120.4055555555555,
+          "effects": 132.738888888889,
+          "mean_of_frame_p95_ms": 45.1475
+        },
+        "after": {
+          "frame_ms": 28.882916666666652,
+          "main_draw_ms": 11.825625,
+          "simulation_ms": 7.22503888888889,
+          "visual_sync_ms": 1.44463888888889,
+          "draw_calls": 1482.747222222225,
+          "bullets": 120.4027777777775,
+          "effects": 133.0277777777775,
+          "mean_of_frame_p95_ms": 34.442499999999995
+        },
+        "mean_frame_time_reduction_percent": 25.277883616073783
+      },
+      "renderer_override": null,
+      "scope": "Same release EXE; alternating baseline/optimized paths, fixed-tick production combat with projectile floor. Not natural real-delta gameplay FPS.",
+      "isolated_user_data": true,
+      "results": [
+        {
+          "mode": "before",
+          "report": "artifacts/dense60-tree-final-20261025-medium-before-1.json",
+          "summary": {
+            "actors": {
+              "max": 32,
+              "mean": 32.0,
+              "median": 32,
+              "p95": 32,
+              "within_60fps_percent": 0.0
+            },
+            "bullets": {
+              "max": 127,
+              "mean": 120.433333333333,
+              "median": 121,
+              "p95": 125,
+              "within_60fps_percent": 0.0
+            },
+            "draw_calls": {
+              "max": 2341.0,
+              "mean": 2007.57777777778,
+              "median": 1971.0,
+              "p95": 2259.0,
+              "within_60fps_percent": 0.0
+            },
+            "effects": {
+              "max": 160,
+              "mean": 133.105555555556,
+              "median": 137,
+              "p95": 150,
+              "within_60fps_percent": 0.0
+            },
+            "frame_ms": {
+              "max": 46.905,
+              "mean": 38.0166666666667,
+              "median": 37.7,
+              "p95": 41.978,
+              "within_60fps_percent": 0.0
+            },
+            "inject_ms": {
+              "max": 0.438,
+              "mean": 0.217344444444444,
+              "median": 0.215,
+              "p95": 0.355,
+              "within_60fps_percent": 100.0
+            },
+            "main_draw_ms": {
+              "max": 26.805,
+              "mean": 19.9884444444444,
+              "median": 19.753,
+              "p95": 23.615,
+              "within_60fps_percent": 0.555555555555556
+            },
+            "simulation_ms": {
+              "max": 10.079,
+              "mean": 7.37779444444444,
+              "median": 7.174,
+              "p95": 9.207,
+              "within_60fps_percent": 100.0
+            },
+            "visual_sync_ms": {
+              "max": 1.862,
+              "mean": 1.20114444444444,
+              "median": 1.176,
+              "p95": 1.524,
+              "within_60fps_percent": 100.0
+            }
+          },
+          "phases_mean_ms": {
+            "combat_phases/cleanup": 0.6297,
+            "combat_phases/drones": 0.0833777777777777,
+            "combat_phases/enemy_ai": 1.76944444444444,
+            "combat_phases/enemy_soft_body": 0.537572222222222,
+            "combat_phases/patrol_special": 0.112433333333333,
+            "combat_phases/player_weapons": 1.37950555555556,
+            "combat_phases/projectiles": 2.61571666666667,
+            "fx_phases/effect/hit": 0.0452388888888889,
+            "fx_phases/effect/muzzle": 2.61882222222222,
+            "fx_phases/effect/shield_hit": 0.135427777777778,
+            "fx_phases/effect/stone_chips": 1.38022777777778,
+            "fx_phases/effect/viscous_contact": 0.123627777777778,
+            "fx_phases/projectiles": 8.07035555555555,
+            "main_phases/draw_attacks": 7.58158888888889,
+            "main_phases/draw_body": 0.297861111111111,
+            "main_phases/draw_hud_feedback": 6.48887222222222,
+            "main_phases/draw_organs": 0.8711,
+            "main_phases/draw_support": 0.44785,
+            "main_phases/draw_terrain": 1.05164444444445,
+            "main_phases/draw_world": 3.24952777777778
+          },
+          "signature": {
+            "actors": 32,
+            "bullets": 121,
+            "head": [
+              168.934753417969,
+              248.657577514648
+            ],
+            "hp_sum": 319999808.0,
+            "parts": 13,
+            "rng": "-5898192242482236119"
+          }
+        },
+        {
+          "mode": "after",
+          "report": "artifacts/dense60-tree-final-20261025-medium-after-2.json",
+          "summary": {
+            "actors": {
+              "max": 32,
+              "mean": 32.0,
+              "median": 32,
+              "p95": 32,
+              "within_60fps_percent": 0.0
+            },
+            "bullets": {
+              "max": 127,
+              "mean": 120.411111111111,
+              "median": 121,
+              "p95": 125,
+              "within_60fps_percent": 0.0
+            },
+            "draw_calls": {
+              "max": 1641.0,
+              "mean": 1479.82777777778,
+              "median": 1504.0,
+              "p95": 1605.0,
+              "within_60fps_percent": 0.0
+            },
+            "effects": {
+              "max": 160,
+              "mean": 133.083333333333,
+              "median": 137,
+              "p95": 150,
+              "within_60fps_percent": 0.0
+            },
+            "frame_ms": {
+              "max": 35.959,
+              "mean": 27.1942555555555,
+              "median": 27.056,
+              "p95": 31.107,
+              "within_60fps_percent": 0.0
+            },
+            "inject_ms": {
+              "max": 0.642,
+              "mean": 0.2266,
+              "median": 0.22,
+              "p95": 0.377,
+              "within_60fps_percent": 100.0
+            },
+            "main_draw_ms": {
+              "max": 15.424,
+              "mean": 11.1351277777778,
+              "median": 11.021,
+              "p95": 12.991,
+              "within_60fps_percent": 100.0
+            },
+            "simulation_ms": {
+              "max": 11.794,
+              "mean": 6.82798888888889,
+              "median": 6.639,
+              "p95": 8.529,
+              "within_60fps_percent": 100.0
+            },
+            "visual_sync_ms": {
+              "max": 2.513,
+              "mean": 1.33496111111111,
+              "median": 1.305,
+              "p95": 1.852,
+              "within_60fps_percent": 100.0
+            }
+          },
+          "phases_mean_ms": {
+            "combat_phases/cleanup": 0.634816666666666,
+            "combat_phases/drones": 0.0839222222222222,
+            "combat_phases/enemy_ai": 1.7904,
+            "combat_phases/enemy_soft_body": 0.536222222222222,
+            "combat_phases/patrol_special": 0.111577777777778,
+            "combat_phases/player_weapons": 1.25782777777778,
+            "combat_phases/projectiles": 2.13828333333333,
+            "fx_phases/effect/hit": 0.0468611111111111,
+            "fx_phases/effect/muzzle": 0.412644444444444,
+            "fx_phases/effect/shield_hit": 0.137966666666667,
+            "fx_phases/effect/stone_chips": 1.47107777777778,
+            "fx_phases/effect/viscous_contact": 0.126127777777778,
+            "fx_phases/projectiles": 3.5947,
+            "main_phases/draw_attacks": 5.56674444444445,
+            "main_phases/draw_body": 0.292755555555556,
+            "main_phases/draw_hud_feedback": 1.94315555555556,
+            "main_phases/draw_organs": 0.87985,
+            "main_phases/draw_support": 0.442783333333333,
+            "main_phases/draw_terrain": 1.06412222222222,
+            "main_phases/draw_world": 0.945716666666667
+          },
+          "signature": {
+            "actors": 32,
+            "bullets": 120,
+            "head": [
+              168.934753417969,
+              248.657577514648
+            ],
+            "hp_sum": 319999802.0,
+            "parts": 13,
+            "rng": "-5898192242482236119"
+          }
+        },
+        {
+          "mode": "after",
+          "report": "artifacts/dense60-tree-final-20261025-medium-after-3.json",
+          "summary": {
+            "actors": {
+              "max": 32,
+              "mean": 32.0,
+              "median": 32,
+              "p95": 32,
+              "within_60fps_percent": 0.0
+            },
+            "bullets": {
+              "max": 127,
+              "mean": 120.394444444444,
+              "median": 120,
+              "p95": 125,
+              "within_60fps_percent": 0.0
+            },
+            "draw_calls": {
+              "max": 1677.0,
+              "mean": 1485.66666666667,
+              "median": 1512.0,
+              "p95": 1620.0,
+              "within_60fps_percent": 0.0
+            },
+            "effects": {
+              "max": 161,
+              "mean": 132.972222222222,
+              "median": 138,
+              "p95": 151,
+              "within_60fps_percent": 0.0
+            },
+            "frame_ms": {
+              "max": 46.476,
+              "mean": 30.5715777777778,
+              "median": 29.808,
+              "p95": 37.778,
+              "within_60fps_percent": 0.0
+            },
+            "inject_ms": {
+              "max": 0.626,
+              "mean": 0.234077777777778,
+              "median": 0.226,
+              "p95": 0.376,
+              "within_60fps_percent": 100.0
+            },
+            "main_draw_ms": {
+              "max": 22.369,
+              "mean": 12.5161222222222,
+              "median": 11.855,
+              "p95": 16.784,
+              "within_60fps_percent": 93.8888888888889
+            },
+            "simulation_ms": {
+              "max": 12.826,
+              "mean": 7.62208888888889,
+              "median": 7.172,
+              "p95": 10.574,
+              "within_60fps_percent": 100.0
+            },
+            "visual_sync_ms": {
+              "max": 3.108,
+              "mean": 1.55431666666667,
+              "median": 1.454,
+              "p95": 2.462,
+              "within_60fps_percent": 100.0
+            }
+          },
+          "phases_mean_ms": {
+            "combat_phases/cleanup": 0.732227777777778,
+            "combat_phases/drones": 0.0997611111111111,
+            "combat_phases/enemy_ai": 1.98300555555556,
+            "combat_phases/enemy_soft_body": 0.6168,
+            "combat_phases/patrol_special": 0.126466666666667,
+            "combat_phases/player_weapons": 1.41937777777778,
+            "combat_phases/projectiles": 2.36217222222222,
+            "fx_phases/effect/hit": 0.0534055555555556,
+            "fx_phases/effect/muzzle": 0.461788888888889,
+            "fx_phases/effect/shield_hit": 0.155033333333333,
+            "fx_phases/effect/stone_chips": 1.62711666666667,
+            "fx_phases/effect/viscous_contact": 0.144361111111111,
+            "fx_phases/projectiles": 4.05259444444444,
+            "main_phases/draw_attacks": 6.19393333333333,
+            "main_phases/draw_body": 0.3373,
+            "main_phases/draw_hud_feedback": 2.22337777777778,
+            "main_phases/draw_organs": 0.981044444444444,
+            "main_phases/draw_support": 0.49235,
+            "main_phases/draw_terrain": 1.23351666666667,
+            "main_phases/draw_world": 1.0546
+          },
+          "signature": {
+            "actors": 32,
+            "bullets": 120,
+            "head": [
+              168.934753417969,
+              248.657577514648
+            ],
+            "hp_sum": 319999796.0,
+            "parts": 13,
+            "rng": "-5898192242482236119"
+          }
+        },
+        {
+          "mode": "before",
+          "report": "artifacts/dense60-tree-final-20261025-medium-before-4.json",
+          "summary": {
+            "actors": {
+              "max": 32,
+              "mean": 32.0,
+              "median": 32,
+              "p95": 32,
+              "within_60fps_percent": 0.0
+            },
+            "bullets": {
+              "max": 127,
+              "mean": 120.377777777778,
+              "median": 121,
+              "p95": 126,
+              "within_60fps_percent": 0.0
+            },
+            "draw_calls": {
+              "max": 2323.0,
+              "mean": 2004.29444444444,
+              "median": 1965.0,
+              "p95": 2240.0,
+              "within_60fps_percent": 0.0
+            },
+            "effects": {
+              "max": 157,
+              "mean": 132.372222222222,
+              "median": 139,
+              "p95": 151,
+              "within_60fps_percent": 0.0
+            },
+            "frame_ms": {
+              "max": 54.596,
+              "mean": 39.2908777777778,
+              "median": 37.877,
+              "p95": 48.317,
+              "within_60fps_percent": 0.0
+            },
+            "inject_ms": {
+              "max": 0.565,
+              "mean": 0.225244444444444,
+              "median": 0.215,
+              "p95": 0.396,
+              "within_60fps_percent": 100.0
+            },
+            "main_draw_ms": {
+              "max": 31.439,
+              "mean": 20.5570166666667,
+              "median": 19.763,
+              "p95": 26.511,
+              "within_60fps_percent": 2.77777777777778
+            },
+            "simulation_ms": {
+              "max": 14.063,
+              "mean": 7.72916666666667,
+              "median": 7.376,
+              "p95": 9.791,
+              "within_60fps_percent": 100.0
+            },
+            "visual_sync_ms": {
+              "max": 2.382,
+              "mean": 1.28101111111111,
+              "median": 1.249,
+              "p95": 1.799,
+              "within_60fps_percent": 100.0
+            }
+          },
+          "phases_mean_ms": {
+            "combat_phases/cleanup": 0.667044444444445,
+            "combat_phases/drones": 0.0873555555555555,
+            "combat_phases/enemy_ai": 1.8777,
+            "combat_phases/enemy_soft_body": 0.595161111111111,
+            "combat_phases/patrol_special": 0.118794444444445,
+            "combat_phases/player_weapons": 1.44303333333333,
+            "combat_phases/projectiles": 2.70979444444444,
+            "fx_phases/effect/hit": 0.0495111111111111,
+            "fx_phases/effect/muzzle": 2.76626666666666,
+            "fx_phases/effect/shield_hit": 0.145411111111111,
+            "fx_phases/effect/stone_chips": 1.39161111111111,
+            "fx_phases/effect/viscous_contact": 0.130522222222222,
+            "fx_phases/projectiles": 8.38642222222222,
+            "main_phases/draw_attacks": 7.84183333333334,
+            "main_phases/draw_body": 0.309994444444444,
+            "main_phases/draw_hud_feedback": 6.76403333333333,
+            "main_phases/draw_organs": 0.897061111111111,
+            "main_phases/draw_support": 0.468161111111111,
+            "main_phases/draw_terrain": 1.07925,
+            "main_phases/draw_world": 3.19668333333333
+          },
+          "signature": {
+            "actors": 32,
+            "bullets": 119,
+            "head": [
+              168.934753417969,
+              248.657577514648
+            ],
+            "hp_sum": 319999796.0,
+            "parts": 13,
+            "rng": "-5898192242482236119"
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/dense60-final-heavy-20261025-heavy-comparison.json",
+      "sha256": "c9dad62f24a14d6241354223ef11158ee35a0848944aceda66cfad57777c8cc5",
+      "aggregate": {
+        "before": {
+          "frame_ms": 72.13576944444449,
+          "main_draw_ms": 36.999983333333304,
+          "simulation_ms": 18.095855555555552,
+          "visual_sync_ms": 2.1053166666666696,
+          "draw_calls": 3421.17222222222,
+          "bullets": 240.905555555556,
+          "effects": 179.244444444444,
+          "mean_of_frame_p95_ms": 82.661
+        },
+        "after": {
+          "frame_ms": 45.015216666666646,
+          "main_draw_ms": 16.8794333333333,
+          "simulation_ms": 14.36281111111115,
+          "visual_sync_ms": 2.25898333333333,
+          "draw_calls": 2418.491666666665,
+          "bullets": 240.925,
+          "effects": 179.1916666666665,
+          "mean_of_frame_p95_ms": 49.1125
+        },
+        "mean_frame_time_reduction_percent": 37.59653911873054
+      },
+      "renderer_override": null,
+      "scope": "Same release EXE; alternating baseline/optimized paths, fixed-tick production combat with projectile floor. Not natural real-delta gameplay FPS.",
+      "isolated_user_data": true,
+      "results": [
+        {
+          "mode": "before",
+          "report": "artifacts/dense60-final-heavy-20261025-heavy-before-1.json",
+          "summary": {
+            "actors": {
+              "max": 64,
+              "mean": 64.0,
+              "median": 64,
+              "p95": 64,
+              "within_60fps_percent": 0.0
+            },
+            "bullets": {
+              "max": 251,
+              "mean": 240.905555555556,
+              "median": 241,
+              "p95": 248,
+              "within_60fps_percent": 0.0
+            },
+            "draw_calls": {
+              "max": 3830.0,
+              "mean": 3421.17222222222,
+              "median": 3416.0,
+              "p95": 3713.0,
+              "within_60fps_percent": 0.0
+            },
+            "effects": {
+              "max": 240,
+              "mean": 179.244444444444,
+              "median": 180,
+              "p95": 222,
+              "within_60fps_percent": 0.0
+            },
+            "frame_ms": {
+              "max": 91.789,
+              "mean": 71.7037277777778,
+              "median": 68.922,
+              "p95": 87.028,
+              "within_60fps_percent": 0.0
+            },
+            "inject_ms": {
+              "max": 1.037,
+              "mean": 0.379911111111112,
+              "median": 0.363,
+              "p95": 0.619,
+              "within_60fps_percent": 100.0
+            },
+            "main_draw_ms": {
+              "max": 50.531,
+              "mean": 36.7197944444444,
+              "median": 34.688,
+              "p95": 46.306,
+              "within_60fps_percent": 0.0
+            },
+            "simulation_ms": {
+              "max": 25.35,
+              "mean": 18.0303888888889,
+              "median": 17.558,
+              "p95": 22.87,
+              "within_60fps_percent": 13.8888888888889
+            },
+            "visual_sync_ms": {
+              "max": 4.255,
+              "mean": 2.08857777777778,
+              "median": 2.003,
+              "p95": 3.06,
+              "within_60fps_percent": 100.0
+            }
+          },
+          "phases_mean_ms": {
+            "combat_phases/cleanup": 1.21392777777778,
+            "combat_phases/drones": 0.135616666666667,
+            "combat_phases/enemy_ai": 3.20781111111111,
+            "combat_phases/enemy_soft_body": 1.03001666666667,
+            "combat_phases/patrol_special": 0.443583333333334,
+            "combat_phases/player_weapons": 3.92961111111111,
+            "combat_phases/projectiles": 7.47538888888889,
+            "fx_phases/effect/hit": 0.0893333333333333,
+            "fx_phases/effect/muzzle": 5.08620555555555,
+            "fx_phases/effect/shield_hit": 0.189394444444444,
+            "fx_phases/effect/stone_chips": 0.224494444444445,
+            "fx_phases/effect/viscous_contact": 0.215405555555555,
+            "fx_phases/projectiles": 15.9671555555556,
+            "main_phases/draw_attacks": 11.1329666666667,
+            "main_phases/draw_body": 0.635822222222222,
+            "main_phases/draw_hud_feedback": 12.8214444444444,
+            "main_phases/draw_organs": 1.70813888888889,
+            "main_phases/draw_support": 1.08652222222222,
+            "main_phases/draw_terrain": 1.09122777777778,
+            "main_phases/draw_world": 8.24367222222222
+          },
+          "signature": {
+            "actors": 64,
+            "bullets": 239,
+            "head": [
+              168.934753417969,
+              248.657577514648
+            ],
+            "hp_sum": 639999268.0,
+            "parts": 31,
+            "rng": "4385407826940968633"
+          }
+        },
+        {
+          "mode": "after",
+          "report": "artifacts/dense60-final-heavy-20261025-heavy-after-2.json",
+          "summary": {
+            "actors": {
+              "max": 64,
+              "mean": 64.0,
+              "median": 64,
+              "p95": 64,
+              "within_60fps_percent": 0.0
+            },
+            "bullets": {
+              "max": 251,
+              "mean": 240.944444444444,
+              "median": 241,
+              "p95": 248,
+              "within_60fps_percent": 0.0
+            },
+            "draw_calls": {
+              "max": 2787.0,
+              "mean": 2418.06111111111,
+              "median": 2422.0,
+              "p95": 2702.0,
+              "within_60fps_percent": 0.0
+            },
+            "effects": {
+              "max": 239,
+              "mean": 179.138888888889,
+              "median": 180,
+              "p95": 221,
+              "within_60fps_percent": 0.0
+            },
+            "frame_ms": {
+              "max": 91.676,
+              "mean": 45.3822888888889,
+              "median": 44.631,
+              "p95": 49.395,
+              "within_60fps_percent": 0.0
+            },
+            "inject_ms": {
+              "max": 1.065,
+              "mean": 0.367522222222222,
+              "median": 0.353,
+              "p95": 0.551,
+              "within_60fps_percent": 100.0
+            },
+            "main_draw_ms": {
+              "max": 36.155,
+              "mean": 17.0689944444444,
+              "median": 16.726,
+              "p95": 18.869,
+              "within_60fps_percent": 49.4444444444444
+            },
+            "simulation_ms": {
+              "max": 29.868,
+              "mean": 14.4685666666667,
+              "median": 14.314,
+              "p95": 16.551,
+              "within_60fps_percent": 96.1111111111111
+            },
+            "visual_sync_ms": {
+              "max": 5.917,
+              "mean": 2.27499444444444,
+              "median": 2.218,
+              "p95": 3.039,
+              "within_60fps_percent": 100.0
+            }
+          },
+          "phases_mean_ms": {
+            "combat_phases/cleanup": 1.18046111111111,
+            "combat_phases/drones": 0.127661111111111,
+            "combat_phases/enemy_ai": 3.1548,
+            "combat_phases/enemy_soft_body": 1.00332222222222,
+            "combat_phases/patrol_special": 0.430694444444444,
+            "combat_phases/player_weapons": 3.41913333333334,
+            "combat_phases/projectiles": 4.51023333333333,
+            "fx_phases/effect/hit": 0.0895222222222222,
+            "fx_phases/effect/muzzle": 0.722577777777778,
+            "fx_phases/effect/shield_hit": 0.186855555555556,
+            "fx_phases/effect/stone_chips": 0.236327777777778,
+            "fx_phases/effect/viscous_contact": 0.199527777777778,
+            "fx_phases/projectiles": 7.18476111111111,
+            "main_phases/draw_attacks": 6.87752222222222,
+            "main_phases/draw_body": 0.626222222222222,
+            "main_phases/draw_hud_feedback": 3.84908333333333,
+            "main_phases/draw_organs": 1.77256666666667,
+            "main_phases/draw_support": 1.05358333333333,
+            "main_phases/draw_terrain": 1.07133888888889,
+            "main_phases/draw_world": 1.81867777777778
+          },
+          "signature": {
+            "actors": 64,
+            "bullets": 240,
+            "head": [
+              168.934753417969,
+              248.657577514648
+            ],
+            "hp_sum": 639999262.0,
+            "parts": 31,
+            "rng": "4385407826940968633"
+          }
+        },
+        {
+          "mode": "after",
+          "report": "artifacts/dense60-final-heavy-20261025-heavy-after-3.json",
+          "summary": {
+            "actors": {
+              "max": 64,
+              "mean": 64.0,
+              "median": 64,
+              "p95": 64,
+              "within_60fps_percent": 0.0
+            },
+            "bullets": {
+              "max": 251,
+              "mean": 240.905555555556,
+              "median": 241,
+              "p95": 248,
+              "within_60fps_percent": 0.0
+            },
+            "draw_calls": {
+              "max": 2781.0,
+              "mean": 2418.92222222222,
+              "median": 2432.0,
+              "p95": 2684.0,
+              "within_60fps_percent": 0.0
+            },
+            "effects": {
+              "max": 240,
+              "mean": 179.244444444444,
+              "median": 180,
+              "p95": 222,
+              "within_60fps_percent": 0.0
+            },
+            "frame_ms": {
+              "max": 52.392,
+              "mean": 44.6481444444444,
+              "median": 44.401,
+              "p95": 48.83,
+              "within_60fps_percent": 0.0
+            },
+            "inject_ms": {
+              "max": 0.677,
+              "mean": 0.364572222222222,
+              "median": 0.356,
+              "p95": 0.537,
+              "within_60fps_percent": 100.0
+            },
+            "main_draw_ms": {
+              "max": 20.388,
+              "mean": 16.6898722222222,
+              "median": 16.596,
+              "p95": 18.498,
+              "within_60fps_percent": 53.8888888888889
+            },
+            "simulation_ms": {
+              "max": 17.4,
+              "mean": 14.2570555555556,
+              "median": 14.153,
+              "p95": 16.233,
+              "within_60fps_percent": 97.7777777777778
+            },
+            "visual_sync_ms": {
+              "max": 4.666,
+              "mean": 2.24297222222222,
+              "median": 2.167,
+              "p95": 2.932,
+              "within_60fps_percent": 100.0
+            }
+          },
+          "phases_mean_ms": {
+            "combat_phases/cleanup": 1.17079444444444,
+            "combat_phases/drones": 0.13125,
+            "combat_phases/enemy_ai": 3.10995555555556,
+            "combat_phases/enemy_soft_body": 0.992094444444444,
+            "combat_phases/patrol_special": 0.437788888888889,
+            "combat_phases/player_weapons": 3.36202777777778,
+            "combat_phases/projectiles": 4.42586666666667,
+            "fx_phases/effect/hit": 0.0899555555555556,
+            "fx_phases/effect/muzzle": 0.719488888888889,
+            "fx_phases/effect/shield_hit": 0.185927777777778,
+            "fx_phases/effect/stone_chips": 0.244477777777778,
+            "fx_phases/effect/viscous_contact": 0.199905555555555,
+            "fx_phases/projectiles": 7.06553888888889,
+            "main_phases/draw_attacks": 6.77616111111111,
+            "main_phases/draw_body": 0.603266666666667,
+            "main_phases/draw_hud_feedback": 3.77357222222222,
+            "main_phases/draw_organs": 1.70924444444444,
+            "main_phases/draw_support": 1.04513333333333,
+            "main_phases/draw_terrain": 1.02205,
+            "main_phases/draw_world": 1.76044444444444
+          },
+          "signature": {
+            "actors": 64,
+            "bullets": 239,
+            "head": [
+              168.934753417969,
+              248.657577514648
+            ],
+            "hp_sum": 639999268.0,
+            "parts": 31,
+            "rng": "4385407826940968633"
+          }
+        },
+        {
+          "mode": "before",
+          "report": "artifacts/dense60-final-heavy-20261025-heavy-before-4.json",
+          "summary": {
+            "actors": {
+              "max": 64,
+              "mean": 64.0,
+              "median": 64,
+              "p95": 64,
+              "within_60fps_percent": 0.0
+            },
+            "bullets": {
+              "max": 251,
+              "mean": 240.905555555556,
+              "median": 241,
+              "p95": 248,
+              "within_60fps_percent": 0.0
+            },
+            "draw_calls": {
+              "max": 3830.0,
+              "mean": 3421.17222222222,
+              "median": 3416.0,
+              "p95": 3713.0,
+              "within_60fps_percent": 0.0
+            },
+            "effects": {
+              "max": 240,
+              "mean": 179.244444444444,
+              "median": 180,
+              "p95": 222,
+              "within_60fps_percent": 0.0
+            },
+            "frame_ms": {
+              "max": 125.651,
+              "mean": 72.5678111111112,
+              "median": 71.836,
+              "p95": 78.294,
+              "within_60fps_percent": 0.0
+            },
+            "inject_ms": {
+              "max": 0.755,
+              "mean": 0.408738888888889,
+              "median": 0.407,
+              "p95": 0.562,
+              "within_60fps_percent": 100.0
+            },
+            "main_draw_ms": {
+              "max": 62.49,
+              "mean": 37.2801722222222,
+              "median": 36.13,
+              "p95": 41.997,
+              "within_60fps_percent": 0.0
+            },
+            "simulation_ms": {
+              "max": 34.745,
+              "mean": 18.1613222222222,
+              "median": 17.744,
+              "p95": 20.342,
+              "within_60fps_percent": 8.33333333333333
+            },
+            "visual_sync_ms": {
+              "max": 5.082,
+              "mean": 2.12205555555556,
+              "median": 2.052,
+              "p95": 2.791,
+              "within_60fps_percent": 100.0
+            }
+          },
+          "phases_mean_ms": {
+            "combat_phases/cleanup": 1.26302777777778,
+            "combat_phases/drones": 0.133094444444444,
+            "combat_phases/enemy_ai": 3.21757222222222,
+            "combat_phases/enemy_soft_body": 1.02887777777778,
+            "combat_phases/patrol_special": 0.446927777777778,
+            "combat_phases/player_weapons": 3.97999444444444,
+            "combat_phases/projectiles": 7.46777222222222,
+            "fx_phases/effect/hit": 0.09145,
+            "fx_phases/effect/muzzle": 5.24942777777778,
+            "fx_phases/effect/shield_hit": 0.192238888888889,
+            "fx_phases/effect/stone_chips": 0.232572222222222,
+            "fx_phases/effect/viscous_contact": 0.219872222222222,
+            "fx_phases/projectiles": 16.2593944444444,
+            "main_phases/draw_attacks": 11.5531888888889,
+            "main_phases/draw_body": 0.641738888888889,
+            "main_phases/draw_hud_feedback": 12.9299722222222,
+            "main_phases/draw_organs": 1.73636666666667,
+            "main_phases/draw_support": 1.10012777777778,
+            "main_phases/draw_terrain": 1.04995555555556,
+            "main_phases/draw_world": 8.26882222222222
+          },
+          "signature": {
+            "actors": 64,
+            "bullets": 239,
+            "head": [
+              168.934753417969,
+              248.657577514648
+            ],
+            "hp_sum": 639999268.0,
+            "parts": 31,
+            "rng": "4385407826940968633"
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/dense60-adaptive-final-20261025-medium-comparison.json",
+      "sha256": "0cb9cc9b0775d4ef1cd7d3f766dfaf799093f244e0a24f09ae71fa1c48d7a6be",
+      "aggregate": {
+        "before": {
+          "frame_ms": 40.5616666666667,
+          "main_draw_ms": 21.1774722222222,
+          "simulation_ms": 7.91451666666667,
+          "visual_sync_ms": 1.32851111111111,
+          "draw_calls": 2004.67222222222,
+          "bullets": 120.344444444444,
+          "effects": 132.294444444444,
+          "mean_of_frame_p95_ms": 51.759
+        },
+        "after": {
+          "frame_ms": 28.2598666666667,
+          "main_draw_ms": 11.5880222222222,
+          "simulation_ms": 7.05466111111111,
+          "visual_sync_ms": 1.35231111111111,
+          "draw_calls": 1483.76111111111,
+          "bullets": 120.433333333333,
+          "effects": 133.105555555556,
+          "mean_of_frame_p95_ms": 34.574
+        },
+        "mean_frame_time_reduction_percent": 30.32863541110242
+      },
+      "renderer_override": null,
+      "scope": "Same release EXE; alternating baseline/optimized paths, fixed-tick production combat with projectile floor. Not natural real-delta gameplay FPS.",
+      "isolated_user_data": true,
+      "results": [
+        {
+          "mode": "after",
+          "report": "artifacts/dense60-adaptive-final-20261025-medium-after-1.json",
+          "summary": {
+            "actors": {
+              "max": 32,
+              "mean": 32.0,
+              "median": 32,
+              "p95": 32,
+              "within_60fps_percent": 0.0
+            },
+            "bullets": {
+              "max": 127,
+              "mean": 120.433333333333,
+              "median": 121,
+              "p95": 125,
+              "within_60fps_percent": 0.0
+            },
+            "draw_calls": {
+              "max": 1641.0,
+              "mean": 1483.76111111111,
+              "median": 1505.0,
+              "p95": 1604.0,
+              "within_60fps_percent": 0.0
+            },
+            "effects": {
+              "max": 160,
+              "mean": 133.105555555556,
+              "median": 137,
+              "p95": 150,
+              "within_60fps_percent": 0.0
+            },
+            "frame_ms": {
+              "max": 37.962,
+              "mean": 28.2598666666667,
+              "median": 27.57,
+              "p95": 34.574,
+              "within_60fps_percent": 0.0
+            },
+            "inject_ms": {
+              "max": 0.588,
+              "mean": 0.223922222222222,
+              "median": 0.214,
+              "p95": 0.34,
+              "within_60fps_percent": 100.0
+            },
+            "main_draw_ms": {
+              "max": 17.444,
+              "mean": 11.5880222222222,
+              "median": 11.325,
+              "p95": 15.078,
+              "within_60fps_percent": 98.8888888888889
+            },
+            "simulation_ms": {
+              "max": 10.032,
+              "mean": 7.05466111111111,
+              "median": 6.781,
+              "p95": 9.118,
+              "within_60fps_percent": 100.0
+            },
+            "visual_sync_ms": {
+              "max": 2.621,
+              "mean": 1.35231111111111,
+              "median": 1.293,
+              "p95": 1.921,
+              "within_60fps_percent": 100.0
+            }
+          },
+          "phases_mean_ms": {
+            "combat_phases/cleanup": 0.667638888888889,
+            "combat_phases/drones": 0.0916611111111111,
+            "combat_phases/enemy_ai": 1.82310555555556,
+            "combat_phases/enemy_soft_body": 0.556388888888889,
+            "combat_phases/patrol_special": 0.117538888888889,
+            "combat_phases/player_weapons": 1.30982777777778,
+            "combat_phases/projectiles": 2.19707222222222,
+            "fx_phases/effect/hit": 0.0490222222222222,
+            "fx_phases/effect/muzzle": 0.430722222222222,
+            "fx_phases/effect/shield_hit": 0.144638888888889,
+            "fx_phases/effect/stone_chips": 1.55444444444444,
+            "fx_phases/effect/viscous_contact": 0.131561111111111,
+            "fx_phases/projectiles": 3.72285,
+            "main_phases/draw_attacks": 5.77111666666667,
+            "main_phases/draw_body": 0.303227777777778,
+            "main_phases/draw_hud_feedback": 2.05269444444444,
+            "main_phases/draw_organs": 0.917677777777778,
+            "main_phases/draw_support": 0.456688888888889,
+            "main_phases/draw_terrain": 1.09494444444444,
+            "main_phases/draw_world": 0.991672222222223
+          },
+          "signature": {
+            "actors": 32,
+            "bullets": 121,
+            "head": [
+              168.934753417969,
+              248.657577514648
+            ],
+            "hp_sum": 319999808.0,
+            "parts": 13,
+            "rng": "-5898192242482236119"
+          }
+        },
+        {
+          "mode": "before",
+          "report": "artifacts/dense60-adaptive-final-20261025-medium-before-2.json",
+          "summary": {
+            "actors": {
+              "max": 32,
+              "mean": 32.0,
+              "median": 32,
+              "p95": 32,
+              "within_60fps_percent": 0.0
+            },
+            "bullets": {
+              "max": 128,
+              "mean": 120.344444444444,
+              "median": 121,
+              "p95": 126,
+              "within_60fps_percent": 0.0
+            },
+            "draw_calls": {
+              "max": 2323.0,
+              "mean": 2004.67222222222,
+              "median": 1976.0,
+              "p95": 2240.0,
+              "within_60fps_percent": 0.0
+            },
+            "effects": {
+              "max": 157,
+              "mean": 132.294444444444,
+              "median": 139,
+              "p95": 151,
+              "within_60fps_percent": 0.0
+            },
+            "frame_ms": {
+              "max": 65.624,
+              "mean": 40.5616666666667,
+              "median": 39.732,
+              "p95": 51.759,
+              "within_60fps_percent": 0.0
+            },
+            "inject_ms": {
+              "max": 0.511,
+              "mean": 0.231405555555556,
+              "median": 0.222,
+              "p95": 0.355,
+              "within_60fps_percent": 100.0
+            },
+            "main_draw_ms": {
+              "max": 31.509,
+              "mean": 21.1774722222222,
+              "median": 20.993,
+              "p95": 26.782,
+              "within_60fps_percent": 0.555555555555556
+            },
+            "simulation_ms": {
+              "max": 15.737,
+              "mean": 7.91451666666667,
+              "median": 7.363,
+              "p95": 11.471,
+              "within_60fps_percent": 100.0
+            },
+            "visual_sync_ms": {
+              "max": 2.609,
+              "mean": 1.32851111111111,
+              "median": 1.26,
+              "p95": 1.803,
+              "within_60fps_percent": 100.0
+            }
+          },
+          "phases_mean_ms": {
+            "combat_phases/cleanup": 0.674166666666667,
+            "combat_phases/drones": 0.0932166666666666,
+            "combat_phases/enemy_ai": 1.88838888888889,
+            "combat_phases/enemy_soft_body": 0.582538888888889,
+            "combat_phases/patrol_special": 0.122283333333333,
+            "combat_phases/player_weapons": 1.49406111111111,
+            "combat_phases/projectiles": 2.79244444444445,
+            "fx_phases/effect/hit": 0.0506388888888889,
+            "fx_phases/effect/muzzle": 2.81677777777778,
+            "fx_phases/effect/shield_hit": 0.151605555555556,
+            "fx_phases/effect/stone_chips": 1.42601666666667,
+            "fx_phases/effect/viscous_contact": 0.13175,
+            "fx_phases/projectiles": 8.60136666666667,
+            "main_phases/draw_attacks": 8.05552777777778,
+            "main_phases/draw_body": 0.31985,
+            "main_phases/draw_hud_feedback": 6.93019444444444,
+            "main_phases/draw_organs": 0.925133333333333,
+            "main_phases/draw_support": 0.474283333333333,
+            "main_phases/draw_terrain": 1.10649444444444,
+            "main_phases/draw_world": 3.36598888888889
+          },
+          "signature": {
+            "actors": 32,
+            "bullets": 118,
+            "head": [
+              168.934753417969,
+              248.657577514648
+            ],
+            "hp_sum": 319999796.0,
+            "parts": 13,
+            "rng": "-5898192242482236119"
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/dense60-adaptive-final-20261025-heavy-comparison.json",
+      "sha256": "c6990a9f4e4dbf1560944de7230c18d7d71deada33a83a043c384ed80fcf1620",
+      "aggregate": {
+        "before": {
+          "frame_ms": 125.6212,
+          "main_draw_ms": 65.0255388888889,
+          "simulation_ms": 31.86415,
+          "visual_sync_ms": 3.66574444444444,
+          "draw_calls": 3409.65,
+          "bullets": 240.988888888889,
+          "effects": 179.061111111111,
+          "mean_of_frame_p95_ms": 150.711
+        },
+        "after": {
+          "frame_ms": 63.4068555555555,
+          "main_draw_ms": 23.7886222222222,
+          "simulation_ms": 20.2904388888889,
+          "visual_sync_ms": 3.0592,
+          "draw_calls": 2405.8,
+          "bullets": 240.905555555556,
+          "effects": 178.85,
+          "mean_of_frame_p95_ms": 86.244
+        },
+        "mean_frame_time_reduction_percent": 49.525354354555205
+      },
+      "renderer_override": null,
+      "scope": "Same release EXE; alternating baseline/optimized paths, fixed-tick production combat with projectile floor. Not natural real-delta gameplay FPS.",
+      "isolated_user_data": true,
+      "results": [
+        {
+          "mode": "after",
+          "report": "artifacts/dense60-adaptive-final-20261025-heavy-after-1.json",
+          "summary": {
+            "actors": {
+              "max": 64,
+              "mean": 64.0,
+              "median": 64,
+              "p95": 64,
+              "within_60fps_percent": 0.0
+            },
+            "bullets": {
+              "max": 251,
+              "mean": 240.905555555556,
+              "median": 241,
+              "p95": 247,
+              "within_60fps_percent": 0.0
+            },
+            "draw_calls": {
+              "max": 2738.0,
+              "mean": 2405.8,
+              "median": 2404.0,
+              "p95": 2703.0,
+              "within_60fps_percent": 0.0
+            },
+            "effects": {
+              "max": 239,
+              "mean": 178.85,
+              "median": 178,
+              "p95": 219,
+              "within_60fps_percent": 0.0
+            },
+            "frame_ms": {
+              "max": 95.558,
+              "mean": 63.4068555555555,
+              "median": 62.976,
+              "p95": 86.244,
+              "within_60fps_percent": 0.0
+            },
+            "inject_ms": {
+              "max": 2.753,
+              "mean": 0.532194444444444,
+              "median": 0.481,
+              "p95": 0.865,
+              "within_60fps_percent": 100.0
+            },
+            "main_draw_ms": {
+              "max": 38.334,
+              "mean": 23.7886222222222,
+              "median": 22.967,
+              "p95": 32.953,
+              "within_60fps_percent": 2.22222222222222
+            },
+            "simulation_ms": {
+              "max": 33.91,
+              "mean": 20.2904388888889,
+              "median": 19.938,
+              "p95": 29.904,
+              "within_60fps_percent": 31.1111111111111
+            },
+            "visual_sync_ms": {
+              "max": 6.372,
+              "mean": 3.0592,
+              "median": 2.846,
+              "p95": 5.173,
+              "within_60fps_percent": 100.0
+            }
+          },
+          "phases_mean_ms": {
+            "combat_phases/cleanup": 1.78261111111111,
+            "combat_phases/drones": 0.194822222222222,
+            "combat_phases/enemy_ai": 4.28069444444444,
+            "combat_phases/enemy_soft_body": 1.33596666666667,
+            "combat_phases/patrol_special": 0.603422222222222,
+            "combat_phases/player_weapons": 4.78058333333333,
+            "combat_phases/projectiles": 6.33896666666667,
+            "fx_phases/effect/hit": 0.136,
+            "fx_phases/effect/muzzle": 1.03183888888889,
+            "fx_phases/effect/shield_hit": 0.266372222222222,
+            "fx_phases/effect/stone_chips": 0.336166666666667,
+            "fx_phases/effect/viscous_contact": 0.279088888888889,
+            "fx_phases/projectiles": 10.0618277777778,
+            "main_phases/draw_attacks": 9.76741666666667,
+            "main_phases/draw_body": 0.84085,
+            "main_phases/draw_hud_feedback": 5.42122222222222,
+            "main_phases/draw_organs": 2.44356111111111,
+            "main_phases/draw_support": 1.49482222222222,
+            "main_phases/draw_terrain": 1.38342222222222,
+            "main_phases/draw_world": 2.43732777777778
+          },
+          "signature": {
+            "actors": 64,
+            "bullets": 237,
+            "head": [
+              168.934753417969,
+              248.657577514648
+            ],
+            "hp_sum": 639999244.0,
+            "parts": 31,
+            "rng": "4385407826940968633"
+          }
+        },
+        {
+          "mode": "before",
+          "report": "artifacts/dense60-adaptive-final-20261025-heavy-before-2.json",
+          "summary": {
+            "actors": {
+              "max": 64,
+              "mean": 64.0,
+              "median": 64,
+              "p95": 64,
+              "within_60fps_percent": 0.0
+            },
+            "bullets": {
+              "max": 251,
+              "mean": 240.988888888889,
+              "median": 241,
+              "p95": 248,
+              "within_60fps_percent": 0.0
+            },
+            "draw_calls": {
+              "max": 3747.0,
+              "mean": 3409.65,
+              "median": 3411.0,
+              "p95": 3656.0,
+              "within_60fps_percent": 0.0
+            },
+            "effects": {
+              "max": 239,
+              "mean": 179.061111111111,
+              "median": 181,
+              "p95": 218,
+              "within_60fps_percent": 0.0
+            },
+            "frame_ms": {
+              "max": 175.031,
+              "mean": 125.6212,
+              "median": 124.873,
+              "p95": 150.711,
+              "within_60fps_percent": 0.0
+            },
+            "inject_ms": {
+              "max": 2.952,
+              "mean": 0.675972222222222,
+              "median": 0.555,
+              "p95": 1.738,
+              "within_60fps_percent": 100.0
+            },
+            "main_draw_ms": {
+              "max": 87.996,
+              "mean": 65.0255388888889,
+              "median": 64.071,
+              "p95": 82.117,
+              "within_60fps_percent": 0.0
+            },
+            "simulation_ms": {
+              "max": 43.363,
+              "mean": 31.86415,
+              "median": 31.813,
+              "p95": 39.448,
+              "within_60fps_percent": 0.0
+            },
+            "visual_sync_ms": {
+              "max": 7.078,
+              "mean": 3.66574444444444,
+              "median": 3.427,
+              "p95": 5.749,
+              "within_60fps_percent": 100.0
+            }
+          },
+          "phases_mean_ms": {
+            "combat_phases/cleanup": 2.22137777777778,
+            "combat_phases/drones": 0.233855555555556,
+            "combat_phases/enemy_ai": 5.6141,
+            "combat_phases/enemy_soft_body": 1.7591,
+            "combat_phases/patrol_special": 0.785144444444444,
+            "combat_phases/player_weapons": 7.03803333333333,
+            "combat_phases/projectiles": 13.2961444444444,
+            "fx_phases/effect/hit": 0.155177777777778,
+            "fx_phases/effect/muzzle": 9.555,
+            "fx_phases/effect/shield_hit": 0.334205555555556,
+            "fx_phases/effect/stone_chips": 0.481138888888889,
+            "fx_phases/effect/viscous_contact": 0.376594444444444,
+            "fx_phases/projectiles": 28.51555,
+            "main_phases/draw_attacks": 20.4792722222222,
+            "main_phases/draw_body": 1.06094444444444,
+            "main_phases/draw_hud_feedback": 22.8522555555555,
+            "main_phases/draw_organs": 2.99365555555556,
+            "main_phases/draw_support": 1.94178888888889,
+            "main_phases/draw_terrain": 1.81311666666667,
+            "main_phases/draw_world": 13.8845055555555
+          },
+          "signature": {
+            "actors": 64,
+            "bullets": 238,
+            "head": [
+              168.934753417969,
+              248.657577514648
+            ],
+            "hp_sum": 639999226.0,
+            "parts": 31,
+            "rng": "4385407826940968633"
+          }
+        }
+      ]
+    }
+  ],
+  "native_real_delta_battle_runs": [
+    {
+      "stage": "baseline",
+      "source": "artifacts/dense60-long-before-20261025.json",
+      "sha256": "c70da627914df3d3847c31ed3f287afe6539e49c36e3fa84adb600ea752804bc",
+      "passed": true,
+      "runtime": "E:/_Nlv/github/temp/artifacts/dense60-release/RunBuildPew.exe",
+      "conditions": {
+        "audio_and_effects": true,
+        "battle_seed": 20261021,
+        "dt": "actual engine process delta",
+        "duration_seconds": 80.0026938888895,
+        "fixture_focus_pause_suppressed": true,
+        "height": 900,
+        "initial_actors": 75,
+        "invulnerable_fixture_actors": false,
+        "legacy_cpu": false,
+        "legacy_egg_rendering": false,
+        "loadout": "screenshot-derived 11 mixed modules",
+        "measured_frames": 5304,
+        "mission": "Endless Mission",
+        "native_actor_waves": true,
+        "native_map_spawns": true,
+        "native_pacing": true,
+        "refresh_rate": 60.0,
+        "remote_orbits": true,
+        "reward_interruptions_suppressed": true,
+        "route": "roam",
+        "six_gatling_modules": false,
+        "vsync_mode": 1,
+        "warmup_frames": 12,
+        "width": 1440
+      },
+      "frame_ms": {
+        "max": 60.725,
+        "mean": 14.980794117647,
+        "median": 14.604,
+        "p95": 20.558,
+        "p99": 25.023,
+        "within_60fps_percent": 75.0565610859728
+      },
+      "cpu_ms": {
+        "max": 48.121,
+        "mean": 7.67196606334839,
+        "median": 7.378,
+        "p95": 11.234,
+        "p99": 13.718,
+        "within_60fps_percent": 99.7737556561086
+      },
+      "windows": {
+        "0-10": {
+          "cpu_ms": {
+            "max": 15.987,
+            "mean": 5.53672860635696,
+            "median": 5.172,
+            "p95": 8.935,
+            "p99": 11.239,
+            "within_60fps_percent": 100.0
+          },
+          "frame_ms": {
+            "max": 57.757,
+            "mean": 12.1823838630807,
+            "median": 11.681,
+            "p95": 16.753,
+            "p99": 19.084,
+            "within_60fps_percent": 94.7432762836186
+          },
+          "frames": 818,
+          "max_actors": 88,
+          "max_loot": 12,
+          "max_mines": 11
+        },
+        "30-40": {
+          "cpu_ms": {
+            "max": 13.065,
+            "mean": 7.02744207723035,
+            "median": 6.633,
+            "p95": 9.862,
+            "p99": 11.673,
+            "within_60fps_percent": 100.0
+          },
+          "frame_ms": {
+            "max": 23.857,
+            "mean": 13.278207723036,
+            "median": 12.874,
+            "p95": 16.936,
+            "p99": 19.355,
+            "within_60fps_percent": 94.0079893475366
+          },
+          "frames": 751,
+          "max_actors": 98,
+          "max_loot": 12,
+          "max_mines": 30
+        },
+        "70-80": {
+          "cpu_ms": {
+            "max": 14.08,
+            "mean": 7.73264671532847,
+            "median": 7.329,
+            "p95": 10.577,
+            "p99": 12.412,
+            "within_60fps_percent": 100.0
+          },
+          "frame_ms": {
+            "max": 32.084,
+            "mean": 14.548899270073,
+            "median": 14.245,
+            "p95": 18.656,
+            "p99": 23.128,
+            "within_60fps_percent": 84.8175182481752
+          },
+          "frames": 685,
+          "max_actors": 102,
+          "max_loot": 19,
+          "max_mines": 30
+        }
+      },
+      "checks": [
+        {
+          "name": "Measured production frames include actual excavation and mineral drops",
+          "passed": true
+        },
+        {
+          "name": "Every timed frame advances real combat; paused, reward and result screens never count as gameplay FPS",
+          "passed": true
+        },
+        {
+          "name": "All configured modules remain alive and available throughout the measured battle",
+          "passed": true
+        }
+      ],
+      "deployment": {
+        "elapsed_ms": 2237.58,
+        "hud_ms": 182.233,
+        "map_nodes": 16,
+        "prepared_chunks": 48
+      },
+      "counter": {
+        "average_ms": 13.8913157894737,
+        "fps": 71.9874211453578,
+        "peak_ms": 17.8409996032715,
+        "text": "72 FPS   13.9 ms"
+      },
+      "visible_window": false,
+      "renderer_override": null,
+      "render_thread_override": null,
+      "cpu_phase_profiling": false,
+      "counts": {
+        "actors": {
+          "min": 64,
+          "max": 106,
+          "mean": 89.60972850678733
+        },
+        "bullets": {
+          "min": 0,
+          "max": 20,
+          "mean": 1.7743212669683257
+        },
+        "effects": {
+          "min": 0,
+          "max": 40,
+          "mean": 4.510180995475113
+        },
+        "draw_calls": {
+          "min": 224.0,
+          "max": 777.0,
+          "mean": 309.4660633484163
+        },
+        "drones": {
+          "min": 14,
+          "max": 14,
+          "mean": 14
+        },
+        "mines": {
+          "min": 1,
+          "max": 30,
+          "mean": 23.407993966817497
+        },
+        "loot": {
+          "min": 0,
+          "max": 21,
+          "mean": 10.48604826546003
+        }
+      }
+    },
+    {
+      "stage": "first_optimization_before_adaptive_thresholds",
+      "source": "artifacts/dense60-long-after-20261025.json",
+      "sha256": "89678ef002f73335981c6e2830f53e996e40e82ad7739cbce12cd48e98f12886",
+      "passed": true,
+      "runtime": "E:/_Nlv/github/temp/artifacts/dense60-release/RunBuildPew.exe",
+      "conditions": {
+        "audio_and_effects": true,
+        "battle_seed": 20261021,
+        "dt": "actual engine process delta",
+        "duration_seconds": 80.0096139999996,
+        "fixture_focus_pause_suppressed": true,
+        "height": 900,
+        "initial_actors": 75,
+        "invulnerable_fixture_actors": false,
+        "legacy_cpu": false,
+        "legacy_egg_rendering": false,
+        "loadout": "screenshot-derived 11 mixed modules",
+        "measured_frames": 5225,
+        "mission": "Endless Mission",
+        "native_actor_waves": true,
+        "native_map_spawns": true,
+        "native_pacing": true,
+        "refresh_rate": 60.0,
+        "remote_orbits": true,
+        "reward_interruptions_suppressed": true,
+        "route": "roam",
+        "six_gatling_modules": false,
+        "vsync_mode": 1,
+        "warmup_frames": 12,
+        "width": 1440
+      },
+      "frame_ms": {
+        "max": 61.359,
+        "mean": 15.2063288038278,
+        "median": 14.919,
+        "p95": 21.689,
+        "p99": 26.488,
+        "within_60fps_percent": 68.2105263157895
+      },
+      "cpu_ms": {
+        "max": 49.857,
+        "mean": 7.86178602870812,
+        "median": 7.64,
+        "p95": 12.037,
+        "p99": 14.598,
+        "within_60fps_percent": 99.6937799043062
+      },
+      "windows": {
+        "0-10": {
+          "cpu_ms": {
+            "max": 14.759,
+            "mean": 5.06876470588235,
+            "median": 4.525,
+            "p95": 8.159,
+            "p99": 10.219,
+            "within_60fps_percent": 100.0
+          },
+          "frame_ms": {
+            "max": 61.359,
+            "mean": 11.2582850678733,
+            "median": 10.352,
+            "p95": 16.057,
+            "p99": 19.342,
+            "within_60fps_percent": 95.814479638009
+          },
+          "frames": 884,
+          "max_actors": 88,
+          "max_loot": 12,
+          "max_mines": 11
+        },
+        "30-40": {
+          "cpu_ms": {
+            "max": 14.512,
+            "mean": 7.20327148703956,
+            "median": 6.761,
+            "p95": 10.09,
+            "p99": 11.673,
+            "within_60fps_percent": 100.0
+          },
+          "frame_ms": {
+            "max": 22.39,
+            "mean": 13.6326698499318,
+            "median": 12.914,
+            "p95": 18.021,
+            "p99": 20.989,
+            "within_60fps_percent": 87.31241473397
+          },
+          "frames": 733,
+          "max_actors": 99,
+          "max_loot": 10,
+          "max_mines": 30
+        },
+        "70-80": {
+          "cpu_ms": {
+            "max": 23.867,
+            "mean": 9.79960258780037,
+            "median": 9.367,
+            "p95": 13.193,
+            "p99": 16.654,
+            "within_60fps_percent": 99.0757855822551
+          },
+          "frame_ms": {
+            "max": 47.083,
+            "mean": 18.4057005545287,
+            "median": 17.804,
+            "p95": 23.505,
+            "p99": 31.689,
+            "within_60fps_percent": 32.7171903881701
+          },
+          "frames": 541,
+          "max_actors": 106,
+          "max_loot": 17,
+          "max_mines": 30
+        }
+      },
+      "checks": [
+        {
+          "name": "Measured production frames include actual excavation and mineral drops",
+          "passed": true
+        },
+        {
+          "name": "Every timed frame advances real combat; paused, reward and result screens never count as gameplay FPS",
+          "passed": true
+        },
+        {
+          "name": "All configured modules remain alive and available throughout the measured battle",
+          "passed": true
+        }
+      ],
+      "deployment": {
+        "elapsed_ms": 2355.345,
+        "hud_ms": 169.312,
+        "map_nodes": 16,
+        "prepared_chunks": 48
+      },
+      "counter": {
+        "average_ms": 17.0417333333333,
+        "fps": 58.6794770485005,
+        "peak_ms": 26.8910007476807,
+        "text": "59 FPS   17.0 ms"
+      },
+      "visible_window": false,
+      "renderer_override": null,
+      "render_thread_override": null,
+      "cpu_phase_profiling": false,
+      "counts": {
+        "actors": {
+          "min": 66,
+          "max": 106,
+          "mean": 90.76784688995215
+        },
+        "bullets": {
+          "min": 0,
+          "max": 23,
+          "mean": 2.285358851674641
+        },
+        "effects": {
+          "min": 0,
+          "max": 54,
+          "mean": 5.177607655502392
+        },
+        "draw_calls": {
+          "min": 224.0,
+          "max": 884.0,
+          "mean": 308.71846889952155
+        },
+        "drones": {
+          "min": 14,
+          "max": 14,
+          "mean": 14
+        },
+        "mines": {
+          "min": 1,
+          "max": 30,
+          "mean": 22.167655502392343
+        },
+        "loot": {
+          "min": 0,
+          "max": 18,
+          "mean": 8.345263157894736
+        }
+      }
+    },
+    {
+      "stage": "final",
+      "source": "artifacts/dense60-adaptive-after-20261025.json",
+      "sha256": "8077be1714571f0b492185e73a96424798d7053bfac72cbe60a09032a465602f",
+      "passed": true,
+      "runtime": "E:/_Nlv/github/temp/artifacts/dense60-release/RunBuildPew.exe",
+      "conditions": {
+        "audio_and_effects": true,
+        "battle_seed": 20261021,
+        "dt": "actual engine process delta",
+        "duration_seconds": 80.0001929259262,
+        "fixture_focus_pause_suppressed": true,
+        "height": 900,
+        "initial_actors": 75,
+        "invulnerable_fixture_actors": false,
+        "legacy_cpu": false,
+        "legacy_egg_rendering": false,
+        "loadout": "screenshot-derived 11 mixed modules",
+        "measured_frames": 5272,
+        "mission": "Endless Mission",
+        "native_actor_waves": true,
+        "native_map_spawns": true,
+        "native_pacing": true,
+        "refresh_rate": 60.0,
+        "remote_orbits": true,
+        "reward_interruptions_suppressed": true,
+        "route": "roam",
+        "six_gatling_modules": false,
+        "vsync_mode": 1,
+        "warmup_frames": 12,
+        "width": 1440
+      },
+      "frame_ms": {
+        "max": 69.569,
+        "mean": 15.0628372534143,
+        "median": 14.42,
+        "p95": 21.367,
+        "p99": 27.492,
+        "within_60fps_percent": 75.7018209408194
+      },
+      "cpu_ms": {
+        "max": 43.667,
+        "mean": 7.88275720789074,
+        "median": 7.562,
+        "p95": 11.913,
+        "p99": 15.012,
+        "within_60fps_percent": 99.5257966616085
+      },
+      "windows": {
+        "0-10": {
+          "cpu_ms": {
+            "max": 21.889,
+            "mean": 5.69573704171934,
+            "median": 5.211,
+            "p95": 9.159,
+            "p99": 11.047,
+            "within_60fps_percent": 99.8735777496839
+          },
+          "frame_ms": {
+            "max": 69.569,
+            "mean": 12.562409608091,
+            "median": 11.72,
+            "p95": 17.955,
+            "p99": 22.877,
+            "within_60fps_percent": 91.7825537294564
+          },
+          "frames": 791,
+          "max_actors": 90,
+          "max_loot": 12,
+          "max_mines": 11
+        },
+        "30-40": {
+          "cpu_ms": {
+            "max": 23.905,
+            "mean": 8.63332784184514,
+            "median": 8.069,
+            "p95": 13.052,
+            "p99": 16.471,
+            "within_60fps_percent": 99.0115321252059
+          },
+          "frame_ms": {
+            "max": 33.954,
+            "mean": 16.389313014827,
+            "median": 15.66,
+            "p95": 22.642,
+            "p99": 26.986,
+            "within_60fps_percent": 61.1202635914333
+          },
+          "frames": 607,
+          "max_actors": 97,
+          "max_loot": 13,
+          "max_mines": 30
+        },
+        "70-80": {
+          "cpu_ms": {
+            "max": 15.508,
+            "mean": 8.13167874015747,
+            "median": 7.679,
+            "p95": 11.163,
+            "p99": 13.404,
+            "within_60fps_percent": 100.0
+          },
+          "frame_ms": {
+            "max": 35.584,
+            "mean": 15.6687732283465,
+            "median": 15.076,
+            "p95": 20.36,
+            "p99": 23.454,
+            "within_60fps_percent": 72.9133858267717
+          },
+          "frames": 635,
+          "max_actors": 104,
+          "max_loot": 21,
+          "max_mines": 30
+        }
+      },
+      "checks": [
+        {
+          "name": "Measured production frames include actual excavation and mineral drops",
+          "passed": true
+        },
+        {
+          "name": "Every timed frame advances real combat; paused, reward and result screens never count as gameplay FPS",
+          "passed": true
+        },
+        {
+          "name": "All configured modules remain alive and available throughout the measured battle",
+          "passed": true
+        }
+      ],
+      "deployment": {
+        "elapsed_ms": 4307.001,
+        "hud_ms": 309.242,
+        "map_nodes": 16,
+        "prepared_chunks": 48
+      },
+      "counter": {
+        "average_ms": 12.8929,
+        "fps": 77.5620690457539,
+        "peak_ms": 20.7220001220703,
+        "text": "78 FPS   12.9 ms"
+      },
+      "visible_window": false,
+      "renderer_override": null,
+      "render_thread_override": null,
+      "cpu_phase_profiling": false,
+      "counts": {
+        "actors": {
+          "min": 66,
+          "max": 106,
+          "mean": 89.10072078907436
+        },
+        "bullets": {
+          "min": 0,
+          "max": 25,
+          "mean": 1.4387329286798178
+        },
+        "effects": {
+          "min": 0,
+          "max": 27,
+          "mean": 2.6623672230652504
+        },
+        "draw_calls": {
+          "min": 225.0,
+          "max": 481.0,
+          "mean": 276.3033004552352
+        },
+        "drones": {
+          "min": 14,
+          "max": 14,
+          "mean": 14
+        },
+        "mines": {
+          "min": 1,
+          "max": 30,
+          "mean": 23.98065250379363
+        },
+        "loot": {
+          "min": 0,
+          "max": 21,
+          "mean": 10.344271623672231
+        }
+      }
+    }
+  ],
+  "assets": [
+    {
+      "path": "assets/expedition_ink/scene-survive.png",
+      "sha256": "0288d6bf9a453bb573735d3581b54fe181c643fabfba39e6cf6fe0af46876970",
+      "unchanged_from_generated_art_evidence": true
+    },
+    {
+      "path": "assets/expedition_ink/scene-endless.png",
+      "sha256": "1c85c9491f375fc2f60ff001bc152199feb6ec800ff79aa99a316ec0179c7f2c",
+      "unchanged_from_generated_art_evidence": true
+    },
+    {
+      "path": "assets/expedition_ink/scene-hunt.png",
+      "sha256": "35999e10475b76b68c9292d7b4baa740c600171e2632bebd14f82cc2b83906d6",
+      "unchanged_from_generated_art_evidence": true
+    },
+    {
+      "path": "assets/expedition_ink/scene-escort.png",
+      "sha256": "42e3ae8183a0b80afcf60f25ccdf11389ab10c76739cb62cbc5bff0d10fb161a",
+      "unchanged_from_generated_art_evidence": true
+    },
+    {
+      "path": "assets/expedition_ink/scene-siege.png",
+      "sha256": "15b01472fd2a2c5de251321d24465017f37579113af7d09a6fab3d918d55ef56",
+      "unchanged_from_generated_art_evidence": true
+    },
+    {
+      "path": "assets/expedition_ink/scene-defend.png",
+      "sha256": "1c02beaf75b171efd494a0f8d7051b506cae0ddb05106d983b92a726f9bc85b3",
+      "unchanged_from_generated_art_evidence": true
+    },
+    {
+      "path": "assets/expedition_ink/icon-survive.png",
+      "sha256": "a9ee9f5536d3f811ca9b9a40879f32fdbc3193f4a97033e76d1ab6a8aee1d006",
+      "unchanged_from_generated_art_evidence": true
+    },
+    {
+      "path": "assets/expedition_ink/icon-endless.png",
+      "sha256": "8fb8f3665474bd359eef99f4fd8e5c2b4b96fd4684927decf1f727b1a5c65f55",
+      "unchanged_from_generated_art_evidence": true
+    },
+    {
+      "path": "assets/expedition_ink/icon-hunt.png",
+      "sha256": "72dbd565201a06be4314534cce9c23ad988969f5d413ed3db1d47a2043c5e86e",
+      "unchanged_from_generated_art_evidence": true
+    },
+    {
+      "path": "assets/expedition_ink/icon-escort.png",
+      "sha256": "906617c9993e262cda21ec39fe0bf15998df41bb7f29346abe84359a04fc5b27",
+      "unchanged_from_generated_art_evidence": true
+    },
+    {
+      "path": "assets/expedition_ink/icon-siege.png",
+      "sha256": "58cbeebbe74ffee0582da194bdd1c380741761753563bf5662056a06cc34e63d",
+      "unchanged_from_generated_art_evidence": true
+    },
+    {
+      "path": "assets/expedition_ink/icon-defend.png",
+      "sha256": "0a8c286a533c9472f3e7942c4a05070b8546310c982c55b084b3027be8b5ea89",
+      "unchanged_from_generated_art_evidence": true
+    }
+  ],
+  "visual_evidence": [
+    {
+      "path": "docs/test-evidence/dense-combat-20261025/barrage-legacy-dense60.png",
+      "sha256": "12fbbccc38d2d663a5131db72654261ef4fc7ee6597bd8c32d7b95631b8fbc25"
+    },
+    {
+      "path": "docs/test-evidence/dense-combat-20261025/barrage-retained-dense60.png",
+      "sha256": "e7ecbce010b9ab688526460710857037bc50cce8154a80efca2c06c76b9c2a74"
+    },
+    {
+      "path": "docs/test-evidence/dense-combat-20261025/muzzle-legacy-dense60.png",
+      "sha256": "71889466348676526dd835c5a82b4084e4399ab2b75817d62ed06882d0791fd2"
+    },
+    {
+      "path": "docs/test-evidence/dense-combat-20261025/muzzle-batched-dense60.png",
+      "sha256": "49c53bd907556aef391567d9885e78746d2ec1f0b3bd038ed683a005ee8750a5"
+    },
+    {
+      "path": "docs/test-evidence/dense-combat-20261025/rig-wake-dense60.png",
+      "sha256": "97d4c1f992bc03a534582d349c46aca14527f5151ba28fa61cb512efd88766f6"
+    }
+  ],
+  "source_sha256": {
+    "scripts/attack_shader_layer.gd": "7e0065a7885d6ffa01db1e6ed3164c3a9dc41a081269c1d9ae75e64caa8c945d",
+    "scripts/insect_projectiles.gd": "cb282e717d10fdf0d5d6a6fa365932af34760eed4f9b95b048b166e4648003f5",
+    "scripts/player_hull_index.gd": "ec118b93f9b58bc8ef3b993952a04c0175300190ea470fc8172820f7961aeeec",
+    "scripts/muzzle_batch.gd": "db071a70cc2ac409048d874f47a1998641ca7879d21792d349830328123b395a",
+    "scripts/weapon_fx.gd": "befb6bd152c9b7965729449443526a997367f85b2d6b53fdac92b478d9b415a3",
+    "scripts/soft_insect_rig.gd": "1d7bca1323fd2b5caefca5015265c1094bc2009b9e9663ebd03df3cb24e93a7f",
+    "scripts/centipede.gd": "343252f5f39d7a03b8fc794b0a4aebd05431def7c048cf7926fc6f0e0f230f6c",
+    "scripts/combat.gd": "28b23535c2655e0dc0e86533133a586c54e05ab642987fe603dbde5511ecd72c",
+    "scripts/main.gd": "3b21f68cb48ddcc2c5224fa5d3445b30c9f05f32b34355c2a7f51365af858620",
+    "scripts/dense_pressure_probe.gd": "3e3402da4141b2071a1a7f30500475bfaeea2d2fee6a8bba74b15e19b69ec5ab",
+    "shaders/attack_material.gdshader": "88ca866d19926c87e28f35133f3ab60241689ede20f96b90eb762d1057df6082",
+    "tests/test_player_hull_index.gd": "8ec26069902f026608dbe8465f3526fead917b1a337f7282a7e4c34f7a9ce2e7",
+    "tests/test_retained_barrage.gd": "d5b43537df1cab1d004792f5bf3718365d50b6da34df63744c523f0eedb315b0",
+    "tests/test_muzzle_batch.gd": "58b54ee770e713cabcfb39e0070eeb5bdac5b784247b1392b2c2ed73f201d670",
+    "tests/test_rig_cache_wake.gd": "570549aed77321d38f0afad8fbea1f6330a3c150ff982cda739675912fa8fe70",
+    "tools/benchmark_dense_release.py": "84bf39368643738389a1278c4c2146b1ec52297d814c3dc4eb3ee0eaa80ecbfb"
+  },
+  "delivery": {
+    "path": "artifacts/dense60-release/RunBuildPew.exe",
+    "sha256": "61771375cc9af3b1f7ddcfa76aa7d7fe1f8d214304acd3c5ea7a6a2b1c9ebb48",
+    "bytes": 259011520,
+    "godot": "4.6.3 stable",
+    "preset": "Windows Review",
+    "release_template": true,
+    "normal_launch_uses_normal_gameplay": true,
+    "pressure_probe_requires_guarded_isolated_profile": true
+  },
+  "repro_commands": [
+    "python tools/benchmark_dense_release.py --tag dense60-recheck --case medium",
+    "python tools/benchmark_dense_release.py --tag dense60-recheck --case heavy",
+    "python tools/benchmark_exported_cave.py artifacts/dense60-release/RunBuildPew.exe --tag dense60-live-recheck --mixed --natural-actors --native-pacing --seconds 80 --frames 18000 --route roam"
+  ],
+  "baseline_environment": {
+    "RBPEW_LEGACY_BULLET_DRAW": "1",
+    "RBPEW_LEGACY_PLAYER_HULL": "1",
+    "RBPEW_LEGACY_SHIELD_RAYS": "1",
+    "RBPEW_LEGACY_MUZZLE_DRAW": "1",
+    "RBPEW_LEGACY_EQUIPMENT_CACHE": "1",
+    "RBPEW_LEGACY_COMPACT_TREE": "1"
+  },
+  "isolated_user_data": true,
+  "user_save_modified": false,
+  "git_diff_check_passed": true,
+  "platform_warnings": [
+    "Existing Windows root certificate store warning retained in test logs; local checks do not use TLS."
+  ]
+}

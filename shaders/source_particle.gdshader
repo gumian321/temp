@@ -32,7 +32,7 @@ void fragment() {
 		vec3 paint = mix(vec3(0.24, 0.43, 0.69), vec3(0.055, 0.16, 0.34), density);
 		if (burst_flash) {
 			float core = 1.0 - smoothstep(0.13, 0.29, length(UV - vec2(0.5)));
-			paint = mix(paint, vec3(0.965, 0.949, 0.906), core);
+			paint = mix(paint, vec3(0.965, 0.949, 0.906), core * 0.15);
 		}
 		float wash = additive_source && !single_channel ? 0.25 : 1.0;
 		COLOR = vec4(paint, mask * particle_color.a * wash);

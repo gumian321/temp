@@ -29,7 +29,7 @@ func check(ok:bool,label:String):
 	checks.append({"name":label,"passed":ok})
 	if not ok:printerr("FAIL: ",label)
 func submitted(key:String,hostile:bool)->bool:
-	var painter=layer.batches.get(key+str(hostile))
+	var painter=layer.batches.get((key if Layer.MODES.has(key) else "impact")+str(hostile))
 	if painter==null:return false
 	return [painter.batch,painter.texture_batch].any(func(batch):return batch.material is ShaderMaterial and batch.material.shader==Layer.SHADER and batch.commands.any(func(c):return c[0]!="draw_set_transform"))
 func _initialize():call_deferred("execute")
@@ -39,7 +39,9 @@ func execute():
 	layer=Layer.new();layer.trace_commands=true;layer.attach(board);fx=FX.new()
 	var db=DB.new();var count=0;var families={}
 	for core in db.catalog.values():
-		if not core.has("coreProjectile"):continue
+		# Mutation organs own their shots/larvae in mutation_weapons.gd; dedicated
+		# mutation suites exercise that renderer instead of battle.bullets.
+		if not core.has("coreProjectile") or core.has("mutation_weapon"):continue
 		count+=1
 		var family=Feedback.family(core);families[family]=true
 		for friendly in [true,false]:

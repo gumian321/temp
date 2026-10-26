@@ -5,7 +5,13 @@ const ATLAS_PATH="res://assets/ui_overhaul/viscous_projectiles_atlas.png"
 const BODY_ATLAS_PATH="res://assets/ui_overhaul/projectile_bodies_atlas.png"
 const SPECIAL_BODY_ATLAS_PATH="res://assets/ui_overhaul/special_projectile_bodies_atlas.png"
 const SPECIAL_BODY_KEYS=["emp","blackhole"]
-const BODY_REGIONS={"mucus":Rect2(96,158,465,392),"egg":Rect2(690,157,488,403),"larva":Rect2(89,751,553,321),"tongue":Rect2(715,733,450,376)}
+# Keep eight pixels of transparent padding around the approved matte silhouettes.
+const BODY_REGIONS={
+	"mucus":Rect2(82,160,493,412),
+	"egg":Rect2(686,159,515,422),
+	"larva":Rect2(75,760,575,322),
+	"tongue":Rect2(700,736,484,397),
+}
 const CELLS={"mucus":0,"egg":1,"larva":2,"tongue":3,"mucus_splat":4,"egg_burst":5,"goo_bead":6,"wet_trail":7,"larva_contact":2}
 const REGIONS=[Rect2(58,133,338,203),Rect2(514,132,322,207),Rect2(946,124,328,221),Rect2(1388,154,331,164),Rect2(74,517,315,279),Rect2(502,520,327,268),Rect2(994,547,227,224),Rect2(1370,600,369,138)]
 static var atlas:Texture2D

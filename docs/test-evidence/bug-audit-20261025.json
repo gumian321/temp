@@ -1,0 +1,2384 @@
+{
+  "date": "2026-10-25",
+  "timezone": "Asia/Shanghai",
+  "project": "E:\\_Nlv\\github\\temp",
+  "engine": "Godot 4.6.3 stable Windows x64",
+  "passed": true,
+  "unique_suites": 164,
+  "default_suites": 154,
+  "native_render_suites": 15,
+  "missing_default_suites": [],
+  "fixes": [
+    {
+      "issue": "自爆怪对接触部位重复结算伤害，自爆同帧仍可射击",
+      "test": "combat_lifecycle",
+      "files": [
+        "scripts/combat.gd"
+      ]
+    },
+    {
+      "issue": "保存失败仍扣研究点、解锁内容、清空进度或修改奖励筛选",
+      "test": "save_integrity / ui_save_failures",
+      "files": [
+        "scripts/save_store.gd",
+        "scripts/mission_select.gd"
+      ]
+    },
+    {
+      "issue": "损坏设置、键位、显示索引和统计字段导致启动、菜单、教程或结算异常；缺失主存档不读备份",
+      "test": "save_integrity",
+      "files": [
+        "scripts/save_store.gd"
+      ]
+    },
+    {
+      "issue": "从操控页返回后应用旧设置草稿，覆盖刚保存的键位/反转；保存失败缺少回滚与提示",
+      "test": "settings_flow / ui_save_failures",
+      "files": [
+        "scripts/main.gd",
+        "scripts/input_system.gd"
+      ]
+    },
+    {
+      "issue": "旧装配界面延迟销毁仍读取新角色数据，出现空对象、数组越界、离树缩放和焦点错误",
+      "test": "assembly_lifecycle / ui_small_windows / character_ui_integration",
+      "files": [
+        "scripts/main.gd",
+        "scripts/game_ui.gd",
+        "scripts/build_chain_ui.gd",
+        "scripts/research_ui.gd",
+        "scripts/reward_pool_ui.gd",
+        "scripts/reward_choice.gd"
+      ]
+    },
+    {
+      "issue": "领奖后立即暂存或返回首页，排队中的回调再次打开装配/战斗",
+      "test": "reward_lifecycle",
+      "files": [
+        "scripts/main.gd"
+      ]
+    },
+    {
+      "issue": "有多个手柄连接时无条件读取第一个设备，忽略正在操作的设备",
+      "test": "代码复核；模拟单手柄回归通过，实体双手柄未验收",
+      "files": [
+        "scripts/input_system.gd"
+      ]
+    }
+  ],
+  "validation": [
+    {
+      "suite": "achievements",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.97,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "all_dynamic_trails",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.8,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "all_dynamic_trails_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.955,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "armament_art",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.329,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "assembly_lifecycle",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.553,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/ui-lifecycle-final-render-20261025.json"
+    },
+    {
+      "suite": "attack_shader_materials",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.91,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "battle_hud",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.496,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "blue_ink",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.369,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "brood",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.846,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-brood-final-20261025.json"
+    },
+    {
+      "suite": "camera_stability_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 18.801,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "cave_clearance_cache",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.01,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-extra-20261025.json"
+    },
+    {
+      "suite": "cave_collision_cache",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.538,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "cave_contours",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.73,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "cave_curves",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.235,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "cave_escort",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.695,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "cave_far_navigation",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.583,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "cave_mining",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.587,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "cave_movement_certificates",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 3.594,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-extra-20261025.json"
+    },
+    {
+      "suite": "cave_nearby_regions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.427,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-extra-20261025.json"
+    },
+    {
+      "suite": "cave_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.637,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "cave_spawn_jobs",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.051,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "cave_sweep_clipping",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 112.519,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-cave-sweep-recheck-20261025.json"
+    },
+    {
+      "suite": "cave_sweep_neighborhoods",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.792,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "cave_update_budget",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.582,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "centipede_coil",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 3.443,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "centipede_coil_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.308,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "centipede_motion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.98,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "centipede_segments",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.998,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "centipede_support",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.87,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "chain_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.508,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "chain_segments",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.647,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "chain_ui_redesign",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.815,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "character_abilities",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.343,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "character_integration",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.975,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "character_roster",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.529,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "character_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.94,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-character-tests-20261025.json"
+    },
+    {
+      "suite": "character_selection",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.112,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-character-tests-20261025.json"
+    },
+    {
+      "suite": "character_ui_integration",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.608,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/ui-lifecycle-final-render-20261025.json"
+    },
+    {
+      "suite": "chasm_collision",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.169,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "chasm_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 3.567,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "chinese",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.55,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "combat_incremental_refresh",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.362,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "combat_lifecycle",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 3.183,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-fixes-final-20261025.json"
+    },
+    {
+      "suite": "combat_momentum",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.362,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "combat_spatial",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.98,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "contact_impacts",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.003,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "contact_impacts_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.301,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-extra-20261025.json"
+    },
+    {
+      "suite": "controller",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.732,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/controller-audit-final-20261025.json"
+    },
+    {
+      "suite": "core",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.178,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "crystal_loot_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.947,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "debug_characters",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.869,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-character-tests-20261025.json"
+    },
+    {
+      "suite": "debug_unlock_all",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.059,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "deployment",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.108,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-main-final-render-20261025.json"
+    },
+    {
+      "suite": "direct_body_assembly",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.249,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "drones",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.878,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "egg_visual_batch",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.622,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-egg-render-20261025.json"
+    },
+    {
+      "suite": "emitter_reaction",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.18,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "encounter_art",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.226,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "encounter_pacing",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 19.377,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "encounter_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.104,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "encounter_spawn_positions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.936,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "enemy_death_splatter",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.731,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "enemy_drones",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.884,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "enemy_health",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.567,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "enemy_health_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.15,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "enemy_sizes",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.234,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "escort_guidance",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.825,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "expedition_briefing",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.276,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-render-20261025.json"
+    },
+    {
+      "suite": "field_guide_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.974,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-render-20261025.json"
+    },
+    {
+      "suite": "fragment_art",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.532,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "fragment_recovery",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 10.608,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "fragment_recovery_budget",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.102,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "fragment_recovery_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.303,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "fuel_tutorial",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.9,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "fusion_flagella",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.51,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "game_ui_shell",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.074,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-main-final-render-20261025.json"
+    },
+    {
+      "suite": "generated_light_ui",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.66,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "grid_mounts",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.24,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "hostile_readability",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.231,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "hud_refresh_cache",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.592,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "insect_armaments",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.61,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "insect_art_routes",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.876,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "insect_attack_fx",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.563,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "insect_controls",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.085,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "insect_projectiles",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.903,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "knockback",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.765,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "long_body",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.62,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "loot",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.139,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "main_autofire",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.271,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "main_autofire_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.329,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "map",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.153,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "matte_art_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.962,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "meta_ui_redesign",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.703,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "mineral_erosion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.39,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "mineral_erosion_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.417,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "mission_select",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.07,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "missions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.346,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "mutation_branches",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.079,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "mutation_branches_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 14.626,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "mutation_weapons",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.879,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "mutation_weapons_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.095,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "particle_resource_cache",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.067,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "particles",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.869,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "passive_feedback_state",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.623,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "passive_upgrade_effects",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.2,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "passive_visual_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.826,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "performance_overlay",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.37,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "playtest_polish",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.95,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "playtest_polish_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.4,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "presentation",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.462,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-presentation-final-20261025.json"
+    },
+    {
+      "suite": "projectile_trails",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.171,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "projectile_trails_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.891,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "projectile_trajectory_continuity",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 3.843,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "projectile_trajectory_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.72,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-extra-20261025.json"
+    },
+    {
+      "suite": "radar",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.894,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "radial_formations",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.349,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "regressions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.266,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "remote_map_orbits",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.6,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "render_hotpath_regressions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.76,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "result_rank_ui",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 18.713,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "reward_cards",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.329,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "reward_flow",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.66,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-main-final-render-20261025.json"
+    },
+    {
+      "suite": "reward_lifecycle",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.594,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-main-final-render-20261025.json"
+    },
+    {
+      "suite": "reward_pacing",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.583,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "reward_pacing_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.027,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "reward_pool",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.059,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "reward_progress_badges",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.654,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "rewards",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.215,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "rig_batch_dynamic",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.111,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "rig_gpu_batch_dynamic",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.771,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-extra-20261025.json"
+    },
+    {
+      "suite": "runtime_performance_capture",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.837,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "save_integrity",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.566,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-fixes-final-20261025.json"
+    },
+    {
+      "suite": "segment_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.054,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "settings_flow",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.001,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-main-final-render-20261025.json"
+    },
+    {
+      "suite": "shields",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.055,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "skill_shader_coverage",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 3.339,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "soft_constraint_certificate",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.972,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-extra-20261025.json"
+    },
+    {
+      "suite": "soft_knockback",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.653,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "soft_organs",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.938,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "soft_pull",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.195,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "soft_render_cache",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.788,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "soft_solver_regressions",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.019,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "special_encounters",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.54,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "specials",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.156,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "spider_assembly_ui",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.482,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "spider_leg_modules",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.222,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "spider_motion_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.24,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-spider-tests-render-20261025.json"
+    },
+    {
+      "suite": "spider_rig",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.745,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "spider_segments",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.739,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "spider_turn_continuity",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.573,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "spider_turn_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.58,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-spider-tests-render-20261025.json"
+    },
+    {
+      "suite": "spider_visibility_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.655,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-spider-tests-render-20261025.json"
+    },
+    {
+      "suite": "starter_progression",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.524,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "tether_motion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.098,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "tooltip_theme",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.562,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-tooltip-render-20261025.json"
+    },
+    {
+      "suite": "turret_tracking",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.919,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "ui_save_failures",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.082,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-fixes-final-20261025.json"
+    },
+    {
+      "suite": "ui_small_windows",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 29.449,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/ui-lifecycle-final-render-20261025.json"
+    },
+    {
+      "suite": "viscous_integration",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.232,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "viscous_projectile_motion",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.81,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "viscous_renderer",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 0.946,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "weapon_catalog",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.126,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "weapon_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.586,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "weapon_readability",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.175,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    }
+  ],
+  "native_render_validation": [
+    {
+      "suite": "assembly_lifecycle",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.553,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/ui-lifecycle-final-render-20261025.json"
+    },
+    {
+      "suite": "character_ui_integration",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.608,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/ui-lifecycle-final-render-20261025.json"
+    },
+    {
+      "suite": "deployment",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.108,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-main-final-render-20261025.json"
+    },
+    {
+      "suite": "egg_visual_batch",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.622,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-egg-render-20261025.json"
+    },
+    {
+      "suite": "expedition_briefing",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.276,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-render-20261025.json"
+    },
+    {
+      "suite": "field_guide_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.974,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-render-20261025.json"
+    },
+    {
+      "suite": "game_ui_shell",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.074,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-main-final-render-20261025.json"
+    },
+    {
+      "suite": "reward_flow",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.66,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-main-final-render-20261025.json"
+    },
+    {
+      "suite": "reward_lifecycle",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.594,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-main-final-render-20261025.json"
+    },
+    {
+      "suite": "settings_flow",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.001,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-main-final-render-20261025.json"
+    },
+    {
+      "suite": "spider_motion_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.24,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-spider-tests-render-20261025.json"
+    },
+    {
+      "suite": "spider_turn_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.58,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-spider-tests-render-20261025.json"
+    },
+    {
+      "suite": "spider_visibility_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.655,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-spider-tests-render-20261025.json"
+    },
+    {
+      "suite": "tooltip_theme",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.562,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-tooltip-render-20261025.json"
+    },
+    {
+      "suite": "ui_small_windows",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 29.449,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/ui-lifecycle-final-render-20261025.json"
+    }
+  ],
+  "initial_failures_preserved": [
+    {
+      "suite": "ui_small_windows",
+      "exit_code": 0,
+      "passed": false,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 18.908,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "character_selection",
+      "passed": false,
+      "error": "60-second timeout",
+      "seconds": 60.105,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "debug_characters",
+      "passed": false,
+      "error": "60-second timeout",
+      "seconds": 60.085,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "spider_visibility_scene",
+      "exit_code": 1,
+      "passed": false,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.124,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "spider_motion_scene",
+      "passed": false,
+      "error": "60-second timeout",
+      "seconds": 60.086,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "brood",
+      "exit_code": 1,
+      "passed": false,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.619,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "tooltip_theme",
+      "exit_code": 1,
+      "passed": false,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.135,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "presentation",
+      "exit_code": 1,
+      "passed": false,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.425,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-20261025-baseline.json"
+    },
+    {
+      "suite": "cave_sweep_clipping",
+      "passed": false,
+      "error": "90-second timeout",
+      "seconds": 90.049,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-extra-20261025.json"
+    },
+    {
+      "suite": "egg_visual_batch",
+      "passed": false,
+      "error": "90-second timeout",
+      "seconds": 90.079,
+      "isolated_user_data": true,
+      "mode": "headless",
+      "report": "artifacts/bug-audit-extra-20261025.json"
+    },
+    {
+      "suite": "character_ui_integration",
+      "exit_code": 0,
+      "passed": false,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.525,
+      "isolated_user_data": true,
+      "mode": "render",
+      "report": "artifacts/bug-audit-render-20261025.json"
+    }
+  ],
+  "source_sha256": {
+    "scripts/build_chain_ui.gd": "47a423332b524aa3653c9daee434bfa2d11bb1a3a1cb3c831c9ccedf50e5ce55",
+    "scripts/combat.gd": "f0604833a499d62377d6603a182696cc9918f95ba6b2af3d5c5232e7235bc6f9",
+    "scripts/game_ui.gd": "b9a4cf1fbafd7ecc1bfec9fcb42c325881511c91191287bdd0542245540d55d2",
+    "scripts/input_system.gd": "70e3bd794dbd3d9b74786eeedfe30b6340b5bb904a27cb3de752e3bcad123f92",
+    "scripts/main.gd": "9c91f56228536c25300aba26e99c61537d452c971e27265d66006c2902e7d29e",
+    "scripts/mission_select.gd": "9a12bebd3fc9bd8779a5c052a83b30609e39903c354553aad352ed8cdf1a4206",
+    "scripts/research_ui.gd": "d22a38ed78f7bd16a5ba679945c6229e6cbcd05ad091145099662b7d29e10322",
+    "scripts/reward_choice.gd": "ff1055b16d6b7278814624e448a8b9bb185418a964cb992d7e064b1f303886c2",
+    "scripts/reward_pool_ui.gd": "303464c6e68a962f674ff0a7a126e63ed30538c6146537fea1b3fc29bd962a19",
+    "scripts/save_store.gd": "019987190ca38223935fee986fb5b338bf6d7585925102c81a86c32eb71a7786",
+    "scripts/windows_review_probe.gd": "4e482c044b117473d4cc212aa8d98368bb478b892f9a7d31dd49426faa358c93",
+    "tests/test_assembly_lifecycle.gd": "28601ccd4f9fd3577ed04ee6739e94075d06271a7d3a96e29616345a7055c671",
+    "tests/test_brood.gd": "1d7b57e8aa1920a44149afe4036a4318c95924eaaae0416ce1214158b89bfa63",
+    "tests/test_character_selection.gd": "e286b72045a818ff8e386b35b2320712cd1961321e3b16dcf9ed8c73366ea8af",
+    "tests/test_combat_lifecycle.gd": "2240b45b468b014d664459aec08e49cdc45fdba2a62a4e9505377c07f0936bff",
+    "tests/test_controller.gd": "54138f66b3d4fecbeddcb5b2ccc9eab178dbca2fe2e171df481a511fd40549d3",
+    "tests/test_presentation.gd": "ad2d0b5db5666a5061aa3a88c975fd9bd659661516a132d4b4b7aef098dd4608",
+    "tests/test_reward_lifecycle.gd": "8de9711cbd354268d1318ed4c593ddf8d3f218c46271c21defc3962ad04c7bae",
+    "tests/test_save_integrity.gd": "d74e4299d04af35fee6db31e6091a940b580bbff0338573a773867d400a7c9b1",
+    "tests/test_settings_flow.gd": "eaf83dcbd57b8e79f700eb66ad7f95b57826c1b611ac97f832a71c0d8049c9a5",
+    "tests/test_spider_motion_scene.gd": "69ab756b2dbdcaa62b104d46461bb86dd15712640e2d491f907795a2a3642a68",
+    "tests/test_spider_turn_scene.gd": "8f52343fac2a4184b8bd57fe9bb53903317970494cb255b8513061e4d25e0c54",
+    "tests/test_spider_visibility_scene.gd": "02da503ed764f89871fca46366a8ce44bd55f83bb96ba48ae06ab60bf114999c",
+    "tests/test_tooltip_theme.gd": "a08d6f80590c67bd9eedd5b7472bdc6ae52eea6b538d1fff4a0da22e186dde24",
+    "tests/test_ui_save_failures.gd": "89418b02d32d09d34aad322d01971540bd82d3257800d32908ccf437d8f5128c",
+    "tools/run_checks.py": "073c0c4c8f71e3929c3dea395b8f05ecca46902087af5f187b090158480f8402"
+  },
+  "test_maintenance": [
+    "角色选择/Windows验证探针改为定位当前虫巢按钮，保持真实鼠标点击。",
+    "手柄与蜘蛛场景测试等待真实异步部署完成；未降低原像素或动作断言。",
+    "Debug解锁校验区分有效奖励与已退役奖励。",
+    "武器美术检查扩展为现有15个家族的精确图集、边界、可见像素与唯一性检查；研究焦点检查验证当前可视区域。",
+    "洞穴精确碰撞套件从90秒上限调至180秒复核，112.519秒完成；4800次比较零差异。",
+    "虫卵批绘套件依赖frame_post_draw，headless超时后改用原生渲染并通过。"
+  ],
+  "scope_and_limits": [
+    "使用临时隔离存档并核对实际user目录，没有修改玩家真实进度。",
+    "最终结果为完整首轮、修复后定向复测和原生渲染复核合并；原始失败/超时记录保留。",
+    "无REA调用或服务。保留工程中已有未提交更改和外部并发改动。",
+    "源工程修复；未重新导出Windows EXE。重启源工程游戏后生效。",
+    "未验收实体双手柄、在线服务、全任务人工通关或长时间性能稳定性；不声称绝对零bug。",
+    "Windows证书存储不可读警告在原始日志保留；纯本地套件按已有runner规则单独记录。"
+  ]
+}

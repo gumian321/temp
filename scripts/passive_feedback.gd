@@ -21,6 +21,8 @@ var draw_count=0
 var enemy_shield_states:Dictionary={}
 var transitions:Dictionary={}
 var seen_events=0
+var cached_stats:Dictionary={}
+var cached_language=""
 var living=preload("res://scripts/living_passive_layer.gd").new()
 
 func setup(owner:Node):
@@ -74,9 +76,11 @@ func tick(game,dt:float):
  if not is_instance_valid(card):return
  stat_readout.visible=game.screen=="game" and not game.player.stats.is_empty()
  stat_readout.position=Vector2(24,game.get_viewport_rect().size.y-57)
- var stats=stat_fragments(game.db,game.player.stats)
- stat_readout.text="  ·  ".join(stats.slice(0,3))+("  +%d"%(stats.size()-3) if stats.size()>3 else "")
- stat_readout.tooltip_text="\n".join(stats)
+ if cached_stats!=game.player.stats or cached_language!=game.db.language:
+  cached_stats=game.player.stats.duplicate();cached_language=game.db.language
+  var stats=stat_fragments(game.db,game.player.stats)
+  stat_readout.text="  ·  ".join(stats.slice(0,3))+("  +%d"%(stats.size()-3) if stats.size()>3 else "")
+  stat_readout.tooltip_text="\n".join(stats)
  card.visible=not notices.is_empty() and game.screen in ["game","build","rewards"]
  if not card.visible:return
  var event:Dictionary=notices[0].event
@@ -93,7 +97,8 @@ func tick(game,dt:float):
  if str(event.get("reward_class","")).ends_with("LevelUpReward"):
   description+="\n"+upgrade_summary(game.db,game.db.asset(event.reward_id))
  detail.text=description
- heading.add_theme_color_override("font_color",UI.AMBER if status in ["pending_module","pending_charge","dormant"] else UI.TEXT)
+ var heading_color=UI.AMBER if status in ["pending_module","pending_charge","dormant"] else UI.TEXT
+ if heading.get_theme_color("font_color")!=heading_color:heading.add_theme_color_override("font_color",heading_color)
  card.size=Vector2(400,0)
  card.position=Vector2(24,game.get_viewport_rect().size.y-maxf(70,card.get_combined_minimum_size().y)-72)
  card.modulate.a=minf(1,float(notices[0].left)*3)
@@ -306,7 +311,7 @@ func paint_enemy_shields(canvas,combat,zoom:float):
 
 static func stat_name(db,key:String)->String:
  if key.is_valid_float():key=str(int(key.to_float()))
- var names={"2":["Weapon rate","武器射速"],"3":["Weapon range","武器射程"],"10":["Head health","头部耐久"],"11":["Move speed","移动速度"],"12":["Boost speed","推进速度"],"13":["Head rate","头部射速"],"14":["Head damage","头部伤害"],"15":["Weapon damage","武器伤害"],"16":["Segment health","体节耐久"],"17":["Head range","头部射程"]}
+ var names={"2":["Weapon rate","武器射速"],"3":["Weapon range","武器射程"],"10":["Head health","头部耐久"],"11":["Move speed","移动速度"],"12":["Boost speed","加速速度"],"13":["Head rate","头部射速"],"14":["Head damage","头部伤害"],"15":["Weapon damage","武器伤害"],"16":["Segment health","体节耐久"],"17":["Head range","头部射程"]}
  var pair=names.get(key,[key,key]);return db.ui(pair[0],pair[1])
 
 static func stat_fragments(db,stats:Dictionary)->PackedStringArray:
@@ -318,14 +323,14 @@ static func stat_fragments(db,stats:Dictionary)->PackedStringArray:
 
 static func upgrade_summary(db,reward:Dictionary)->String:
  if reward.has("mutation_branch"):return preload("res://scripts/mutation_branches.gd").brief(db,reward)
- var fields={"CoreHealthPercent":["Durability","耐久"],"DamagePercent":["Damage","伤害"],"RateOfFirePercent":["Fire rate","射速"],"RangePercent":["Range","射程"],"ShieldHealthPercent":["Shield capacity","护盾容量"],"ShieldRechargeRatePercent":["Shield recharge","护盾回复"],"ShieldRechargeDelayPercent":["Recharge delay","回复延迟"],"ShieldRangePercent":["Shield radius","护盾半径"],"TankCapacityPercent":["Fuel capacity","燃料容量"],"maxMinesCountPercent":["Mine capacity","地雷上限"],"minesRechargeRatePercent":["Mine reload time","布雷间隔"],"enginePowerPercent":["Drone speed","无人机速度"],"efficiencyPercent":["Drone efficiency","无人机效率"],"rangePercent":["Drone range","无人机范围"]}
+ var fields={"CoreHealthPercent":["Durability","耐久"],"DamagePercent":["Damage","伤害"],"RateOfFirePercent":["Fire rate","射速"],"RangePercent":["Range","射程"],"ShieldHealthPercent":["Shield capacity","护盾容量"],"ShieldRechargeRatePercent":["Shield recharge","护盾回复"],"ShieldRechargeDelayPercent":["Recharge delay","回复延迟"],"ShieldRangePercent":["Shield radius","护盾半径"],"TankCapacityPercent":["Fuel capacity","燃料容量"],"maxMinesCountPercent":["Mine capacity","地雷上限"],"minesRechargeRatePercent":["Mine reload time","布雷间隔"],"enginePowerPercent":["Swarm speed","虫群速度"],"efficiencyPercent":["Swarm efficiency","虫群效率"],"rangePercent":["Swarm range","虫群范围"]}
  var parts=PackedStringArray()
  for key in fields:
   if not reward.has(key) or is_zero_approx(float(reward[key])):continue
   if reward.get("name")=="Reward_LevelUP_MineSpawner" and key=="maxMinesCountPercent":continue
   if reward.get("name")=="Reward_LevelUP_Gun_FlameThrower" and key=="RateOfFirePercent":continue
   parts.append(db.ui(fields[key][0],fields[key][1])+" %+.0f%%"%(float(reward[key])*100))
- if reward.get("addDronesCount",0)!=0:parts.append(db.ui("Bay drones +%d","巢内无人机 +%d")%int(reward.addDronesCount))
+ if reward.get("addDronesCount",0)!=0:parts.append(db.ui("Nest companions +%d","巢内虫群 +%d")%int(reward.addDronesCount))
  return " · ".join(parts)
 
 static func action_name(db,action:String)->String:

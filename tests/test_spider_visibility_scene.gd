@@ -68,6 +68,13 @@ func execute():
 	game.set_process(false)
 	check(game.save.state.selected_character == "spider", "Restart reads saved spider selection")
 	game.begin_run()
+	var deployment_deadline = Time.get_ticks_msec() + 30000
+	while game.deployment_active and Time.get_ticks_msec() < deployment_deadline: await process_frame
+	var deployment_ready = not game.deployment_active and game.screen == "game" and game.run != null
+	check(deployment_ready, "Production spider deployment completes within 30 seconds")
+	if not deployment_ready:
+		quit(1)
+		return
 	game.set_process(false)
 	game.camera_focus.clear()
 	game.combat.enemies.clear()

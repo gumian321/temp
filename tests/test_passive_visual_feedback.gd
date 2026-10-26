@@ -80,11 +80,12 @@ func execute():
  check(game.passive_fx.notices.is_empty() and not game.passive_fx.card.visible,"Entering assembly removes a queued install toast")
  game.screen="game"
  var view=load("res://scripts/reward_choice.gd").new();view.game=game
- var classes={};var mapped=0
+ var classes={};var mapped=0;var added=0
  for reward in game.db.catalog.values():
   if reward.get("class","") not in load("res://scripts/reward_feedback_state.gd").CLASSES:continue
   check(not view.effect_text(reward).strip_edges().is_empty(),"Truthful text mapping "+reward.name);classes[reward["class"]]=true;mapped+=1
- check(mapped==129 and classes.size()==12,"Complete source reward class mapping")
+  if reward.get("project_added",false):added+=1
+ check(mapped-added==129 and classes.size()==12,"Complete source reward class mapping, plus project-added mutations")
  view.free()
  check(game.passive_fx.textures.size()==6,"Six generated overlays cached")
  game.cursor_system.shutdown();game.audio_system.shutdown();game.particle_effects.clear();game.queue_free();await settle()

@@ -5,6 +5,9 @@ var failures=0
 class Canvas extends RefCounted:
  func world(at):return at
  func get_viewport_rect():return Rect2(0,0,1920,1080)
+class CountedFX extends "res://scripts/weapon_fx.gd":
+ var submitted:Array=[]
+ func paint_effect(_canvas,effect:Dictionary,_zoom:float):submitted.append(effect)
 func check(ok:bool,label:String):
  if not ok:failures+=1;printerr("FAIL: "+label)
 func _initialize():call_deferred("run")
@@ -30,6 +33,15 @@ func run():
  check(fx.hazard_effects.is_empty() and fx.major_effects.is_empty() and fx.minor_effects.is_empty(),"Cleared effects leave no stale references")
  check(fx.visible(Canvas.new(),Vector2(1850,1030),0),"Wide/tall viewports do not cull visible bullets")
  check(not fx.visible(Canvas.new(),Vector2(2100,1200),0),"Offscreen points are culled against actual viewport")
+ check(fx.effect_visible(Canvas.new(),{"kind":"chain","position":Vector2(-1000,500),"end":Vector2(3000,500)},1),"Cross-screen beam remains visible with both endpoints offscreen")
+ check(not fx.effect_visible(Canvas.new(),{"kind":"chain","position":Vector2(-1000,-300),"end":Vector2(3000,-300)},1),"Entirely offscreen beam is culled")
+ check(fx.effect_visible(Canvas.new(),{"kind":"flame","position":Vector2(-600,-300),"end":Vector2(2200,-300),"curve":PackedVector2Array([Vector2(-600,-300),Vector2(800,200),Vector2(2200,-300)])},1),"Bending flame uses its full curve, not just endpoint bounds")
+ var counted=CountedFX.new();counted.use_mine_batches=false
+ var heavy_effects=[]
+ for i in 440:heavy_effects.append({"kind":"chain" if i<200 else "hit","friendly":i>=200,"position":Vector2(500,500),"end":Vector2(600,500)})
+ counted.paint(Canvas.new(),{"effects":heavy_effects,"special":{"mines":[],"black_holes":[]}},0,1)
+ check(counted.submitted.filter(func(e):return not e.friendly).size()==200,"Hostile beams survive decorative effect saturation")
+ check(counted.submitted.filter(func(e):return e.friendly).size()==FX.MAX_TRANSIENTS,"Friendly effect detail stays bounded")
  check(Art.family({"fx_family":"rocket","data":{"name":"gatling"}})=="rocket","Explicit visual family wins")
  check(Art.family({"data":{"name":"Core_Gun_Cannon"}})=="cannon","Uncached fallback family resolves")
  print("RENDER_HOTPATH_REGRESSIONS "+("PASS" if failures==0 else "FAIL"));quit(0 if failures==0 else 1)

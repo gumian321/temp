@@ -3,6 +3,7 @@ extends Control
 const UI=preload("res://scripts/game_ui.gd")
 const CharcoalArt=preload("res://scripts/charcoal_art.gd")
 const EncounterArt=preload("res://scripts/encounter_art.gd")
+const Radar=preload("res://scripts/tactical_radar.gd")
 const INK=Color("efede4")
 const QUIET=Color("aba9a3")
 const PAPER=Color("080808")
@@ -93,10 +94,10 @@ func setup(owner_game):
  set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);mouse_filter=MOUSE_FILTER_IGNORE
  mission=label(self,game.db.title(game.selected_mission),13);mission.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
  health=meter("armor",TEAL,Vector2(244,38));health.tooltip_text=tr_text("甲壳耐久","Carapace integrity")
- fuel=meter("fuel",AMBER,Vector2(198,23));fuel.tooltip_text=tr_text("推进燃料","Boost fuel")
+ fuel=meter("fuel",AMBER,Vector2(198,23));fuel.tooltip_text=tr_text("加速能量","Boost energy")
  danger=meter("threat",AMBER,Vector2(136,23));danger.tooltip_text=tr_text("威胁等级","Threat level")
  modules=meter("body",TEAL,Vector2(96,30));modules.tooltip_text=tr_text("体节 / 上限","Body segments / limit")
- drones=meter("drone",AMBER,Vector2(90,30));drones.tooltip_text=tr_text("蜂群 / 上限","Head drones / limit")
+ drones=meter("drone",AMBER,Vector2(90,30));drones.tooltip_text=tr_text("蜂群 / 上限","Head companions / limit")
  timer=label(self,"",24);timer.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
  counters=label(self,"",12);counters.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;counters.tooltip_text=tr_text("补给箱 · 零件","Supply packs · scrap")
  build_button=ArmoryButton.new();add_child(build_button);build_button.size=Vector2(60,42);build_button.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND;build_button.pressed.connect(game.show_build);build_button.tooltip_text=tr_text("武装 [E]","Armory [E]")
@@ -108,7 +109,7 @@ func setup(owner_game):
   build_button.add_theme_stylebox_override(state,style)
  build_button.size=Vector2(60,42)
  radar_label=label(self,tr_text("扫描   TAB","SCAN   TAB"),11)
- keys=label(self,tr_text("WASD  移动    ⇧  推进    ESC  暂停","WASD  MOVE    ⇧  BOOST    ESC  PAUSE"),11)
+ keys=label(self,tr_text("WASD  移动    ⇧  加速    ESC  暂停","WASD  MOVE    ⇧  BOOST    ESC  PAUSE"),11)
  skill_icon=TextureRect.new();skill_icon.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;skill_icon.texture=UI.icon_texture("evolution");skill_icon.material=UI.icon_material();skill_icon.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;skill_icon.mouse_filter=MOUSE_FILTER_IGNORE;skill_icon.size=Vector2(42,42);add_child(skill_icon)
  skill_label=label(self,"",16)
  streak_label=label(self,"",20);streak_detail=label(self,"",12)
@@ -135,7 +136,8 @@ func layout_hud():
  counters.position=Vector2(size.x/2-95,71);counters.size=Vector2(190,23)
  modules.position=Vector2(size.x-284,34);drones.position=Vector2(size.x-182,34)
  build_button.position=Vector2(size.x-74,28)
- radar_label.position=Vector2(size.x-182,size.y-257);radar_label.size=Vector2(142,18)
+ var radar_bounds=Radar.bounds(size)
+ radar_label.position=radar_bounds.position+Vector2(18,-22);radar_label.size=Vector2(radar_bounds.size.x-24,18)
  var skill_bounds=skill_panel_rect()
  skill_icon.position=skill_bounds.position+Vector2(12,8);skill_label.position=skill_bounds.position+Vector2(62,16);skill_label.size=Vector2(skill_bounds.size.x-92,30)
  skill_label.add_theme_font_size_override("font_size",14 if skill_bounds.size.x<360 else 16);skill_label.clip_text=true;skill_label.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
@@ -171,7 +173,8 @@ func _draw():
  for rect in instrument_backings():plate(rect)
  plate(skill_panel_rect())
  plate(Rect2(12,size.y-39,414,32))
- plate(Rect2(size.x-212,size.y-261,192,28))
+ var radar_bounds=Radar.bounds(size)
+ plate(Rect2(radar_bounds.position-Vector2(2,26),Vector2(radar_bounds.size.x+12,28)))
  if is_instance_valid(streak_label) and streak_label.visible:
   var narrow=size.x<1100
   plate(Rect2(12,106,216 if narrow else 308,68))
@@ -202,7 +205,7 @@ func refresh():
  health.reading(p.parts[0].hp,p.parts[0].max_hp,"%d / %d"%[maxf(0,p.parts[0].hp),maxf(0,p.parts[0].max_hp)] if p.parts[0].max_hp>0 else "—")
  var percent=roundi(maxf(0,p.fuel)/p.max_fuel*100) if p.max_fuel>0 else 0
  fuel.visible=p.max_fuel>0
- fuel.reading(p.fuel,p.max_fuel,"%d%%"%percent if p.max_fuel>0 else tr_text("未装燃料箱","NO TANK"))
+ fuel.reading(p.fuel,p.max_fuel,"%d%%"%percent if p.max_fuel>0 else tr_text("未装蜜囊","NO NECTAR SAC"))
  danger.reading(run.heat,1.0,"%d%%"%roundi(maxf(0,run.heat)*100))
  modules.capacity(p.parts.size()-1,p.module_cap(),"∞")
  var count=0
@@ -233,8 +236,10 @@ func refresh():
  encounter_hint.visible=encounter_label.visible
  encounter_label.text=encounter.title(encounter.event_type)
  encounter_hint.text=encounter.notice if encounter.notice_left>0 else encounter.hint(encounter.event_type)
+ if encounter.phase=="warning":
+  encounter_label.text+=tr_text(" · 等待出现"," · WAITING") if encounter.warning_waiting else tr_text(" · 即将出现"," · INCOMING")
+  if encounter.warning_waiting:encounter_hint.text=tr_text("远离地面标记，敌人将在原位出现","Move away from the markers; enemies will arrive at those positions")
  for field in [streak_label,streak_detail,encounter_label,encounter_hint]:field.tooltip_text=field.text
- if encounter.phase=="warning":encounter_label.text+=tr_text(" · 即将出现"," · INCOMING")
  supplies.visible=run.packs>0 or not p.pending.is_empty()
  var build_key="B" if game.joy_ui else OS.get_keycode_string(int(game.save.state.settings.bindings.get("build",KEY_E)))
  supplies.text=tr_text("补给 ×%d · 待装 %d  [%s]","Supply ×%d · Pending %d  [%s]")%[run.packs,p.pending.size(),build_key]
@@ -249,14 +254,14 @@ func refresh_escort():
   if was_visible:queue_redraw()
   return
  escort_progress=brief.progress
- escort_title.text=tr_text("护航 · 商队 %d/%d  · 路程 %d%%  · 剩余 %d米","ESCORT · %d/%d  · %d%%  · %dm LEFT")%[brief.alive,brief.total,roundi(brief.progress*100),ceili(brief.distance/48)]
+ escort_title.text=tr_text("护航 · 迁徙虫群 %d/%d  · 路程 %d%%  · 剩余 %d米","ESCORT · %d/%d  · %d%%  · %dm LEFT")%[brief.alive,brief.total,roundi(brief.progress*100),ceili(brief.distance/48)]
  match brief.state:
-  "far":escort_status.text=tr_text("离队等待 · 返回商队旁（当前 %.1f米 / 范围 %.1f米）","WAITING · Return to convoy (%.1fm / %.1fm range)")%[brief.separation/48,brief.range/48]
-  "regroup","blocked":escort_status.text=tr_text("等待领航 · 回到商队旁，沿已打通的路带队","REGROUP · Return to convoy and lead along an open tunnel")
-  "ready":escort_status.text=tr_text("商队已集合 · 向终点箭头方向移动，带队开路","READY · Move toward the safe-zone arrow to lead the convoy")
-  "arriving":escort_status.text=tr_text("正在进站 · 留在商队附近，守住最后一段路","ARRIVING · Stay close and defend the last stretch")
-  _:escort_status.text=tr_text("正在跟随 · 保持靠近，清理沿路敌人","FOLLOWING · Stay close and clear enemies ahead") if brief.cave else tr_text("正在护送 · 靠近商队，它会自动前往终点","ESCORTING · Stay close while the convoy advances")
+  "far":escort_status.text=tr_text("离队等待 · 返回迁徙虫群旁（当前 %.1f米 / 范围 %.1f米）","WAITING · Return to brood (%.1fm / %.1fm range)")%[brief.separation/48,brief.range/48]
+  "regroup","blocked":escort_status.text=tr_text("等待领航 · 回到迁徙虫群旁，沿已打通的路带队","REGROUP · Return to brood and lead along an open tunnel")
+  "ready":escort_status.text=tr_text("迁徙虫群已集合 · 向终点箭头方向移动，带队开路","READY · Move toward the safe-zone arrow to lead the brood")
+  "arriving":escort_status.text=tr_text("正在进入安全区 · 留在迁徙虫群附近，守住最后一段路","ARRIVING · Stay close and defend the last stretch")
+  _:escort_status.text=tr_text("正在跟随 · 保持靠近，清理沿路敌人","FOLLOWING · Stay close and clear enemies ahead") if brief.cave else tr_text("正在护送 · 靠近迁徙虫群，它会自动前往终点","ESCORTING · Stay close while the brood advances")
  if brief.state=="moving" and brief.separation>brief.range*.75:
-  escort_status.text=tr_text("商队落后 · 放慢速度，超过 %.1f米会停下","SLOW DOWN · Convoy stops beyond %.1fm")%[brief.range/48]
- escort_rule.text=tr_text("绿色标记为商队 · 至少一艘抵达获胜，全部损失失败","Green markers: convoy · Deliver one to win; lose all and fail")
+  escort_status.text=tr_text("迁徙虫群落后 · 放慢速度，超过 %.1f米会停下","SLOW DOWN · Brood stops beyond %.1fm")%[brief.range/48]
+ escort_rule.text=tr_text("绿色标记为迁徙虫群 · 至少一只护送虫抵达获胜，全部损失失败","Green markers: brood · Deliver one to win; lose all and fail")
  if was_visible!=escort_title.visible or not is_equal_approx(previous,escort_progress):queue_redraw()

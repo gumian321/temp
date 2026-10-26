@@ -38,11 +38,15 @@ func _initialize():
 	check(director.phase == "quiet" and r.combat.enemies.is_empty(), "Opening grace period spawns no special enemies")
 	director.step(.2)
 	check(director.phase == "warning" and r.combat.enemies.is_empty(), "Encounter begins with a visible warning before actors exist")
+	var marked = director.markers.duplicate()
 	r.player.head = director.markers[0]; r.player.refresh_positions()
 	director.step(2)
-	check(r.combat.enemies.is_empty() and director.warning_left > 0, "Moving onto a spawn marker relocates it and restarts the warning")
+	check(r.combat.enemies.is_empty() and director.warning_waiting and director.markers == marked, "Approaching a spawn marker waits at the promised positions without contact spawning")
 	director.step(2)
+	check(director.markers == marked and director.warning_waiting, "Remaining near a marker does not move either warning")
+	r.player.head = Vector2.ZERO; r.player.refresh_positions(); director.step(.01)
 	check(director.phase == "active" and not director.live_specials().is_empty(), "Safe warning completion spawns the announced event")
+	check(director.live_specials().size() == marked.size() and director.live_specials().all(func(e): return marked.has(e.position)), "Leaving the warning spawns every announced enemy exactly at its marker")
 	r = fixture(); director = r.encounters; director.next_in = 0
 	r.player.parts[0].hp = r.player.parts[0].max_hp * .3
 	director.step(1)
@@ -53,7 +57,7 @@ func _initialize():
 	check(director.phase == "quiet", "Nearby bosses suppress additional special pressure")
 	r.combat.enemies.clear(); director.start_warning("charger")
 	r.director.boss_pause = 3; director.step(1)
-	check(director.phase == "quiet" and director.markers.is_empty(), "Boss recovery cancels a pending warning safely")
+	check(director.phase == "quiet" and director.markers.is_empty() and director.notice_left > 0 and director.notice.contains("取消"), "Boss recovery cancels a pending warning with an explicit visible reason")
 	r = fixture(); director = r.encounters
 	var template: Dictionary = db.entities[db.pool["250"]][0]
 	var source = template.duplicate(true)
@@ -105,7 +109,11 @@ func _initialize():
 	for i in range(20): director.spawn_special("hatchling", Vector2(500 + i, 0))
 	check(director.live_specials().size() == director.MAX_SPECIALS, "Hard special-actor cap bounds splitting and spawn load")
 	r.combat.enemies.clear()
-	for i in range(director.ENEMY_BUDGET): r.combat.spawn(db.pool["250"], Vector2(2500 + i, 0))
+	director.start_warning("charger")
+	for i in range(director.ENEMY_BUDGET - 1): r.combat.spawn(db.pool["250"], Vector2(2500 + i, 0))
+	director.step(director.WARNING_TIME)
+	check(director.phase == "quiet" and director.notice_left > 0 and director.live_specials().is_empty(), "A filled budget cancels visibly instead of spawning only half a promised pair")
+	r.combat.spawn(db.pool["250"], Vector2(2600, 0))
 	check(director.spawn_special("charger", Vector2(500, 0)).is_empty() and not director.safe_to_start(), "Global pressure cap prevents surplus encounter actors")
 	for e in r.combat.enemies: e.kind = "Asteroid"
 	check(director.safe_to_start(), "Static map props do not permanently suppress surprise encounters")

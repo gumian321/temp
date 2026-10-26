@@ -171,7 +171,7 @@ func make_part(id: String, cell: Vector2i) -> Dictionary:
 
 func add_piece(id: String, cell: Vector2i) -> bool:
 	if parts.size() >= int(db.stores.PlayerDataStore.maxBuiltCores) + 1:
-		last_error = db.ui("Maximum parts reached", "身体已装满，最多可安装60座炮塔或模块")
+		last_error = db.ui("Maximum parts reached", "身体已装满，最多可安装60个器官或模块")
 		return false
 	if not can_place(cell):
 		return false
@@ -342,8 +342,17 @@ func refresh_body_poses():
 
 var support_tick=false
 var support_indices:Array=[]
+var support_has_chips=false
+var support_upgrade_cache:Dictionary={}
+var use_upgrade_cache=OS.get_environment("RBPEW_LEGACY_UPGRADE_CACHE")!="1"
+var use_chip_fastpath=OS.get_environment("RBPEW_LEGACY_EQUIPMENT_CACHE")!="1"
 func begin_support_tick():
+	support_upgrade_cache.clear()
 	support_indices = [0] + body_part_indices()
+	support_has_chips=false
+	if use_chip_fastpath:
+		for part in parts:
+			if db.asset(part.id).has("coreChip"):support_has_chips=true;break
 	support_tick=true
 func end_support_tick():
 	support_tick=false
@@ -366,6 +375,7 @@ func chips(index: int) -> Dictionary:
 	var result = {}
 	if index == 0:
 		return result
+	if use_chip_fastpath and support_tick and not support_has_chips:return result
 	var c: Dictionary = db.asset(parts[index].id)
 	if not c.get("isChipable", false):
 		return result
@@ -395,14 +405,20 @@ func blueprint() -> Array:
 	return result
 
 func upgrade_bonus(id: String, field: String) -> float:
+	if use_upgrade_cache and levels.is_empty():return 0.0
+	if use_upgrade_cache and support_tick and support_upgrade_cache.has(id) and support_upgrade_cache[id].has(field):return support_upgrade_cache[id][field]
 	var value = 0.0
 	for reward_id in levels:
 		var reward: Dictionary = db.asset(reward_id)
 		if id in reward.get("coresList", []) or id in reward.get("dronesList", []):
 			value += float(reward.get(field, 0)) * int(levels[reward_id])
+	if use_upgrade_cache and support_tick:
+		if not support_upgrade_cache.has(id):support_upgrade_cache[id]={}
+		support_upgrade_cache[id][field]=value
 	return value
 
 func refresh_upgrades():
+	support_upgrade_cache.clear()
 	update_fuel_capacity()
 	for i in range(parts.size()):
 		var p: Dictionary = parts[i]

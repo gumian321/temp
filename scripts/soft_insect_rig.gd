@@ -32,6 +32,15 @@ var walk_amount=0.0
 var gait_speed=0.0
 var display_heading=0.0
 var compact_pose=false
+var pose_visibility_ready=false
+var last_hit_flash=-1.0
+var last_pressure=-1.0
+var last_contact_uv=Vector2.INF
+var last_tint=Color(-1,-1,-1,-1)
+var anatomy_detached=false
+var use_compact_tree_cache=OS.get_environment("RBPEW_LEGACY_COMPACT_TREE")!="1"
+var compact_stable_time=0.0
+var anatomy_key:Array=[]
 var compact_sprite:Sprite2D
 static var compact_material:ShaderMaterial
 static var skin_weight_cache:Dictionary={}
@@ -108,12 +117,17 @@ func _skin_weights(p:Vector2)->Array:
 	cached[p]=result
 	return result
 
+static func actor_art(actor:Dictionary)->Texture2D:
+	var source=preload("res://scripts/encounter_art.gd").actor_texture(actor)
+	return source if source!=null else Brood.texture("enemy_"+Brood.species(actor)).atlas
+
+static func reuse_key(actor:Dictionary)->Array:return [Brood.species(actor),actor_art(actor).get_rid()]
+
 func setup(actor:Dictionary):
 	entity=actor;Soft.prepare(entity)
 	rest_points=entity.soft_body.rest
 	var species=Brood.species(entity)
-	art=preload("res://scripts/encounter_art.gd").actor_texture(entity)
-	if art==null:art=Brood.texture("enemy_"+species).atlas
+	art=actor_art(entity);anatomy_key=[species,art.get_rid()]
 	aspect=art.get_size()/maxf(art.get_width(),art.get_height())
 	var anatomy:Dictionary=Anatomy.definition(species)
 	hit_material=ShaderMaterial.new();hit_material.shader=HitShader;hit_material.resource_local_to_scene=true
@@ -145,6 +159,28 @@ func setup(actor:Dictionary):
 	if compact_material==null:
 		compact_material=ShaderMaterial.new();compact_material.shader=preload("res://shaders/distant_insect.gdshader")
 	compact_sprite.material=compact_material;compact_sprite.visible=false;add_child(compact_sprite)
+
+func reuse(actor:Dictionary):
+	# Same artwork, geometry and bone hierarchy. Reset every presentation state
+	# that a newly constructed rig starts with; simulation stays on the new actor.
+	set_anatomy_parked(false)
+	entity=actor;Soft.prepare(entity);rest_points=entity.soft_body.rest
+	death_age=0;death_rest_scale=Vector2.ONE;gait=0;walk_amount=0;gait_speed=0
+	visual_offset=Vector2.ZERO;visual_angle=0;compact_pose=false;compact_stable_time=0
+	pose_visibility_ready=false;last_hit_flash=-1;last_pressure=-1;last_contact_uv=Vector2.INF;last_tint=Color(-1,-1,-1,-1)
+	modulate=Color.WHITE;rotation=0;scale=Vector2.ONE
+	mesh.transform=Transform2D.IDENTITY;limb_skeleton.transform=Transform2D.IDENTITY;hit_fx.transform=Transform2D.IDENTITY
+	for bone in bones:bone.transform=bone.rest
+	reset_limb_rest(limb_skeleton)
+	legs.clear();wings.clear();feelers.clear();_bind_appendages()
+	hit_fx.setup(entity.soft_body);hit_fx.visible=false
+	set_appendage_batch_enabled(true)
+	compact_sprite.visible=false;compact_sprite.position=Vector2.ZERO;compact_sprite.self_modulate=Color.WHITE
+
+func reset_limb_rest(node:Node):
+	for child in node.get_children():
+		if child is Bone2D:child.transform=child.rest
+		reset_limb_rest(child)
 
 func _flipped(p:Vector2,side:int)->Vector2:return p if side<0 else Vector2(1-p.x,p.y)
 func _flipped_polygon(p:PackedVector2Array,side:int)->PackedVector2Array:return p if side<0 else Anatomy.mirror(p)
@@ -196,6 +232,7 @@ func _build_hinge(kind:String,pivot:Vector2,region:PackedVector2Array,body:Packe
 func _bind_appendages():
 	previous_position=entity.position;previous_angle=float(entity.angle)+PI/2;display_heading=previous_angle
 	for node in limb_skeleton.get_children():
+		if not node is Bone2D or not node.has_meta("anchor"):continue
 		var anchor:Vector2=node.get_meta("anchor")
 		var item={"node":node,"anchor":anchor,"weights":_skin_weights(anchor/aspect),"side":int(node.get_meta("side"))}
 		match node.get_meta("type"):
@@ -262,10 +299,13 @@ func _pose_leg(item:Dictionary,moving:bool,travel:Vector2,dt:float):
 func pose(dt:float,dying:bool=false,compact:bool=false):
 	if mesh==null:return
 	compact=compact and not dying
+	compact_stable_time=compact_stable_time+maxf(0,dt) if compact else 0.0
+	set_anatomy_parked(compact and use_compact_tree_cache and compact_stable_time>=.2)
 	var changed_detail=compact_pose!=compact
 	compact_pose=compact
-	if compact_sprite!=null:
+	if compact_sprite!=null and (changed_detail or not pose_visibility_ready):
 		compact_sprite.visible=compact;mesh.visible=not compact;limb_skeleton.visible=not compact;hit_fx.visible=not compact
+		pose_visibility_ready=true
 	var state:Dictionary=entity.soft_body
 	if dying:
 		if death_age==0.0:death_rest_scale=scale
@@ -315,6 +355,7 @@ func pose(dt:float,dying:bool=false,compact:bool=false):
 	var push:Vector2=state.direction;var side=push.orthogonal()
 	var squeeze=minf(.26,float(state.shock)*.20)
 	var center=Vector2(0,rest_points[7].y)*aspect
+	var has_push=state.has("push_strain");var has_pull=state.has("pull_strain")
 	for i in bones.size():
 		var rest:Vector2=rest_points[i]
 		var belly=smoothstep(.10,.5,(i/3)/4.0)
@@ -326,14 +367,14 @@ func pose(dt:float,dying:bool=false,compact:bool=false):
 		var collapse=Vector2(rest.x*.18,-rest.y*.42)*clampf(death_age/.28,0,1)*softness
 		var p=(rest+Vector2(state.offset[i])*softness+sway+collapse)*aspect
 		var delta=p-center
-		bones[i].position=p-push*delta.dot(push)*squeeze*softness+side*delta.dot(side)*squeeze*.30*softness
-		var base_position=bones[i].position
-		var deformed=Soft.push_deform(state,base_position,center,softness,display_heading+visual_angle)
-		deformed=Soft.pull_deform(state,deformed,center,softness,display_heading+visual_angle)
-		bones[i].position=base_position+(deformed-base_position).limit_length(.44 if state.has("pull_strain") else .32)
+		var base_position=p-push*delta.dot(push)*squeeze*softness+side*delta.dot(side)*squeeze*.30*softness
+		var deformed=base_position
+		if has_push:deformed=Soft.push_deform(state,deformed,center,softness,display_heading+visual_angle)
+		if has_pull:deformed=Soft.pull_deform(state,deformed,center,softness,display_heading+visual_angle)
+		bones[i].position=base_position+(deformed-base_position).limit_length(.44 if has_pull else .32) if has_push or has_pull else base_position
 		bones[i].rotation=(sin(t*4.5-rest.y*3.5)*.032+sin(gait-rest.y*3.5)*.025*walk_amount+float(state.offset[i].x)*.25)*softness
-		bones[i].rotation+=push_bend*softness*0.6
-		bones[i].rotation+=pull_bend*softness*sin(rest.y*3)*.7
+		if push_bend!=0:bones[i].rotation+=push_bend*softness*0.6
+		if pull_bend!=0:bones[i].rotation+=pull_bend*softness*sin(rest.y*3)*.7
 	for item in legs:_pose_leg(item,moving,travel,dt)
 	for item in wings:
 		item.node.position=_attachment(item)
@@ -350,13 +391,15 @@ func pose(dt:float,dying:bool=false,compact:bool=false):
 		item.node.rotation+=Soft.struggle(state,item.side*1.5)*.32
 	previous_position=entity.position;previous_angle=float(entity.angle)+PI/2
 	var flash=clampf(float(state.flash)/.16,0,1)
-	hit_material.set_shader_parameter("hit_flash",flash*flash)
-	hit_material.set_shader_parameter("pressure",state.shock)
-	hit_material.set_shader_parameter("contact_uv",(Vector2(state.contact)/aspect+Vector2.ONE)*.5)
+	var flash_amount=flash*flash
+	if flash_amount!=last_hit_flash:hit_material.set_shader_parameter("hit_flash",flash_amount);last_hit_flash=flash_amount
+	if float(state.shock)!=last_pressure:hit_material.set_shader_parameter("pressure",state.shock);last_pressure=float(state.shock)
+	var contact_uv=(Vector2(state.contact)/aspect+Vector2.ONE)*.5
+	if contact_uv!=last_contact_uv:hit_material.set_shader_parameter("contact_uv",contact_uv);last_contact_uv=contact_uv
 	hit_fx.pose()
 	var tint=Color.WHITE
 	if entity.get("role","")=="friendly":tint=tint.lerp(Color(.75,1,.9),.35)
-	mesh.modulate=tint;limb_skeleton.modulate=tint
+	if tint!=last_tint:mesh.modulate=tint;limb_skeleton.modulate=tint;last_tint=tint
 	modulate.a=1-clampf((death_age-.055)/.095,0,1)
 
 func _setup_appendage_batch():
@@ -372,3 +415,19 @@ func set_appendage_batch_enabled(enabled:bool):
 	if appendage_batch==null and enabled:_setup_appendage_batch()
 	if appendage_batch==null:return
 	appendage_batch.set_enabled(enabled)
+
+func set_anatomy_parked(parked:bool):
+	if anatomy_detached==parked:return
+	# Hidden Bone2D trees otherwise inherit every moving parent transform.
+	# Retain the exact rig, feet and materials outside the SceneTree until needed.
+	for node in [limb_skeleton,mesh,hit_fx]:
+		if not is_instance_valid(node):continue
+		if parked:
+			if node.get_parent()==self:remove_child(node)
+		elif node.get_parent()==null:add_child(node)
+	anatomy_detached=parked
+
+func _notification(what):
+	if what==NOTIFICATION_PREDELETE and anatomy_detached:
+		for node in [limb_skeleton,mesh,hit_fx]:
+			if is_instance_valid(node) and node.get_parent()==null:node.free()

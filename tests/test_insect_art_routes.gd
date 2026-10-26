@@ -27,7 +27,9 @@ func _initialize():
 		var key = db.armament_variant(value)
 		if key.is_empty(): continue
 		if value.has("coreTurret") or value.has("coreChip"): check(db.core_sprite(value) == Art.texture(key), "Mounted/HQ/enemy core art routed: " + value.name)
-		if "Reward" in str(value.get("class", "")): check(db.reward_sprite(value) == Art.texture(key), "Reward/research art routed: " + value.name)
+		if "Reward" in str(value.get("class", "")):
+			var expected=preload("res://scripts/mutation_branches.gd").texture(str(value.mutation_branch)) if value.has("mutation_branch") else Art.texture(key)
+			check(db.reward_sprite(value)==expected,"Reward/research art routed: "+value.name)
 		for field in ["droneSprite","mineSprite","turretSprite","chipSprite"]:
 			if value.has(field): check(db.sprite(value[field]) == Art.texture(key), "Direct sprite ID routed: " + value.name)
 	var report = {"checks":checks,"passed":checks.all(func(c):return c.passed),"distinct_regions":regions.size()}

@@ -11,6 +11,13 @@ func execute():
 	game.save.state.roster_unlocked = ["centipede", "spider"]
 	game.save.select_character("spider")
 	game.begin_run()
+	var deployment_deadline = Time.get_ticks_msec() + 30000
+	while game.deployment_active and Time.get_ticks_msec() < deployment_deadline: await process_frame
+	var deployment_ready = not game.deployment_active and game.screen == "game" and game.run != null
+	check(deployment_ready, "Production spider deployment completes within 30 seconds")
+	if not deployment_ready:
+		quit(1)
+		return
 	game.set_process(false)
 	game.zoom = 1.0
 	game.camera_focus.clear()

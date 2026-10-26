@@ -5,6 +5,12 @@ const Battle=preload("res://scripts/combat.gd")
 const Soft=preload("res://scripts/soft_insect.gd")
 const Brood=preload("res://scripts/brood_theme.gd")
 const Rig=preload("res://scripts/soft_insect_rig.gd")
+const GUN_VARIANTS={
+	"Cannon":"cannon","Gatling":"gatling","Shotgun":"shotgun","Sniper":"sniper",
+	"Rocket":"rocket","Rocket_AI":"rocket","Flak":"flak","FlameThrower":"flame",
+	"Tesla":"tesla","EMP":"emp","SonicWave":"sonic","Black Holer":"blackhole","Nuke":"nuke",
+	"Toxin":"toxin","Boneblade":"boneblade","Parasite":"parasite"
+}
 var checks:Array=[]
 func _initialize():call_deferred("execute")
 func check(value:bool,title:String):
@@ -20,12 +26,31 @@ func simulate(fps:int)->Dictionary:
 func execute():
 	var db=DB.new()
 	var paths:Dictionary={}
+	var families:Dictionary={}
+	var seen_guns:Dictionary={}
 	for v in db.catalog.values():
 		if not str(v.name).begins_with("Turret_Gun_"):continue
+		var name=str(v.name).trim_prefix("Turret_Gun_")
+		check(GUN_VARIANTS.has(name),"Ranged turret has an explicit expected art family: "+v.name)
+		if not GUN_VARIANTS.has(name):continue
+		seen_guns[name]=true
+		var family:String=GUN_VARIANTS[name]
+		var mutation=family in ["toxin","boneblade","parasite"]
+		var expected_path="res://assets/new_weapons/"+family+"_atlas.png" if mutation else "res://assets/ui_overhaul/armaments_atlas_"+("b" if family in ["nuke","sonic","blackhole"] else "a")+".png"
 		var sprite=db.sprite(v.turretSprite)
-		check(sprite is AtlasTexture and "armaments_atlas_" in sprite.atlas.resource_path,"Generated weapon: "+v.name)
-		paths[sprite.atlas.resource_path+str(sprite.region)]=true
-	check(paths.size()==12,"All twelve ranged weapon families have distinct new art")
+		check(sprite is AtlasTexture and sprite.atlas!=null and sprite.atlas.resource_path==expected_path and db.armament_variant(v)==family,"Generated weapon resolves to its exact family atlas: "+v.name)
+		if not sprite is AtlasTexture or sprite.atlas==null:continue
+		var inside=sprite.region.has_area() and Rect2(Vector2.ZERO,sprite.atlas.get_size()).encloses(sprite.region)
+		var pixels=sprite.get_image()
+		check(inside and pixels!=null and pixels.get_used_rect().has_area(),"Weapon region is in bounds and contains visible artwork: "+v.name)
+		var signature=sprite.atlas.resource_path+str(sprite.region)
+		if families.has(family):
+			check(family=="rocket" and families[family]==signature,"Player and AI rockets intentionally share the same artwork")
+		else:
+			check(not paths.has(signature),"Weapon family has distinct artwork: "+family)
+			paths[signature]=family;families[family]=signature
+	check(seen_guns.size()==16 and GUN_VARIANTS.keys().all(func(name):return seen_guns.has(name)),"All sixteen ranged turret definitions are covered")
+	check(paths.size()==15 and families.size()==15,"Twelve original and three mutation weapon families have distinct art")
 	for species in Brood.SPECIES:
 		var e=specimen(species)
 		Soft.impact(e,Vector2(-24,0),Vector2.RIGHT,30)

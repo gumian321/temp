@@ -1,0 +1,92 @@
+{
+  "date": "2026-10-23",
+  "passed": true,
+  "runs": [
+    {
+      "suite": "field_guide_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.075,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "expedition_briefing",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.266,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "mission_select",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 13.43,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "game_ui_shell",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.676,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "debug_unlock_all",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.665,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "meta_ui_redesign",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.268,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "field_guide_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.559,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "ui_small_windows",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 36.8,
+      "isolated_user_data": true
+    }
+  ],
+  "focused_captures": 30,
+  "focused_issues": [],
+  "small_window_cases": 123,
+  "small_window_issues": [],
+  "controller": "Injected Godot events, not a physical controller",
+  "standalone_exe_exported": false
+}

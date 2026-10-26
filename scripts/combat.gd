@@ -28,6 +28,12 @@ var formation_radii:Dictionary={}
 var enemies: Array = []
 const SpatialIndex = preload("res://scripts/combat_spatial_index.gd")
 var spatial = SpatialIndex.new()
+var player_hulls=preload("res://scripts/player_hull_index.gd").new()
+var use_player_hull_index=OS.get_environment("RBPEW_LEGACY_PLAYER_HULL")!="1"
+var use_ranked_shields=OS.get_environment("RBPEW_LEGACY_SHIELD_RAYS")!="1"
+var use_player_equipment_cache=OS.get_environment("RBPEW_LEGACY_EQUIPMENT_CACHE")!="1"
+var cached_player_shields:Array=[]
+var player_shield_cache_active=false
 var spatial_active = false
 var use_incremental_refresh=true
 var patrols: Dictionary = {}
@@ -342,8 +348,30 @@ func target_for(core: Dictionary, at: Vector2, reach: float) -> Dictionary:
 	if radar=="RandomRadarConfiguration":
 		if cave_enabled(): candidates = candidates.filter(func(e): return terrain.ray_clear(at, target_position(e)))
 		return candidates[rng.randi_range(0,candidates.size()-1)] if not candidates.is_empty() else {}
+	if use_ranked_shields and cave_enabled() and radar not in ["LowestHealthTargetRadarConfiguration","StunnedRadarConfiguration"]:
+		var visibility:Dictionary={}
+		if not shielded.is_empty():
+			var prioritized=ranked_visible_target(shielded,at,radar,visibility)
+			if prioritized.visible:return prioritized.target
+		return ranked_visible_target(candidates,at,radar,visibility).target
 	if cave_enabled() and not shielded.is_empty(): shielded = shielded.filter(func(e): return terrain.ray_clear(at, target_position(e)))
 	if not shielded.is_empty():candidates=shielded
+	# Test walls in target-priority order. The old scan raycast every temporary
+	# "best so far", even though only the winning visible target was needed.
+	# Explicit source indices preserve ties; random/repair/stunned keep their
+	# distinct selection and RNG semantics below.
+	if cave_enabled() and radar not in ["LowestHealthTargetRadarConfiguration","StunnedRadarConfiguration"]:
+		var ranked:Array=[]
+		var largest=radar in ["BiggestTargetRadarConfiguration","FurthestRadarConfiguration"]
+		for i in candidates.size():
+			var e:Dictionary=candidates[i]
+			var value= float(e.max_hp) if radar in ["BiggestTargetRadarConfiguration","SmallestTargetRadarConfiguration"] else at.distance_squared_to(e.position)
+			if largest and value<=0:continue
+			ranked.append([ -value if largest else value,i,e])
+		ranked.sort_custom(func(a,b):return a[0]<b[0] if a[0]!=b[0] else a[1]<b[1])
+		for item in ranked:
+			if not shielded.is_empty() or terrain.ray_clear(at,target_position(item[2])):return item[2]
+		return {}
 	var result:Dictionary={}
 	var best=0.0 if radar in ["BiggestTargetRadarConfiguration","FurthestRadarConfiguration"] else (1.0 if radar=="LowestHealthTargetRadarConfiguration" else INF)
 	for e in candidates:
@@ -360,6 +388,23 @@ func target_for(core: Dictionary, at: Vector2, reach: float) -> Dictionary:
 			if cave_enabled() and not terrain.ray_clear(at, target_position(e)): continue
 			best=value;result=e
 	return result
+
+func ranked_visible_target(candidates:Array,at:Vector2,radar:String,visibility:Dictionary)->Dictionary:
+	var ranked:Array=[]
+	var largest=radar in ["BiggestTargetRadarConfiguration","FurthestRadarConfiguration"]
+	for i in candidates.size():
+		var e:Dictionary=candidates[i]
+		var value:float=float(e.max_hp) if radar in ["BiggestTargetRadarConfiguration","SmallestTargetRadarConfiguration"] else at.distance_squared_to(e.position)
+		ranked.append([-value if largest else value,i,e,value>0 if largest else value<INF])
+	ranked.sort_custom(func(a,b):return a[0]<b[0] if a[0]!=b[0] else a[1]<b[1])
+	var any_visible=false
+	for item in ranked:
+		var e:Dictionary=item[2]
+		if not visibility.has(e.uid):visibility[e.uid]=terrain.ray_clear(at,target_position(e))
+		if visibility[e.uid]:
+			any_visible=true
+			if item[3]:return {"visible":true,"target":e}
+	return {"visible":any_visible,"target":{}}
 
 func fire(core: Dictionary, at: Vector2, direction: Vector2, friendly: bool, chips: Dictionary = {}, damage_boost: float = 0.0, single: bool = false, barrel_index: int = 0, visual_scale: float = 1.0, control_source: String = ""):
 	var sound = db.asset(core.get("coreTurret", "")).get("fireAudioClipType",0)
@@ -448,6 +493,11 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 	segment_sound_cooldown=maxf(0,segment_sound_cooldown-dt)
 	step_scraps(dt)
 	player.begin_support_tick()
+	if use_player_equipment_cache:
+		cached_player_shields.clear()
+		for i in player.parts.size():
+			if player.effective_core(i).get("class")=="ShieldCore":cached_player_shields.append(i)
+		player_shield_cache_active=true
 	var measured=Time.get_ticks_usec()
 	step_patrols(dt)
 	special.step(dt)
@@ -588,12 +638,17 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 				e.position = parent.position + Vector2(e.offset).rotated(parent.angle)
 				e.angle = parent.angle
 				delta = target - e.position
-		if e.kind=="AIFollowingUnit":
+		# A missing route is a wait state, including while cave A* is prepared
+		# across frames. Vector2.ZERO.angle() is 0, not a valid steering heading.
+		var has_direction = not navigation_delta.is_zero_approx()
+		if e.kind=="AIFollowingUnit" and has_direction:
 			var modifier=1.0 if delta.length()>float(e.movement.get("stoppingdDis",0))*48 else 0.0
 			if delta.length()<float(e.movement.get("runningAwayDistance",0))*48:modifier=-float(e.movement.get("movingBackSpeedPercent",0.6))
 			e.position+=navigation_delta.normalized()*speed*modifier*dt
 			speed=0
-		if e.kind=="AIPatrolUnit" and delta.length()>stop:
+		if e.kind=="AIPatrolUnit" and not has_direction:
+			e.moving_speed=0.0;e.rotation_speed=0.0
+		elif e.kind=="AIPatrolUnit" and delta.length()>stop:
 			var engine=float(e.movement.get("enginePower",2))
 			var error=absf(rad_to_deg(angle_difference(e.angle,navigation_delta.angle())))
 			var max_rotation=engine*25
@@ -604,8 +659,8 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 			e.position+=Vector2.from_angle(e.angle)*e.moving_speed*dt
 			e.angle=rotate_toward(e.angle,navigation_delta.angle(),deg_to_rad(e.rotation_speed)*dt)
 		else:
-			if delta.length()>stop:e.position+=Vector2.from_angle(e.angle)*speed*dt
-			if e.boost_left<=0 and not e.mission_controlled and e.parent==0:
+			if has_direction and delta.length()>stop:e.position+=Vector2.from_angle(e.angle)*speed*dt
+			if has_direction and e.boost_left<=0 and not e.mission_controlled and e.parent==0:
 				var rotation_speed=float(e.movement.get("enginePower",2))*float(e.movement.get("rotEngineModifier",12))
 				if e.kind=="AIBossUnit" and e.heat_speed:rotation_speed*=maxf(1,heat) if e.active else heat
 				e.angle=rotate_toward(e.angle,navigation_delta.angle(),deg_to_rad(rotation_speed)*dt)
@@ -615,7 +670,10 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 		if not kamikaze.is_empty():
 			for i in range(player.parts.size()):
 				if player.parts[i].hp>0 and not player.parts[i].get("cloaked",false) and e.position.distance_to(player.parts[i].position)<e.radius+player.collision_radius(i):
-					hurt_player(i,float(kamikaze.explosionDamage.hullDamage),float(kamikaze.explosionDamage.shieldDamage));e.hp=0;e.self_destructed=true;break
+					# Resolve contact and splash together during death cleanup. The
+					# contact hull can lie outside a small blast's center radius.
+					e.kamikaze_contact=i;e.hp=0;e.self_destructed=true;break
+		if e.hp<=0:continue
 		if e.unit.get("UseActionDistance",false) and e.position.distance_to(target)>e.action_distance:continue
 
 		for gun in e.guns:
@@ -653,6 +711,13 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 	ProjectileTrails.advance_actors(enemy_drones,dt)
 	measured=mark_phase("drones",measured)
 	# Projectile hits queue impulses; displacement resumes on the next combat tick.
+	var indexed_hulls=false
+	if use_player_hull_index and player.parts.size()>4:
+		var incoming=0
+		for shot in bullets:
+			if not shot.friendly:incoming+=1
+			if incoming>=3:indexed_hulls=true;break
+		if indexed_hulls:player_hulls.rebuild(player)
 	for b in bullets:
 		b.erase("trail_contact")
 		b.life -= dt
@@ -694,9 +759,10 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 					b.life = 0
 					break
 			if b.life <= 0: continue
-			for i in range(player.parts.size()):
+			for i in (player_hulls.candidates(b.previous,b.position) if indexed_hulls else range(player.parts.size())):
 				var p: Dictionary = player.parts[i]
-				if p.hp > 0 and not p.get("cloaked",false) and Geometry2D.get_closest_point_to_segment(p.position, b.previous, b.position).distance_to(p.position) < player.collision_radius(i):
+				var radius:float=player_hulls.radii[i] if indexed_hulls else player.collision_radius(i)
+				if p.hp > 0 and not p.get("cloaked",false) and Geometry2D.get_closest_point_to_segment(p.position, b.previous, b.position).distance_to(p.position) < radius:
 					b.trail_contact=player_visual_contact(i,b).position
 					hit_player(i,b)
 					b.life = 0
@@ -715,7 +781,7 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 			var kamikaze=source_component(e.components,"KamikazeTrigger")
 			if not kamikaze.is_empty():
 				for i in range(player.parts.size()):
-					if player.parts[i].position.distance_to(e.position)<float(kamikaze.explosionArea)*48:hurt_player(i,float(kamikaze.explosionDamage.hullDamage),float(kamikaze.explosionDamage.shieldDamage))
+					if i==int(e.get("kamikaze_contact",-1)) or player.parts[i].position.distance_to(e.position)<float(kamikaze.explosionArea)*48:hurt_player(i,float(kamikaze.explosionDamage.hullDamage),float(kamikaze.explosionDamage.shieldDamage))
 			destroyed.append({"uid": e.uid, "kind": e.kind, "group": e.group, "parent": e.parent, "objective": e.objective, "position": e.position, "unit": e.unit})
 			kills += 1
 			var stat_key={"Asteroid":"stat_AsteroidsDestroyed","ContainerObject":"stat_ContainersDestroyed","AISwarmingUnit":"stat_ShipsDestroyed","AIFollowingUnit":"stat_ShipsDestroyed"}.get(e.kind,"")
@@ -772,6 +838,7 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 	else: player.remove_parts(removed)
 
 	player.end_support_tick()
+	player_shield_cache_active=false
 	mark_phase("cleanup",measured)
 
 func explosion(at: Vector2, radius: float, lifetime: float = 0.35, family: String = "impact", friendly: bool = true):
@@ -944,7 +1011,7 @@ func hurt_player(index: int, damage: float, shield_damage: float, shot: Dictiona
 	var p: Dictionary = player.parts[index]
 	if p.hp<=0:return
 	if p.get("cloaked",false): return
-	for i in player.parts.size():
+	for i in (cached_player_shields if player_shield_cache_active else range(player.parts.size())):
 		var shield:Dictionary=player.parts[i]
 		var c: Dictionary = player.effective_core(i)
 		if c["class"] == "ShieldCore" and shield.hp>0 and shield.stun<=0 and shield.shield > 0 and shield.position.distance_to(p.position) < shield_range(i):

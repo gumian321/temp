@@ -113,3 +113,7 @@ func fit_screen():
  var background:Control=get_child(0)
  background.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
  background.position=-position/factor;background.size=viewport_size/factor;background.queue_redraw()
+
+func _exit_tree():
+ var viewport=get_viewport()
+ if viewport.size_changed.is_connected(fit_screen):viewport.size_changed.disconnect(fit_screen)

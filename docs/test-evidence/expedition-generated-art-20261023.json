@@ -1,0 +1,140 @@
+{
+  "date": "2026-10-23",
+  "passed": true,
+  "tool": "Built-in image_gen.imagegen",
+  "asset_count": 12,
+  "assets": [
+    {
+      "id": "scene-survive",
+      "path": "assets/expedition_ink/scene-survive.png",
+      "unchanged_from_generated_output": true,
+      "sha256": "0288d6bf9a453bb573735d3581b54fe181c643fabfba39e6cf6fe0af46876970"
+    },
+    {
+      "id": "scene-endless",
+      "path": "assets/expedition_ink/scene-endless.png",
+      "unchanged_from_generated_output": true,
+      "sha256": "1c85c9491f375fc2f60ff001bc152199feb6ec800ff79aa99a316ec0179c7f2c"
+    },
+    {
+      "id": "scene-hunt",
+      "path": "assets/expedition_ink/scene-hunt.png",
+      "unchanged_from_generated_output": true,
+      "sha256": "35999e10475b76b68c9292d7b4baa740c600171e2632bebd14f82cc2b83906d6"
+    },
+    {
+      "id": "scene-escort",
+      "path": "assets/expedition_ink/scene-escort.png",
+      "unchanged_from_generated_output": true,
+      "sha256": "42e3ae8183a0b80afcf60f25ccdf11389ab10c76739cb62cbc5bff0d10fb161a"
+    },
+    {
+      "id": "scene-siege",
+      "path": "assets/expedition_ink/scene-siege.png",
+      "unchanged_from_generated_output": true,
+      "sha256": "15b01472fd2a2c5de251321d24465017f37579113af7d09a6fab3d918d55ef56"
+    },
+    {
+      "id": "scene-defend",
+      "path": "assets/expedition_ink/scene-defend.png",
+      "unchanged_from_generated_output": true,
+      "sha256": "1c02beaf75b171efd494a0f8d7051b506cae0ddb05106d983b92a726f9bc85b3"
+    },
+    {
+      "id": "icon-survive",
+      "path": "assets/expedition_ink/icon-survive.png",
+      "unchanged_from_generated_output": true,
+      "sha256": "a9ee9f5536d3f811ca9b9a40879f32fdbc3193f4a97033e76d1ab6a8aee1d006"
+    },
+    {
+      "id": "icon-endless",
+      "path": "assets/expedition_ink/icon-endless.png",
+      "unchanged_from_generated_output": true,
+      "sha256": "8fb8f3665474bd359eef99f4fd8e5c2b4b96fd4684927decf1f727b1a5c65f55"
+    },
+    {
+      "id": "icon-hunt",
+      "path": "assets/expedition_ink/icon-hunt.png",
+      "unchanged_from_generated_output": true,
+      "sha256": "72dbd565201a06be4314534cce9c23ad988969f5d413ed3db1d47a2043c5e86e"
+    },
+    {
+      "id": "icon-escort",
+      "path": "assets/expedition_ink/icon-escort.png",
+      "unchanged_from_generated_output": true,
+      "sha256": "906617c9993e262cda21ec39fe0bf15998df41bb7f29346abe84359a04fc5b27"
+    },
+    {
+      "id": "icon-siege",
+      "path": "assets/expedition_ink/icon-siege.png",
+      "unchanged_from_generated_output": true,
+      "sha256": "58cbeebbe74ffee0582da194bdd1c380741761753563bf5662056a06cc34e63d"
+    },
+    {
+      "id": "icon-defend",
+      "path": "assets/expedition_ink/icon-defend.png",
+      "unchanged_from_generated_output": true,
+      "sha256": "0a8c286a533c9472f3e7942c4a05070b8546310c982c55b084b3027be8b5ea89"
+    }
+  ],
+  "prompt_set": "assets/expedition_ink/generation.json",
+  "suites": [
+    {
+      "suite": "field_guide_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.123,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "expedition_briefing",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.361,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "mission_select",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 9.04,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "meta_ui_redesign",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.291,
+      "isolated_user_data": true
+    }
+  ],
+  "reports": [
+    "artifacts/expedition-generated-validation.json",
+    "artifacts/expedition-generated-briefing-final.json"
+  ],
+  "resolved_initial_failure": "Expedition briefing fixture still expected the previous 96x64 icon region; updated to the intended 96x72 region and reran successfully.",
+  "visual": {
+    "report": "artifacts/field-guide-scene-report.json",
+    "passed": true,
+    "checks": 147,
+    "captures": 30,
+    "issues": []
+  },
+  "source_images_modified": false,
+  "isolated_user_data": true,
+  "resource_import_exit_code": 0,
+  "exported_executable": false,
+  "runtime": "TextureRect with cached image resources; no procedural mission illustration, icon, or sketch shader."
+}

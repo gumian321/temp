@@ -61,37 +61,39 @@ func fresh():
 	for id in db.stores.get("RewardDataStore", {}).get("rewardsUnlockedList", []):
 		state.unlocked.append(id)
 
-func reset_progress():
+func reset_progress() -> bool:
+	var previous = state.duplicate(true)
 	var settings:Dictionary=state.settings.duplicate(true)
 	fresh()
 	for key in settings:state.settings[key]=settings[key]
-	save()
+	return _save_change(previous)
 
 func load_save() -> bool:
 	end_character_run()
-	if not FileAccess.file_exists(path):
+	last_error = ""
+	if not FileAccess.file_exists(path) and not FileAccess.file_exists(path+".bak"):
 		return false
-	var parsed = parse_file(path)
-	if not parsed is Dictionary or parsed.get("version") != 1 or not parsed.get("meta") is float:
+	var parsed = parse_file(path) if FileAccess.file_exists(path) else null
+	if not _valid_save(parsed):
 		if FileAccess.file_exists(path+".bak"):
 			var backup=parse_file(path+".bak")
-			if backup is Dictionary and backup.get("version")==1 and backup.get("meta") is float:
+			if _valid_save(backup):
 				parsed=backup
 				last_error="Recovered previous atomic backup; damaged primary file preserved."
-		if not parsed is Dictionary or parsed.get("version")!=1 or not parsed.get("meta") is float:
+		if not _valid_save(parsed):
 			last_error = "Invalid save; new defaults retained. Original file preserved."
 			return false
 	for k in state:
 		if parsed.has(k) and typeof(parsed[k]) == typeof(state[k]):
 			if k=="settings":
-				for setting in state.settings:
-					if parsed.settings.has(setting):state.settings[setting]=parsed.settings[setting]
+				_load_settings(parsed.settings)
 			else:state[k] = parsed[k]
-	state.meta = int(parsed.meta)
+	state.meta = maxi(0, int(parsed.meta))
 	# Adopt the Chinese-first default once for old English saves. The marker is
 	# persisted by normal saves, so a later explicit language choice is respected.
-	var previous_settings: Dictionary = parsed.get("settings", {})
-	if int(previous_settings.get("language_revision", 0)) < 1:
+	var previous_settings = parsed.get("settings", {})
+	var revision = previous_settings.get("language_revision", 0) if previous_settings is Dictionary else 0
+	if not _finite_number(revision) or int(revision) < 1:
 		if state.settings.language == "English":state.settings.language = db.DEFAULT_LANGUAGE
 		state.settings.language_revision = 1
 	state.unlocked=state.unlocked.filter(func(id):return not db.asset(id).get("retired",false))
@@ -100,8 +102,50 @@ func load_save() -> bool:
 		if id not in state.unlocked:
 			state.unlocked.append(id)
 			state.disabled.erase(id)
+	# These dictionaries are incremented or converted to integers by settlement
+	# and tutorial code. Salvage healthy entries if an individual value is bad.
+	for field in ["scores", "statistics", "tutorials"]:
+		for key in state[field]:
+			if not _finite_number(state[field][key]):state[field][key] = 0
 	_normalize_roster()
 	return true
+
+func _finite_number(value) -> bool:
+	return (value is int or value is float) and is_finite(float(value))
+
+func _valid_save(value) -> bool:
+	return value is Dictionary and value.get("version") == 1 and _finite_number(value.get("meta"))
+
+func _load_settings(settings: Dictionary):
+	# Optional settings can be damaged independently of earned progress. Keep
+	# defaults for wrong types, while accepting JSON's numeric representation.
+	for key in state.settings:
+		if not settings.has(key):continue
+		var value = settings[key]
+		var current = state.settings[key]
+		if current is int:
+			if _finite_number(value):state.settings[key] = int(value)
+		elif current is float:
+			if _finite_number(value):state.settings[key] = clampf(float(value), 0.0, 1.0)
+		elif typeof(value) == typeof(current):state.settings[key] = value.duplicate(true) if value is Dictionary else value
+	var bindings: Dictionary = state.settings.bindings
+	for action in bindings.keys():
+		if not _finite_number(bindings[action]) or int(bindings[action]) <= 0:
+			bindings.erase(action)
+	# Match the actual options arrays so old or partial settings cannot index
+	# outside them when opening the settings menu.
+	var scene_config = db.get("scene_config")
+	var options: Dictionary = scene_config.get("OptionMenuManager", {}) if scene_config is Dictionary else {}
+	for setting in ["resolution", "screen_mode"]:
+		var entries: Array = options.get("resolutions" if setting == "resolution" else "screenModesList", [])
+		if int(state.settings[setting]) < 0 or (not entries.is_empty() and int(state.settings[setting]) >= entries.size()):
+			state.settings[setting] = 0 if setting == "resolution" else 2
+
+# Purchases and destructive profile edits commit together with their save.
+func _save_change(previous: Dictionary) -> bool:
+	if save():return true
+	state = previous
+	return false
 
 func save() -> bool:
 	var f = FileAccess.open(path + ".tmp", FileAccess.WRITE)
@@ -109,10 +153,20 @@ func save() -> bool:
 		last_error = "Cannot write save"
 		return false
 	f.store_string(JSON.stringify(state, "\t"))
+	f.flush()
+	var write_error = f.get_error()
 	f.close()
-	if FileAccess.file_exists(path):
-		DirAccess.copy_absolute(path, path + ".bak")
+	if write_error != OK:
+		last_error = "Cannot finish writing save: " + error_string(write_error)
+		return false
+	# Never replace a known-good recovery copy with a corrupt primary file.
+	if FileAccess.file_exists(path) and _valid_save(parse_file(path)):
+		var backup_error = ERR_ALREADY_EXISTS if DirAccess.dir_exists_absolute(path + ".bak") else DirAccess.copy_absolute(path, path + ".bak")
+		if backup_error != OK:
+			last_error = "Cannot preserve save backup: " + error_string(backup_error)
+			return false
 	var err = DirAccess.rename_absolute(path + ".tmp", path)
+	last_error = "" if err == OK else "Cannot replace save: " + error_string(err)
 	return err == OK
 
 func available(id: String) -> bool:
@@ -126,9 +180,10 @@ func unlock_mission(m: Dictionary) -> bool:
 		return true
 	if state.meta < m.MissionCost:
 		return false
+	var previous = state.duplicate(true)
 	state.meta -= int(m.MissionCost)
 	state.missions.append(m.id)
-	return save()
+	return _save_change(previous)
 
 func research_price(node: Dictionary, index: int) -> int:
 	var r: Dictionary = db.asset(node.nodeRewardsList[index])
@@ -163,17 +218,19 @@ func unlock_research(node: Dictionary, index: int) -> bool:
 	var cost = research_price(node, index)
 	if state.meta < cost:
 		return false
+	var previous = state.duplicate(true)
 	state.meta -= cost
 	state.unlocked.append(id)
 	check_lab_achievements()
-	return save()
+	return _save_change(previous)
 
 func unlock_reward_pool(cost:int)->bool:
 	if state.systems.get("ToggleResearches",false):return false
-	if state.meta<cost:return false
+	if cost<0 or state.meta<cost:return false
+	var previous = state.duplicate(true)
 	state.meta-=cost
 	state.systems.ToggleResearches=true
-	return save()
+	return _save_change(previous)
 
 func apply_reward_pool(groups:Array,enabled:Dictionary)->bool:
 	if not state.systems.get("ToggleResearches",false):return false
@@ -181,12 +238,13 @@ func apply_reward_pool(groups:Array,enabled:Dictionary)->bool:
 	for group in groups:
 		if group[0] in state.unlocked and enabled.get(group[0],false):count+=1
 	if count<5:return false
+	var previous = state.duplicate(true)
 	for group in groups:
 		var active=group[0] in state.unlocked and enabled.get(group[0],false)
 		for id in group:
 			if active:state.disabled.erase(id)
 			elif id not in state.disabled:state.disabled.append(id)
-	return save()
+	return _save_change(previous)
 
 func check_lab_achievements():
 	var rewards:Array=[]

@@ -2,6 +2,11 @@ extends RefCounted
 ## Optional, bounded encounters; never join mission objective or boss wave groups.
 const TYPES = ["charger", "broodmother", "treasure"]
 const WARNING_TIME = 1.6
+const CHARGE_WINDUP = 0.85
+const CHARGE_DURATION = 0.55
+const CHARGE_SPEED = 640.0
+const SPAWN_CLEARANCE = 220.0
+const SPECIAL_RADII = {"charger": 22.0, "broodmother": 32.0, "treasure": 24.0, "hatchling": 12.0}
 const TREASURE_LIFETIME = 14.0
 const MAX_SPECIALS = 8
 const ENEMY_BUDGET = 70
@@ -15,6 +20,7 @@ var next_in = 18.0
 var phase = "quiet"
 var event_type = ""
 var warning_left = 0.0
+var warning_waiting = false
 var event_left = 0.0
 var markers: Array[Vector2] = []
 var births: Array = []
@@ -38,9 +44,9 @@ func mobile_count() -> int:
 		if e.hp > 0 and not e.get("despawn", false) and e.role != "friendly" and e.kind in MOBILE_KINDS: count += 1
 	return count
 
-func has_room() -> bool:
+func has_room(count: int = 1) -> bool:
 	# Map rocks, containers and station parts are not additional chasing threats.
-	return current().combat.enemies.size() < WORLD_BUDGET and mobile_count() < ENEMY_BUDGET and live_specials().size() < MAX_SPECIALS
+	return current().combat.enemies.size() + count <= WORLD_BUDGET and mobile_count() + count <= ENEMY_BUDGET and live_specials().size() + count <= MAX_SPECIALS
 
 func safe_to_start() -> bool:
 	var run = current()
@@ -74,18 +80,45 @@ func hint(kind: String) -> String:
 
 func start_warning(kind: String = ""):
 	event_type = draw_type() if kind.is_empty() else kind
+	warning_waiting = false
+	place_markers()
+	if markers.size() != (2 if event_type == "charger" else 1):
+		markers.clear(); phase = "quiet"; next_in = 5.0; warning_left = 0
+		return
 	phase = "warning"
 	warning_left = WARNING_TIME
-	place_markers()
+	notice_left = 0
+
+func player_clear_of(at: Vector2) -> bool:
+	for part in current().player.parts:
+		if part.hp > 0 and Vector2(part.position).distance_to(at) < SPAWN_CLEARANCE: return false
+	return true
 
 func place_markers():
 	markers.clear()
 	var angle = rng.randf() * TAU
 	var head: Vector2 = current().player.head
-	markers.append(head + Vector2.from_angle(angle) * 520)
-	if event_type == "charger": markers.append(head + Vector2.from_angle(angle + PI * 0.85) * 560)
-	if current().combat.terrain!=null:
-		for i in markers.size(): markers[i]=current().combat.terrain.safe_position(markers[i],32.0)
+	var terrain = current().combat.terrain
+	var radius: float = SPECIAL_RADII[event_type] + 1.0
+	for slot in range(2 if event_type == "charger" else 1):
+		for attempt in range(12):
+			var direction = Vector2.from_angle(angle + slot * PI * .85 + attempt * TAU / 12.0)
+			var at = head + direction * (520 + slot * 40)
+			if terrain != null:
+				at = terrain.safe_position(at, radius)
+				if terrain.blocked(at, radius): continue
+			# Terrain can move a requested point into the player's chamber. Validate
+			# the final position BEFORE promising that this is where an enemy arrives.
+			if not player_clear_of(at) or head.distance_to(at) > 1400: continue
+			if markers.any(func(other): return Vector2(other).distance_to(at) < radius * 2 + 24): continue
+			markers.append(at)
+			break
+
+func cancel_warning():
+	phase = "quiet"; markers.clear(); next_in = 5.0
+	warning_left = 0; warning_waiting = false
+	notice = current().db.ui("Arrival cancelled · battle conditions changed", "本次出现已取消 · 战况发生变化")
+	notice_left = 2.5
 
 func step(dt: float):
 	var run = current()
@@ -108,17 +141,19 @@ func step(dt: float):
 			completed += 1
 		return
 	if phase == "warning":
-		if not safe_to_start():
-			phase = "quiet"; markers.clear(); next_in = 5.0
+		if not safe_to_start() or not has_room(markers.size()):
+			cancel_warning()
 			return
 		warning_left = maxf(0, warning_left - dt)
 		if warning_left > 0: return
-		# Walking into a telegraph relocates it with a fresh warning; no contact spawn.
+		# Published markers stay locked. Keep the safety distance without silently
+		# rerolling the entire encounter when the player approaches one of them.
+		warning_waiting = markers.any(func(at): return not player_clear_of(at))
+		if warning_waiting: return
 		for at in markers:
-			for part in run.player.parts:
-				if Vector2(part.position).distance_to(at) < 220:
-					place_markers(); warning_left = WARNING_TIME
-					return
+			if run.combat.terrain != null and run.combat.terrain.blocked(at, SPECIAL_RADII[event_type]):
+				cancel_warning()
+				return
 		for at in markers: spawn_special(event_type, at)
 		markers.clear()
 		phase = "active"; event_left = 24.0
@@ -144,13 +179,14 @@ func spawn_special(kind: String, at: Vector2) -> Dictionary:
 	e.brood_species = {"charger": "mantis", "broodmother": "sac", "treasure": "beetle", "hatchling": "grub"}[kind]
 	e.hp = float({"charger": 110, "broodmother": 165, "treasure": 95, "hatchling": 18}[kind]) * run.combat.health_modifier * (1 + minf(run.heat, 1) * 0.6)
 	e.max_hp = e.hp
-	e.radius = float({"charger": 22, "broodmother": 32, "treasure": 24, "hatchling": 12}[kind])
+	e.radius = SPECIAL_RADII[kind]
 	e.ground_radius=e.radius
 	run.combat.move_actor(e,e.position)
 	e.angle = at.direction_to(run.player.head).angle()
 	e.encounter_phase = "approach"
 	e.phase_left = 0.0
 	e.charge_direction = Vector2.ZERO
+	e.charge_travel = 0.0
 	e.contact_left = 0.6
 	e.shot_left = 2.0
 	e.warp = 0.35
@@ -171,17 +207,21 @@ func move_actor(e: Dictionary, dt: float) -> bool:
 		"charger":
 			match str(e.encounter_phase):
 				"approach":
-					e.angle = toward.angle()
-					if distance <= 390 and (battle.terrain==null or battle.terrain.clear_segment(start,player.head,e.radius)):
-						e.encounter_phase = "windup"; e.phase_left = 0.85
+					if not toward.is_zero_approx(): e.angle = toward.angle()
+					if not toward.is_zero_approx() and distance <= 390 and (battle.terrain==null or battle.terrain.clear_segment(start,player.head,e.radius)):
+						e.encounter_phase = "windup"; e.phase_left = CHARGE_WINDUP
 						e.charge_direction = toward; e.charge_hit = false
+						e.charge_travel = 0.0
 					else: e.position += toward * 115 * movement * dt
 				"windup":
 					e.phase_left -= dt
-					if e.phase_left <= 0: e.encounter_phase = "dash"; e.phase_left = 0.55
+					if e.phase_left <= 0: e.encounter_phase = "dash"; e.phase_left = CHARGE_DURATION
 				"dash":
 					var travel = minf(dt, maxf(0, e.phase_left))
-					battle.move_actor(e,Vector2(e.position)+Vector2(e.charge_direction)*640*movement*travel)
+					battle.move_actor(e,Vector2(e.position)+Vector2(e.charge_direction)*CHARGE_SPEED*movement*travel)
+					# Track actual dash travel; external knockback must move the warning too.
+					var advance = maxf(0, (Vector2(e.position) - start).dot(e.charge_direction))
+					e.charge_travel = float(e.get("charge_travel", 0.0)) + advance
 					if not e.charge_hit:
 						for i in range(player.parts.size()):
 							var part: Dictionary = player.parts[i]
@@ -202,9 +242,9 @@ func move_actor(e: Dictionary, dt: float) -> bool:
 			var direction = escape.rotated(sin(e.age * 2.8) * 0.5)
 			direction=battle.ground_direction(e,start+direction*600)
 			e.position += direction * 105 * movement * dt
-			e.angle = direction.angle()
+			if not direction.is_zero_approx(): e.angle = direction.angle()
 		"broodmother":
-			e.angle = toward.angle()
+			if not toward.is_zero_approx(): e.angle = toward.angle()
 			if distance > 230: e.position += toward * 65 * movement * dt
 			e.shot_left -= dt
 			if e.shot_left <= 0 and distance < 650:
@@ -213,7 +253,7 @@ func move_actor(e: Dictionary, dt: float) -> bool:
 				for spread in [-0.2, 0.0, 0.2]:
 					battle.fire(core, e.position, toward.rotated(spread), false, {}, e.damage_modifier * 0.65 - 1, true, 0, 1.0, "enemy:" + str(e.uid))
 		"hatchling":
-			e.angle = toward.angle()
+			if not toward.is_zero_approx(): e.angle = toward.angle()
 			battle.move_actor(e,Vector2(e.position)+toward*150*movement*dt)
 			if e.contact_left <= 0:
 				for i in range(player.parts.size()):

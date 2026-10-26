@@ -11,8 +11,12 @@ var allies: Array = []
 var max_radius = 0.0
 var extent_low = Vector2.ZERO
 var extent_high = Vector2.ZERO
+var query_cache:Dictionary={}
+const MAX_QUERIES=128
+var use_query_cache=OS.get_environment("RBPEW_LEGACY_QUERY_CACHE")!="1"
 
 func rebuild(source: Array, db):
+	query_cache.clear()
 	cells.clear(); locations.clear(); by_uid.clear(); shield_actors.clear(); allies.clear()
 	actors = source
 	max_radius = 0.0
@@ -27,6 +31,7 @@ func rebuild(source: Array, db):
 		insert(i, e.position)
 
 func insert(index: int, at: Vector2):
+	if not query_cache.is_empty():query_cache.clear()
 	var cell = Vector2i((at / CELL).floor())
 	if not cells.has(cell): cells[cell] = []
 	cells[cell].append(index)
@@ -48,6 +53,10 @@ func moved(e: Dictionary):
 func query(low_point: Vector2, high_point: Vector2) -> Array:
 	var low = Vector2i((low_point / CELL).floor())
 	var high = Vector2i((high_point / CELL).floor())
+	var key=Vector4i(low.x,low.y,high.x,high.y)
+	# Results contain live actor dictionaries. Membership only changes when a
+	# center crosses a cell boundary; HP, shields and exact range remain live.
+	if use_query_cache and query_cache.has(key):return query_cache[key].duplicate()
 	var indices: Array = []
 	# Very large radii should not enumerate millions of empty cells.
 	if float(high.x-low.x+1) * float(high.y-low.y+1) > cells.size() * 2:
@@ -60,6 +69,7 @@ func query(low_point: Vector2, high_point: Vector2) -> Array:
 	indices.sort()
 	var result: Array = []
 	for index in indices: result.append(actors[index])
+	if use_query_cache and query_cache.size()<MAX_QUERIES:query_cache[key]=result.duplicate()
 	return result
 
 func nearest(at: Vector2, reach: float) -> Dictionary:

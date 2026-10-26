@@ -1,0 +1,300 @@
+{
+  "date": "2026-10-23",
+  "passed": true,
+  "suite_count": 25,
+  "suites": [
+    {
+      "suite": "matte_art_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.165,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-final-validation.json"
+    },
+    {
+      "suite": "attack_shader_materials",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.881,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-shader-validation.json"
+    },
+    {
+      "suite": "armament_art",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.466,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-game-validation.json"
+    },
+    {
+      "suite": "insect_armaments",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.154,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-game-validation.json"
+    },
+    {
+      "suite": "insect_art_routes",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.393,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-game-validation.json"
+    },
+    {
+      "suite": "insect_projectiles",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.998,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-game-validation.json"
+    },
+    {
+      "suite": "viscous_renderer",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.666,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-final-validation.json"
+    },
+    {
+      "suite": "viscous_integration",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.963,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-final-validation.json"
+    },
+    {
+      "suite": "mutation_weapons_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 17.934,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-game-validation.json"
+    },
+    {
+      "suite": "mutation_branches_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 15.034,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-game-validation.json"
+    },
+    {
+      "suite": "skill_shader_coverage",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.725,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-game-validation.json"
+    },
+    {
+      "suite": "all_dynamic_trails",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.915,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-game-validation.json"
+    },
+    {
+      "suite": "all_dynamic_trails_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.747,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-game-validation.json"
+    },
+    {
+      "suite": "projectile_trails",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 3.723,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-final-validation.json"
+    },
+    {
+      "suite": "projectile_trajectory_continuity",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 4.818,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-game-validation.json"
+    },
+    {
+      "suite": "egg_visual_batch",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.627,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-game-validation.json"
+    },
+    {
+      "suite": "hostile_readability",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.236,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-game-validation.json"
+    },
+    {
+      "suite": "soft_render_cache",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.861,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-game-validation.json"
+    },
+    {
+      "suite": "particle_resource_cache",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.853,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-game-validation.json"
+    },
+    {
+      "suite": "particles",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.334,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-game-validation.json"
+    },
+    {
+      "suite": "weapon_feedback",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 3.028,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-game-validation.json"
+    },
+    {
+      "suite": "contact_impacts",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.447,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-game-validation.json"
+    },
+    {
+      "suite": "reward_cards",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.385,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-game-validation.json"
+    },
+    {
+      "suite": "meta_ui_redesign",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.947,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-game-validation.json"
+    },
+    {
+      "suite": "projectile_trails_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.401,
+      "isolated_user_data": true,
+      "source_report": "artifacts/matte-final-validation.json"
+    }
+  ],
+  "art": {
+    "atlas_count": 14,
+    "manifest": "assets/matte_style_generation.json",
+    "metrics": "docs/test-evidence/matte-atlas-inspection-20261023.json"
+  },
+  "screenshots": [
+    "artifacts/matte-weapons-lineup.png",
+    "artifacts/matte-projectiles-lineup.png",
+    "artifacts/armament-v2-build.png",
+    "artifacts/armament-v2-mounted.png",
+    "artifacts/branches-reward-card.png",
+    "artifacts/new-weapons-combat.png",
+    "artifacts/all-trails-held.png"
+  ],
+  "notes": [
+    "Latest execution per suite is recorded; the four body crop margins and native primitive shader detection were corrected before their final passing runs.",
+    "Windows certificate-store warnings do not affect these local offline checks."
+  ]
+}

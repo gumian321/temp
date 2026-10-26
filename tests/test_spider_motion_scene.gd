@@ -92,7 +92,15 @@ func execute():
 	game.set_process(false)
 	game.save.state.settings.skip_boss = true
 	game.save.state.roster_unlocked = ["centipede", "spider", "beetle"]
-	game.save.select_character("spider"); game.begin_run(); game.set_process(false)
+	game.save.select_character("spider"); game.begin_run()
+	var deployment_deadline = Time.get_ticks_msec() + 30000
+	while game.deployment_active and Time.get_ticks_msec() < deployment_deadline: await process_frame
+	var deployment_ready = not game.deployment_active and game.screen == "game" and game.run != null
+	check(deployment_ready, "Production spider deployment completes within 30 seconds")
+	if not deployment_ready:
+		quit(1)
+		return
+	game.set_process(false)
 	game.combat.enemies.clear(); game.camera_focus.clear(); game.zoom = 1.0
 	game.show_game(); await process_frame
 	advance(Vector2.RIGHT, 60)

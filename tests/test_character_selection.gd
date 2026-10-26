@@ -13,8 +13,12 @@ func execute():
  game=load("res://main.tscn").instantiate();root.add_child(game);await settle();game.set_process(false)
  game.save.path="user://character-selection-isolated.json";game.save.fresh();game.save.state.settings.skip_boss=true
  await capture("character-00-home")
- await click_at(Vector2(268,464));await settle()
+ var home_nest_buttons=game.panel.find_children("*","Button",true,false).filter(func(button):return button.is_visible_in_tree() and not button.disabled and button.text==game.db.ui("INSECT NEST","虫巢"))
+ check(home_nest_buttons.size()==1,"Home exposes exactly one enabled Nest button")
+ if home_nest_buttons.size()!=1:quit(1);return
+ await click_at(home_nest_buttons[0].get_global_rect().get_center());await settle()
  check(game.screen=="characters","Home Nest button opens character selection")
+ if game.screen!="characters":quit(1);return
  await capture("character-01-locked-nest")
  var nest=game.panel.get_child(0)
  check(nest.cards.keys()==["centipede","spider"],"Nest displays only two active characters")

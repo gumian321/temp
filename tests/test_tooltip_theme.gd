@@ -56,7 +56,14 @@ func execute():
  await hover(game.reward_ui.buttons[0],"reward")
  game.show_lab();await settle()
  var lab=game.panel.get_child(0)
- await hover(lab.node_buttons.values()[0],"research")
+ # Research is now grouped into sections; the first catalog node can be in
+ # support, outside the initial direct-fire viewport. Use the same focus
+ # reveal as keyboard navigation before hovering the actual node.
+ var node_id=lab.node_buttons.keys()[0]
+ var research=lab.node_buttons[node_id]
+ research.release_focus();lab.controller_navigation=true;research.grab_focus();await settle()
+ check(lab.world.get_global_rect().encloses(research.get_global_rect()),"Research tooltip target is fully visible in its section")
+ await hover(research,"research")
  game.show_reward_pool();await settle()
  var pool=game.panel.get_child(0)
  await hover(pool.cards[0],"codex")

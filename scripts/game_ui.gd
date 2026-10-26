@@ -161,6 +161,14 @@ static func label(parent:Control,text:String,pos:Vector2,size:int=20,color:Color
 	var l=Label.new();l.text=text;l.position=pos;l.add_theme_font_size_override("font_size",size);l.add_theme_color_override("font_color",color);l.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	parent.add_child(l);return l
 
+static func badge(parent:Control,text:String,color:Color,filled:bool=false,px:int=16)->PanelContainer:
+	var plate=PanelContainer.new();plate.mouse_filter=Control.MOUSE_FILTER_IGNORE;parent.add_child(plate)
+	var skin=flat_style(color if filled else Color(color,.06),color if filled else Color(color,.5),5)
+	skin.content_margin_left=10;skin.content_margin_right=10;skin.content_margin_top=3;skin.content_margin_bottom=3
+	plate.add_theme_stylebox_override("panel",skin)
+	label(plate,text,Vector2.ZERO,px,BG if filled else color)
+	return plate
+
 static func button(parent:Control,text:String,rect:Rect2,callback:Callable,icon_key:String="",accent:Color=TEAL)->Button:
 	var b=Button.new();b.text=text;b.position=rect.position;b.size=rect.size;b.custom_minimum_size=rect.size;b.focus_mode=Control.FOCUS_ALL;b.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
 	b.add_theme_font_size_override("font_size",24);b.add_theme_stylebox_override("normal",button_style(PANEL,Color(accent,0.5)))
@@ -207,13 +215,22 @@ static func header(parent:Control,title:String,back_callback:Callable):
 	label(parent,title,Vector2(120,36),32)
 	label(parent,"C H I T I N / 0 1",Vector2(1210,52),16,MUTED)
 
+static func focus_if_live(reference:WeakRef):
+	var control=reference.get_ref()
+	if not control is Control or not control.is_inside_tree() or control.is_queued_for_deletion() or not control.is_visible_in_tree():return
+	control.grab_focus()
+
 class FittedCanvas extends Control:
 	## Keep fixed-layout menu screens inside narrow or short native viewports.
 	const DESIGN_SIZE=Vector2(1440,900)
 	var bottom_inset=0.0
+	func _enter_tree():
+		if not get_viewport().size_changed.is_connected(fit_canvas):get_viewport().size_changed.connect(fit_canvas)
 	func _ready():
-		get_viewport().size_changed.connect(fit_canvas)
 		fit_canvas()
+	func _exit_tree():
+		var viewport=get_viewport()
+		if viewport.size_changed.is_connected(fit_canvas):viewport.size_changed.disconnect(fit_canvas)
 	func fit_canvas():
 		var extent=get_viewport_rect().size-Vector2(0,bottom_inset)
 		var factor=minf(extent.x/DESIGN_SIZE.x,extent.y/DESIGN_SIZE.y)

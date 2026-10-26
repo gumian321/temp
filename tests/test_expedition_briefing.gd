@@ -22,11 +22,11 @@ func execute():
  root.content_scale_size=Vector2i.ZERO
  var owner=Fixture.new()
  var view=preload("res://scripts/mission_select.gd").new();root.add_child(view);view.setup(owner);await settle()
- check(view.scene_art.clip_contents,"Hero clips raster to reserved bounds")
+ check(view.scene_art.clip_contents,"Mission illustration clips to reserved bounds")
  check(view.scene_art.size==Vector2(676,338),"Hero actual size matches reserved image area")
  for b in view.rows:
   var image=b.get_child(0)
-  check(image.size==Vector2(96,64),"Thumbnail actual size matches reserved image area")
+  check(image.size==Vector2(96,72),"Thumbnail actual size matches reserved image area")
   check(b.clip_contents,"Thumbnail clips raster to card")
  var names=["生存","无尽","猎杀","护航","破巢","守卫"]
  for language in ["Chinese (simplified)","English"]:
@@ -40,7 +40,7 @@ func execute():
     check(root.get_visible_rect().encloses(view.board.get_global_rect()),"Board fits %s %s"%[language,window])
     if language.begins_with("Chinese"):check(view.title.text==names[i],"Title mapped to correct mission %d"%i)
     check(bool(owner.selected_mission.isEndless)==(i==1),"Endless source mapping %d"%i)
-    check(view.scene_art.texture==view.scene_textures[i],"Scene art mapping %d"%i)
+    check(view.scene_art.mission_index==i and view.scene_icons[i].selected,"Mission painting and selected icon match mission %d"%i)
     for b in view.difficulty_buttons:check(view.board.get_global_rect().encloses(b.get_global_rect()),"Difficulty fits board")
     check(not view.pool_button.get_global_rect().intersects(view.pool_summary.get_global_rect()),"Loot summary clear of button")
     check(not view.reward_summary.get_global_rect().intersects(view.launch_button.get_global_rect()),"Rewards clear of launch")

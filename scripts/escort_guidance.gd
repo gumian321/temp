@@ -30,12 +30,12 @@ static func paint(game):
 		game.draw_line(at+Vector2(radius,0),at+Vector2(radius+5,0),ALLY,2,true)
 	if not ships.is_empty():
 		var at:Vector2=game.world(ships[0].position)
-		if view.has_point(at):caption(game,at+Vector2(-110,-34),game.db.ui("CONVOY  %d / %d","商队  %d / %d")%[ships.size(),director.initial_objectives])
-		pointer(game,ships[0].position,game.db.ui("CONVOY %dm","商队 %d米")%roundi(Vector2(ships[0].position).distance_to(game.player.head)/48))
+		if view.has_point(at):caption(game,at+Vector2(-110,-34),game.db.ui("BROOD  %d / %d","迁徙虫群  %d / %d")%[ships.size(),director.initial_objectives])
+		pointer(game,ships[0].position,game.db.ui("BROOD %dm","迁徙虫群 %d米")%roundi(Vector2(ships[0].position).distance_to(game.player.head)/48))
 	var goal:Vector2=game.world(director.fleet_goal)
 	if view.has_point(goal):
 		var radius=maxf(18,float(director.fleet_data.disFromTargetToWin)*48*game.zoom)
 		game.draw_circle(goal,radius,Color(ALLY,.12));game.draw_arc(goal,radius,0,TAU,32,ALLY,2,true)
 		game.draw_line(goal-Vector2(8,0),goal+Vector2(8,0),ALLY,2,true);game.draw_line(goal-Vector2(0,8),goal+Vector2(0,8),ALLY,2,true)
-		caption(game,goal+Vector2(-110,-radius-12),game.db.ui("SAFE ZONE","安全区 · 护送商队抵达"))
+		caption(game,goal+Vector2(-110,-radius-12),game.db.ui("SAFE ZONE","安全区 · 护送迁徙虫群抵达"))
 	else:pointer(game,director.fleet_goal,game.db.ui("SAFE %dm","终点 %d米")%roundi(game.player.head.distance_to(director.fleet_goal)/48))

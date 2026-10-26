@@ -78,6 +78,8 @@ func verify_material_pixels(board:Node2D,layer):
   var at=Vector2(24+(i%5)*205,44+int(i/5)*180);points.append(at)
   var painter=Layer.route(board,key,i%2==1)
   painter.draw_texture_rect(texture,Rect2(at,Vector2(160,112)),false)
+  var strip=at+Vector2(0,120)
+  painter.draw_colored_polygon(PackedVector2Array([strip,strip+Vector2(160,0),strip+Vector2(160,32),strip+Vector2(0,32)]),Color("9cb671"))
   var label=Label.new();label.text=key;label.position=at-Vector2(0,28);label.add_theme_color_override("font_color",Color("213b6e"));board.add_child(label)
  var pictures=[]
  for clock in [0.0,0.63]:
@@ -96,13 +98,20 @@ func verify_material_pixels(board:Node2D,layer):
   check(color_difference(ink,Color("152449"))<0.018,key+" preserves dark illustrated ink")
   check(color_difference(ivory,Color("fffaf0"))<0.025,key+" preserves ivory hazard separator")
   check(color_difference(clear,backdrop.color)<0.018,key+" preserves transparent atlas margins")
-  var changed=0;var red_safe=true;var dark_folds=0;var wet_lips=0;var checksum=0.0
+  var changed=0;var red_safe=true;var dark_folds=0;var checksum=0.0
+  var min_value=1.0;var max_value=0.0;var raster_error=0.0;var shadow_only=true
   for y in range(64,94):
    for x in range(8,140):
     var pos=Vector2i(at+Vector2(x,y));var pixel=second.get_pixelv(pos)
-    if color_difference(first.get_pixelv(pos),pixel)>0.012:changed+=1
-    if pixel.g<0.62:dark_folds+=1
-    if pixel.r>0.68:wet_lips+=1
+    raster_error=maxf(raster_error,color_difference(pixel,Color("9cb671")))
+    raster_error=maxf(raster_error,color_difference(first.get_pixelv(pos),pixel))
+  for y in range(124,148):
+   for x in range(8,140):
+    var pos=Vector2i(at+Vector2(x,y));var pixel=second.get_pixelv(pos)
+    if color_difference(first.get_pixelv(pos),pixel)>0.004:changed+=1
+    if pixel.g<Color("9cb671").g-.006:dark_folds+=1
+    min_value=minf(min_value,pixel.g);max_value=maxf(max_value,pixel.g)
+    shadow_only=shadow_only and pixel.g<=Color("9cb671").g+.006 and pixel.g>=Color("9cb671").g*.93
     checksum+=pixel.r+pixel.g*2.0+pixel.b*3.0
   for y in range(8,38):
    for x in range(60,90):
@@ -110,9 +119,10 @@ func verify_material_pixels(board:Node2D,layer):
     red_safe=red_safe and pixel.r>0.72 and pixel.r>pixel.g*2.5 and pixel.r>pixel.b*2.0
   checksums.append(checksum)
   check(red_safe,key+" keeps hostile crimson unmistakably red")
-  check(changed>90,key+" animated membrane changes native pixels with frozen geometry")
-  check(dark_folds>15 and wet_lips>15,key+" produces both dark tissue folds and wet highlights")
- check(checksums.max()-checksums.min()>50.0,"Material families have distinct tissue structure")
+  check(raster_error<.012,key+" preserves baked atlas colours without animated gloss or darkening")
+  check(changed>90,key+" retains gentle motion on native procedural geometry")
+  check(shadow_only and dark_folds>15 and max_value-min_value>.012,key+" has faint local shadows without added highlights")
+ check(checksums.max()-checksums.min()>3.0,"Material families retain distinct anatomical folds")
 
 func color_difference(a:Color,b:Color)->float:
  return maxf(absf(a.r-b.r),maxf(absf(a.g-b.g),absf(a.b-b.b)))

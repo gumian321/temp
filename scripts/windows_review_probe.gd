@@ -105,8 +105,12 @@ func execute():
 	game.set_process(false);game.test_mode = true
 	check(game.screen == "home", "Fresh executable opens directly at home")
 	check(game.save.state.roster_unlocked == ["centipede"], "Fresh colleague profile starts with normal roster")
-	await click_at(Vector2(268,464))
+	var home_nest_buttons=game.panel.find_children("*","Button",true,false).filter(func(button):return button.is_visible_in_tree() and not button.disabled and button.text==game.db.ui("INSECT NEST","虫巢"))
+	check(home_nest_buttons.size()==1,"Home exposes exactly one enabled Nest button")
+	if home_nest_buttons.size()!=1:quit(1);return
+	await click_at(home_nest_buttons[0].get_global_rect().get_center())
 	check(game.screen == "characters", "Actual home Nest button opens character screen")
+	if game.screen!="characters":quit(1);return
 	var nest = game.panel.get_child(0)
 	check(nest.cards.keys() == Roster.ids(), "Nest displays only Centipede and Spider")
 	check(is_equal_approx(nest.cards.centipede.position.x, 1440.0 - nest.cards.spider.position.x - nest.cards.spider.size.x), "Two character cards are centered")
@@ -136,7 +140,8 @@ func execute():
 	await capture("review-05-home-full-unlock")
 	await click_at(game.debug_unlock_button.get_global_rect().get_center())
 	check(game.db.research.all(func(node):return node.nodeRewardsList.all(func(id):return game.save.available(id))),"Actual EXE home button unlocks every evolution tier")
-	check(game.db.catalog.values().filter(func(reward):return str(reward.get("class","")).ends_with("Reward")).all(func(reward):return game.save.available(reward.id)),"Actual EXE home button unlocks and enables every skill reward")
+	check(game.db.catalog.values().filter(func(reward):return str(reward.get("class","")).ends_with("Reward") and not reward.get("retired",false)).all(func(reward):return game.save.available(reward.id)),"Actual EXE home button unlocks and enables every active skill reward")
+	check(game.db.catalog.values().filter(func(reward):return reward.get("retired",false)).all(func(reward):return not game.save.available(reward.id)),"Debug unlock keeps retired rearrangement rewards unavailable")
 	check(Roster.ids().all(func(id):return game.save.character_unlocked(id)),"Full unlock includes every playable character")
 	check(Store.new(game.db,normal_path).state.unlocked==game.save.state.unlocked,"Full unlock persists in an independently reloaded EXE profile")
 	for id in Roster.ids():

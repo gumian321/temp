@@ -35,7 +35,9 @@ func _initialize():
 			db.language = db.DEFAULT_LANGUAGE
 		if "Reward" in str(value.get("class", "")):
 			var key = db.armament_variant(value)
-			if not key.is_empty(): check(db.text(value.rewardDesc) == Art.entries()[key].description_zh, "Reward/research description shares current identity: " + value.name)
+			if not key.is_empty():
+				var expected=db.text("Branch_"+str(value.mutation_branch)+"_Desc") if value.has("mutation_branch") else Art.entries()[key].description_zh
+				check(db.text(value.rewardDesc)==expected,"Reward/research description shares current identity: "+value.name)
 	check(total_guns == 38, "All 32 original and six added body/head gun cores covered")
 	check(db.title(db.named("Core_Drones_Attack")) == "猎蜂巢", "Drone bay name is distinct from deployed hunter wasp")
 	check(db.ui_text("Gatling Gun") == "蜂尾针簇", "Legacy literal name resolves to new display name")

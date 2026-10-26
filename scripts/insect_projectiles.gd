@@ -64,6 +64,9 @@ static func paint(canvas, bullet: Dictionary, zoom: float, time: float = 0.0):
 	if hostile:
 		var cue=hostile_geometry(bullet,zoom)
 		size=cue.size
+		var visual_id=int(bullet.get("projectile_trail",{}).get("visual_id",0))
+		if canvas is AttackShaders.Painter and canvas.owner_layer!=null and canvas.owner_layer.paint_retained_projectile(canvas,visual_id,cue,at,heading,paint_hostile_cue):return
+		if canvas is AttackShaders.Painter and canvas.owner_layer!=null and canvas.owner_layer.use_flight_batch and canvas.owner_layer.batch_flights_this_frame:canvas.owner_layer.flight_batch.interrupt(canvas)
 		paint_hostile_cue(canvas,at,heading,cue)
 		return
 	if not hostile:
@@ -84,6 +87,24 @@ static func paint(canvas, bullet: Dictionary, zoom: float, time: float = 0.0):
 		# Missing atlas stays biological: tapered chitin splinter, never old factory art.
 		canvas.draw_colored_polygon(PackedVector2Array([Vector2(size.x*0.5,0),Vector2(-size.x*0.35,-size.y*0.35),Vector2(-size.x*0.15,0),Vector2(-size.x*0.35,size.y*0.35)]),Color("ef7594") if hostile else Color("efbd55"))
 	canvas.draw_set_transform(Vector2.ZERO)
+
+static func flight_stamp(bullet:Dictionary,zoom:float,time:float)->Dictionary:
+	if not bool(bullet.get("friendly",true)):return {}
+	var key=family(bullet)
+	var size:Vector2=SIZES.get(key,Vector2(22,13))*zoom*clampf(float(bullet.get("radius",4.0))/4.0,1.0,2.0)
+	var kind=Viscous.family(bullet,key)
+	var source:Texture2D
+	if not kind.is_empty():
+		source=Viscous.texture(kind)
+		if source==null:return {}
+		size*=wet_pose(bullet,kind,time)
+	if source==null and key in Viscous.SPECIAL_BODY_KEYS:source=Viscous.texture(key)
+	if source==null:
+		source=texture(key)
+		if source!=null:
+			var native_size=source.get_size();size=native_size*minf(size.x/native_size.x,size.y/native_size.y)
+	if not source is AtlasTexture or source.margin!=Rect2():return {}
+	return {"source":source,"size":size,"heading":angle(bullet)}
 
 static func wet_pose(bullet:Dictionary,kind:String,time:float)->Vector2:
 	var pose=Viscous.pose(bullet,kind,time)
@@ -113,9 +134,7 @@ static func paint_hostile_cue(canvas,at:Vector2,heading:float,cue:Dictionary):
 	canvas.draw_colored_polygon(shape.shell,DANGER_EDGE)
 	var border:PackedVector2Array=shape.border
 	canvas.draw_polyline(border,Color("e88d9c"),1.1,true)
-	var membrane=PackedVector2Array()
-	for p in shape.shell:membrane.append(p*.77)
-	canvas.draw_colored_polygon(membrane,DANGER)
+	canvas.draw_colored_polygon(shape.membrane,DANGER)
 	canvas.draw_circle(Vector2(size.x*.08,0),size.y*.28,Color("611b47"),true,-1,true)
 	canvas.draw_circle(Vector2(size.x*.16,-size.y*.06),size.y*.13,Color("ffba9b"),true,-1,true)
 	canvas.draw_arc(Vector2.ZERO,size.y*.37,-1.4,.5,12,Color("f1b7b4"),.85,true)
@@ -131,7 +150,9 @@ static func hostile_shell(size:Vector2)->Dictionary:
 	var shell=PackedVector2Array();shell.resize(unit_shell.size())
 	for i in unit_shell.size():shell[i]=unit_shell[i]*size
 	var border=shell.duplicate();border.append(shell[0])
-	var result={"shell":shell,"border":border}
+	var membrane=PackedVector2Array();membrane.resize(shell.size())
+	for i in shell.size():membrane[i]=shell[i]*.77
+	var result={"shell":shell,"border":border,"membrane":membrane}
 	if hostile_shells.size()>=MAX_SHELL_CACHE:hostile_shells.clear()
 	hostile_shells[size]=result
 	return result

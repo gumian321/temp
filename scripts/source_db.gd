@@ -42,6 +42,10 @@ func _init():
 	preload("res://scripts/mutation_branches.gd").install_names(self)
 	for key in localization:
 		english_keys[str(localization[key].get("English", ""))] = key
+	# Source layouts retain their original literal strings. Resolve those through
+	# the same reviewed wording as localized labels in every selectable language.
+	for source_text in chinese_ui.get("aliases", {}):
+		english_keys[source_text] = chinese_ui.aliases[source_text]
 	for value in catalog.values():
 		if not names.has(value.name):names[value.name]=value
 		if not classes.has(value["class"]):classes[value["class"]]=[]
@@ -85,7 +89,8 @@ func kind(type: String) -> Array:
 func text(key) -> String:
 	if key == null:
 		return ""
-	return str(localization.get(str(key), {}).get(language, key))
+	var entry:Dictionary=localization.get(str(key), {})
+	return str(entry.get(language, entry.get("English", key)))
 
 func ui(english: String, chinese: String) -> String:
 	return chinese if language.begins_with("Chinese") else english
@@ -111,11 +116,12 @@ func title(v: Dictionary) -> String:
 	if v.has("blockCore"):
 		return "%s ×%d" % [title(asset(v.blockCore)), v.get("coresCount", 1)]
 	if v.has("core") and v.core is String:
-		return ui("HQ ", "蜈蚣头部 · ") + title(asset(v.core))
+		return ui("Head · ", "头部 · ") + title(asset(v.core))
 	if v.has("drone"):
 		return title(asset(v.drone)) + " ×" + str(int(v.get("dronesCount", 1)))
 	if v.has("turretCore"):
 		return title(asset(v.turretCore))
+	if english_keys.has(str(v.get("name", ""))):return text(english_keys[str(v.name)])
 	return str(v.get("name", "" )).replace("Reward_", "").replace("_", " ")
 
 func sprite(id) -> Texture2D:

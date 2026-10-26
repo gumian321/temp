@@ -32,7 +32,9 @@ func execute():
  game.show_game();await process_frame
  await press(JOY_BUTTON_A);check(game.radar_mode,'Source controller south button toggles radar')
  game.begin_run();await process_frame
- check(game.screen=="game","Restart enters combat without a tips input gate")
+ var deployment_deadline=Time.get_ticks_msec()+30000
+ while game.deployment_active and Time.get_ticks_msec()<deployment_deadline:await process_frame
+ check(not game.deployment_active and game.screen=="game","Restart finishes asynchronous preparation without a tips input gate")
  game.show_loading();await process_frame
  var tip=game.tip_index
  event=InputEventJoypadMotion.new();event.device=0;event.axis=JOY_AXIS_LEFT_X;event.axis_value=0;Input.parse_input_event(event);await process_frame

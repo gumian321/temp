@@ -47,13 +47,13 @@ func execute():
  game.set_process(false);game.save.fresh();game.save.state.settings.skip_boss=true;game.test_mode=true
  game.show_missions();await settle()
  check(game.mission_ui.rows.size()==6,"All six source missions present")
- check(game.mission_ui.scene_textures.size()==6,"All six generated mission scenes present")
+ check(game.mission_ui.scene_icons.size()==6,"All six illustrated mission icons present")
  check(game.mission_ui.difficulty_buttons.map(func(b):return b.text)==["普通","困难","噩梦"],"Difficulty names readable without tooltips")
  var expected_names=["生存","无尽","猎杀","护航","破巢","守卫"]
  for i in 6:
   game.mission_ui.select_mission(i);await settle()
   check(game.mission_ui.title.text==expected_names[i],"Source mission has correct title %d"%i)
-  check(game.mission_ui.scene_art.texture==game.mission_ui.scene_textures[i],"Selected hero matches mission %d"%i)
+  check(game.mission_ui.scene_art.mission_index==i and game.mission_ui.scene_icons[i].selected,"Selected mission painting matches mission %d"%i)
   check(bool(game.selected_mission.isEndless)==(i==1),"Endless label matches actual mode %d"%i)
   await screenshot("scene-%d"%i)
  game.mission_ui.select_mission(0);await settle()

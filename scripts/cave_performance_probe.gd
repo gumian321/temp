@@ -94,6 +94,8 @@ func execute():
 		row.mines=game.combat.special.mines.size();row.drones=game.combat.drones.size();row.loot=game.combat.loot.size();row.effects=game.combat.effects.size()
 		row.combat_phases=game.combat.phase_times.duplicate()
 		row.attack_commands=game.attack_shader_layer.stats().commands
+		row.rig_builds=game.insect_layer.rig_builds;row.rig_reuses=game.insect_layer.rig_reuses
+		row.flight_instances=game.attack_shader_layer.flight_batch.submitted
 		row.orbit_moves=game.run.map_director.orbit_moves;row.remote_orbit_skips=game.run.map_director.remote_orbit_skips
 		rows.append(row);frame_times.append(elapsed);cpu_times.append(cpu)
 		if row.bite:bites.append(elapsed)
@@ -139,6 +141,10 @@ func execute():
 		report.windows[str(range_seconds[0])+"-"+str(range_seconds[1])]={"frames":samples.size(),"frame_ms":stats(samples.map(func(row):return row.frame_ms)),"cpu_ms":stats(samples.map(func(row):return row.cpu_ms)),"max_mines":samples.map(func(row):return row.mines).max(),"max_actors":samples.map(func(row):return row.actors).max(),"max_loot":samples.map(func(row):return row.loot).max()}
 	report.conditions.mission=mission_name;report.conditions.route=route if not route.is_empty() else "straight"
 	report.conditions.fixture_focus_pause_suppressed=true
+	report.conditions.flight_batch=game.attack_shader_layer.use_flight_batch
+	report.conditions.rig_pool=game.insect_layer.use_rig_pool
+	report.conditions.spatial_query_cache=game.combat.spatial.use_query_cache
+	report.conditions.upgrade_cache=game.player.use_upgrade_cache
 	FileAccess.open(report_path,FileAccess.WRITE).store_string(JSON.stringify(report,"\t"))
 	if OS.has_feature("editor"):
 		var tag=OS.get_environment("RBPEW_MINING_PERF_TAG")

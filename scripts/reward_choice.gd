@@ -44,23 +44,20 @@ func setup(owner_game,offers:Array,token:int):
   var top=HBoxContainer.new();top.add_theme_constant_override("separation",12);top.mouse_filter=MOUSE_FILTER_IGNORE;face.add_child(top)
   var rarity_name=[game.db.ui("COMMON","普通"),game.db.ui("RARE","稀有"),game.db.ui("EPIC","史诗"),game.db.ui("LEGENDARY","传说")][rarity]
   var rarity_label=label(top,rarity_name,16);rarity_label.add_theme_color_override("font_color",accent);rarity_label.size_flags_horizontal=SIZE_EXPAND_FILL
-  var category=Categories.category(game.db,reward)
-  var category_name=game.db.ui(str(category.en),str(category.zh))
-  var category_badge=PanelContainer.new();category_badge.name="RewardCategory";category_badge.mouse_filter=MOUSE_FILTER_IGNORE;top.add_child(category_badge)
-  var category_skin=UI.flat_style(Color(UI.MUTED,.08),Color(UI.MUTED,.35),4)
-  category_skin.content_margin_left=10;category_skin.content_margin_right=10;category_skin.content_margin_top=3;category_skin.content_margin_bottom=3
-  category_badge.add_theme_stylebox_override("panel",category_skin)
-  label(category_badge,category_name,16).add_theme_color_override("font_color",UI.TEXT)
-  b.tooltip_text=category_name+" · "+b.tooltip_text
-  label(top,"0%d"%(i+1),16).add_theme_color_override("font_color",UI.MUTED)
-  var image=TextureRect.new();image.texture=reward_art(reward);image.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;image.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;image.custom_minimum_size.y=170;image.size_flags_vertical=SIZE_EXPAND_FILL;image.mouse_filter=MOUSE_FILTER_IGNORE;face.add_child(image)
+  var category=Categories.reward_badge(game.db,reward)
+  var category_name=str(category.text)
+  var tags=VBoxContainer.new();tags.name="RewardTags";tags.add_theme_constant_override("separation",4);tags.mouse_filter=MOUSE_FILTER_IGNORE;top.add_child(tags)
+  var broad=UI.badge(tags,str(category.category),category.color,false,16);broad.name="RewardCategory";broad.size_flags_horizontal=SIZE_SHRINK_END
+  var effect_tag=UI.badge(tags,category_name,category.color,true,20 if game.db.language=="Chinese (simplified)" else 18);effect_tag.name="RewardEffectTag";effect_tag.size_flags_horizontal=SIZE_SHRINK_END
+  b.tooltip_text=str(category.category)+" · "+category_name+" · "+b.tooltip_text
+  var image=TextureRect.new();image.texture=reward_art(reward);image.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;image.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;image.custom_minimum_size.y=142;image.size_flags_vertical=SIZE_EXPAND_FILL;image.mouse_filter=MOUSE_FILTER_IGNORE;face.add_child(image)
   var name_label=label(face,reward_title(reward),23);name_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;name_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;name_label.custom_minimum_size.y=54;name_label.max_lines_visible=2;name_label.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
   var rule=HSeparator.new();rule.mouse_filter=MOUSE_FILTER_IGNORE;face.add_child(rule)
   var effect=label(face,short_effect(reward),27);effect.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;effect.custom_minimum_size.y=38;effect.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;effect.max_lines_visible=1;effect.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS;effect.add_theme_color_override("font_color",UI.TEXT);effect_labels.append(effect)
   if reward.has("mutation_branch"):
    effect.add_theme_font_size_override("font_size",21)
    face.add_theme_constant_override("separation",8);face.offset_top=22;face.offset_bottom=-22
-   image.custom_minimum_size.y=80;name_label.custom_minimum_size.y=46;effect.custom_minimum_size.y=30
+   image.custom_minimum_size.y=52;name_label.custom_minimum_size.y=46;effect.custom_minimum_size.y=30
    var branch_desc=label(face,game.db.text(reward.rewardDesc),15);branch_desc.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;branch_desc.max_lines_visible=4;branch_desc.clip_text=true;branch_desc.custom_minimum_size.y=96;branch_desc.add_theme_constant_override("line_spacing",0);branch_desc.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS;branch_desc.tooltip_text=branch_desc.text
   var action=game.db.ui("GROW  →","生长  →") if reward.get("class")=="BlockReward" else game.db.ui("EVOLVE  →","进化  →")
   if reward.get("class")=="CountBasicReward":action=game.db.ui("STORE CHARGES  →","领取次数  →")
@@ -91,14 +88,15 @@ func effect_text(reward:Dictionary)->String:
   "PercentBasicReward":return " · ".join(Passive.stat_fragments(game.db,{str(reward.rewardType):reward.percent}))+"\n"+game.db.ui("Applies to the corresponding global attribute immediately.","立即计入对应的全局属性。")
   "CrusedReward":return game.db.ui("BENEFIT: ","收益：")+" · ".join(Passive.stat_fragments(game.db,{str(reward.buffRewardType):reward.buffPercent}))+"\n"+game.db.ui("COST: ","代价：")+" · ".join(Passive.stat_fragments(game.db,{str(reward.debuffRewardType):reward.debuffPercent}))
   "CountBasicReward":return Passive.charge_text(game.db,{8:"swap",9:"duplicate",20:"move",21:"wall"}.get(int(reward.rewardType),"wall"),int(reward.get("count",reward.get("rewardCount",1))))+"\n"+game.db.ui("Receiving charges does not apply the action yet.","领取次数时不会自动执行操作。")
-  "MainCoreDroneReward":return game.db.ui("Add %d head drones.","增加 %d 架头部无人机。")%int(reward.get("dronesCount",1))+"\n"+description
-  "MainCoreTurretReward":return game.db.ui("Replace the head weapon immediately.","立即替换蜈蚣头部武器。")+"\n"+description
+  "MainCoreDroneReward":return game.db.ui("Add %d head companions.","增加 %d 只头部伴生虫。")%int(reward.get("dronesCount",1))+"\n"+description
+  "MainCoreTurretReward":return game.db.ui("Replace the head weapon immediately.","立即替换头部武器。")+"\n"+description
  var summary=Passive.upgrade_summary(game.db,reward)
  var status=game.player.reward_feedback(reward,game.combat.drones).status
  return summary+"\n"+Passive.status_text(game.db,status)+("\n"+description if not description.is_empty() else "")
 func label(parent:Node,value:String,px:int)->Label:
  var l=Label.new();l.text=value;l.add_theme_font_size_override("font_size",px);l.mouse_filter=MOUSE_FILTER_IGNORE;parent.add_child(l);return l
 func layout_board():
+ if not is_inside_tree() or is_queued_for_deletion():return
  # Keep the cards' text layout stable; shrinking the container alone lets its
  # minimum content height push actions into the footer on small windows.
  board.size=Vector2(1120,650)
@@ -116,7 +114,7 @@ func short_effect(reward:Dictionary)->String:
   "PercentBasicReward":return "%+.0f%%"%(float(reward.get("percent",0))*100)
   "CountBasicReward":return Passive.action_name(game.db,{8:"swap",9:"duplicate",20:"move",21:"wall"}.get(int(reward.rewardType),"wall"))+" ×%d"%int(reward.get("count",reward.get("rewardCount",1)))
   "CrusedReward":return "%+.0f%% / %+.0f%%"%[float(reward.buffPercent)*100,float(reward.debuffPercent)*100]
-  "MainCoreDroneReward":return game.db.ui("+%d DRONES","+%d  蜂群")%int(reward.get("dronesCount",1))
+  "MainCoreDroneReward":return game.db.ui("+%d COMPANIONS","+%d  蜂群")%int(reward.get("dronesCount",1))
   "MainCoreTurretReward":return game.db.ui("HEAD WEAPON","头部武装")
  if str(reward.get("class","")).ends_with("LevelUpReward"):
   return game.db.ui("UPGRADE STORED","升级储备") if game.player.reward_feedback(reward,game.combat.drones).status=="dormant" else game.db.ui("LEVEL +1","等级 +1")
@@ -155,7 +153,7 @@ func progress_info(reward:Dictionary)->Dictionary:
   return {"text":game.db.ui("EQUIPPED %d/1","装备 %d/1")%equipped,"tooltip":game.db.ui("This head weapon equipped / head slot: %d / 1","此头部武器已装备 / 头部槽位：%d / 1")%equipped}
  if kind=="MainCoreDroneReward":
   var count=game.combat.drones.filter(func(d):return d.owner==0).size();var cap=int(data.maxHQDronesCount)
-  return {"text":game.db.ui("DRONES %d/%d","蜂群 %d/%d")%[count,cap],"tooltip":game.db.ui("Head drones currently deployed / limit: %d / %d","当前头部无人机 / 上限：%d / %d")%[count,cap]}
+  return {"text":game.db.ui("SWARM %d/%d","蜂群 %d/%d")%[count,cap],"tooltip":game.db.ui("Head companions currently active / limit: %d / %d","当前头部伴生虫 / 上限：%d / %d")%[count,cap]}
  if kind in ["PercentBasicReward","CrusedReward"]:
   var stat=str(int(reward.get("rewardType",reward.get("buffRewardType",0))))
   var current=float(player.stats.get(stat,0))*100

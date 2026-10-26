@@ -1,0 +1,93 @@
+{
+  "date": "2026-10-23",
+  "change": "Atmospheric monochrome cave vignettes for the six expedition briefings",
+  "renderer": "Native Godot 4.6.3 OpenGL",
+  "isolated_user_data": true,
+  "passed": true,
+  "runs": [
+    {
+      "report": "artifacts/expedition-atmosphere-final.json",
+      "suites": [
+        {
+          "suite": "field_guide_scene",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 12.587,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "expedition_briefing",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 9.463,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "mission_select",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 19.536,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "report": "artifacts/expedition-atmosphere-polish.json",
+      "suites": [
+        {
+          "suite": "field_guide_scene",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 10.838,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "meta_ui_redesign",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 8.03,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "visual_report": {
+    "path": "artifacts/field-guide-scene-report.json",
+    "passed": true,
+    "checks": 123,
+    "captures": 30,
+    "issues": []
+  },
+  "resource_import": {
+    "exit_code": 0,
+    "log": "artifacts/expedition-atmosphere-import.log",
+    "known_platform_warning": "Windows root certificate store unavailable; no network or TLS used"
+  },
+  "controls": "Mouse, keyboard, injected controller events; no physical controller acceptance",
+  "bitmap_assets_modified_by_this_change": false,
+  "standalone_executable_exported": false,
+  "examples": [
+    "artifacts/ui-small-field-mission-3-1440x900.png",
+    "artifacts/ui-small-field-mission-1-1440x900.png",
+    "artifacts/ui-small-field-mission-4-1440x900.png",
+    "artifacts/ui-small-field-mission-3-800x600.png",
+    "artifacts/ui-small-field-spider-mission.png"
+  ]
+}

@@ -39,7 +39,7 @@ func _init():
 	halo_texture.gradient = gradient
 
 func glow(canvas, at: Vector2, radius: float, color: Color, alpha: float):
-	canvas.draw_texture_rect(halo_texture, Rect2(at-Vector2.ONE*radius, Vector2.ONE*radius*2), false, Color(color, clampf(alpha,0,1)))
+	canvas.draw_texture_rect(halo_texture, Rect2(at-Vector2.ONE*radius, Vector2.ONE*radius*2), false, Color(color, clampf(alpha,0,1)*0.82))
 
 func ring(canvas, at: Vector2, radius: float, color: Color, alpha: float, width: float, begin: float = 0.0, end: float = TAU):
 	if radius < 0.2 or alpha <= 0.0: return
@@ -55,6 +55,20 @@ func ribbon(canvas, start: Vector2, end: Vector2, width: float, color: Color, al
 func visible(canvas, at: Vector2, margin: float = 220.0) -> bool:
 	return canvas.get_viewport_rect().grow(margin).has_point(canvas.world(at))
 
+func effect_visible(canvas,effect:Dictionary,zoom:float)->bool:
+	var margin=maxf(48,float(effect.get("radius",0))*zoom+24)
+	var rect=canvas.get_viewport_rect().grow(margin)
+	var start:Vector2=canvas.world(effect.position)
+	if effect.has("curve") and not effect.curve.is_empty():
+		var curve_bounds=Rect2(start,Vector2.ZERO)
+		for point in effect.curve:curve_bounds=curve_bounds.expand(canvas.world(point))
+		return rect.intersects(curve_bounds.grow(1))
+	if effect.has("end"):
+		var finish:Vector2=canvas.world(effect.end)
+		# Beams can cross the viewport with both endpoints outside it.
+		return rect.intersects(Rect2(start,Vector2.ZERO).expand(finish).grow(1))
+	return visible(canvas,effect.position,maxf(440,margin))
+
 # Pure geometry shared with regression checks: the tail always trails velocity.
 static func gatling_geometry(bullet: Dictionary, zoom: float) -> Dictionary:
 	var axis = Vector2(bullet.velocity).normalized()
@@ -69,6 +83,15 @@ func paint_gatling(canvas, bullet: Dictionary, zoom: float):
 func paint_projectile(canvas, bullet: Dictionary, time: float, zoom: float):
 	if not visible(canvas,bullet.position):return
 	canvas=AttackShaders.route(canvas,Organic.family(bullet),not bool(bullet.get("friendly",true)))
+	var layer=canvas.owner_layer if canvas is AttackShaders.Painter else null
+	if layer!=null and layer.use_flight_batch and layer.batch_flights_this_frame and not layer.trace_commands and bool(bullet.get("friendly",true)) and draw_count<MAX_DETAILED_TRAILS:
+		var state:Dictionary=bullet.get("projectile_trail",{})
+		var body=Organic.flight_stamp(bullet,zoom,time)
+		if not state.is_empty() and not body.is_empty():
+			var origin:Vector2=canvas.world(Vector2.ZERO);var scale_factor=origin.distance_to(canvas.world(Vector2.RIGHT))
+			if scale_factor>.0001 and layer.flight_batch.enqueue(canvas,state,ProjectileTrails.prepare_gpu_mesh(state,zoom,scale_factor),origin,scale_factor,body,"projectile"):
+				draw_count+=1;return
+	if layer!=null and layer.use_flight_batch and layer.batch_flights_this_frame and bool(bullet.get("friendly",true)):layer.flight_batch.interrupt(canvas)
 	# Draw the independent trail first so its head is tucked under the body.
 	# Incoming hazards keep their direction cue even after the friendly FX cap.
 	if not bool(bullet.get("friendly",true)) or draw_count<MAX_PROJECTILES:
@@ -101,16 +124,25 @@ func paint(canvas, battle, time: float, zoom: float):
 	# Stable priority order without repeated filters or Dictionary membership
 	# searches. Each effect is classified once, regardless of hostile beam count.
 	order_effects(battle.effects)
+	if canvas is Node2D:
+		var layer=canvas.get_meta(&"attack_shader_layer",null)
+		if layer!=null and layer.use_muzzle_batch:
+			var muzzles=0
+			for effect in minor_effects:
+				if effect.kind=="muzzle" and visible(canvas,effect.position,440):muzzles+=1
+				if muzzles>=12:break
+			layer.batch_muzzles_this_frame=muzzles>=12
 	for bucket in [hazard_effects,major_effects,minor_effects]:
 		for effect in bucket:
-			if drawn >= MAX_TRANSIENTS: break
-			if not visible(canvas,effect.position,440): continue
+			var hazard=not effect.get("friendly",true) and effect.kind in ["chain","flame"]
+			if not hazard and drawn >= MAX_TRANSIENTS: break
+			if not effect_visible(canvas,effect,zoom): continue
 			if effect.kind not in ["stone_chips","muzzle","hit","shield_hit","explosion","chain","flame","emp","mine_arm","hole_birth","hole_collapse","viscous_contact","egg_burst"]: continue
 			if effect.kind=="flame":
 				var owner=str(effect.get("owner",""))
 				if flame_owners.has(owner):continue
 				flame_owners[owner]=true
-			drawn += 1
+			if not hazard:drawn += 1
 			paint_effect(canvas,effect,zoom)
 	for hole in battle.special.black_holes:
 		if visible(canvas,hole.position,300): paint_hole(canvas,hole,zoom)
@@ -148,6 +180,8 @@ func paint_effect(canvas, effect: Dictionary, zoom: float):
 			canvas.draw_colored_polygon(triangle,Color(Color("bdbbb0") if i%2==0 else Color("74746f"),fade))
 		return
 	canvas=AttackShaders.route(canvas,str(effect.get("fx_family","tesla" if effect.kind=="chain" else ("emp" if effect.kind in ["emp","shield_hit"] else "impact"))),not bool(effect.get("friendly",true)))
+	if effect.kind=="muzzle" and canvas is AttackShaders.Painter and canvas.owner_layer!=null and canvas.owner_layer.use_muzzle_batch and canvas.owner_layer.batch_muzzles_this_frame and not canvas.owner_layer.trace_commands:
+		if canvas.owner_layer.muzzle_batch.enqueue(canvas,effect,zoom,halo_texture):return
 	var key = str(effect.get("fx_family", "tesla" if effect.kind=="chain" else ("emp" if effect.kind in ["emp","shield_hit"] else "impact")))
 	var style = Feedback.profile(key)
 	if not effect.get("friendly",true):

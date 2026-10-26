@@ -7,17 +7,90 @@ uniform int material_kind = 0;
 uniform float clock = 0.0;
 uniform float rate = 1.0;
 uniform vec4 accent : source_color = vec4(0.3,0.9,0.8,1.0);
+uniform sampler2D muzzle_data : filter_nearest, repeat_disable;
+uniform sampler2D muzzle_halo : filter_linear, repeat_disable;
+uniform sampler2D flight_data : filter_nearest, repeat_disable;
+varying float flight_flag;
+varying vec4 flight_tint;
+uniform vec4 muzzle_color : source_color = vec4(1.0);
+uniform vec4 muzzle_accent : source_color = vec4(1.0);
+uniform float muzzle_weight = 1.0;
+uniform bool muzzle_husk = false;
+varying float muzzle_flag;
+varying vec2 muzzle_uv;
+varying vec4 muzzle_tint;
+varying vec2 muzzle_edge;
 varying vec2 ink_position;
 varying vec4 egg_ring;
 varying vec3 ribbon_uv;
 varying float ribbon_flag;
 void vertex(){
+ flight_flag=0.0;flight_tint=vec4(1.0);
+ if(INSTANCE_CUSTOM.b<-28.5 && INSTANCE_CUSTOM.b>-29.5){
+  int slot=int(INSTANCE_CUSTOM.r);
+  vec4 head=texelFetch(flight_data,ivec2(0,slot),0);
+  if(UV.y>=2.0){
+   flight_flag=1.0;
+   int point=min(int(UV.x),int(head.z));
+   vec4 placement=texelFetch(flight_data,ivec2(4+point*2,slot),0);
+   vec4 pigment=texelFetch(flight_data,ivec2(5+point*2,slot),0);
+   VERTEX=point==0?head.xy:placement.xy;
+   COLOR=vec4(placement.zw,pigment.xy);
+   if(head.z<0.5){COLOR.a=0.0;}
+   UV=vec2(float(point)/max(1.0,head.z),(head.w>0.5?2.0:3.0)+fract(UV.y));
+  }else{
+   vec4 pose=texelFetch(flight_data,ivec2(1,slot),0);
+   vec4 region=texelFetch(flight_data,ivec2(2,slot),0);
+   vec2 local=VERTEX*pose.xy;
+   VERTEX=head.xy+vec2(local.x*cos(pose.z)-local.y*sin(pose.z),local.x*sin(pose.z)+local.y*cos(pose.z));
+   COLOR=vec4(1.0,1.0,1.0,pose.w);
+   UV=region.xy+UV*region.zw;
+  }
+ }
  ink_position=VERTEX;egg_ring=vec4(0.0);
+ muzzle_flag=0.0;muzzle_uv=vec2(0.0);muzzle_tint=vec4(1.0);muzzle_edge=vec2(0.0);
  ribbon_uv=vec3(0.0);ribbon_flag=0.0;
+ if(UV.y>=20.0 && UV.y<21.0){
+  int slot=int(INSTANCE_CUSTOM.r)*3;
+  vec4 state=texelFetch(muzzle_data,ivec2(slot%64,slot/64),0);
+  vec4 placement=texelFetch(muzzle_data,ivec2((slot+1)%64,(slot+1)/64),0);
+  bool friendly=texelFetch(muzzle_data,ivec2((slot+2)%64,(slot+2)/64),0).r>0.5;
+  vec4 pigment=friendly?muzzle_color:vec4(0.847058824,0.152941176,0.274509804,1.0);
+  vec4 pigment_accent=friendly?muzzle_accent:vec4(0.392156863,0.090196078,0.184313725,1.0);
+  float fade=pow(1.0-state.x,1.3);
+  float size=state.z;
+  float length=(20.0+muzzle_weight*14.0)*size*(0.65+fade*0.35);
+  vec2 axis=placement.zw;vec2 side=vec2(axis.y,-axis.x);
+  vec2 p=VERTEX;int part=int(UV.x);muzzle_flag=2.0;
+  if(part==0){
+   muzzle_flag=1.0;muzzle_uv=p*0.5+0.5;
+   VERTEX=placement.xy+p*length*0.75;
+   muzzle_tint=vec4(pigment.rgb,fade*0.82);
+  }else if(part==6){
+   float angle=state.y*18.0+state.w;
+   vec2 direction=vec2(cos(angle),sin(angle));vec2 normal=vec2(direction.y,-direction.x);
+   float half_width=1.25*size;
+   VERTEX=placement.xy+side*(8.0+state.y*190.0)*size-axis*state.y*60.0*size+direction*5.0*size*p.x+normal*(half_width+1.0)*p.y;
+   muzzle_flag=3.0;muzzle_tint=vec4(pigment_accent.rgb,muzzle_husk?fade:0.0);muzzle_edge=vec2((half_width+1.0)*p.y,half_width);
+  }else{
+   vec2 direction=axis;float reach=length;float width=13.0*size;vec2 start=placement.xy;
+   muzzle_tint=vec4(pigment_accent.rgb,fade*0.85);
+   if(part==1){start-=axis*3.0*size;reach+=3.0*size;}
+   if(part==2){reach*=0.78;width=7.0*size;muzzle_tint=vec4(pigment.rgb,fade);}
+   if(part==3){reach*=0.56;width=3.5*size;muzzle_tint=vec4(1.0,0.97254902,0.874509804,fade);}
+   if(part>=4){
+    float angle=part==4?-0.7:0.7;
+    direction=vec2(axis.x*cos(angle)-axis.y*sin(angle),axis.x*sin(angle)+axis.y*cos(angle));
+    reach*=0.43;width=5.0*size;muzzle_tint=vec4(pigment.rgb,fade);
+   }
+   VERTEX=start+direction*reach*p.x+vec2(direction.y,-direction.x)*width*p.y;
+  }
+  ink_position=VERTEX;COLOR=muzzle_tint;
+ }
  // UV rows 2..7 are reserved for fluid flight, beam and pressure-jet strips.
  // All illustrated
  // sprites and other primitives retain their ordinary 0..1 UV coordinates.
- if(UV.y>=2.0){
+ if(UV.y>=2.0 && UV.y<20.0){
   float along=clamp(UV.x,0.0,1.0);
   float bank=fract(UV.y)*2.0-1.0;
   vec2 normal=(COLOR.rg-vec2(0.5))*(UV.y>=4.0?128.0:16.0);
@@ -45,9 +118,11 @@ void vertex(){
   if(beam && material_kind==4){pigment=vec3(0.318,0.843,1.0);}
   if(beam && material_kind==6){pigment=vec3(0.588,0.627,1.0);}
   if(hostile){pigment=vec3(0.847,0.153,0.275);}
-  vec3 lip=mix(pigment,vec3(1.0,0.957,0.812),0.64);
-  COLOR.rgb=bank< -0.22?mix(pigment*0.47,lip,(bank+1.0)/0.78):mix(lip,pigment,(bank+0.22)/1.22);
+  // Match the matte atlases: local pigment with only a shallow lower-bank shadow.
+  float shadow=0.04*(1.0-smoothstep(-1.0,-0.3,bank));
+  COLOR.rgb=pigment*(1.0-shadow);
   COLOR.a*=0.94*((beam || jet)?1.0:1.0-along);
+  flight_tint=COLOR;
   ink_position=VERTEX;
  }
  // Instanced egg markers retain the same pigment in screen coordinates.
@@ -62,7 +137,7 @@ void vertex(){
 }
 float hash21(vec2 p){vec3 q=fract(vec3(p.xyx)*0.1031);q+=dot(q,q.yzx+33.33);return fract((q.x+q.y)*q.z);}
 float noise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);f=f*f*(3.0-2.0*f);return mix(mix(hash21(i),hash21(i+vec2(1,0)),f.x),mix(hash21(i+vec2(0,1)),hash21(i+vec2(1,1)),f.x),f.y);}
-// Broad dark crease with a narrow moist lip. Never blooms outside the source art.
+// Anatomical folds; only their shallow shadow is used in the matte material.
 vec2 fold(float phase){
  float wave=sin(phase);
  return vec2(1.0-smoothstep(0.10,0.42,abs(wave)),1.0-smoothstep(0.06,0.24,abs(wave-0.48)));
@@ -80,7 +155,8 @@ vec3 sacs(vec2 q,float time){
  return vec3(shell,nucleus,wet);
 }
 void fragment(){
- vec4 base=COLOR;
+ vec4 base=muzzle_flag>0.5?muzzle_tint:(flight_flag>0.5?flight_tint:COLOR);
+ if(muzzle_flag>2.5){base.a*=clamp(muzzle_edge.y+0.5-abs(muzzle_edge.x),0.0,1.0);}
  if(egg_ring.z>0.0){
   float radial=length(egg_ring.xy);
   float distance_to_ring=abs(radial-egg_ring.z)-egg_ring.w;
@@ -88,98 +164,81 @@ void fragment(){
  }
  if(occlusion.z>0.0 && SCREEN_UV.x>=occlusion.x && SCREEN_UV.y>=occlusion.y && SCREEN_UV.x<=occlusion.x+occlusion.z && SCREEN_UV.y<=occlusion.y+occlusion.w){discard;}
  if(base.a<=0.001){discard;}
- if(ribbon_flag>0.0){
+ if(muzzle_flag>0.5 && muzzle_flag<1.5){
+  COLOR=base*texture(muzzle_halo,muzzle_uv);
+ }else if(ribbon_flag>0.0){
   float pressure=0.5+0.5*sin(ribbon_uv.x*27.0-clock*17.0+ribbon_uv.z);
-  float lip=pow(pressure,5.0)*(1.0-smoothstep(0.05,0.82,abs(ribbon_uv.y+0.22)));
-  vec3 fluid=base.rgb*(0.82+0.18*pressure);
-  fluid=mix(fluid,vec3(1.0,0.94,0.81),lip*0.26);
+  vec3 fluid=base.rgb*(0.97+0.03*pressure);
   if(mod(ribbon_flag,2.0)>0.5){fluid=mix(base.rgb,fluid,0.45);}
   float edge=1.0-smoothstep(0.65,1.0,abs(ribbon_uv.y));
   float ends=1.0;
   if(ribbon_flag>=4.0){ends=smoothstep(0.0,0.035,ribbon_uv.x)*(1.0-smoothstep(0.97,1.0,ribbon_uv.x));}
   COLOR=vec4(fluid,base.a*edge*ends);
+ }else if(textureSize(TEXTURE,0).x>4 || textureSize(TEXTURE,0).y>4){
+  // Tiny renderer placeholder textures belong to untextured canvas primitives.
+  // Illustrated sprites already contain their approved colour and faint shadows.
+  // Never paint animated wet highlights or noise over the replacement atlases.
+  COLOR=base;
  }else{
- vec2 p=ink_position;
+ vec2 p=ink_position*0.8;
  float t=clock*rate;
  float coarse=noise(p*0.075+vec2(-t*0.38,t*0.17));
- float tissue=0.0;float crease=0.0;float wet=0.0;
- vec3 fluid=mix(accent.rgb,vec3(0.63,0.76,0.31),0.24);
+ float crease=0.0;
  if(material_kind==0){ // Viscous mucus: ropes of sap and trapped-fluid pockets.
   vec2 channel=fold(p.x*0.32+sin(p.y*0.24+t*0.9)*2.3-t*3.4+coarse*2.1);
   vec2 stringy=fold(p.y*0.75+sin(p.x*0.15-t*1.8)*1.6);
   crease=channel.x*0.78+stringy.x*0.25;
-  wet=channel.y*0.75+smoothstep(0.67,0.90,coarse)*0.30;
-  tissue=coarse*0.22;
  }else if(material_kind==1){ // Egg shell: sacs flex around opaque curled embryos.
   vec3 egg=sacs(p*0.095+vec2(coarse*0.22,t*0.065),t);
   crease=egg.x*0.72+egg.y*0.45;
-  wet=egg.z*0.95+egg.x*(0.18+0.08*sin(t*2.3+p.x*0.15));
-  tissue=egg.y*0.36+coarse*0.16;
-  fluid=mix(accent.rgb,vec3(0.68,0.82,0.37),0.38);
  }else if(material_kind==2){ // Larvae: travelling gut contractions and paired ribs.
   vec2 segment=fold(p.x*0.60-t*3.7+sin(p.y*0.16)*0.8);
   float gut=1.0-smoothstep(0.14,0.55,abs(sin(p.y*0.19+coarse*1.5)));
   crease=segment.x*0.72+gut*0.30;
-  wet=segment.y*0.70+gut*segment.y*0.25;tissue=coarse*0.22;
-  fluid=mix(accent.rgb,vec3(0.72,0.80,0.38),0.38);
  }else if(material_kind==3){ // Tongue: muscular rings squeeze sap down a wet throat.
   vec2 muscle=fold(p.x*0.23-t*5.1+sin(p.y*0.28+t)*0.8);
   vec2 artery=fold(p.y*0.44+coarse*2.6-t*0.8);
-  crease=muscle.x*0.75+artery.x*0.28;wet=muscle.y*0.72+artery.y*0.22;tissue=coarse*0.24;
-  fluid=mix(accent.rgb,vec3(0.64,0.35,0.51),0.25);
+  crease=muscle.x*0.75+artery.x*0.28;
  }else if(material_kind==4){ // Electric cilia: fluid nerve tubes carry smooth impulses.
   vec2 nerve=fold(p.x*0.23+sin(p.y*0.22+coarse*2.0)*2.3-t*4.4);
-  float impulse=0.45+0.55*smoothstep(-0.3,0.9,sin(p.x*0.08-t*4.2));
-  crease=nerve.x*0.82;wet=nerve.y*impulse;tissue=coarse*0.22;
-  fluid=mix(accent.rgb,vec3(0.56,0.81,0.67),0.30);
+  crease=nerve.x*0.82;
  }else if(material_kind==5){ // EMP: swollen ganglia joined by contracting membranes.
   vec3 nodes=sacs(p*0.085+vec2(coarse*0.30,t*0.06),t*0.8);
   vec2 nerve=fold(length(p)*0.30-t*3.0+coarse*2.5);
-  crease=nodes.x*0.46+nerve.x*0.52;wet=nodes.z*0.90+nerve.y*0.55;tissue=nodes.y*0.34;
+  crease=nodes.x*0.46+nerve.x*0.52;
  }else if(material_kind==6){ // Wing resonance: vascular membranes ripple in waves.
   vec2 vein=fold(p.y*0.37+sin(p.x*0.19-t*2.0)*1.7+coarse*1.5);
   float pressure=0.5+0.5*sin(p.x*0.15-t*4.8);
-  crease=vein.x*(0.58+pressure*0.32);wet=vein.y*0.70;tissue=coarse*0.25;
-  fluid=mix(accent.rgb,vec3(0.77,0.47,0.61),0.27);
+  crease=vein.x*(0.58+pressure*0.32);
  }else if(material_kind==7){ // Vortex: concentric swallowing folds, a living maw.
   float radius=length(p);float angle=atan(p.y,p.x);
   vec2 throat=fold(radius*0.20+sin(angle*5.0+t*0.7)*1.3-t*2.7);
-  crease=throat.x*0.90+smoothstep(0.65,0.9,coarse)*0.20;wet=throat.y*0.78;tissue=0.22+coarse*0.14;
-  fluid=mix(accent.rgb,vec3(0.56,0.27,0.45),0.35);
+  crease=throat.x*0.90+smoothstep(0.65,0.9,coarse)*0.20;
  }else if(material_kind==8){ // Impact slime: ragged clots retain crawling fluid channels.
   vec2 clot=fold(p.x*0.30+p.y*0.18+coarse*4.4-t*1.8);
-  crease=clot.x*0.65+smoothstep(0.65,0.89,coarse)*0.28;wet=clot.y*0.66;tissue=coarse*0.30;
+  crease=clot.x*0.65+smoothstep(0.65,0.89,coarse)*0.28;
  }else if(material_kind==9){ // Silk: sticky strands collect moving saliva beads.
   vec2 strands=fold(p.y*0.55+sin(p.x*0.10-t*1.4)+coarse);
   float bead=1.0-smoothstep(0.20,0.58,abs(sin(p.x*0.22-t*3.1)));
-  crease=strands.x*0.62+bead*0.17;wet=strands.y*bead*0.90+bead*0.18;tissue=coarse*0.18;
-  fluid=vec3(0.65,0.82,0.53);
+  crease=strands.x*0.62+bead*0.17;
  }else if(material_kind==11){ // Repair insects: cloudy lymph and circulating cells.
   vec3 lymph=sacs(p*0.11+vec2(t*0.10,coarse*0.3),t);
-  crease=lymph.x*0.70+lymph.y*0.25;wet=lymph.z*0.90;tissue=coarse*0.24;
+  crease=lymph.x*0.70+lymph.y*0.25;
  }else if(material_kind==12){ // Scavengers: chitin sutures and a segmented gut.
   vec2 gut=fold(p.x*0.41-t*2.5+sin(p.y*0.23)*1.4);
-  crease=gut.x*0.86;wet=gut.y*0.66;tissue=coarse*0.30;
-  fluid=mix(accent.rgb,vec3(0.67,0.58,0.26),0.30);
+  crease=gut.x*0.86;
  }else{ // Tendril: longitudinal veins cross travelling muscular constrictions.
   vec2 muscle=fold(p.x*0.32+p.y*0.18-t*3.6+coarse*1.6);
   vec2 vessel=fold(p.y*0.48+sin(p.x*0.12-t)*1.2);
-  crease=muscle.x*0.65+vessel.x*0.32;wet=muscle.y*0.60+vessel.y*0.24;tissue=coarse*0.25;
-  fluid=vec3(0.55,0.78,0.39);
+  crease=muscle.x*0.65+vessel.x*0.32;
  }
  float bright=max(base.r,max(base.g,base.b));float dim=min(base.r,min(base.g,base.b));
  // Navy/purple ink survives every family. Ivory hazard separation remains clean.
  float pigment=smoothstep(0.25,0.64,bright);
  float ivory=step(0.90,dim)*(1.0-smoothstep(0.08,0.14,bright-dim));
- float red=smoothstep(0.16,0.38,base.r-max(base.g,base.b));
  float surface=pigment*(1.0-ivory);
- vec3 soaked=mix(base.rgb,base.rgb*0.70+fluid*0.15,tissue);
- soaked*=1.0-clamp(crease,0.0,1.0)*0.44;
- vec3 moist=mix(base.rgb,vec3(0.96,0.94,0.76),0.62);
- vec3 living=mix(soaked,moist,clamp(wet,0.0,1.0)*0.52);
- // Shared by both teams: hostile crimson keeps its hue, with only slight value changes.
- vec3 crimson=base.rgb*(1.0-clamp(crease,0.0,1.0)*0.12)+base.rgb*wet*0.05;
- living=mix(living,crimson,red);
- COLOR=vec4(mix(base.rgb,living,surface),base.a);
+ // Native geometry keeps its motion and family anatomy, without reflections.
+ float shadow=clamp(crease,0.0,1.0)*0.06*surface;
+ COLOR=vec4(base.rgb*(1.0-shadow),base.a);
  }
 }

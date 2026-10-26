@@ -45,7 +45,7 @@ class Veins extends Control:
 func setup(source,store,on_close:Callable,on_change:Callable):
  db=source;save=store;close=on_close;changed=on_change
  size=Vector2(1440,900);mouse_filter=MOUSE_FILTER_STOP;UI.protect(self);UI.backdrop(self);theme=UI.theme()
- world=Control.new();world.position=Vector2(30,160);world.size=Vector2(1380,590);world.clip_contents=true;world.mouse_filter=MOUSE_FILTER_PASS;add_child(world)
+ world=Control.new();world.position=Vector2(30,160);world.size=Vector2(1380,620);world.clip_contents=true;world.mouse_filter=MOUSE_FILTER_PASS;add_child(world)
  canvas=Control.new();world.add_child(canvas);canvas.mouse_filter=MOUSE_FILTER_IGNORE
  UI.header(self,db.ui('EVOLUTION','进化'),close)
  for i in SECTIONS.size()+1:
@@ -116,7 +116,7 @@ func arrange_sections():
   var has_branches=nodes.any(func(node):return node.has('mutation_branch'))
   var roots=nodes.filter(func(node):return not node.has('mutation_branch'))
   var width=maxf(390,roots.size()*340+30) if has_branches else 390.0
-  section_bounds[section.id]=Rect2(section_x,0,width,680)
+  section_bounds[section.id]=Rect2(section_x,0,width,700)
   if has_branches:
    for index in roots.size():
     var parent:Dictionary=roots[index];var x=section_x+index*340
@@ -124,11 +124,11 @@ func arrange_sections():
     var children=nodes.filter(func(node):return node.has('mutation_branch') and str(int(node.previousUpgradeTreeNode.fileID))==parent.id)
     for child in children.size():node_positions[children[child].id]=Vector2(x+33+child*170,340)
   else:
-   for index in nodes.size():node_positions[nodes[index].id]=Vector2(section_x+52+(index%2)*178,100+(index/2)*190)
+   for index in nodes.size():node_positions[nodes[index].id]=Vector2(section_x+52+(index%2)*178,100+(index/2)*196)
   section_x+=width+30
- section_bounds.support=Rect2(0,720,section_x-30,460)
+ section_bounds.support=Rect2(0,720,section_x-30,480)
  var support:Array=groups.support
- for i in support.size():node_positions[support[i].id]=Vector2(64+(i%7)*288,810+(i/7)*190)
+ for i in support.size():node_positions[support[i].id]=Vector2(64+(i%7)*288,810+(i/7)*196)
 func paint_sections():
  for i in SECTIONS.size()+1:
   var section:Dictionary=SECTIONS[i] if i<SECTIONS.size() else Categories.SUPPORT
@@ -157,7 +157,8 @@ func rebuild():
    pan=world.size*.5-(b.position+NODE_ICON_CENTER)*magnification;apply_view())
   b.expand_icon=true;b.add_theme_constant_override('icon_max_width',62);b.icon=icon(db.asset(n.nodeRewardsList[0]));b.icon_alignment=HORIZONTAL_ALIGNMENT_CENTER;b.vertical_icon_alignment=VERTICAL_ALIGNMENT_TOP;b.size=NODE_SIZE
   b.add_theme_color_override("icon_normal_color",Color.WHITE if unlocked>0 else Color(UI.MUTED,.82))
-  b.tooltip_text=db.title(db.asset(n.nodeRewardsList[0]))+'\n'+db.ui('Current level: %d / Maximum level: %d','当前等级：%d / 最大等级：%d')%[unlocked,maximum]
+  var tags=Categories.reward_badge(db,db.asset(n.nodeRewardsList[0]))
+  b.tooltip_text=str(tags.category)+' · '+str(tags.text)+'\n'+db.title(db.asset(n.nodeRewardsList[0]))+'\n'+db.ui('Current level: %d / Maximum level: %d','当前等级：%d / 最大等级：%d')%[unlocked,maximum]
   var progress=HBoxContainer.new();progress.name="EvolutionLevel";progress.position=Vector2(6,74);progress.size=Vector2(92,44);progress.alignment=BoxContainer.ALIGNMENT_CENTER;progress.add_theme_constant_override("separation",3);progress.mouse_filter=MOUSE_FILTER_IGNORE;b.add_child(progress)
   var current=UI.label(progress,str(unlocked),Vector2.ZERO,30,UI.TEAL if unlocked>0 else UI.MUTED);current.vertical_alignment=VERTICAL_ALIGNMENT_CENTER
   var limit=UI.label(progress,'/ %d'%maximum,Vector2.ZERO,22,UI.MUTED);limit.vertical_alignment=VERTICAL_ALIGNMENT_CENTER
@@ -166,15 +167,17 @@ func rebuild():
    var pip=ColorRect.new();pip.position=Vector2(12+i*(pip_width+5),124);pip.size=Vector2(pip_width,6);pip.color=UI.TEAL if i<unlocked else Color(UI.MUTED,.22);pip.mouse_filter=MOUSE_FILTER_IGNORE;b.add_child(pip)
   var name_label=UI.label(b,db.title(db.asset(n.nodeRewardsList[0])).replace(' ×1',''),Vector2(-28,138),18,UI.TEXT)
   name_label.size=Vector2(160,30);name_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;name_label.max_lines_visible=1;name_label.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+  var effect_tag=UI.label(b,str(tags.text),Vector2(-28,168),14,tags.color);effect_tag.name='EvolutionEffectTag'
+  effect_tag.size=Vector2(160,22);effect_tag.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;effect_tag.max_lines_visible=1;effect_tag.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
   node_buttons[n.id]=b
   if n.has('mutation_branch'):
-   var branch_hint=UI.label(b,db.ui('CHOOSE ONE PATH','本局二选一'),Vector2(-28,170),14,UI.MUTED)
+   var branch_hint=UI.label(b,db.ui('CHOOSE ONE PATH','本局二选一'),Vector2(-28,196),14,UI.MUTED)
    branch_hint.size=Vector2(160,22);branch_hint.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
  for n in db.research:
   var previous=str(int(n.get('previousUpgradeTreeNode',{}).get('fileID',0)))
   if node_buttons.has(previous) and node_buttons.has(n.id):
    if n.has('mutation_branch'):
-    veins.lines.append([node_buttons[previous].position+Vector2(52,174),node_buttons[n.id].position+Vector2(52,-2),false,true])
+    veins.lines.append([node_buttons[previous].position+Vector2(52,196),node_buttons[n.id].position+Vector2(52,-2),false,true])
    else:veins.lines.append([node_buttons[previous].position+NODE_ICON_CENTER,node_buttons[n.id].position+NODE_ICON_CENTER,node_sections.get(previous)!=node_sections.get(n.id)])
    var prior=db.research.filter(func(node):return node.id==previous)
    if not prior.is_empty():node_buttons[n.id].tooltip_text+='\n'+db.ui('Requires: ','前置：')+db.title(db.asset(prior[0].nodeRewardsList[0]))+' · '+str(int(n.get('prerequisite_level',1)))+'/'+str(prior[0].nodeRewardsList.size())
@@ -222,6 +225,10 @@ func show_detail(n:Dictionary,index:int):
  detail=Panel.new();detail.position=Vector2(170,125);detail.size=Vector2(1100,620);detail.add_theme_stylebox_override('panel',UI.style(Color(UI.PANEL,.98),Color(UI.TEAL,.7),26));add_child(detail)
  var r:Dictionary=db.asset(n.nodeRewardsList[index])
  UI.panel(detail,Rect2(24,24,420,465),Color(UI.MUTED,.35))
+ var tags=Categories.reward_badge(db,r)
+ var tag_row=HBoxContainer.new();tag_row.name='EvolutionTags';tag_row.position=Vector2(44,32);tag_row.add_theme_constant_override('separation',8);tag_row.mouse_filter=MOUSE_FILTER_IGNORE;detail.add_child(tag_row)
+ UI.badge(tag_row,str(tags.category),tags.color,false,16).name='EvolutionCategory'
+ UI.badge(tag_row,str(tags.text),tags.color,true,18).name='EvolutionEffectTag'
  var art=TextureRect.new();art.name='EvolutionArt';art.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;art.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;art.texture=icon(r);art.position=Vector2(64,72);art.size=Vector2(340,340);art.mouse_filter=MOUSE_FILTER_IGNORE;detail.add_child(art)
  var current_level=n.nodeRewardsList.filter(func(id):return id in save.state.unlocked).size()
  UI.label(detail,db.ui('LEVEL %d / %d · VIEWING TIER %d','当前等级 %d / %d · 查看阶段 %d')%[current_level,n.nodeRewardsList.size(),index+1],Vector2(480,34),18,UI.TEXT)
@@ -244,7 +251,7 @@ func show_detail(n:Dictionary,index:int):
   var reward:Dictionary=db.asset(n.nodeRewardsList[i])
   var b=button(detail,str(i+1),Vector2(40+i*75,420),Vector2(64,54),func():show_detail(n,i));b.tooltip_text=db.title(reward)
   b.add_theme_stylebox_override('normal',UI.card_style(i==index))
-  if i==index:b.call_deferred('grab_focus')
+  if i==index:UI.focus_if_live.call_deferred(weakref(b))
  var unlocked=r.id in save.state.unlocked;var cost=save.research_price(n,index);var allowed=save.state.meta>=cost
  for i in range(index):allowed=allowed and n.nodeRewardsList[i] in save.state.unlocked
  allowed=allowed and save.research_prerequisite_met(n)
@@ -270,3 +277,7 @@ func fit_screen():
  background.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
  background.position=-position/factor;background.size=viewport_size/factor;background.queue_redraw()
  if is_instance_valid(modal_blocker):modal_blocker.position=-position/factor;modal_blocker.size=viewport_size/factor
+
+func _exit_tree():
+ var viewport=get_viewport()
+ if viewport.size_changed.is_connected(fit_screen):viewport.size_changed.disconnect(fit_screen)

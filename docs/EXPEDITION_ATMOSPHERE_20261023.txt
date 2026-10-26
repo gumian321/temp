@@ -1,0 +1,50 @@
+出击页：黑白洞穴场景 — 2026-10-23
+
+后续更新：用户要求改用生图，当前出击页已接入六张任务插画和六枚透明图标。
+本文件记录此前的素材拼装版本，相关绘制脚本已移除，同名截图已更新。
+当前实现与素材见 docs/EXPEDITION_GENERATED_ART_20261023.txt。
+
+目标
+保留地下生物手记的黑白手绘方向，使出击页主画面更接近游戏现场。
+
+视觉改动
+主画面移除行动示意的箭头、准星和图例，使用已有游戏素材组合洞穴、虫体、敌群、商队和巢体。
+岩壁在前后景采用不同大小与明暗，局部遮挡场景边缘；地面加入裂痕、碎屑与贴地阴影。
+虫体采用局部黑白排线材质，与岩石的炭笔线条统一，带少量武器器官；随当前角色切换为蜈蚣或蜘蛛。
+触须和肢体轻微活动，敌虫缓慢呼吸，浮尘少量漂移。静态地形保留，不逐帧重绘。
+下方六个任务图标保留，任务标题、时间、难度、奖励和解锁按钮维持独立清晰的区域。
+
+六种构图
+生存：骨甲虫体与大型虫后对峙，小虫从边缘包围。
+无尽：虫群从洞穴深处接近，前景有被岩壁遮住的大型甲虫。
+猎杀：追击沿斜线逃离的运输虫群。
+护航：玩家领着三只运输虫穿过岩缝，敌虫伏在两侧。
+破巢：靠近有根须与卵囊的敌巢，守卫虫位于周围。
+守卫：身体环住己方巢体，敌虫从外侧逼近。
+
+实现
+scripts/expedition_scene.gd：六种场景、既有素材组合、阴影、轻微动作与浮尘。
+shaders/expedition_ink.gdshader：仅供出击页使用的黑白干笔排线材质。
+scripts/mission_diagram.gd：大图接入场景，小图保留任务符号。
+切换难度复用当前场景，任务或角色变化时才重建。
+没有生成或修改位图素材；战斗材质、玩法、任务数据和存档逻辑不受本轮改动影响。
+
+验证
+通过 tools/run_checks.py 使用隔离存档进行原生 OpenGL 渲染与交互检查。
+field_guide_scene：30 张截图，六种任务、两种角色、中英文、800×600 / 960×600 / 1280×720 / 1440×900，
+检查场景随任务和角色切换、尺寸边界、唯一选中图标、难度切换复用与浏览不修改玩家进度。
+expedition_briefing、mission_select：布局、鼠标、键盘、注入的手柄事件、难度、解锁与出发流程通过。
+meta_ui_redesign：出击页新场景及相关界面回归通过。未用实体手柄验收。
+最终根须和卵囊构图调整后，field_guide_scene 与 meta_ui_redesign 再次通过。
+
+证据
+artifacts/expedition-atmosphere-final.json
+artifacts/expedition-atmosphere-polish.json
+docs/test-evidence/expedition-atmosphere-ui-20261023.json
+artifacts/ui-small-field-mission-0-1440x900.png 至 ui-small-field-mission-5-1440x900.png
+artifacts/ui-small-field-mission-3-800x600.png
+artifacts/ui-small-field-spider-mission.png
+
+使用
+关闭旧实例后从 Godot F5 重开，或运行“启动蜈蚣中文版.cmd”。
+本次更新源工程，未重新导出独立 EXE。

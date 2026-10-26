@@ -13,6 +13,8 @@ var surfaces:Dictionary={}
 # Dynamic VBO updates win in the native GL three-way benchmark. Retain the
 # cached-surface rebuild switch for renderer diagnostics and compatibility checks.
 var use_vertex_updates=true
+var use_gpu=false
+var gpu=preload("res://scripts/soft_organ_gpu.gd").new()
 static var grid=PackedVector2Array()
 static var grid_weight: Array[float]=[]
 static var grid_tip: Array[float]=[]
@@ -22,7 +24,9 @@ static var indices=PackedInt32Array()
 
 func begin_frame():
 	end_frame();used.clear()
+	gpu.begin_frame()
 func end_frame():
+	gpu.prune(used)
 	for key in meshes.keys():
 		if not used.has(key):
 			meshes.erase(key);surfaces.erase(key)
@@ -123,6 +127,11 @@ static func traction_point(point:Vector2,axis:Vector2,strain:float)->Vector2:
 func paint(canvas:CanvasItem,key:String,texture:Texture2D,at:Vector2,bounds:Vector2,angle:float,variant:String,clock:float,pulse:float=0.0,tint:Color=Color.WHITE,seed:float=0.0,activity:float=0.0,strain_axis:Vector2=Vector2.ZERO,strain:float=0.0):
 	if texture==null:return
 	used[key]=true
+	if use_gpu and key.begins_with("player:"):
+		var family=1 if variant in WINGS else (2 if variant in SACS else (3 if variant in JAWS else 0))
+		var valid=is_finite(clock) and is_finite(pulse)
+		meshes[key]=gpu.paint(canvas,key,texture,at,bounds,angle,family if valid else -1,clock if valid else 0.0,pulse if valid else 0.0,tint,seed,activity,variant=="flame",strain_axis,strain)
+		return
 	var extent=Ink.fitted_size(texture,bounds)
 	var source=texture
 	var region=Rect2(Vector2.ZERO,texture.get_size())

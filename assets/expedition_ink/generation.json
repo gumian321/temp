@@ -1,0 +1,103 @@
+{
+  "date": "2026-10-23",
+  "tool": "Built-in image_gen.imagegen",
+  "intent": "Replace procedural expedition illustrations and objective symbols with generated black-and-ivory hand-inked raster assets.",
+  "assets": [
+    {
+      "id": "scene-survive",
+      "type": "scene",
+      "path": "assets/expedition_ink/scene-survive.png",
+      "generated_file": "exec-115a4897-42b9-4644-b559-44c469c1f2d1.png",
+      "transparent_background": false,
+      "prompt": "Use case: illustration-story.\nAsset type: a finished raster mission illustration for a dark indie insect survival game; a single wide landscape image, about 2:1 aspect ratio, shown in a 676x338 pixel panel.\nArt direction: entirely hand-drawn black ink, charcoal black, warm bone-white paper ink and a few flat gray shapes. Bold uneven brush contours, short decisive scratch marks and sparse crosshatching, the handmade feel of a small-run woodcut and pen zine. Large readable silhouettes and intentionally quiet black areas. A real staged scene with foreground, middle distance and darkness beyond. Expressive and a little ominous, but not gore.\nWorld: underground insect-scale caves, angular broken shale, roots, segmented bone-plated arthropods. The player creature is an ivory armored centipede with five to seven rounded shell segments, many fine legs, two long slender feelers and dark mandibles. Organic anatomy, no humanoids, no machinery.\nComposition: full-bleed landscape artwork, illustrated foreground rocks partly obscure the edges, clear visual focus in the middle 80%, no text anywhere, no symbols, no diagram, no arrows, no labels, no UI or frame.\nAvoid: painterly blur, airbrush shading, glossy 3D, cinematic glow, gradient lighting, photorealism, excessive microdetails, metallic robots, neon, color accents, perfect symmetry, generic fantasy poster clutter.\n\nScene: SURVIVAL. In a low shale cavern, the pale armored centipede braces on a ledge facing one huge dark beetle queen emerging from a crevice. Three smaller hostile beetles threaten the flanks. Low oblique insect-eye viewpoint, a dominant black queen silhouette and a small bright protagonist, claustrophobic rocks and bent roots."
+    },
+    {
+      "id": "scene-endless",
+      "type": "scene",
+      "path": "assets/expedition_ink/scene-endless.png",
+      "generated_file": "exec-de01ad5c-285c-4789-8f1f-0c688ef3c1f2.png",
+      "transparent_background": false,
+      "prompt": "Use case: illustration-story.\nAsset type: a finished raster mission illustration for a dark indie insect survival game; a single wide landscape image, about 2:1 aspect ratio, shown in a 676x338 pixel panel.\nArt direction: entirely hand-drawn black ink, charcoal black, warm bone-white paper ink and a few flat gray shapes. Bold uneven brush contours, short decisive scratch marks and sparse crosshatching, the handmade feel of a small-run woodcut and pen zine. Large readable silhouettes and intentionally quiet black areas. A real staged scene with foreground, middle distance and darkness beyond. Expressive and a little ominous, but not gore.\nWorld: underground insect-scale caves, angular broken shale, roots, segmented bone-plated arthropods. The player creature is an ivory armored centipede with five to seven rounded shell segments, many fine legs, two long slender feelers and dark mandibles. Organic anatomy, no humanoids, no machinery.\nComposition: full-bleed landscape artwork, illustrated foreground rocks partly obscure the edges, clear visual focus in the middle 80%, no text anywhere, no symbols, no diagram, no arrows, no labels, no UI or frame.\nAvoid: painterly blur, airbrush shading, glossy 3D, cinematic glow, gradient lighting, photorealism, excessive microdetails, metallic robots, neon, color accents, perfect symmetry, generic fantasy poster clutter.\n\nScene: ENDLESS SWARM. A small pale bone-plated centipede on a near ledge faces a river of beetles and grubs pouring out of a deep dark diagonal fissure. Near bugs have a few bold shell marks, far bugs become tiny plain silhouettes, the swarm disappears into black. Powerful sense of a bottomless cave and overwhelming numbers, asymmetrical composition."
+    },
+    {
+      "id": "scene-hunt",
+      "type": "scene",
+      "path": "assets/expedition_ink/scene-hunt.png",
+      "generated_file": "exec-56bde189-22bc-4f8a-ae63-a5f0cdb4c153.png",
+      "transparent_background": false,
+      "prompt": "Use case: illustration-story.\nAsset type: a finished raster mission illustration for a dark indie insect survival game; a single wide landscape image, about 2:1 aspect ratio, shown in a 676x338 pixel panel.\nArt direction: entirely hand-drawn black ink, charcoal black, warm bone-white paper ink and a few flat gray shapes. Bold uneven brush contours, short decisive scratch marks and sparse crosshatching, the handmade feel of a small-run woodcut and pen zine. Large readable silhouettes and intentionally quiet black areas. A real staged scene with foreground, middle distance and darkness beyond. Expressive and a little ominous, but not gore.\nWorld: underground insect-scale caves, angular broken shale, roots, segmented bone-plated arthropods. The player creature is an ivory armored centipede with five to seven rounded shell segments, many fine legs, two long slender feelers and dark mandibles. Organic anatomy, no humanoids, no machinery.\nComposition: full-bleed landscape artwork, illustrated foreground rocks partly obscure the edges, clear visual focus in the middle 80%, no text anywhere, no symbols, no diagram, no arrows, no labels, no UI or frame.\nAvoid: painterly blur, airbrush shading, glossy 3D, cinematic glow, gradient lighting, photorealism, excessive microdetails, metallic robots, neon, color accents, perfect symmetry, generic fantasy poster clutter.\n\nScene: HUNT THE CONVOY. The pale armored centipede lunges across jagged underground ground toward three large moth-like courier insects escaping into a narrow passage, with bulbous cocoon cargo tucked beneath their wings. Sweeping diagonal pursuit, broken rock and raised dust rendered in a few dry white brush strokes. The closest courier has a stark recognizable wing silhouette. No arrows or speed-line diagram."
+    },
+    {
+      "id": "scene-escort",
+      "type": "scene",
+      "path": "assets/expedition_ink/scene-escort.png",
+      "generated_file": "exec-ecfa9c60-ed0d-4dab-9be1-51bee411bc86.png",
+      "transparent_background": false,
+      "prompt": "Use case: illustration-story.\nAsset type: a finished raster mission illustration for a dark indie insect survival game; a single wide landscape image, about 2:1 aspect ratio, shown in a 676x338 pixel panel.\nArt direction: entirely hand-drawn black ink, charcoal black, warm bone-white paper ink and a few flat gray shapes. Bold uneven brush contours, short decisive scratch marks and sparse crosshatching, the handmade feel of a small-run woodcut and pen zine. Large readable silhouettes and intentionally quiet black areas. A real staged scene with foreground, middle distance and darkness beyond. Expressive and a little ominous, but not gore.\nWorld: underground insect-scale caves, angular broken shale, roots, segmented bone-plated arthropods. The player creature is an ivory armored centipede with five to seven rounded shell segments, many fine legs, two long slender feelers and dark mandibles. Organic anatomy, no humanoids, no machinery.\nComposition: full-bleed landscape artwork, illustrated foreground rocks partly obscure the edges, clear visual focus in the middle 80%, no text anywhere, no symbols, no diagram, no arrows, no labels, no UI or frame.\nAvoid: painterly blur, airbrush shading, glossy 3D, cinematic glow, gradient lighting, photorealism, excessive microdetails, metallic robots, neon, color accents, perfect symmetry, generic fantasy poster clutter.\n\nScene: ESCORT. A pale bone-plated centipede leads three small moth-like courier insects carrying hanging cocoons through a cramped shale ravine. They move together along a winding uneven path. Jagged foreground rock conceals a crouching hostile mantis watching the convoy; a pale cave opening is small and distant. Intimate adventurous tension, fragile courier wings contrasted with the armored lead insect."
+    },
+    {
+      "id": "scene-siege",
+      "type": "scene",
+      "path": "assets/expedition_ink/scene-siege.png",
+      "generated_file": "exec-c85f4a7f-ae89-4cef-8718-ec21bad9679e.png",
+      "transparent_background": false,
+      "prompt": "Use case: illustration-story.\nAsset type: a finished raster mission illustration for a dark indie insect survival game; a single wide landscape image, about 2:1 aspect ratio, shown in a 676x338 pixel panel.\nArt direction: entirely hand-drawn black ink, charcoal black, warm bone-white paper ink and a few flat gray shapes. Bold uneven brush contours, short decisive scratch marks and sparse crosshatching, the handmade feel of a small-run woodcut and pen zine. Large readable silhouettes and intentionally quiet black areas. A real staged scene with foreground, middle distance and darkness beyond. Expressive and a little ominous, but not gore.\nWorld: underground insect-scale caves, angular broken shale, roots, segmented bone-plated arthropods. The player creature is an ivory armored centipede with five to seven rounded shell segments, many fine legs, two long slender feelers and dark mandibles. Organic anatomy, no humanoids, no machinery.\nComposition: full-bleed landscape artwork, illustrated foreground rocks partly obscure the edges, clear visual focus in the middle 80%, no text anywhere, no symbols, no diagram, no arrows, no labels, no UI or frame.\nAvoid: painterly blur, airbrush shading, glossy 3D, cinematic glow, gradient lighting, photorealism, excessive microdetails, metallic robots, neon, color accents, perfect symmetry, generic fantasy poster clutter.\n\nScene: BREAK THE NEST. The pale armored centipede crawls toward a sinister large rooted insect brood nest wedged into a fractured cave wall. The nest is an asymmetrical cluster of cracked hanging egg sacs and coarse ribbed shells with rope-like roots; two hostile beetles stand guard. It feels alive and vulnerable, with a single fissure of pale light through its dark shell. No buildings, no castle, no space station."
+    },
+    {
+      "id": "scene-defend",
+      "type": "scene",
+      "path": "assets/expedition_ink/scene-defend.png",
+      "generated_file": "exec-576d675b-cd8a-43cf-aa77-845c30067bd7.png",
+      "transparent_background": false,
+      "prompt": "Use case: illustration-story.\nAsset type: a finished raster mission illustration for a dark indie insect survival game; a single wide landscape image, about 2:1 aspect ratio, shown in a 676x338 pixel panel.\nArt direction: entirely hand-drawn black ink, charcoal black, warm bone-white paper ink and a few flat gray shapes. Bold uneven brush contours, short decisive scratch marks and sparse crosshatching, the handmade feel of a small-run woodcut and pen zine. Large readable silhouettes and intentionally quiet black areas. A real staged scene with foreground, middle distance and darkness beyond. Expressive and a little ominous, but not gore.\nWorld: underground insect-scale caves, angular broken shale, roots, segmented bone-plated arthropods. The player creature is an ivory armored centipede with five to seven rounded shell segments, many fine legs, two long slender feelers and dark mandibles. Organic anatomy, no humanoids, no machinery.\nComposition: full-bleed landscape artwork, illustrated foreground rocks partly obscure the edges, clear visual focus in the middle 80%, no text anywhere, no symbols, no diagram, no arrows, no labels, no UI or frame.\nAvoid: painterly blur, airbrush shading, glossy 3D, cinematic glow, gradient lighting, photorealism, excessive microdetails, metallic robots, neon, color accents, perfect symmetry, generic fantasy poster clutter.\n\nScene: DEFEND THE BROOD. The ivory armored centipede curls protectively around three small pale eggs on a rocky shelf. Dark angular beetle and mantis silhouettes approach from two crevices beyond. Intimate close perspective; the pale eggs are the emotional focal point, the curved centipede body is a defensive wall, deep black cave framing. No shields or heraldic symbols."
+    },
+    {
+      "id": "icon-survive",
+      "type": "icon",
+      "path": "assets/expedition_ink/icon-survive.png",
+      "generated_file": "exec-59c8fe7a-4957-428a-902c-29ed6114aaf3.png",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept.\nAsset type: one square raster mission icon for a dark indie insect game, no text; transparent background.\nArt direction: a small hand-inked bone-white and charcoal-black woodcut emblem, bold irregular contours, large chunky ivory shapes, a few scratchy black hatch marks. Simplify aggressively so the silhouette and motif read at 64x64 pixels. Warm off-white ink is opaque and visible over a nearly black UI. One isolated organic pictorial motif, centered, entire object visible with 12% empty margin, no badge outline, no frame, no cast shadow outside the object.\nAvoid: vector glyphs, geometric diagrams, arrows, crosshairs, fonts, text, letters, UI, colored accents, realistic painting, 3D gloss, tiny details, diffuse glow. Actual transparent alpha outside the artwork.\n\nPrimary motif: one scarred horned beetle head, chunky ivory shell and two bold dark mandibles, angled very slightly to one side. A small broken notch in the horn suggests surviving a fight. Readable defiant insect portrait."
+    },
+    {
+      "id": "icon-endless",
+      "type": "icon",
+      "path": "assets/expedition_ink/icon-endless.png",
+      "generated_file": "exec-f5f1d10e-c36b-46af-ac50-c2dcd735eb38.png",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept.\nAsset type: one square raster mission icon for a dark indie insect game, no text; transparent background.\nArt direction: a small hand-inked bone-white and charcoal-black woodcut emblem, bold irregular contours, large chunky ivory shapes, a few scratchy black hatch marks. Simplify aggressively so the silhouette and motif read at 64x64 pixels. Warm off-white ink is opaque and visible over a nearly black UI. One isolated organic pictorial motif, centered, entire object visible with 12% empty margin, no badge outline, no frame, no cast shadow outside the object.\nAvoid: vector glyphs, geometric diagrams, arrows, crosshairs, fonts, text, letters, UI, colored accents, realistic painting, 3D gloss, tiny details, diffuse glow. Actual transparent alpha outside the artwork.\n\nPrimary motif: one segmented ivory centipede curled into a loose spiral, its small head and the tapering tail clearly separated, with a few thick legs outside the curve. Strong open spiral silhouette to suggest an unending swarm. Organic, not a mathematical infinity sign."
+    },
+    {
+      "id": "icon-hunt",
+      "type": "icon",
+      "path": "assets/expedition_ink/icon-hunt.png",
+      "generated_file": "exec-d2b249c5-e252-4fc6-b47c-b9eb4728af98.png",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept.\nAsset type: one square raster mission icon for a dark indie insect game, no text; transparent background.\nArt direction: a small hand-inked bone-white and charcoal-black woodcut emblem, bold irregular contours, large chunky ivory shapes, a few scratchy black hatch marks. Simplify aggressively so the silhouette and motif read at 64x64 pixels. Warm off-white ink is opaque and visible over a nearly black UI. One isolated organic pictorial motif, centered, entire object visible with 12% empty margin, no badge outline, no frame, no cast shadow outside the object.\nAvoid: vector glyphs, geometric diagrams, arrows, crosshairs, fonts, text, letters, UI, colored accents, realistic painting, 3D gloss, tiny details, diffuse glow. Actual transparent alpha outside the artwork.\n\nPrimary motif: a moth with two large ragged ivory wings caught between a pair of dark hooked mandibles. Simple unmistakable quarry and predator motif, four bold wing lobes, slight diagonal tilt."
+    },
+    {
+      "id": "icon-escort",
+      "type": "icon",
+      "path": "assets/expedition_ink/icon-escort.png",
+      "generated_file": "exec-241fe8d6-c978-4cb2-99f3-3a3fa37e7a55.png",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept.\nAsset type: one square raster mission icon for a dark indie insect game, no text; transparent background.\nArt direction: a small hand-inked bone-white and charcoal-black woodcut emblem, bold irregular contours, large chunky ivory shapes, a few scratchy black hatch marks. Simplify aggressively so the silhouette and motif read at 64x64 pixels. Warm off-white ink is opaque and visible over a nearly black UI. One isolated organic pictorial motif, centered, entire object visible with 12% empty margin, no badge outline, no frame, no cast shadow outside the object.\nAvoid: vector glyphs, geometric diagrams, arrows, crosshairs, fonts, text, letters, UI, colored accents, realistic painting, 3D gloss, tiny details, diffuse glow. Actual transparent alpha outside the artwork.\n\nPrimary motif: one stout moth courier with broad ivory wings sheltering a single hanging oval cocoon underneath. Compact, friendly but strange insect silhouette, wings form a protective arch. No arrows."
+    },
+    {
+      "id": "icon-siege",
+      "type": "icon",
+      "path": "assets/expedition_ink/icon-siege.png",
+      "generated_file": "exec-e3463930-d078-4c07-abf3-4001f3e5dd0e.png",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept.\nAsset type: one square raster mission icon for a dark indie insect game, no text; transparent background.\nArt direction: a small hand-inked bone-white and charcoal-black woodcut emblem, bold irregular contours, large chunky ivory shapes, a few scratchy black hatch marks. Simplify aggressively so the silhouette and motif read at 64x64 pixels. Warm off-white ink is opaque and visible over a nearly black UI. One isolated organic pictorial motif, centered, entire object visible with 12% empty margin, no badge outline, no frame, no cast shadow outside the object.\nAvoid: vector glyphs, geometric diagrams, arrows, crosshairs, fonts, text, letters, UI, colored accents, realistic painting, 3D gloss, tiny details, diffuse glow. Actual transparent alpha outside the artwork.\n\nPrimary motif: a broken ribbed insect egg sac with a large jagged split through its shell, two thick torn roots at the base and a dark curved mandible breaking into one side. Bold fragmented ivory shell silhouette."
+    },
+    {
+      "id": "icon-defend",
+      "type": "icon",
+      "path": "assets/expedition_ink/icon-defend.png",
+      "generated_file": "exec-433e3589-1763-4bed-a62b-a613239201cc.png",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept.\nAsset type: one square raster mission icon for a dark indie insect game, no text; transparent background.\nArt direction: a small hand-inked bone-white and charcoal-black woodcut emblem, bold irregular contours, large chunky ivory shapes, a few scratchy black hatch marks. Simplify aggressively so the silhouette and motif read at 64x64 pixels. Warm off-white ink is opaque and visible over a nearly black UI. One isolated organic pictorial motif, centered, entire object visible with 12% empty margin, no badge outline, no frame, no cast shadow outside the object.\nAvoid: vector glyphs, geometric diagrams, arrows, crosshairs, fonts, text, letters, UI, colored accents, realistic painting, 3D gloss, tiny details, diffuse glow. Actual transparent alpha outside the artwork.\n\nPrimary motif: one small intact ivory egg held inside a curled armored beetle shell and two protective hooked forelegs. Compact rounded silhouette, egg clearly visible at the center, no heraldic shield or geometric border."
+    }
+  ]
+}
