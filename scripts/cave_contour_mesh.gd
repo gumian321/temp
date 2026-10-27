@@ -9,6 +9,26 @@ static var samples: Dictionary = {}
 static var fractures: Dictionary = {}
 static var extrema:Dictionary={}
 static var cell_biases:Dictionary={}
+const FRACTURED_TEMPLATE_LIMIT=8192
+static var use_fractured_templates=OS.get_environment("RBPEW_LEGACY_FRACTURED_TEMPLATES")!="1"
+static var fractured_templates:Dictionary={}
+static var fractured_template_ring:Array[Vector4i]=[]
+static var fractured_template_cursor=0
+static var fractured_template_hits=0
+static var fractured_template_misses=0
+static var fractured_template_builds=0
+static var fractured_template_build_us=0
+static var fractured_template_evicts=0
+static var fractured_template_seed_fallbacks=0
+
+static func clear_fractured_cache(reset_stats:bool=true):
+	fractured_templates.clear();fractured_template_ring.clear();fractured_template_cursor=0
+	if reset_stats:
+		fractured_template_hits=0;fractured_template_misses=0;fractured_template_builds=0
+		fractured_template_build_us=0;fractured_template_evicts=0;fractured_template_seed_fallbacks=0
+
+static func cache_stats()->Dictionary:
+	return {"enabled":use_fractured_templates,"hits":fractured_template_hits,"misses":fractured_template_misses,"builds":fractured_template_builds,"build_us":fractured_template_build_us,"evicts":fractured_template_evicts,"entries":fractured_templates.size(),"capacity":FRACTURED_TEMPLATE_LIMIT,"seed_fallbacks":fractured_template_seed_fallbacks}
 
 static func weights(at: float) -> Vector3:
 	var t = at - 0.5
@@ -75,14 +95,24 @@ static func fracture_bias(node: Vector2i, seed_value: int) -> float:
 	return bias
 
 static func fractured_template(mask: int, cell: Vector2i, seed_value: int) -> Dictionary:
+	if not use_fractured_templates:return fractured_template_legacy(mask,cell,seed_value)
 	if mask in [0, 511]: return template(mask)
-	var nodes = density_samples(mask).duplicate()
-	# The fixed fracture bias is clamped to +/- .055. Most neighbors of a bite
-	# remain entirely full/empty even at that limit; keep their exact quad/empty
-	# result without rebuilding a 4x4 marching template.
+	# Vector4i stores 32-bit components. Preserve the existing full-int seed
+	# path for unusual seeds rather than adding aliases to the final-result
+	# cache. The older bias-cache seed truncation remains outside this change.
+	if seed_value< -2147483648 or seed_value>2147483647 or mask<0 or mask>511:
+		fractured_template_seed_fallbacks+=1
+		return fractured_template_legacy(mask,cell,seed_value)
+	var source_nodes=density_samples(mask)
 	var limits:Vector2=extrema[mask]
+	# Do not allocate/copy 25 samples for an inexpensive constant result.
 	if limits.x>=ISO+.055:return template(511)
 	if limits.y<ISO-.055:return template(0)
+	var result_key=Vector4i(cell.x,cell.y,seed_value,mask)
+	if fractured_templates.has(result_key):fractured_template_hits+=1;return fractured_templates[result_key]
+	fractured_template_misses+=1
+	var nodes=source_nodes.duplicate()
+	var began=Time.get_ticks_usec()
 	var key=Vector3i(cell.x,cell.y,seed_value)
 	if not cell_biases.has(key):
 		var bias=PackedFloat64Array()
@@ -94,7 +124,44 @@ static func fractured_template(mask: int, cell: Vector2i, seed_value: int) -> Di
 		cell_biases[key]=bias
 	var bias:PackedFloat64Array=cell_biases[key]
 	for i in nodes.size():nodes[i]+=bias[i]
-	return build_template(mask, nodes, true)
+	# Results use the same immutable shared-return contract as template(mask).
+	# Production callers only read local points and create new world polygons.
+	var result=build_template(mask,nodes,true)
+	fractured_template_build_us+=Time.get_ticks_usec()-began;fractured_template_builds+=1
+	if fractured_template_ring.size()==FRACTURED_TEMPLATE_LIMIT:
+		fractured_templates.erase(fractured_template_ring[fractured_template_cursor])
+		fractured_template_ring[fractured_template_cursor]=result_key
+		fractured_template_cursor=(fractured_template_cursor+1)%FRACTURED_TEMPLATE_LIMIT
+		fractured_template_evicts+=1
+	else:fractured_template_ring.append(result_key)
+	fractured_templates[result_key]=result
+	return result
+
+static func fractured_template_legacy(mask:int,cell:Vector2i,seed_value:int)->Dictionary:
+	if mask in [0,511]:return template(mask)
+	var nodes = density_samples(mask).duplicate()
+	# The fixed fracture bias is clamped to +/- .055. Most neighbors of a bite
+	# remain entirely full/empty even at that limit; keep their exact quad/empty
+	# result without rebuilding a 4x4 marching template.
+	var limits:Vector2=extrema[mask]
+	if limits.x>=ISO+.055:return template(511)
+	if limits.y<ISO-.055:return template(0)
+	fractured_template_misses+=1
+	var began=Time.get_ticks_usec()
+	var key=Vector3i(cell.x,cell.y,seed_value)
+	if not cell_biases.has(key):
+		var bias=PackedFloat64Array()
+		for y in range(SUBDIVISIONS+1):
+			for x in range(SUBDIVISIONS+1):bias.append(fracture_bias(cell*SUBDIVISIONS+Vector2i(x,y),seed_value))
+		if cell_biases.size()>=2048:
+			var oldest=cell_biases.keys()
+			for i in 64:cell_biases.erase(oldest[i])
+		cell_biases[key]=bias
+	var bias:PackedFloat64Array=cell_biases[key]
+	for i in nodes.size():nodes[i]+=bias[i]
+	var result=build_template(mask,nodes,true)
+	fractured_template_build_us+=Time.get_ticks_usec()-began;fractured_template_builds+=1
+	return result
 
 static func template(mask: int) -> Dictionary:
 	if templates.has(mask): return templates[mask]

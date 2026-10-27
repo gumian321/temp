@@ -1,0 +1,20 @@
+{
+  "engine": "4.6.3 standard float32 / Windows x86_64",
+  "dll_sha256": "f4a381458875f63dab067010c24f50a274928809790e576d00812383ddf8ae9c",
+  "sources": {
+    "native/cave_sweep/kernel.c": "6761ca56799678cede5abb2afe66e91f550498c26c608cf6fe88a473c29d13d0",
+    "native/cave_sweep/kernel.h": "6f74feb98d0e6093460bd327c908a8df03977a68ba6d3d9e9dda02dfce97ab37",
+    "native/cave_sweep/wrapper.c": "4361133e4db202fe99ab4f9b80394765b8f8bc75b129439546b9a0da7a440f13",
+    "artifacts/native-api-4.6.3/gdextension_interface.h": "6228db9a0be9bb154a89911a69ee7ec767f2d40004b3ed5b1d08eebf90bcd16b",
+    "artifacts/native-api-4.6.3/extension_api.json": "c7a3f647d9a6d6e7f3361d8a88ffc7486a708b59262ab2f0ceae54a3d87df74d"
+  },
+  "flags": [
+    "-std=c11",
+    "-shared",
+    "-O2",
+    "-ffp-contract=off",
+    "-fno-fast-math",
+    "-fno-math-errno"
+  ],
+  "compiler": "project-local Zig0.15.2 clang target x86_64-windows-gnu"
+}

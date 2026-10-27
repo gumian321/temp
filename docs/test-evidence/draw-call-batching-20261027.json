@@ -1,0 +1,451 @@
+{
+  "date": "2026-10-27",
+  "goal": "Preserve visuals and normal game rules; reduce redundant draw submissions. Thirty-minute average above 50 FPS is still not verified.",
+  "rea_used": false,
+  "build": {
+    "created_at_utc": "2026-10-26T16:13:39.767304+00:00",
+    "command": [
+      "D:/godot/Godot_v4.6.3-stable_win64.exe",
+      "--headless",
+      "--path",
+      "E:\\_Nlv\\github\\temp",
+      "--export-release",
+      "Windows Review",
+      "E:\\_Nlv\\github\\temp\\artifacts\\draw-batch-20261027-1\\RunBuildPew.exe"
+    ],
+    "executable": "E:\\_Nlv\\github\\temp\\artifacts\\draw-batch-20261027-1\\RunBuildPew.exe",
+    "sha256": "440c84e4b9bb96cd1c82605c58caf21135d97ba0f951128d9fa7bac4f9fabe08",
+    "bytes": 259134328,
+    "source_manifest": "source-manifest.json",
+    "manifest_scope": "Runtime scripts, shaders, data and project/export configuration; final executable hash covers the complete embedded package."
+  },
+  "whole_frame": {
+    "scope": "Same snapshot and frame-indexed input, rebuilt derived caches, fixed simulation step unless native-dt requested. Diagnostic fixture, not real-clock thirty-minute acceptance.",
+    "artifact": "artifacts/draw-batch-late-pair-20261027/comparison.json",
+    "summary": {
+      "legacy": {
+        "frame_mean_ms": 33.902895,
+        "fps_equivalent": 29.49600616702497,
+        "draw_calls_per_frame_mean": 645.688333333333,
+        "samples": 1200,
+        "case_frame_means_ms": [
+          33.9208116666667,
+          33.8849783333333
+        ],
+        "case_p95_ms": [
+          44.251,
+          43.902
+        ],
+        "case_actors": [
+          226,
+          226
+        ],
+        "hp": [
+          303.680659333352,
+          303.680659333352
+        ],
+        "end_elapsed": [
+          929.249616961926,
+          929.249616961926
+        ]
+      },
+      "optimized": {
+        "frame_mean_ms": 31.02024666666665,
+        "fps_equivalent": 32.23700993566139,
+        "draw_calls_per_frame_mean": 521.2308333333335,
+        "samples": 1200,
+        "case_frame_means_ms": [
+          30.9920733333333,
+          31.04842
+        ],
+        "case_p95_ms": [
+          37.932,
+          39.249
+        ],
+        "case_actors": [
+          226,
+          225
+        ],
+        "hp": [
+          303.680659333352,
+          303.680659333352
+        ],
+        "end_elapsed": [
+          929.249616961926,
+          929.249616961926
+        ]
+      },
+      "frame_mean_reduction_percent": 8.50266130173647,
+      "draw_call_reduction_percent": 19.275166295400446
+    },
+    "production_defaults": true,
+    "notes": [
+      "Same embedded Release package, legacy/optimized/optimized/legacy, 240 warmup plus 600 timed frames each.",
+      "Per-frame engine draw-call counter, not command count or one-second samples.",
+      "Three endpoints contain 226 actors, one optimized endpoint 225; existing time-budgeted world/navigation jobs can vary scheduling. HP and elapsed identical; no claim of bitwise simulation equivalence for this advancing fixture.",
+      "Asynchronous GPU timers varied greatly; not used to claim the bottleneck or sum into whole-frame times.",
+      "This is a short diagnostic replay of an actual late-game snapshot, not a real-clock 30-minute acceptance."
+    ]
+  },
+  "frozen_actual_pixels": {
+    "artifact": "artifacts/dc-combined-production-pixels-20261026/01-optimized/combined-batch-pixels.json",
+    "report": {
+      "comparisons": [
+        {
+          "batched": {
+            "draw_calls_max": 456.0,
+            "draw_calls_mean": 456.0,
+            "draw_calls_min": 456.0,
+            "label": "batched_combined",
+            "render_cpu_mean_ms": 1.42199999839067,
+            "render_gpu_mean_ms": 1.45375000685453
+          },
+          "chunks": 18,
+          "legacy": {
+            "draw_calls_max": 554.0,
+            "draw_calls_mean": 554.0,
+            "draw_calls_min": 554.0,
+            "label": "legacy_combined",
+            "render_cpu_mean_ms": 1.82724998146296,
+            "render_gpu_mean_ms": 1.95875000953674
+          },
+          "pixels": {
+            "byte_identical": true,
+            "changed_channels": 0,
+            "maximum_channel_error": 0
+          },
+          "zoom": 1.0
+        },
+        {
+          "batched": {
+            "draw_calls_max": 456.0,
+            "draw_calls_mean": 456.0,
+            "draw_calls_min": 456.0,
+            "label": "batched_combined",
+            "render_cpu_mean_ms": 1.9391874819994,
+            "render_gpu_mean_ms": 2.06112500280142
+          },
+          "chunks": 31,
+          "legacy": {
+            "draw_calls_max": 568.0,
+            "draw_calls_mean": 568.0,
+            "draw_calls_min": 568.0,
+            "label": "legacy_combined",
+            "render_cpu_mean_ms": 1.60525000840425,
+            "render_gpu_mean_ms": 1.65375000238419
+          },
+          "pixels": {
+            "byte_identical": true,
+            "changed_channels": 0,
+            "maximum_channel_error": 0
+          },
+          "zoom": 0.65
+        },
+        {
+          "batched": {
+            "draw_calls_max": 418.0,
+            "draw_calls_mean": 418.0,
+            "draw_calls_min": 418.0,
+            "label": "batched_combined",
+            "render_cpu_mean_ms": 1.37812500447035,
+            "render_gpu_mean_ms": 1.41650000214577
+          },
+          "chunks": 12,
+          "legacy": {
+            "draw_calls_max": 429.0,
+            "draw_calls_mean": 429.0,
+            "draw_calls_min": 429.0,
+            "label": "legacy_combined",
+            "render_cpu_mean_ms": 1.71375001221895,
+            "render_gpu_mean_ms": 1.74706251174212
+          },
+          "pixels": {
+            "byte_identical": true,
+            "changed_channels": 0,
+            "maximum_channel_error": 0
+          },
+          "zoom": 1.75
+        }
+      ],
+      "passed": true,
+      "scope": "Same frozen actual battle and three views. Only combined submission grouping changes. Overlay hidden for pixel comparison; this is not gameplay FPS."
+    }
+  },
+  "hostile_pixels": {
+    "artifact": "artifacts/hostile-geometry-batch.json",
+    "report": {
+      "cleared_shapes_hidden": true,
+      "comparisons": [
+        {
+          "batched_draw_calls": 10.0,
+          "batched_warm_submit_us": 1069,
+          "instancing": {
+            "active_groups": 9,
+            "groups": 9,
+            "instances": 72
+          },
+          "native_draw_calls": 865.0,
+          "native_warm_submit_us": 599,
+          "pixels": {
+            "byte_identical": true,
+            "changed_channels": 0,
+            "max_channel_error": 0
+          },
+          "scenario": 0,
+          "shots": 72,
+          "zoom": 0.4
+        },
+        {
+          "batched_draw_calls": 10.0,
+          "batched_warm_submit_us": 645,
+          "instancing": {
+            "active_groups": 9,
+            "groups": 9,
+            "instances": 72
+          },
+          "native_draw_calls": 865.0,
+          "native_warm_submit_us": 610,
+          "pixels": {
+            "byte_identical": true,
+            "changed_channels": 0,
+            "max_channel_error": 0
+          },
+          "scenario": 1,
+          "shots": 72,
+          "zoom": 1.0
+        },
+        {
+          "batched_draw_calls": 10.0,
+          "batched_warm_submit_us": 668,
+          "instancing": {
+            "active_groups": 9,
+            "groups": 9,
+            "instances": 72
+          },
+          "native_draw_calls": 865.0,
+          "native_warm_submit_us": 1035,
+          "pixels": {
+            "byte_identical": true,
+            "changed_channels": 0,
+            "max_channel_error": 0
+          },
+          "scenario": 2,
+          "shots": 72,
+          "zoom": 1.8
+        },
+        {
+          "batched_draw_calls": 10.0,
+          "batched_warm_submit_us": 632,
+          "instancing": {
+            "active_groups": 9,
+            "groups": 9,
+            "instances": 72
+          },
+          "native_draw_calls": 865.0,
+          "native_warm_submit_us": 1126,
+          "pixels": {
+            "byte_identical": true,
+            "changed_channels": 0,
+            "max_channel_error": 0
+          },
+          "scenario": 3,
+          "shots": 72,
+          "zoom": 0.8
+        },
+        {
+          "batched_draw_calls": 50.0,
+          "batched_warm_submit_us": 683,
+          "instancing": {
+            "active_groups": 49,
+            "groups": 57,
+            "instances": 72
+          },
+          "native_draw_calls": 865.0,
+          "native_warm_submit_us": 585,
+          "pixels": {
+            "byte_identical": true,
+            "changed_channels": 0,
+            "max_channel_error": 0
+          },
+          "scenario": 4,
+          "shots": 72,
+          "zoom": 1.0
+        },
+        {
+          "batched_draw_calls": 2.0,
+          "batched_warm_submit_us": 2034,
+          "instancing": {
+            "active_groups": 1,
+            "groups": 57,
+            "instances": 240
+          },
+          "native_draw_calls": 2881.0,
+          "native_warm_submit_us": 2582,
+          "pixels": {
+            "byte_identical": true,
+            "changed_channels": 0,
+            "max_channel_error": 0
+          },
+          "scenario": 5,
+          "shots": 240,
+          "zoom": 1.0
+        }
+      ],
+      "passed": true,
+      "scope": "Native production attack shaders; canonical hostile geometry cached as shared meshes, instanced only across consecutive equal shapes in each existing material stream. All nine families, fractional poses/zoom, A-B-A overlapping shape order, capacity growth to240, warm reuse and removal. No projectile/simulation edits.",
+      "state_unchanged": true,
+      "warm_geometry_reused": true
+    }
+  },
+  "components": {
+    "hostile_profile": "artifacts/hostile-geometry-profile-instanced.json",
+    "pods": "artifacts/ordered-pod-geometry.json",
+    "radar": "artifacts/radar-icon-atlas.json",
+    "terrain": "artifacts/terrain-surface-batch-report.json"
+  },
+  "final_tests": {
+    "render": {
+      "suites": [
+        {
+          "suite": "hostile_geometry_batch",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 5.44,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "retained_barrage",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 3.983,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "attack_shader_materials",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 1.884,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "cave_scene",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 9.91,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "mineral_erosion_scene",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 6.107,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "hostile_readability",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 5.692,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "battle_hud",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 10.218,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "ui_small_windows",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 20.615,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    },
+    "terrain_and_pilot": [
+      {
+        "suite": "terrain_surface_batch",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.579,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "conservative_pilot_policy",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 0.566,
+        "isolated_user_data": true
+      }
+    ],
+    "runtime_render": {
+      "suites": [
+        {
+          "suite": "runtime_log",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 10.848,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    },
+    "known_test_invocation_failure": "runtime_log initially invoked headless, awaited frame_post_draw and timed out. Corrected --render invocation passed; failed original report preserved."
+  },
+  "original_save_sha256": "2199b3fe20e7146caff36246a74226087adfe77ee899296ed9c9ab061127ea91",
+  "native_smoke": {
+    "status": "passed",
+    "artifact": "artifacts/draw-batch-native-smoke-20261027",
+    "scope": "75 seconds of active real-clock gameplay from copied existing progression, default features and normal rules; smoke only, not thirty-minute acceptance or controlled performance comparison. Menus and final paused inspection excluded from active frame statistics.",
+    "run_elapsed": 75.0060511822997,
+    "frames": 7073,
+    "active_wall_seconds": 74.16548699999998,
+    "fps_from_logged_active_intervals": 95.36780901876908,
+    "normal_release": true,
+    "default_batching_flags_confirmed": true,
+    "shutdown_exit_code": 0,
+    "engine_errors_excluding_known_local_certificate_store_warning": false,
+    "writer_drops_or_errors": false,
+    "log_rows": 552
+  },
+  "final_readonly_audit": {
+    "blockers": [],
+    "future_note": "Current sole canonical hostile builder fully supported. If a future custom builder falls back between equal instanced runs, interrupt the parent run before creating the fallback child."
+  }
+}

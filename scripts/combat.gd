@@ -36,6 +36,33 @@ var cached_player_shields:Array=[]
 var player_shield_cache_active=false
 var spatial_active = false
 var use_incremental_refresh=true
+var use_parent_pose_fastpath=OS.get_environment("RBPEW_LEGACY_PARENT_POSE")!="1"
+var use_uid_mutation_hints=OS.get_environment("RBPEW_LEGACY_UID_HINTS")!="1"
+var use_stationary_root_fastpath=OS.get_environment("RBPEW_LEGACY_STATIONARY_ROOT")!="1"
+var use_attached_only_reconcile=OS.get_environment("RBPEW_LEGACY_ATTACHED_RECONCILE")!="1"
+var use_enemy_gun_inputs=OS.get_environment("RBPEW_LEGACY_ENEMY_GUN_INPUTS")!="1"
+var use_enemy_core_frame=OS.get_environment("RBPEW_ENEMY_CORE_FRAME")!="0" and OS.get_environment("RBPEW_LEGACY_ENEMY_CORE_FRAME")!="1"
+var enemy_core_frame:Dictionary={}
+var enemy_drone_frame_counts:Dictionary={}
+var enemy_drone_frame_active=false
+var use_ai_component_frame=OS.get_environment("RBPEW_ENABLE_AI_COMPONENT_FRAME")!="0" and OS.get_environment("RBPEW_LEGACY_AI_COMPONENT_FRAME")!="1"
+var ai_component_frame:Dictionary={}
+var use_absent_knockback=OS.get_environment("RBPEW_LEGACY_ABSENT_KNOCKBACK")!="1"
+var ai_component_frame_active=false
+var ai_component_frame_hits=0
+class EnemyCoreFrame extends RefCounted:
+	var core:Dictionary
+	var rotation:float
+	var error:float
+	var reach:float
+	var kind:int
+	func _init(data:Dictionary,source):
+		core=data
+		rotation=deg_to_rad(float(data.get("turretRotateSpeed",360)))
+		error=deg_to_rad(float(data.get("turretErrorAngle",2)))
+		reach=source.range_units(data.get("turretRange",1))*48
+		var core_class=data.get("class")
+		kind=1 if core_class=="DroneCore" else (2 if core_class=="ShieldCore" else (3 if source.asset(data.get("coreProjectile","")).get("class")=="ContinuousProjectile" else 0))
 var patrols: Dictionary = {}
 var despawn_radius=100.0
 var patrol_radius=75.0
@@ -86,15 +113,47 @@ func source_component(components: Array, type: String) -> Dictionary:
 		if c["class"] == type: return c
 	return {}
 
+func enemy_kamikaze_component(actor:Dictionary)->Dictionary:
+	var components:Array=actor.components
+	if not ai_component_frame_active:return source_component(components,"KamikazeTrigger")
+	var key=actor.source_id
+	var cached=ai_component_frame.get(key)
+	if cached!=null and is_same(cached[0],components):
+		ai_component_frame_hits+=1
+		return cached[1]
+	var component=source_component(components,"KamikazeTrigger")
+	ai_component_frame[key]=[components,component]
+	return component
+
 func entity(uid: int) -> Dictionary:
 	# The UID hint remains useful between ticks, but external removals/reorders
 	# can invalidate its array slot. Validate it before using the cached index.
 	var index: int = spatial.by_uid.get(uid, -1)
 	if index>=0 and index<enemies.size() and int(enemies[index].uid)==uid:return enemies[index]
-	if spatial_active:return {}
-	for e in enemies:
-		if e.uid == uid: return e
+	if not use_uid_mutation_hints:
+		if spatial_active:return {}
+		for e in enemies:
+			if e.uid == uid:return e
+		return {}
+	if spatial_active:
+		# A missing UID in an intact frame index is absent. A known UID in a
+		# stale slot, or an external array replacement/removal, needs a real scan.
+		if index<0 and is_same(spatial.actors,enemies) and spatial.by_uid.size()==enemies.size():return {}
+		spatial_active=false
+	for i in enemies.size():
+		var e:Dictionary=enemies[i]
+		if int(e.uid)==uid:
+			spatial.by_uid[uid]=i
+			return e
 	return {}
+
+func reindex_entity_hints():
+	if not use_uid_mutation_hints:return
+	# Only callers that actually change the layout invoke this. Position cells
+	# remain frame-local and must not be queried after their indices shift.
+	spatial_active=false
+	spatial.by_uid.clear()
+	for i in enemies.size():spatial.by_uid[enemies[i].uid]=i
 
 func spawn_actor(prefab: String, blueprint: Dictionary, at: Vector2, role: String = "", objective: bool = false, known_safe: bool = false) -> Dictionary:
 	var source: Dictionary = db.prefabs.get(prefab, {})
@@ -125,6 +184,7 @@ func spawn_actor(prefab: String, blueprint: Dictionary, at: Vector2, role: Strin
 	e.action_distance=e.stop_distance*1.5
 	if unit.get("calculateDistances",false) and not ranges.is_empty():e.stop_distance=float(ranges.min())*48*0.8;e.action_distance=float(ranges.min())*48
 	enemies.append(e)
+	if use_uid_mutation_hints:spatial.by_uid[e.uid]=enemies.size()-1
 	if spatial_active: spatial.rebuild(enemies, db)
 	return e
 
@@ -248,6 +308,17 @@ func refresh_spatial_positions():
 	if not spatial_active or not is_same(spatial.actors,enemies) or spatial.by_uid.size()!=enemies.size():
 		refresh_spatial();return
 	for e in enemies:
+		constrain_actor(e)
+		spatial.moved(e)
+
+func reconcile_attached_spatial():
+	# Combat's root movement, encounter movement and late tethers all use
+	# spatial_moved immediately. Only descendants need to inherit a late pull.
+	# Keep refresh_spatial_positions as the full public reconciliation API.
+	if not spatial_active or not is_same(spatial.actors,enemies) or spatial.by_uid.size()!=enemies.size():
+		refresh_spatial();return
+	for e in enemies:
+		if int(e.get("parent",0))==0:continue
 		constrain_actor(e)
 		spatial.moved(e)
 
@@ -468,10 +539,13 @@ func fire(core: Dictionary, at: Vector2, direction: Vector2, friendly: bool, chi
 		else: bullets.append(b)
 
 var phase_times:Dictionary={}
+var diagnostic_times:Dictionary={}
+var diagnostic_profile=false
 var profile_enabled=OS.get_environment("RBPEW_PROFILE")=="1"
 func mark_phase(label:String,started:int)->int:
 	var now=Time.get_ticks_usec()
 	if profile_enabled:phase_times[label]=int(phase_times.get(label,0))+now-started
+	if diagnostic_profile:diagnostic_times[label]=int(diagnostic_times.get(label,0))+now-started
 	return now
 
 func request_skill(aim: Vector2) -> bool:
@@ -482,6 +556,7 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 		terrain.begin_navigation_frame(dt)
 		flush_mining_events()
 	spatial_active = false
+	var preparation_started=Time.get_ticks_usec() if profile_enabled or diagnostic_profile else 0
 	momentum.step(dt)
 	character_abilities.update(dt)
 	var player_push=Knockback.take_displacement(player.parts[0],dt)
@@ -489,6 +564,7 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 		player.move_head(player.head+player_push)
 		player.refresh_positions()
 	refresh_spatial()
+	if profile_enabled or diagnostic_profile:mark_phase("spatial_prepare",preparation_started)
 	player.step_feedback(dt)
 	segment_sound_cooldown=maxf(0,segment_sound_cooldown-dt)
 	step_scraps(dt)
@@ -571,6 +647,14 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 		elif c["class"] == "DroneCore":
 			ensure_drones(i, c)
 	measured=mark_phase("player_weapons",measured)
+	# This synchronous loop does not write catalog metadata. Rebuild inputs each
+	# tick so replaced cores, changed projectile classes and live tuning apply
+	# immediately, without adding cached fields to saved actor/gun dictionaries.
+	enemy_core_frame.clear()
+	enemy_drone_frame_counts.clear()
+	enemy_drone_frame_active=use_enemy_core_frame
+	ai_component_frame.clear()
+	ai_component_frame_active=use_ai_component_frame
 	for e in enemies:
 		for gun in e.guns: gun.organ_pulse=maxf(0,float(gun.get("organ_pulse",0))-dt)
 		e.feedback_left=maxf(0,float(e.get("feedback_left",0))-dt)
@@ -582,17 +666,18 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 		if e.hp <= 0:
 			continue
 		e.age += dt
-		var soft_started=Time.get_ticks_usec() if profile_enabled else 0
+		var soft_started=Time.get_ticks_usec() if profile_enabled or diagnostic_profile else 0
 		SoftInsect.step(e,dt)
-		if profile_enabled:mark_phase("enemy_soft_body",soft_started)
+		if profile_enabled or diagnostic_profile:mark_phase("enemy_soft_body",soft_started)
 		e.warp = maxf(0, e.warp - dt)
 		e.stun = maxf(0, e.stun - dt)
-		if Knockback.movable(e):
-			var push=Knockback.take_displacement(e,dt)
-			if not push.is_zero_approx():
-				e.position+=push
-				spatial_moved(e)
-		else:e.erase("knockback_velocity")
+		if not use_absent_knockback or e.has("knockback_velocity"):
+			if Knockback.movable(e):
+				var push=Knockback.take_displacement(e,dt)
+				if not push.is_zero_approx():
+					e.position+=push
+					spatial_moved(e)
+			else:e.erase("knockback_velocity")
 		if e.stun > 0 or e.warp > 0:
 			continue
 		if e.get("despawn", false): continue
@@ -603,70 +688,93 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 			var foe = nearest(e.position, 1400)
 			if not foe.is_empty(): target = target_position(foe)
 		var delta: Vector2 = target - e.position
-		var speed = float(e.movement.get("enginePower", 2)) * 48.0
-		var stop = float(e.stop_distance)
 		if e.unit.get("isDisableIfFar",false) and delta.length()>despawn_radius*48:e.despawn=true;continue
-		if e.has("patrol") and patrols.has(e.patrol):
-			delta=Vector2(patrols[e.patrol].position)+Vector2(e.patrol_offset)-Vector2(e.position)
-			stop=24.0
-		if e.kind == "TraderUnit":
-			delta = -delta if e.role != "friendly" else Vector2.RIGHT
-		# Navigation changes movement intent only; retain the real target for guns.
-		var navigation_delta = delta
-
-		if e.kind in ["AIStation", "AIStationPartController", "AIGuardUnitController", "AIBossPartController", "Asteroid", "ContainerObject", "SpawnerStation"] or e.mission_controlled:
-			speed = 0
-		if e.kind == "AIBossUnit":
-			e.active = delta.length() < float(e.unit.get("bossActionRadiuos", 30)) * 48.0
-			var boost = source_component(e.components, "AIBossBoostSystem")
-			e.boost_cooldown -= dt
-			e.boost_left -= dt
-			if e.boost_left > 0:
-				speed = (float(e.movement.enginePower) + float(e.movement.get("boostEnginePower", 5))) * 48.0
-			elif e.boost_left > -dt:
-				e.boost_cooldown = float(boost.get("boostTimerDelay", 10))
-			elif e.active and e.boost_cooldown <= 0 and delta.length() > float(boost.get("boostActivationRadious", 7.5)) * 48 and absf(angle_difference(e.angle, delta.angle())) < deg_to_rad(float(boost.get("boostActivationAngle", 25))):
-				e.boost_left = float(boost.get("boostDuration", 3))
-			elif e.heat_speed:
-				var factor = maxf(1.0, heat) if e.active else heat
-				speed *= factor * (float(e.movement.get("speedAfterTimerModifier", 2)) if factor > 1 else 1.0)
-		if speed>0 and e.parent==0 and not e.mission_controlled:
-			navigation_delta=ground_direction(e,Vector2(e.position)+delta)*delta.length()
-		if e.parent != 0:
-			var parent = entity(e.parent)
-			if not parent.is_empty():
-				e.position = parent.position + Vector2(e.offset).rotated(parent.angle)
-				e.angle = parent.angle
-				delta = target - e.position
-		# A missing route is a wait state, including while cave A* is prepared
-		# across frames. Vector2.ZERO.angle() is 0, not a valid steering heading.
-		var has_direction = not navigation_delta.is_zero_approx()
-		if e.kind=="AIFollowingUnit" and has_direction:
-			var modifier=1.0 if delta.length()>float(e.movement.get("stoppingdDis",0))*48 else 0.0
-			if delta.length()<float(e.movement.get("runningAwayDistance",0))*48:modifier=-float(e.movement.get("movingBackSpeedPercent",0.6))
-			e.position+=navigation_delta.normalized()*speed*modifier*dt
-			speed=0
-		if e.kind=="AIPatrolUnit" and not has_direction:
-			e.moving_speed=0.0;e.rotation_speed=0.0
-		elif e.kind=="AIPatrolUnit" and delta.length()>stop:
-			var engine=float(e.movement.get("enginePower",2))
-			var error=absf(rad_to_deg(angle_difference(e.angle,navigation_delta.angle())))
-			var max_rotation=engine*25
-			var desired_speed=0.0 if error>60 else (1-error/60)*engine*48
-			var desired_rotation=max_rotation if error>60 else error/60*max_rotation
-			e.moving_speed=lerpf(float(e.get("moving_speed",0)),desired_speed,minf(1,engine/2*dt))
-			e.rotation_speed=lerpf(float(e.get("rotation_speed",0)),desired_rotation,minf(1,max_rotation/8*dt))
-			e.position+=Vector2.from_angle(e.angle)*e.moving_speed*dt
-			e.angle=rotate_toward(e.angle,navigation_delta.angle(),deg_to_rad(e.rotation_speed)*dt)
+		# Attached boss guns have zero independent drive. The general movement
+		# pipeline ultimately constrains them to this same parent pose again;
+		# retain feedback and weapons but avoid its root navigation/drive work.
+		var attached_parent=entity(int(e.parent)) if use_parent_pose_fastpath and terrain!=null and e.kind=="AIBossPartController" and e.parent!=0 else null
+		if use_stationary_root_fastpath and e.parent==0 and e.mission_controlled and e.kind in ["AIStation","AIStationPartController","AIGuardUnitController","Asteroid","ContainerObject","SpawnerStation"] and not e.has("patrol"):
+			# These mission roots have zero drive and never steer. Keep their
+			# exact collision/index update; feedback and guns still run every tick.
+			var stationary_started=Time.get_ticks_usec() if profile_enabled or diagnostic_profile else 0
+			spatial_moved(e)
+			if profile_enabled or diagnostic_profile:mark_phase("enemy_collision",stationary_started)
+		elif attached_parent!=null and not attached_parent.is_empty():
+			var attached_started=Time.get_ticks_usec() if profile_enabled or diagnostic_profile else 0
+			e.position=attached_parent.position+Vector2(e.offset).rotated(attached_parent.angle)
+			e.angle=attached_parent.angle
+			delta=target-e.position
+			e.ground_previous=e.position
+			if spatial_active:spatial.moved(e)
+			if profile_enabled or diagnostic_profile:mark_phase("enemy_collision",attached_started)
 		else:
-			if has_direction and delta.length()>stop:e.position+=Vector2.from_angle(e.angle)*speed*dt
-			if has_direction and e.boost_left<=0 and not e.mission_controlled and e.parent==0:
-				var rotation_speed=float(e.movement.get("enginePower",2))*float(e.movement.get("rotEngineModifier",12))
-				if e.kind=="AIBossUnit" and e.heat_speed:rotation_speed*=maxf(1,heat) if e.active else heat
-				e.angle=rotate_toward(e.angle,navigation_delta.angle(),deg_to_rad(rotation_speed)*dt)
-		e.position = movement_start + (Vector2(e.position)-movement_start)*insect_control_system.movement_factor(e,dt)
-		spatial_moved(e)
-		var kamikaze=source_component(e.components,"KamikazeTrigger")
+			var speed = float(e.movement.get("enginePower", 2)) * 48.0
+			var stop = float(e.stop_distance)
+			if e.has("patrol") and patrols.has(e.patrol):
+				delta=Vector2(patrols[e.patrol].position)+Vector2(e.patrol_offset)-Vector2(e.position)
+				stop=24.0
+			if e.kind == "TraderUnit":
+				delta = -delta if e.role != "friendly" else Vector2.RIGHT
+			# Navigation changes movement intent only; retain the real target for guns.
+			var navigation_delta = delta
+
+			if e.kind in ["AIStation", "AIStationPartController", "AIGuardUnitController", "AIBossPartController", "Asteroid", "ContainerObject", "SpawnerStation"] or e.mission_controlled:
+				speed = 0
+			if e.kind == "AIBossUnit":
+				e.active = delta.length() < float(e.unit.get("bossActionRadiuos", 30)) * 48.0
+				var boost = source_component(e.components, "AIBossBoostSystem")
+				e.boost_cooldown -= dt
+				e.boost_left -= dt
+				if e.boost_left > 0:
+					speed = (float(e.movement.enginePower) + float(e.movement.get("boostEnginePower", 5))) * 48.0
+				elif e.boost_left > -dt:
+					e.boost_cooldown = float(boost.get("boostTimerDelay", 10))
+				elif e.active and e.boost_cooldown <= 0 and delta.length() > float(boost.get("boostActivationRadious", 7.5)) * 48 and absf(angle_difference(e.angle, delta.angle())) < deg_to_rad(float(boost.get("boostActivationAngle", 25))):
+					e.boost_left = float(boost.get("boostDuration", 3))
+				elif e.heat_speed:
+					var factor = maxf(1.0, heat) if e.active else heat
+					speed *= factor * (float(e.movement.get("speedAfterTimerModifier", 2)) if factor > 1 else 1.0)
+			if speed>0 and e.parent==0 and not e.mission_controlled:
+				var navigation_started=Time.get_ticks_usec() if profile_enabled or diagnostic_profile else 0
+				navigation_delta=ground_direction(e,Vector2(e.position)+delta)*delta.length()
+				if profile_enabled or diagnostic_profile:mark_phase("enemy_navigation",navigation_started)
+			if e.parent != 0:
+				var parent = entity(e.parent)
+				if not parent.is_empty():
+					e.position = parent.position + Vector2(e.offset).rotated(parent.angle)
+					e.angle = parent.angle
+					delta = target - e.position
+			# A missing route is a wait state, including while cave A* is prepared
+			# across frames. Vector2.ZERO.angle() is 0, not a valid steering heading.
+			var has_direction = not navigation_delta.is_zero_approx()
+			if e.kind=="AIFollowingUnit" and has_direction:
+				var modifier=1.0 if delta.length()>float(e.movement.get("stoppingdDis",0))*48 else 0.0
+				if delta.length()<float(e.movement.get("runningAwayDistance",0))*48:modifier=-float(e.movement.get("movingBackSpeedPercent",0.6))
+				e.position+=navigation_delta.normalized()*speed*modifier*dt
+				speed=0
+			if e.kind=="AIPatrolUnit" and not has_direction:
+				e.moving_speed=0.0;e.rotation_speed=0.0
+			elif e.kind=="AIPatrolUnit" and delta.length()>stop:
+				var engine=float(e.movement.get("enginePower",2))
+				var error=absf(rad_to_deg(angle_difference(e.angle,navigation_delta.angle())))
+				var max_rotation=engine*25
+				var desired_speed=0.0 if error>60 else (1-error/60)*engine*48
+				var desired_rotation=max_rotation if error>60 else error/60*max_rotation
+				e.moving_speed=lerpf(float(e.get("moving_speed",0)),desired_speed,minf(1,engine/2*dt))
+				e.rotation_speed=lerpf(float(e.get("rotation_speed",0)),desired_rotation,minf(1,max_rotation/8*dt))
+				e.position+=Vector2.from_angle(e.angle)*e.moving_speed*dt
+				e.angle=rotate_toward(e.angle,navigation_delta.angle(),deg_to_rad(e.rotation_speed)*dt)
+			else:
+				if has_direction and delta.length()>stop:e.position+=Vector2.from_angle(e.angle)*speed*dt
+				if has_direction and e.boost_left<=0 and not e.mission_controlled and e.parent==0:
+					var rotation_speed=float(e.movement.get("enginePower",2))*float(e.movement.get("rotEngineModifier",12))
+					if e.kind=="AIBossUnit" and e.heat_speed:rotation_speed*=maxf(1,heat) if e.active else heat
+					e.angle=rotate_toward(e.angle,navigation_delta.angle(),deg_to_rad(rotation_speed)*dt)
+			e.position = movement_start + (Vector2(e.position)-movement_start)*insect_control_system.movement_factor(e,dt)
+			var collision_started=Time.get_ticks_usec() if profile_enabled or diagnostic_profile else 0
+			spatial_moved(e)
+			if profile_enabled or diagnostic_profile:mark_phase("enemy_collision",collision_started)
+		var kamikaze=enemy_kamikaze_component(e)
 		if not kamikaze.is_empty():
 			for i in range(player.parts.size()):
 				if player.parts[i].hp>0 and not player.parts[i].get("cloaked",false) and e.position.distance_to(player.parts[i].position)<e.radius+player.collision_radius(i):
@@ -676,34 +784,112 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 		if e.hp<=0:continue
 		if e.unit.get("UseActionDistance",false) and e.position.distance_to(target)>e.action_distance:continue
 
-		for gun in e.guns:
-			gun.angle = rotate_toward(gun.angle,delta.angle(),deg_to_rad(float(db.asset(gun.id).get("turretRotateSpeed",360)))*dt)
-			gun.cooldown -= dt
-			var core: Dictionary = db.asset(gun.id)
-			if core.get("class")=="DroneCore":
-				ensure_enemy_drones(e,gun,core);continue
-			if core.get("class")=="ShieldCore":
-				gun.shield_delay = float(gun.get("shield_delay",0))-dt
-				if gun.shield_delay<=0:
-					if gun.get("shield_broken",false):gun.shield=float(core.maxShieldHealth)/2;gun.shield_broken=false
-					else:gun.shield = minf(float(core.maxShieldHealth),float(gun.get("shield",core.maxShieldHealth))+float(core.shieldRechargeRate)*dt)
-				continue
-			if absf(angle_difference(gun.angle,delta.angle()))>=deg_to_rad(float(core.get("turretErrorAngle",2))):continue
-			if db.asset(core.get("coreProjectile","")).get("class")=="ContinuousProjectile":
-				if delta.length()<db.range_units(core.get("turretRange",1))*48:
+		var weapons_started=Time.get_ticks_usec() if profile_enabled or diagnostic_profile else 0
+		if use_enemy_core_frame and not e.guns.is_empty():
+			var weapon_angle=delta.angle()
+			var weapon_delta_length:float=-1.0
+			var weapon_target_distance:float=-1.0
+			for gun in e.guns:
+				var inputs:EnemyCoreFrame=enemy_core_frame.get(gun.id)
+				if inputs==null:
+					inputs=EnemyCoreFrame.new(db.asset(gun.id),db)
+					enemy_core_frame[gun.id]=inputs
+				var core:Dictionary=inputs.core
+				gun.angle=rotate_toward(gun.angle,weapon_angle,inputs.rotation*dt)
+				gun.cooldown-=dt
+				if inputs.kind==1:
+					ensure_enemy_drones(e,gun,core);continue
+				if inputs.kind==2:
+					gun.shield_delay=float(gun.get("shield_delay",0))-dt
+					if gun.shield_delay<=0:
+						if gun.get("shield_broken",false):gun.shield=float(core.maxShieldHealth)/2;gun.shield_broken=false
+						else:gun.shield=minf(float(core.maxShieldHealth),float(gun.get("shield",core.maxShieldHealth))+float(core.shieldRechargeRate)*dt)
+					continue
+				if inputs.kind==3:
+					if weapon_delta_length<0:weapon_delta_length=delta.length()
+					if not weapon_delta_length<inputs.reach:continue
+				else:
+					if gun.cooldown>0:continue
+					if weapon_target_distance<0:weapon_target_distance=e.position.distance_to(target)
+					if not weapon_target_distance<inputs.reach*(1.0+e.range_modifier):continue
+				if absf(angle_difference(gun.angle,weapon_angle))>=inputs.error:continue
+				if inputs.kind==3:
 					gun.organ_pulse=0.18
 					special.continuous(core,e.position,delta.normalized(),e.role=="friendly",{},e.damage_modifier-1,dt,"enemy:"+str(e.uid)+":"+str(e.guns.find(gun)))
-				continue
-			if gun.cooldown <= 0 and e.position.distance_to(target) < db.range_units(core.get("turretRange", 1)) * 48 * (1.0 + e.range_modifier):
-				fire(core, e.position + Vector2(gun.get("offset", Vector2.ZERO)).rotated(e.angle), Vector2.from_angle(gun.angle), e.role == "friendly", {}, e.damage_modifier - 1.0, false, int(gun.get("barrel_index",0)),1.0,"enemy:"+str(e.uid)+":"+str(e.guns.find(gun)))
-				gun.organ_pulse=0.18
-				gun.barrel_index=int(gun.get("barrel_index",0))+1
-				gun.cooldown = 1.0 / maxf(0.1, float(core.get("turretRateOfFire", 1)))
+				else:
+					fire(core,e.position+Vector2(gun.get("offset",Vector2.ZERO)).rotated(e.angle),Vector2.from_angle(gun.angle),e.role=="friendly",{},e.damage_modifier-1.0,false,int(gun.get("barrel_index",0)),1.0,"enemy:"+str(e.uid)+":"+str(e.guns.find(gun)))
+					gun.organ_pulse=0.18
+					gun.barrel_index=int(gun.get("barrel_index",0))+1
+					gun.cooldown=1.0/maxf(0.1,float(core.get("turretRateOfFire",1)))
+		elif use_enemy_gun_inputs and not e.guns.is_empty():
+			var weapon_angle=delta.angle()
+			var weapon_delta_length:float=-1.0
+			var weapon_target_distance:float=-1.0
+			for gun in e.guns:
+				var core:Dictionary=db.asset(gun.id)
+				gun.angle=rotate_toward(gun.angle,weapon_angle,deg_to_rad(float(core.get("turretRotateSpeed",360)))*dt)
+				gun.cooldown-=dt
+				var core_class=core.get("class")
+				if core_class=="DroneCore":
+					ensure_enemy_drones(e,gun,core);continue
+				if core_class=="ShieldCore":
+					gun.shield_delay=float(gun.get("shield_delay",0))-dt
+					if gun.shield_delay<=0:
+						if gun.get("shield_broken",false):gun.shield=float(core.maxShieldHealth)/2;gun.shield_broken=false
+						else:gun.shield=minf(float(core.maxShieldHealth),float(gun.get("shield",core.maxShieldHealth))+float(core.shieldRechargeRate)*dt)
+					continue
+				if absf(angle_difference(gun.angle,weapon_angle))>=deg_to_rad(float(core.get("turretErrorAngle",2))):continue
+				if db.asset(core.get("coreProjectile","")).get("class")=="ContinuousProjectile":
+					if weapon_delta_length<0:weapon_delta_length=delta.length()
+					if weapon_delta_length<db.range_units(core.get("turretRange",1))*48:
+						gun.organ_pulse=0.18
+						special.continuous(core,e.position,delta.normalized(),e.role=="friendly",{},e.damage_modifier-1,dt,"enemy:"+str(e.uid)+":"+str(e.guns.find(gun)))
+					continue
+				if gun.cooldown<=0:
+					# Collision can adjust e.position after delta was formed. Keep
+					# this distinct distance expression for ordinary projectile guns.
+					if weapon_target_distance<0:weapon_target_distance=e.position.distance_to(target)
+					if weapon_target_distance<db.range_units(core.get("turretRange",1))*48*(1.0+e.range_modifier):
+						fire(core,e.position+Vector2(gun.get("offset",Vector2.ZERO)).rotated(e.angle),Vector2.from_angle(gun.angle),e.role=="friendly",{},e.damage_modifier-1.0,false,int(gun.get("barrel_index",0)),1.0,"enemy:"+str(e.uid)+":"+str(e.guns.find(gun)))
+						gun.organ_pulse=0.18
+						gun.barrel_index=int(gun.get("barrel_index",0))+1
+						gun.cooldown=1.0/maxf(0.1,float(core.get("turretRateOfFire",1)))
+		else:
+			for gun in e.guns:
+				gun.angle = rotate_toward(gun.angle,delta.angle(),deg_to_rad(float(db.asset(gun.id).get("turretRotateSpeed",360)))*dt)
+				gun.cooldown -= dt
+				var core: Dictionary = db.asset(gun.id)
+				if core.get("class")=="DroneCore":
+					ensure_enemy_drones(e,gun,core);continue
+				if core.get("class")=="ShieldCore":
+					gun.shield_delay = float(gun.get("shield_delay",0))-dt
+					if gun.shield_delay<=0:
+						if gun.get("shield_broken",false):gun.shield=float(core.maxShieldHealth)/2;gun.shield_broken=false
+						else:gun.shield = minf(float(core.maxShieldHealth),float(gun.get("shield",core.maxShieldHealth))+float(core.shieldRechargeRate)*dt)
+					continue
+				if absf(angle_difference(gun.angle,delta.angle()))>=deg_to_rad(float(core.get("turretErrorAngle",2))):continue
+				if db.asset(core.get("coreProjectile","")).get("class")=="ContinuousProjectile":
+					if delta.length()<db.range_units(core.get("turretRange",1))*48:
+						gun.organ_pulse=0.18
+						special.continuous(core,e.position,delta.normalized(),e.role=="friendly",{},e.damage_modifier-1,dt,"enemy:"+str(e.uid)+":"+str(e.guns.find(gun)))
+					continue
+				if gun.cooldown <= 0 and e.position.distance_to(target) < db.range_units(core.get("turretRange", 1)) * 48 * (1.0 + e.range_modifier):
+					fire(core, e.position + Vector2(gun.get("offset", Vector2.ZERO)).rotated(e.angle), Vector2.from_angle(gun.angle), e.role == "friendly", {}, e.damage_modifier - 1.0, false, int(gun.get("barrel_index",0)),1.0,"enemy:"+str(e.uid)+":"+str(e.guns.find(gun)))
+					gun.organ_pulse=0.18
+					gun.barrel_index=int(gun.get("barrel_index",0))+1
+					gun.cooldown = 1.0 / maxf(0.1, float(core.get("turretRateOfFire", 1)))
+		if profile_enabled or diagnostic_profile:mark_phase("enemy_weapons",weapons_started)
 	measured=mark_phase("enemy_ai",measured)
+	enemy_drone_frame_active=false
+	ai_component_frame_active=false
 	if not use_incremental_refresh:spatial_active=false
 	insect_control_system.advance(dt,self)
-	if use_incremental_refresh:refresh_spatial_positions()
+	var reconcile_started=Time.get_ticks_usec() if profile_enabled or diagnostic_profile else 0
+	if use_incremental_refresh:
+		if use_attached_only_reconcile:reconcile_attached_spatial()
+		else:refresh_spatial_positions()
 	else:refresh_spatial()
+	if profile_enabled or diagnostic_profile:mark_phase("spatial_reconcile",reconcile_started)
 	step_drones(dt)
 	step_enemy_drones(dt)
 	mutation_weapons.step(dt)
@@ -816,7 +1002,9 @@ func step(dt: float, aim: Vector2, shooting: bool, player_weapons_enabled: bool 
 				audio_events.append({"type":-1,"position":e.position,"feedback":"impact","strength":1.5,"flesh":true,"flesh_strength":1.3})
 			else:
 				explosion(e.position,float(e.unit.get("explosionSize",e.radius/24.0))*48.0,0.65,str(e.get("last_fx","impact")),bool(e.get("last_friendly",true)))
+	var previous_enemy_count=enemies.size()
 	enemies = enemies.filter(func(e): return e.hp > 0 and not e.get("despawn",false))
+	if enemies.size()!=previous_enemy_count:reindex_entity_hints()
 	for burst in death_splatters:burst.life-=dt
 	death_splatters=death_splatters.filter(func(burst):return burst.life>0)
 	if death_splatters.size()>DeathSplatter.MAX_BURSTS:
@@ -1169,9 +1357,15 @@ func add_drone(owner: int, data: Dictionary):
 
 func ensure_enemy_drones(owner:Dictionary,gun:Dictionary,core:Dictionary):
 	if not gun.has("drone_bay"):gun.drone_bay=next_drone_uid;next_drone_uid+=1
-	var count=enemy_drones.filter(func(d):return d.bay==gun.drone_bay).size()
+	var count:int
+	if enemy_drone_frame_active:
+		if enemy_drone_frame_counts.is_empty():
+			for drone in enemy_drones:enemy_drone_frame_counts[drone.bay]=int(enemy_drone_frame_counts.get(drone.bay,0))+1
+		count=int(enemy_drone_frame_counts.get(gun.drone_bay,0))
+	else:count=enemy_drones.filter(func(d):return d.bay==gun.drone_bay).size()
 	for i in range(count,mini(int(core.DroneCount),int(core.maxDronesCount))):
 		enemy_drones.append({"owner":owner.uid,"bay":gun.drone_bay,"data":db.asset(core.coreDrone),"position":owner.position,"angle":owner.angle,"speed":0.0,"rot_speed":0.0,"cooldown":0.0,"ping":0.0,"target":{},"docked":true,"friendly":owner.role=="friendly"})
+		if enemy_drone_frame_active:enemy_drone_frame_counts[gun.drone_bay]=i+1
 
 func step_enemy_drones(dt:float):
 	enemy_drones=enemy_drones.filter(func(d):return entity(d.owner).get("hp",0)>0 and not entity(d.owner).get("despawn",false))

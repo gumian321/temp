@@ -13,6 +13,7 @@ var released: Array = []
 var emitter_poses:Dictionary={}
 var elapsed = 0.0
 var serial = 0
+var use_absent_knockback=OS.get_environment("RBPEW_LEGACY_ABSENT_KNOCKBACK")!="1"
 
 static func attack_for(turret: Dictionary) -> String:
 	match str(turret.get("name", "")):
@@ -40,7 +41,7 @@ func attach(e: Dictionary, b: Dictionary) -> bool:
 	return true
 
 func movement_factor(e: Dictionary, dt: float) -> float:
-	var recovery=Knockback.drive_factor(e)
+	var recovery=1.0 if use_absent_knockback and not e.has("knockback_velocity") else Knockback.drive_factor(e)
 	if dt <= 0 or not e.has("insect_control") or not eligible(e,bool(e.get("insect_control_friendly",true))): return recovery
 	var covered = minf(dt,maxf(0,float(e.get("insect_silk_until",0))-elapsed))
 	return (1.0 - 0.65 * covered / dt)*recovery

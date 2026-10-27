@@ -101,12 +101,14 @@ func capture_frame(now:int,elapsed:int):
 	report.run_elapsed=game.run.elapsed if game.run!=null else 0
 	report.player_position=[game.player.head.x,game.player.head.y]
 	report.loadout=game.player.parts.map(func(part):return {"core":part.id,"fusion_level":part.get("fusion_level",1)})
+	if game.runtime_log!=null and game.runtime_log.enabled:game.runtime_log.attach_capture(report)
 	capture_path=("res://artifacts/" if OS.has_feature("editor") else "user://")+capture_filename.validate_filename()
 	var file=FileAccess.open(capture_path,FileAccess.WRITE)
 	if file!=null:
 		file.store_string(JSON.stringify(report,"\t"));file.close();capture_notice.text="性能采样已保存"
 		print("PERFORMANCE_CAPTURE=",ProjectSettings.globalize_path(capture_path))
 	else:capture_notice.text="性能采样未能保存"
+	if game.runtime_log!=null and game.runtime_log.enabled:capture_notice.text+=" · F4 日志目录"
 	capture_notice_until=now+4000000
 
 func make_label(parent: Node, font_size: int) -> Label:

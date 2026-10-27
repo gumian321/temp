@@ -1,0 +1,197 @@
+{
+  "status": "three_real_runs_failed_cpu4_candidate_under_test",
+  "build": {
+    "created_at_utc": "2026-10-27T05:14:10.391689+00:00",
+    "command": [
+      "D:/godot/Godot_v4.6.3-stable_win64.exe",
+      "--headless",
+      "--path",
+      "E:\\_Nlv\\github\\temp",
+      "--export-release",
+      "Windows Review",
+      "E:\\_Nlv\\github\\temp\\artifacts\\cpu-depth-20261027-3\\RunBuildPew.exe"
+    ],
+    "executable": "E:\\_Nlv\\github\\temp\\artifacts\\cpu-depth-20261027-3\\RunBuildPew.exe",
+    "sha256": "17ff160fae484482cd2ffda55b318f355300a1f654560786f0419b9973feae29",
+    "bytes": 259181672,
+    "source_manifest": "source-manifest.json",
+    "manifest_scope": "Scripts, shaders, data, native runtime and project/export configuration; executable plus listed external native files comprise the release.",
+    "runtime_files": [
+      {
+        "path": "RunBuildPew.exe",
+        "sha256": "17ff160fae484482cd2ffda55b318f355300a1f654560786f0419b9973feae29",
+        "bytes": 259181672
+      },
+      {
+        "path": "native_runtime/cave_sweep/.gdignore",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "native_runtime/cave_sweep/build-provenance.json",
+        "sha256": "03694f55c4509aa74ea291257e9846ff3c0d87cb43f3e961be949de9a9686fad",
+        "bytes": 935
+      },
+      {
+        "path": "native_runtime/cave_sweep/cave_sweep.gdextension",
+        "sha256": "a99c957ad2696f818c1827777e01f0ca3b96a1ddd3f18f66378fa55a44e5593c",
+        "bytes": 235
+      },
+      {
+        "path": "native_runtime/cave_sweep/cave_sweep.windows.x86_64.dll",
+        "sha256": "f4a381458875f63dab067010c24f50a274928809790e576d00812383ddf8ae9c",
+        "bytes": 175616
+      }
+    ]
+  },
+  "launch": {
+    "pid": 231516,
+    "folder": "E:\\_Nlv\\github\\temp\\artifacts\\cpu-depth-live3-20261027",
+    "command": [
+      "E:\\_Nlv\\github\\temp\\artifacts\\cpu-depth-20261027-3\\RunBuildPew.exe",
+      "--windowed",
+      "--resolution",
+      "1440x900",
+      "--position",
+      "80,50",
+      "--log-file",
+      "E:\\_Nlv\\github\\temp\\artifacts\\cpu-depth-live3-20261027\\engine.log",
+      "--",
+      "--conservative-playtest"
+    ],
+    "started_at_utc": "2026-10-27T05:14:27.948377+00:00",
+    "scope": "Real clock, normal health/damage/waves/rewards, copied existing progression, no performance fixture. Controller steers movement and invokes normal reward/build callbacks.",
+    "controller_source_sha256": "0199603cd109df6a63f9d2622e353d4a15e2ddc1c92a2244cd481c3e744e94c7",
+    "executable_sha256": "17ff160fae484482cd2ffda55b318f355300a1f654560786f0419b9973feae29",
+    "executable_bytes": 259181672,
+    "package_source_manifest_sha256": "c88bc20f60e7f73f23f6e51a5f3ffd0f1951d26124080f0108c8b73b13046458",
+    "original_save_sha256": "2199b3fe20e7146caff36246a74226087adfe77ee899296ed9c9ab061127ea91",
+    "continuous_controller": true,
+    "requested_controller_seed": 20261027,
+    "runtime_files": [
+      {
+        "path": "RunBuildPew.exe",
+        "sha256": "17ff160fae484482cd2ffda55b318f355300a1f654560786f0419b9973feae29",
+        "bytes": 259181672
+      },
+      {
+        "path": "native_runtime/cave_sweep/.gdignore",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "native_runtime/cave_sweep/build-provenance.json",
+        "sha256": "03694f55c4509aa74ea291257e9846ff3c0d87cb43f3e961be949de9a9686fad",
+        "bytes": 935
+      },
+      {
+        "path": "native_runtime/cave_sweep/cave_sweep.gdextension",
+        "sha256": "a99c957ad2696f818c1827777e01f0ca3b96a1ddd3f18f66378fa55a44e5593c",
+        "bytes": 235
+      },
+      {
+        "path": "native_runtime/cave_sweep/cave_sweep.windows.x86_64.dll",
+        "sha256": "f4a381458875f63dab067010c24f50a274928809790e576d00812383ddf8ae9c",
+        "bytes": 175616
+      }
+    ],
+    "requested_session_mute": true,
+    "audio_session_muted": true
+  },
+  "integrity_audit": "artifacts/cpu3-final-integrity-audit.txt",
+  "report": "docs/CPU_DEPTH_20261027.txt",
+  "prior_runs": [
+    {
+      "folder": "E:\\_Nlv\\github\\temp\\artifacts\\cpu-depth-live-20261027",
+      "analysis": {
+        "scope": "One continuous real-clock normal-rules release battle with ordinary automated controls; no diagnostic slow-frame auto-pauses. Menus excluded from active-frame totals. Not an optimization A/B.",
+        "run_elapsed": 1800.0280793475,
+        "wall_seconds": 1889.352996,
+        "invalid_lines": 0,
+        "all_real_clock_release_normal_rules": true,
+        "no_reported_drops_or_write_errors": true,
+        "active_frames": 89136,
+        "active_wall_seconds": 1801.466046,
+        "overall_fps": 49.47970026852229,
+        "draw_calls": {
+          "frames": 89136,
+          "mean": 135.85890100520552,
+          "scope": "Weighted by explicitly logged per-frame draw samples; older summary formats may have no DC block."
+        },
+        "cumulative_totals": {
+          "sessions": 1,
+          "frames": 89136,
+          "microseconds": 1801466046
+        },
+        "complete_summary_coverage": true,
+        "acceptance_30min_above50": false
+      },
+      "analysis_path": "E:\\_Nlv\\github\\temp\\artifacts\\cpu-depth-live-20261027\\longrun-analysis.json"
+    },
+    {
+      "folder": "E:\\_Nlv\\github\\temp\\artifacts\\cpu-depth-live2-20261027",
+      "analysis": {
+        "scope": "One continuous real-clock normal-rules release battle with ordinary automated controls; no diagnostic slow-frame auto-pauses. Menus excluded from active-frame totals. Not an optimization A/B.",
+        "run_elapsed": 1583.00058154097,
+        "wall_seconds": 1688.895052,
+        "invalid_lines": 0,
+        "all_real_clock_release_normal_rules": true,
+        "no_reported_drops_or_write_errors": true,
+        "active_frames": 66813,
+        "active_wall_seconds": 1583.660601,
+        "overall_fps": 42.18896394707997,
+        "draw_calls": {
+          "frames": 66813,
+          "mean": 173.42505201083623,
+          "scope": "Weighted by explicitly logged per-frame draw samples; older summary formats may have no DC block."
+        },
+        "cumulative_totals": {
+          "sessions": 1,
+          "frames": 66813,
+          "microseconds": 1583660601
+        },
+        "complete_summary_coverage": true,
+        "acceptance_30min_above50": false
+      },
+      "analysis_path": "E:\\_Nlv\\github\\temp\\artifacts\\cpu-depth-live2-20261027\\longrun-analysis.json"
+    }
+  ],
+  "differential_evidence": [
+    "artifacts/cpu3-v2-production-regressions.json",
+    "artifacts/cpu3-integrated-differentials.json",
+    "artifacts/cpu3-v2-runtime-log-check.json",
+    "artifacts/cpu3-pilot-v5-policy-check.json"
+  ],
+  "run3": {
+    "scope": "One continuous real-clock normal-rules release battle with ordinary automated controls; no diagnostic slow-frame auto-pauses. Menus excluded from active-frame totals. Not an optimization A/B.",
+    "run_elapsed": 1800.00188738121,
+    "active_frames": 73734,
+    "active_wall_seconds": 1802.649466,
+    "overall_fps": 40.90312697543605,
+    "draw_calls": {
+      "frames": 73734,
+      "mean": 169.96361244473377,
+      "scope": "Weighted by explicitly logged per-frame draw samples; older summary formats may have no DC block."
+    },
+    "complete_summary_coverage": true,
+    "acceptance_30min_above50": false,
+    "invalid_lines": 0,
+    "no_reported_drops_or_write_errors": true,
+    "all_real_clock_release_normal_rules": true,
+    "late_window_fps": {
+      "300": 27.561346488911706,
+      "600": 28.70410110959833
+    },
+    "final_status": {
+      "hp": 500.0,
+      "max_hp": 500.0,
+      "actors": 296,
+      "parts": 25,
+      "kills": 87,
+      "boss_kills": 0,
+      "ore": 214,
+      "boss_distance": 1557.67932128906
+    },
+    "source_and_save_check": "artifacts/cpu3-final-source-and-save-check.json"
+  }
+}

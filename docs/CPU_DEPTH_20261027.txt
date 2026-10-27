@@ -1,0 +1,123 @@
+CPU 深度优化与实战验收记录（2026-10-27，三次实战均未达标，继续优化中）
+
+当前结论
+- 已实施并验证 AI、空间索引、碰撞与地图观察者的精确重复计算优化。
+- 第一次完整 30 分钟实战为 49.47970026852229 FPS，未达到严格大于 50 FPS 的目标。
+- 第二次实战在 26 分 23 秒死亡，平均 42.18896394707997 FPS；既未完成 30 分钟，也未达到帧率目标。
+- 第三次完整 30 分钟平均 40.90312697543605 FPS，后期约 27 FPS；仍未达标，CPU4 候选正在对照验证。
+
+范围与保持项
+- Windows x86_64，Godot 4.6.3，1440×900 原生窗口渲染，Compatibility renderer；前两次日志记录显卡为 NVIDIA GeForce GTX 1050。
+- 现有合批、贴图、着色器、抗锯齿、透明叠放、武器效果和显示配置保留。
+- 本轮正式 CPU 改动不减少敌人、模块、弹量、伤害、奖励或效果持续时间；不降低现有 AI、射击、碰撞或地图更新频率。
+- 地图观察者优化保留已有远程轨道更新规则，只删除被头部观察圆严格包含、不会改变判定结果的观察圆。
+- REA、reverse-engineer-anything 技能及 REA 服务保持禁用。
+
+当前默认开启的精确优化
+1. AI 武器输入：每次同步敌人循环重建按核心 ID 缓存的旋转速度、允许误差、射程与武器类型。
+   所有炮口角度与冷却计时仍逐次更新；完成这些强制更新后，才可依据原来的精确射程判定跳过后续无效计算。
+   普通弹丸仍使用碰撞之后的实际位置到目标的距离，连续武器仍使用原 delta；不混用两种距离。
+   敌方无人机数量按 bay 在本次敌人循环中延迟统计，并在生成时更新；下一次循环重新读取当前列表。
+   开关 RBPEW_ENEMY_CORE_FRAME；RBPEW_LEGACY_ENEMY_CORE_FRAME=1 强制原路径。
+2. AI 组件：本次敌人循环缓存 source_id 对应的组件 Array 身份与第一个 KamikazeTrigger。
+   每次读取以 is_same 校验 Array 身份，替换 Array 时重建；保留重复组件的第一个匹配项。
+   每次循环清空，循环外继续直接 source_component 查找；没有给存档 actor 添加缓存字段。
+   开关 RBPEW_ENABLE_AI_COMPONENT_FRAME；RBPEW_LEGACY_AI_COMPONENT_FRAME=1 强制原路径。
+3. 空间索引构建：完整 rebuild 已清空查询缓存后，内联原 insert 的桶插入过程。
+   保留原 cell 坐标表达式、插入顺序、UID、死敌、友军、范围与边界扩展；每次 rebuild 只读取一次相同核心的护盾类型。
+   false 也作为有效缓存值，不把非护盾核心反复当作缓存未命中；下一次 rebuild 读取实时核心数据。
+   开关 RBPEW_ENABLE_SPATIAL_BUILD；RBPEW_LEGACY_SPATIAL_BUILD=1 强制原路径。
+4. 近处碰撞探测：对有界长扫掠先检查局部原始轮廓。只在证明命中足够近时接受结果，否则完整回退。
+   正式默认范围为半径 1..64、扫掠距离 32..4096、坐标绝对值小于 32768；原 delta、长度平方、轮廓时间与完整命中字典保留。
+   局部邻域为 32 像素，接受距离严格小于 24 像素的接触；相等时间保持原遍历顺序。
+   开关 RBPEW_ENABLE_NEAR_CONTACT_PROBE；RBPEW_LEGACY_NEAR_CONTACT_PROBE=1 强制原路径。
+5. 地图观察者：只略过严格位于已测试头部观察圆内部的观察圆。
+   使用原 Vector3 中心/半径，额外留 4 像素裕量；超出有界半径或坐标时继续原始观察者路径。
+   开关 RBPEW_ENABLE_ORBIT_OBSERVER_PRUNING；RBPEW_LEGACY_ORBIT_OBSERVER_PRUNING=1 强制原路径。
+
+已有精确缓存继续保留
+- UID 索引提示在使用时验证数组位置；静止任务根节点与附着炮台减少重复驱动和导航；附着对象保留必要的空间同步。
+- 碰撞行、局部边界、精确扫掠结果、恢复结果、空区域与材料证据缓存保留；挖掘按影响区域失效，完整原判定作为回退。
+- 上述缓存不等同于改变模拟更新频率。当前可选空间桶复用与视觉 settling 实验仍默认关闭。
+
+差分与回归证据
+- artifacts/deep50-enemy-core-frame.json：300 次完整 actor/player/武器/无人机/效果/控制/音频/RNG 状态对比通过。
+  包含实时核心属性与核心字典替换、枪械增删、远处进入射程、护盾恢复、眩晕、warp、击退与外部无人机删除。
+- artifacts/deep50-ai-component-frame.json：300 次完整状态/RNG 对比通过；覆盖共享 Array、重复首项、空 Array、替换与下一帧 class 修改，并验证实际缓存命中。
+- artifacts/deep50-spatial-build.json：595 次精确比较通过，避免 26645 次重复核心读取。
+  覆盖当前元数据替换、枪械 ID、友军/死敌、重排、删除/空列表、远坐标、查询与后续 moved。
+- artifacts/near-contact-sweep-check-20261027.json：18584 次原始完整命中字典比较，首个差异为空；两种种子的挖掘实体状态相同。
+- artifacts/cpu3-integrated-differentials.json：近处扫掠、捕获轨道、观察者裁剪与 AI 组件四组集成差分通过。
+- artifacts/cpu3-v2-production-regressions.json：spatial_build、combat_spatial、ai_component_frame、enemy_core_frame、enemy_drones、turret_tracking、cave_sweep_results、cave_collision_cache、remote_map_orbits 九组通过。
+- artifacts/cpu3-v2-runtime-log-check.json、artifacts/cpu3-runtime-cumulative-check.json：真实渲染累计帧与累计活动时间口径检查。
+- 原快照序列化会丢失共享组件 Array 身份，因此旧快照对照可能显示组件缓存命中为零。完整普通生成场景另有实际命中验证；不能声称旧快照已测量此项收益。
+
+同包短时 CPU 对照的实际含义
+- artifacts/cpu3-four-cpu-release-baab-20261027/comparison.json：同一 30 分钟末状态，180 帧预热、480 帧计时，原/新/新/原。
+  各轮整帧均值 62.670183 / 49.624827 / 44.476623 / 45.610477 毫秒。
+  原路径两轮均值 54.140330，新路径 47.050725 毫秒，原始均值降低约 13.1%；轮间波动明显，不承诺固定比例。
+  每轮均保留 359 actor、21 个玩家模块；DC 均值均为 176.725。它是固定步长诊断，不是实时时钟 30 分钟验收。
+
+原生碰撞实验：默认关闭
+- 可选 GDExtension 将原边界扫描与圆重叠计算移至 C；本地 edge 数据按 entry 固定打包。
+- helper 复用 9 值扫描参数与 3 值重叠参数缓冲；接口与返回值验证失败或 DLL/方法不可用时退回原 GDScript。
+- 物理文件按 native_runtime/cave_sweep/cave_sweep.gdextension 定位；没有启动 REA 或后台服务。
+- artifacts/cave-native-bridge-check-20261027.json：35096 次精确字典比较；挖掘状态相同。
+- artifacts/cave-native-overlap-check-20261027.json：18552 次完整 wall_blocked 比较通过，覆盖切线、半开边界、半径、挖掘与缓存失效。
+  该冷缓存混合查询计时中候选 12219626 微秒、原路径 2824566 微秒，原生桥接/打包并非自动带来收益。
+- artifacts/cpu3-reused-payload-sweep-check.json：参数缓冲复用后原生桥接差分继续通过。
+- artifacts/cpu3-native-release-baab-20261027/comparison.json：四轮整帧 33.825433 / 33.836769 / 33.938471 / 33.700154 毫秒。
+  局部碰撞阶段下降，但整帧未获得稳定收益。
+- artifacts/cpu3-native-overlap-release-baab-20261027/comparison.json：组合实验整帧 49.629731 / 56.468610 / 52.917908 / 55.388060 毫秒，波动较大。
+- artifacts/cpu3-native-overlap-only-baab-20261027/comparison.json：单项整帧 39.186022 / 36.020981 / 38.627078 / 38.381914 毫秒，收益不足以据此默认启用。
+- 因整帧收益不一致，RBPEW_ENABLE_NATIVE_CAVE_SWEEP、RBPEW_ENABLE_NATIVE_OVERLAP、RBPEW_ENABLE_WIDE_NEAR_CONTACT 均默认关闭。
+  RBPEW_ENABLE_WALL_OVERLAP_MEMO 与扩大几何/行缓存容量实验也没有提升为正式默认。
+
+真实实战计量口径
+- 使用导出的 Release、正常血量/伤害/敌人/奖励，读取隔离目录中的原进度副本；普通外部控制器移动、选择奖励与装配。
+- 不使用性能 fixture、无敌、减敌或固定 FPS；连续模式只关闭外部控制器因低帧而暂停的诊断动作。
+- 平均 FPS = 所有活动战斗帧数 / 对应活动墙钟秒数。菜单与暂停排除；不能平均瞬时 FPS，也不能遗漏末尾不足一秒的 partial。
+- DC 按有明确逐帧 draw_samples 的数据加权；CPU 嵌套阶段只解释采样分布，不可重复加总。
+- 保存累计帧数、微秒、DC、日志完整性、源指纹与终止状态。整局之间路线和装备不同，不能作为优化 A/B。
+- 用户观看视频期间，仅目标游戏进程的音频会话被静音；不修改全局音量或其他应用。前两次的进程/操作记录应结合日志解释环境差异。
+
+第一次实战：完成时长但帧率不达标
+- 目录 artifacts/cpu-depth-live-20261027；最终分析 longrun-analysis.json，终止记录 acceptance-stop.json。
+- 游戏时间 1800.0280793475 秒，89136 帧 / 1801.466046 活动墙钟秒 = 49.47970026852229 FPS。
+- DC 加权平均 135.85890100520552；日志完整覆盖，无无效行或已报告的写入丢失。
+- 结尾 359 actor、28 个 boss、165 个 boss 部件、21 个玩家模块，存活 HP 413.075/500，未击杀 boss。
+- 最后约 127 秒只有 21.347394 FPS；不能将前半段高帧率作为后期稳定表现。
+- 包 artifacts/cpu-depth-20261027-1/RunBuildPew.exe，SHA256 e3cd294e2107065ef8dcdd7ff5c410af54a70708c62ac7d67d00618601f06c2a。
+- 末状态 stop-states/1800-battle-state.bin，SHA256 5e51ab686fb003c70ce863647231d3ab6a85d440cc1b891a463e88df6d3643c5。
+
+第二次实战：死亡，未完成时长
+- 目录 artifacts/cpu-depth-live2-20261027；最终分析 longrun-analysis.json，终止记录 acceptance-stop.json。
+- 游戏时间 1583.00058154097 秒，即约 26:23；66813 帧 / 1583.660601 活动墙钟秒 = 42.18896394707997 FPS。
+- DC 加权平均 173.42505201083623；当前已记录时段完整覆盖，但这不是完整 30 分钟。
+- 结尾 290 actor、23 个玩家模块，HP -4.340979/500，死亡；未击杀 boss。
+- 包 artifacts/cpu-depth-20261027-2/RunBuildPew.exe，SHA256 be2f06985252c98fd4e008b4c86bf826f20d81f8a2aa79ee000d8b299f17cedf。
+
+第三次实战：完成 30 分钟，仍未达标
+- 实战目录 artifacts/cpu-depth-live3-20261027；launch.json / acceptance-stop.json / longrun-analysis.json 留存完整来源。
+- 游戏时间 1800.00188738121 秒；73734 帧 / 1802.649466 活动墙钟秒 = 40.90312697543605 FPS。
+- 加权平均 DC 169.96361244473377；最后约 5 分钟 27.561346 FPS，最后约 10 分钟 28.704101 FPS（按 30 秒日志窗口加权，边界约 1 秒）。
+- 结尾 296 actor、25 个玩家模块、HP 500.0/500.0、28 个 Boss 与 165 个 Boss 部件、87 次击杀、214 矿、0 次 Boss 击杀。
+- 完整日志覆盖，无无效行、无已报告写入丢失；正常控制器达到 1800 秒后暂停、关闭日志并退出。
+- 最后约 127 秒采样：AI 15.96ms（包括碰撞 7.15ms、导航 2.04ms、软体 1.51ms、武器 1.27ms）；地图环绕 2.83ms。嵌套项不可加到 AI 总计。
+- 包 artifacts/cpu-depth-20261027-3/RunBuildPew.exe，SHA256 17ff160fae484482cd2ffda55b318f355300a1f654560786f0419b9973feae29，259181672 字节。
+- source-manifest.json SHA256 c88bc20f60e7f73f23f6e51a5f3ffd0f1951d26124080f0108c8b73b13046458；运行结束前核对全部运行时源清单一致。
+- 游戏进程音频会话已静音，实际音频模拟仍保留；不修改其他应用音量。
+- 路线控制器 v5 避开岩石死路，正常选择奖励并成长至 25 模块；路线和装备不同，不能用与前两局的 FPS 差计算补丁的回退比例。
+- 最终原始进度哈希仍为 2199b3fe20e7146caff36246a74226087adfe77ee899296ed9c9ab061127ea91。
+- 严格验收 acceptance_30min_above50=false；40.90 FPS 不是 50 FPS，后期也没有稳 60。
+
+继续中的候选（尚未交付为达标版本）
+- 已加入缺失击退字段的无效分支跳过；480 帧完整状态/RNG 差分通过，ZERO/微小/活动/非有限已存在值保持原路径。
+- 原生边界重叠候选只接收半径至少 64 的对象，半径 15 的地图守卫继续走原路径。18552 次完整碰撞比较通过，小半径原生调用为零。
+- 旧 captured 原生覆盖断言要求半径 15 的守卫仍进入原生，因筛选有意失败；保存 artifacts/cpu4-captured-coverage-assertion-old-failed.json，修正覆盖口径后完整位置/接触/RNG 差分与日志回归通过。
+- CPU4 候选同包短时对照与后续完整实战：[待完成；当前不能声明已达标]。
+
+进度保护
+- 所有测试与实战使用隔离用户目录或副本；tools/run_checks.py 在进入测试前验证用户数据目录。
+- 原始 centipede-save.json 预期 SHA256 为 2199b3fe20e7146caff36246a74226087adfe77ee899296ed9c9ab061127ea91。
+- 前两次 launch.json 均记录相同的原始进度哈希；第三次实战结束前原文件复核相同，记录 artifacts/cpu3-final-source-and-save-check.json。

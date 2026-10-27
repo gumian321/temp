@@ -30,6 +30,7 @@ def main():
     parser.add_argument("--seconds", type=float, default=0)
     parser.add_argument("--visible", action="store_true")
     parser.add_argument("--profile", action="store_true")
+    parser.add_argument("--runtime-log", action="store_true", help="Validate and retain automatic local performance journals")
     args = parser.parse_args()
     if not re.fullmatch(r"[a-zA-Z0-9-]+", args.tag): parser.error("Invalid tag")
     executable = args.executable.resolve()
@@ -37,6 +38,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix="centipede-export-benchmark-") as directory:
         scratch = Path(directory).resolve()
         environment = isolated_environment(scratch)
+        environment["RBPEW_RUNTIME_LOG"]="1" if args.runtime_log else "0"
         environment.update({"RBPEW_MINING_ACTORS":str(args.actors),"RBPEW_MINING_FRAMES":str(args.frames),
                             "RBPEW_MINING_MISSION":args.mission,"RBPEW_MINING_ROUTE":args.route,
                             "RBPEW_PROFILE":"1" if args.profile else "0"})
@@ -70,6 +72,16 @@ def main():
         report["cpu_phase_profiling"] = args.profile
         report["render_thread_override"] = args.render_thread
         report["renderer_override"] = args.renderer
+        if args.runtime_log:
+            journals=[]
+            for line in output.splitlines():
+                if not line.startswith("RUNTIME_PERFORMANCE_LOG="):continue
+                session=Path(line.split("=",1)[1]).resolve()
+                if not session.is_relative_to(scratch):raise RuntimeError("Journal escaped isolated profile")
+                target=ROOT/"artifacts"/(args.tag+"-runtime-logs")/session.name
+                shutil.copytree(session,target,dirs_exist_ok=True);journals.append(str(target))
+            report["runtime_journals"]=journals
+            if not journals:raise RuntimeError("Runtime log was requested but no journal was created")
         destination = ROOT/"artifacts"/(args.tag+".json")
         captures=[]
         for index,capture in enumerate(report["captures"]):

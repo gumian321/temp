@@ -1,0 +1,204 @@
+{
+  "date": "2026-10-26",
+  "timezone": "Asia/Shanghai",
+  "passed": true,
+  "audited_strings": 9098,
+  "languages": [
+    "Chinese (simplified)",
+    "Chinese (traditional)",
+    "English",
+    "Russian"
+  ],
+  "violations": [],
+  "renderer": "Windows",
+  "render_suites": [
+    {
+      "suite": "insect_copy",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 14.594,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "mission_select",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 10.182,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "escort_guidance",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 8.53,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "battle_hud",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 11.73,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_cards",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 6.484,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_progress_badges",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.262,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "reward_pool",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.793,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "chinese",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 2.78,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "expedition_briefing",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.025,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "passive_upgrade_effects",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 1.935,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "weapon_catalog",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 5.16,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "field_guide_scene",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 7.524,
+      "isolated_user_data": true
+    },
+    {
+      "suite": "ui_small_windows",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 25.271,
+      "isolated_user_data": true
+    }
+  ],
+  "final_guard": [
+    {
+      "suite": "insect_copy",
+      "exit_code": 0,
+      "passed": true,
+      "platform_warnings": [
+        "Windows root certificate store unavailable; local suite does not use TLS"
+      ],
+      "seconds": 12.065,
+      "isolated_user_data": true
+    }
+  ],
+  "examples": {
+    "飞船速度": "移动速度",
+    "部件损坏": "武器伤害",
+    "部件范围": "武器射程",
+    "母舰": "头部",
+    "空间站": "虫巢",
+    "炮塔": "攻击器官",
+    "无人机": "猎蜂 / 缝蚁 / 拾蚁",
+    "运输船与商队": "迁徙虫群",
+    "燃料箱": "蜜囊 / 加速能量"
+  },
+  "coverage": [
+    "全部本地化条目与旧界面字面量解析",
+    "所有非退役奖励名称与全部代价强化描述",
+    "首页、角色、系统设置、操控、研究、图鉴、战地记录",
+    "六种任务的名称、描述和提示",
+    "战斗HUD、装配、暂停、教程手册、奖励选择与结算",
+    "小窗口布局与实际渲染截图"
+  ],
+  "screenshot": "artifacts/insect-copy-rewards-20261026.png",
+  "notes": [
+    "旧资源ID和源界面原文仅作内部查找键，统一解析到审核后的玩家可见文案。",
+    "属性数值、伤害、奖励概率、存档键和解锁条件未更改。",
+    "首轮无窗口模式中三套测试的功能断言通过，但出现已有MultiMesh渲染缓冲错误；原始失败报告保留。实际Windows渲染复核13套全部通过，未将无窗口失败改写为通过。",
+    "本次更新源工程；运行中的旧实例需要重启。未重新导出EXE。"
+  ],
+  "initial_headless_report": "artifacts/insect-copy-regression-20261026.json",
+  "sha256": {
+    "data/localization.json": "a88f976fdf97c75d039a2a3edc00d5b8ac2cd34721adc97fa0d45a231640605c",
+    "data/chinese_ui.json": "f74a65edaefd630f5a11091d987689c4d9a20836dc75dc969dfd3c7414e209e5",
+    "data/insect_armaments.json": "b0c39fb57d4779ea75c0bafc94d673bf1ac839d0be76c26021052f1c710f62ab",
+    "data/changelog.txt": "7878f8d5023435a179d72d5bd911e88a0e7c6a90cd7f4921faaec950a46b6530",
+    "data/changelog_zh.txt": "291525f54451061596cecc025bdc53cd82347e691b1791f2e055d6e75197ab09",
+    "scripts/source_db.gd": "c2e0a83c715fc4bf68590c426c68bc4b61866bbfafccfc0531c0bb729f902e87",
+    "scripts/armament_categories.gd": "a42e67232661280373bd00a00e4a6cf05da8dd724d8b57820df851889aecf362",
+    "scripts/centipede.gd": "8e3a2cd72cac992b21eb94b675abd0136c607b83eec61caa8eab7935430097f9",
+    "scripts/main.gd": "98054122d917bd8ca9fbea52f09a495af278fd5770543feb1abd179485fe6c3e",
+    "scripts/mission_select.gd": "b373cb65caf4c76ca522f2bc5332238e72f62cfd244323cb8fdb1253dbdae3ec",
+    "scripts/battle_hud.gd": "f9008577f594814dabd5ec9a21ca52bcbafed9f9f2276eae108fdb3da6bf6733",
+    "scripts/escort_guidance.gd": "5b0886f2c93366d9358a576e4984ddf6c98fc64c4414eb20d3c42d6ba8e06823",
+    "scripts/passive_feedback.gd": "e58fdb47a1caa0962a9f8ae927a02ca02deb7538ce6058d0b42ee36e6ac5d0a2",
+    "scripts/reward_choice.gd": "b6479e7294a1e0ee30deda78ced060ddb71bafdf96d169547e1bc5e0df6ccf9f",
+    "tests/test_insect_copy.gd": "7b7fcd60c1abf3fc7cb03f3c43b709c34ab55a54997c6f80857c8ebb32e240cc",
+    "tests/test_chinese.gd": "82821104f5292b2d92b52a5e6487c4868d1ece55be8264feab1670fd1bb39467",
+    "tools/run_checks.py": "61bfa1935b632067fbb3e84d333a0ae2dd24e25f478cdbd356ce8751055535ee"
+  }
+}

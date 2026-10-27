@@ -1,0 +1,1926 @@
+{
+  "date": "2026-10-26",
+  "request": "保守地远离 Boss，挖矿和清野发育，真实长局到掉帧后分析日志。",
+  "method": "One real-clock normal-rules battle, continued across recorder segments. Periodic automatic diagnostic stops, upgrades and menus exclude paused time. Controller is automated; this is not a human manual playthrough or an optimization A/B.",
+  "same_pid": 223396,
+  "same_run_continued": true,
+  "elapsed_game_seconds": 1806.8525288573,
+  "active_wall_seconds": 1804.453715,
+  "wall_seconds_including_pauses": 2220.462824,
+  "segments": 51,
+  "recorded_active_frames": 76390,
+  "invalid_lines": 0,
+  "normal_rules_real_clock_release": true,
+  "no_reported_write_errors_or_drops": true,
+  "original_save_unchanged": true,
+  "original_save_sha256": "2199b3fe20e7146caff36246a74226087adfe77ee899296ed9c9ab061127ea91",
+  "renderer": {
+    "engine": {
+      "build": "official",
+      "hash": "7d41c59c457bd5a245092b4e7eb2d833e3b3f8c3",
+      "hex": 263683,
+      "major": 4,
+      "minor": 6,
+      "patch": 3,
+      "status": "stable",
+      "string": "4.6.3-stable (official)",
+      "timestamp": 0
+    },
+    "gpu": "NVIDIA GeForce GTX 1050",
+    "renderer": "gl_compatibility",
+    "window_size": [
+      1440,
+      900
+    ],
+    "vsync_mode": 1,
+    "refresh_rate": 60.0
+  },
+  "baseline_manifest": {
+    "status": {
+      "actor_kinds": {
+        "AIBossPartController": 165,
+        "AIBossUnit": 28,
+        "AIGuardUnitController": 62,
+        "AIPatrolUnit": 7,
+        "AIStationPartController": 8,
+        "AISwarmingUnit": 63,
+        "ContainerObject": 12,
+        "SpawnerStation": 2
+      },
+      "actors": 347,
+      "boss_distance": 1835.06665039063,
+      "boss_kills": 0,
+      "bullets": 0,
+      "done": true,
+      "effects": 0,
+      "fixture": false,
+      "fps_5s": 0,
+      "goal": [
+        1581.8017578125,
+        2409.05419921875
+      ],
+      "goal_kind": "retreat_explore",
+      "hp": 500.0,
+      "initial_pointer_enabled": true,
+      "kills": 67,
+      "level": 20,
+      "log_path": "E:/_Nlv/github/temp/artifacts/conservative-playtest-20261026-run4/roaming/Godot/app_userdata/Run Build Pew! — Centipede/performance-logs/run-20261026T050549Z-223396-51",
+      "max_hp": 500.0,
+      "opened": 21,
+      "ore": 99,
+      "p95_ms_5s": 0,
+      "parts": 22,
+      "pending": 0,
+      "pilot_decisions": 3561,
+      "pilot_last_decision_us": 672,
+      "position": [
+        2189.69262695313,
+        1968.19458007813
+      ],
+      "removed_cells": 898,
+      "root_kinds": {
+        "AIBossUnit": 28,
+        "AIGuardUnitController": 62,
+        "AIPatrolUnit": 7,
+        "AIStationPartController": 8,
+        "AISwarmingUnit": 63,
+        "ContainerObject": 12,
+        "SpawnerStation": 2
+      },
+      "run_elapsed": 1806.8525288573,
+      "screen": "pause",
+      "test_mode": false,
+      "wall_seconds": 2350.172001,
+      "weapons_enabled": null
+    },
+    "sources": {
+      "scripts/main.gd": "9f08b4e8d40dc1a9a157a6c98341565ecfbdea0d7655c7a22bff8a7ff919f779",
+      "scripts/combat.gd": "358534c2a3eaacdc18aa567bf6cebad704dff783d2a709f5a017ba7a6546e203",
+      "scripts/cave_world.gd": "63ebe139c465721ccd0ab321451c26ab30dfe2e791d03e0a70051f68c779c8bc",
+      "scripts/map_director.gd": "a8b06ffca10e4cbd5b8e2b78a9b1f0930f665ee220a2f364d9fb551734097555",
+      "scripts/mission_director.gd": "b32150d07be5944ed91521ec5a65eaafaa0b9f0ed6f4644e9a5378930b573a75",
+      "scripts/soft_insect.gd": "96bcb2af8efcf687c82d92afa938ce749660aafd7d3f5e2292fed462b3bedc7e",
+      "scripts/conservative_pilot.gd": "02c7d8355c513d5ad08d4a36e5abc8806eeb01cf89c55da67b8c870d35f586a3",
+      "scripts/runtime_log.gd": "ab6d569e8e52cc4437517db5e7c4ce90b3d96c924af18d57b8f95fca3f953bb1"
+    },
+    "exe_sha256": "a2c7a38c5faf5b1bbeca8dfcbdd550987a0a4ce0f170452bbec1b67af006f39a",
+    "exe_bytes": 259055840
+  },
+  "baseline_code_fingerprints": {
+    "cave_world": {
+      "format": "gdc",
+      "sha256": "1a68e348ab64fcdb25121990fee8a6bc23c7a5e0b6e141156ff85b0867d352bc"
+    },
+    "combat": {
+      "format": "gdc",
+      "sha256": "d9e16228fb3f7c70be913693f9d077e15543e12bac0d215627d2009d7bd9ccee"
+    },
+    "main": {
+      "format": "gdc",
+      "sha256": "c43a7d8ac4353a05703c312879d1b128e599a6db74fbd2d2e4ccd4f5ecaa27e6"
+    },
+    "map_director": {
+      "format": "gdc",
+      "sha256": "89fc99c8564429e29d59a19de9941ff473d6d868a0c9c9a8ea35aaa90feddd57"
+    },
+    "runtime_log": {
+      "format": "gdc",
+      "sha256": "683b35c3ec3423e03023fa355f5fe7a0f5d9d2028cb958af5b8bf5dc1cd97834"
+    },
+    "runtime_log_writer": {
+      "format": "gdc",
+      "sha256": "3d2ce3c764fab5e43735d1b5519f3ec71f9a40b1f767aaea68ab32c819f3839c"
+    }
+  },
+  "milestones": [
+    {
+      "start": 0,
+      "end": 60,
+      "frames": 4869,
+      "weighted_mean_frame_ms": 12.03138118710207,
+      "fps_from_mean_interval": 83.1159768316562,
+      "weighted_main_cpu_ms": 7.262463750256726,
+      "sampled_nested_phases": {
+        "main_us": [
+          {
+            "phase": "combat",
+            "sample_mean_ms": 3.107855018587361,
+            "samples": 269
+          },
+          {
+            "phase": "mission",
+            "sample_mean_ms": 1.2988587360594797,
+            "samples": 269
+          },
+          {
+            "phase": "draw_support",
+            "sample_mean_ms": 0.3635167286245353,
+            "samples": 269
+          },
+          {
+            "phase": "draw_organs",
+            "sample_mean_ms": 0.3417174721189591,
+            "samples": 269
+          },
+          {
+            "phase": "body",
+            "sample_mean_ms": 0.326542750929368,
+            "samples": 269
+          },
+          {
+            "phase": "draw_terrain",
+            "sample_mean_ms": 0.272910780669145,
+            "samples": 269
+          },
+          {
+            "phase": "draw_world",
+            "sample_mean_ms": 0.2416096654275093,
+            "samples": 269
+          },
+          {
+            "phase": "audio_hud",
+            "sample_mean_ms": 0.1637472118959108,
+            "samples": 269
+          },
+          {
+            "phase": "visual_sync",
+            "sample_mean_ms": 0.16146468401486988,
+            "samples": 269
+          },
+          {
+            "phase": "draw_body",
+            "sample_mean_ms": 0.1588550185873606,
+            "samples": 269
+          },
+          {
+            "phase": "preparation",
+            "sample_mean_ms": 0.13731970260223048,
+            "samples": 269
+          },
+          {
+            "phase": "draw_attacks",
+            "sample_mean_ms": 0.1013271375464684,
+            "samples": 269
+          },
+          {
+            "phase": "draw_hud_feedback",
+            "sample_mean_ms": 0.09218587360594796,
+            "samples": 269
+          }
+        ],
+        "combat_us": [
+          {
+            "phase": "enemy_ai",
+            "sample_mean_ms": 2.1847323420074347,
+            "samples": 269
+          },
+          {
+            "phase": "enemy_soft_body",
+            "sample_mean_ms": 0.2228550185873606,
+            "samples": 269
+          },
+          {
+            "phase": "drones",
+            "sample_mean_ms": 0.21144981412639405,
+            "samples": 269
+          },
+          {
+            "phase": "player_weapons",
+            "sample_mean_ms": 0.12262081784386616,
+            "samples": 269
+          },
+          {
+            "phase": "patrol_special",
+            "sample_mean_ms": 0.07366914498141264,
+            "samples": 269
+          },
+          {
+            "phase": "cleanup",
+            "sample_mean_ms": 0.044884758364312265,
+            "samples": 269
+          },
+          {
+            "phase": "projectiles",
+            "sample_mean_ms": 0.018966542750929367,
+            "samples": 269
+          }
+        ]
+      },
+      "last_counts": {
+        "actors": 88,
+        "actors_classified": 88,
+        "black_holes": 0,
+        "blocked_free_regions": 1393,
+        "bullets": 0,
+        "bullets_classified": 0,
+        "cap_cells": 11920,
+        "clear_points": 365,
+        "collision_rows": 1986,
+        "controls": 0,
+        "draw_calls": 204.0,
+        "drones": 6,
+        "effects": 0,
+        "enemy_drones": 12,
+        "engine_physics_ms": 0.047,
+        "engine_process_ms": 50.192,
+        "flight_entries": 0,
+        "flight_groups": 30,
+        "focused": true,
+        "free_regions": 6587,
+        "heat": 0.0988385143867241,
+        "hidden_rigs": 1,
+        "hostile_bullets_sample": 0,
+        "kills": 3,
+        "larvae": 0,
+        "level": 9,
+        "local_spawn_jobs": 0,
+        "loot": 0,
+        "map_nodes": 16,
+        "map_remembered": 24,
+        "map_spawn_jobs": 14,
+        "mineral_cells": 262,
+        "mines": 0,
+        "mutation_shots": 0,
+        "nav_grids": 3,
+        "nav_open": 23359,
+        "nav_prepare_us": 2409,
+        "nav_waiting": 16,
+        "nodes": 657.0,
+        "objects": 12010.0,
+        "ore_clearance": 423,
+        "ore_patches": 339,
+        "orphans": 0.0,
+        "particle_engines": 0,
+        "particle_flames": 0,
+        "particle_followers": 0,
+        "particle_nodes": 0,
+        "parts": 9,
+        "patch_versions": 33,
+        "pooled_rigs": 3,
+        "position": [
+          3155.7578125,
+          -673.205200195313
+        ],
+        "released_controls": 0,
+        "resources": 253.0,
+        "retired_rock_meshes": 4,
+        "rig_builds": 4,
+        "rig_reuses": 1,
+        "rigs": 1,
+        "rock_meshes": 80,
+        "rock_patches": 1729,
+        "room_cache": 180,
+        "splatter": 0,
+        "static_memory_bytes": null,
+        "sweep_cache": 4,
+        "terrain_chunks": 585,
+        "terrain_geometry": 11882,
+        "toxin_pools": 0,
+        "trail_meshes": 672,
+        "trails": 0,
+        "video_memory_bytes": 366501835.0,
+        "viewport": [
+          1440.0,
+          900.0
+        ],
+        "visible_actors_sample": 0,
+        "window_mode": 0,
+        "window_size": [
+          1440,
+          900
+        ],
+        "zoom": 1.0
+      },
+      "last_actor_kinds": {
+        "AIGuardUnitController": 65,
+        "AIPatrolUnit": 10,
+        "AIStationPartController": 8,
+        "AISwarmingUnit": 7,
+        "ContainerObject": 10,
+        "SpawnerStation": 4
+      }
+    },
+    {
+      "start": 240,
+      "end": 300,
+      "frames": 3352,
+      "weighted_mean_frame_ms": 17.755355011933176,
+      "fps_from_mean_interval": 56.32103662967658,
+      "weighted_main_cpu_ms": 9.480899164677803,
+      "sampled_nested_phases": {
+        "main_us": [
+          {
+            "phase": "combat",
+            "sample_mean_ms": 5.257674157303371,
+            "samples": 89
+          },
+          {
+            "phase": "mission",
+            "sample_mean_ms": 2.6617752808988766,
+            "samples": 89
+          },
+          {
+            "phase": "draw_organs",
+            "sample_mean_ms": 1.3768539325842697,
+            "samples": 89
+          },
+          {
+            "phase": "draw_support",
+            "sample_mean_ms": 1.3083932584269662,
+            "samples": 89
+          },
+          {
+            "phase": "body",
+            "sample_mean_ms": 1.213438202247191,
+            "samples": 89
+          },
+          {
+            "phase": "draw_world",
+            "sample_mean_ms": 0.6560112359550562,
+            "samples": 89
+          },
+          {
+            "phase": "draw_body",
+            "sample_mean_ms": 0.4094157303370787,
+            "samples": 89
+          },
+          {
+            "phase": "draw_attacks",
+            "sample_mean_ms": 0.390752808988764,
+            "samples": 89
+          },
+          {
+            "phase": "draw_terrain",
+            "sample_mean_ms": 0.3272808988764045,
+            "samples": 89
+          },
+          {
+            "phase": "draw_hud_feedback",
+            "sample_mean_ms": 0.2497303370786517,
+            "samples": 89
+          },
+          {
+            "phase": "visual_sync",
+            "sample_mean_ms": 0.23048314606741574,
+            "samples": 89
+          },
+          {
+            "phase": "audio_hud",
+            "sample_mean_ms": 0.21552808988764044,
+            "samples": 89
+          },
+          {
+            "phase": "preparation",
+            "sample_mean_ms": 0.1763258426966292,
+            "samples": 89
+          }
+        ],
+        "combat_us": [
+          {
+            "phase": "enemy_ai",
+            "sample_mean_ms": 3.2173595505617976,
+            "samples": 89
+          },
+          {
+            "phase": "player_weapons",
+            "sample_mean_ms": 0.5227078651685393,
+            "samples": 89
+          },
+          {
+            "phase": "enemy_soft_body",
+            "sample_mean_ms": 0.3970561797752809,
+            "samples": 89
+          },
+          {
+            "phase": "drones",
+            "sample_mean_ms": 0.31496629213483146,
+            "samples": 89
+          },
+          {
+            "phase": "projectiles",
+            "sample_mean_ms": 0.20464044943820225,
+            "samples": 89
+          },
+          {
+            "phase": "patrol_special",
+            "sample_mean_ms": 0.19782022471910113,
+            "samples": 89
+          },
+          {
+            "phase": "cleanup",
+            "sample_mean_ms": 0.07921348314606741,
+            "samples": 89
+          }
+        ]
+      },
+      "last_counts": {
+        "actors": 107,
+        "actors_classified": 107,
+        "black_holes": 0,
+        "blocked_free_regions": 1844,
+        "bullets": 0,
+        "bullets_classified": 0,
+        "cap_cells": 11984,
+        "clear_points": 6628,
+        "collision_rows": 2022,
+        "controls": 0,
+        "draw_calls": 345.0,
+        "drones": 8,
+        "effects": 0,
+        "enemy_drones": 8,
+        "engine_physics_ms": 0.028,
+        "engine_process_ms": 26.595,
+        "flight_entries": 0,
+        "flight_groups": 30,
+        "focused": true,
+        "free_regions": 8111,
+        "heat": 0.498998132192578,
+        "hidden_rigs": 15,
+        "hostile_bullets_sample": 0,
+        "kills": 49,
+        "larvae": 0,
+        "level": 17,
+        "local_spawn_jobs": 0,
+        "loot": 4,
+        "map_nodes": 16,
+        "map_remembered": 32,
+        "map_spawn_jobs": 0,
+        "mineral_cells": 387,
+        "mines": 0,
+        "mutation_shots": 0,
+        "nav_grids": 5,
+        "nav_open": 41105,
+        "nav_prepare_us": 0,
+        "nav_waiting": 0,
+        "nodes": 1017.0,
+        "objects": 17515.0,
+        "ore_clearance": 699,
+        "ore_patches": 518,
+        "orphans": 0.0,
+        "particle_engines": 0,
+        "particle_flames": 0,
+        "particle_followers": 0,
+        "particle_nodes": 0,
+        "parts": 19,
+        "patch_versions": 174,
+        "pooled_rigs": 21,
+        "position": [
+          2193.08203125,
+          2302.18823242188
+        ],
+        "released_controls": 0,
+        "resources": 264.0,
+        "retired_rock_meshes": 0,
+        "rig_builds": 36,
+        "rig_reuses": 29,
+        "rigs": 15,
+        "rock_meshes": 80,
+        "rock_patches": 2000,
+        "room_cache": 217,
+        "splatter": 0,
+        "static_memory_bytes": null,
+        "sweep_cache": 4,
+        "terrain_chunks": 740,
+        "terrain_geometry": 11906,
+        "toxin_pools": 0,
+        "trail_meshes": 704,
+        "trails": 0,
+        "video_memory_bytes": 393538579.0,
+        "viewport": [
+          1440.0,
+          900.0
+        ],
+        "visible_actors_sample": 5,
+        "window_mode": 0,
+        "window_size": [
+          1440,
+          900
+        ],
+        "zoom": 1.0
+      },
+      "last_actor_kinds": {
+        "AIBossPartController": 5,
+        "AIBossUnit": 1,
+        "AIGuardUnitController": 63,
+        "AIStationPartController": 8,
+        "AISwarmingUnit": 16,
+        "ContainerObject": 12,
+        "SpawnerStation": 2
+      }
+    },
+    {
+      "start": 540,
+      "end": 600,
+      "frames": 2920,
+      "weighted_mean_frame_ms": 20.4508852739726,
+      "fps_from_mean_interval": 48.89763873804908,
+      "weighted_main_cpu_ms": 12.27548630136986,
+      "sampled_nested_phases": {
+        "main_us": [
+          {
+            "phase": "combat",
+            "sample_mean_ms": 7.7494195804195805,
+            "samples": 143
+          },
+          {
+            "phase": "mission",
+            "sample_mean_ms": 3.3095244755244755,
+            "samples": 143
+          },
+          {
+            "phase": "draw_organs",
+            "sample_mean_ms": 1.7163566433566433,
+            "samples": 143
+          },
+          {
+            "phase": "draw_support",
+            "sample_mean_ms": 1.2041118881118882,
+            "samples": 143
+          },
+          {
+            "phase": "body",
+            "sample_mean_ms": 1.1334965034965034,
+            "samples": 143
+          },
+          {
+            "phase": "draw_world",
+            "sample_mean_ms": 0.5864895104895105,
+            "samples": 143
+          },
+          {
+            "phase": "draw_body",
+            "sample_mean_ms": 0.4825174825174825,
+            "samples": 143
+          },
+          {
+            "phase": "draw_hud_feedback",
+            "sample_mean_ms": 0.346,
+            "samples": 143
+          },
+          {
+            "phase": "visual_sync",
+            "sample_mean_ms": 0.264965034965035,
+            "samples": 143
+          },
+          {
+            "phase": "preparation",
+            "sample_mean_ms": 0.25461538461538463,
+            "samples": 143
+          },
+          {
+            "phase": "audio_hud",
+            "sample_mean_ms": 0.19130769230769232,
+            "samples": 143
+          },
+          {
+            "phase": "draw_terrain",
+            "sample_mean_ms": 0.08545454545454545,
+            "samples": 143
+          },
+          {
+            "phase": "draw_attacks",
+            "sample_mean_ms": 0.021888111888111888,
+            "samples": 143
+          }
+        ],
+        "combat_us": [
+          {
+            "phase": "enemy_ai",
+            "sample_mean_ms": 5.412881118881119,
+            "samples": 143
+          },
+          {
+            "phase": "enemy_soft_body",
+            "sample_mean_ms": 0.5873006993006993,
+            "samples": 143
+          },
+          {
+            "phase": "drones",
+            "sample_mean_ms": 0.4895944055944056,
+            "samples": 143
+          },
+          {
+            "phase": "patrol_special",
+            "sample_mean_ms": 0.3472937062937063,
+            "samples": 143
+          },
+          {
+            "phase": "player_weapons",
+            "sample_mean_ms": 0.3081888111888112,
+            "samples": 143
+          },
+          {
+            "phase": "cleanup",
+            "sample_mean_ms": 0.0788951048951049,
+            "samples": 143
+          },
+          {
+            "phase": "projectiles",
+            "sample_mean_ms": 0.002048951048951049,
+            "samples": 143
+          }
+        ]
+      },
+      "last_counts": {
+        "actors": 155,
+        "actors_classified": 155,
+        "black_holes": 0,
+        "blocked_free_regions": 1910,
+        "bullets": 0,
+        "bullets_classified": 0,
+        "cap_cells": 11984,
+        "clear_points": 4860,
+        "collision_rows": 2046,
+        "controls": 0,
+        "draw_calls": 382.0,
+        "drones": 8,
+        "effects": 0,
+        "enemy_drones": 24,
+        "engine_physics_ms": 0.022,
+        "engine_process_ms": 26.261,
+        "flight_entries": 0,
+        "flight_groups": 30,
+        "focused": true,
+        "free_regions": 8183,
+        "heat": 0.998894767007256,
+        "hidden_rigs": 18,
+        "hostile_bullets_sample": 0,
+        "kills": 51,
+        "larvae": 0,
+        "level": 18,
+        "local_spawn_jobs": 0,
+        "loot": 4,
+        "map_nodes": 16,
+        "map_remembered": 32,
+        "map_spawn_jobs": 0,
+        "mineral_cells": 408,
+        "mines": 0,
+        "mutation_shots": 0,
+        "nav_grids": 6,
+        "nav_open": 55748,
+        "nav_prepare_us": 0,
+        "nav_waiting": 0,
+        "nodes": 1021.0,
+        "objects": 16389.0,
+        "ore_clearance": 720,
+        "ore_patches": 539,
+        "orphans": 0.0,
+        "particle_engines": 0,
+        "particle_flames": 0,
+        "particle_followers": 0,
+        "particle_nodes": 0,
+        "parts": 20,
+        "patch_versions": 181,
+        "pooled_rigs": 20,
+        "position": [
+          2023.33093261719,
+          2344.60107421875
+        ],
+        "released_controls": 0,
+        "resources": 262.0,
+        "retired_rock_meshes": 0,
+        "rig_builds": 38,
+        "rig_reuses": 31,
+        "rigs": 18,
+        "rock_meshes": 80,
+        "rock_patches": 2032,
+        "room_cache": 217,
+        "splatter": 0,
+        "static_memory_bytes": null,
+        "sweep_cache": 8,
+        "terrain_chunks": 774,
+        "terrain_geometry": 11874,
+        "toxin_pools": 0,
+        "trail_meshes": 704,
+        "trails": 0,
+        "video_memory_bytes": 393515731.0,
+        "viewport": [
+          1440.0,
+          900.0
+        ],
+        "visible_actors_sample": 1,
+        "window_mode": 0,
+        "window_size": [
+          1440,
+          900
+        ],
+        "zoom": 1.0
+      },
+      "last_actor_kinds": {
+        "AIBossPartController": 29,
+        "AIBossUnit": 5,
+        "AIGuardUnitController": 63,
+        "AIPatrolUnit": 7,
+        "AIStationPartController": 8,
+        "AISwarmingUnit": 29,
+        "ContainerObject": 12,
+        "SpawnerStation": 2
+      }
+    },
+    {
+      "start": 900,
+      "end": 960,
+      "frames": 2263,
+      "weighted_mean_frame_ms": 26.463555457357486,
+      "fps_from_mean_interval": 37.787817347951126,
+      "weighted_main_cpu_ms": 16.326912947414936,
+      "sampled_nested_phases": {
+        "main_us": [
+          {
+            "phase": "combat",
+            "sample_mean_ms": 14.07841489361702,
+            "samples": 94
+          },
+          {
+            "phase": "mission",
+            "sample_mean_ms": 4.686074468085106,
+            "samples": 94
+          },
+          {
+            "phase": "draw_organs",
+            "sample_mean_ms": 2.0851489361702127,
+            "samples": 94
+          },
+          {
+            "phase": "body",
+            "sample_mean_ms": 1.8397234042553192,
+            "samples": 94
+          },
+          {
+            "phase": "draw_support",
+            "sample_mean_ms": 1.7645744680851063,
+            "samples": 94
+          },
+          {
+            "phase": "draw_world",
+            "sample_mean_ms": 0.8252553191489361,
+            "samples": 94
+          },
+          {
+            "phase": "draw_body",
+            "sample_mean_ms": 0.5811808510638298,
+            "samples": 94
+          },
+          {
+            "phase": "draw_hud_feedback",
+            "sample_mean_ms": 0.566936170212766,
+            "samples": 94
+          },
+          {
+            "phase": "visual_sync",
+            "sample_mean_ms": 0.5027127659574468,
+            "samples": 94
+          },
+          {
+            "phase": "audio_hud",
+            "sample_mean_ms": 0.36842553191489363,
+            "samples": 94
+          },
+          {
+            "phase": "preparation",
+            "sample_mean_ms": 0.30661702127659574,
+            "samples": 94
+          },
+          {
+            "phase": "draw_attacks",
+            "sample_mean_ms": 0.1901808510638298,
+            "samples": 94
+          },
+          {
+            "phase": "draw_terrain",
+            "sample_mean_ms": 0.09486170212765957,
+            "samples": 94
+          }
+        ],
+        "combat_us": [
+          {
+            "phase": "enemy_ai",
+            "sample_mean_ms": 9.951021276595744,
+            "samples": 94
+          },
+          {
+            "phase": "enemy_soft_body",
+            "sample_mean_ms": 1.2637446808510637,
+            "samples": 94
+          },
+          {
+            "phase": "drones",
+            "sample_mean_ms": 0.9354468085106383,
+            "samples": 94
+          },
+          {
+            "phase": "player_weapons",
+            "sample_mean_ms": 0.7454574468085107,
+            "samples": 94
+          },
+          {
+            "phase": "patrol_special",
+            "sample_mean_ms": 0.42388297872340425,
+            "samples": 94
+          },
+          {
+            "phase": "cleanup",
+            "sample_mean_ms": 0.1463617021276596,
+            "samples": 94
+          },
+          {
+            "phase": "projectiles",
+            "sample_mean_ms": 0.04754255319148936,
+            "samples": 94
+          }
+        ]
+      },
+      "last_counts": {
+        "actors": 194,
+        "actors_classified": 194,
+        "black_holes": 0,
+        "blocked_free_regions": 1752,
+        "bullets": 1,
+        "bullets_classified": 1,
+        "cap_cells": 11984,
+        "clear_points": 7942,
+        "collision_rows": 2034,
+        "controls": 0,
+        "draw_calls": 469.0,
+        "drones": 8,
+        "effects": 2,
+        "enemy_drones": 44,
+        "engine_physics_ms": 0.017,
+        "engine_process_ms": 31.179,
+        "flight_entries": 0,
+        "flight_groups": 30,
+        "focused": true,
+        "free_regions": 8077,
+        "heat": 1.59925267535476,
+        "hidden_rigs": 19,
+        "hostile_bullets_sample": 0,
+        "kills": 53,
+        "larvae": 0,
+        "level": 19,
+        "local_spawn_jobs": 0,
+        "loot": 4,
+        "map_nodes": 16,
+        "map_remembered": 32,
+        "map_spawn_jobs": 0,
+        "mineral_cells": 408,
+        "mines": 0,
+        "mutation_shots": 0,
+        "nav_grids": 6,
+        "nav_open": 55772,
+        "nav_prepare_us": 49,
+        "nav_waiting": 40,
+        "nodes": 1161.0,
+        "objects": 15058.0,
+        "ore_clearance": 728,
+        "ore_patches": 539,
+        "orphans": 0.0,
+        "particle_engines": 0,
+        "particle_flames": 0,
+        "particle_followers": 0,
+        "particle_nodes": 0,
+        "parts": 21,
+        "patch_versions": 183,
+        "pooled_rigs": 18,
+        "position": [
+          2028.21948242188,
+          2037.05993652344
+        ],
+        "released_controls": 0,
+        "resources": 256.0,
+        "retired_rock_meshes": 0,
+        "rig_builds": 38,
+        "rig_reuses": 34,
+        "rigs": 20,
+        "rock_meshes": 80,
+        "rock_patches": 2032,
+        "room_cache": 217,
+        "splatter": 0,
+        "static_memory_bytes": null,
+        "sweep_cache": 10,
+        "terrain_chunks": 775,
+        "terrain_geometry": 11940,
+        "toxin_pools": 0,
+        "trail_meshes": 704,
+        "trails": 1,
+        "video_memory_bytes": 393659215.0,
+        "viewport": [
+          1440.0,
+          900.0
+        ],
+        "visible_actors_sample": 1,
+        "window_mode": 0,
+        "window_size": [
+          1440,
+          900
+        ],
+        "zoom": 1.0
+      },
+      "last_actor_kinds": {
+        "AIBossPartController": 51,
+        "AIBossUnit": 9,
+        "AIGuardUnitController": 63,
+        "AIPatrolUnit": 7,
+        "AIStationPartController": 8,
+        "AISwarmingUnit": 42,
+        "ContainerObject": 12,
+        "SpawnerStation": 2
+      }
+    },
+    {
+      "start": 1440,
+      "end": 1500,
+      "frames": 1608,
+      "weighted_mean_frame_ms": 37.12545708955224,
+      "fps_from_mean_interval": 26.935695298992496,
+      "weighted_main_cpu_ms": 25.385390547263686,
+      "sampled_nested_phases": {
+        "main_us": [
+          {
+            "phase": "combat",
+            "sample_mean_ms": 17.7580218579235,
+            "samples": 183
+          },
+          {
+            "phase": "mission",
+            "sample_mean_ms": 3.620950819672131,
+            "samples": 183
+          },
+          {
+            "phase": "draw_support",
+            "sample_mean_ms": 1.8664262295081968,
+            "samples": 183
+          },
+          {
+            "phase": "draw_organs",
+            "sample_mean_ms": 1.6177704918032787,
+            "samples": 183
+          },
+          {
+            "phase": "body",
+            "sample_mean_ms": 1.1787103825136611,
+            "samples": 183
+          },
+          {
+            "phase": "draw_world",
+            "sample_mean_ms": 0.6638743169398907,
+            "samples": 183
+          },
+          {
+            "phase": "draw_hud_feedback",
+            "sample_mean_ms": 0.5200819672131147,
+            "samples": 183
+          },
+          {
+            "phase": "visual_sync",
+            "sample_mean_ms": 0.5126666666666667,
+            "samples": 183
+          },
+          {
+            "phase": "draw_body",
+            "sample_mean_ms": 0.4695901639344262,
+            "samples": 183
+          },
+          {
+            "phase": "preparation",
+            "sample_mean_ms": 0.30593442622950817,
+            "samples": 183
+          },
+          {
+            "phase": "audio_hud",
+            "sample_mean_ms": 0.26101639344262295,
+            "samples": 183
+          },
+          {
+            "phase": "draw_terrain",
+            "sample_mean_ms": 0.08101639344262294,
+            "samples": 183
+          },
+          {
+            "phase": "draw_attacks",
+            "sample_mean_ms": 0.03794535519125683,
+            "samples": 183
+          }
+        ],
+        "combat_us": [
+          {
+            "phase": "enemy_ai",
+            "sample_mean_ms": 13.738628415300546,
+            "samples": 183
+          },
+          {
+            "phase": "enemy_soft_body",
+            "sample_mean_ms": 1.838601092896175,
+            "samples": 183
+          },
+          {
+            "phase": "drones",
+            "sample_mean_ms": 1.2239945355191257,
+            "samples": 183
+          },
+          {
+            "phase": "patrol_special",
+            "sample_mean_ms": 0.3603715846994536,
+            "samples": 183
+          },
+          {
+            "phase": "player_weapons",
+            "sample_mean_ms": 0.2739672131147541,
+            "samples": 183
+          },
+          {
+            "phase": "cleanup",
+            "sample_mean_ms": 0.1578743169398907,
+            "samples": 183
+          },
+          {
+            "phase": "projectiles",
+            "sample_mean_ms": 0.00853551912568306,
+            "samples": 183
+          }
+        ]
+      },
+      "last_counts": {
+        "actors": 295,
+        "actors_classified": 295,
+        "black_holes": 0,
+        "blocked_free_regions": 1662,
+        "bullets": 0,
+        "bullets_classified": 0,
+        "cap_cells": 11984,
+        "clear_points": 383,
+        "collision_rows": 1933,
+        "controls": 0,
+        "draw_calls": 491.0,
+        "drones": 8,
+        "effects": 0,
+        "enemy_drones": 112,
+        "engine_physics_ms": 0.028,
+        "engine_process_ms": 50.726,
+        "flight_entries": 0,
+        "flight_groups": 30,
+        "focused": true,
+        "free_regions": 8081,
+        "heat": 2.49909828816463,
+        "hidden_rigs": 18,
+        "hostile_bullets_sample": 0,
+        "kills": 63,
+        "larvae": 0,
+        "level": 19,
+        "local_spawn_jobs": 0,
+        "loot": 4,
+        "map_nodes": 16,
+        "map_remembered": 32,
+        "map_spawn_jobs": 0,
+        "mineral_cells": 408,
+        "mines": 0,
+        "mutation_shots": 0,
+        "nav_grids": 6,
+        "nav_open": 56146,
+        "nav_prepare_us": 141,
+        "nav_waiting": 54,
+        "nodes": 1089.0,
+        "objects": 18454.0,
+        "ore_clearance": 728,
+        "ore_patches": 539,
+        "orphans": 0.0,
+        "particle_engines": 0,
+        "particle_flames": 0,
+        "particle_followers": 0,
+        "particle_nodes": 0,
+        "parts": 21,
+        "patch_versions": 183,
+        "pooled_rigs": 19,
+        "position": [
+          2113.4853515625,
+          2048.52075195313
+        ],
+        "released_controls": 0,
+        "resources": 264.0,
+        "retired_rock_meshes": 0,
+        "rig_builds": 38,
+        "rig_reuses": 41,
+        "rigs": 19,
+        "rock_meshes": 80,
+        "rock_patches": 2032,
+        "room_cache": 217,
+        "splatter": 0,
+        "static_memory_bytes": null,
+        "sweep_cache": 12,
+        "terrain_chunks": 775,
+        "terrain_geometry": 11948,
+        "toxin_pools": 0,
+        "trail_meshes": 704,
+        "trails": 0,
+        "video_memory_bytes": 394709797.0,
+        "viewport": [
+          1440.0,
+          900.0
+        ],
+        "visible_actors_sample": 1,
+        "window_mode": 0,
+        "window_size": [
+          1440,
+          900
+        ],
+        "zoom": 1.0
+      },
+      "last_actor_kinds": {
+        "AIBossPartController": 127,
+        "AIBossUnit": 22,
+        "AIGuardUnitController": 62,
+        "AIPatrolUnit": 7,
+        "AIStationPartController": 8,
+        "AISwarmingUnit": 55,
+        "ContainerObject": 12,
+        "SpawnerStation": 2
+      }
+    },
+    {
+      "start": 1680,
+      "end": 1807,
+      "frames": 3316,
+      "weighted_mean_frame_ms": 38.35137032569361,
+      "fps_from_mean_interval": 26.07468759284586,
+      "weighted_main_cpu_ms": 26.537598009650182,
+      "sampled_nested_phases": {
+        "main_us": [
+          {
+            "phase": "combat",
+            "sample_mean_ms": 20.91166253869969,
+            "samples": 323
+          },
+          {
+            "phase": "mission",
+            "sample_mean_ms": 3.9686501547987616,
+            "samples": 323
+          },
+          {
+            "phase": "draw_support",
+            "sample_mean_ms": 2.0838823529411763,
+            "samples": 323
+          },
+          {
+            "phase": "draw_organs",
+            "sample_mean_ms": 1.661250773993808,
+            "samples": 323
+          },
+          {
+            "phase": "body",
+            "sample_mean_ms": 1.285764705882353,
+            "samples": 323
+          },
+          {
+            "phase": "draw_world",
+            "sample_mean_ms": 0.7311857585139319,
+            "samples": 323
+          },
+          {
+            "phase": "visual_sync",
+            "sample_mean_ms": 0.5755634674922601,
+            "samples": 323
+          },
+          {
+            "phase": "draw_hud_feedback",
+            "sample_mean_ms": 0.5743374613003096,
+            "samples": 323
+          },
+          {
+            "phase": "draw_body",
+            "sample_mean_ms": 0.47510526315789475,
+            "samples": 323
+          },
+          {
+            "phase": "preparation",
+            "sample_mean_ms": 0.32503715170278635,
+            "samples": 323
+          },
+          {
+            "phase": "audio_hud",
+            "sample_mean_ms": 0.27987616099071205,
+            "samples": 323
+          },
+          {
+            "phase": "draw_terrain",
+            "sample_mean_ms": 0.08230650154798762,
+            "samples": 323
+          },
+          {
+            "phase": "draw_attacks",
+            "sample_mean_ms": 0.0565015479876161,
+            "samples": 323
+          }
+        ],
+        "combat_us": [
+          {
+            "phase": "enemy_ai",
+            "sample_mean_ms": 16.412962848297212,
+            "samples": 323
+          },
+          {
+            "phase": "enemy_soft_body",
+            "sample_mean_ms": 2.389764705882353,
+            "samples": 323
+          },
+          {
+            "phase": "drones",
+            "sample_mean_ms": 1.3525046439628483,
+            "samples": 323
+          },
+          {
+            "phase": "patrol_special",
+            "sample_mean_ms": 0.3848111455108359,
+            "samples": 323
+          },
+          {
+            "phase": "player_weapons",
+            "sample_mean_ms": 0.2635232198142415,
+            "samples": 323
+          },
+          {
+            "phase": "cleanup",
+            "sample_mean_ms": 0.18626625386996903,
+            "samples": 323
+          },
+          {
+            "phase": "projectiles",
+            "sample_mean_ms": 0.03781733746130031,
+            "samples": 323
+          }
+        ]
+      },
+      "last_counts": {
+        "actors": 347,
+        "actors_classified": 347,
+        "black_holes": 0,
+        "blocked_free_regions": 1769,
+        "bullets": 0,
+        "bullets_classified": 0,
+        "cap_cells": 11984,
+        "clear_points": 1504,
+        "collision_rows": 1984,
+        "controls": 0,
+        "draw_calls": 467.0,
+        "drones": 12,
+        "effects": 0,
+        "enemy_drones": 112,
+        "engine_physics_ms": 0.017,
+        "engine_process_ms": 39.914,
+        "flight_entries": 0,
+        "flight_groups": 30,
+        "focused": true,
+        "free_regions": 8123,
+        "heat": 3.0103576530955,
+        "hidden_rigs": 20,
+        "hostile_bullets_sample": 0,
+        "kills": 67,
+        "larvae": 0,
+        "level": 20,
+        "local_spawn_jobs": 0,
+        "loot": 4,
+        "map_nodes": 16,
+        "map_remembered": 32,
+        "map_spawn_jobs": 0,
+        "mineral_cells": 408,
+        "mines": 0,
+        "mutation_shots": 0,
+        "nav_grids": 6,
+        "nav_open": 56161,
+        "nav_prepare_us": 65,
+        "nav_waiting": 60,
+        "nodes": 1223.0,
+        "objects": 18418.0,
+        "ore_clearance": 728,
+        "ore_patches": 539,
+        "orphans": 0.0,
+        "particle_engines": 0,
+        "particle_flames": 0,
+        "particle_followers": 0,
+        "particle_nodes": 0,
+        "parts": 22,
+        "patch_versions": 183,
+        "pooled_rigs": 18,
+        "position": [
+          2153.349609375,
+          2014.56945800781
+        ],
+        "released_controls": 0,
+        "resources": 262.0,
+        "retired_rock_meshes": 0,
+        "rig_builds": 38,
+        "rig_reuses": 45,
+        "rigs": 20,
+        "rock_meshes": 80,
+        "rock_patches": 2032,
+        "room_cache": 217,
+        "splatter": 0,
+        "static_memory_bytes": null,
+        "sweep_cache": 13,
+        "terrain_chunks": 775,
+        "terrain_geometry": 11948,
+        "toxin_pools": 0,
+        "trail_meshes": 704,
+        "trails": 0,
+        "video_memory_bytes": 394701705.0,
+        "viewport": [
+          1440.0,
+          900.0
+        ],
+        "visible_actors_sample": 1,
+        "window_mode": 0,
+        "window_size": [
+          1440,
+          900
+        ],
+        "zoom": 1.0
+      },
+      "last_actor_kinds": {
+        "AIBossPartController": 165,
+        "AIBossUnit": 28,
+        "AIGuardUnitController": 62,
+        "AIPatrolUnit": 7,
+        "AIStationPartController": 8,
+        "AISwarmingUnit": 63,
+        "ContainerObject": 12,
+        "SpawnerStation": 2
+      }
+    }
+  ],
+  "final_status": {
+    "actor_kinds": {
+      "AIBossPartController": 165,
+      "AIBossUnit": 28,
+      "AIGuardUnitController": 62,
+      "AIPatrolUnit": 7,
+      "AIStationPartController": 8,
+      "AISwarmingUnit": 63,
+      "ContainerObject": 12,
+      "SpawnerStation": 2
+    },
+    "actors": 347,
+    "boss_distance": 1835.06665039063,
+    "boss_kills": 0,
+    "bullets": 0,
+    "done": true,
+    "effects": 0,
+    "fixture": false,
+    "fps_5s": 0,
+    "goal": [
+      1581.8017578125,
+      2409.05419921875
+    ],
+    "goal_kind": "retreat_explore",
+    "hp": 500.0,
+    "initial_pointer_enabled": true,
+    "kills": 67,
+    "level": 20,
+    "log_path": "E:/_Nlv/github/temp/artifacts/conservative-playtest-20261026-run4/roaming/Godot/app_userdata/Run Build Pew! — Centipede/performance-logs/run-20261026T050549Z-223396-51",
+    "max_hp": 500.0,
+    "opened": 21,
+    "ore": 99,
+    "p95_ms_5s": 0,
+    "parts": 22,
+    "pending": 0,
+    "pilot_decisions": 3561,
+    "pilot_last_decision_us": 672,
+    "position": [
+      2189.69262695313,
+      1968.19458007813
+    ],
+    "removed_cells": 898,
+    "root_kinds": {
+      "AIBossUnit": 28,
+      "AIGuardUnitController": 62,
+      "AIPatrolUnit": 7,
+      "AIStationPartController": 8,
+      "AISwarmingUnit": 63,
+      "ContainerObject": 12,
+      "SpawnerStation": 2
+    },
+    "run_elapsed": 1806.8525288573,
+    "screen": "pause",
+    "test_mode": false,
+    "wall_seconds": 2220.462824,
+    "weapons_enabled": null
+  },
+  "recording_notes": [
+    "One run, 51 recorder sessions; upgrade and automatic diagnostic pauses excluded from active intervals.",
+    "Controller uses held movement and normal reward/build callbacks, not human manual UI play.",
+    "Pilot became conservative in a small safe region after development; body overlap is a possible rendering factor. NPC/part counts continue growing.",
+    "Enemy AI timings are nested short-window samples, biased toward slow windows; do not add them to parent combat times.",
+    "TIME_PROCESS monitor values and GPU time are not interchangeable; release static RAM monitor was unavailable."
+  ],
+  "targeted_change": {
+    "scope": "Only large actor movement sweeps, radius 64–512 and displacement <=16 px. Identical start/end/radius, unchanged terrain revision and solver flags.",
+    "bounded_entries": 1024,
+    "invalidation": "World reset, terrain revision, solver mode.",
+    "caller_ownership": "Return fresh dictionaries; retain an independent shallow copy of value-only contact records.",
+    "unchanged": "Original collision solver and tie winner, visual art/effects, damage, rates, enemy counts and simulation cadence. Ordinary projectile wall_hit stays on the original path."
+  },
+  "tests": {
+    "regression": {
+      "suites": [
+        {
+          "suite": "cave_sweep_results",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 3.969,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "cave_sweep_neighborhoods",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 10.246,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "cave_collision_cache",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 4.828,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "cave_curves",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 3.515,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "cave_ore_hard_walls",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 1.986,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "enemy_wall_motion",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 5.917,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "knockback",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 3.843,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "soft_pull",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 3.389,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "deployment",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 14.155,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "main_autofire_scene",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 11.915,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "save_integrity",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 4.057,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "runtime_log",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 19.346,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    },
+    "final_scope_recheck": {
+      "suites": [
+        {
+          "suite": "cave_sweep_results",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 3.264,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "cave_sweep_neighborhoods",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 12.066,
+          "isolated_user_data": true
+        },
+        {
+          "suite": "enemy_wall_motion",
+          "exit_code": 0,
+          "passed": true,
+          "platform_warnings": [
+            "Windows root certificate store unavailable; local suite does not use TLS"
+          ],
+          "seconds": 5.825,
+          "isolated_user_data": true
+        }
+      ],
+      "passed": true
+    },
+    "cache_lifecycle": {
+      "checks": [
+        {
+          "name": "Cached empty contacts are fresh dictionaries owned by each caller",
+          "passed": true
+        },
+        {
+          "name": "The query fixture contains a real circular rock contact",
+          "passed": true
+        },
+        {
+          "name": "Changing a returned contact cannot corrupt a later cache hit",
+          "passed": true
+        },
+        {
+          "name": "Nearby coordinates, distinct radii, reverse movement and uncached long sweeps retain exact contacts",
+          "passed": true
+        },
+        {
+          "name": "A constant-time ring bounds retained queries at 1024 entries",
+          "passed": true
+        },
+        {
+          "name": "Terrain revisions discard stale answers before serving a query",
+          "passed": true
+        },
+        {
+          "name": "New worlds clear query history even when the revision resets to zero",
+          "passed": true
+        },
+        {
+          "name": "Diagnostic solver mode changes cannot reuse another mode's results",
+          "passed": true
+        }
+      ],
+      "passed": true
+    }
+  },
+  "micro_reproducer": {
+    "actors": 91,
+    "collision_probes": 5460,
+    "dt": 0.0333333333333333,
+    "heat": 3.01142088142883,
+    "max_time_error": 0.0,
+    "mismatch": 0,
+    "scope": "ABBA headless navigation/collision micro-reproducer from recorded root actors. Same procedural seed, mining edits not restored, no rendered FPS claim.",
+    "snapshot_elapsed": 1806.8525288573,
+    "tests": [
+      {
+        "extended_queries": 0,
+        "max_ms": 121.863,
+        "mean_ms": 35.615275,
+        "movement_mean_ms": 28.4407083333333,
+        "movement_us_by_kind": {
+          "AIBossUnit": 3029301,
+          "AISwarmingUnit": 383584
+        },
+        "navigation_mean_ms": 6.994625,
+        "p95_ms": 80.392,
+        "p99_ms": 114.925,
+        "prototype": false,
+        "variant": "legacy"
+      },
+      {
+        "cache_hits": 4669,
+        "cache_misses": 1816,
+        "extended_queries": 0,
+        "max_ms": 129.124,
+        "mean_ms": 24.662275,
+        "movement_mean_ms": 18.883175,
+        "movement_us_by_kind": {
+          "AIBossUnit": 1934041,
+          "AISwarmingUnit": 331940
+        },
+        "navigation_mean_ms": 5.59558333333333,
+        "p95_ms": 34.509,
+        "p99_ms": 50.162,
+        "prototype": false,
+        "variant": "production"
+      },
+      {
+        "cache_hits": 4669,
+        "cache_misses": 1816,
+        "extended_queries": 0,
+        "max_ms": 53.024,
+        "mean_ms": 21.525125,
+        "movement_mean_ms": 16.2623333333333,
+        "movement_us_by_kind": {
+          "AIBossUnit": 1664209,
+          "AISwarmingUnit": 287271
+        },
+        "navigation_mean_ms": 5.114825,
+        "p95_ms": 31.534,
+        "p99_ms": 36.866,
+        "prototype": false,
+        "variant": "production"
+      },
+      {
+        "extended_queries": 0,
+        "max_ms": 69.134,
+        "mean_ms": 26.5112916666667,
+        "movement_mean_ms": 20.8764166666667,
+        "movement_us_by_kind": {
+          "AIBossUnit": 2195590,
+          "AISwarmingUnit": 309580
+        },
+        "navigation_mean_ms": 5.47280833333333,
+        "p95_ms": 37.84,
+        "p99_ms": 51.55,
+        "prototype": false,
+        "variant": "legacy"
+      }
+    ]
+  },
+  "micro_kernel_profile": {
+    "actors": 91,
+    "collision_probes": 0,
+    "dt": 0.0333333333333333,
+    "heat": 3.01142088142883,
+    "max_time_error": 0.0,
+    "mismatch": 0,
+    "scope": "ABBA headless navigation/collision micro-reproducer from recorded root actors. Same procedural seed, mining edits not restored, no rendered FPS claim.",
+    "snapshot_elapsed": 1806.8525288573,
+    "tests": [
+      {
+        "extended_queries": 0,
+        "kernel_calls": {
+          "legacy_nearby": 12242,
+          "local_sweep_edges": 3236,
+          "safe_among": 11549,
+          "separate_lip": 840,
+          "wall_blocked": 15743,
+          "wall_hit": 8805
+        },
+        "kernel_inclusive_us": {
+          "legacy_nearby": 19383,
+          "local_sweep_edges": 10623,
+          "safe_among": 461755,
+          "separate_lip": 80613,
+          "wall_blocked": 340162,
+          "wall_hit": 935183
+        },
+        "max_ms": 27.682,
+        "mean_ms": 17.322975,
+        "movement_mean_ms": 13.3652333333333,
+        "movement_us_by_kind": {
+          "AIBossUnit": 1395771,
+          "AISwarmingUnit": 208057
+        },
+        "navigation_mean_ms": 3.86878333333334,
+        "p95_ms": 23.084,
+        "prototype": false
+      }
+    ]
+  },
+  "rejected_expanded_neighborhood": {
+    "actors": 91,
+    "collision_probes": 5460,
+    "dt": 0.0333333333333333,
+    "heat": 3.01142088142883,
+    "max_time_error": 0.0,
+    "mismatch": 0,
+    "scope": "ABBA headless navigation/collision micro-reproducer from recorded root actors. Same procedural seed, mining edits not restored, no rendered FPS claim.",
+    "snapshot_elapsed": 1806.8525288573,
+    "tests": [
+      {
+        "extended_queries": 0,
+        "max_ms": 25.318,
+        "mean_ms": 16.4004416666667,
+        "movement_mean_ms": 12.5610916666667,
+        "movement_us_by_kind": {
+          "AIBossUnit": 1334986,
+          "AISwarmingUnit": 172345
+        },
+        "navigation_mean_ms": 3.74646666666667,
+        "p95_ms": 23.169,
+        "prototype": false
+      },
+      {
+        "extended_queries": 6007,
+        "max_ms": 64.831,
+        "mean_ms": 14.9817,
+        "movement_mean_ms": 10.2568166666667,
+        "movement_us_by_kind": {
+          "AIBossUnit": 1050317,
+          "AISwarmingUnit": 180501
+        },
+        "navigation_mean_ms": 4.63461666666667,
+        "p95_ms": 22.894,
+        "prototype": true
+      },
+      {
+        "extended_queries": 6007,
+        "max_ms": 38.505,
+        "mean_ms": 14.7905666666667,
+        "movement_mean_ms": 10.3218916666667,
+        "movement_us_by_kind": {
+          "AIBossUnit": 1060111,
+          "AISwarmingUnit": 178516
+        },
+        "navigation_mean_ms": 4.37658333333333,
+        "p95_ms": 21.916,
+        "prototype": true
+      },
+      {
+        "extended_queries": 0,
+        "max_ms": 41.552,
+        "mean_ms": 16.062475,
+        "movement_mean_ms": 12.1721833333333,
+        "movement_us_by_kind": {
+          "AIBossUnit": 1295799,
+          "AISwarmingUnit": 164863
+        },
+        "navigation_mean_ms": 3.80101666666667,
+        "p95_ms": 23.959,
+        "prototype": false
+      }
+    ]
+  },
+  "micro_limitations": [
+    "Not rendered gameplay FPS. Root positions/radii and procedural seed were reused, but excavation edits and the complete battle state were not restored.",
+    "ABBA samples varied substantially with host timing; the production-cache run included a maximum sample of 129.124ms, higher than its 121.863ms legacy maximum. Do not claim all slow frames improved.",
+    "The earlier expanded-neighborhood prototype was not enabled in normal gameplay."
+  ],
+  "release_smoke": {
+    "passed": true,
+    "scope": "15-second isolated native rendering/real-time fixture to validate executable and journaling, not a long-run A/B.",
+    "checks": [
+      {
+        "name": "Measured production frames include actual excavation and mineral drops",
+        "passed": true
+      },
+      {
+        "name": "Every timed frame advances real combat; paused, reward and result screens never count as gameplay FPS",
+        "passed": true
+      },
+      {
+        "name": "All configured modules remain alive and available throughout the measured battle",
+        "passed": true
+      }
+    ],
+    "duration_seconds": 15.006819,
+    "build_id": "longrun-collision-cache-20261026-1",
+    "sources": {
+      "cave_world": {
+        "format": "gdc",
+        "sha256": "a8051643390b133738384a65badf6b9584ff7745832619bdb47e7f8ab124428a"
+      },
+      "combat": {
+        "format": "gdc",
+        "sha256": "d9e16228fb3f7c70be913693f9d077e15543e12bac0d215627d2009d7bd9ccee"
+      },
+      "main": {
+        "format": "gdc",
+        "sha256": "c43a7d8ac4353a05703c312879d1b128e599a6db74fbd2d2e4ccd4f5ecaa27e6"
+      },
+      "map_director": {
+        "format": "gdc",
+        "sha256": "89fc99c8564429e29d59a19de9941ff473d6d868a0c9c9a8ea35aaa90feddd57"
+      },
+      "runtime_log": {
+        "format": "gdc",
+        "sha256": "c84a48ae8ac5bf51aa7ca7e9df62c92dd5842aa63586f769f50e8af1b0a06efe"
+      },
+      "runtime_log_writer": {
+        "format": "gdc",
+        "sha256": "3d2ce3c764fab5e43735d1b5519f3ec71f9a40b1f767aaea68ab32c819f3839c"
+      }
+    },
+    "journal_closed": true,
+    "new_counters_present": true,
+    "last_cache_counters": {
+      "sweep_result_entries": 0,
+      "sweep_result_hits": 0,
+      "sweep_result_misses": 0
+    }
+  },
+  "new_executable": {
+    "path": "artifacts/longrun-collision-cache/RunBuildPew.exe",
+    "bytes": 259057472,
+    "sha256": "91904a860ddd769eca48f1654225a6bd1ed9ec562d16691b207a408aefcd75d2"
+  },
+  "source_sha256": {
+    "scripts/cave_world.gd": "fb129b50ec8b8778d53b31dc6c167b2285a353cd6dc23d4a8cef6d3bbd53cac8",
+    "scripts/main.gd": "9f08b4e8d40dc1a9a157a6c98341565ecfbdea0d7655c7a22bff8a7ff919f779",
+    "scripts/runtime_log.gd": "0a7299e3c31b4c87cc64e455d731b6968170133fb012ef8df3b728e85ebffac7",
+    "scripts/conservative_pilot.gd": "02c7d8355c513d5ad08d4a36e5abc8806eeb01cf89c55da67b8c870d35f586a3",
+    "tests/test_cave_sweep_results.gd": "fd4fdc9dc6c9a09b9fb62593280d93dba0788138a213b308bba173f3acf71692",
+    "tools/profile_late_cave.gd": "fe933290396a8f1860f1558544b3c427fa5f19d85ad5d16d143f39c2e183de37",
+    "tools/analyze_playtest.py": "716731b03c86067a0f9b0e63d1384ecab14696e0e874253fbb2062370764dc77",
+    "tools/run_conservative_playtest.py": "64360b25bf7f248d3b63957e33ab375e3b55f9e3503c164fdae2fd846799571a",
+    "tools/watch_conservative_playtest.py": "12869676a2bd812e4b1793d01005185a8e4128e111b36322bad6f51e41e3545e"
+  },
+  "artifacts": {
+    "aggregate": "artifacts\\conservative-playtest-20261026-run4\\longrun-analysis.json",
+    "trend": "artifacts\\conservative-playtest-20261026-run4\\longrun-trend.png",
+    "raw_log_zip": "artifacts\\longrun-playtest-20261026-logs.zip",
+    "final_scene": "artifacts\\conservative-playtest-20261026-run4\\stop-states\\1806.png",
+    "final_roster": "artifacts\\conservative-playtest-20261026-run4\\stop-states\\1806-gameplay-state.json"
+  },
+  "remaining": "The new cache has not completed a second real 30-minute gameplay run. Stable 60 FPS is not demonstrated.",
+  "micro_profile_correction": {
+    "date": "2026-10-26",
+    "issue": "Old V1 CPU micro-profile applied survival heat_speed to Endless bosses. Those CPU timings do not describe the real Endless battle; actual gameplay clocks and FPS measurements are unaffected.",
+    "superseded_by": "docs/test-evidence/longrun-retest-20261026.json"
+  }
+}

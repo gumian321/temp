@@ -1,0 +1,416 @@
+{
+  "date": "2026-10-26",
+  "request": "玩家半小时长局后期持续 20～30 帧，先加入日志，待玩家复现后依据日志优化。",
+  "scope": "Local automatic long-run diagnostics; no claim of a thirty-minute real playthrough, measured performance improvement, or stable 60 FPS.",
+  "build_id": "longrun-diagnostics-20261026-1",
+  "executable": {
+    "path": "artifacts/longrun-diagnostics/RunBuildPew.exe",
+    "bytes": 259043472,
+    "sha256": "171e6b04a094a7e0d4b48e71825917c81931a1c5be7b0595c17604f617873801",
+    "preset": "Windows Review / release / embedded PCK"
+  },
+  "source_sha256": {
+    "scripts/runtime_log.gd": "ab6d569e8e52cc4437517db5e7c4ce90b3d96c924af18d57b8f95fca3f953bb1",
+    "scripts/runtime_log_writer.gd": "ff0e414eada9d248ec4c2ef852d3827104ac1a306a8bf3ce4df274fea063d381",
+    "scripts/main.gd": "b7452a36fe5279796b520ac307911bd1b59e200647fd0c65cc415b60df97236c",
+    "scripts/combat.gd": "358534c2a3eaacdc18aa567bf6cebad704dff783d2a709f5a017ba7a6546e203",
+    "scripts/performance_overlay.gd": "f090c6b15497b7f49806b65c59287daf043483e718514357b62ec39229f74bcf",
+    "scripts/cave_world.gd": "63ebe139c465721ccd0ab321451c26ab30dfe2e791d03e0a70051f68c779c8bc",
+    "scripts/map_director.gd": "a8b06ffca10e4cbd5b8e2b78a9b1f0930f665ee220a2f364d9fb551734097555",
+    "tests/test_runtime_log.gd": "ed62b483c9e2ac56261e425c2f9e0732af2ba9d78b8737abef8db9e231a30f61",
+    "tools/analyze_runtime_log.py": "bbf1675552cbfc73fd6fb753b1e449f66d334d89325770ef19a0d1def0f50e21",
+    "tools/benchmark_exported_cave.py": "42f5d37731f1b08b2d5281bfd5c989b758ecc1cf1bea74f7c900e2c0752184ce",
+    "tools/run_checks.py": "93f6234e34504168f24328dbcbbc66aaf33a93cbd195e009474af31a29a6b08a"
+  },
+  "regression": {
+    "suites": [
+      {
+        "suite": "runtime_log",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 11.792,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "runtime_performance_capture",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 8.801,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "performance_overlay",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 2.066,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "combat_lifecycle",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.659,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "main_autofire_scene",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 5.948,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "save_integrity",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 2.099,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "settings_flow",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 6.256,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "ui_small_windows",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 23.505,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "deployment",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 7.387,
+        "isolated_user_data": true
+      }
+    ],
+    "passed": true
+  },
+  "latest_runtime_log_suite": {
+    "suites": [
+      {
+        "suite": "runtime_log",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 12.987,
+        "isolated_user_data": true
+      }
+    ],
+    "passed": true
+  },
+  "runtime_log_checks": {
+    "checks": [
+      {
+        "name": "Normal diagnostics can explicitly run inside an isolated test profile",
+        "passed": true
+      },
+      {
+        "name": "Every flushed JSONL line is independently readable",
+        "passed": true
+      },
+      {
+        "name": "Periodic logs preserve the end of a run beyond thirty minutes",
+        "passed": true
+      },
+      {
+        "name": "Pause time never becomes a false combat slow frame",
+        "passed": true
+      },
+      {
+        "name": "Independent main/draw/combat timing channels survive long logging",
+        "passed": true
+      },
+      {
+        "name": "Sustained thirty-FPS drops and player markers both leave diagnostic events",
+        "passed": true
+      },
+      {
+        "name": "Synthetic-clock validation cannot be mistaken for real gameplay FPS",
+        "passed": true
+      },
+      {
+        "name": "Automatic logging never steals or disables the separate F3 profiler flags",
+        "passed": true
+      },
+      {
+        "name": "Logging alone leaves save progression and combat RNG unchanged",
+        "passed": true
+      },
+      {
+        "name": "Per-second frame buffers release rather than growing with run duration",
+        "passed": true
+      },
+      {
+        "name": "Every flushed JSONL line is independently readable",
+        "passed": true
+      },
+      {
+        "name": "Real main-scene process and drawing produce aligned detail phases",
+        "passed": true
+      },
+      {
+        "name": "Real summaries contain late-game terrain/cache growth, node and render pressure",
+        "passed": true
+      },
+      {
+        "name": "Header fingerprints identify the actual source build",
+        "passed": true
+      },
+      {
+        "name": "Background writer closes and flushes without dropping queued records",
+        "passed": true
+      },
+      {
+        "name": "Background writer closes and flushes without dropping queued records",
+        "passed": true
+      },
+      {
+        "name": "Background writer closes and flushes without dropping queued records",
+        "passed": true
+      },
+      {
+        "name": "Background writer closes and flushes without dropping queued records",
+        "passed": true
+      },
+      {
+        "name": "Background writer closes and flushes without dropping queued records",
+        "passed": true
+      },
+      {
+        "name": "Only configured recent sessions and parts remain after repeated log rotation",
+        "passed": true
+      },
+      {
+        "name": "Retention never recursively deletes player-owned files or directories",
+        "passed": true
+      }
+    ],
+    "live_rows": 268,
+    "long_run_rows": 4495,
+    "method": "31-minute synthetic-clock persistence test plus 2.5-second real native main-scene integration; not a thirty-minute gameplay test.",
+    "passed": true,
+    "synthetic_elapsed_seconds": 1860
+  },
+  "release_logging_smoke": {
+    "report": "artifacts/runtime-log-exported-20261026.json",
+    "passed": true,
+    "conditions": {
+      "audio_and_effects": true,
+      "battle_seed": 20261021,
+      "dt": "actual engine process delta",
+      "duration_seconds": 45.0066666666666,
+      "fixture_focus_pause_suppressed": true,
+      "flight_batch": true,
+      "height": 900,
+      "initial_actors": 75,
+      "invulnerable_fixture_actors": false,
+      "legacy_cpu": false,
+      "legacy_egg_rendering": false,
+      "loadout": "screenshot-derived 11 mixed modules",
+      "measured_frames": 3011,
+      "mission": "Endless Mission",
+      "native_actor_waves": true,
+      "native_map_spawns": true,
+      "native_pacing": true,
+      "refresh_rate": 60.0,
+      "remote_orbits": true,
+      "reward_interruptions_suppressed": true,
+      "rig_pool": true,
+      "route": "roam",
+      "six_gatling_modules": false,
+      "spatial_query_cache": true,
+      "upgrade_cache": true,
+      "vsync_mode": 1,
+      "warmup_frames": 12,
+      "width": 1440
+    },
+    "checks": [
+      {
+        "name": "Measured production frames include actual excavation and mineral drops",
+        "passed": true
+      },
+      {
+        "name": "Every timed frame advances real combat; paused, reward and result screens never count as gameplay FPS",
+        "passed": true
+      },
+      {
+        "name": "All configured modules remain alive and available throughout the measured battle",
+        "passed": true
+      }
+    ],
+    "scope": "45-second automated natural-wave gameplay fixture, real clock and release renderer, isolated save, reward interruptions/focus pause suppressed, fixture durability. Logging integration only; not a long-run performance comparison.",
+    "journal": "artifacts\\runtime-log-exported-20261026-runtime-logs\\run-20261026T034536Z-232392-01",
+    "bytes": 140950,
+    "record_types": {
+      "header": 1,
+      "part": 1,
+      "run_start": 1,
+      "loadout": 1,
+      "state": 1,
+      "detail": 107,
+      "summary": 46,
+      "session_end": 1
+    },
+    "header": {
+      "build_id": "longrun-diagnostics-20261026-1",
+      "character": "centipede",
+      "created_at_utc": "2026-10-26T03:45:36",
+      "debug_build": false,
+      "difficulty": 0,
+      "editor": false,
+      "engine": {
+        "build": "official",
+        "hash": "7d41c59c457bd5a245092b4e7eb2d833e3b3f8c3",
+        "hex": 263683,
+        "major": 4,
+        "minor": 6,
+        "patch": 3,
+        "status": "stable",
+        "string": "4.6.3-stable (official)",
+        "timestamp": 0
+      },
+      "fixture": true,
+      "frame_time_scope": "wall interval between main process calls; CPU excludes logging and drawing; phase timers are nested microseconds; only active combat enters frame summaries",
+      "gpu": "NVIDIA GeForce GTX 1050",
+      "isolated_test_profile": true,
+      "local_only": true,
+      "mission": "Endless Mission",
+      "owner": "rbpew-performance-log-v1",
+      "periodic_profile_ms": 400,
+      "profile_period_seconds": 15,
+      "refresh_rate": 60.0,
+      "renderer": "gl_compatibility",
+      "schema": 1,
+      "slow_profile_cooldown_seconds": 30,
+      "slow_profile_ms": 1500,
+      "sources": {
+        "cave_world": {
+          "format": "gdc",
+          "sha256": "1a68e348ab64fcdb25121990fee8a6bc23c7a5e0b6e141156ff85b0867d352bc"
+        },
+        "combat": {
+          "format": "gdc",
+          "sha256": "d9e16228fb3f7c70be913693f9d077e15543e12bac0d215627d2009d7bd9ccee"
+        },
+        "main": {
+          "format": "gdc",
+          "sha256": "3e75f604d096c1de9bc2cdc97f9d662decd2ba93746b2cb756af52089d92b8fd"
+        },
+        "map_director": {
+          "format": "gdc",
+          "sha256": "89fc99c8564429e29d59a19de9941ff473d6d868a0c9c9a8ea35aaa90feddd57"
+        },
+        "runtime_log": {
+          "format": "gdc",
+          "sha256": "683b35c3ec3423e03023fa355f5fe7a0f5d9d2028cb958af5b8bf5dc1cd97834"
+        },
+        "runtime_log_writer": {
+          "format": "gdc",
+          "sha256": "3d2ce3c764fab5e43735d1b5519f3ec71f9a40b1f767aaea68ab32c819f3839c"
+        }
+      },
+      "summary_seconds": 1,
+      "synthetic_clock": false,
+      "type": "header",
+      "viewport": [
+        1440.0,
+        900.0
+      ],
+      "vsync_mode": 1,
+      "window_mode": 0,
+      "window_size": [
+        1440,
+        900
+      ]
+    },
+    "session_marker": {
+      "closed": true,
+      "owner": "rbpew-performance-log-v1",
+      "session": "run-20261026T034536Z-232392-01"
+    },
+    "session_end": {
+      "active_frames": 3022,
+      "reason": "shutdown",
+      "run_elapsed": 45.2066666666666,
+      "type": "session_end",
+      "writer": {
+        "dropped_lines": 0,
+        "error": "",
+        "pending": 1
+      }
+    },
+    "summary": {
+      "coverage_start_elapsed": 1.01990233333333,
+      "coverage_end_elapsed": 45.2066666666666,
+      "recorded_active_frames": 3022,
+      "summary_rows": 46,
+      "detail_rows": 107,
+      "invalid_or_truncated_lines": 0
+    },
+    "has_main_and_combat_phases": true,
+    "all_compiled_source_fingerprints_valid": true,
+    "no_reported_write_errors_or_drops": true
+  },
+  "analyzer_zip_validation": {
+    "input": "artifacts/runtime-log-zip-validation-20261026.zip",
+    "read_directly_without_extracting": true,
+    "injected_truncated_tail": true,
+    "invalid_or_truncated_lines": 1,
+    "active_frame_count_preserved": true,
+    "unknown_archive_member_ignored": true
+  },
+  "ui_verification": {
+    "suite": "ui_small_windows",
+    "manual_image_inspection": "artifacts/ui-small-pause-800x600.png",
+    "result": "Performance logs button visible, text legible, contained in pause menu, no overlap at 800x600."
+  },
+  "retention": {
+    "sessions": 4,
+    "parts_per_session": 3,
+    "part_budget_bytes": 8388608,
+    "pending_records": 256,
+    "scope": "Only owned markers and exact journal filenames are pruned; unknown files preserved; part boundaries include header/record overhead."
+  },
+  "usage": {
+    "directory": "user://performance-logs",
+    "open": "Pause menu / 性能日志, or F4 when unbound",
+    "mark": "F3",
+    "share": "Normal exit, ZIP latest run-* directory",
+    "analyze": "python tools/analyze_runtime_log.py <folder-or-zip> --output artifacts/longrun-analysis.json"
+  },
+  "remaining": "Await actual late-game player logs before attributing the 20–30 FPS symptom and choosing further fixes."
+}

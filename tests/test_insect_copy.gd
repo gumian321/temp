@@ -7,7 +7,7 @@ var violations:Array=[]
 var audited=0
 var banned=RegEx.new()
 func _initialize():
-	banned.compile("(?i)飞船|飛船|船只|船隻|舰|艦|空间站|空間站|小行星|太空|航线|航線|跃迁|躍遷|炮塔|无人机|無人機|机库|機庫|装塔|裝塔|\\b(?:ships?|spacecraft|motherships?|fleets?|stations?|turrets?|drones?|asteroids?|hangars?)\\b|корабл|флот|станци|дрон|ангар|астероид")
+	banned.compile("(?i)飞船|飛船|船只|船隻|舰|艦|空间站|空間站|小行星|太空|星际|星際|宇航|航线|航線|跃迁|躍遷|炮塔|无人机|無人機|机库|機庫|装塔|裝塔|\\b(?:ships?|spaceships?|starships?|spacecraft|motherships?|fleets?|stations?|turrets?|drones?|asteroids?|hangars?)\\b|корабл|флот|станци|дрон|ангар|астероид")
 	call_deferred("execute")
 func check(ok:bool,title:String):
 	checks.append({"name":title,"passed":ok})

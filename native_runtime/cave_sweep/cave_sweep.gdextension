@@ -1,0 +1,8 @@
+[configuration]
+entry_symbol="cave_sweep_library_init"
+compatibility_minimum="4.6.3"
+reloadable=false
+
+[libraries]
+windows.debug.x86_64="./cave_sweep.windows.x86_64.dll"
+windows.release.x86_64="./cave_sweep.windows.x86_64.dll"

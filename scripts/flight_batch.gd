@@ -18,6 +18,7 @@ var serials:Dictionary={}
 var dirty=false
 var submitted=0
 var identity_buffer=PackedFloat32Array()
+var use_actor_batch=OS.get_environment("RBPEW_ENABLE_ACTOR_FLIGHT_BATCH")!="0" and OS.get_environment("RBPEW_LEGACY_ACTOR_FLIGHT_BATCH")!="1"
 
 func setup(shared_materials:Dictionary):materials=shared_materials
 
@@ -41,8 +42,19 @@ func interrupt(painter):
 	painter.flight_open=false
 	current_groups.erase(channel);serials[channel]=int(serials.get(channel,0))+1
 
+func supports_actor(source:Texture2D,zoom:float,scale_factor:float)->bool:
+	return use_actor_batch and is_finite(zoom) and zoom>0.0 and is_finite(scale_factor) and scale_factor>0.0 and source is AtlasTexture and source.atlas!=null and source.margin==Rect2() and source.filter_clip
+
+func enqueue_actor(painter,state:Dictionary,trail:Dictionary,origin:Vector2,scale_factor:float,body:Dictionary,zoom:float)->bool:
+	if not supports_actor(body.get("source"),zoom,scale_factor) or state.is_empty():return false
+	if str(state.get("organic_family","")) not in ["drone","repair_drone","scrap_drone"]:return false
+	if painter.source.global_transform!=Transform2D.IDENTITY:return false
+	if not body.get("screen_transform") is Transform2D or not body.get("screen_extent") is Vector2:return false
+	return enqueue(painter,state,trail,origin,scale_factor,body,"actor")
+
 func enqueue(painter,state:Dictionary,trail:Dictionary,origin:Vector2,scale_factor:float,body:Dictionary={},kind:String="remnant")->bool:
 	if not enabled or int(state.get("visual_id",0))<=0:return false
+	if kind=="actor" and (not body.get("screen_transform") is Transform2D or not body.get("screen_extent") is Vector2):return false
 	initialize()
 	# A preview/support cue can reuse a live state later in the same frame.
 	# Keep its command payload independent of the live illustrated body.
@@ -86,6 +98,19 @@ func enqueue(painter,state:Dictionary,trail:Dictionary,origin:Vector2,scale_fact
 	if active.count>=CAPACITY:return false
 	entry.used=true
 	var slot=int(entry.slot)
+	var clip_actor=kind=="actor"
+	if entry.get("clip_actor",null)!=clip_actor:
+		image_data.set_pixel(3,slot,Color(1 if clip_actor else 0,0,0,0));entry.clip_actor=clip_actor;dirty=true
+	if clip_actor:
+		# Preserve native world(head) translation and the CPU float32 rotation
+		# basis. origin+world_head has a different rounding order at large maps.
+		var screen_pose:Transform2D=body.screen_transform
+		var screen_extent:Vector2=body.screen_extent
+		if entry.get("actor_screen_pose")!=screen_pose or entry.get("actor_screen_extent")!=screen_extent:
+			image_data.set_pixel(20,slot,Color(screen_extent.x,screen_extent.y,0,0))
+			image_data.set_pixel(21,slot,Color(screen_pose.x.x,screen_pose.x.y,screen_pose.y.x,screen_pose.y.y))
+			image_data.set_pixel(22,slot,Color(screen_pose.origin.x,screen_pose.origin.y,0,0));dirty=true
+			entry.actor_screen_pose=screen_pose;entry.actor_screen_extent=screen_extent
 	if not is_same(entry.mesh,trail):
 		entry.mesh=trail
 		if int(trail.segments)>0:

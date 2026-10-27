@@ -1,0 +1,8 @@
+; Isolated native extension smoke project. The parent native/ has .gdignore.
+config_version=5
+
+[application]
+config/name="Cave sweep native smoke"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"

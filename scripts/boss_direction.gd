@@ -1,5 +1,7 @@
 extends RefCounted
 ## Screen-edge bone pointer. Sized in screen pixels, independent of world zoom.
+const GeometryBatch=preload("res://scripts/pointer_geometry_batch.gd")
+static var use_geometry_batch=OS.get_environment("RBPEW_ENABLE_POINTER_GEOMETRY_BATCH")!="0" and OS.get_environment("RBPEW_LEGACY_POINTER_GEOMETRY_BATCH")!="1"
 static func layout(view:Vector2,target:Vector2)->Dictionary:
 	var center=view*.5
 	var safe=Rect2(Vector2(60,116),Vector2(maxf(1,view.x-120),maxf(1,view.y-230)))
@@ -24,15 +26,17 @@ static func paint(game):
 		drawn.append(pose.point)
 		if drawn.size()>4:break
 		var direction:Vector2=pose.direction
-		var side=direction.orthogonal()
-		var tip:Vector2=pose.point+direction*12
-		var base:Vector2=pose.point-direction*14
-		var outline=PackedVector2Array([tip,base+side*9,base+direction*6,base-side*9,tip])
-		game.draw_colored_polygon(outline,Color("121212"))
-		game.draw_polyline(outline,Color("d7d3c3"),1.4,true)
-		game.draw_line(base+direction*8,tip-direction*3,Color("ff387c"),2.0,true)
-		var gem=base-direction*12
-		game.draw_colored_polygon(PackedVector2Array([gem+direction*6,gem+side*4,gem-direction*6,gem-side*4]),Color("ff387c"))
+		if use_geometry_batch:GeometryBatch.paint(game,pose.point,direction)
+		else:
+			var side=direction.orthogonal()
+			var tip:Vector2=pose.point+direction*12
+			var base:Vector2=pose.point-direction*14
+			var outline=PackedVector2Array([tip,base+side*9,base+direction*6,base-side*9,tip])
+			game.draw_colored_polygon(outline,Color("121212"))
+			game.draw_polyline(outline,Color("d7d3c3"),1.4,true)
+			game.draw_line(base+direction*8,tip-direction*3,Color("ff387c"),2.0,true)
+			var gem=base-direction*12
+			game.draw_colored_polygon(PackedVector2Array([gem+direction*6,gem+side*4,gem-direction*6,gem-side*4]),Color("ff387c"))
 		var label=("首领" if e.kind=="AIBossUnit" else "目标")+"  %dm"%roundi(Vector2(e.position).distance_to(game.player.head)/48)
 		game.draw_string(game.UI.font(),pose.label+Vector2(1,1),label,HORIZONTAL_ALIGNMENT_CENTER,96,14,Color("111111"))
 		game.draw_string(game.UI.font(),pose.label,label,HORIZONTAL_ALIGNMENT_CENTER,96,14,Color("eee9d9"))

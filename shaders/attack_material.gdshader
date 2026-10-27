@@ -1,5 +1,5 @@
 shader_type canvas_item;
-render_mode unshaded;
+render_mode unshaded, skip_vertex_transform;
 // Local pigment only: source alpha, collision silhouettes and atlas margins stay exact.
 // No screen reads, added glow quads or per-projectile material instances.
 uniform vec4 occlusion = vec4(0.0);
@@ -12,6 +12,8 @@ uniform sampler2D muzzle_halo : filter_linear, repeat_disable;
 uniform sampler2D flight_data : filter_nearest, repeat_disable;
 varying float flight_flag;
 varying vec4 flight_tint;
+varying float actor_clip;
+varying vec4 actor_uv_bounds;
 uniform vec4 muzzle_color : source_color = vec4(1.0);
 uniform vec4 muzzle_accent : source_color = vec4(1.0);
 uniform float muzzle_weight = 1.0;
@@ -24,8 +26,11 @@ varying vec2 ink_position;
 varying vec4 egg_ring;
 varying vec3 ribbon_uv;
 varying float ribbon_flag;
+#include "res://shaders/repair_tether_declarations.gdshaderinc"
 void vertex(){
- flight_flag=0.0;flight_tint=vec4(1.0);
+ vec2 actor_original_local=VERTEX;
+#include "res://shaders/repair_tether_vertex.gdshaderinc"
+ flight_flag=0.0;flight_tint=vec4(1.0);actor_clip=0.0;actor_uv_bounds=vec4(0.0);
  if(INSTANCE_CUSTOM.b<-28.5 && INSTANCE_CUSTOM.b>-29.5){
   int slot=int(INSTANCE_CUSTOM.r);
   vec4 head=texelFetch(flight_data,ivec2(0,slot),0);
@@ -45,6 +50,8 @@ void vertex(){
    VERTEX=head.xy+vec2(local.x*cos(pose.z)-local.y*sin(pose.z),local.x*sin(pose.z)+local.y*cos(pose.z));
    COLOR=vec4(1.0,1.0,1.0,pose.w);
    UV=region.xy+UV*region.zw;
+   actor_clip=texelFetch(flight_data,ivec2(3,slot),0).r;
+   actor_uv_bounds=vec4(region.xy+TEXTURE_PIXEL_SIZE*0.5,region.xy+region.zw-TEXTURE_PIXEL_SIZE*0.5);
   }
  }
  ink_position=VERTEX;egg_ring=vec4(0.0);
@@ -134,6 +141,18 @@ void vertex(){
   egg_ring=vec4(VERTEX,radius,half_width);
   ink_position=VERTEX+INSTANCE_CUSTOM.gb;
  }
+ // ACTOR_SCREEN_TRANSFORM_BEGIN
+ if(actor_clip>0.5){
+  int actor_slot=int(INSTANCE_CUSTOM.r);
+  vec4 actor_pose=texelFetch(flight_data,ivec2(20,actor_slot),0);
+  vec4 actor_basis=texelFetch(flight_data,ivec2(21,actor_slot),0);
+  vec2 actor_origin=texelFetch(flight_data,ivec2(22,actor_slot),0).xy;
+  vec2 actor_local=actor_original_local*actor_pose.xy;
+  VERTEX=vec2(actor_basis.x*actor_local.x+actor_basis.z*actor_local.y,actor_basis.y*actor_local.x+actor_basis.w*actor_local.y)+actor_origin;
+ }else{
+  VERTEX=(MODEL_MATRIX*vec4(VERTEX,0.0,1.0)).xy;
+ }
+ // ACTOR_SCREEN_TRANSFORM_END
 }
 float hash21(vec2 p){vec3 q=fract(vec3(p.xyx)*0.1031);q+=dot(q,q.yzx+33.33);return fract((q.x+q.y)*q.z);}
 float noise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);f=f*f*(3.0-2.0*f);return mix(mix(hash21(i),hash21(i+vec2(1,0)),f.x),mix(hash21(i+vec2(0,1)),hash21(i+vec2(1,1)),f.x),f.y);}
@@ -155,6 +174,7 @@ vec3 sacs(vec2 q,float time){
  return vec3(shell,nucleus,wet);
 }
 void fragment(){
+ if(actor_clip>0.5){COLOR=texture(TEXTURE,clamp(UV,actor_uv_bounds.xy,actor_uv_bounds.zw));}
  vec4 base=muzzle_flag>0.5?muzzle_tint:(flight_flag>0.5?flight_tint:COLOR);
  if(muzzle_flag>2.5){base.a*=clamp(muzzle_edge.y+0.5-abs(muzzle_edge.x),0.0,1.0);}
  if(egg_ring.z>0.0){

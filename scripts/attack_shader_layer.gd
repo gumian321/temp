@@ -19,6 +19,13 @@ var pooled_projectiles=0
 var projectile_geometry_builds=0
 var projectile_order=0
 var use_retained_projectiles=OS.get_environment("RBPEW_LEGACY_BULLET_DRAW")!="1"
+var use_hostile_geometry_batch=OS.get_environment("RBPEW_ENABLE_HOSTILE_GEOMETRY_BATCH")!="0" and OS.get_environment("RBPEW_LEGACY_HOSTILE_GEOMETRY_BATCH")!="1"
+var hostile_shape_meshes:Dictionary={}
+var hostile_shape_builds=0
+const MAX_HOSTILE_SHAPE_MESHES=128
+var use_hostile_instancing=OS.get_environment("RBPEW_LEGACY_HOSTILE_INSTANCING")!="1"
+var hostile_body_batch=preload("res://scripts/hostile_body_batch.gd").new()
+var repair_tether_batch=preload("res://scripts/repair_tether_batch.gd").new()
 const MAX_POOLED_PROJECTILES=96
 var muzzle_batch=preload("res://scripts/muzzle_batch.gd").new()
 var use_muzzle_batch=OS.get_environment("RBPEW_LEGACY_MUZZLE_DRAW")!="1"
@@ -108,6 +115,11 @@ class Painter extends RefCounted:
 		batch.command_count+=1
 		if batch.trace:batch.commands.append([&"draw_triangle_array"])
 		RenderingServer.canvas_item_add_triangle_array(batch.rid,indices,points,colors,uvs)
+	func draw_mesh(mesh:ArrayMesh):
+		if flight_open:owner_layer.flight_batch.interrupt(self)
+		batch.command_count+=1
+		if batch.trace:batch.commands.append([&"draw_mesh"])
+		RenderingServer.canvas_item_add_mesh(batch.rid,mesh.get_rid())
 	func draw_colored_polygon(points: PackedVector2Array,color: Color):
 		if flight_open:owner_layer.flight_batch.interrupt(self)
 		batch.command_count+=1
@@ -186,8 +198,11 @@ func attach(canvas: Node2D):
 	foreground_painter.source=canvas;foreground_painter.batch=front;foreground_painter.texture_batch=front
 	muzzle_batch.setup(materials)
 	flight_batch.setup(materials)
+	repair_tether_batch.setup(materials)
 
 func begin_frame(time: float):
+	repair_tether_batch.begin_frame()
+	hostile_body_batch.begin_frame()
 	batch_muzzles_this_frame=false
 	batch_flights_this_frame=false;flight_batch.begin_frame()
 	muzzle_batch.begin_frame();queue_redraw()
@@ -215,12 +230,18 @@ func begin_frame(time: float):
 
 func paint_retained_projectile(painter:Painter,id:int,cue:Dictionary,at:Vector2,heading:float,build:Callable)->bool:
 	if not use_retained_projectiles or trace_commands or id<=0:return false
+	if use_hostile_geometry_batch and use_hostile_instancing:
+		var mesh=hostile_shape_mesh(painter,cue,build)
+		if mesh!=null:
+			if retained_projectiles.has(id):retained_projectiles[id].painter.batch.dispose();retained_projectiles.erase(id)
+			hostile_body_batch.append(painter,mesh,Transform2D(heading,at),projectile_order)
+			projectile_order+=1;return true
 	var entry:Dictionary=retained_projectiles.get(id,{})
 	var extent:Vector2=cue.size
-	if not entry.is_empty() and (entry.family!=painter.shader_family or entry.extent!=extent):
+	if not entry.is_empty() and (entry.family!=painter.shader_family or entry.extent!=extent or bool(entry.get("geometry_batched",false))!=use_hostile_geometry_batch):
 		entry.painter.batch.dispose();retained_projectiles.erase(id);entry={}
 	if entry.is_empty():
-		var shape=[painter.shader_family,extent]
+		var shape=[painter.shader_family,extent,true] if use_hostile_geometry_batch else [painter.shader_family,extent]
 		var pool:Array=projectile_pool.get(shape,[])
 		if not pool.is_empty():
 			entry=pool.pop_back();pooled_projectiles-=1
@@ -228,8 +249,13 @@ func paint_retained_projectile(painter:Painter,id:int,cue:Dictionary,at:Vector2,
 		else:
 			var batch=Batch.new();batch.setup(painter.batch.rid,painter.batch.material,0)
 			var cached=Painter.new();cached.batch=batch;cached.texture_batch=batch;cached.source=source
-			build.call(cached,Vector2.ZERO,0.0,cue)
-			entry={"painter":cached,"shape":shape,"family":painter.shader_family,"extent":extent,"transform":Transform2D.IDENTITY,"used":false,"visible":true,"order":-1}
+			var retained_mesh:ArrayMesh
+			if use_hostile_geometry_batch:
+				retained_mesh=hostile_shape_mesh(painter,cue,build)
+				if retained_mesh!=null:cached.draw_mesh(retained_mesh)
+				else:build.call(cached,Vector2.ZERO,0.0,cue)
+			else:build.call(cached,Vector2.ZERO,0.0,cue)
+			entry={"painter":cached,"shape":shape,"family":painter.shader_family,"extent":extent,"transform":Transform2D.IDENTITY,"used":false,"visible":true,"order":-1,"geometry_batched":use_hostile_geometry_batch,"retained_mesh":retained_mesh}
 			projectile_geometry_builds+=1
 		retained_projectiles[id]=entry
 	var transform=Transform2D(heading,at)
@@ -241,7 +267,18 @@ func paint_retained_projectile(painter:Painter,id:int,cue:Dictionary,at:Vector2,
 	if not entry.visible:RenderingServer.canvas_item_set_visible(entry.painter.batch.rid,true);entry.visible=true
 	return true
 
+func hostile_shape_mesh(painter:Painter,cue:Dictionary,build:Callable)->ArrayMesh:
+	var key=[painter.shader_family,cue.size,build]
+	if not hostile_shape_meshes.has(key):
+		var compiled=preload("res://scripts/retained_hostile_geometry.gd").new()
+		build.call(compiled,Vector2.ZERO,0.0,cue)
+		if hostile_shape_meshes.size()>=MAX_HOSTILE_SHAPE_MESHES:hostile_shape_meshes.erase(hostile_shape_meshes.keys()[0])
+		hostile_shape_meshes[key]=compiled.make_mesh() if compiled.valid else null;hostile_shape_builds+=1
+	return hostile_shape_meshes[key]
+
 func end_frame():
+	repair_tether_batch.finish()
+	hostile_body_batch.end_frame()
 	muzzle_batch.end_frame()
 	flight_batch.end_frame()
 	for entry in retained_projectiles.values():
@@ -284,6 +321,7 @@ static func foreground(canvas):
 	return painter
 
 func _exit_tree():
+	hostile_body_batch.dispose()
 	flight_batch.dispose()
 	muzzle_batch.dispose()
 	for entry in retained_projectiles.values():entry.painter.batch.dispose()
@@ -292,3 +330,4 @@ func _exit_tree():
 	retained_projectiles.clear();projectile_pool.clear()
 	for painter in batches.values():painter.batch.dispose()
 	if foreground_painter!=null:foreground_painter.batch.dispose()
+	repair_tether_batch.dispose()

@@ -15,6 +15,12 @@ const ELASTICITY = {"grub":Vector2(72,6.5),"beetle":Vector2(160,10),"moth":Vecto
 const MAX_OFFSET = 0.30
 static var rests:Dictionary={}
 static var use_constraint_certificate=true
+static var use_idle_clock_locals=OS.get_environment("RBPEW_LEGACY_SOFT_CLOCK")!="1"
+static var use_exact_rest_certificate=OS.get_environment("RBPEW_ENABLE_SOFT_SLEEP")=="1" and OS.get_environment("RBPEW_LEGACY_SOFT_SLEEP")!="1"
+static var use_visual_settling=OS.get_environment("RBPEW_ENABLE_VISUAL_SETTLING")=="1" and OS.get_environment("RBPEW_LEGACY_VISUAL_SETTLING")!="1"
+# This is below the <=1e-12 post-wake visual trajectory comparison budget.
+# It leaves real hit/push/pull feedback and all combat state untouched.
+const VISUAL_SETTLING_THRESHOLD=1e-14
 
 static func rest_points(species:String)->PackedVector2Array:
 	if rests.has(species):return rests[species]
@@ -222,19 +228,85 @@ static func _constrained_arrays(rest:PackedVector2Array,offsets:PackedVector2Arr
 	for i in offsets.size():offsets[i]=offsets[i].limit_length(MAX_OFFSET)
 	return [offsets,velocities]
 
+static func exact_rest_certificate(state:Dictionary)->bool:
+	# This is a numerical no-op proof, not an epsilon sleep. A once-hit body
+	# may retain lattice_active=true after every spring has reached exact zero.
+	# Keep that flag and all arrays unchanged, so a new impact wakes naturally.
+	if not use_constraint_certificate or not (float(state.get("constraint_margin_squared",0))>0):return false
+	if state.has("push_strain") or state.has("pull_strain"):return false
+	for key in ["hold","flash","shock","lean","lean_velocity","cue_cooldown"]:
+		if float(state.get(key,INF))!=0.0:return false
+	if Vector2(state.get("recoil",Vector2.INF))!=Vector2.ZERO or Vector2(state.get("recoil_velocity",Vector2.INF))!=Vector2.ZERO:return false
+	var peak=float(state.get("peak",-1.0))
+	if not is_finite(peak) or peak<0:return false
+	if not state.get("offset") is PackedVector2Array or not state.get("velocity") is PackedVector2Array or not state.get("rest") is PackedVector2Array:return false
+	var offsets:PackedVector2Array=state.offset;var velocities:PackedVector2Array=state.velocity
+	if offsets.size()!=REST.size() or velocities.size()!=REST.size() or state.rest.size()!=REST.size():return false
+	for i in offsets.size():
+		# length_squared() can underflow while a component is still nonzero.
+		if offsets[i]!=Vector2.ZERO or velocities[i]!=Vector2.ZERO:return false
+	return true
+
+static func settle_visual_rest(state:Dictionary)->bool:
+	if not state.get("lattice_active",true) or state.has("push_strain") or state.has("pull_strain"):return false
+	for key in ["hold","flash","cue_cooldown"]:
+		if float(state.get(key,INF))!=0.0:return false
+	var margin=float(state.get("constraint_margin_squared",0))
+	if not is_finite(margin) or margin<=VISUAL_SETTLING_THRESHOLD*VISUAL_SETTLING_THRESHOLD*2:return false
+	var peak=float(state.get("peak",-1.0))
+	if not is_finite(peak) or peak<0:return false
+	for key in ["shock","lean","lean_velocity"]:
+		if not (absf(float(state.get(key,INF)))<=VISUAL_SETTLING_THRESHOLD):return false
+	for key in ["recoil","recoil_velocity"]:
+		var value:Vector2=state.get(key,Vector2.INF)
+		if not (absf(value.x)<=VISUAL_SETTLING_THRESHOLD and absf(value.y)<=VISUAL_SETTLING_THRESHOLD):return false
+	if not state.get("offset") is PackedVector2Array or not state.get("velocity") is PackedVector2Array or not state.get("rest") is PackedVector2Array:return false
+	var offsets:PackedVector2Array=state.offset;var velocities:PackedVector2Array=state.velocity;var rest:PackedVector2Array=state.rest
+	if offsets.size()!=REST.size() or velocities.size()!=REST.size() or rest.size()!=REST.size():return false
+	# Validate every component before writing any of them. In particular, a
+	# single still-moving bone must retain the entire original spring state.
+	for i in offsets.size():
+		var offset:Vector2=offsets[i];var velocity:Vector2=velocities[i];var point:Vector2=rest[i]
+		if not (absf(offset.x)<=VISUAL_SETTLING_THRESHOLD and absf(offset.y)<=VISUAL_SETTLING_THRESHOLD and absf(velocity.x)<=VISUAL_SETTLING_THRESHOLD and absf(velocity.y)<=VISUAL_SETTLING_THRESHOLD):return false
+		if not is_finite(point.x) or not is_finite(point.y):return false
+	for row in 5:
+		var middle=row*3+1
+		if rest[middle-1].x>=rest[middle].x or rest[middle+1].x<=rest[middle].x:return false
+	for i in 12:
+		if rest[i+3].y<=rest[i].y:return false
+	# Only decayed cosmetic energy is discarded. Keep clocks, the historical
+	# peak, hit/cue identity and strength, contact/direction and physical state.
+	offsets.fill(Vector2.ZERO);velocities.fill(Vector2.ZERO)
+	state.offset=offsets;state.velocity=velocities
+	state.shock=0.0;state.recoil=Vector2.ZERO;state.recoil_velocity=Vector2.ZERO;state.lean=0.0;state.lean_velocity=0.0
+	state.lattice_active=false
+	return true
+
 static func step(e: Dictionary, dt: float):
 	if not Brood.eligible(e): return
 	prepare(e)
 	var state: Dictionary = e.soft_body
 	var remaining = clampf(dt,0,0.15)
+	if use_visual_settling:settle_visual_rest(state)
 	# Before the first hit the lattice, recoil and feedback are exactly zero.
 	# Keep the original substep clock additions (including their rounding), but
 	# skip spring arithmetic until impact, push or pull actually wakes the body.
-	if not state.get("lattice_active",true) and not state.has("push_strain") and not state.has("pull_strain"):
-		while remaining>0.00001:
-			var h=minf(remaining,1.0/120.0)
-			state.clock+=h;state.pose_clock+=h;state.cue_age+=h
-			remaining-=h
+	var inactive=not state.get("lattice_active",true)
+	if not inactive and use_exact_rest_certificate:inactive=exact_rest_certificate(state)
+	if inactive and not state.has("push_strain") and not state.has("pull_strain"):
+		if use_idle_clock_locals:
+			# Preserve every substep addition and its rounding. There are no
+			# callbacks in the equilibrium loop that can observe interim writes.
+			var clock:float=state.clock;var pose_clock:float=state.pose_clock;var cue_age:float=state.cue_age
+			while remaining>0.00001:
+				var h=minf(remaining,1.0/120.0)
+				clock+=h;pose_clock+=h;cue_age+=h;remaining-=h
+			state.clock=clock;state.pose_clock=pose_clock;state.cue_age=cue_age
+		else:
+			while remaining>0.00001:
+				var h=minf(remaining,1.0/120.0)
+				state.clock+=h;state.pose_clock+=h;state.cue_age+=h
+				remaining-=h
 		return
 	var push_elapsed=0.0
 	var elastic: Vector2 = ELASTICITY[Brood.species(e)]

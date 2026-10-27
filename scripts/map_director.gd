@@ -23,6 +23,9 @@ var use_remote_orbits=true
 var orbit_activity_view=Rect2()
 var orbit_moves=0
 var remote_orbit_skips=0
+var use_orbit_observer_pruning=OS.get_environment("RBPEW_ENABLE_ORBIT_OBSERVER_PRUNING")!="0" and OS.get_environment("RBPEW_LEGACY_ORBIT_OBSERVER_PRUNING")!="1"
+var orbit_observers_total=0
+var orbit_observers_kept=0
 const REMOTE_ORBIT_INTERVAL=1.0/15.0
 
 func _init(run, defer_spawns: bool = false):
@@ -76,11 +79,13 @@ func update_grid(defer_spawns: bool = false):
 			var pos = grid + Vector2(x,y) * distance
 			pos += Vector2(signf(pos.x)*float(config.get("xOffset",0)), signf(pos.y)*float(config.get("yOffset",0)))
 			positions.append(pos)
+	var previous_actor_count=battle.enemies.size()
 	for pos in nodes.keys():
 		if pos not in positions:
 			var node: Dictionary = nodes[pos]
 			battle.enemies = battle.enemies.filter(func(e): return e.uid not in node.members)
 			nodes.erase(pos)
+	if battle.enemies.size()!=previous_actor_count:battle.reindex_entity_hints()
 	pending_nodes.clear()
 	for pos in positions:
 		if not nodes.has(pos) and not destroyed_nodes.has(pos): pending_nodes.append(pos)
@@ -130,8 +135,12 @@ func prepare_actor():
 	if not nodes.has(job.node.key) or not is_same(nodes[job.node.key],job.node):actor_jobs.pop_front();return
 	var prefab:String=db.pool.get(str(job.type),"")
 	var point:Vector2=job.node.position+Vector2(job.offset)
-	if not battle.terrain.prepare_placement(job.placement,point,battle.formation_radius(prefab)):return
+	var measured=Time.get_ticks_usec() if battle.profile_enabled or battle.diagnostic_profile else 0
+	var ready=battle.terrain.prepare_placement(job.placement,point,battle.formation_radius(prefab))
+	if battle.profile_enabled or battle.diagnostic_profile:measured=battle.mark_phase("map_placement",measured)
+	if not ready:return
 	run_actor_job(job,job.placement)
+	if battle.profile_enabled or battle.diagnostic_profile:battle.mark_phase("map_spawn",measured)
 	job.node.pending-=1;actor_jobs.pop_front()
 
 func weighted_asset(ids: Array, weight: String) -> Dictionary:
@@ -222,13 +231,19 @@ func step(dt: float):
 		var alive = node.objectives.any(func(uid): return battle.entity(uid).get("hp",0)>0)
 		if not alive:
 			destroyed_nodes[node.key] = true
+			if node.has("center_sprite"):
+				node.erase("center_sprite")
+				battle.explosion(node.position, 110.0, 0.65, "impact")
 			if node.type in [103,105]:battle.statistics.stat_StationsDestroyed=int(battle.statistics.get("stat_StationsDestroyed",0))+1
 			if node.type == 103:
 				for i in range(2): battle.loot.append({"position":node.position,"value":0,"pack":true,"rarity":1+int(node.threat),"pack_ids":node.reward_ids})
+	var orbit_started=Time.get_ticks_usec() if battle.profile_enabled or battle.diagnostic_profile else 0
 	step_orbits(dt)
+	if battle.profile_enabled or battle.diagnostic_profile:battle.mark_phase("map_orbits",orbit_started)
 
 func step_orbits(dt:float):
 	orbit_moves=0;remote_orbit_skips=0
+	orbit_observers_total=0;orbit_observers_kept=0
 	var reduced=use_remote_orbits and battle.cave_enabled() and orbit_activity_view.has_area()
 	var active_radius=2500.0
 	var observers:Array=[]
@@ -239,10 +254,10 @@ func step_orbits(dt:float):
 			var reach=db.range_units(core.get("turretRange",1))*48.0*(1+player.stats.get("17" if i==0 else "3",0.0)+player.upgrade_bonus(core.id,"RangePercent"))
 			active_radius=maxf(active_radius,player.head.distance_to(player.parts[i].position)+reach+1024)
 		for actor in battle.enemies:
-			if actor.role=="friendly" and actor.hp>0:observers.append(Vector3(actor.position.x,actor.position.y,1800))
-		for drone in battle.drones:observers.append(Vector3(drone.position.x,drone.position.y,1800))
-		for bullet in battle.bullets:observers.append(Vector3(bullet.position.x,bullet.position.y,1024))
-		for hole in battle.special.black_holes:observers.append(Vector3(hole.position.x,hole.position.y,float(hole.radius)+512))
+			if actor.role=="friendly" and actor.hp>0:append_orbit_observer(observers,Vector3(actor.position.x,actor.position.y,1800),active_radius)
+		for drone in battle.drones:append_orbit_observer(observers,Vector3(drone.position.x,drone.position.y,1800),active_radius)
+		for bullet in battle.bullets:append_orbit_observer(observers,Vector3(bullet.position.x,bullet.position.y,1024),active_radius)
+		for hole in battle.special.black_holes:append_orbit_observer(observers,Vector3(hole.position.x,hole.position.y,float(hole.radius)+512),active_radius)
 	for actor in battle.enemies:
 		if actor.get("orbit_speed",0) != 0:
 			actor.orbit_offset = Vector2(actor.orbit_offset).rotated(actor.orbit_speed*dt)
@@ -268,3 +283,15 @@ func step_orbits(dt:float):
 			battle.move_actor(actor,actor.origin+actor.orbit_offset)
 			actor.angle+=actor.orbit_speed*dt
 			orbit_moves+=1
+
+func append_orbit_observer(observers:Array,observer:Vector3,active_radius:float):
+	orbit_observers_total+=1
+	# Every remote candidate already lies outside the head's activity disk.
+	# An observer strictly inside that disk cannot bring it back into range.
+	# Use the original float32 observer center and a generous 4px guard;
+	# unusual scales/coordinates retain the complete original observation set.
+	var head:Vector2=player.head
+	if use_orbit_observer_pruning and active_radius>0 and active_radius<=16384 and observer.z>=0 and observer.z<=16384 and head.abs().x<32768 and head.abs().y<32768 and absf(observer.x)<32768 and absf(observer.y)<32768:
+		var inner=active_radius-float(observer.z)-4.0
+		if inner>0 and head.distance_squared_to(Vector2(observer.x,observer.y))<inner*inner:return
+	observers.append(observer);orbit_observers_kept+=1

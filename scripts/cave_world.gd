@@ -12,17 +12,79 @@ const NAV_CELLS_PER_FRAME = 48
 const NAV_PREPARE_USEC=1200
 const LOCAL_NAV_RANGE=1536.0
 const ContourMesh = preload("res://scripts/cave_contour_mesh.gd")
+const NativeSweep=preload("res://scripts/cave_sweep_accelerator.gd")
+const NativeOverlapCache=preload("res://scripts/cave_overlap_cache.gd")
+var use_native_sweep=OS.get_environment("RBPEW_ENABLE_NATIVE_CAVE_SWEEP")=="1" and OS.get_environment("RBPEW_LEGACY_NATIVE_CAVE_SWEEP")!="1"
+const NATIVE_OVERLAP_MIN_RADIUS=64.0
+var use_native_overlap=OS.get_environment("RBPEW_ENABLE_NATIVE_OVERLAP")=="1" and OS.get_environment("RBPEW_LEGACY_NATIVE_OVERLAP")!="1"
+var use_wide_near_contact=OS.get_environment("RBPEW_ENABLE_WIDE_NEAR_CONTACT")=="1" and OS.get_environment("RBPEW_LEGACY_WIDE_NEAR_CONTACT")!="1"
+var native_accel=NativeSweep.new()
+var native_available=false
+var native_overlap_cache=NativeOverlapCache.new()
+
+func _init():
+	if use_native_sweep or use_native_overlap:native_available=native_accel.ready()
 static var empty_shape={"pieces":[],"outline":PackedVector2Array()}
 var enabled = false
 var seed_value = 20261020
 var chunks: Dictionary = {}
 var geometry: Dictionary = {}
+var geometry_hits=0
+var geometry_misses=0
+var geometry_empty_misses=0
+var geometry_mask_zero=0
+var geometry_mask_full=0
+var geometry_mask_mixed=0
+var geometry_evictions=0
+var geometry_eviction_batches=0
 var collision_rows: Dictionary = {}
+var collision_row_hits=0
+var collision_row_misses=0
+var collision_row_evictions=0
+const COLLISION_BLOCK_LIMIT=2048
+var use_collision_blocks=OS.get_environment("RBPEW_LEGACY_COLLISION_BLOCKS")!="1"
+var collision_blocks:Dictionary={}
+var collision_block_ring:Array=[]
+var collision_block_cursor=0
+var collision_block_revision=-1
+var collision_block_hits=0
+var collision_block_misses=0
+var collision_fragment_hits=0
+var collision_fragment_misses=0
+var collision_block_evictions=0
 var sweep_neighborhoods: Dictionary = {}
 var sweep_neighborhood_order: Array = []
 const SWEEP_NEIGHBORHOOD_LIMIT=512
 const LOCAL_SWEEP_DISTANCE=8.0
+const EXTENDED_SWEEP_DISTANCE=32.0
+var use_extended_sweeps=OS.get_environment("RBPEW_LEGACY_EXTENDED_SWEEPS")!="1"
+var extended_sweeps=0
+var sweep_neighborhood_grows=0
+var use_near_contact_probe=OS.get_environment("RBPEW_ENABLE_NEAR_CONTACT_PROBE")!="0" and OS.get_environment("RBPEW_LEGACY_NEAR_CONTACT_PROBE")!="1"
+var near_contact_probes=0
+var near_contact_hits=0
+var near_contact_fallbacks=0
 const SWEEP_NEIGHBORHOOD_STEP=8.0
+const SWEEP_RESULT_LIMIT=1024
+var use_sweep_result_cache=OS.get_environment("RBPEW_LEGACY_SWEEP_RESULTS")!="1"
+var sweep_results:Dictionary={}
+var sweep_result_ring:Array=[]
+var sweep_result_cursor=0
+var sweep_result_revision=-1
+var sweep_result_mode=-1
+var sweep_result_hits=0
+var sweep_result_misses=0
+var use_sweep_local_invalidation=OS.get_environment("RBPEW_LEGACY_SWEEP_LOCAL_INVALIDATION")!="1"
+var sweep_result_invalidations=0
+const RECOVERY_RESULT_LIMIT=512
+var use_recovery_cache=OS.get_environment("RBPEW_LEGACY_RECOVERY_CACHE")!="1"
+var recovery_results:Dictionary={}
+var recovery_ring:Array=[]
+var recovery_cursor=0
+var recovery_revision=-1
+var recovery_hits=0
+var recovery_misses=0
+var recovery_invalidations=0
 var use_sweep_neighborhoods=true
 var legacy_regions: Dictionary = {}
 var patch_versions:Dictionary={}
@@ -34,9 +96,31 @@ var use_sweep_clipping=true
 var use_clearance_cache=true
 var clear_points:Dictionary={}
 var clear_point_count=0
+const WALL_OVERLAP_MEMO_LIMIT=2048
+var use_wall_overlap_memo=OS.get_environment("RBPEW_ENABLE_WALL_OVERLAP_MEMO")=="1" and OS.get_environment("RBPEW_LEGACY_WALL_OVERLAP_MEMO")!="1"
+var wall_overlap_memo:Dictionary={}
+var wall_overlap_ring:Array=[]
+var wall_overlap_cursor=0
+var wall_overlap_revision=-1
+var wall_overlap_hits=0
+var wall_overlap_misses=0
+var wall_overlap_invalidations=0
+const MATERIAL_CERTIFICATE_LIMIT=4096
+const MATERIAL_CERTIFICATE_STEP=8.0
+var use_material_certificates=OS.get_environment("RBPEW_LEGACY_MATERIAL_CERTIFICATES")!="1"
+var material_certificates:Dictionary={}
+var material_certificate_ring:Array=[]
+var material_certificate_cursor=0
+var material_certificate_revision=-1
+var material_certificate_hits=0
+var material_certificate_misses=0
+var material_certificate_builds=0
 var room_cache: Dictionary = {}
 var nav_grids: Dictionary = {}
 var nav_open: Dictionary = {}
+var nav_clear_certificates:Dictionary={}
+var nav_clear_certificate_revision=-1
+var nav_clear_certificate_checks=0
 var revision = 0
 var mining_active = false
 var mining_point = Vector2.ZERO
@@ -46,6 +130,8 @@ var events: Array = []
 var loot_events: Array = []
 var removed_count = 0
 var ore_total = 0
+const ORE_HARD_WALL_MARGIN = 40.0
+var ore_clearance: Dictionary = {}
 var nav_budget_active = false
 var nav_replans = 0
 var nav_serial = 0
@@ -56,6 +142,20 @@ var nav_ticket_serial = 0
 var nav_ticket_head = 0
 var nav_frame = 0
 var nav_prepare_us=0
+var use_nav_row_skip=OS.get_environment("RBPEW_LEGACY_NAV_ROW_SKIP")!="1"
+var nav_scanned_cells=0
+var nav_skipped_cells=0
+var nav_skipped_rows=0
+var nav_row_tests=0
+var nav_ready_rebuilds=0
+var use_local_nav_invalidation=OS.get_environment("RBPEW_LEGACY_NAV_INVALIDATION")!="1"
+var navigation_dirty_cells=Rect2i()
+var nav_invalidation_calls=0
+var nav_invalidation_cells=0
+var nav_invalidation_clear_kept=0
+var nav_invalidation_outside_kept=0
+var nav_invalidation_grids_unchanged=0
+var nav_invalidation_fragile_clear=0
 
 class ContourEdge extends RefCounted:
 	var a:Vector2
@@ -72,17 +172,31 @@ func reset_cave(active: bool, world_seed: int = 20261020):
 	enabled = active
 	seed_value = world_seed
 	chunks.clear(); geometry.clear(); collision_rows.clear(); legacy_regions.clear(); room_cache.clear(); nav_grids.clear(); nav_open.clear()
+	nav_clear_certificates.clear();nav_clear_certificate_revision=-1;nav_clear_certificate_checks=0
+	geometry_hits=0;geometry_misses=0;geometry_empty_misses=0;geometry_mask_zero=0;geometry_mask_full=0;geometry_mask_mixed=0;geometry_evictions=0;geometry_eviction_batches=0
+	collision_row_hits=0;collision_row_misses=0;collision_row_evictions=0;collision_block_evictions=0
+	clear_collision_blocks();collision_block_hits=0;collision_block_misses=0;collision_fragment_hits=0;collision_fragment_misses=0
 	sweep_neighborhoods.clear();sweep_neighborhood_order.clear()
+	extended_sweeps=0;sweep_neighborhood_grows=0
+	near_contact_probes=0;near_contact_hits=0;near_contact_fallbacks=0
+	clear_sweep_results();sweep_result_hits=0;sweep_result_misses=0;sweep_result_invalidations=0
+	clear_recovery_results();recovery_hits=0;recovery_misses=0;recovery_invalidations=0
 	patch_versions.clear()
 	free_regions.clear()
 	free_radii.clear()
 	blocked_free_regions.clear()
 	clear_points.clear();clear_point_count=0
+	clear_wall_overlap_memo();wall_overlap_hits=0;wall_overlap_misses=0;wall_overlap_invalidations=0
+	native_overlap_cache.clear();native_overlap_cache.hits=0;native_overlap_cache.misses=0;native_overlap_cache.invalidations=0
+	clear_material_certificates();material_certificate_hits=0;material_certificate_misses=0;material_certificate_builds=0
 	cache.clear(); events.clear(); loot_events.clear()
 	revision = 0; removed_count = 0; ore_total = 0; bite_timer = 0; bite_serial = 0
+	ore_clearance.clear()
 	nav_budget_active = false; nav_replans = 0; nav_serial = 0
 	nav_cells_left = NAV_CELLS_PER_FRAME
 	nav_clock_ms = 0
+	nav_scanned_cells=0;nav_skipped_cells=0;nav_skipped_rows=0;nav_row_tests=0;nav_ready_rebuilds=0
+	navigation_dirty_cells=Rect2i();nav_invalidation_calls=0;nav_invalidation_cells=0;nav_invalidation_clear_kept=0;nav_invalidation_outside_kept=0;nav_invalidation_grids_unchanged=0;nav_invalidation_fragile_clear=0
 	nav_waiting.clear(); nav_ticket_serial = 0; nav_ticket_head = 0; nav_frame = 0
 	mining_active = false
 
@@ -161,6 +275,27 @@ func solid(cell: Vector2i) -> bool:
 	return chunk_at(chunk_id(cell)).solid[cell_index(cell)] != 0
 
 func ore(cell: Vector2i) -> int:
+	var kind = original_ore(cell)
+	if kind == 0 or not enabled: return kind
+	if ore_clearance.has(cell): return ore_clearance[cell]
+	# Legacy dark walls cannot be excavated. Reserve their whole painted
+	# footprint, plus a mining head and the cell's fractured contour, before
+	# assigning ore. Rendering, hardness and rewards all read this same field.
+	var center = (Vector2(cell) + Vector2.ONE * 0.5) * CELL
+	var margin = CELL * 0.75 + ORE_HARD_WALL_MARGIN
+	for pit in nearby(Rect2(center, Vector2.ZERO).grow(margin)):
+		var local = (center - Vector2(pit.at)).rotated(-float(pit.angle)).abs()
+		var half = SIZE * float(pit.scale) * 0.5 + Vector2.ONE * margin
+		if local.x <= half.x and local.y <= half.y:
+			kind = 0
+			break
+	if ore_clearance.size() >= 4096:
+		var oldest = ore_clearance.keys()
+		for i in 128: ore_clearance.erase(oldest[i])
+	ore_clearance[cell] = kind
+	return kind
+
+func original_ore(cell: Vector2i) -> int:
 	# The first deposit is visible from the starting chamber.
 	if cell.x >= 14 and cell.x <= 16 and absi(cell.y) <= 2: return 1
 	var block = Vector2i((Vector2(cell) / 12.0).floor())
@@ -190,7 +325,8 @@ func cave_piece(polygon: PackedVector2Array) -> Dictionary:
 	return {"polygon": polygon, "normals": normals, "bounds": bounds, "miter": 1.0, "cave_piece": true}
 
 func cell_shape(cell: Vector2i) -> Dictionary:
-	if geometry.has(cell): return geometry[cell]
+	if geometry.has(cell):geometry_hits+=1;return geometry[cell]
+	geometry_misses+=1
 	var mask = 0
 	var local_x=posmod(cell.x,CHUNK);var local_y=posmod(cell.y,CHUNK)
 	if local_x>0 and local_x<CHUNK-1 and local_y>0 and local_y<CHUNK-1:
@@ -203,11 +339,16 @@ func cell_shape(cell: Vector2i) -> Dictionary:
 		for y in 3:
 			for x in 3:
 				if solid(cell + Vector2i(x - 1, y - 1)): mask |= 1 << (y * 3 + x)
+	if mask==0:geometry_mask_zero+=1
+	elif mask==511:geometry_mask_full+=1
+	else:geometry_mask_mixed+=1
 	var source = ContourMesh.fractured_template(mask, cell, seed_value)
 	if source.pieces.is_empty():
+		geometry_empty_misses+=1
 		if geometry.size()>=12000:
 			var oldest=geometry.keys()
 			for i in 128:geometry.erase(oldest[i])
+			geometry_evictions+=128;geometry_eviction_batches+=1
 		geometry[cell]=empty_shape
 		return empty_shape
 	var corners = PackedVector2Array([vertex(cell), vertex(cell + Vector2i.RIGHT), vertex(cell + Vector2i.ONE), vertex(cell + Vector2i.DOWN)])
@@ -221,6 +362,7 @@ func cell_shape(cell: Vector2i) -> Dictionary:
 	if geometry.size() >= 12000:
 		var oldest = geometry.keys()
 		for i in 128: geometry.erase(oldest[i])
+		geometry_evictions+=128;geometry_eviction_batches+=1
 	geometry[cell] = result
 	return result
 
@@ -288,28 +430,124 @@ func collision_row(y: int, left: int, right: int) -> Array:
 	# Only the exposed contour can stop an outside body. Interior tessellation
 	# edges are for rendering/penetration recovery, not a second physical wall.
 	var key = Vector3i(left, right, y)
-	if collision_rows.has(key): return collision_rows[key]
+	if collision_rows.has(key):collision_row_hits+=1;return collision_rows[key]
+	collision_row_misses+=1
 	var edges: Array = []
-	for x in range(left, right + 1):
-		var outline: PackedVector2Array = cell_shape(Vector2i(x, y)).outline
-		for i in range(0, outline.size(), 2):
-			var a = outline[i]; var b = outline[i + 1]; var delta = b - a
-			var edge=ContourEdge.new(a,Vector2i(x,y))
-			edge.b=b;edge.delta=delta;edge.length_squared=delta.length_squared()
-			edge.normal=Vector2(delta.y,-delta.x).normalized();edge.bounds=Rect2(a,Vector2.ZERO).expand(b)
-			edges.append(edge)
+	if use_collision_blocks:edges=collision_fragments(y,left,right)
+	else:
+		for x in range(left, right + 1):
+			var outline: PackedVector2Array = cell_shape(Vector2i(x, y)).outline
+			for i in range(0, outline.size(), 2):
+				var a = outline[i]; var b = outline[i + 1]; var delta = b - a
+				var edge=ContourEdge.new(a,Vector2i(x,y))
+				edge.b=b;edge.delta=delta;edge.length_squared=delta.length_squared()
+				edge.normal=Vector2(delta.y,-delta.x).normalized();edge.bounds=Rect2(a,Vector2.ZERO).expand(b)
+				edges.append(edge)
 	if collision_rows.size() >= 2048:
 		var oldest = collision_rows.keys()
 		for i in 128: collision_rows.erase(oldest[i])
+		collision_row_evictions+=128
 	collision_rows[key] = edges
 	return edges
 
+func clear_collision_blocks():
+	collision_blocks.clear();collision_block_ring.clear();collision_block_cursor=0;collision_block_revision=-1
+
+func collision_fragments(y:int,left:int,right:int)->Array:
+	# Nearby orbit/sweep queries often shift one end of the same row. Reuse
+	# immutable edges per cell instead of rebuilding them for every x range.
+	# Fill only requested cells; a small query never prewarms a whole block.
+	if collision_block_revision!=revision:clear_collision_blocks();collision_block_revision=revision
+	var edges:Array=[]
+	for bx in range(floori(float(left)/CHUNK),floori(float(right)/CHUNK)+1):
+		var key=Vector2i(bx,y)
+		var version:int=chunk_at(Vector2i(bx,floori(float(y)/CHUNK))).version
+		var entry:Dictionary
+		if collision_blocks.has(key):
+			entry=collision_blocks[key];collision_block_hits+=1
+			if int(entry.version)!=version:entry.cells.clear();entry.version=version
+		else:
+			collision_block_misses+=1;entry={"version":version,"cells":{}}
+			if collision_block_ring.size()==COLLISION_BLOCK_LIMIT:
+				collision_blocks.erase(collision_block_ring[collision_block_cursor]);collision_block_ring[collision_block_cursor]=key;collision_block_cursor=(collision_block_cursor+1)%COLLISION_BLOCK_LIMIT
+				collision_block_evictions+=1
+			else:collision_block_ring.append(key)
+			collision_blocks[key]=entry
+		for x in range(maxi(left,bx*CHUNK),mini(right,(bx+1)*CHUNK-1)+1):
+			var local=x-bx*CHUNK
+			if entry.cells.has(local):collision_fragment_hits+=1
+			else:
+				collision_fragment_misses+=1
+				var fragments:Array=[]
+				var outline:PackedVector2Array=cell_shape(Vector2i(x,y)).outline
+				for i in range(0,outline.size(),2):
+					var a=outline[i];var b=outline[i+1];var delta=b-a
+					var edge=ContourEdge.new(a,Vector2i(x,y))
+					edge.b=b;edge.delta=delta;edge.length_squared=delta.length_squared()
+					edge.normal=Vector2(delta.y,-delta.x).normalized();edge.bounds=Rect2(a,Vector2.ZERO).expand(b)
+					fragments.append(edge)
+				entry.cells[local]=fragments
+			edges.append_array(entry.cells[local])
+	return edges
+
 func wall_blocked(point: Vector2, radius: float = 0.0) -> bool:
+	if use_wall_overlap_memo and enabled and radius>=64 and radius<=512:
+		# The existing monotonic empty-footprint cache already answers these.
+		# Reserve the bounded new memo for expensive blocked decisions.
+		if use_clearance_cache and clear_points.has(radius) and clear_points[radius].has(point):return false
+		return memoized_wall_blocked(point,radius)
+	return wall_blocked_uncached(point,radius)
+
+func clear_wall_overlap_memo():
+	wall_overlap_memo.clear();wall_overlap_ring.clear();wall_overlap_cursor=0;wall_overlap_revision=-1
+
+func memoized_wall_blocked(point:Vector2,radius:float)->bool:
+	# Orbit guards often stay at the identical wall contact while their desired
+	# point rotates. Reuse the complete overlap decision, including its filled
+	# center test, only for an identical point and full-precision radius.
+	if wall_overlap_revision!=revision:
+		clear_wall_overlap_memo();wall_overlap_revision=revision
+	if wall_overlap_memo.has(radius) and wall_overlap_memo[radius].has(point):
+		var cached:Dictionary=wall_overlap_memo[radius][point]
+		if cached.valid:wall_overlap_hits+=1;return cached.blocked
+	wall_overlap_misses+=1
+	var result=wall_blocked_uncached(point,radius)
+	if not result:
+		if wall_overlap_memo.has(radius) and wall_overlap_memo[radius].has(point):wall_overlap_memo[radius][point].valid=false
+		return false
+	if wall_overlap_memo.has(radius) and wall_overlap_memo[radius].has(point):
+		var cached:Dictionary=wall_overlap_memo[radius][point]
+		cached.blocked=result;cached.valid=true
+		return result
+	var low=Vector2i(((point-Vector2.ONE*(radius+6))/CELL).floor())
+	var high=Vector2i(((point+Vector2.ONE*(radius+6))/CELL).floor())
+	var entry={"radius":radius,"point":point,"blocked":result,"valid":true,"bounds":Rect2i(low,high-low+Vector2i.ONE)}
+	if wall_overlap_ring.size()==WALL_OVERLAP_MEMO_LIMIT:
+		var old:Dictionary=wall_overlap_ring[wall_overlap_cursor];wall_overlap_memo[old.radius].erase(old.point)
+		if wall_overlap_memo[old.radius].is_empty():wall_overlap_memo.erase(old.radius)
+		wall_overlap_ring[wall_overlap_cursor]=entry;wall_overlap_cursor=(wall_overlap_cursor+1)%WALL_OVERLAP_MEMO_LIMIT
+	else:wall_overlap_ring.append(entry)
+	if not wall_overlap_memo.has(radius):wall_overlap_memo[radius]={}
+	wall_overlap_memo[radius][point]=entry
+	return result
+
+func invalidate_wall_overlap_memo(changed:Rect2i):
+	# The original center and radius boundary tests only read this inclusive
+	# cell rectangle. A changed contour outside it cannot affect the result.
+	# Keep negative results under the same rule: floating-point contour rebuilds
+	# near an edit retain the original solver's exact tangent decisions.
+	if wall_overlap_revision!=revision-1:return
+	for entry:Dictionary in wall_overlap_ring:
+		if entry.valid and Rect2i(entry.bounds).intersects(changed):entry.valid=false;wall_overlap_invalidations+=1
+	wall_overlap_revision=revision
+
+func wall_blocked_uncached(point: Vector2, radius: float = 0.0) -> bool:
 	if not enabled: return false
 	# Rock only shrinks between resets. A previously clear exact footprint
 	# remains clear, including a head/guard held at the same wall contact.
 	# Keep radius as a full-precision dictionary key, not a quantized Vector3.
 	if use_clearance_cache and clear_points.has(radius) and clear_points[radius].has(point):return false
+	if use_material_certificates and radius>=1 and material_certificate_overlaps(point,radius):return true
 	# A center already inside rock is blocked even when its entire query lies
 	# deep inside a solid region, far from the external contour.
 	var center_low = Vector2i(((point - Vector2.ONE * 6) / CELL).floor())
@@ -317,21 +555,113 @@ func wall_blocked(point: Vector2, radius: float = 0.0) -> bool:
 	for y in range(center_low.y, center_high.y + 1):
 		for x in range(center_low.x, center_high.x + 1):
 			for piece in cell_shape(Vector2i(x, y)).pieces:
-				if contains(piece, point, 0): return true
+				if contains(piece, point, 0):
+					if use_material_certificates and radius>=1:store_material_certificate(point,Vector2i(x,y),point)
+					return true
 	if radius > 0:
-		var low = Vector2i(((point - Vector2.ONE * (radius + 6)) / CELL).floor())
-		var high = Vector2i(((point + Vector2.ONE * (radius + 6)) / CELL).floor())
-		for y in range(low.y, high.y + 1):
-			for item:ContourEdge in collision_row(y, low.x, high.x):
-				if item.bounds.grow(radius).has_point(point) and Geometry2D.get_closest_point_to_segment(point, item.a, item.b).distance_squared_to(point) <= radius * radius: return true
+		var boundary_clear=false
+		if use_native_overlap and native_available and radius>=NATIVE_OVERLAP_MIN_RADIUS:
+			var native_result=native_overlap_cache.query(self,point,radius,native_accel)
+			if native_result>=0:
+				var item:ContourEdge=native_overlap_cache.matched_edge
+				var closest=Geometry2D.get_closest_point_to_segment(point,item.a,item.b)
+				if use_material_certificates and radius>=1:store_material_certificate(closest,item.cell,point,item.bounds)
+				return true
+			boundary_clear=native_result==-1
+		if not boundary_clear:
+			var low = Vector2i(((point - Vector2.ONE * (radius + 6)) / CELL).floor())
+			var high = Vector2i(((point + Vector2.ONE * (radius + 6)) / CELL).floor())
+			for y in range(low.y, high.y + 1):
+				for item:ContourEdge in collision_row(y, low.x, high.x):
+					if not item.bounds.grow(radius).has_point(point):continue
+					var closest=Geometry2D.get_closest_point_to_segment(point,item.a,item.b)
+					if closest.distance_squared_to(point)<=radius*radius:
+						if use_material_certificates and radius>=1:store_material_certificate(closest,item.cell,point,item.bounds)
+						return true
 	if use_clearance_cache:
 		if clear_point_count>=8192:clear_points.clear();clear_point_count=0
 		if not clear_points.has(radius):clear_points[radius]={}
 		clear_points[radius][point]=true;clear_point_count+=1
 	return false
 
+func clear_material_certificates():
+	material_certificates.clear();material_certificate_ring.clear();material_certificate_cursor=0;material_certificate_revision=-1
+
+func material_certificate_overlaps(point:Vector2,radius:float)->bool:
+	# A real rock point strictly inside this circle proves overlap, including
+	# neighboring positions and different radii. Borderline circles keep the
+	# original solver and its half-open Rect2 boundary behavior.
+	if material_certificate_revision!=revision:clear_material_certificates();material_certificate_revision=revision
+	var key=Vector2i((point/MATERIAL_CERTIFICATE_STEP).floor())
+	if material_certificates.has(key):
+		var witness:Dictionary=material_certificates[key]
+		# Vector2 math is float32 in the shipped engine. Leave several ULPs
+		# of room at distant coordinates rather than turning roundoff into a
+		# positive certificate for a tangent that the original solver rejects.
+		var skin=maxf(.002,maxf(absf(point.x),absf(point.y))*.000001)
+		var inside=radius-skin
+		if inside>0 and int(chunk_at(witness.chunk).version)==int(witness.version) and point.distance_squared_to(witness.point)<inside*inside and (not witness.has("bounds") or Rect2(witness.bounds).grow(radius).has_point(point)):
+			material_certificate_hits+=1;return true
+	material_certificate_misses+=1
+	return false
+
+func store_material_certificate(point:Vector2,cell:Vector2i,query:Vector2,bounds=null):
+	var key=Vector2i((query/MATERIAL_CERTIFICATE_STEP).floor())
+	var id=chunk_id(cell)
+	var entry={"point":point,"chunk":id,"version":chunk_at(id).version}
+	if bounds!=null:entry.bounds=bounds
+	material_certificate_builds+=1
+	if material_certificates.has(key):material_certificates[key]=entry;return
+	if material_certificate_ring.size()==MATERIAL_CERTIFICATE_LIMIT:
+		material_certificates.erase(material_certificate_ring[material_certificate_cursor]);material_certificate_ring[material_certificate_cursor]=key;material_certificate_cursor=(material_certificate_cursor+1)%MATERIAL_CERTIFICATE_LIMIT
+	else:material_certificate_ring.append(key)
+	material_certificates[key]=entry
+
 func blocked(point: Vector2, radius: float = 0.0) -> bool:
 	return wall_blocked(point, radius) or super.blocked(point, radius)
+
+func clear_sweep_results():
+	sweep_results.clear();sweep_result_ring.clear();sweep_result_cursor=0
+	sweep_result_revision=-1;sweep_result_mode=-1
+
+func movement_wall_hit(start: Vector2, finish: Vector2, radius: float) -> Dictionary:
+	# Large actors held against a cave wall often submit the exact same short
+	# sweep on successive ticks. Reuse only identical inputs and unchanged
+	# terrain; preserve the original solver, contact winner and caller ownership.
+	if not use_sweep_result_cache or not enabled or not (radius>=64 and radius<=512) or start.distance_squared_to(finish)>256:
+		return wall_hit(start,finish,radius)
+	var mode=int(use_sweep_clipping)+(int(use_sweep_neighborhoods)<<1)+(int(use_extended_sweeps)<<2)
+	if sweep_result_revision!=revision or sweep_result_mode!=mode:
+		clear_sweep_results();sweep_result_revision=revision;sweep_result_mode=mode
+	var key=Vector4(start.x,start.y,finish.x,finish.y)
+	if sweep_results.has(radius) and sweep_results[radius].has(key):
+		var cached:Dictionary=sweep_results[radius][key]
+		if cached.valid:sweep_result_hits+=1;return cached.hit.duplicate()
+	sweep_result_misses+=1
+	var result=wall_hit(start,finish,radius)
+	if sweep_results.has(radius) and sweep_results[radius].has(key):
+		var cached:Dictionary=sweep_results[radius][key]
+		cached.hit=result.duplicate();cached.valid=true
+		return result
+	var area=Rect2(start,Vector2.ZERO).expand(finish).grow(radius+6)
+	var low=Vector2i((area.position/CELL).floor());var high=Vector2i((area.end/CELL).floor())
+	var entry={"radius":radius,"key":key,"hit":result.duplicate(),"valid":true,"bounds":Rect2i(low,high-low+Vector2i.ONE)}
+	if sweep_result_ring.size()==SWEEP_RESULT_LIMIT:
+		var old:Dictionary=sweep_result_ring[sweep_result_cursor];sweep_results[old.radius].erase(old.key)
+		if sweep_results[old.radius].is_empty():sweep_results.erase(old.radius)
+		sweep_result_ring[sweep_result_cursor]=entry;sweep_result_cursor=(sweep_result_cursor+1)%SWEEP_RESULT_LIMIT
+	else:sweep_result_ring.append(entry)
+	if not sweep_results.has(radius):sweep_results[radius]={}
+	sweep_results[radius][key]=entry
+	return result
+
+func invalidate_sweep_results(changed:Rect2i):
+	if not use_sweep_local_invalidation or sweep_result_revision!=revision-1:return
+	# The original wall_hit cell AABB includes the full swept circle plus its
+	# contour jitter margin. Edits outside it cannot change any accepted hit.
+	for entry:Dictionary in sweep_result_ring:
+		if entry.valid and Rect2i(entry.bounds).intersects(changed):entry.valid=false;sweep_result_invalidations+=1
+	sweep_result_revision=revision
 
 func wall_hit(start: Vector2, finish: Vector2, radius: float = 0.0) -> Dictionary:
 	if not enabled: return {}
@@ -341,7 +671,12 @@ func wall_hit(start: Vector2, finish: Vector2, radius: float = 0.0) -> Dictionar
 	var delta:Vector2=finish-start
 	var squared:float=delta.length_squared()
 	if squared<0.0000000001:return {}
-	if use_sweep_neighborhoods and radius<=512 and squared<=LOCAL_SWEEP_DISTANCE*LOCAL_SWEEP_DISTANCE:
+	if use_near_contact_probe and radius>=1 and radius<=(512 if use_wide_near_contact else 64) and is_finite(squared) and squared>1024 and squared<=4096.0*4096.0 and start.abs().max(finish.abs()).x<32768 and start.abs().max(finish.abs()).y<32768:
+		var near=near_contact_hit(start,finish,radius,delta,squared)
+		if not near.is_empty():return near
+	var local_limit=EXTENDED_SWEEP_DISTANCE if use_extended_sweeps and radius>=64 else LOCAL_SWEEP_DISTANCE
+	if use_sweep_neighborhoods and radius<=512 and squared<=local_limit*local_limit:
+		if squared>LOCAL_SWEEP_DISTANCE*LOCAL_SWEEP_DISTANCE:extended_sweeps+=1
 		return local_wall_hit(start,finish,radius,delta,squared)
 	var query:Rect2=Rect2(start,Vector2.ZERO).expand(finish).grow(radius+.8)
 	var earliest:float=INF
@@ -385,10 +720,58 @@ func wall_hit(start: Vector2, finish: Vector2, radius: float = 0.0) -> Dictionar
 	var normal:Vector2=(position-contact).normalized() if radius>0 else closest.normal
 	return {"time":earliest,"normal":normal,"cell":closest.cell,"position":position}
 
+func near_contact_hit(start:Vector2,finish:Vector2,radius:float,delta:Vector2,squared:float)->Dictionary:
+	near_contact_probes+=1
+	var query=Rect2(start,Vector2.ZERO).expand(finish).grow(radius+.8)
+	var earliest:float=INF
+	var closest:ContourEdge
+	var edges=local_sweep_edges(start,radius,32.0)
+	if use_native_sweep and native_available and not edges.is_empty():
+		var result=_native_sweep_result(edges,start,delta,radius,32.0,query)
+		if not result.is_empty():
+			var index=int(result[0]);earliest=result[1]
+			if index>=0 and earliest>=0 and earliest*sqrt(squared)<24.0:
+				near_contact_hits+=1
+				return sweep_contact(edges[index],start,delta,earliest,radius)
+			near_contact_fallbacks+=1;return {}
+	# Preserve the original full sweep arithmetic and ascending tie order.
+	# The unused 8px ring keeps accepted contacts inside the cached neighborhood.
+	for edge:ContourEdge in edges:
+		if not edge.bounds.intersects(query):continue
+		var time=contour_time(edge,start,delta,squared,radius)
+		if time<earliest:earliest=time;closest=edge
+	if closest!=null and earliest>=0 and earliest*sqrt(squared)<24.0:
+		near_contact_hits+=1
+		var position=start+delta*earliest
+		var contact=Geometry2D.get_closest_point_to_segment(position,closest.a,closest.b)
+		var normal=(position-contact).normalized() if radius>0 else closest.normal
+		return {"time":earliest,"normal":normal,"cell":closest.cell,"position":position}
+	near_contact_fallbacks+=1
+	return {}
+
+func _native_sweep_result(edges:Array,start:Vector2,delta:Vector2,radius:float,distance:float,query:Rect2)->PackedFloat64Array:
+	var tile=Vector3i(floori(start.x/SWEEP_NEIGHBORHOOD_STEP),floori(start.y/SWEEP_NEIGHBORHOOD_STEP),int(distance))
+	if use_extended_sweeps and radius>=64 and distance>LOCAL_SWEEP_DISTANCE:tile.z=0
+	return native_accel.scan(edges,sweep_neighborhoods[radius][tile],start,delta,radius,query)
+
+func sweep_contact(edge:ContourEdge,start:Vector2,delta:Vector2,time:float,radius:float)->Dictionary:
+	var position:Vector2=start+delta*time
+	var contact:Vector2=Geometry2D.get_closest_point_to_segment(position,edge.a,edge.b)
+	var normal:Vector2=(position-contact).normalized() if radius>0 else edge.normal
+	return {"time":time,"normal":normal,"cell":edge.cell,"position":position}
+
 func local_sweep_edges(start:Vector2,radius:float,distance:float)->Array:
 	var tile=Vector3i(floori(start.x/SWEEP_NEIGHBORHOOD_STEP),floori(start.y/SWEEP_NEIGHBORHOOD_STEP),int(distance))
-	if sweep_neighborhoods.has(radius) and sweep_neighborhoods[radius].has(tile):return sweep_neighborhoods[radius][tile].edges
-	# Every <=8px sweep from this cell fits in this conservative disk. Retain
+	# Only the added 16/32px cases share a growable entry. Keep the existing
+	# tight 1/2/4/8px neighborhoods for ordinary movement and short slides.
+	var growable=use_extended_sweeps and radius>=64 and distance>LOCAL_SWEEP_DISTANCE
+	if growable:tile.z=0
+	var replacing=sweep_neighborhoods.has(radius) and sweep_neighborhoods[radius].has(tile)
+	if replacing:
+		var cached:Dictionary=sweep_neighborhoods[radius][tile]
+		if not growable or float(cached.distance)>=distance:return cached.edges
+		sweep_neighborhood_grows+=1
+	# Every sweep up to this bound fits in a conservative disk. Retain
 	# only edges that can intersect its moving circumference, in original order.
 	# Large boss footprints otherwise scan dozens of rows of irrelevant edges
 	# on every tiny slide along the same wall.
@@ -405,13 +788,13 @@ func local_sweep_edges(start:Vector2,radius:float,distance:float)->Array:
 			# entering contact. Penetration recovery still uses wall_blocked.
 			if inner>0 and center.distance_squared_to(edge.a)<inner*inner and center.distance_squared_to(edge.b)<inner*inner:continue
 			edges.append(edge)
-	if sweep_neighborhood_order.size()>=SWEEP_NEIGHBORHOOD_LIMIT:
+	if not replacing and sweep_neighborhood_order.size()>=SWEEP_NEIGHBORHOOD_LIMIT:
 		var oldest:Array=sweep_neighborhood_order.pop_front()
 		sweep_neighborhoods[oldest[0]].erase(oldest[1])
 		if sweep_neighborhoods[oldest[0]].is_empty():sweep_neighborhoods.erase(oldest[0])
 	if not sweep_neighborhoods.has(radius):sweep_neighborhoods[radius]={}
-	sweep_neighborhoods[radius][tile]={"edges":edges,"bounds":Rect2i(low,high-low+Vector2i.ONE)}
-	sweep_neighborhood_order.append([radius,tile])
+	sweep_neighborhoods[radius][tile]={"edges":edges,"bounds":Rect2i(low,high-low+Vector2i.ONE),"distance":distance}
+	if not replacing:sweep_neighborhood_order.append([radius,tile])
 	return edges
 
 func local_wall_hit(start:Vector2,finish:Vector2,radius:float,delta:Vector2,squared:float)->Dictionary:
@@ -419,7 +802,12 @@ func local_wall_hit(start:Vector2,finish:Vector2,radius:float,delta:Vector2,squa
 	var earliest:float=INF
 	var closest:ContourEdge
 	var distance=1.0 if squared<=1 else (2.0 if squared<=4 else (4.0 if squared<=16 else LOCAL_SWEEP_DISTANCE))
-	for edge:ContourEdge in local_sweep_edges(start,radius,distance):
+	if squared>64:distance=16.0 if squared<=256 else EXTENDED_SWEEP_DISTANCE
+	var edges=local_sweep_edges(start,radius,distance)
+	if use_native_sweep and native_available and not edges.is_empty():
+		var result=_native_sweep_result(edges,start,delta,radius,distance,query)
+		if not result.is_empty():return {} if result[0]<0 else sweep_contact(edges[int(result[0])],start,delta,result[1],radius)
+	for edge:ContourEdge in edges:
 		if not edge.bounds.intersects(query):continue
 		var time:float=contour_time(edge,start,delta,squared,radius)
 		if time<earliest:earliest=time;closest=edge
@@ -452,6 +840,7 @@ func contour_time(edge:ContourEdge,start:Vector2,delta:Vector2,squared:float,rad
 
 func move(start: Vector2, desired: Vector2, radius: float) -> Vector2:
 	if not enabled:return super.move(start,desired,radius)
+	if radius>64:return move_contour(start,desired,radius)
 	# A verified empty disk contains every straight motion between its points.
 	# Cache a conservative disk around a 16px cell, including a subpixel skin;
 	# open-space movement then needs no repeated overlap/sweep queries. Close
@@ -485,20 +874,11 @@ func move_contour(start:Vector2,desired:Vector2,radius:float)->Vector2:
 	var remaining = destination - start
 	# Consecutive slides at an irregular corner can end a fraction inside an
 	# adjacent expanded face. Resolve that tiny overlap before the next sweep.
-	if wall_blocked(point, radius):
-		var lip=separate_lip(point,radius)
-		if lip!=Vector2.INF:point=lip
-		else:
-			var shapes: Array = []
-			var low = Vector2i(((point - Vector2.ONE * (radius + CELL)) / CELL).floor())
-			var high = Vector2i(((point + Vector2.ONE * (radius + CELL)) / CELL).floor())
-			for y in range(low.y, high.y + 1):
-				for x in range(low.x, high.x + 1):shapes.append_array(cell_shape(Vector2i(x,y)).pieces)
-			var clear = safe_among(point, radius, shapes)
-			if point.distance_squared_to(clear) < CELL * CELL: point = clear
+	if wall_blocked(point,radius):
+		point=movement_recovery(point,radius,true) if use_recovery_cache and radius<=512 else recover_penetration(point,radius)
 	for iteration in 3:
 		if remaining.length_squared() < 0.0000001: break
-		var hit = wall_hit(point, point + remaining, radius)
+		var hit = movement_wall_hit(point,point+remaining,radius) if use_sweep_result_cache and radius>=64 and radius<=512 else wall_hit(point,point+remaining,radius)
 		if hit.is_empty(): point += remaining; break
 		var travel = maxf(0, float(hit.time) - 0.35 / maxf(0.35, remaining.length()))
 		point += remaining * travel
@@ -506,6 +886,57 @@ func move_contour(start:Vector2,desired:Vector2,radius:float)->Vector2:
 		var normal: Vector2 = hit.normal
 		remaining -= normal * minf(0, remaining.dot(normal))
 	return point
+
+func clear_recovery_results():
+	recovery_results.clear();recovery_ring.clear();recovery_cursor=0;recovery_revision=-1
+
+func movement_recovery(point:Vector2,radius:float,known_blocked:bool=false)->Vector2:
+	# Recovery depends on the exact starting footprint, not this frame's dt or
+	# intended displacement. An actor resting at a corner otherwise repeats
+	# the same filled-polygon recovery even when every sweep has a different end.
+	if recovery_revision!=revision:
+		clear_recovery_results();recovery_revision=revision
+	if recovery_results.has(radius) and recovery_results[radius].has(point):
+		var cached:Dictionary=recovery_results[radius][point]
+		if cached.valid:recovery_hits+=1;return cached.result
+	recovery_misses+=1
+	var result=recover_penetration(point,radius) if known_blocked or wall_blocked(point,radius) else point
+	if recovery_results.has(radius) and recovery_results[radius].has(point):
+		var cached:Dictionary=recovery_results[radius][point]
+		cached.result=result;cached.valid=true
+		return result
+	var low=Vector2i(((point-Vector2.ONE*(radius+CELL))/CELL).floor())
+	var high=Vector2i(((point+Vector2.ONE*(radius+CELL))/CELL).floor())
+	var entry={"radius":radius,"point":point,"result":result,"valid":true,"bounds":Rect2i(low,high-low+Vector2i.ONE)}
+	if recovery_ring.size()==RECOVERY_RESULT_LIMIT:
+		var old:Dictionary=recovery_ring[recovery_cursor];recovery_results[old.radius].erase(old.point)
+		if recovery_results[old.radius].is_empty():recovery_results.erase(old.radius)
+		recovery_ring[recovery_cursor]=entry;recovery_cursor=(recovery_cursor+1)%RECOVERY_RESULT_LIMIT
+	else:recovery_ring.append(entry)
+	if not recovery_results.has(radius):recovery_results[radius]={}
+	recovery_results[radius][point]=entry
+	return result
+
+func invalidate_recovery_results(changed:Rect2i):
+	# All recovery reads are inside radius+CELL: filled pieces use this exact
+	# cell rectangle; the <=2px lip repair's clearance queries fit inside it.
+	# A distant bite cannot change a resting actor's response. Invalid entries
+	# keep their existing ring slot, avoiding duplicate keys during excavation.
+	if recovery_revision!=revision-1:return
+	for entry:Dictionary in recovery_ring:
+		if entry.valid and Rect2i(entry.bounds).intersects(changed):entry.valid=false;recovery_invalidations+=1
+	recovery_revision=revision
+
+func recover_penetration(point:Vector2,radius:float)->Vector2:
+	var lip=separate_lip(point,radius)
+	if lip!=Vector2.INF:return lip
+	var shapes:Array=[]
+	var low=Vector2i(((point-Vector2.ONE*(radius+CELL))/CELL).floor())
+	var high=Vector2i(((point+Vector2.ONE*(radius+CELL))/CELL).floor())
+	for y in range(low.y,high.y+1):
+		for x in range(low.x,high.x+1):shapes.append_array(cell_shape(Vector2i(x,y)).pieces)
+	var clear=safe_among(point,radius,shapes)
+	return clear if point.distance_squared_to(clear)<CELL*CELL else point
 
 func separate_lip(point:Vector2,radius:float)->Vector2:
 	# Repair subpixel lip overlap against the exposed boundary, rather than
@@ -689,14 +1120,37 @@ func dig(point: Vector2, intent: Vector2, facing: Vector2, radius: float, dt: fl
 				for radius_bucket in blocked_free_regions[tile]:free_regions.erase(Vector3i(x,y,radius_bucket))
 				blocked_free_regions.erase(tile)
 		revision += 1
+		if nav_clear_certificate_revision==revision-1:nav_clear_certificate_revision=revision
+		invalidate_sweep_results(changed)
+		invalidate_wall_overlap_memo(changed)
+		native_overlap_cache.invalidate(changed,revision)
+		if material_certificate_revision==revision-1:material_certificate_revision=revision
+		# Every bite advances affected chunk versions, including seam neighbors.
+		# Keep unrelated fragments; unexplained revision jumps still reset them.
+		if collision_block_revision==revision-1:collision_block_revision=revision
+		invalidate_recovery_results(changed)
 		# Existing A* regions update only near the bite, not across the whole map.
+		var previous_dirty=navigation_dirty_cells
+		navigation_dirty_cells=changed
 		invalidate_navigation(point, 160.0)
+		navigation_dirty_cells=previous_dirty
 	events.append({"position": mining_point, "normal": -direction, "serial": bite_serial, "broken": removed > 0})
 
 func nav_passable(id: Vector2i, radius: int) -> bool:
 	var key = Vector3i(id.x, id.y, radius)
-	if nav_open.size() > 60000: nav_open.clear()
-	if not nav_open.has(key): nav_open[key] = not blocked((Vector2(id) + Vector2.ONE * 0.5) * NAV_STEP, radius)
+	if nav_open.size() > 60000:nav_open.clear();nav_clear_certificates.clear()
+	var center=(Vector2(id)+Vector2.ONE*.5)*NAV_STEP
+	if not nav_open.has(key):nav_open[key]=not blocked(center,radius)
+	if use_local_nav_invalidation and nav_open[key]:
+		if nav_clear_certificate_revision!=revision:nav_clear_certificates.clear();nav_clear_certificate_revision=revision
+		if not nav_clear_certificates.has(key):
+			# Marching vertices are rounded independently to float32. A deletion
+			# can move an otherwise shared boundary out by a fraction of an ULP.
+			# Only circles clear beyond that resolution may survive excavation.
+			var coordinate=maxf(absf(center.x),absf(center.y))+radius+CELL*2.0
+			var margin=maxf(.0001,coordinate*.0000005)
+			nav_clear_certificates[key]=not blocked(center,radius+margin)
+			nav_clear_certificate_checks+=1
 	return nav_open[key]
 
 func navigation(target: Vector2, radius: float) -> Dictionary:
@@ -713,19 +1167,48 @@ func navigation(target: Vector2, radius: float) -> Dictionary:
 		# Unknown cells remain blocked until checked. Preparing all 6,561 cells
 		# synchronously used to freeze the first enemy that needed a detour.
 		grid.fill_solid_region(region, true)
-		nav_grids[bucket] = {"grid": grid, "region": region, "radius": bucket, "filled": {},"preparing":{},"prepared":{}}
+		var ready_stride=ceili(float(region.size.x)/32.0)
+		var ready_rows:Array[int]=[];ready_rows.resize(region.size.y*ready_stride);ready_rows.fill(0)
+		nav_grids[bucket] = {"grid": grid, "region": region, "radius": bucket, "filled": {},"preparing":{},"prepared":{},"ready_rows":ready_rows,"ready_stride":ready_stride,"ready_valid":true,"ready_count":0}
 	return nav_grids[bucket]
 
-func prepare_navigation(data: Dictionary, origin: Vector2, target: Vector2, margin: int) -> bool:
-	var start = Vector2i((origin / NAV_STEP).floor())
-	var goal = Vector2i((target / NAV_STEP).floor())
-	var low = start.min(goal); var high = start.max(goal)
-	var wanted = Rect2i(low, high - low + Vector2i.ONE).grow(margin).intersection(data.region)
+func rebuild_navigation_ready(data:Dictionary):
+	var region:Rect2i=data.region
+	var stride=ceili(float(region.size.x)/32.0)
+	var rows:Array[int]=[];rows.resize(region.size.y*stride);rows.fill(0)
+	for id:Vector2i in data.filled:
+		if not region.has_point(id):continue
+		var local=id-region.position
+		var index=local.y*stride+(local.x>>5)
+		rows[index]=rows[index]|(1<<(local.x&31))
+	data.ready_rows=rows;data.ready_stride=stride;data.ready_valid=true;data.ready_count=data.filled.size()
+	nav_ready_rebuilds+=1
+
+func navigation_row_ready(rows:Array,stride:int,y:int,left:int,right:int)->bool:
+	# Use 32-bit words inside 64-bit integers, so a full word never touches
+	# the sign bit. Bounds are relative to the AStar region, including seams.
+	while left<right:
+		var shift=left&31
+		var count=mini(32-shift,right-left)
+		var mask=((1<<count)-1)<<shift
+		if (int(rows[y*stride+(left>>5)])&mask)!=mask:return false
+		left+=count
+	return true
+
+func prepare_navigation_legacy(data:Dictionary,origin:Vector2,target:Vector2,margin:int)->bool:
+	# Keep the comparison loop free of per-cell instrumentation/bitmap work.
+	# Cursor differences count visited cells once at each exit instead.
+	var start=Vector2i((origin/NAV_STEP).floor())
+	var goal=Vector2i((target/NAV_STEP).floor())
+	var low=start.min(goal);var high=start.max(goal)
+	var wanted=Rect2i(low,high-low+Vector2i.ONE).grow(margin).intersection(data.region)
 	if data.prepared.has(wanted):return true
-	var cursor=int(data.preparing.get(wanted,0))
+	data.ready_valid=false
+	var cursor=int(data.preparing.get(wanted,0));var original_cursor=cursor
 	var count=wanted.size.x*wanted.size.y
 	while cursor<count:
-		if nav_budget_active and (nav_cells_left<=0 or nav_prepare_us>=NAV_PREPARE_USEC):data.preparing[wanted]=cursor;return false
+		if nav_budget_active and (nav_cells_left<=0 or nav_prepare_us>=NAV_PREPARE_USEC):
+			data.preparing[wanted]=cursor;nav_scanned_cells+=cursor-original_cursor;return false
 		var id=wanted.position+Vector2i(cursor%wanted.size.x,cursor/wanted.size.x)
 		cursor+=1
 		if data.filled.has(id):continue
@@ -733,25 +1216,115 @@ func prepare_navigation(data: Dictionary, origin: Vector2, target: Vector2, marg
 		data.grid.set_point_solid(id,not nav_passable(id,data.radius))
 		data.filled[id]=true;nav_cells_left-=1
 		nav_prepare_us+=Time.get_ticks_usec()-began
+	nav_scanned_cells+=cursor-original_cursor
+	data.preparing.erase(wanted)
+	if data.prepared.size()>=256:data.prepared.clear()
+	data.prepared[wanted]=true
+	return true
+
+func prepare_navigation(data: Dictionary, origin: Vector2, target: Vector2, margin: int) -> bool:
+	if not use_nav_row_skip:return prepare_navigation_legacy(data,origin,target,margin)
+	var start = Vector2i((origin / NAV_STEP).floor())
+	var goal = Vector2i((target / NAV_STEP).floor())
+	var low = start.min(goal); var high = start.max(goal)
+	var wanted = Rect2i(low, high - low + Vector2i.ONE).grow(margin).intersection(data.region)
+	if data.prepared.has(wanted):return true
+	if not data.get("ready_valid",false) or int(data.get("ready_count",-1))!=data.filled.size():rebuild_navigation_ready(data)
+	var cursor=int(data.preparing.get(wanted,0))
+	var count=wanted.size.x*wanted.size.y
+	var scanned=0
+	var first=true
+	var region:Rect2i=data.region
+	while cursor<count:
+		if nav_budget_active and (nav_cells_left<=0 or nav_prepare_us>=NAV_PREPARE_USEC):
+			data.preparing[wanted]=cursor;nav_scanned_cells+=scanned;return false
+		var column=cursor%wanted.size.x
+		if first or column==0:
+			var row=cursor/wanted.size.x
+			var left=wanted.position.x+column-region.position.x
+			var remaining=wanted.size.x-column
+			nav_row_tests+=1
+			if navigation_row_ready(data.ready_rows,data.ready_stride,wanted.position.y+row-region.position.y,left,left+remaining):
+				cursor+=remaining;nav_skipped_rows+=1;nav_skipped_cells+=remaining
+				first=false;continue
+		first=false
+		var id=wanted.position+Vector2i(cursor%wanted.size.x,cursor/wanted.size.x)
+		cursor+=1;scanned+=1
+		if data.filled.has(id):continue
+		var began=Time.get_ticks_usec()
+		data.grid.set_point_solid(id,not nav_passable(id,data.radius))
+		data.filled[id]=true;nav_cells_left-=1
+		nav_prepare_us+=Time.get_ticks_usec()-began
+		var local=id-region.position
+		var index=local.y*int(data.ready_stride)+(local.x>>5)
+		data.ready_rows[index]=int(data.ready_rows[index])|(1<<(local.x&31))
+		data.ready_count+=1
+	nav_scanned_cells+=scanned
 	data.preparing.erase(wanted)
 	if data.prepared.size()>=256:data.prepared.clear()
 	data.prepared[wanted]=true
 	return true
 
 func invalidate_navigation(point: Vector2, reach: float):
+	nav_invalidation_calls+=1
+	if use_local_nav_invalidation and navigation_dirty_cells.has_area():
+		invalidate_navigation_excavation(navigation_dirty_cells);return
 	for data in nav_grids.values():
 		data.prepared.clear();data.preparing.clear()
+		if not use_nav_row_skip:data.ready_valid=false
 		var low = Vector2i(((point - Vector2.ONE * (reach + data.radius)) / NAV_STEP).floor())
 		var high = Vector2i(((point + Vector2.ONE * (reach + data.radius)) / NAV_STEP).floor())
 		for y in range(low.y, high.y + 1):
 			for x in range(low.x, high.x + 1):
 				var id = Vector2i(x, y)
-				nav_open.erase(Vector3i(x, y, data.radius))
+				var key=Vector3i(x,y,data.radius)
+				nav_open.erase(key);nav_clear_certificates.erase(key)
 				# Reopen dirty clearance cells through the existing per-frame budget.
 				# A bite must not synchronously test hundreds of circles for every
 				# actor radius. Movement still sweeps the actual rock each tick.
 				if data.filled.has(id):
 					data.filled.erase(id);data.grid.set_point_solid(id,true)
+					nav_invalidation_cells+=1
+					if data.get("ready_valid",false) and Rect2i(data.region).has_point(id):
+						var local=id-Vector2i(data.region.position)
+						var index=local.y*int(data.ready_stride)+(local.x>>5)
+						data.ready_rows[index]=int(data.ready_rows[index])&~(1<<(local.x&31));data.ready_count-=1
+
+func invalidate_navigation_excavation(changed:Rect2i):
+	if nav_clear_certificate_revision!=revision:nav_clear_certificates.clear();nav_clear_certificate_revision=revision
+	# Every changed cell's fractured polygon lies inside its jittered quad.
+	# Its vertex jitter is <4px; include float32 coordinate roundoff as well.
+	var bounds=Rect2(Vector2(changed.position)*CELL,Vector2(changed.size)*CELL)
+	var coordinate=maxf(bounds.position.abs().max(bounds.end.abs()).x,bounds.position.abs().max(bounds.end.abs()).y)
+	bounds=bounds.grow(4.0+coordinate*.000001)
+	for data in nav_grids.values():
+		var radius:float=data.radius
+		var low=Vector2i(((bounds.position-Vector2.ONE*radius)/NAV_STEP-Vector2.ONE*.5).ceil())
+		var high=Vector2i(((bounds.end+Vector2.ONE*radius)/NAV_STEP-Vector2.ONE*.5).floor())
+		var changed_grid=false
+		for y in range(low.y,high.y+1):
+			for x in range(low.x,high.x+1):
+				var id=Vector2i(x,y);var key=Vector3i(x,y,int(radius))
+				var filled=data.filled.has(id)
+				# Retain only clear circles with a measured float32 safety margin.
+				# Exact tangencies follow the old dirty/recheck path, including
+				# externally filled AStar cells without a clearance certificate.
+				if nav_clear_certificates.get(key,false) and (nav_open.get(key,false) or (filled and not data.grid.is_point_solid(id))):
+					nav_invalidation_clear_kept+=1;continue
+				var center=(Vector2(id)+Vector2.ONE*.5)*NAV_STEP
+				if center.distance_squared_to(center.clamp(bounds.position,bounds.end))>radius*radius:
+					nav_invalidation_outside_kept+=1;continue
+				if nav_open.get(key,false) or (filled and not data.grid.is_point_solid(id)):nav_invalidation_fragile_clear+=1
+				nav_open.erase(key);nav_clear_certificates.erase(key)
+				if not filled:continue
+				data.filled.erase(id);data.grid.set_point_solid(id,true);changed_grid=true;nav_invalidation_cells+=1
+				if data.get("ready_valid",false):
+					var local=id-Vector2i(data.region.position)
+					var index=local.y*int(data.ready_stride)+(local.x>>5)
+					data.ready_rows[index]=int(data.ready_rows[index])&~(1<<(local.x&31));data.ready_count-=1
+		if changed_grid:
+			data.prepared.clear();data.preparing.clear()
+		else:nav_invalidation_grids_unchanged+=1
 
 func nearest_nav(id: Vector2i, data: Dictionary) -> Vector2i:
 	if data.region.has_point(id) and not data.grid.is_point_solid(id): return id

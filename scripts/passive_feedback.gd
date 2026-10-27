@@ -24,6 +24,58 @@ var seen_events=0
 var cached_stats:Dictionary={}
 var cached_language=""
 var living=preload("res://scripts/living_passive_layer.gd").new()
+var use_render_snapshots=OS.get_environment("RBPEW_LEGACY_PASSIVE_RENDER_SNAPSHOT")!="1" and OS.get_environment("RBPEW_LEGACY_PASSIVE_PRESENTATION")!="1"
+var render_upgrade_targets:Dictionary={}
+var draw_audit_skip=""
+
+func prepare_render_upgrades(player):
+ # Build the ordered inverse once per draw, rather than scanning every reward
+ # for every module. Rebuild from live metadata, so reordering, debug edits and
+ # replacing a reward's targets cannot leave stale presentation behind.
+ render_upgrade_targets.clear()
+ var ordinal=0
+ for id in player.levels:
+  var reward:Dictionary=player.db.asset(id)
+  var seen:Dictionary={}
+  for target in reward.get("coresList",[]):
+   if seen.has(target):continue
+   seen[target]=true
+   if not render_upgrade_targets.has(target):render_upgrade_targets[target]=[]
+   render_upgrade_targets[target].append([ordinal,int(player.levels[id])])
+  ordinal+=1
+
+func render_upgrade_rank(part_id:String,core_id:String)->int:
+ var left:Array=render_upgrade_targets.get(part_id,[])
+ var right:Array=[] if part_id==core_id else render_upgrade_targets.get(core_id,[])
+ var total=0;var a=0;var b=0
+ # Merge by reward ordinal: HQ base/effective cores can both be targeted by
+ # one reward, but the original membership test counts that reward once.
+ while a<left.size() or b<right.size():
+  if b>=right.size() or (a<left.size() and int(left[a][0])<int(right[b][0])):
+   total+=int(left[a][1]);a+=1
+  elif a>=left.size() or int(right[b][0])<int(left[a][0]):
+   total+=int(right[b][1]);b+=1
+  else:
+   total+=int(left[a][1]);a+=1;b+=1
+ return total
+
+func render_snapshot(player,index:int,core:Dictionary)->Dictionary:
+ # Only fields read by this painter are constructed. In particular, ordinary
+ # guns need neither a complete chip inventory nor a zero-valued shield bonus.
+ # Damage, adjacency, links and pulses are still read live every draw.
+ var p:Dictionary=player.parts[index]
+ var active=p.hp>0 and p.stun<=0
+ var base_capacity=float(core.get("maxShieldHealth",0))
+ var capacity=base_capacity*(1+player.upgrade_bonus(core.id,"ShieldHealthPercent")) if base_capacity!=0 else 0.0
+ var state={"uid":p.feedback_uid,"position":p.position,"alive":p.hp>0,"active":active,"reinforced":bool(p.wall),"cloaked":bool(p.get("cloaked",false)),"shield":float(p.shield) if core.get("class")=="ShieldCore" else 0.0,"shield_capacity":capacity,"repair_targets":[],"chip_links":[],"pulses":p.get("feedback_pulses",{}).duplicate(),"upgrade_rank":render_upgrade_rank(str(p.id),str(core.id))}
+ if active and core.get("class")=="RepairCore":
+  for other in player.adjacent_part_indices(index,true):
+   if player.parts[other].hp>0 and player.parts[other].hp<player.parts[other].max_hp:state.repair_targets.append(other)
+ if p.hp>0 and core.has("coreChip"):
+  var chip_type=int(player.db.asset(core.coreChip).chipType)
+  for other in player.adjacent_part_indices(index):
+   if player.parts[other].hp>0 and player.chips(other).has(chip_type):state.chip_links.append(other)
+ return state
 
 func setup(owner:Node):
  layer=CanvasLayer.new();layer.layer=6;owner.add_child(layer)
@@ -49,6 +101,7 @@ func reset():
  notices.clear();clock=0;seen_events=0
  living.hide()
  enemy_shield_states.clear()
+ render_upgrade_targets.clear()
  transitions.clear()
  if is_instance_valid(card):card.hide()
 
@@ -116,14 +169,21 @@ func overlay(canvas,key:String,at:Vector2,extent:Vector2,angle:float,alpha:float
  canvas.draw_texture_rect(textures[key],Rect2(-extent*.5,extent),false,Color(1,1,1,alpha))
  canvas.draw_set_transform(Vector2.ZERO)
 
-func paint(canvas,player,combat,zoom:float):
+func paint(canvas,player,combat,zoom:float,shield_sources=null):
  if not player.has_method("passive_state"):return
  draw_count=0
  living.begin(clock)
  living.set_viewport(canvas.get_viewport_rect().size)
+ if use_render_snapshots:prepare_render_upgrades(player)
  var links=0
  for i in player.parts.size():
-  var state:Dictionary=player.passive_state(i)
+  var core:Dictionary={}
+  var state:Dictionary
+  if use_render_snapshots:
+   if player.parts[i].hp<=0:continue
+   core=player.effective_core(i)
+   state=render_snapshot(player,i,core)
+  else:state=player.passive_state(i)
   if not state.get("alive",false):continue
   var at:Vector2=canvas.world(state.position)
   var cull_margin=maxf(240.0,combat.shield_range(i)*zoom if float(state.get("shield_capacity",0))>0 else 0.0)
@@ -132,7 +192,7 @@ func paint(canvas,player,combat,zoom:float):
   var radius=maxf(18,player.module_size(i)*.5+5)*zoom
   var pulses:Dictionary=state.get("pulses",{})
   var angle=float(player.parts[i].angle)
-  var core:Dictionary=player.effective_core(i)
+  if core.is_empty():core=player.effective_core(i)
   if state.get("reinforced",false) or core.get("class")=="WallCore":
    # Two inset flanks leave the weapon face unobscured, unlike a generic ring.
    living.add(1,origin,Vector2.ONE*radius*2.25,angle,Color(1,0,1,.85))
@@ -169,7 +229,7 @@ func paint(canvas,player,combat,zoom:float):
   if float(pulses.get("healed",0))>0 and draw_count<MAX_PULSES:
    draw_count+=1
    living.add(2,origin,Vector2.ONE*radius*2.5,0,Color(1,0,minf(1,pulses.healed*2),1),Color(float(i)*.13,0,0,0))
-   for stitch in 3:
+   for stitch in (0 if draw_audit_skip=="healed_stitches" else 3):
     var p=origin+Vector2((stitch-1)*8,-radius-4)*zoom
     canvas.draw_line(p-Vector2(0,4)*zoom,p+Vector2(0,4)*zoom,Color(REPAIR,minf(1,pulses.healed*2)),2*zoom,true)
     canvas.draw_line(p-Vector2(3,0)*zoom,p+Vector2(3,0)*zoom,Color(REPAIR,minf(1,pulses.healed*2)),2*zoom,true)
@@ -188,9 +248,10 @@ func paint(canvas,player,combat,zoom:float):
     var p=origin+Vector2.from_angle(a)*(radius+7*zoom*(1-fade))
     canvas.draw_line(p,p+Vector2.from_angle(a+2.35)*6*zoom,Color(color,fade*.8),2*zoom,true)
     canvas.draw_line(p,p+Vector2.from_angle(a-2.35)*6*zoom,Color(color,fade*.8),2*zoom,true)
-  if not state.get("upgrades",[]).is_empty():
-   var total_level=0
-   for id in state.upgrades:total_level+=int(player.levels.get(id,0))
+  var total_level=int(state.get("upgrade_rank",0))
+  if not use_render_snapshots:
+   for id in state.get("upgrades",[]):total_level+=int(player.levels.get(id,0))
+  if total_level!=0 and draw_audit_skip!="upgrade_marks":
    for level in mini(3,total_level):
     var mark=origin+Vector2((level-1)*6,radius/zoom+6)*zoom
     canvas.draw_polyline(PackedVector2Array([mark+Vector2(-2,2)*zoom,mark,mark+Vector2(2,2)*zoom]),Color(TEAL,.68),1.5*zoom,true)
@@ -206,7 +267,7 @@ func paint(canvas,player,combat,zoom:float):
    var fill=clampf(player.fuel/maxf(1,player.max_fuel),0,1)
    living.add(4,origin,Vector2.ONE*radius*2.25,angle,Color(fill,0,.15+.85*float(transition.boost),.7))
    var base=origin+Vector2(-12,radius/zoom+12)*zoom
-   for pip in 5:
+   for pip in (0 if draw_audit_skip=="fuel_pips" else 5):
     canvas.draw_line(base+Vector2(pip*6,0)*zoom,base+Vector2(pip*6,4)*zoom,Color(GOLD if player.boost else TEAL,.7 if fill>pip*.2 else .15),2*zoom,true)
   if float(pulses.get("mine_deploy",0))>0 and draw_count<MAX_PULSES:
    draw_count+=1
@@ -217,7 +278,7 @@ func paint(canvas,player,combat,zoom:float):
   if i==0 and float(transition.boost)>0:
    living.add(4,at,Vector2(90,62)*zoom,player.facing.angle(),Color(1,0,float(transition.boost),float(transition.boost)))
 
- paint_enemy_shields(canvas,combat,zoom)
+ if draw_audit_skip!="enemy_shields":paint_enemy_shields(canvas,combat,zoom,shield_sources)
  living.finish()
 
  # Actual drone modes, carried salvage and source-linked upgrade ranks.
@@ -236,9 +297,12 @@ func paint(canvas,player,combat,zoom:float):
   var level=0
   for id in player.levels:
    if drone.data.id in player.db.asset(id).get("dronesList",[]):level+=int(player.levels[id])
-  for pip in mini(3,level):canvas.draw_circle(at+Vector2((pip-1)*4,-12)*zoom,1.3*zoom,Color(TEAL,.85),true,-1,true)
+  for pip in (0 if draw_audit_skip=="drone_pips" else mini(3,level)):canvas.draw_circle(at+Vector2((pip-1)*4,-12)*zoom,1.3*zoom,Color(TEAL,.85),true,-1,true)
 
 func paint_repair_tether(canvas,drone:Dictionary,zoom:float):
+ var batch_painter=AttackShaders.route(canvas,"repair_drone",not bool(drone.get("friendly",true)))
+ if batch_painter is AttackShaders.Painter and batch_painter.owner_layer!=null and not batch_painter.owner_layer.trace_commands:
+  if batch_painter.owner_layer.repair_tether_batch.paint(batch_painter,drone,zoom,clock):return
  var start:Vector2=canvas.world(drone.position)
  var end:Vector2=canvas.world(drone.target.position)
  var axis=start.direction_to(end)
@@ -279,35 +343,40 @@ func shield_instance(canvas,at:Vector2,reach:float,state:Color,event:Color):
   var angle=Vector2(event.r,event.g).angle()
   canvas.draw_arc(at,reach,angle-.2,angle+.2,10,Color(tint,event.b*3),3,true)
 
-func paint_enemy_shields(canvas,combat,zoom:float):
+func paint_enemy_shields(canvas,combat,zoom:float,prepared_sources=null):
  var active_keys:Dictionary={}
- for enemy in combat.enemies:
-  if enemy.hp<=0:continue
-  for index in enemy.get("guns",[]).size():
-   var gun:Dictionary=enemy.guns[index]
-   var core:Dictionary=combat.db.asset(gun.id)
-   if core.get("class")!="ShieldCore":continue
-   var key=str(enemy.uid)+":"+str(index)
-   active_keys[key]=true
-   var capacity=float(core.maxShieldHealth)
-   var strength=clampf(float(gun.get("shield",capacity))/maxf(1,capacity),0,1)
-   var serial=int(gun.get("feedback_shield_hit_serial",0))
-   if not enemy_shield_states.has(key):enemy_shield_states[key]={"serial":0,"hit":-10.0,"break":-10.0,"recharge":-10.0,"strength":strength}
-   var history:Dictionary=enemy_shield_states[key]
-   if serial!=history.serial:history.hit=clock;history.serial=serial
-   if strength<=0 and history.strength>0:history["break"]=clock
-   if strength>history.strength:history.recharge=clock
-   history.strength=strength
-   var breaking=maxf(0,.7-(clock-float(history["break"])))
-   if (strength<=0 or enemy.stun>0) and breaking<=0:continue
-   var at:Vector2=canvas.world(enemy.position)
-   var reach=float(core.ShieldRange)*48*zoom
-   if not canvas.get_viewport_rect().grow(reach).has_point(at):continue
-   var contact:Vector2=gun.get("feedback_shield_contact",enemy.position+Vector2.RIGHT*reach/maxf(.01,zoom))
-   var contact_uv=(canvas.world(contact)-at)/maxf(1,reach)*.94
-   shield_instance(canvas,at,reach,Color(strength,maxf(0,.7-(clock-float(history.recharge))),0 if enemy.get("role","")=="friendly" else 1,1),Color(contact_uv.x,contact_uv.y,maxf(0,.25-(clock-float(history.hit))),breaking))
+ if prepared_sources!=null:
+  for source in prepared_sources:paint_enemy_shield(canvas,zoom,source.enemy,int(source.index),source.gun,source.core,active_keys)
+ else:
+  for enemy in combat.enemies:
+   if enemy.hp<=0:continue
+   for index in enemy.get("guns",[]).size():
+    var gun:Dictionary=enemy.guns[index]
+    var core:Dictionary=combat.db.asset(gun.id)
+    if core.get("class")=="ShieldCore":paint_enemy_shield(canvas,zoom,enemy,index,gun,core,active_keys)
  for key in enemy_shield_states.keys():
   if not active_keys.has(key):enemy_shield_states.erase(key)
+
+func paint_enemy_shield(canvas,zoom:float,enemy:Dictionary,index:int,gun:Dictionary,core:Dictionary,active_keys:Dictionary):
+ var key=str(enemy.uid)+":"+str(index)
+ active_keys[key]=true
+ var capacity=float(core.maxShieldHealth)
+ var strength=clampf(float(gun.get("shield",capacity))/maxf(1,capacity),0,1)
+ var serial=int(gun.get("feedback_shield_hit_serial",0))
+ if not enemy_shield_states.has(key):enemy_shield_states[key]={"serial":0,"hit":-10.0,"break":-10.0,"recharge":-10.0,"strength":strength}
+ var history:Dictionary=enemy_shield_states[key]
+ if serial!=history.serial:history.hit=clock;history.serial=serial
+ if strength<=0 and history.strength>0:history["break"]=clock
+ if strength>history.strength:history.recharge=clock
+ history.strength=strength
+ var breaking=maxf(0,.7-(clock-float(history["break"])))
+ if (strength<=0 or enemy.stun>0) and breaking<=0:return
+ var at:Vector2=canvas.world(enemy.position)
+ var reach=float(core.ShieldRange)*48*zoom
+ if not canvas.get_viewport_rect().grow(reach).has_point(at):return
+ var contact:Vector2=gun.get("feedback_shield_contact",enemy.position+Vector2.RIGHT*reach/maxf(.01,zoom))
+ var contact_uv=(canvas.world(contact)-at)/maxf(1,reach)*.94
+ shield_instance(canvas,at,reach,Color(strength,maxf(0,.7-(clock-float(history.recharge))),0 if enemy.get("role","")=="friendly" else 1,1),Color(contact_uv.x,contact_uv.y,maxf(0,.25-(clock-float(history.hit))),breaking))
 
 static func stat_name(db,key:String)->String:
  if key.is_valid_float():key=str(int(key.to_float()))
@@ -323,7 +392,7 @@ static func stat_fragments(db,stats:Dictionary)->PackedStringArray:
 
 static func upgrade_summary(db,reward:Dictionary)->String:
  if reward.has("mutation_branch"):return preload("res://scripts/mutation_branches.gd").brief(db,reward)
- var fields={"CoreHealthPercent":["Durability","耐久"],"DamagePercent":["Damage","伤害"],"RateOfFirePercent":["Fire rate","射速"],"RangePercent":["Range","射程"],"ShieldHealthPercent":["Shield capacity","护盾容量"],"ShieldRechargeRatePercent":["Shield recharge","护盾回复"],"ShieldRechargeDelayPercent":["Recharge delay","回复延迟"],"ShieldRangePercent":["Shield radius","护盾半径"],"TankCapacityPercent":["Fuel capacity","燃料容量"],"maxMinesCountPercent":["Mine capacity","地雷上限"],"minesRechargeRatePercent":["Mine reload time","布雷间隔"],"enginePowerPercent":["Swarm speed","虫群速度"],"efficiencyPercent":["Swarm efficiency","虫群效率"],"rangePercent":["Swarm range","虫群范围"]}
+ var fields={"CoreHealthPercent":["Durability","耐久"],"DamagePercent":["Damage","伤害"],"RateOfFirePercent":["Fire rate","射速"],"RangePercent":["Range","射程"],"ShieldHealthPercent":["Shield capacity","护盾容量"],"ShieldRechargeRatePercent":["Shield recharge","护盾回复"],"ShieldRechargeDelayPercent":["Recharge delay","回复延迟"],"ShieldRangePercent":["Shield radius","护盾半径"],"TankCapacityPercent":["Energy capacity","能量容量"],"maxMinesCountPercent":["Mine capacity","地雷上限"],"minesRechargeRatePercent":["Mine reload time","布雷间隔"],"enginePowerPercent":["Swarm speed","虫群速度"],"efficiencyPercent":["Swarm efficiency","虫群效率"],"rangePercent":["Swarm range","虫群范围"]}
  var parts=PackedStringArray()
  for key in fields:
   if not reward.has(key) or is_zero_approx(float(reward[key])):continue

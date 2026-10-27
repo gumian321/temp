@@ -7,6 +7,13 @@ var nodes:Array=[]
 var counts:Array=[0,0,0,0,0,0]
 var material_count=0
 var instance_count=0
+var viewport_size=Vector2(-1,-1)
+var simulation_time=-INF
+var visible_counts:Array=[0,0,0,0,0,0]
+var use_cached_submission=OS.get_environment("RBPEW_LEGACY_PASSIVE_RENDER_SNAPSHOT")!="1" and OS.get_environment("RBPEW_LEGACY_PASSIVE_PRESENTATION")!="1"
+
+func invalidate_submission_cache():
+ viewport_size=Vector2(-1,-1);simulation_time=-INF;visible_counts.fill(-1)
 
 func setup(owner:Node,textures:Dictionary):
  for mode in KEYS.size():
@@ -29,7 +36,8 @@ func begin(time:float):
  instance_count=0
  for i in nodes.size():
   counts[i]=0
-  nodes[i].material.set_shader_parameter("sim_time",time)
+  if not use_cached_submission or simulation_time!=time:nodes[i].material.set_shader_parameter("sim_time",time)
+ simulation_time=time
 
 func add(mode:int,at:Vector2,extent:Vector2,angle:float,state:Color,event:Color=Color(0,0,0,0))->bool:
  if mode>=nodes.size() or counts[mode]>=LIMITS[mode]:return false
@@ -40,10 +48,15 @@ func add(mode:int,at:Vector2,extent:Vector2,angle:float,state:Color,event:Color=
  return true
 
 func finish():
- for i in nodes.size():nodes[i].multimesh.visible_instance_count=counts[i]
+ for i in nodes.size():
+  if not use_cached_submission or visible_counts[i]!=counts[i]:
+   nodes[i].multimesh.visible_instance_count=counts[i];visible_counts[i]=counts[i]
 
 func hide():
- for node in nodes:node.multimesh.visible_instance_count=0
+ for i in nodes.size():
+  if not use_cached_submission or visible_counts[i]!=0:nodes[i].multimesh.visible_instance_count=0;visible_counts[i]=0
 
 func set_viewport(size:Vector2):
+ if use_cached_submission and viewport_size==size:return
+ viewport_size=size
  for node in nodes:node.material.set_shader_parameter("viewport_size",size)

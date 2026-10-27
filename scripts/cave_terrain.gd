@@ -32,6 +32,12 @@ var hints: Node2D
 var hint_text = ""
 var hint_position = Vector2.INF
 var chip_mesh: ArrayMesh
+var use_surface_batch = OS.get_environment("RBPEW_ENABLE_TERRAIN_SURFACE_BATCH") != "0" and OS.get_environment("RBPEW_LEGACY_TERRAIN_SURFACE_BATCH") != "1"
+var surface_generation = -1
+var surface_chunks: Array = []
+var surface_meshes: Dictionary = {}
+var retired_surface_meshes: Array = []
+var surface_first_top: ArrayMesh
 
 class Caps extends Node2D:
 	var terrain
@@ -79,6 +85,9 @@ func setup(owner_game):
 	mineral_texture = ImageTexture.create_from_image(image)
 
 func reset():
+	retired_surface_meshes.append_array(surface_meshes.values())
+	surface_meshes.clear(); surface_chunks.clear(); surface_generation = -1
+	surface_first_top = null
 	retired_meshes.append_array(meshes.values())
 	meshes.clear(); visible_chunks.clear()
 	mineral_cells.clear(); ore_patches.clear(); prefetch_frame = -1; prefetched = 0
@@ -289,7 +298,7 @@ func build_chunk(id: Vector2i, data: Dictionary) -> Dictionary:
 	for key in stroke_parts:strokes[key]=StrokeBatch.merge_buffers(stroke_parts[key])
 	for row in [["cracks",cracks,2.0],["fractures",weathering.fractures,1.1],["chips",chip_edges,.8],["rim",weathering.rim,.9]]:
 		strokes[row[0]]=StrokeBatch.build_buffer(row[1],row[2])
-	return {"version": data.version, "damage_version": data.damage_version, "top": make_mesh(vertices, uvs, PackedColorArray()), "edges": edges, "hatches": hatches, "cracks": cracks, "ore": make_mesh(ore_buffer.vertices, ore_buffer.uvs, ore_buffer.colors),
+	return {"version": data.version, "damage_version": data.damage_version, "top": make_mesh(vertices, uvs, PackedColorArray()), "top_buffer": {"vertices": vertices, "uvs": uvs, "colors": PackedColorArray()}, "ore_buffer": ore_buffer, "edges": edges, "hatches": hatches, "cracks": cracks, "ore": make_mesh(ore_buffer.vertices, ore_buffer.uvs, ore_buffer.colors),
 		"fractures": weathering.fractures, "chips": weathering.chips, "rim": weathering.rim,"strokes":strokes}
 
 func ore_patch(cell: Vector2i, kind: int) -> Array:
@@ -412,12 +421,53 @@ func _draw():
 		for id in visible_chunks:edges.append_array(meshes[id].edges)
 		if not edges.is_empty():draw_multiline(edges,Color(0,0,0,.38),7,true)
 
+func refresh_surface_batch():
+	if surface_generation == geometry_generation and surface_chunks == visible_chunks: return
+	retired_surface_meshes.append_array(surface_meshes.values())
+	surface_meshes.clear()
+	surface_first_top = null
+	for id in visible_chunks:
+		if meshes[id].top != null:
+			surface_first_top = meshes[id].top
+			break
+	for key in ["top", "ore"]:
+		var buffer = merged_surface_buffer(key, key == "top")
+		var mesh = make_mesh(buffer.vertices, buffer.uvs, buffer.colors)
+		if mesh != null: surface_meshes[key] = mesh
+	surface_generation = geometry_generation
+	surface_chunks = visible_chunks.duplicate()
+
+func merged_surface_buffer(key: String, skip_first: bool = false) -> Dictionary:
+	var buffer = new_ore_buffer()
+	for id in visible_chunks:
+		var source: Dictionary = meshes[id][key + "_buffer"]
+		if skip_first and not source.vertices.is_empty():
+			skip_first = false
+			continue
+		buffer.vertices.append_array(source.vertices)
+		buffer.uvs.append_array(source.uvs)
+		buffer.colors.append_array(source.colors)
+	return buffer
+
 func paint_caps(canvas: Node2D):
+	if use_surface_batch:
+		refresh_surface_batch()
+		# GLES3 applies the rock sampler's repeat mode again for every mesh,
+		# while its canvas texture bind is cached after the first command.
+		# Preserve that first command and merge only subsequent caps so their
+		# shared texture retains the exact original sampling state.
+		if surface_first_top != null: canvas.draw_mesh(surface_first_top, Art.texture("ground"))
+		if surface_meshes.has("top"): canvas.draw_mesh(surface_meshes.top, Art.texture("ground"))
+		return
 	for id in visible_chunks:
 		var item = meshes[id]
 		if item.top != null: canvas.draw_mesh(item.top, Art.texture("ground"))
 
 func paint_minerals(canvas: Node2D):
+	if use_surface_batch:
+		refresh_surface_batch()
+		if surface_meshes.has("ore"): canvas.draw_mesh(surface_meshes.ore, mineral_texture)
+		return
 	for id in visible_chunks:
 		if meshes[id].ore != null: canvas.draw_mesh(meshes[id].ore, mineral_texture)
 
@@ -429,6 +479,7 @@ func paint_details(canvas: Node2D):
 		for id in visible_chunks:buffers.append(meshes[id].strokes.cracks)
 		detail_strokes.cracks.set_buffers(buffers);chip_fill.queue_redraw()
 		retired_meshes.clear()
+		retired_surface_meshes.clear()
 		return
 	var hatches = PackedVector2Array(); var cracks = PackedVector2Array(); var fractures = PackedVector2Array()
 	var edges = PackedVector2Array(); var rim = PackedVector2Array(); var chip_edges = PackedVector2Array()
@@ -467,6 +518,7 @@ func paint_details(canvas: Node2D):
 	# Canvas commands hold RIDs rather than resources. Release old meshes only
 	# after BOTH the cap and mineral command lists have been replaced.
 	retired_meshes.clear()
+	retired_surface_meshes.clear()
 
 func paint_hint(canvas: Node2D):
 	canvas.draw_style_box(Art.panel_skin(false, true), Rect2(hint_position, Vector2(440, 34)))

@@ -1,0 +1,513 @@
+{
+  "date": "2026-10-27",
+  "round": 2,
+  "rea_used": false,
+  "build": {
+    "created_at_utc": "2026-10-27T00:46:47.662719+00:00",
+    "command": [
+      "D:/godot/Godot_v4.6.3-stable_win64.exe",
+      "--headless",
+      "--path",
+      "E:\\_Nlv\\github\\temp",
+      "--export-release",
+      "Windows Review",
+      "E:\\_Nlv\\github\\temp\\artifacts\\draw-batch-20261027-2\\RunBuildPew.exe"
+    ],
+    "executable": "E:\\_Nlv\\github\\temp\\artifacts\\draw-batch-20261027-2\\RunBuildPew.exe",
+    "sha256": "126e1449c9758a827612ff3a0796aaebf28cca3991682f680a89b0800236a0d0",
+    "bytes": 259162496,
+    "source_manifest": "source-manifest.json",
+    "manifest_scope": "Runtime scripts, shaders, data and project/export configuration; final executable hash covers the complete embedded package."
+  },
+  "whole_frame": {
+    "artifact": "artifacts/draw-batch2-late-pair-20261027/comparison.json",
+    "summary": {
+      "legacy": {
+        "frame_mean_ms": 29.196854166666647,
+        "fps_equivalent": 34.250265261169,
+        "draw_calls_per_frame_mean": 521.225833333333,
+        "samples": 1200,
+        "case_frame_means_ms": [
+          29.012465,
+          29.3812433333333
+        ],
+        "p95_ms": [
+          34.521,
+          34.911
+        ],
+        "p99_ms": [
+          38.052,
+          38.375
+        ],
+        "hp": [
+          303.695419333352,
+          303.680659333352
+        ],
+        "actors": [
+          226,
+          226
+        ],
+        "parts": [
+          13,
+          13
+        ],
+        "end_elapsed": [
+          929.249616961926,
+          929.249616961926
+        ],
+        "render_cpu_mean_ms": 1.9802983351548549
+      },
+      "optimized": {
+        "frame_mean_ms": 28.41699666666665,
+        "fps_equivalent": 35.190207175306725,
+        "draw_calls_per_frame_mean": 278.3833333333335,
+        "samples": 1200,
+        "case_frame_means_ms": [
+          28.18045,
+          28.6535433333333
+        ],
+        "p95_ms": [
+          33.604,
+          34.476
+        ],
+        "p99_ms": [
+          42.49,
+          39.154
+        ],
+        "hp": [
+          303.695419333352,
+          303.680659333352
+        ],
+        "actors": [
+          226,
+          226
+        ],
+        "parts": [
+          13,
+          13
+        ],
+        "end_elapsed": [
+          929.249616961926,
+          929.249616961926
+        ],
+        "render_cpu_mean_ms": 1.50610916624467
+      },
+      "draw_call_reduction_percent": 46.59064928669747,
+      "frame_mean_reduction_percent": 2.6710326240912075
+    },
+    "scope": "Same snapshot and frame-indexed input, rebuilt derived caches, fixed simulation step unless native-dt requested. Diagnostic fixture, not real-clock thirty-minute acceptance.",
+    "production_defaults": true,
+    "notes": [
+      "Same embedded Release package; legacy/optimized/optimized/legacy; 240 warmup plus600 timed frames percase. Baseline disables only this round's five batches.",
+      "DC is measured every timed active frame. The previous single frame or per-second snapshots are not used as this average.",
+      "All endpoints226actors/13parts/endtime929.249616961926. HP303.695419333352 in first two cases,303.680659333352 in last two; existing time-budgeted jobs can vary scheduling. This is an advancing near-equal workload, not bitwise simulation identity.",
+      "P99 did not improve consistently. Asynchronous GPU timer values drifted substantially; do not add them to whole-frame time or claim stable60FPS.",
+      "This short late-game diagnostic is not a new normal real-clock30-minute acceptance."
+    ]
+  },
+  "frozen_actual_pixels": {
+    "artifact": "artifacts/dc2-all-production-pixels-20261027-v3/01-optimized/more-batch-pixels.json",
+    "report": {
+      "comparisons": [
+        {
+          "batched": {
+            "draw_calls_max": 207.0,
+            "draw_calls_mean": 207.0,
+            "draw_calls_min": 207.0,
+            "label": "batched_more",
+            "render_cpu_mean_ms": 0.924437500536442,
+            "render_gpu_mean_ms": 1.95400001853704
+          },
+          "chunks": 18,
+          "legacy": {
+            "draw_calls_max": 456.0,
+            "draw_calls_mean": 456.0,
+            "draw_calls_min": 456.0,
+            "label": "legacy_more",
+            "render_cpu_mean_ms": 1.6301249936223,
+            "render_gpu_mean_ms": 2.30512502789497
+          },
+          "pixels": {
+            "byte_identical": false,
+            "changed_channels": 1,
+            "maximum_channel_error": 1
+          },
+          "zoom": 1.0
+        },
+        {
+          "batched": {
+            "draw_calls_max": 207.0,
+            "draw_calls_mean": 207.0,
+            "draw_calls_min": 207.0,
+            "label": "batched_more",
+            "render_cpu_mean_ms": 0.877500001341105,
+            "render_gpu_mean_ms": 1.07137499004602
+          },
+          "chunks": 32,
+          "legacy": {
+            "draw_calls_max": 456.0,
+            "draw_calls_mean": 456.0,
+            "draw_calls_min": 456.0,
+            "label": "legacy_more",
+            "render_cpu_mean_ms": 1.47031249850988,
+            "render_gpu_mean_ms": 1.53149999678135
+          },
+          "pixels": {
+            "byte_identical": false,
+            "changed_channels": 7,
+            "maximum_channel_error": 1
+          },
+          "zoom": 0.65
+        },
+        {
+          "batched": {
+            "draw_calls_max": 177.0,
+            "draw_calls_mean": 177.0,
+            "draw_calls_min": 177.0,
+            "label": "batched_more",
+            "render_cpu_mean_ms": 0.850312490016222,
+            "render_gpu_mean_ms": 0.917812500149012
+          },
+          "chunks": 12,
+          "legacy": {
+            "draw_calls_max": 418.0,
+            "draw_calls_mean": 418.0,
+            "draw_calls_min": 418.0,
+            "label": "legacy_more",
+            "render_cpu_mean_ms": 1.25243750214577,
+            "render_gpu_mean_ms": 1.26006250083447
+          },
+          "pixels": {
+            "byte_identical": false,
+            "changed_channels": 9,
+            "maximum_channel_error": 1
+          },
+          "zoom": 1.75
+        }
+      ],
+      "passed": true,
+      "scope": "Same frozen actual battle and three views. Only more submission grouping changes. Overlay hidden for pixel comparison; this is not gameplay FPS."
+    }
+  },
+  "automatic_model_transform_equivalence": {
+    "artifact": "artifacts/dc2-native-transform-pixels-20261027/01-optimized/auto-batch-pixels.json",
+    "report": {
+      "comparisons": [
+        {
+          "batched": {
+            "draw_calls_max": 245.0,
+            "draw_calls_mean": 245.0,
+            "draw_calls_min": 245.0,
+            "label": "batched_auto",
+            "render_cpu_mean_ms": 0.960062503814697,
+            "render_gpu_mean_ms": 2.27174998819828
+          },
+          "chunks": 18,
+          "legacy": {
+            "draw_calls_max": 245.0,
+            "draw_calls_mean": 245.0,
+            "draw_calls_min": 245.0,
+            "label": "legacy_auto",
+            "render_cpu_mean_ms": 1.11537501215935,
+            "render_gpu_mean_ms": 2.296875
+          },
+          "pixels": {
+            "byte_identical": true,
+            "changed_channels": 0,
+            "maximum_channel_error": 0
+          },
+          "zoom": 1.0
+        },
+        {
+          "batched": {
+            "draw_calls_max": 245.0,
+            "draw_calls_mean": 245.0,
+            "draw_calls_min": 245.0,
+            "label": "batched_auto",
+            "render_cpu_mean_ms": 0.949875000864267,
+            "render_gpu_mean_ms": 1.08081249892712
+          },
+          "chunks": 31,
+          "legacy": {
+            "draw_calls_max": 245.0,
+            "draw_calls_mean": 245.0,
+            "draw_calls_min": 245.0,
+            "label": "legacy_auto",
+            "render_cpu_mean_ms": 0.955062504857779,
+            "render_gpu_mean_ms": 1.10737500339746
+          },
+          "pixels": {
+            "byte_identical": true,
+            "changed_channels": 0,
+            "maximum_channel_error": 0
+          },
+          "zoom": 0.65
+        },
+        {
+          "batched": {
+            "draw_calls_max": 207.0,
+            "draw_calls_mean": 207.0,
+            "draw_calls_min": 207.0,
+            "label": "batched_auto",
+            "render_cpu_mean_ms": 0.942375008016825,
+            "render_gpu_mean_ms": 0.986125003546476
+          },
+          "chunks": 12,
+          "legacy": {
+            "draw_calls_max": 207.0,
+            "draw_calls_mean": 207.0,
+            "draw_calls_min": 207.0,
+            "label": "legacy_auto",
+            "render_cpu_mean_ms": 0.846625003963709,
+            "render_gpu_mean_ms": 0.911874998360872
+          },
+          "pixels": {
+            "byte_identical": true,
+            "changed_channels": 0,
+            "maximum_channel_error": 0
+          },
+          "zoom": 1.75
+        }
+      ],
+      "passed": true,
+      "scope": "Same frozen actual battle and three views. Only auto submission grouping changes. Overlay hidden for pixel comparison; this is not gameplay FPS."
+    }
+  },
+  "cpu_organ_fallback_pixels": {
+    "artifact": "artifacts/dc2-cpu-organ-fallback-pixels-20261027/01-optimized/more-batch-pixels.json",
+    "report": {
+      "comparisons": [
+        {
+          "batched": {
+            "draw_calls_max": 302.0,
+            "draw_calls_mean": 302.0,
+            "draw_calls_min": 302.0,
+            "label": "batched_more",
+            "render_cpu_mean_ms": 1.03606250882149,
+            "render_gpu_mean_ms": 1.04712498560548
+          },
+          "chunks": 18,
+          "legacy": {
+            "draw_calls_max": 456.0,
+            "draw_calls_mean": 456.0,
+            "draw_calls_min": 456.0,
+            "label": "legacy_more",
+            "render_cpu_mean_ms": 1.53749998658895,
+            "render_gpu_mean_ms": 2.27162498235703
+          },
+          "pixels": {
+            "byte_identical": false,
+            "changed_channels": 1,
+            "maximum_channel_error": 1
+          },
+          "zoom": 1.0
+        },
+        {
+          "batched": {
+            "draw_calls_max": 302.0,
+            "draw_calls_mean": 302.0,
+            "draw_calls_min": 302.0,
+            "label": "batched_more",
+            "render_cpu_mean_ms": 1.04143750667572,
+            "render_gpu_mean_ms": 1.10399998724461
+          },
+          "chunks": 31,
+          "legacy": {
+            "draw_calls_max": 456.0,
+            "draw_calls_mean": 456.0,
+            "draw_calls_min": 456.0,
+            "label": "legacy_more",
+            "render_cpu_mean_ms": 1.38543751090765,
+            "render_gpu_mean_ms": 1.3901250064373
+          },
+          "pixels": {
+            "byte_identical": false,
+            "changed_channels": 7,
+            "maximum_channel_error": 1
+          },
+          "zoom": 0.65
+        },
+        {
+          "batched": {
+            "draw_calls_max": 272.0,
+            "draw_calls_mean": 272.0,
+            "draw_calls_min": 272.0,
+            "label": "batched_more",
+            "render_cpu_mean_ms": 1.0041250102222,
+            "render_gpu_mean_ms": 1.02937500178814
+          },
+          "chunks": 12,
+          "legacy": {
+            "draw_calls_max": 418.0,
+            "draw_calls_mean": 418.0,
+            "draw_calls_min": 418.0,
+            "label": "legacy_more",
+            "render_cpu_mean_ms": 1.35874998569489,
+            "render_gpu_mean_ms": 1.40387499332428
+          },
+          "pixels": {
+            "byte_identical": false,
+            "changed_channels": 9,
+            "maximum_channel_error": 1
+          },
+          "zoom": 1.75
+        }
+      ],
+      "passed": true,
+      "scope": "Same frozen actual battle and three views. Only more submission grouping changes. Overlay hidden for pixel comparison; this is not gameplay FPS."
+    }
+  },
+  "final_render_regressions": {
+    "suites": [
+      {
+        "suite": "neck_geometry_batch",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 4.97,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "repair_tether_batch",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 3.933,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "radar_icon_batch",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 4.679,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "actor_flight_production",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 5.597,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "hostile_geometry_batch",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 4.775,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "retained_barrage",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 3.479,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "attack_shader_materials",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 1.708,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "all_dynamic_trails_scene",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 5.225,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "battle_hud",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 10.274,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "ui_small_windows",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 19.379,
+        "isolated_user_data": true
+      },
+      {
+        "suite": "runtime_log",
+        "exit_code": 0,
+        "passed": true,
+        "platform_warnings": [
+          "Windows root certificate store unavailable; local suite does not use TLS"
+        ],
+        "seconds": 10.557,
+        "isolated_user_data": true
+      }
+    ],
+    "passed": true
+  },
+  "component_reports": [
+    "artifacts/neck-geometry-batch.json",
+    "artifacts/repair-tether-batch.json",
+    "artifacts/actor-flight-batch.json",
+    "artifacts/radar-icon-batch.json",
+    "artifacts/pointer-geometry-batch.json"
+  ],
+  "rejected_candidates": [
+    "Actor body coordinates computed as world(0) + trail.position changed floating point cancellation and mipmap sampling. The accepted path uploads the original screen pose separately from the trail head.",
+    "Radar mipmap filtering differed from the actual CanvasLayer LINEAR filter, producing maximum channel error233. That candidate was rejected; the accepted sampler keeps the original filtering and backing images.",
+    "The v2 audit reported pixels despite a script error because get_parent_item is not an exposed CanvasItem API. The record is retained as invalid. Parent traversal was corrected and the Python runner now rejects non-certificate ERROR output. The accepted v3 run has no such error."
+  ],
+  "native_smoke": {
+    "status": "passed",
+    "artifact": "artifacts/draw-batch2-native-smoke-20261027",
+    "scope": "60 active real-clock seconds, normal rules, copied progression, all5 batches enabled by default. Native smoke only; not late-game or thirty-minute performance acceptance. Menus/final paused inspection excluded.",
+    "run_elapsed": 60.0024200928326,
+    "frames": 7600,
+    "active_wall_seconds": 59.528265,
+    "fps_from_logged_active_intervals": 127.67044361195477,
+    "per_frame_dc_periodic_samples": 7522,
+    "per_frame_dc_periodic_weighted_mean": 88.36812018080298,
+    "per_frame_dc_range": [
+      49.0,
+      200.0
+    ],
+    "periodic_summary_draw_samples_match_frames": true,
+    "terminal_partial_note": "Existing terminal partial summary retains timing-only schema. Periodic DC summaries have explicit sample counts; consumer must not assume every summary includes counts/DC.",
+    "normal_release": true,
+    "all5_default_flags_confirmed": true,
+    "exit_code": 0,
+    "no_engine_errors_excluding_known_certificate_store_warning": true,
+    "no_writer_drops_or_errors": true,
+    "rows": 482
+  },
+  "original_save_sha256": "2199b3fe20e7146caff36246a74226087adfe77ee899296ed9c9ab061127ea91",
+  "final_original_save_sha256": "2199b3fe20e7146caff36246a74226087adfe77ee899296ed9c9ab061127ea91",
+  "runtime_source_manifest_matches_export": true
+}

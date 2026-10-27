@@ -11,11 +11,14 @@ var battle_id=0
 const MAX_POOLED_RIGS=32
 var rig_pool:Array=[]
 var use_rig_pool=OS.get_environment("RBPEW_LEGACY_RIG_POOL")!="1"
+var use_hidden_rig_parking=OS.get_environment("RBPEW_LEGACY_HIDDEN_RIG_PARKING")!="1"
 var rig_builds=0
 var rig_reuses=0
 
 func clear():
-	for rig in rigs.values():rig.queue_free()
+	for rig in rigs.values():
+		if rig.get_parent()==null:rig.free()
+		else:rig.queue_free()
 	rigs.clear();hidden_rigs.clear()
 	for rig in rig_pool:rig.free()
 	rig_pool.clear()
@@ -32,15 +35,33 @@ func acquire(actor:Dictionary):
 	return rig
 
 func retire(rig):
-	if not use_rig_pool or not rig is Rig or not rig.preview_species.is_empty() or not rig.batch_appendages:rig.queue_free();return
-	rig.visible=false;remove_child(rig)
+	if not use_rig_pool or not rig is Rig or not rig.preview_species.is_empty() or not rig.batch_appendages:
+		if rig.get_parent()==null:rig.free()
+		else:rig.queue_free()
+		return
+	rig.visible=false
+	if rig.get_parent()==self:remove_child(rig)
 	# The pool lives outside the tree; retained bones submit no frame updates.
 	if rig_pool.size()>=MAX_POOLED_RIGS:rig_pool.pop_front().free()
 	rig_pool.append(rig)
 
 func _exit_tree():
+	# Parked hidden rigs have no parent to own their destruction. Attached rigs
+	# retain ordinary Node ownership, including a layer temporarily leaving tree.
+	for uid in rigs.keys():
+		var rig=rigs[uid]
+		if rig.get_parent()==null:rig.free();rigs.erase(uid);hidden_rigs.erase(uid)
 	for rig in rig_pool:rig.free()
 	rig_pool.clear()
+
+func restore_rig_order():
+	# rigs insertion order is the old never-detached sibling order. Reentering
+	# via add_child alone would put an older overlapping insect in front.
+	var index=0
+	for rig in rigs.values():
+		if rig.get_parent()!=self:continue
+		if rig.get_index()!=index:move_child(rig,index)
+		index+=1
 
 func sync(game,dt:float):
 	if battle_id!=game.combat.get_instance_id():
@@ -51,6 +72,7 @@ func sync(game,dt:float):
 	var viewport_size:Vector2=game.get_viewport_rect().size
 	var crowded=game.combat.enemies.size()>24
 	var focus=viewport_size*.5
+	var order_dirty=false
 	for e in game.combat.enemies:
 		if not Brood.eligible(e):continue
 		var point:Vector2=game.world(e.position)
@@ -62,11 +84,13 @@ func sync(game,dt:float):
 		if not Rect2(-Vector2.ONE*margin,viewport_size+Vector2.ONE*margin*2).has_point(point):
 			if rigs.has(e.uid):
 				rigs[e.uid].visible=false
+				if use_hidden_rig_parking and rigs[e.uid].get_parent()==self:remove_child(rigs[e.uid])
 				if not hidden_rigs.has(e.uid):hidden_rigs[e.uid]=true
 			continue
 		if not rigs.has(e.uid):
 			rigs[e.uid]=acquire(e)
 		var rig=rigs[e.uid]
+		if rig.get_parent()==null:add_child(rig);order_dirty=true
 		rig.visible=true
 		hidden_rigs.erase(e.uid)
 		rig.position=point
@@ -88,3 +112,4 @@ func sync(game,dt:float):
 		for uid in hidden_rigs.keys():
 			if hidden_rigs.size()<=MAX_HIDDEN_RIGS:break
 			retire(rigs[uid]);rigs.erase(uid);hidden_rigs.erase(uid)
+	if order_dirty:restore_rig_order()

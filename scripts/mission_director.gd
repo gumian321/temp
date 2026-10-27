@@ -15,6 +15,7 @@ var fleet_ground: Dictionary = {}
 var fleet_radius = 0.0
 var cave_escort
 var station_data: Dictionary = {}
+var station_destroyed = false
 var delayed: Array = []
 var warp_left = 0.0
 var started = false
@@ -186,6 +187,8 @@ func step(dt: float):
 			return
 	if type in ["SProtectModeManager", "SDestroyModeManager"]:
 		if living.is_empty() and initial_objectives > 0:
+			station_destroyed = true
+			battle.explosion(Vector2.ZERO, 110.0, 0.65, "impact")
 			run.finish(type == "SDestroyModeManager")
 			return
 	if type == "SurvivalModeManager":

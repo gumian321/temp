@@ -2,9 +2,12 @@ extends RefCounted
 ## Replace the remaining factory/crate placeholders with biological world props.
 const Wet=preload("res://scripts/viscous_projectiles.gd")
 const COLORS=[Color("b9b7ae"),Color("54bdce"),Color("b681d1"),Color("e0b364")]
+const GeometryBatch=preload("res://scripts/pod_geometry_batch.gd")
+static var use_geometry_batch=OS.get_environment("RBPEW_ENABLE_POD_GEOMETRY_BATCH")!="0" and OS.get_environment("RBPEW_LEGACY_POD_GEOMETRY_BATCH")!="1"
 
 static func pod(canvas,at:Vector2,size:float,clock:float,accent:Color,reward:bool=false):
 	if not canvas.get_viewport_rect().grow(size).has_point(at):return
+	if use_geometry_batch and GeometryBatch.paint(canvas,at,size,clock,accent,reward):return
 	var breathing=1.0+sin(clock*2.2+at.x*.01)*.025
 	canvas.draw_circle(at+Vector2(0,size*.22),size*.37,Color("11111277"),true,-1,true)
 	var extent=Vector2(size*.95,size*.88)*breathing

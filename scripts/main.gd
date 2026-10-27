@@ -114,6 +114,7 @@ var build_ui
 var mission_ui
 var battle_hud
 var performance_overlay
+var runtime_log
 var encounter_feedback
 var reward_ui
 var reward_flow_active=false
@@ -151,6 +152,7 @@ func _ready():
 	save = Save.new(db, "user://preview-isolated.json" if isolated else "user://centipede-save.json", not isolated)
 	controls=InputSystem.new(save)
 	db.language = save.state.settings.language
+	tactical_radar.prepare_icons(db)
 	DisplayServer.window_set_title(db.ui("Centipede · Run Build Pew!", "蜈蚣：逐节武装"))
 	player = Body.new(db)
 	combat = Battle.new(db, player)
@@ -162,6 +164,7 @@ func _ready():
 	ThemeDB.fallback_font = font
 	performance_overlay = preload("res://scripts/performance_overlay.gd").new()
 	add_child(performance_overlay); performance_overlay.setup(self)
+	runtime_log=preload("res://scripts/runtime_log.gd").new();add_child(runtime_log);runtime_log.setup(self)
 	audio_system=AudioSystem.new()
 	add_child(audio_system)
 	audio_system.setup(db,save)
@@ -197,6 +200,10 @@ func _ready():
 	add_child(segment_damage_layer)
 	passive_fx.setup(self)
 	show_menu()
+	if "--battle-replay" in OS.get_cmdline_user_args():
+		var replay=preload("res://scripts/battle_replay.gd").new();add_child(replay);replay.setup(self);return
+	if "--conservative-playtest" in OS.get_cmdline_user_args():
+		var pilot=preload("res://scripts/conservative_pilot.gd").new();add_child(pilot);pilot.setup(self);return
 	if review_check:
 		var probe=preload("res://scripts/cave_playtest_probe.gd").new(self) if "--review-cave-check" in OS.get_cmdline_user_args() else preload("res://scripts/windows_review_probe.gd").new(self)
 		if "--review-performance-check" in OS.get_cmdline_user_args():probe=preload("res://scripts/cave_performance_probe.gd").new(self)
@@ -820,6 +827,8 @@ func show_pause():
 	UI.button(panel,db.ui("RESUME","继续"),Rect2(160,360,570,104),show_game,"play",UI.AMBER)
 	UI.button(panel,db.ui("REDEPLOY","重新出击"),Rect2(160,492,570,86),begin_run,"target")
 	UI.button(panel,db.ui("BASE","返回基地"),Rect2(160,610,570,86),show_menu,"back")
+	var logs=UI.button(panel,db.ui("PERFORMANCE LOGS","性能日志"),Rect2(160,724,570,48),func():runtime_log.open_directory())
+	logs.tooltip_text=db.ui("Recorded automatically. F3 marks a slowdown; F4 opens the folder.","本局自动记录。F3 标记卡顿，F4 打开日志目录。")
 	volume_control("volume",db.ui("MASTER","总音量"),Vector2(880,234),410)
 	volume_control("music",db.ui("MUSIC","音乐"),Vector2(880,415),410)
 	volume_control("sfx",db.ui("EFFECTS","音效"),Vector2(880,596),410)
@@ -854,11 +863,22 @@ func set_score_row(id:String,title:String,value:int):
 var performance_samples:Dictionary={}
 var performance_profile_enabled=OS.get_environment("RBPEW_PROFILE")=="1"
 func profile_mark(key:String,started:int):
-	if performance_profile_enabled:
+	var logging=runtime_log!=null and runtime_log.sampling
+	if performance_profile_enabled or logging:
+		var elapsed=Time.get_ticks_usec()-started
+		if logging:runtime_log.record_main(key,elapsed)
+		if not performance_profile_enabled:return
 		var sample=performance_samples.get(key,{"microseconds":0,"calls":0})
-		sample.microseconds+=Time.get_ticks_usec()-started;sample.calls+=1;performance_samples[key]=sample
+		sample.microseconds+=elapsed;sample.calls+=1;performance_samples[key]=sample
 
 func _process(dt: float):
+	if runtime_log==null or not runtime_log.enabled:step_frame(dt);return
+	var logging=runtime_log.begin_tick(self)
+	var began=Time.get_ticks_usec()
+	step_frame(dt)
+	if logging:runtime_log.end_tick(self,Time.get_ticks_usec()-began)
+
+func step_frame(dt:float):
 	if deployment_active:
 		queue_redraw();return
 	var preparation_started = Time.get_ticks_usec()
@@ -1095,9 +1115,13 @@ func _input(event):
 		get_viewport().set_input_as_handled()
 
 func _unhandled_input(event):
+	if event is InputEventKey and event.pressed and not event.echo and (event.physical_keycode==KEY_F4 or event.keycode==KEY_F4) and not save.state.settings.bindings.values().has(int(KEY_F4)):
+		if runtime_log!=null:runtime_log.open_directory()
+		get_viewport().set_input_as_handled();return
 	if deployment_active:return
 	if death_transition.active:return
 	if screen=="game" and event is InputEventKey and event.pressed and not event.echo and (event.physical_keycode==KEY_F3 or event.keycode==KEY_F3):
+		if runtime_log!=null:runtime_log.mark(self)
 		performance_overlay.begin_capture()
 		get_viewport().set_input_as_handled();return
 	if event.is_action_pressed("character_skill") and not event.is_echo():
@@ -1158,11 +1182,22 @@ func skill_module_art(family:String,texture:Texture2D,position:Vector2,bounds:Ve
 	painter.draw_set_transform(Vector2.ZERO)
 
 var soft_organs=preload("res://scripts/soft_organ_art.gd").new()
+var shield_presentation=preload("res://scripts/shield_presentation.gd").new()
+var use_empty_neck_skip=OS.get_environment("RBPEW_LEGACY_EMPTY_WEAPON_NECK")!="1"
+var draw_audit_skip=""
+var neck_geometry_batch=preload("res://scripts/neck_geometry_batch.gd").new()
 
 func organ_art(texture: Texture2D, position: Vector2, bounds: Vector2, rotation: float, tint: Color, family: String, pulse_left: float, key:String="", seed:float=0.0, activity:float=0.0, frozen:bool=false,tension:Dictionary={}):
 	soft_organs.paint(self,key,texture,position,bounds,rotation,family,0.0 if frozen else test_time,0.0 if frozen else pulse_left,tint,seed,0.0 if frozen else activity,Vector2(tension.get("axis",Vector2.ZERO)).rotated(-rotation),float(tension.get("stretch",0)))
 
 func draw_weapon_neck(anchor: Vector2, tip: Vector2, radius: float, alpha: float = 1.0):
+	if draw_audit_skip=="necks":return
+	if neck_geometry_batch.paint(self,anchor,tip,radius,zoom,alpha):return
+	if use_empty_neck_skip and material==null and anchor==tip:
+		# Both nine-point polylines contain only zero-area triangles here.
+		# Their six GL submissions add no pixels; retain the actual shadow.
+		draw_circle(anchor,radius,Color(Ink.INK,alpha*.7),true,-1,true)
+		return
 	var bend = (tip - anchor).orthogonal().normalized() * minf(5.0 * zoom, anchor.distance_to(tip) * 0.22)
 	var curve = PackedVector2Array()
 	for step in range(9):
@@ -1173,6 +1208,8 @@ func draw_weapon_neck(anchor: Vector2, tip: Vector2, radius: float, alpha: float
 	draw_polyline(curve, Color(Ink.WASH, alpha), 3.0 * zoom, true)
 
 func _draw():
+	# CPU organ meshes interleave the neck commands; keep their original order.
+	neck_geometry_batch.begin(self,soft_organs.use_gpu)
 	center=get_viewport_rect().size*.5
 	last_visual_screen=screen;last_visual_size=get_viewport_rect().size
 	last_visual_camera=camera;last_visual_zoom=zoom;last_visual_radar=radar_mode
@@ -1181,6 +1218,8 @@ func _draw():
 	charcoal_terrain.sync()
 	if cave_terrain != null: cave_terrain.sync()
 	profile_mark("draw_terrain",draw_measured);draw_measured=Time.get_ticks_usec()
+	if not has_meta(&"shield_presentation") or get_meta(&"shield_presentation")!=shield_presentation:set_meta(&"shield_presentation",shield_presentation)
+	shield_presentation.prepare(combat if screen in ["game","pause","result","rewards"] and not radar_mode else null)
 	fragment_art.paint(self)
 	if encounter_feedback != null: encounter_feedback.queue_redraw()
 	# Any early-return screen (including tactical radar) starts without old FX.
@@ -1215,7 +1254,7 @@ func _draw():
 		var viewport_bounds=get_viewport_rect()
 		for node in run.map_director.nodes.values():
 			if node.has("center_sprite"):WorldObjects.nest(self,node.position,zoom,test_time)
-		if run.mode.get("class") in ["SDestroyModeManager","SProtectModeManager"]:
+		if run.mode.get("class") in ["SDestroyModeManager","SProtectModeManager"] and not run.director.station_destroyed:
 			WorldObjects.nest(self,Vector2.ZERO,zoom,test_time,run.mode.get("class")=="SProtectModeManager")
 		if radar_mode:
 			for e in combat.enemies:
@@ -1306,14 +1345,26 @@ func _draw():
 			organ_art(preload("res://scripts/mutation_branches.gd").core_texture(player,c),pos-recoil,size,p.angle+PI*0.5+float(tension.get("twist",0)),SegmentFeedback.tint(p,tint),db.Armaments.variant(db,c),float(p.get("organ_pulse",0)),"player:"+str(p.feedback_uid),float(p.feedback_uid),1.0 if not p.feedback_pulses.is_empty() else 0.0,p.hp<=0 or p.stun>0,tension)
 		profile_mark("draw_organs",draw_measured);draw_measured=Time.get_ticks_usec()
 		CharacterArt.draw_skill(self,player,combat.character_abilities.state(),world(player.head),zoom,test_time)
-		passive_fx.paint(self,player,combat,zoom)
+		if draw_audit_skip!="passives":passive_fx.paint(self,player,combat,zoom,shield_presentation.sources if shield_presentation.use_snapshot else null)
 		weapon_fx.paint_mine_sprites(self,combat,zoom)
 		for d in combat.drones+combat.enemy_drones:
 			if d.get("docked",false):continue
 			if not viewport_bounds.grow(220*zoom).has_point(world(d.position)):continue
-			native_visuals.trail(self,d,d.data.get("dronePrefab",0),test_time,zoom,not bool(d.get("friendly",true)))
 			var drone_angle=float(d.get("angle",0))+PI/2 if d.data.get("class","")=="ProjectileDrone" else 0.0
-			skill_module_art("repair_drone" if d.data.get("class","")=="EngineerDrone" else ("drone" if d.data.get("class","")=="ProjectileDrone" else "scrap_drone"),db.sprite(d.data.get("droneSprite", "")), world(d.position), Vector2(18, 18)*zoom,drone_angle,not bool(d.get("friendly",true)))
+			var drone_family="repair_drone" if d.data.get("class","")=="EngineerDrone" else ("drone" if d.data.get("class","")=="ProjectileDrone" else "scrap_drone")
+			var drone_source:Texture2D=db.sprite(d.data.get("droneSprite", ""))
+			var flight=attack_shader_layer.flight_batch
+			if attack_shader_layer.use_flight_batch and flight.use_actor_batch and not attack_shader_layer.trace_commands:
+				var origin=world(Vector2.ZERO);var scale_factor=origin.distance_to(world(Vector2.RIGHT))
+				var trail_state:Dictionary=d.get("flight_trail",{})
+				if flight.supports_actor(drone_source,zoom,scale_factor) and not trail_state.is_empty():
+					var painter=AttackShaders.route(self,drone_family,not bool(d.get("friendly",true)))
+					var trail=preload("res://scripts/projectile_trails.gd").prepare_gpu_mesh(trail_state,zoom,scale_factor)
+					var extent=Ink.fitted_size(drone_source,Vector2(18,18)*zoom)
+					var body={"source":drone_source,"size":extent,"heading":drone_angle,"screen_extent":extent,"screen_transform":Transform2D(drone_angle,world(d.position))}
+					if flight.enqueue_actor(painter,trail_state,trail,origin,scale_factor,body,zoom):continue
+			native_visuals.trail(self,d,d.data.get("dronePrefab",0),test_time,zoom,not bool(d.get("friendly",true)))
+			skill_module_art(drone_family,drone_source,world(d.position),Vector2(18,18)*zoom,drone_angle,not bool(d.get("friendly",true)))
 		profile_mark("draw_support",draw_measured);draw_measured=Time.get_ticks_usec()
 		weapon_fx.draw_count=0
 		for b in combat.bullets:
@@ -1337,8 +1388,10 @@ func _draw():
 		profile_mark("draw_hud_feedback",draw_measured)
 	soft_organs.end_frame()
 	attack_shader_layer.end_frame()
+	neck_geometry_batch.finish()
 
 func warm_attack_visuals():
+	neck_geometry_batch.paint(self,Vector2(65,65),Vector2(75,68),4,1.0,1.0)
 	attack_shader_layer.batch_muzzles_this_frame=true
 	attack_shader_layer.batch_flights_this_frame=true
 	# Submit real textured/geometry paths under the opaque loading plate. Loading
@@ -1416,6 +1469,7 @@ func capture(name: String):
 		image.save_png(destination + "/" + name + ".png")
 
 func safe_shutdown():
+	if runtime_log!=null:runtime_log.finish_session("quit")
 	if cursor_system!=null:cursor_system.shutdown()
 	if audio_system != null:audio_system.shutdown()
 	await get_tree().create_timer(0.2).timeout
@@ -1436,13 +1490,17 @@ func draw_map_icon(enemy:Dictionary,at:Vector2,pixels:float,neon:bool=false,canv
 	else:
 		var threat=int(enemy.unit.get("aIThreatLevel",0))
 		var sprites:Array=db.stores.AIDataStore.threatsLevelSprites
-		texture=db.sprite(sprites[clampi(threat,0,sprites.size()-1)])
+		var sprite_id=sprites[clampi(threat,0,sprites.size()-1)]
+		texture=tactical_radar.threat_texture(db,sprite_id) if canvas==tactical_radar else db.sprite(sprite_id)
 		tint=(UI.AMBER if enemy.role=="friendly" else UI.TEXT) if neon else (Ink.MUTED if enemy.role=="friendly" else Ink.INK)
 	if texture==null:return
 	var extent=Ink.fitted_size(texture,Vector2.ONE*pixels)
-	canvas.draw_texture_rect(texture,Rect2(at-extent*.5,extent),false,tint)
+	var rect=Rect2(at-extent*.5,extent)
+	if canvas==tactical_radar:tactical_radar.paint_icon(texture,rect,tint)
+	else:canvas.draw_texture_rect(texture,rect,false,tint)
 
 func draw_objective_arrows():
+	if draw_audit_skip=="arrows":return
 	preload("res://scripts/boss_direction.gd").paint(self)
 	preload("res://scripts/escort_guidance.gd").paint(self)
 

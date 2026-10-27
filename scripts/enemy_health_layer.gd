@@ -20,18 +20,23 @@ static func bar_size(e:Dictionary)->Vector2:
 	if e.get("objective",false) or float(e.get("radius",18))>=30:return Vector2(64,7)
 	return Vector2(48,6)
 
-func rebuild():
+func rebuild(use_shared_snapshot:bool=false):
 	bars.clear();shield_sources.clear()
 	if game==null or game.combat==null or not game.screen in ["game","pause","result","rewards"] or game.radar_mode:return
 	var view:Rect2=game.get_viewport_rect()
 	var radar=Rect2(view.size-Vector2(210,235),Vector2(180,150)).grow(6)
-	for e in game.combat.enemies:
-		if float(e.get("hp",0))<=0 or float(e.get("stun",0))>0:continue
-		for gun in e.get("guns",[]):
-			var core:Dictionary=game.db.asset(gun.id)
-			if core.get("class","")!="ShieldCore":continue
-			var hp=float(gun.get("shield",core.maxShieldHealth))
-			if hp>0:shield_sources.append({"point":e.position,"radius2":pow(float(core.ShieldRange)*48,2),"ratio":clampf(hp/maxf(1,float(core.maxShieldHealth)),0,1),"role":e.get("role","")})
+	# Direct/debug rebuild() calls still observe mutations made in that same
+	# process frame. Only the real draw callbacks reuse main's live snapshot.
+	var prepared=preload("res://scripts/shield_presentation.gd").for_canvas(game,game.combat) if use_shared_snapshot else null
+	if prepared!=null:
+		for source in prepared:
+			if float(source.enemy.get("stun",0))<=0:append_shield_source(source.enemy,source.gun,source.core)
+	else:
+		for e in game.combat.enemies:
+			if float(e.get("hp",0))<=0 or float(e.get("stun",0))>0:continue
+			for gun in e.get("guns",[]):
+				var core:Dictionary=game.db.asset(gun.id)
+				if core.get("class","")=="ShieldCore":append_shield_source(e,gun,core)
 	# Small spatial occupancy table avoids quadratic layout when a swarm overlaps.
 	var occupied:Dictionary={}
 	for e in game.combat.enemies:
@@ -69,8 +74,12 @@ func rebuild():
 				break # Same first eligible provider consumed by Combat.hit_enemy.
 		bars.append({"rect":rect,"ratio":clampf(hp.x/hp.y,0,1),"shield":shield,"anchor":anchor,"uid":e.uid})
 
+func append_shield_source(enemy:Dictionary,gun:Dictionary,core:Dictionary):
+	var hp=float(gun.get("shield",core.maxShieldHealth))
+	if hp>0:shield_sources.append({"point":enemy.position,"radius2":pow(float(core.ShieldRange)*48,2),"ratio":clampf(hp/maxf(1,float(core.maxShieldHealth)),0,1),"role":enemy.get("role","")})
+
 func _draw():
-	rebuild()
+	rebuild(true)
 	for bar in bars:
 		var rect:Rect2=bar.rect
 		draw_rect(rect.grow(2),FRAME)
